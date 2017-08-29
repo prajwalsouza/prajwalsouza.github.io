@@ -1,5 +1,3 @@
-# prajwalsouza
-
 ## Canvas Experiments
 ### Q Learning Experiments
 * [Grid World Deterministic](https://cdn.rawgit.com/prajwalsouza/QLearning/e8d210c8/Q%20learning%20Grid%20World.html)
