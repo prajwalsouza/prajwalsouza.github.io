@@ -1,0 +1,448 @@
+<html>
+	<head>
+		<title>  prajwalsouza </title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+			a {
+				text-decoration: none;
+				color: orange;
+			}
+		</style>
+		<!-- Google Analytics Code -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+		
+	</head>
+	<body style="margin: 0">
+		<div id='Fixed' style=" z-index: 1; position: fixed;">
+		</div>
+		<div id='Slide1' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='cover' style="z-index: 1; background-color: rgba(0,0,0,0.4); position: absolute;"></div>
+			<div id='MainTitle' style="z-index: 1; position: absolute;">prajwalsouza.github.io</div>
+		</div>
+		<div id='Slide2' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='AboutTagline' style=" z-index: 1;">I know. Sorry. Couldn't think of a better name. </div>
+		</div>
+		<div id='Slide3' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='AboutProjects' style=" z-index: 1;">So, about my projects... </div>
+			<canvas id='AboutProjectsCanvas' style="position: absolute; z-index: 1;"></canvas>
+		</div>
+		<div id='Slide4' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<canvas id='RLCanvas' style="position: absolute; z-index: 0;">
+			</canvas>
+			<div id='RLcover' style="z-index: 1; position: absolute;"></div>
+			<div id='RLtitle' style=" z-index: 1; position: relative;">Reinforcement Learning</div>
+			<div id='AboutRL' style=" z-index: 1; position: relative;">Recently, I tried Q learning. <br/> It's where
+			an agent learns from its environment, <br/>based on the rewards it gets, and hence perform better... 
+			</div>
+		</div>
+		<div id='Slide5' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='GridWorldcover' style="z-index: 1; background-color: rgba(0,0,0,0.8); position: absolute;"></div>
+			<div id='GridWorldtitle' style=" z-index: 1; position: relative;">Grid World</div>
+			<div id='AboutGridWorld' style=" z-index: 1; position: relative;">A Q learning Agent explores a grid world. <br/> It has to avoid falling into a red pit, and reach it's green goal. <br/>After several episodes of training, it's learns how to do it better.
+			</div>
+			<div id='GridWorldButton' style=" z-index: 1; position: relative; cursor: pointer;"><a href="https://cdn.rawgit.com/prajwalsouza/QLearning/e8d210c8/Q%20learning%20Grid%20World.html">view</a></div>
+		</div>
+		<div id='Slide6' style=" z-index: 1; background-color: rgba(0,140,255,0.4); position: relative;">
+			<div id='QBallcover' style="z-index: 1; background-color: rgba(0,140,255,0.4); position: absolute;"></div>
+			<div id='QBalltitle' style=" z-index: 1; position: relative;">Q Ball</div>
+			<div id='AboutQBall' style=" z-index: 1; position: relative;">A Ball learns to avoid collisions. <br/> It learns based on Q Learning.
+			</div>
+			<div id='QBallButton' style=" z-index: 1; position: relative; cursor: pointer; color: green;"><a href="https://cdn.rawgit.com/prajwalsouza/QLearning/e2fc7047/Q%20Ball.html">view</a></div>
+		</div>
+		<div id='Slide7' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='ConwayIntro' style=" z-index: 1;">That was about Q learning.<br/> Here's another HTML Canvas Experiment... </div>
+		</div>
+		<div id='Slide8' style=" z-index: 1; background-color: rgba(132, 10, 255,0.4); position: relative;">
+			<div id='GOLcover' style="z-index: 1; background-color: rgba(132, 10, 255,0.4); position: absolute;"></div>
+			<div id='GOLtitle' style=" z-index: 1; position: relative;">Conway's Game of life</div>
+			<div id='AboutGOL' style=" z-index: 1; position: relative;">A simulation that has simple rules. <br/>But, gives rise to some of the complex behaviour. 
+			</div>
+			<div id='GOLButton' style=" z-index: 1; position: relative; cursor: pointer; color: green;"><a href="https://cdn.rawgit.com/prajwalsouza/Game-of-Life/dd00aa1d/Game%20of%20Life.html">view</a></div>
+		</div>
+		<div id='Slide9' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='Outro' style=" z-index: 1;">That's about it. <br/> For more projects related to Python,<br/> visit https://github.com/prajwalsouza. <br/>Thank you. </div>
+		</div>
+		
+
+		
+		<script> 
+
+
+		var canvaswidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+		var canvasheight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+
+		var fixeddiv = document.getElementById("Fixed");
+		var slide1 = document.getElementById("Slide1");
+		var coverblack = document.getElementById("cover");
+		var title = document.getElementById("MainTitle");
+		var slide2 = document.getElementById("Slide2");
+		var aboutTagline = document.getElementById("AboutTagline");
+		var slide3 = document.getElementById("Slide3");
+		var aboutProjects = document.getElementById("AboutProjects");
+		var aboutProjectsCanvas = document.getElementById("AboutProjectsCanvas");
+		var slide4 = document.getElementById("Slide4");
+		var rlTitle = document.getElementById("RLtitle");
+		var rlcanvas = document.getElementById("RLCanvas");
+		var coverRL = document.getElementById("RLcover");
+		var aboutRL = document.getElementById("AboutRL");
+		var slide5 = document.getElementById("Slide5");
+		var gridWorldTitle = document.getElementById("GridWorldtitle");
+		var coverGridWorld = document.getElementById("GridWorldcover");
+		var aboutGridWorld = document.getElementById("AboutGridWorld");
+		var buttonGridWorld = document.getElementById("GridWorldButton");
+		var slide6 = document.getElementById("Slide6");
+		var qBallTitle = document.getElementById("QBalltitle");
+		var coverQBall = document.getElementById("QBallcover");
+		var aboutQBall = document.getElementById("AboutQBall");
+		var buttonQBall = document.getElementById("QBallButton");
+		var slide7 = document.getElementById("Slide7");
+		var conwayIntro = document.getElementById("ConwayIntro");
+		var slide8 = document.getElementById("Slide8");
+		var gOLTitle = document.getElementById("GOLtitle");
+		var coverGOL = document.getElementById("GOLcover");
+		var aboutGOL = document.getElementById("AboutGOL");
+		var buttonGOL = document.getElementById("GOLButton");
+		var slide9 = document.getElementById("Slide9");
+		var outro = document.getElementById("Outro");
+
+
+		function divCustom(theDiv,width,height,fontType,textAlign,left=0,top=0,fontSize,letterSpacing=0,wordSpacing=0,paddingTop=0,paddingBottom=0,color='black') {
+			theDiv.style.color = color;
+			theDiv.style.fontFamily = fontType;
+			theDiv.style.left = left;
+			theDiv.style.top = 0;
+			theDiv.style.fontSize = fontSize;
+			theDiv.style.height = height;
+			theDiv.style.textAlign = textAlign;
+			theDiv.style.width = width;
+			theDiv.style.letterSpacing = letterSpacing; //canvaswidth/45
+			theDiv.style.wordSpacing = wordSpacing;
+			theDiv.style.paddingTop = paddingTop;
+			theDiv.style.paddingBottom = paddingBottom;
+		}
+		
+		mainFontSize = Math.min(canvasheight,canvaswidth)/13;
+		divCustom(fixeddiv,canvaswidth,canvasheight);
+		divCustom(title,canvaswidth,0,'Calibri','center',0,0,mainFontSize,0,0,((canvasheight /2.5)),0,'rgba(255,255,255,1)');
+		divCustom(slide1,canvaswidth,canvasheight);
+		divCustom(coverblack,canvaswidth,canvasheight);
+		divCustom(slide2,canvaswidth,canvasheight);
+		divCustom(aboutTagline,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/27,0,0,((canvasheight /2.5)),0);
+		divCustom(slide3,canvaswidth,canvasheight);
+		divCustom(aboutProjects,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/27,0,0,((canvasheight /2.5)),0);
+		divCustom(aboutProjectsCanvas,canvaswidth,canvasheight);
+		divCustom(slide4,canvaswidth,canvasheight);
+		divCustom(rlcanvas,canvaswidth,canvasheight);
+		divCustom(coverRL,canvaswidth,canvasheight);
+		divCustom(aboutRL,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,Math.min(canvasheight,canvaswidth)/10,0,'rgba(0,0,0,1)');
+		divCustom(rlTitle,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/19,0,0,Math.min(canvasheight,canvaswidth)/3,0,'rgba(0,0,0,1)');
+		divCustom(slide5,canvaswidth,canvasheight);
+		divCustom(coverGridWorld,canvaswidth,canvasheight);
+		divCustom(aboutGridWorld,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,Math.min(canvasheight,canvaswidth)/10,Math.min(canvasheight,canvaswidth)/7,'rgba(255,255,255,1)');
+		divCustom(gridWorldTitle,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/19,0,0,Math.min(canvasheight,canvaswidth)/3,0,'rgba(255,255,255,1)');
+		divCustom(buttonGridWorld,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,0,0,'rgba(255,255,255,1)');
+		divCustom(slide6,canvaswidth,canvasheight);
+		divCustom(coverQBall,canvaswidth,canvasheight);
+		divCustom(aboutQBall,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,Math.min(canvasheight,canvaswidth)/10,Math.min(canvasheight,canvaswidth)/7,'rgba(255,255,255,1)');
+		divCustom(qBallTitle,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/19,0,0,Math.min(canvasheight,canvaswidth)/3,0,'rgba(255,255,255,1)');
+		divCustom(buttonQBall,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,0,0,'rgba(255,255,255,1)');
+		divCustom(slide7,canvaswidth,canvasheight);
+		divCustom(conwayIntro,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/27,0,0,((canvasheight /2.5)),0);
+		divCustom(slide8,canvaswidth,canvasheight);
+		divCustom(coverGOL,canvaswidth,canvasheight);
+		divCustom(aboutGOL,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,Math.min(canvasheight,canvaswidth)/10,Math.min(canvasheight,canvaswidth)/7,'rgba(255,255,255,1)');
+		divCustom(gOLTitle,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/19,0,0,Math.min(canvasheight,canvaswidth)/3,0,'rgba(255,255,255,1)');
+		divCustom(buttonGOL,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,0,0,'rgba(255,255,255,1)');
+
+		divCustom(slide9,canvaswidth,canvasheight);
+		divCustom(outro,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/27,0,0,((canvasheight /2.5)),0);
+
+
+		fixeddiv.style.visibility = 'hidden';
+
+		allSlides = [slide1,slide2,slide3,slide4,slide5,slide6,slide7,slide8,slide9];
+		theircontent = [[title],[aboutTagline],[aboutProjects,aboutProjectsCanvas],[rlcanvas],[],[],[conwayIntro],[],[outro]];
+
+		function setShadows() {
+			slide1.style.boxShadow = "0px 20px 100px rgba(0,0,0,0.5)";
+			slide3.style.boxShadow = "0px 0px 100px rgba(0,0,0,0.2)";
+		}
+
+		setShadows();
+
+
+		fixedmode = false;
+		if (fixedmode) {
+			for (slidenum = 0; slidenum < allSlides.length; slidenum++) {
+				allSlides[slidenum].style.position = 'fixed';
+				if (allSlides[slidenum] != slide1) {
+					allSlides[slidenum].style.opacity = 0;
+				}
+				else {
+					allSlides[slidenum].style.opacity = 1;
+				}
+				for (contentnum = 0; contentnum < theircontent[slidenum].length; contentnum++) {
+					theircontent[slidenum][contentnum].style.position = 'fixed';
+					theircontent[slidenum][contentnum].style.opacity = 1;
+					if (theircontent[slidenum][contentnum] != title) {
+						theircontent[slidenum][contentnum].style.opacity = 0;
+					}
+					else {
+						theircontent[slidenum][contentnum].style.opacity = 1;
+					}
+				}
+			}
+			fixeddiv.style.visibility = 'visible';
+			document.body.style.height = (allSlides.length + 1)*canvasheight;
+		}
+
+		
+
+
+		function opacitySync(el,opacityel) {
+			var elemTop = el.getBoundingClientRect().top;
+			var elemBottom = el.getBoundingClientRect().bottom;
+
+			return elemBottom;
+		}
+
+		function fadeIn(el,value,svalue,evalue) {
+			if (value >= svalue && value < evalue) {
+				slope = (1)/(evalue - svalue);
+				el.style.opacity = slope*(value - svalue);
+			}
+		}
+
+		function appear(el,value,svalue,evalue) {
+			if (value >= svalue && value < evalue) {
+				el.style.opacity = 1;
+			}
+		}
+
+		function disappear(el,value,svalue,evalue) {
+			if (value >= svalue && value < evalue) {
+				el.style.opacity = 0;
+			}
+		}
+
+		function fadeOut(el,value,svalue,evalue) {
+
+			if (value >= svalue && value < evalue) {
+				slope = (-1)/(evalue - svalue);
+				el.style.opacity = slope*(value - evalue);
+			}
+
+		}
+
+
+		transitionlengths = canvasheight/3;
+
+		theircontent = [[title],[aboutTagline],[aboutProjects,aboutProjectsCanvas],[rlTitle,aboutRL,rlcanvas],[aboutGridWorld,gridWorldTitle,buttonGridWorld],[aboutQBall,qBallTitle,buttonQBall],[conwayIntro],[aboutGOL,gOLTitle,buttonGOL],[outro]];
+
+		
+
+		function pagescroll(event) {
+			if (fixedmode) {
+				for (slidenum = 0; slidenum < allSlides.length; slidenum++) {
+					disappear(allSlides[slidenum],window.scrollY + transitionlengths,(-1)*canvasheight,(slidenum*canvasheight));
+					fadeIn(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum*canvasheight),(slidenum*canvasheight) + transitionlengths);
+					appear(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum*canvasheight) + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths);
+					fadeOut(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths,(slidenum+1)*canvasheight);
+					disappear(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum+1)*canvasheight,(allSlides.length+1)*canvasheight);
+					for (contentnum = 0; contentnum < theircontent[slidenum].length; contentnum++) {
+						disappear(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(-1)*canvasheight,(slidenum*canvasheight));
+						fadeIn(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum*canvasheight),(slidenum*canvasheight) + transitionlengths);
+						appear(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum*canvasheight) + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths);
+						if (slidenum != allSlides.length - 1) {
+							fadeOut(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths,(slidenum+1)*canvasheight);
+							disappear(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum+1)*canvasheight,(allSlides.length+1)*canvasheight);
+						}
+						
+					}
+				}
+			}
+			else {
+				for (slidenum = 0; slidenum < allSlides.length; slidenum++) {
+					for (contentnum = 0; contentnum < theircontent[slidenum].length; contentnum++) {
+						disappear(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(-1)*canvasheight,(slidenum*canvasheight));
+						fadeIn(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum*canvasheight),(slidenum*canvasheight) + transitionlengths);
+						appear(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum*canvasheight) + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths);
+						fadeOut(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum*canvasheight) + 2*transitionlengths,(slidenum+1)*canvasheight);
+						disappear(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum+1)*canvasheight,(allSlides.length+1)*canvasheight);
+					}
+				}
+			}
+
+		}
+
+		slide1.style.backgroundImage = 'url(https://cdn.rawgit.com/prajwalsouza/prajwalsouza.github.io/2cc456bd/Images/slide1.jpg)'
+		slide1.style.backgroundSize = 'cover';
+		coverRL.style.background = 'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,0))';
+		slide5.style.backgroundImage = 'url(https://cdn.rawgit.com/prajwalsouza/prajwalsouza.github.io/2cc456bd/Images/grid.jpg)'
+		slide5.style.backgroundSize = 'cover';
+
+		// life Saver
+		aboutProjectsCanvas.width=canvaswidth;
+		aboutProjectsCanvas.height=canvasheight;
+
+		function drawrectAboutProjects() {
+			aboutProjectsCanvasCTX = aboutProjectsCanvas.getContext('2d');
+			posx = Math.random()*canvaswidth;
+			posy = Math.random()*canvasheight;
+			colorchoices = ['rgba(255, 132, 10, 0.64)','rgba(255, 222, 10, 0.64)']
+ 			aboutProjectsCanvasCTX.strokeStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+			aboutProjectsCanvasCTX.beginPath();
+			sizeDeviation = Math.min(canvaswidth,canvasheight)/50;
+			sizeBase = Math.min(canvaswidth,canvasheight)/30;
+			sizew = Math.random()*sizeDeviation + sizeBase;
+			sizey = Math.random()*sizeDeviation + sizeBase;
+			aboutProjectsCanvasCTX.rect(posx,posy,sizew,sizey)
+			aboutProjectsCanvasCTX.stroke();
+		}
+
+		for (k = 0; k < 30; k++) {
+			drawrectAboutProjects();
+		}
+ 
+ 		function aboutProjectsResponse(event) {
+ 			aboutProjectsCanvasCTX = aboutProjectsCanvas.getContext('2d');
+ 			var rect = aboutProjectsCanvas.getBoundingClientRect();
+ 			posx = event.clientX - rect.left;
+ 			posy = event.clientY - rect.top;
+ 			colorchoices = ['rgba(255, 132, 10, 0.64)','rgba(255, 222, 10, 0.64)']
+ 			aboutProjectsCanvasCTX.strokeStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+			aboutProjectsCanvasCTX.beginPath();
+			sizeDeviation = Math.min(canvaswidth,canvasheight)/50;
+			sizeBase = Math.min(canvaswidth,canvasheight)/30;
+			sizew = Math.random()*sizeDeviation + sizeBase;
+			sizey = Math.random()*sizeDeviation + sizeBase;
+			aboutProjectsCanvasCTX.rect(posx,posy,sizew,sizey)
+			aboutProjectsCanvasCTX.stroke();
+
+ 		}
+
+		aboutProjectsCanvas.addEventListener('click', aboutProjectsResponse);
+
+		document.addEventListener("scroll", pagescroll);
+
+		// life Saver
+		rlcanvas.width=canvaswidth;
+		rlcanvas.height=canvasheight;
+
+		pointsMemory = [];
+
+
+
+		
+
+		function drawConnectingDots(canvasOfInterest,type,pointOfInterest) {
+			var context = canvasOfInterest.getContext("2d");
+			colorchoices = ['rgba(0,200,255,1)','rgba(0,140,255,1)']
+			delta = Math.min(canvaswidth,canvasheight)/8;
+			radiusDeviation = Math.min(canvaswidth,canvasheight)/170;
+			radiusBase = Math.min(canvaswidth,canvasheight)/230;
+			context.strokeStyle = 'rgba(0,0,0,0.1)';
+			initpointnumber = 50;
+
+			if (type != 'newpoint') {
+				for (i = 0; i < initpointnumber; i ++) {
+					posX = parseInt(Math.random()*canvaswidth);
+					posY = parseInt(Math.random()*canvasheight);
+					pointsMemory.push([posX,posY]);
+				}
+
+				for (i = 0; i < pointsMemory.length; i ++) {
+					p1X = pointsMemory[i][0];
+					p1Y = pointsMemory[i][1];
+					for (j = 0; j < pointsMemory.length; j++) {
+						if (pointsMemory[j] != pointsMemory[i]) {
+							p2X = pointsMemory[j][0];
+							p2Y = pointsMemory[j][1];
+							distance = Math.sqrt(((p2X-p1X)**2) + ((p2Y-p1Y)**2))
+							if (distance < delta) {
+								context.strokeStyle = 'rgba(0,0,0,' + (Math.random()*0.1 + 0.01).toString() +')';
+								context.beginPath();
+								context.moveTo(p1X,p1Y);
+								context.lineTo(p2X,p2Y);
+								context.stroke();
+							}
+						}
+					}
+					radius = Math.random()*radiusDeviation + radiusBase; 
+					context.fillStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+					context.beginPath();
+					context.strokeStyle = 'rgba(255,255,255,0)';
+					context.arc(p1X, p1Y, radius, 0, 2 * Math.PI);
+					context.fill();
+
+				}
+			}
+
+			if (type == 'newpoint') {
+				p1X = pointOfInterest[0];
+				p1Y = pointOfInterest[1];
+				for (j = 0; j < pointsMemory.length; j++) {
+					if (pointsMemory[j] != pointsMemory[i]) {
+						p2X = pointsMemory[j][0];
+						p2Y = pointsMemory[j][1];
+						distance = Math.sqrt(((p2X-p1X)**2) + ((p2Y-p1Y)**2))
+						if (distance < delta) {
+							context.strokeStyle = 'rgba(0,0,0,' + (Math.random()*0.2 + 0.1).toString() +')';
+							context.beginPath();
+							context.moveTo(p1X,p1Y);
+							context.lineTo(p2X,p2Y);
+							context.stroke();
+						}
+					}
+				}
+				radius = Math.random()*radiusDeviation + radiusBase; 
+				context.fillStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+				context.beginPath();
+				context.strokeStyle = 'rgba(255,255,255,0)';
+				context.arc(p1X, p1Y, radius, 0, 2 * Math.PI);
+				context.fill();
+				pointsMemory.push(pointOfInterest);
+			}
+
+		}
+
+		function rlcanvasResponse(event) {
+			rlcanvasCTX = rlcanvas.getContext('2d');
+ 			var rect = rlcanvas.getBoundingClientRect();
+ 			posx = event.clientX - rect.left;
+ 			posy = event.clientY - rect.top;
+ 			drawConnectingDots(rlcanvas,'newpoint',[posx,posy]);
+
+
+
+		}
+
+		coverRL.style.pointerEvents = 'none';
+		rlTitle.style.pointerEvents = 'none';
+		aboutRL.style.pointerEvents = 'none';
+		aboutProjects.style.pointerEvents = 'none';
+
+		rlcanvas.addEventListener('click', rlcanvasResponse);
+
+		drawConnectingDots(rlcanvas);
+
+
+
+
+		
+		</script>
+
+
+
+	</body>
+<html>
