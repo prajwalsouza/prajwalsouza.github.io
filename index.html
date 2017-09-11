@@ -385,7 +385,7 @@
 						if (pointsMemory[j] != pointsMemory[i]) {
 							p2X = pointsMemory[j][0];
 							p2Y = pointsMemory[j][1];
-							distance = Math.sqrt(((p2X-p1X)**2) + ((p2Y-p1Y)**2))
+							distance = Math.sqrt(((p2X-p1X)*(p2X-p1X)) + ((p2Y-p1Y)*(p2Y-p1Y)))
 							if (distance < delta) {
 								context.strokeStyle = 'rgba(0,0,0,' + (Math.random()*0.1 + 0.01).toString() +')';
 								context.beginPath();
@@ -412,7 +412,7 @@
 					if (pointsMemory[j] != pointsMemory[i]) {
 						p2X = pointsMemory[j][0];
 						p2Y = pointsMemory[j][1];
-						distance = Math.sqrt(((p2X-p1X)**2) + ((p2Y-p1Y)**2))
+						distance = Math.sqrt(((p2Y-p1Y)*(p2Y-p1Y)) + ((p2Y-p1Y)*(p2Y-p1Y)))
 						if (distance < delta) {
 							context.strokeStyle = 'rgba(0,0,0,' + (Math.random()*0.2 + 0.1).toString() +')';
 							context.beginPath();
@@ -453,9 +453,9 @@
 
 		drawConnectingDots(rlcanvas);
 
-		if (detectmob()) {
-			document.body.innerHTML = 'Mobile Detected';
-		} 
+// 		if (detectmob()) {
+// 			document.body.innerHTML = 'Mobile Detected';
+// 		} 
 
 
 
