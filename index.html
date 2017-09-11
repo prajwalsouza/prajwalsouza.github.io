@@ -365,7 +365,7 @@
 		function drawConnectingDots(canvasOfInterest,type,pointOfInterest) {
 			var context = canvasOfInterest.getContext("2d");
 			colorchoices = ['rgba(0,200,255,1)','rgba(0,140,255,1)']
-			delta = Math.min(canvaswidth,canvasheight)/20;
+			delta = Math.min(canvaswidth,canvasheight)/8;
 			radiusDeviation = Math.min(canvaswidth,canvasheight)/170;
 			radiusBase = Math.min(canvaswidth,canvasheight)/230;
 			context.strokeStyle = 'rgba(0,0,0,0.1)';
@@ -385,7 +385,7 @@
 						if (pointsMemory[j] != pointsMemory[i]) {
 							p2X = pointsMemory[j][0];
 							p2Y = pointsMemory[j][1];
-							distance = Math.sqrt(((p2X - p1X)*(p2X - p1X)) + ((p2Y - p1Y)*(p2Y - p1Y)))
+							distance = Math.sqrt(((p2X-p1X)*(p2X-p1X)) + ((p2Y-p1Y)*(p2Y-p1Y)))
 							if (distance < delta) {
 								context.strokeStyle = 'rgba(0,0,0,' + (Math.random()*0.1 + 0.01).toString() +')';
 								context.beginPath();
@@ -412,7 +412,7 @@
 					if (pointsMemory[j] != pointsMemory[i]) {
 						p2X = pointsMemory[j][0];
 						p2Y = pointsMemory[j][1];
-						distance = Math.sqrt(((p2Y - p1Y)*(p2Y - p1Y)) + ((p2Y - p1Y)*(p2Y - p1Y)))
+						distance = Math.sqrt(((p2X-p1X)*(p2X-p1X)) + ((p2Y-p1Y)*(p2Y-p1Y)))
 						if (distance < delta) {
 							context.strokeStyle = 'rgba(0,0,0,' + (Math.random()*0.2 + 0.1).toString() +')';
 							context.beginPath();
@@ -453,9 +453,9 @@
 
 		drawConnectingDots(rlcanvas);
 
-// 		if (detectmob()) {
-// 			document.body.innerHTML = 'Mobile Detected';
-// 		} 
+		// if (detectmob()) {
+		// 	document.body.innerHTML = 'Mobile Detected';
+		// } 
 
 
 
