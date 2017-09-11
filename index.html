@@ -69,6 +69,8 @@
 			<div id='GOLButton' style=" z-index: 1; position: relative; cursor: pointer; color: green;"><a href="https://cdn.rawgit.com/prajwalsouza/Game-of-Life/dd00aa1d/Game%20of%20Life.html">view</a></div>
 		</div>
 		<div id='Slide9' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<canvas id='OutroCanvas' style="position: absolute; z-index: 0;">
+			</canvas>
 			<div id='Outro' style=" z-index: 1;">That's about it. <br/> For more projects related to Python,<br/> visit https://github.com/prajwalsouza. <br/>Thank you. </div>
 		</div>
 		
@@ -131,6 +133,7 @@
 		var buttonGOL = document.getElementById("GOLButton");
 		var slide9 = document.getElementById("Slide9");
 		var outro = document.getElementById("Outro");
+		var outrocanvas = document.getElementById("OutroCanvas");
 
 
 		function divCustom(theDiv,width,height,fontType,textAlign,left=0,top=0,fontSize,letterSpacing=0,wordSpacing=0,paddingTop=0,paddingBottom=0,color='black') {
@@ -183,12 +186,13 @@
 
 		divCustom(slide9,canvaswidth,canvasheight);
 		divCustom(outro,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/27,0,0,((canvasheight /2.5)),0);
+		divCustom(outrocanvas,canvaswidth,canvasheight);
 
 
 		fixeddiv.style.visibility = 'hidden';
 
 		allSlides = [slide1,slide2,slide3,slide4,slide5,slide6,slide7,slide8,slide9];
-		theircontent = [[title],[aboutTagline],[aboutProjects,aboutProjectsCanvas],[rlcanvas],[],[],[conwayIntro],[],[outro]];
+		theircontent = [[title],[aboutTagline],[aboutProjects,aboutProjectsCanvas],[rlcanvas],[],[],[conwayIntro],[],[outro,outrocanvas]];
 
 		function setShadows() {
 			slide1.style.boxShadow = "0px 20px 100px rgba(0,0,0,0.5)";
@@ -264,7 +268,7 @@
 
 		transitionlengths = canvasheight/3;
 
-		theircontent = [[title],[aboutTagline],[aboutProjects,aboutProjectsCanvas],[rlTitle,aboutRL,rlcanvas],[aboutGridWorld,gridWorldTitle,buttonGridWorld],[aboutQBall,qBallTitle,buttonQBall],[conwayIntro],[aboutGOL,gOLTitle,buttonGOL],[outro]];
+		theircontent = [[title],[aboutTagline],[aboutProjects,aboutProjectsCanvas],[rlTitle,aboutRL,rlcanvas],[aboutGridWorld,gridWorldTitle,buttonGridWorld],[aboutQBall,qBallTitle,buttonQBall],[conwayIntro],[aboutGOL,gOLTitle,buttonGOL],[outro,outrocanvas]];
 
 		
 
@@ -446,8 +450,6 @@
 			posy = event.clientY - rect.top;
 			drawConnectingDots(rlcanvas,'newpoint',[posx,posy]);
 
-
-
 		}
 
 		coverRL.style.pointerEvents = 'none';
@@ -459,6 +461,64 @@
 
 		drawConnectingDots(rlcanvas);
 
+		function drawScene(canvasOfInterest,type,pointOfInterest) {
+			var context = canvasOfInterest.getContext("2d");
+			colorchoices = ['rgba(132, 192, 21, 0.94)','rgba(212, 222, 16, 0.94)']
+			context.beginPath();
+			context.strokeStyle = 'rgba(166, 99, 22, 0.34)';
+			context.lineWidth = 20;
+			context.moveTo(canvaswidth/4,canvasheight);
+			context.lineTo(canvaswidth/4,canvasheight/1.5);
+			context.stroke();
+			context.lineWidth = 15;
+			context.lineTo(canvaswidth/4 - canvaswidth/20,canvasheight/1.5 - canvasheight/10);
+			context.stroke();
+			context.moveTo(canvaswidth/4,canvasheight/1.5 + canvasheight/10);
+			context.lineTo(canvaswidth/4 + canvaswidth/20,canvasheight/1.5 - canvasheight/25);
+			context.stroke();
+		}
+
+		function outrocanvasResponse(event) {
+			var rect = outrocanvas.getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			var context = outrocanvas.getContext("2d");
+			leafspreadDelta = Math.min(canvasheight,canvaswidth)/5;
+			leafcolorchoices = ['rgba(132, 192, 21, 0.34)','rgba(212, 222, 16, 0.34)','rgba(161, 250, 20,0.34)']
+			skycolorchoices = ['rgba(17, 156, 242, 0.14)','rgba(15, 193, 228, 0.14)','rgba(255, 255, 255,0.6)']
+			xdist = (posx - canvaswidth/4)*(posx - canvaswidth/4);
+			ydist = (posy - canvasheight/1.5 + canvasheight/10)*(posy - canvasheight/1.5 + canvasheight/10);
+			if (Math.sqrt(xdist + ydist) < leafspreadDelta) {
+				context.fillStyle = leafcolorchoices[parseInt(Math.random()*(leafcolorchoices.length))];
+				context.beginPath();
+				context.strokeStyle = 'rgba(255,255,255,0)';
+				radiusDeviation = Math.min(canvaswidth,canvasheight)/30;
+				radiusBase = Math.min(canvaswidth,canvasheight)/100;
+				radius = Math.random()*radiusDeviation + radiusBase; 
+				context.arc(posx, posy, radius, 0, 2 * Math.PI);
+				context.fill();
+			}
+			if (posy < canvasheight/4) {
+				context.fillStyle = skycolorchoices[parseInt(Math.random()*(skycolorchoices.length))];
+				context.beginPath();
+				context.strokeStyle = 'rgba(255,255,255,0)';
+				radiusDeviation = Math.min(canvaswidth,canvasheight)/30;
+				radiusBase = Math.min(canvaswidth,canvasheight)/100;
+				radius = Math.random()*radiusDeviation + radiusBase; 
+				context.arc(posx, posy, radius, 0, 2 * Math.PI);
+				context.fill();
+			}
+		}
+
+		outrocanvas.addEventListener('click', outrocanvasResponse);
+
+		outrocanvas.width=canvaswidth;
+		outrocanvas.height=canvasheight;
+
+		drawScene(outrocanvas);
+
+
+
 		// if (detectmob()) {
 		// 	document.body.innerHTML = 'Mobile Detected';
 		// } 
@@ -468,6 +528,7 @@
 
 		
 		</script>
+			}
 
 
 
