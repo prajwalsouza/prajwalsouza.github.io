@@ -35,13 +35,23 @@
 			<div id='AboutProjects' style=" z-index: 1;">So, about my projects... </div>
 			<canvas id='AboutProjectsCanvas' style="position: absolute; z-index: 1;"></canvas>
 		</div>
+
+		<div id='Slide001' style=" z-index: 1; background-color: rgba(0, 0, 0, 1); position: relative;">
+			<div id='Slide001cover' style="z-index: 1; background-color: rgba(0,0,0,0); position: absolute;"></div>
+			<div id='Slide001title' style=" z-index: 1; position: relative;">Chaos Game</div>
+			<div id='AboutSlide001' style=" z-index: 1; position: relative;">It a set of random steps taken on a canvas, based on certain rules.<br/> But, one ends up with interesting patterns after many steps.  <br/>Patterns? Fractals. 
+			</div>
+			<div id='Slide001Button' style=" z-index: 1; position: relative; cursor: pointer; color: green;"><a href="https://cdn.rawgit.com/prajwalsouza/webPresentations/aad38374/Chaos%20Fractals.html">view</a></div>
+		</div>
+
 		<div id='Slide4' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
 			<canvas id='RLCanvas' style="position: absolute; z-index: 0;">
 			</canvas>
 			<div id='RLcover' style="z-index: 1; position: absolute;"></div>
 			<div id='RLtitle' style=" z-index: 1; position: relative;">Reinforcement Learning</div>
-			<div id='AboutRL' style=" z-index: 1; position: relative;">Recently, I tried Q learning. <br/> It's where
-			an agent learns from its environment, <br/>based on the rewards it gets, and hence perform better... 
+			<div id='AboutRL' style=" z-index: 1; position: relative;">I tried Q learning. <br/> It's where
+			an agent learns from its environment, <br/>based on the rewards it gets, and hence does better. <br/> 
+			The next two projects are based on this. 
 			</div>
 		</div>
 		<div id='Slide5' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
@@ -136,6 +146,13 @@
 		var outrocanvas = document.getElementById("OutroCanvas");
 
 
+		var slide001 = document.getElementById("Slide001");
+		var slide001Title = document.getElementById("Slide001title");
+		var coverslide001 = document.getElementById("Slide001cover");
+		var aboutslide001 = document.getElementById("AboutSlide001");
+		var buttonslide001 = document.getElementById("Slide001Button");
+
+
 		function divCustom(theDiv,width,height,fontType,textAlign,left=0,top=0,fontSize,letterSpacing=0,wordSpacing=0,paddingTop=0,paddingBottom=0,color='black') {
 			theDiv.style.color = color;
 			theDiv.style.fontFamily = fontType;
@@ -188,10 +205,16 @@
 		divCustom(outro,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/27,0,0,((canvasheight /2.5)),0);
 		divCustom(outrocanvas,canvaswidth,canvasheight);
 
+		divCustom(slide001,canvaswidth,canvasheight);
+		divCustom(coverslide001,canvaswidth,canvasheight);
+		divCustom(aboutslide001,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,Math.min(canvasheight)/10,Math.min(canvasheight)/7,'rgba(255,255,255,1)');
+		divCustom(slide001Title,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/19,0,0,Math.min(canvasheight)/3,0,'rgba(255,255,255,1)');
+		divCustom(buttonslide001,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,0,0,'rgba(255,255,255,1)');
+
 
 		fixeddiv.style.visibility = 'hidden';
 
-		allSlides = [slide1,slide2,slide3,slide4,slide5,slide6,slide7,slide8,slide9];
+		allSlides = [slide1,slide2,slide3,slide001,slide4,slide5,slide6,slide7,slide8,slide9];
 		theircontent = [[title],[aboutTagline],[aboutProjects,aboutProjectsCanvas],[rlcanvas],[],[],[conwayIntro],[],[outro,outrocanvas]];
 
 		function setShadows() {
@@ -268,7 +291,7 @@
 
 		transitionlengths = canvasheight/3;
 
-		theircontent = [[title],[aboutTagline],[aboutProjects,aboutProjectsCanvas],[rlTitle,aboutRL,rlcanvas],[aboutGridWorld,gridWorldTitle,buttonGridWorld],[aboutQBall,qBallTitle,buttonQBall],[conwayIntro],[aboutGOL,gOLTitle,buttonGOL],[outro,outrocanvas]];
+		theircontent = [[title],[aboutTagline],[aboutProjects,aboutProjectsCanvas],[aboutslide001,slide001Title,buttonslide001],[rlTitle,aboutRL,rlcanvas],[aboutGridWorld,gridWorldTitle,buttonGridWorld],[aboutQBall,qBallTitle,buttonQBall],[conwayIntro],[aboutGOL,gOLTitle,buttonGOL],[outro,outrocanvas]];
 
 		
 
