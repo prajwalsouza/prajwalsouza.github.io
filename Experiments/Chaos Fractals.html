@@ -1,0 +1,1005 @@
+<html>
+	<head>
+		<title>  Chaos Game - prajwalsouza.github.io </title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+			a {
+				text-decoration: none;
+				color: rgba(0,140,255,1);
+			}
+		</style>
+		<!-- Google Analytics Code -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+		
+	</head>
+	<body style="margin: 0">
+		<div id='Slide1' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='cover' style="z-index: 2; position: absolute;"></div>
+			<canvas id='introcanvas' style="z-index: 1; position: absolute;"></canvas>
+			<div id='MainTitle' style="z-index: 2; position: relative;">Chaos Game</div>
+			<div id='MainTitleTagline' style="z-index: 2; position: absolute;">Based on a 
+			<a href='https://www.youtube.com/watch?v=kbKtFN71Lfs' target='_blank'>Numberphile Episode</a>.</div>
+			<div id='prajwalsouza' style="z-index: 2; position: absolute;"><a href='https://prajwalsouza.github.io'>prajwalsouza.github.io</a></div>
+		</div>
+		<div id='Slide2' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='slide2cover' style="z-index: 1; position: absolute;"></div>
+			<div id='slide2caption' style="z-index: 1; position: relative;"> We start by adding attractor points to the canvas.</div>
+		</div>
+		<div id='Slide3' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='slide3caption' style="z-index: 1; position: relative;"> We place our starting point on the canvas. </div>
+		</div>
+		<div id='Slide4' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='slide4caption' style="z-index: 1; position: relative;"> Choose randomly one of the attractor points. <br/>Then move half the distance between your current position and your chosen attractor point. </div>
+		</div> 
+		<div id='Slide5' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='slide5caption' style="z-index: 1; position: relative;">Repeat the process. </div>
+		</div> 
+		<div id='Slide6' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+			<div id='slide6caption' style="z-index: 1; position: relative;">You should find interesting patterns after many steps. <br/><br/> 
+			For three attractors, you will find that there will be regions which your point will never visit.
+			<br/>It will give you a fractal called '<a href='https://en.wikipedia.org/wiki/Sierpinski_triangle' target='_blank'>Sierpinski triangle</a>'. <br/><br/>Try it out yourself below.</div>
+		</div> 
+		<div id='Slide7' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
+		</div>
+
+		
+		
+		<script> 
+		// Code from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
+		function detectmob() { 
+		 if( navigator.userAgent.match(/Android/i)
+		 || navigator.userAgent.match(/webOS/i)
+		 || navigator.userAgent.match(/iPhone/i)
+		 || navigator.userAgent.match(/iPad/i)
+		 || navigator.userAgent.match(/iPod/i)
+		 || navigator.userAgent.match(/BlackBerry/i)
+		 || navigator.userAgent.match(/Windows Phone/i)
+		 ){
+			return true;
+		  }
+		 else {
+			return false;
+		  }
+		}
+
+
+
+		var canvaswidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+		var canvasheight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+
+		var slide1 = document.getElementById("Slide1");
+		var coverblack = document.getElementById("cover");
+		var title = document.getElementById("MainTitle");
+		var titletagline = document.getElementById("MainTitleTagline");
+		var slide2 = document.getElementById("Slide2");
+		var slide2text = document.getElementById("slide2caption");
+		var slide3 = document.getElementById("Slide3");
+		var slide3text = document.getElementById("slide3caption");
+		var slide4 = document.getElementById("Slide4");
+		var slide4text = document.getElementById("slide4caption");
+		var slide5 = document.getElementById("Slide5");
+		var slide5text = document.getElementById("slide5caption");
+		var slide6 = document.getElementById("Slide6");
+		var slide6text = document.getElementById("slide6caption");
+		var slide7 = document.getElementById("Slide7");
+		var introCanvas = document.getElementById("introcanvas");
+		var website = document.getElementById("prajwalsouza");
+
+		website.style.top = 4*canvasheight/5;
+		website.style.left = canvaswidth/2 - canvaswidth/20;
+		website.style.fontFamily = 'Calibri';
+		
+
+
+		function divCustom(theDiv,width,height,fontType,textAlign,left=0,top=0,fontSize,letterSpacing=0,wordSpacing=0,paddingTop=0,paddingBottom=0,color='black') {
+			theDiv.style.color = color;
+			theDiv.style.fontFamily = fontType;
+			theDiv.style.left = left;
+			theDiv.style.top = top;
+			theDiv.style.fontSize = fontSize;
+			theDiv.style.height = height;
+			theDiv.style.textAlign = textAlign;
+			theDiv.style.width = width;
+			theDiv.style.letterSpacing = letterSpacing; //canvaswidth/45
+			theDiv.style.wordSpacing = wordSpacing;
+			theDiv.style.paddingTop = paddingTop;
+			theDiv.style.paddingBottom = paddingBottom;
+		}
+		
+		mainFontSize = Math.min(canvasheight,canvaswidth)/13;
+		divCustom(title,canvaswidth,0,'Calibri','center',0,0,mainFontSize,0,0,((canvasheight /2.5)),0,'rgba(0,0,0,1)');
+		divCustom(titletagline,canvaswidth,0,'Calibri','center',0,canvasheight/2,mainFontSize/2,0,0,0,0,'rgba(0,0,0,1)');
+		divCustom(website,canvaswidth,0,'Calibri','center',0,4*canvasheight/5,mainFontSize/3,0,0,0,0,'rgba(0,0,0,1)');
+		divCustom(slide1,canvaswidth,canvasheight);
+		divCustom(coverblack,canvaswidth,canvasheight);
+		divCustom(slide2text,canvaswidth,0,'Calibri','center',0,0,mainFontSize/2,0,0,((canvasheight /2)),0,'rgba(0,0,0,1)');
+		divCustom(slide2,canvaswidth,canvasheight);
+		divCustom(slide3text,canvaswidth,0,'Calibri','center',0,0,mainFontSize/2,0,0,((canvasheight /2)),0,'rgba(0,0,0,1)');
+		divCustom(slide3,canvaswidth,canvasheight);
+		divCustom(slide4text,canvaswidth,0,'Calibri','center',0,0,mainFontSize/2,0,0,((canvasheight /2)),0,'rgba(0,0,0,1)');
+		divCustom(slide4,canvaswidth,canvasheight);
+		divCustom(slide5text,canvaswidth,0,'Calibri','center',0,0,mainFontSize/2,0,0,((canvasheight /2)),0,'rgba(0,0,0,1)');
+		divCustom(slide5,canvaswidth,canvasheight);
+		divCustom(slide6text,canvaswidth,0,'Calibri','center',0,0,mainFontSize/2,0,0,((canvasheight /3)),0,'rgba(0,0,0,1)');
+		divCustom(slide6,canvaswidth,canvasheight);
+		divCustom(slide7,canvaswidth,canvasheight);
+		divCustom(introCanvas,canvaswidth,canvasheight);
+
+		introCanvas.style.cursor = 'crosshair';
+
+		
+
+		title.style.pointerEvents = 'None';
+		coverblack.style.pointerEvents = 'None';
+
+		
+
+
+		allSlides = [slide1,slide2,slide3,slide4,slide5,slide6,slide7];
+		theircontent = [[title,titletagline,introCanvas]];
+
+		function setShadows() {
+			slide1.style.boxShadow = "0px 20px 100px rgba(0,0,0,0.5)";
+			slide3.style.boxShadow = "0px 20px 100px rgba(0,0,0,0.5)";
+			slide5.style.boxShadow = "0px 20px 100px rgba(0,0,0,0.5)";
+			slide7.style.boxShadow = "0px 20px 100px rgba(0,0,0,0.5)";		}
+
+		setShadows();
+
+
+		fixedmode = false;
+		if (fixedmode) {
+			for (slidenum = 0; slidenum < allSlides.length; slidenum++) {
+				allSlides[slidenum].style.position = 'fixed';
+				if (allSlides[slidenum] != slide1) {
+					allSlides[slidenum].style.opacity = 0;
+				}
+				else {
+					allSlides[slidenum].style.opacity = 1;
+				}
+				for (contentnum = 0; contentnum < theircontent[slidenum].length; contentnum++) {
+					theircontent[slidenum][contentnum].style.position = 'fixed';
+					theircontent[slidenum][contentnum].style.opacity = 1;
+					if (theircontent[slidenum][contentnum] != title) {
+						theircontent[slidenum][contentnum].style.opacity = 0;
+					}
+					else {
+						theircontent[slidenum][contentnum].style.opacity = 1;
+					}
+				}
+			}
+			fixeddiv.style.visibility = 'visible';
+			document.body.style.height = (allSlides.length + 1)*canvasheight;
+		}
+
+		
+
+
+		function opacitySync(el,opacityel) {
+			var elemTop = el.getBoundingClientRect().top;
+			var elemBottom = el.getBoundingClientRect().bottom;
+
+			return elemBottom;
+		}
+
+		function fadeIn(el,value,svalue,evalue) {
+			if (value >= svalue && value < evalue) {
+				slope = (1)/(evalue - svalue);
+				el.style.opacity = slope*(value - svalue);
+			}
+		}
+
+		function appear(el,value,svalue,evalue) {
+			if (value >= svalue && value < evalue) {
+				el.style.opacity = 1;
+			}
+		}
+
+		function disappear(el,value,svalue,evalue) {
+			if (value >= svalue && value < evalue) {
+				el.style.opacity = 0;
+			}
+		}
+
+		function fadeOut(el,value,svalue,evalue) {
+
+			if (value >= svalue && value < evalue) {
+				slope = (-1)/(evalue - svalue);
+				el.style.opacity = slope*(value - evalue);
+			}
+
+		}
+
+
+		transitionlengths = canvasheight/3;
+
+		theircontent = [[title,titletagline,introCanvas],[slide2text],[slide3text],[slide4text],[slide5text],[slide6text],[]];
+
+		
+
+		function pagescroll(event) {
+			if (fixedmode) {
+				for (slidenum = 0; slidenum < allSlides.length; slidenum++) {
+					disappear(allSlides[slidenum],window.scrollY + transitionlengths,(-1)*canvasheight,(slidenum*canvasheight));
+					fadeIn(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum*canvasheight),(slidenum*canvasheight) + transitionlengths);
+					appear(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum*canvasheight) + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths);
+					fadeOut(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths,(slidenum+1)*canvasheight);
+					disappear(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum+1)*canvasheight,(allSlides.length+1)*canvasheight);
+					for (contentnum = 0; contentnum < theircontent[slidenum].length; contentnum++) {
+						disappear(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(-1)*canvasheight,(slidenum*canvasheight));
+						fadeIn(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum*canvasheight),(slidenum*canvasheight) + transitionlengths);
+						appear(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum*canvasheight) + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths);
+						if (slidenum != allSlides.length - 1) {
+							fadeOut(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths,(slidenum+1)*canvasheight);
+							disappear(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum+1)*canvasheight,(allSlides.length+1)*canvasheight);
+						}
+						
+					}
+				}
+			}
+			else {
+				for (slidenum = 0; slidenum < allSlides.length; slidenum++) {
+					for (contentnum = 0; contentnum < theircontent[slidenum].length; contentnum++) {
+						disappear(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(-1)*canvasheight,(slidenum*canvasheight));
+						fadeIn(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum*canvasheight),(slidenum*canvasheight) + transitionlengths);
+						appear(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum*canvasheight) + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths);
+						fadeOut(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum*canvasheight) + 2*transitionlengths,(slidenum+1)*canvasheight);
+						disappear(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum+1)*canvasheight,(allSlides.length+1)*canvasheight);
+					}
+				}
+			}
+
+		}
+
+		
+		slide1.style.backgroundSize = 'cover';
+		if (canvaswidth >= canvasheight) {
+			coverblack.style.background = 'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,0))';
+		}
+		else {
+			coverblack.style.background = 'linear-gradient(0deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,0))';
+		}
+		
+
+		// life Saver
+		// aboutProjectsCanvas.width=canvaswidth;
+		// aboutProjectsCanvas.height=canvasheight;
+
+		// function drawrectAboutProjects() {
+		// 	aboutProjectsCanvasCTX = aboutProjectsCanvas.getContext('2d');
+		// 	posx = Math.random()*canvaswidth;
+		// 	posy = Math.random()*canvasheight;
+		// 	colorchoices = ['rgba(255, 132, 10, 0.64)','rgba(255, 222, 10, 0.64)']
+		// 	aboutProjectsCanvasCTX.strokeStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+		// 	aboutProjectsCanvasCTX.beginPath();
+		// 	sizeDeviation = Math.min(canvaswidth,canvasheight)/50;
+		// 	sizeBase = Math.min(canvaswidth,canvasheight)/30;
+		// 	sizew = Math.random()*sizeDeviation + sizeBase;
+		// 	sizey = Math.random()*sizeDeviation + sizeBase;
+		// 	aboutProjectsCanvasCTX.rect(posx,posy,sizew,sizey)
+		// 	aboutProjectsCanvasCTX.stroke();
+		// }
+
+
+ 
+		// function aboutProjectsResponse(event) {
+		// 	aboutProjectsCanvasCTX = aboutProjectsCanvas.getContext('2d');
+		// 	var rect = aboutProjectsCanvas.getBoundingClientRect();
+		// 	posx = event.clientX - rect.left;
+		// 	posy = event.clientY - rect.top;
+		// 	colorchoices = ['rgba(255, 132, 10, 0.64)','rgba(255, 222, 10, 0.64)']
+		// 	aboutProjectsCanvasCTX.strokeStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+		// 	aboutProjectsCanvasCTX.beginPath();
+		// 	sizeDeviation = Math.min(canvaswidth,canvasheight)/50;
+		// 	sizeBase = Math.min(canvaswidth,canvasheight)/30;
+		// 	sizew = Math.random()*sizeDeviation + sizeBase;
+		// 	sizey = Math.random()*sizeDeviation + sizeBase;
+		// 	aboutProjectsCanvasCTX.rect(posx,posy,sizew,sizey)
+		// 	aboutProjectsCanvasCTX.stroke();
+
+		// }
+
+		// aboutProjectsCanvas.addEventListener('click', aboutProjectsResponse);
+
+		document.addEventListener("scroll", pagescroll);
+
+		// life Saver
+		// rlcanvas.width=canvaswidth;
+		// rlcanvas.height=canvasheight;
+
+		pointsMemory = [];
+
+
+
+		
+
+		function drawConnectingDots(canvasOfInterest,type,pointOfInterest) {
+			var context = canvasOfInterest.getContext("2d");
+			colorchoices = ['rgba(0,200,255,1)','rgba(0,140,255,1)']
+			delta = Math.min(canvaswidth,canvasheight)/8;
+			radiusDeviation = Math.min(canvaswidth,canvasheight)/170;
+			radiusBase = Math.min(canvaswidth,canvasheight)/230;
+			context.strokeStyle = 'rgba(0,0,0,0.1)';
+			initpointnumber = 200;
+
+			if (type != 'newpoint') {
+				for (i = 0; i < initpointnumber; i ++) {
+					posX = parseInt(Math.random()*canvaswidth);
+					posY = parseInt(Math.random()*canvasheight);
+					pointsMemory.push([posX,posY]);
+				}
+
+				for (i = 0; i < pointsMemory.length; i ++) {
+					p1X = pointsMemory[i][0];
+					p1Y = pointsMemory[i][1];
+					for (j = 0; j < pointsMemory.length; j++) {
+						if (pointsMemory[j] != pointsMemory[i]) {
+							p2X = pointsMemory[j][0];
+							p2Y = pointsMemory[j][1];
+							distance = Math.sqrt(((p2X-p1X)*(p2X-p1X)) + ((p2Y-p1Y)*(p2Y-p1Y)))
+							if (distance < delta) {
+								context.strokeStyle = 'rgba(0,0,0,' + (Math.random()*0.1 + 0.01).toString() +')';
+								context.beginPath();
+								context.moveTo(p1X,p1Y);
+								context.lineTo(p2X,p2Y);
+								context.stroke();
+							}
+						}
+					}
+					radius = Math.random()*radiusDeviation + radiusBase; 
+					context.fillStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+					context.beginPath();
+					context.strokeStyle = 'rgba(255,255,255,0)';
+					context.arc(p1X, p1Y, radius, 0, 2 * Math.PI);
+					context.fill();
+
+				}
+			}
+
+			if (type == 'newpoint') {
+				p1X = pointOfInterest[0];
+				p1Y = pointOfInterest[1];
+				for (j = 0; j < pointsMemory.length; j++) {
+					if (pointsMemory[j] != pointsMemory[i]) {
+						p2X = pointsMemory[j][0];
+						p2Y = pointsMemory[j][1];
+						distance = Math.sqrt(((p2X-p1X)*(p2X-p1X)) + ((p2Y-p1Y)*(p2Y-p1Y)))
+						if (distance < delta) {
+							context.strokeStyle = 'rgba(0,0,0,' + (Math.random()*0.2 + 0.1).toString() +')';
+							context.beginPath();
+							context.moveTo(p1X,p1Y);
+							context.lineTo(p2X,p2Y);
+							context.stroke();
+						}
+					}
+				}
+				radius = Math.random()*radiusDeviation + radiusBase; 
+				context.fillStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+				context.beginPath();
+				context.strokeStyle = 'rgba(255,255,255,0)';
+				context.arc(p1X, p1Y, radius, 0, 2 * Math.PI);
+				context.fill();
+				pointsMemory.push(pointOfInterest);
+			}
+
+		}
+
+		function canvasResponse(event) {
+			introCanvasCTX = introCanvas.getContext('2d');
+			var rect = introCanvas.getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			drawConnectingDots(introCanvas,'newpoint',[posx,posy]);
+
+		}
+
+		// coverRL.style.pointerEvents = 'none';
+		// rlTitle.style.pointerEvents = 'none';
+		// aboutRL.style.pointerEvents = 'none';
+		// aboutProjects.style.pointerEvents = 'none';
+
+		introCanvas.addEventListener('click', canvasResponse);
+
+		// drawConnectingDots(rlcanvas);
+		introCanvas.width = canvaswidth;
+		introCanvas.height = canvasheight;
+		drawConnectingDots(introCanvas);
+
+		function drawScene(canvasOfInterest,type,pointOfInterest) {
+			var context = canvasOfInterest.getContext("2d");
+			colorchoices = ['rgba(132, 192, 21, 0.94)','rgba(212, 222, 16, 0.94)']
+			context.beginPath();
+			context.strokeStyle = 'rgba(166, 99, 22, 0.34)';
+			context.lineWidth = 20;
+			context.moveTo(canvaswidth/4,canvasheight);
+			context.lineTo(canvaswidth/4,canvasheight/1.5);
+			context.stroke();
+			context.lineWidth = 15;
+			context.lineTo(canvaswidth/4 - canvaswidth/20,canvasheight/1.5 - canvasheight/10);
+			context.stroke();
+			context.moveTo(canvaswidth/4,canvasheight/1.5 + canvasheight/10);
+			context.lineTo(canvaswidth/4 + canvaswidth/20,canvasheight/1.5 - canvasheight/25);
+			context.stroke();
+		}
+
+		function outrocanvasResponse(event) {
+			var rect = outrocanvas.getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			var context = outrocanvas.getContext("2d");
+			leafspreadDelta = Math.min(canvasheight,canvaswidth)/5;
+			leafcolorchoices = ['rgba(132, 192, 21, 0.34)','rgba(212, 222, 16, 0.34)','rgba(161, 250, 20,0.34)']
+			skycolorchoices = ['rgba(17, 156, 242, 0.14)','rgba(15, 193, 228, 0.14)','rgba(255, 255, 255,0.6)']
+			xdist = (posx - canvaswidth/4)*(posx - canvaswidth/4);
+			ydist = (posy - canvasheight/1.5 + canvasheight/10)*(posy - canvasheight/1.5 + canvasheight/10);
+			if (Math.sqrt(xdist + ydist) < leafspreadDelta) {
+				context.fillStyle = leafcolorchoices[parseInt(Math.random()*(leafcolorchoices.length))];
+				context.beginPath();
+				context.strokeStyle = 'rgba(255,255,255,0)';
+				radiusDeviation = Math.min(canvaswidth,canvasheight)/30;
+				radiusBase = Math.min(canvaswidth,canvasheight)/100;
+				radius = Math.random()*radiusDeviation + radiusBase; 
+				context.arc(posx, posy, radius, 0, 2 * Math.PI);
+				context.fill();
+			}
+			if (posy < canvasheight/4) {
+				context.fillStyle = skycolorchoices[parseInt(Math.random()*(skycolorchoices.length))];
+				context.beginPath();
+				context.strokeStyle = 'rgba(255,255,255,0)';
+				radiusDeviation = Math.min(canvaswidth,canvasheight)/30;
+				radiusBase = Math.min(canvaswidth,canvasheight)/100;
+				radius = Math.random()*radiusDeviation + radiusBase; 
+				context.arc(posx, posy, radius, 0, 2 * Math.PI);
+				context.fill();
+			}
+		}
+
+		document.getElementById('Slide7').style.overflow = 'hidden';
+
+
+		var box = document.createElement('canvas');
+		box.style.background = 'rgba(255, 255, 255,0.1)';
+		box.style.height = canvasheight;
+		box.style.width = canvaswidth;
+		box.style.zIndex = 1;
+		box.style.position = 'absolute';
+		// box.style.left = 3*canvaswidth/4 + canvaswidth/15 + canvaswidth/15;
+		box.id = 'canvas-main';
+		// box.style.top = zeropoint + offset/2 + canvaswidth/300 + constraintplacementOffset;
+		// box.style.fontFamily = 'Calibri';
+		// box.style.color = 'rgba(0,0,0,0.7)';
+		document.getElementById('Slide7').appendChild(box);
+		document.getElementById('canvas-main').addEventListener('click', canvasclick);
+
+		var box = document.createElement('div');
+		box.style.background = 'rgba(0, 140, 255,0)';
+		box.style.height = 0;
+		box.style.width = canvaswidth/4;
+		box.style.zIndex = 2;
+		box.style.position = 'absolute';
+		box.style.left = 3*canvaswidth/4;
+		box.id = 'place-points';
+		box.style.top = 3*canvasheight/4 - 3*canvasheight/20;
+		box.style.cursor = 'pointer';
+		box.style.fontFamily = 'Calibri';
+		box.style.fontSize = canvasheight/50;
+		box.innerHTML = 'Place Attracting Points';
+		box.addEventListener('click', clickPlaceAttractingPoints);
+		box.style.color = 'rgba(0,0,0,0.6)';
+		document.getElementById('Slide7').appendChild(box);
+
+		placepointsState = 0;
+
+		function clickPlaceAttractingPoints(event) {
+			flag = 0;
+			if (placepointsState == 0) {
+				placepointsState = 1;
+				box = document.getElementById('place-points');
+				box.style.color = 'rgba(0,140,255,1)';
+				box = document.getElementById('canvas-main');
+				box.style.cursor = 'crosshair';
+				flag = 1;
+
+			}
+
+			if (placepointsState == 1 && flag == 0) {
+				placepointsState = 0;
+				box = document.getElementById('place-points');
+				box.style.color = 'rgba(0,0,0,0.6)';
+				if (initPointState == 0) {
+					box = document.getElementById('canvas-main');
+					box.style.cursor = 'auto';
+				}
+			}
+		}
+
+		var box = document.createElement('div');
+		box.style.background = 'rgba(0, 140, 255,0)';
+		box.style.height = 0;
+		box.style.width = canvaswidth/4;
+		box.style.zIndex = 2;
+		box.style.position = 'absolute';
+		box.style.left = 3*canvaswidth/4;
+		box.id = 'place-initialSeed';
+		box.style.top = 3*canvasheight/4 - canvasheight/10;
+		box.style.cursor = 'pointer';
+		box.style.fontFamily = 'Calibri';
+		box.style.fontSize = canvasheight/50;
+		box.innerHTML = 'Place Initial Point';
+		box.style.color = 'rgba(0,0,0,0.6)';
+		box.addEventListener('click', clickInitSeed);
+		document.getElementById('Slide7').appendChild(box);
+
+		initPointState = 0;
+
+		function clickInitSeed(event) {
+			flag = 0;
+			if (initPointState == 0) {
+				initPointState = 1;
+				box = document.getElementById('place-initialSeed');
+				box.style.color = 'rgba(0,140,255,1)';
+				flag = 1;
+				box = document.getElementById('canvas-main');
+				box.style.cursor = 'crosshair';
+
+			}
+			if (initPointState == 1 && flag == 0) {
+				initPointState = 0;
+				box = document.getElementById('place-initialSeed');
+				box.style.color = 'rgba(0,0,0,0.6)';
+				if (placepointsState == 0) {
+					box = document.getElementById('canvas-main');
+					box.style.cursor = 'auto';
+				}
+				
+			}
+		}
+
+
+
+		var box = document.createElement('div');
+		box.style.background = 'rgba(0, 140, 255,0)';
+		box.style.height = 0;
+		box.style.width = canvaswidth/4;
+		box.style.zIndex = 2;
+		box.style.position = 'absolute';
+		box.style.left = 3*canvaswidth/4;
+		box.id = 'next-Step';
+		box.style.top = 3*canvasheight/4 - canvasheight/20;
+		box.style.cursor = 'pointer';
+		box.style.fontFamily = 'Calibri';
+		box.style.fontSize = canvasheight/50;
+		box.innerHTML = 'Next Step';
+		box.style.color = 'rgba(255,140,0,1)';
+		box.addEventListener('click', nextStep)
+		document.getElementById('Slide7').appendChild(box);
+
+		var box = document.createElement('div');
+		box.style.background = 'rgba(0, 140, 255,0)';
+		box.style.height = 0;
+		box.style.width = canvaswidth/4;
+		box.style.zIndex = 2;
+		box.style.position = 'absolute';
+		box.style.left = 3*canvaswidth/4;
+		box.id = 'next-1000';
+		box.style.top = 3*canvasheight/4;
+		box.style.cursor = 'pointer';
+		box.style.fontFamily = 'Calibri';
+		box.style.fontSize = canvasheight/50;
+		box.innerHTML = 'Next 1000 Steps';
+		box.style.color = 'rgba(255,140,0,1)';
+		box.addEventListener('click', next1000Steps)
+		document.getElementById('Slide7').appendChild(box);
+
+		var box = document.createElement('div');
+		box.style.background = 'rgba(0, 140, 255,0)';
+		box.style.height = 0;
+		box.style.width = canvaswidth/4;
+		box.style.zIndex = 2;
+		box.style.position = 'absolute';
+		box.style.left = 3*canvaswidth/4;
+		box.id = 'p-radius';
+		box.style.top = 3*canvasheight/4  + canvasheight/20;
+		box.style.cursor = 'pointer';
+		box.style.fontFamily = 'Calibri';
+		box.style.fontSize = canvasheight/50;
+		pointRadius = 3;
+		box.innerHTML = 'Point Radius : ' + pointRadius;
+		box.style.color = 'rgba(255,140,0,1)';
+		box.addEventListener('click', changePointRadius);
+		document.getElementById('Slide7').appendChild(box);
+
+		
+		var box = document.createElement('div');
+		box.style.background = 'rgba(0, 140, 255,0)';
+		box.style.height = 0;
+		box.style.width = canvaswidth/4;
+		box.style.zIndex = 2;
+		box.style.position = 'absolute';
+		box.style.left = 3*canvaswidth/4;
+		box.id = 'clear-canvas';
+		box.style.top = 3*canvasheight/4  + canvasheight/10;
+		box.style.cursor = 'pointer';
+		box.style.fontFamily = 'Calibri';
+		box.style.fontSize = canvasheight/50;
+		pointRadius = 3;
+		box.innerHTML = 'clear Canvas';
+		box.style.color = 'rgba(255,10,0,1)';
+		box.addEventListener('click', clearCanvas);
+		document.getElementById('Slide7').appendChild(box);
+
+		function clearCanvas(event) {
+			context = document.getElementById('canvas-main').getContext('2d');
+			context.clearRect(0, 0, canvaswidth, canvasheight);
+		}
+
+
+		
+		function changePointRadius(event) {
+			pointRadius = ((pointRadius) % 9) + 1;
+			document.getElementById('p-radius').innerHTML = 'Point Radius : ' + pointRadius;
+			box = document.getElementById('currentPoint');
+			box.style.left = currentPoint[0] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+			box.style.top = currentPoint[1] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+			box.style.width = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+			box.style.height = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		}
+
+		initpoint = [canvaswidth/2, canvasheight/2];
+		attractorPoints = []
+
+		currentPoint = initpoint;
+
+
+		var box = document.createElement('div');
+		box.style.background = 'rgba(129, 2, 247,0.4)';
+		box.style.height = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.width = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.zIndex = 2;
+		box.style.position = 'absolute';
+		box.style.left = initpoint[0] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+		box.id = 'currentPoint';
+		box.style.top = initpoint[1] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+		box.style.cursor = 'pointer';
+		box.style.transition = 'translate 1s'
+		box.style.borderRadius = '50%';
+		document.getElementById('Slide7').appendChild(box);
+
+
+
+		function canvasclick(event) {
+			var rect = event.target.getBoundingClientRect();
+			var posX = event.clientX - rect.left;
+			var posY = event.clientY - rect.top;  
+			if (initPointState == 1) {
+				initpoint = [posX, posY];
+				box = document.getElementById('currentPoint');
+				box.style.left = posX - Math.min(canvasheight, canvaswidth)/200;
+				box.style.top = posY - Math.min(canvasheight, canvaswidth)/200;
+
+			}
+			if (placepointsState == 1) {
+				attractorPoints.push([posX, posY]);
+
+				var box = document.createElement('div');
+				box.style.background = 'rgba(255, 140, 0,1)';
+				box.style.height = Math.min(canvasheight, canvaswidth)/100;
+				box.style.width = Math.min(canvasheight, canvaswidth)/100;
+				box.style.zIndex = 2;
+				box.style.position = 'absolute';
+				box.style.left = posX - Math.min(canvasheight, canvaswidth)/200;
+				box.id = 'attractorPoint' + posX + '-' + posY;
+				box.style.top = posY - Math.min(canvasheight, canvaswidth)/200;
+				box.style.cursor = 'pointer';
+				box.style.borderRadius = '50%';
+				box.addEventListener('click', removeAttractor)
+				document.getElementById('Slide7').appendChild(box);
+
+
+			}
+		}
+
+		function removeAttractor(event) {
+			posX = parseFloat(event.target.style.left) + parseFloat(Math.min(canvasheight, canvaswidth)/200);
+			posY = parseFloat(event.target.style.top) + parseFloat(Math.min(canvasheight, canvaswidth)/200);
+			for (i = 0; i < attractorPoints.length; i++) {
+				if (attractorPoints[i][0] == posX && attractorPoints[i][1] == posY) {
+					index = i;
+				}
+			}
+			attractorPoints.splice(index, 1);
+			document.getElementById('Slide7').removeChild(event.target);
+
+		}
+
+
+		maincanvas = document.getElementById('canvas-main');
+		maincanvas.width = canvaswidth;
+		maincanvas.height = canvasheight;
+
+
+		function applyProcedure(currentpoint) {
+			chosenPoint = attractorPoints[parseInt(Math.random()*(attractorPoints.length))]
+			midpoint = halfWayPoint(chosenPoint, currentpoint);
+
+			context = document.getElementById('canvas-main').getContext('2d');
+
+			context.fillStyle = 'rgba(0,140,255,0.4)';
+			context.strokeStyle = 'rgba(0,140,255,0.4)';
+			context.beginPath();
+			radius = pointRadius;
+			context.arc(midpoint[0], midpoint[1], radius, 0, 2 * Math.PI);
+			context.fill();
+
+			return midpoint;
+		}
+
+		function halfWayPoint(point1, point2) {
+			return [(point1[0] + point2[0])/2 , (point1[1] + point2[1])/2]
+		}
+
+		function nextStep(event) {
+			if (attractorPoints.length != 0) {
+				currentPoint = applyProcedure(currentPoint);
+				box = document.getElementById('currentPoint');
+				box.style.left = currentPoint[0] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+				box.style.top = currentPoint[1] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+			}
+		}
+
+		function next1000Steps(event) {
+			for (step = 0; step < 1000; step++) {
+				if (attractorPoints.length != 0) {
+					currentPoint = applyProcedure(currentPoint);
+				}
+
+				box = document.getElementById('currentPoint');
+				box.style.left = currentPoint[0] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+				box.style.top = currentPoint[1] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+			}	
+		}
+
+		document.addEventListener('keypress',keypressevents);
+
+		function keypressevents(event) {
+			code = event.keyCode;
+			if (code == 110) {
+				// 'n' was pressed
+				if (attractorPoints.length != 0) {
+					currentPoint = applyProcedure(currentPoint);
+					box = document.getElementById('currentPoint');
+					box.style.left = currentPoint[0] - Math.min(canvasheight, canvaswidth)/200;
+					box.style.top = currentPoint[1] - Math.min(canvasheight, canvaswidth)/200;
+				}
+
+			}
+		}
+
+		function placeExampleAttractors(slideofInterest) {
+			var box = document.createElement('div');
+			box.style.background = 'rgba(255, 140, 0,1)';
+			box.style.height = Math.min(canvasheight, canvaswidth)/100;
+			box.style.width = Math.min(canvasheight, canvaswidth)/100;
+			box.style.zIndex = 2;
+			box.style.position = 'absolute';
+			box.style.left = canvaswidth/3;
+			box.id = 'exampleAttractorPoint' + Math.random();
+			box.style.top = 3*canvasheight/4;
+			box.style.cursor = 'pointer';
+			box.style.borderRadius = '50%';
+			document.getElementById(slideofInterest).appendChild(box);
+
+			var box = document.createElement('div');
+			box.style.background = 'rgba(255, 140, 0,1)';
+			box.style.height = Math.min(canvasheight, canvaswidth)/100;
+			box.style.width = Math.min(canvasheight, canvaswidth)/100;
+			box.style.zIndex = 2;
+			box.style.position = 'absolute';
+			box.style.left = canvaswidth/2;
+			box.id = 'exampleAttractorPoint' + Math.random();
+			box.style.top = canvasheight/4;
+			box.style.cursor = 'pointer';
+			box.style.borderRadius = '50%';
+			document.getElementById(slideofInterest).appendChild(box);
+
+			var box = document.createElement('div');
+			box.style.background = 'rgba(255, 140, 0,1)';
+			box.style.height = Math.min(canvasheight, canvaswidth)/100;
+			box.style.width = Math.min(canvasheight, canvaswidth)/100;
+			box.style.zIndex = 2;
+			box.style.position = 'absolute';
+			box.style.left = 3*canvaswidth/4;
+			box.id = 'exampleAttractorPoint' + Math.random();
+			box.style.top = 3*canvasheight/4;
+			box.style.cursor = 'pointer';
+			box.style.borderRadius = '50%';
+			document.getElementById(slideofInterest).appendChild(box);
+		}
+
+		placeExampleAttractors('Slide2');
+		placeExampleAttractors('Slide3');
+		placeExampleAttractors('Slide4');
+		placeExampleAttractors('Slide5');
+
+		function placeExampleSeed(slideofInterest,intensity) {
+			var box = document.createElement('div');
+			box.style.background = 'rgba(129, 2, 247,' + intensity + ')';
+			box.style.height = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+			box.style.width = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+			box.style.zIndex = 2;
+			box.style.position = 'absolute';
+			box.style.left = canvaswidth/2;
+			box.id = 'currentPointexample';
+			box.style.top = canvasheight/3;
+			box.style.cursor = 'pointer';
+			box.style.transition = 'translate 1s'
+			box.style.borderRadius = '50%';
+			document.getElementById(slideofInterest).appendChild(box);
+
+			
+		}
+
+	
+		placeExampleSeed('Slide3',0.4);
+		placeExampleSeed('Slide4',0.2);
+		placeExampleSeed('Slide5',0.1);
+
+		var box = document.createElement('div');
+		box.style.background = 'rgba(255, 247, 15, 0.5)';
+		box.style.height = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.width = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.zIndex = 1;
+		box.style.position = 'absolute';
+		box.style.left = canvaswidth/3 - Math.min(canvasheight, canvaswidth)/100;
+		box.id = 'randomAttractor';
+		box.style.top = 3*canvasheight/4 - Math.min(canvasheight, canvaswidth)/100;
+		box.style.cursor = 'pointer';
+		box.style.borderRadius = '50%';
+		document.getElementById('Slide4').appendChild(box);
+
+		var box = document.createElement('canvas');
+		box.style.background = 'rgba(255, 247, 15, 0)';
+		box.style.height = canvasheight;
+		box.style.width = canvaswidth;
+		box.height = canvasheight;
+		box.width = canvaswidth;
+		box.style.zIndex = 1;
+		box.style.position = 'absolute';
+		box.style.left = 0;
+		box.id = 'line-canvas';
+		box.style.top = 0;
+		box.style.borderRadius = '50%';
+		document.getElementById('Slide4').appendChild(box);
+
+		context = box.getContext('2d');
+		context.setLineDash([5, 3]);/*dashes are 5px and spaces are 3px*/
+		context.beginPath();
+		context.strokeStyle = 'rgba(0,0,0,0.5)'
+		context.moveTo(canvaswidth/3 + Math.min(canvasheight, canvaswidth)/200,3*canvasheight/4 + Math.min(canvasheight, canvaswidth)/200);
+		additionaldist = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		context.lineTo(canvaswidth/2 + additionaldist/2, canvasheight/3 + additionaldist/2);
+		context.stroke();
+
+		midpointexample = halfWayPoint([canvaswidth/2 + additionaldist/2,canvasheight/3 + additionaldist/2],[canvaswidth/3 + Math.min(canvasheight, canvaswidth)/200,3*canvasheight/4 + Math.min(canvasheight, canvaswidth)/200])
+
+		var box = document.createElement('div');
+		box.style.background = 'rgba(129, 2, 247,0.5)';
+		box.style.height = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.width = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.zIndex = 2;
+		box.style.position = 'absolute';
+		box.style.left = midpointexample[0] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+		box.id = 'currentPointexample';
+		box.style.top = midpointexample[1] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+		box.style.cursor = 'pointer';
+		box.style.transition = 'translate 1s'
+		box.style.borderRadius = '50%';
+		document.getElementById('Slide4').appendChild(box);
+
+
+		var box = document.createElement('div');
+		box.style.background = 'rgba(255, 247, 15, 0.5)';
+		box.style.height = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.width = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.zIndex = 1;
+		box.style.position = 'absolute';
+		box.style.left = 3*canvaswidth/4 - Math.min(canvasheight, canvaswidth)/100;
+		box.id = 'randomAttractor';
+		box.style.top = 3*canvasheight/4 - Math.min(canvasheight, canvaswidth)/100;
+		box.style.cursor = 'pointer';
+		box.style.borderRadius = '50%';
+		document.getElementById('Slide5').appendChild(box);
+
+		var box = document.createElement('div');
+		box.style.background = 'rgba(129, 2, 247,0.3)';
+		box.style.height = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.width = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.zIndex = 2;
+		box.style.position = 'absolute';
+		box.style.left = midpointexample[0] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+		box.id = 'currentPointexample';
+		box.style.top = midpointexample[1] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+		box.style.cursor = 'pointer';
+		box.style.transition = 'translate 1s'
+		box.style.borderRadius = '50%';
+		document.getElementById('Slide5').appendChild(box);
+
+
+		midpointexample2 = halfWayPoint(midpointexample,[3*canvaswidth/4 + Math.min(canvasheight, canvaswidth)/100,3*canvasheight/4 - Math.min(canvasheight, canvaswidth)/100])
+
+		var box = document.createElement('div');
+		box.style.background = 'rgba(129, 2, 247,0.6)';
+		box.style.height = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.width = pointRadius*Math.min(canvasheight, canvaswidth)/100;
+		box.style.zIndex = 2;
+		box.style.position = 'absolute';
+		box.style.left = midpointexample2[0] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+		box.id = 'currentPointexample';
+		box.style.top = midpointexample2[1] - pointRadius*Math.min(canvasheight, canvaswidth)/200;
+		box.style.cursor = 'pointer';
+		box.style.transition = 'translate 1s'
+		box.style.borderRadius = '50%';
+		document.getElementById('Slide5').appendChild(box);
+
+
+		// Thank you. There are many improvements necessary on the button part.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+		
+
+		
+
+
+
+
+		
+		</script>
+
+
+	</body>
+<html>
