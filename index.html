@@ -4,6 +4,9 @@
 		<title>  prajwalsouza </title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<style type="text/css">
+			* {
+				transition: opacity 1s;	
+			}
 			body {
 				max-width:100%; 
 				height:auto;
@@ -281,7 +284,7 @@
 		function fadeIn(el,value,svalue,evalue) {
 			if (value >= svalue && value < evalue) {
 				slope = (1)/(evalue - svalue);
-				el.style.opacity = slope*(value - svalue);
+				el.style.opacity = 1;
 			}
 		}
 
@@ -301,7 +304,7 @@
 
 			if (value >= svalue && value < evalue) {
 				slope = (-1)/(evalue - svalue);
-				el.style.opacity = slope*(value - evalue);
+				el.style.opacity = 0;
 			}
 
 		}
