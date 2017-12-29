@@ -1,19 +1,10 @@
-<DOCTYPE html> 
 <html>
 	<head>
-		<title>  prajwalsouza </title>
+		<title> Prajwal DSouza </title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<style type="text/css">
-			* {
-				transition: opacity 1s;	
-			}
-			body {
-				max-width:100%; 
-				height:auto;
-			}
 			a {
-				text-decoration: none;
-				color: orange;
+				cursor: pointer;
 			}
 		</style>
 		<!-- Google Analytics Code -->
@@ -40,422 +31,932 @@
 		  <meta name="keywords" content="Machine Learning, Python, Q learning, Conways Game of Life, Chaos, Fractals">
 		  <meta name="author" content="Prajwal DSouza">
 		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
 	</head>
-	<body style="margin: 0">
-		<div id='Fixed' style=" z-index: 1; position: fixed;">
-		</div>
-		<div id='Slide1' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
-			<div id='cover' style="z-index: 1; background-color: rgba(0,0,0,0.4); position: absolute;"></div>
-			<div id='MainTitle' style="z-index: 1; position: absolute;">prajwalsouza.github.io</div>
-		</div>
-		<div id='Slide2' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
-			<div id='AboutTagline' style=" z-index: 1;">I know. Sorry. Couldn't think of a better name. </div>
-		</div>
-		<div id='Slide3' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
-			<div id='AboutProjects' style=" z-index: 1;">So, about my projects... </div>
-			<canvas id='AboutProjectsCanvas' style="position: absolute; z-index: 1;"></canvas>
-		</div>
-
-		<div id='Slide001' style=" z-index: 1; background-color: rgba(0, 0, 0, 1); position: relative;">
-			<div id='Slide001cover' style="z-index: 1; background-color: rgba(0,0,0,0); position: absolute;"></div>
-			<div id='Slide001title' style=" z-index: 1; position: relative;">Chaos Game</div>
-			<div id='AboutSlide001' style=" z-index: 1; position: relative;">It's a set of random steps taken on a canvas, based on certain rules.<br/> But, one ends up with interesting patterns after many steps.  <br/>Patterns? Fractals. 
-			</div>
-			<div id='Slide001Button' style=" z-index: 1; position: relative; cursor: pointer; color: green;"><a href="/Experiments/Chaos%20Fractals.html">view</a></div>
-		</div>
-
-		<div id='Slide4' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
-			<canvas id='RLCanvas' style="position: absolute; z-index: 0;">
-			</canvas>
-			<div id='RLcover' style="z-index: 1; position: absolute;"></div>
-			<div id='RLtitle' style=" z-index: 1; position: relative;">Reinforcement Learning</div>
-			<div id='AboutRL' style=" z-index: 1; position: relative;">I tried Q learning. <br/> It's where
-			an agent learns from its environment, <br/>based on the rewards it gets, and hence does better. <br/> 
-			The next two projects are based on this. 
-			</div>
-		</div>
-		<div id='Slide5' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
-			<div id='GridWorldcover' style="z-index: 1; background-color: rgba(0,0,0,0.8); position: absolute;"></div>
-			<div id='GridWorldtitle' style=" z-index: 1; position: relative;">Grid World</div>
-			<div id='AboutGridWorld' style=" z-index: 1; position: relative;">A Q learning Agent explores a grid world. <br/> It has to avoid falling into a red pit, and reach it's green goal. <br/>After several episodes of training, it's learns how to do it better.
-			</div>
-			<div id='GridWorldButton' style=" z-index: 1; position: relative; cursor: pointer;"><a href="/Experiments/Q%20learning%20Grid%20World.html">view</a></div>
-		</div>
-		<div id='Slide6' style=" z-index: 1; background-color: rgba(0,140,255,0.4); position: relative;">
-			<div id='QBallcover' style="z-index: 1; background-color: rgba(0,140,255,0.4); position: absolute;"></div>
-			<div id='QBalltitle' style=" z-index: 1; position: relative;">Q Ball</div>
-			<div id='AboutQBall' style=" z-index: 1; position: relative;">A Ball learns to avoid collisions. <br/> It learns based on Q Learning.
-			</div>
-			<div id='QBallButton' style=" z-index: 1; position: relative; cursor: pointer; color: green;"><a href="/Experiments/Q%20Ball.html">view</a></div>
-		</div>
-		<div id='Slide7' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
-			<div id='ConwayIntro' style=" z-index: 1;">That was about Q learning.<br/> Here's another HTML Canvas Experiment... </div>
-		</div>
-		<div id='Slide8' style=" z-index: 1; background-color: rgba(132, 10, 255,0.4); position: relative;">
-			<div id='GOLcover' style="z-index: 1; background-color: rgba(132, 10, 255,0.4); position: absolute;"></div>
-			<div id='GOLtitle' style=" z-index: 1; position: relative;">Conway's Game of life</div>
-			<div id='AboutGOL' style=" z-index: 1; position: relative;">A simulation that has simple rules. <br/>But, gives rise to some of the complex behaviour. 
-			</div>
-			<div id='GOLButton' style=" z-index: 1; position: relative; cursor: pointer; color: green;"><a href="/Experiments/Game%20of%20Life.html">view</a></div>
-		</div>
-		<div id='Slide9' style=" z-index: 1; background-color: rgba(255,255,255,0.4); position: relative;">
-			<canvas id='OutroCanvas' style="position: absolute; z-index: 0;">
-			</canvas>
-			<div id='Outro' style=" z-index: 1;">That's about it. <br/> For more projects related to Python,<br/> visit https://github.com/prajwalsouza. <br/>Thank you. </div>
-		</div>
+	<body style='margin:0px; display: block:'>
 		
+		<div id='maintitle' height="100%" width="100%" style="background-image: url(Images/maintitleimage.jpg); background-size: cover; z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);" >
+			<div id='maincover' height="100%" width="100%" style="background-color: rgba(0,0,0,0.4);" >
+			<svg height="100%" width="100%" >
+				<text x="50%" y="50%" fill="white" font-family="Calibri" font-size="350%" text-anchor="middle">prajwalsouza.github.io</text>
+			</svg>
+			</div>
+		</div>
+		<div id='aboutProjects' height="100%" width="100%" style='z-index:1; position: relative;cursor:crosshair;'>
+			<div height="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0;'>
+				<svg id='projectsIntro' height="100%" width="100%">
+				</svg>
+			</div>
+			<div height="100%" width="100%" style='z-index:1; position: relative; pointer-events: none;'>
+				<svg id='d' height="100%" width="100%" >
+					<text x="50%" y="50%" fill="black" font-family="Calibri" font-size="180%" text-anchor="middle">So, about my projects...</text>
+				</svg>
+			</div>
+			
+		</div>
+		<div id='slide5' height="100%" width="100%" style="background-color: rgba(0,0,0,1); position: relative; box-shadow: 0px 0px 100px rgba(0,0,0,0.5);">
+			<svg id='slide5textdetails' height="100%" width="100%" >
+				<text x="50%" y="35%" fill="white" font-family="Calibri" font-size="300%" text-anchor="middle">
+					Chaos Game
+				</text>
+				<text x="50%" y="45%" fill="white" font-family="Calibri" font-size="160%" text-anchor="middle">
+					<tspan x="50%" dy="0%">It's a set of random steps taken on a canvas, based on certain rules. </tspan>
+					<tspan x="50%" dy="5%">But, one ends up with interesting patterns after many steps.
+					</tspan> 
+					<tspan x="50%" dy="5%">Patterns? Fractals.</tspan>
+				</text>
+				<a href="/Experiments/Chaos%20Fractals.html">
+					<text x="50%" y="63%" fill="orange" font-family="Calibri" font-size="160%" text-anchor="middle">
+						view
+					</text>
+				</a>
+			</svg>
+		</div>
+		<div id='slide4' style='z-index:1; position: relative;cursor:crosshair;'>
+			<div height="100%" width="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0;'>
+				<svg id='slide4dots' height="100%" width="100%">
+				</svg>
+			</div>
+			<div id='slide4cover' width="100%" height="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0;  pointer-events: none;'> 
+				<svg height="100%" width="100%">
+				</svg>
+			</div>
+			<div height="100%" width="100%" style='z-index:1; position: relative; pointer-events: none;'>
+				<svg id='slide4textdetails' height="100%" width="100%">
+					<text x="50%" y="35%" fill="black" font-family="Calibri" font-size="300%" text-anchor="middle">
+						Reinforcement Learning
+					</text>
+					<text x="50%" y="45%" fill="black" font-family="Calibri" font-size="160%" text-anchor="middle">
+						<tspan x="50%" dy="0%">I tried Q learning.</tspan>
+						<tspan x="50%" dy="5%">It's where an agent learns from its environment, </tspan> 
+						<tspan x="50%" dy="5%">based on the rewards it gets, and hence does better.</tspan>
+						<tspan x="50%" dy="5%">The next two projects are based on this. </tspan>
+					</text>
 
-		
-		<script> 
-		// Code from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
-		function detectmob() { 
-		 if( navigator.userAgent.match(/Android/i)
-		 || navigator.userAgent.match(/webOS/i)
-		 || navigator.userAgent.match(/iPhone/i)
-		 || navigator.userAgent.match(/iPad/i)
-		 || navigator.userAgent.match(/iPod/i)
-		 || navigator.userAgent.match(/BlackBerry/i)
-		 || navigator.userAgent.match(/Windows Phone/i)
-		 ){
-			return true;
-		  }
-		 else {
-			return false;
-		  }
-		}
+				</svg>
+			</div>
+		</div>
+		<div id='slide3' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);'>
+			<div height="100%" style='z-index:1; position: absolute;left: 0;right: 0;top:0; bottom: 0;'>
+				<svg id='slide3svg' height="100%" width="100%">
+				</svg>
+			</div>
+			<div id='slide3cover' width="100%" height="100%" style='z-index:1; position: absolute;left: 0;right: 0;top:0; bottom: 0; background-color: rgba(0,0,0, 0.6)'>
+				<svg height="100%" width="100%">
+				</svg>
+			</div>
+			<div height="100%" width="100%" style='z-index:1; position: relative; '>
+				<svg id='slide3textdetails' height="100%" width="100%">
+					<text x="50%" y="35%" fill="white" font-family="Calibri" font-size="300%" text-anchor="middle">
+						Grid World
+					</text>
+					<text x="50%" y="45%" fill="white" font-family="Calibri" font-size="160%" text-anchor="middle">
+						<tspan x="50%" dy="0%">A Q learning Agent explores a grid world. </tspan>
+						<tspan x="50%" dy="5%">It has to avoid falling into a red pit, and reach it's green goal.  </tspan> 
+						<tspan x="50%" dy="5%">After several episodes of training, it's learns how to do it better.</tspan>
+					</text>
+					<a href="/Experiments/Q%20learning%20Grid%20World.html">
+						<text x="50%" y="63%" fill="orange" font-family="Calibri" font-size="160%" text-anchor="middle">
+							view
+						</text>
+					</a>
+				</svg>
+			</div>
+		</div>
+		<div id='slide2' height="100%" width="100%" style='z-index:1; position: relative;'>
+			<div height="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0;'>
+				<svg id='slide2svg' height="100%" width="100%">
+				<a href="/Experiments/Q%20Ball.html">
+					<text x="50%" y="63%" fill="orange" font-family="Calibri" font-size="160%" text-anchor="middle">
+						view
+					</text>
+				</a>
+				</svg>
+			</div>
+			<div id='slide2cover' width="100%" height="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0; background-color: rgba(255,255,255,0); pointer-events: none;'>
+				<svg height="100%" width="100%">
+				</svg>
+			</div>
+			<div height="100%" width="100%" style='z-index:1; position: relative; pointer-events: none; '>
+				<svg id='slide2textdetails' height="100%" width="100%">
+					<text x="50%" y="35%" fill="black" font-family="Calibri" font-size="300%" text-anchor="middle">
+						Q Ball
+					</text>
+					<text x="50%" y="45%" fill="black" font-family="Calibri" font-size="160%" text-anchor="middle">
+						<tspan x="50%" dy="0%">A Ball learns to avoid collisions.  </tspan>
+						<tspan x="50%" dy="5%">It learns based on Q Learning.</tspan> 
+					</text>
+					
+				</svg>
+			</div>
+		</div>
+		<div id='slide1' height="100%" width="100%" style='z-index:1; position: relative;box-shadow: 0px -30px 40px rgba(0,0,0,0.1);'>
+			<div height="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0;'>
+				<svg id='slide1svg' height="100%" width="100%">
+				<a href="/Experiments/Game%20of%20Life.html">
+					<text x="50%" y="63%" fill="orange" font-family="Calibri" font-size="160%" text-anchor="middle">
+						view
+					</text>
+				</a>
+				</svg>
+			</div>
+			<div id='slide1cover' width="100%" height="100%" style='z-index:1; position: absolute;left: 0;right: 0;top:0; bottom: 0; background-color: rgba(0,0,0, 0); pointer-events: none;'>
+				<svg height="100%" width="100%">
+				</svg>
+			</div>
+			<div height="100%" width="100%" style='z-index:1; position: relative; pointer-events: none; '>
+				<svg id='slide1textdetails' height="100%" width="100%">
+					<text x="50%" y="35%" fill="black" font-family="Calibri" font-size="300%" text-anchor="middle">
+						Conway's Game of Life
+					</text>
+					<text x="50%" y="45%" fill="black" font-family="Calibri" font-size="160%" text-anchor="middle">
+						<tspan x="50%" dy="0%">A HTML canvas project.</tspan>
+						<tspan x="50%" dy="5%">A simulation that has simple rules.</tspan> 
+						<tspan x="50%" dy="5%">But, gives rise to some of the complex behaviour.</tspan>  
+					</text>
+				
+				</svg>
+			</div>
+		</div>
+		<div id='endSlide' height="100%" width="100%" style='z-index:1; position: relative; cursor: pointer;box-shadow: 0px -10px 80px rgba(0,0,0,0.2);'>
+			<div height="100%" style='z-index:1; position: absolute;left: 0;right: 0;top:0; bottom: 0;'>
+				<svg id='endSlidesvg' height="100%" width="100%" >
+				</svg>
+
+			</div>
+			<div id='endSlidecover' width="100%" height="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0; background-color: rgba(0,0,0, 0); pointer-events: none;'>
+				<svg height="100%" width="100%">
+				</svg>
+			</div>
+			<div height="100%" width="100%" style='z-index:1; position: relative; pointer-events: none; '>
+				<svg id='d' height="100%" width="100%">
+					<text x="50%" y="50%" fill="white" font-family="Calibri" font-size="170%" text-anchor="middle" id='linkID'>
+						<tspan x="50%" dy="0%">That's about it. For more projects, visit</tspan>
+
+						<tspan x="50%" dy="5%">github/prajwalsouza</tspan> 
+
+					</text>
+				</svg>
+			</div>
+		</div>
 
 
-
-		var canvaswidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-		var canvasheight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+		<script type="text/javascript">
 
 
+		// Fixing for Mozilla
 
-		var fixeddiv = document.getElementById("Fixed");
-		var slide1 = document.getElementById("Slide1");
-		var coverblack = document.getElementById("cover");
-		var title = document.getElementById("MainTitle");
-		var slide2 = document.getElementById("Slide2");
-		var aboutTagline = document.getElementById("AboutTagline");
-		var slide3 = document.getElementById("Slide3");
-		var aboutProjects = document.getElementById("AboutProjects");
-		var aboutProjectsCanvas = document.getElementById("AboutProjectsCanvas");
-		var slide4 = document.getElementById("Slide4");
-		var rlTitle = document.getElementById("RLtitle");
-		var rlcanvas = document.getElementById("RLCanvas");
-		var coverRL = document.getElementById("RLcover");
-		var aboutRL = document.getElementById("AboutRL");
-		var slide5 = document.getElementById("Slide5");
-		var gridWorldTitle = document.getElementById("GridWorldtitle");
-		var coverGridWorld = document.getElementById("GridWorldcover");
-		var aboutGridWorld = document.getElementById("AboutGridWorld");
-		var buttonGridWorld = document.getElementById("GridWorldButton");
-		var slide6 = document.getElementById("Slide6");
-		var qBallTitle = document.getElementById("QBalltitle");
-		var coverQBall = document.getElementById("QBallcover");
-		var aboutQBall = document.getElementById("AboutQBall");
-		var buttonQBall = document.getElementById("QBallButton");
-		var slide7 = document.getElementById("Slide7");
-		var conwayIntro = document.getElementById("ConwayIntro");
-		var slide8 = document.getElementById("Slide8");
-		var gOLTitle = document.getElementById("GOLtitle");
-		var coverGOL = document.getElementById("GOLcover");
-		var aboutGOL = document.getElementById("AboutGOL");
-		var buttonGOL = document.getElementById("GOLButton");
-		var slide9 = document.getElementById("Slide9");
-		var outro = document.getElementById("Outro");
-		var outrocanvas = document.getElementById("OutroCanvas");
+		document.getElementById('slide4dots').height = window.innerHeight;
 
+		endSlidesvg = document.getElementById('endSlidesvg')
 
-		var slide001 = document.getElementById("Slide001");
-		var slide001Title = document.getElementById("Slide001title");
-		var coverslide001 = document.getElementById("Slide001cover");
-		var aboutslide001 = document.getElementById("AboutSlide001");
-		var buttonslide001 = document.getElementById("Slide001Button");
+		pointsMemoryPrism = []
+		neighbourConnectionData = {}
+		creationNode = {}
 
+		// From https://stackoverflow.com/questions/22521982/js-check-if-point-inside-a-polygon
 
-		function divCustom(theDiv,width,height,fontType,textAlign,left,top,fontSize,letterSpacing,wordSpacing,paddingTop,paddingBottom,color) {
-			theDiv.style.color = color;
-			theDiv.style.fontFamily = fontType;
-			theDiv.style.left = left;
-			theDiv.style.top = 0;
-			theDiv.style.fontSize = fontSize;
-			theDiv.style.height = height;
-			theDiv.style.textAlign = textAlign;
-			theDiv.style.width = width;
-			theDiv.style.letterSpacing = letterSpacing; //canvaswidth/45
-			theDiv.style.wordSpacing = wordSpacing;
-			theDiv.style.paddingTop = paddingTop;
-			theDiv.style.paddingBottom = paddingBottom;
-		}
-		
-		mainFontSize = Math.min(canvasheight,canvaswidth)/13;
-		divCustom(fixeddiv,canvaswidth,canvasheight);
-		divCustom(title,canvaswidth,0,'Calibri','center',0,0,mainFontSize,0,0,((canvasheight /2.5)),0,'rgba(255,255,255,1)');
-		divCustom(slide1,canvaswidth,canvasheight);
-		divCustom(coverblack,canvaswidth,canvasheight);
-		divCustom(slide2,canvaswidth,canvasheight);
-		divCustom(aboutTagline,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/27,0,0,((canvasheight /2.5)),0);
-		divCustom(slide3,canvaswidth,canvasheight);
-		divCustom(aboutProjects,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/27,0,0,((canvasheight /2.5)),0);
-		divCustom(aboutProjectsCanvas,canvaswidth,canvasheight);
-		divCustom(slide4,canvaswidth,canvasheight);
-		divCustom(rlcanvas,canvaswidth,canvasheight);
-		divCustom(coverRL,canvaswidth,canvasheight);
-		divCustom(aboutRL,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,Math.min(canvasheight)/10,0,'rgba(0,0,0,1)');
-		divCustom(rlTitle,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/19,0,0,Math.min(canvasheight)/3,0,'rgba(0,0,0,1)');
-		divCustom(slide5,canvaswidth,canvasheight);
-		divCustom(coverGridWorld,canvaswidth,canvasheight);
-		divCustom(aboutGridWorld,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,Math.min(canvasheight)/10,Math.min(canvasheight)/7,'rgba(255,255,255,1)');
-		divCustom(gridWorldTitle,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/19,0,0,Math.min(canvasheight)/3,0,'rgba(255,255,255,1)');
-		divCustom(buttonGridWorld,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,0,0,'rgba(255,255,255,1)');
-		divCustom(slide6,canvaswidth,canvasheight);
-		divCustom(coverQBall,canvaswidth,canvasheight);
-		divCustom(aboutQBall,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,Math.min(canvasheight)/10,Math.min(canvasheight)/7,'rgba(255,255,255,1)');
-		divCustom(qBallTitle,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/19,0,0,Math.min(canvasheight)/3,0,'rgba(255,255,255,1)');
-		divCustom(buttonQBall,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,0,0,'rgba(255,255,255,1)');
-		divCustom(slide7,canvaswidth,canvasheight);
-		divCustom(conwayIntro,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/27,0,0,((canvasheight /2.5)),0);
-		divCustom(slide8,canvaswidth,canvasheight);
-		divCustom(coverGOL,canvaswidth,canvasheight);
-		divCustom(aboutGOL,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,Math.min(canvasheight)/10,Math.min(canvasheight)/7,'rgba(255,255,255,1)');
-		divCustom(gOLTitle,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/19,0,0,Math.min(canvasheight)/3,0,'rgba(255,255,255,1)');
-		divCustom(buttonGOL,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,0,0,'rgba(255,255,255,1)');
+		function inside(point, vs) {
+			// ray-casting algorithm based on
+			// http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
 
-		divCustom(slide9,canvaswidth,canvasheight);
-		divCustom(outro,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/27,0,0,((canvasheight /2.5)),0);
-		divCustom(outrocanvas,canvaswidth,canvasheight);
+			var x = point[0], y = point[1];
 
-		divCustom(slide001,canvaswidth,canvasheight);
-		divCustom(coverslide001,canvaswidth,canvasheight);
-		divCustom(aboutslide001,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,Math.min(canvasheight)/10,Math.min(canvasheight)/7,'rgba(255,255,255,1)');
-		divCustom(slide001Title,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/19,0,0,Math.min(canvasheight)/3,0,'rgba(255,255,255,1)');
-		divCustom(buttonslide001,canvaswidth,0,'Calibri','center',0,0,Math.min(canvasheight,canvaswidth)/30,0,0,0,0,'rgba(255,255,255,1)');
+			var inside = false;
+			for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+				var xi = vs[i][0], yi = vs[i][1];
+				var xj = vs[j][0], yj = vs[j][1];
 
-
-		fixeddiv.style.visibility = 'hidden';
-
-		allSlides = [slide1,slide2,slide3,slide001,slide4,slide5,slide6,slide7,slide8,slide9];
-		theircontent = [[title],[aboutTagline],[aboutProjects,aboutProjectsCanvas],[rlcanvas],[],[],[conwayIntro],[],[outro,outrocanvas]];
-
-		function setShadows() {
-			slide1.style.boxShadow = "0px 20px 100px rgba(0,0,0,0.5)";
-			slide3.style.boxShadow = "0px 0px 100px rgba(0,0,0,0.2)";
-		}
-
-		setShadows();
-
-
-		fixedmode = false;
-		if (fixedmode) {
-			for (slidenum = 0; slidenum < allSlides.length; slidenum++) {
-				allSlides[slidenum].style.position = 'fixed';
-				if (allSlides[slidenum] != slide1) {
-					allSlides[slidenum].style.opacity = 0;
-				}
-				else {
-					allSlides[slidenum].style.opacity = 1;
-				}
-				for (contentnum = 0; contentnum < theircontent[slidenum].length; contentnum++) {
-					theircontent[slidenum][contentnum].style.position = 'fixed';
-					theircontent[slidenum][contentnum].style.opacity = 1;
-					if (theircontent[slidenum][contentnum] != title) {
-						theircontent[slidenum][contentnum].style.opacity = 0;
-					}
-					else {
-						theircontent[slidenum][contentnum].style.opacity = 1;
-					}
-				}
+				var intersect = ((yi > y) != (yj > y))
+					&& (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+				if (intersect) inside = !inside;
 			}
-			fixeddiv.style.visibility = 'visible';
-			document.body.style.height = (allSlides.length + 1)*canvasheight;
-		}
+
+			return inside;
+		};
 
 		
 
 
-		function opacitySync(el,opacityel) {
-			var elemTop = el.getBoundingClientRect().top;
-			var elemBottom = el.getBoundingClientRect().bottom;
-
-			return elemBottom;
-		}
-
-		function fadeIn(el,value,svalue,evalue) {
-			if (value >= svalue && value < evalue) {
-				slope = (1)/(evalue - svalue);
-				el.style.opacity = 1;
-			}
-		}
-
-		function appear(el,value,svalue,evalue) {
-			if (value >= svalue && value < evalue) {
-				el.style.opacity = 1;
-			}
-		}
-
-		function disappear(el,value,svalue,evalue) {
-			if (value >= svalue && value < evalue) {
-				el.style.opacity = 0;
-			}
-		}
-
-		function fadeOut(el,value,svalue,evalue) {
-
-			if (value >= svalue && value < evalue) {
-				slope = (-1)/(evalue - svalue);
-				el.style.opacity = 0;
-			}
-
-		}
-
-
-		transitionlengths = canvasheight/3;
-
-		theircontent = [[title],[aboutTagline],[aboutProjects,aboutProjectsCanvas],[aboutslide001,slide001Title,buttonslide001],[rlTitle,aboutRL,rlcanvas],[aboutGridWorld,gridWorldTitle,buttonGridWorld],[aboutQBall,qBallTitle,buttonQBall],[conwayIntro],[aboutGOL,gOLTitle,buttonGOL],[outro,outrocanvas]];
-
 		
+		averagedistance = 30
+		radiusdeviation = 20
+		angledeviation = 10
 
-		function pagescroll(event) {
-			if (fixedmode) {
-				for (slidenum = 0; slidenum < allSlides.length; slidenum++) {
-					disappear(allSlides[slidenum],window.scrollY + transitionlengths,(-1)*canvasheight,(slidenum*canvasheight));
-					fadeIn(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum*canvasheight),(slidenum*canvasheight) + transitionlengths);
-					appear(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum*canvasheight) + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths);
-					fadeOut(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths,(slidenum+1)*canvasheight);
-					disappear(allSlides[slidenum],window.scrollY + transitionlengths,(slidenum+1)*canvasheight,(allSlides.length+1)*canvasheight);
-					for (contentnum = 0; contentnum < theircontent[slidenum].length; contentnum++) {
-						disappear(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(-1)*canvasheight,(slidenum*canvasheight));
-						fadeIn(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum*canvasheight),(slidenum*canvasheight) + transitionlengths);
-						appear(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum*canvasheight) + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths);
-						if (slidenum != allSlides.length - 1) {
-							fadeOut(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths,(slidenum+1)*canvasheight);
-							disappear(theircontent[slidenum][contentnum],window.scrollY + transitionlengths,(slidenum+1)*canvasheight,(allSlides.length+1)*canvasheight);
-						}
-						
+		function getPossibilityRange(thepoint,mainnode) {
+			connectedpoints = neighbourConnectionData[thepoint[0] + ',' + thepoint[1]].slice()
+			pointofinterest = connectedpoints[0]
+			Angle1 = Math.atan2(pointofinterest[1] - thepoint[1],pointofinterest[0] - thepoint[0])*180/Math.PI
+			if (Angle1 < 0) {
+				Angle1 = 360 + Angle1
+			}
+
+			pointofinterest = connectedpoints[1]
+			Angle2 = Math.atan2(pointofinterest[1] - thepoint[1],pointofinterest[0] - thepoint[0])*180/Math.PI
+			if (Angle2 < 0) {
+				Angle2 = 360 + Angle2
+			}
+
+			Anglemain = Math.atan2(mainnode[1] - thepoint[1],mainnode[0] - thepoint[0])*180/Math.PI
+			if (Anglemain < 0) {
+				Anglemain = 360 + Anglemain
+			}
+
+			maxvalue = Math.max(Angle1,Angle2)
+			minvalue = Math.min(Angle1,Angle2)
+
+			if (Anglemain < maxvalue && Anglemain > minvalue) {
+				possibilityrange = 360 - Math.abs(Angle2 - Angle1)
+				between = [Angle2,Angle1]
+				startingcue = -1
+			}
+			else {
+				possibilityrange = Math.abs(Angle2 - Angle1)
+				between = [Angle2,Angle1]
+				startingcue = 1
+			}
+
+			if(minvalue == Angle1) {
+				startingMneigh = connectedpoints[0]
+				endingMneigh = connectedpoints[1]
+			}
+			else {
+				startingMneigh = connectedpoints[1]
+				endingMneigh = connectedpoints[0]
+			}
+
+
+			return [possibilityrange,between,startingMneigh,endingMneigh,startingcue]
+		}
+
+
+		function pickAngleInRange(rangeLength,extremes,startingcuevalue) {
+			intervaldivision = parseInt(rangeLength/50);
+			minvalue = Math.min(extremes[0],extremes[1])
+			maxvalue = Math.max(extremes[0],extremes[1])
+			anglevalues = []
+
+			if (startingcuevalue == 1) {
+				anglevalue = minvalue
+				for (i=0; i < intervaldivision; i++) {
+					anglevalue = anglevalue + 50 + (angledeviation*(Math.random() - 0.5))
+					if (Math.abs(maxvalue - anglevalue) > 30) {
+						anglevalues.push(anglevalue)
 					}
 				}
 			}
 			else {
-				for (slidenum = 0; slidenum < allSlides.length; slidenum++) {
-					for (contentnum = 0; contentnum < theircontent[slidenum].length; contentnum++) {
-						disappear(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(-1)*canvasheight,(slidenum*canvasheight));
-						fadeIn(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum*canvasheight),(slidenum*canvasheight) + transitionlengths);
-						appear(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum*canvasheight) + transitionlengths,(slidenum*canvasheight) + 2*transitionlengths);
-						fadeOut(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum*canvasheight) + 2*transitionlengths,(slidenum+1)*canvasheight);
-						disappear(theircontent[slidenum][contentnum],window.scrollY + canvasheight - 2*transitionlengths,(slidenum+1)*canvasheight,(allSlides.length+1)*canvasheight);
+				anglevalue = minvalue
+				for (i=0; i < intervaldivision; i++) {
+					anglevalue = anglevalue - 50 + (angledeviation*(Math.random() - 0.5))
+					if (anglevalue < 0) {
+						anglevalue = 360 + anglevalue
 					}
+					if (Math.abs(maxvalue - anglevalue) > 30) {
+						anglevalues.push(anglevalue)
+					}
+					
 				}
+			}
+
+
+			return anglevalues
+		}
+
+		function indexOfmin(arr) {
+			if (arr.length === 0) {
+				return -1;
+			}
+
+			var min = arr[0];
+			var minIndex = 0;
+
+			for (var i = 1; i < arr.length; i++) {
+				if (arr[i] < min) {
+					minIndex = i;
+					min = arr[i];
+				}
+			}
+
+			return minIndex;
+		}
+
+		function drawText(divId, textdata, xcor, ycor,size) {
+			var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+			textElement.setAttribute('x',xcor);
+			textElement.setAttribute('y',ycor);
+			textElement.setAttribute('font-size',size);
+			textElement.innerHTML = textdata
+			divId.appendChild(textElement);
+		}
+
+		function sleep(miliseconds) {
+			 var currentTime = new Date().getTime();
+
+			while (currentTime + miliseconds >= new Date().getTime()) {
+
+			}
+		}
+
+
+		
+		
+		function formPrism() {
+			triangleData = []
+
+			angles = pickAngleInRange(360,[0,390],1)
+
+
+			initvalue = [Math.random()*window.innerWidth, Math.random()*window.innerHeight];
+			currentvalue = initvalue
+
+			pointsList = []
+			pointsList.push[currentvalue]
+			currentlist = []
+
+			visitablenodes = []
+
+			for (j = 0; j < angles.length; j++) {
+				angle = angles[j]
+				radius = averagedistance + (radiusdeviation*Math.random())
+
+				xvalue = currentvalue[0] + radius*Math.cos(angle*Math.PI/180)
+				yvalue = currentvalue[1] + radius*Math.sin(angle*Math.PI/180)
+
+				if(inside([xvalue,yvalue],visitablenodes)) {
+					console.log("Point Outside")
+				}
+				else {
+					pointsList.push([xvalue,yvalue])
+					creationNode[xvalue+','+yvalue] = currentvalue
+					if (xvalue <= window.innerWidth*1.2 && xvalue >= -0.2*window.innerWidth && yvalue <= window.innerHeight*1.2 && yvalue >= -0.2*window.innerHeight) {
+						visitablenodes.push([xvalue,yvalue])
+					}
+					currentlist.push([xvalue,yvalue])
+				}
+			}
+
+
+			for (k = 0; k < currentlist.length; k++) {
+				neighbours = []
+
+				index = (k - 1)
+				if (index < 0) {
+					index = index + currentlist.length
+				}
+				if (index >= currentlist.length) {
+					index = index % currentlist.length
+				}
+				
+				neighbours.push(currentlist[index])
+
+				index = (k + 1)
+				if (index < 0) {
+					index = index + currentlist.length
+				}
+				if (index >= currentlist.length) {
+					index = index % currentlist.length
+				}
+				
+				neighbours.push(currentlist[index])
+
+				point = currentlist[k]
+				neighbourConnectionData[point[0] + ',' + point[1]] = neighbours
+				triangleData.push([neighbours[0],point,currentvalue])
+
+			}
+
+			ranges = []
+			for (m=0; m < visitablenodes.length;m++) {
+				node = visitablenodes[m]
+				ranges.push(getPossibilityRange(node, currentvalue)[0])
+			}
+
+
+			minvalueindex = indexOfmin(ranges)
+			nextnode = visitablenodes[minvalueindex]
+
+
+			visitablenodes.splice(minvalueindex, 1);
+
+
+
+
+			
+
+
+			while(visitablenodes.length != 0) {
+
+				prange = getPossibilityRange(nextnode, creationNode[nextnode[0]+','+nextnode[1]])
+				mainnodevalue = currentvalue
+				currentvalue = nextnode
+
+
+				// drawDot(endSlidesvg,currentvalue[0],currentvalue[1], '0.3%', 'blue')
+				// drawText(endSlidesvg,h,currentvalue[0],currentvalue[1],14)
+
+				angles = pickAngleInRange(prange[0],prange[1],prange[4])
+				startingMneigh = prange[2]
+				endingMneigh = prange[3]
+
+				currentlist = []
+				for (j = 0; j < angles.length; j++) {
+
+					angle = angles[j]
+					radius = averagedistance + (radiusdeviation*Math.random())
+
+					xvalue = currentvalue[0] + radius*Math.cos(angle*Math.PI/180)
+					yvalue = currentvalue[1] + radius*Math.sin(angle*Math.PI/180)
+
+					if(inside([xvalue,yvalue],visitablenodes)) {
+						// console.log("Point Outside")
+					}
+					else {
+						pointsList.push([xvalue,yvalue])
+						creationNode[xvalue+','+yvalue] = currentvalue
+						if (xvalue <= window.innerWidth*1.2 && xvalue >= -0.2*window.innerWidth && yvalue <= window.innerHeight*1.2 && yvalue >= -0.2*window.innerHeight) {
+							visitablenodes.push([xvalue,yvalue])
+						}
+						currentlist.push([xvalue,yvalue])
+						// drawLine(endSlidesvg,currentvalue[0],currentvalue[1],xvalue,yvalue,'red','0.4%')
+						// drawDot(endSlidesvg,xvalue,yvalue, '0.3%', 'orange')
+						// drawText(endSlidesvg,1,xvalue,yvalue,10)
+					}
+
+				}
+				
+
+
+
+				if(currentlist.length == 0) {
+					currneighbours = neighbourConnectionData[currentvalue[0] + ',' + currentvalue[1]]
+
+					// drawLine(endSlidesvg,currneighbours[0][0],currneighbours[0][1],currneighbours[1][0],currneighbours[1][1],'grey','0.2%')
+					n1 = currneighbours[0]
+					n1neighbours = neighbourConnectionData[n1[0] + ',' + n1[1]]
+					if (n1neighbours[0][0] == currentvalue[0] && n1neighbours[0][1] == currentvalue[1]) {
+						n1neighbours.splice(0, 1, currneighbours[1]);
+					}
+					else {
+						n1neighbours.splice(1, 1, currneighbours[1]);
+					}
+					n2 = currneighbours[1]
+					n2neighbours = neighbourConnectionData[n2[0] + ',' + n2[1]]
+					if (n2neighbours[0][0] == currentvalue[0] && n2neighbours[0][1] == currentvalue[1]) {
+						n2neighbours.splice(0, 1, currneighbours[0]);
+					}
+					else {
+						n2neighbours.splice(1, 1, currneighbours[0]);
+					}
+
+					triangleData.push([currneighbours[0],currneighbours[1],currentvalue])
+
+				}
+
+
+				else if (currentlist.length == 1) {
+
+					point = currentlist[0]
+					currneighbours = neighbourConnectionData[currentvalue[0] + ',' + currentvalue[1]]
+
+					neighbourConnectionData[point[0] + ',' + point[1]] = currneighbours
+					triangleData.push([currneighbours[0],point,currentvalue])
+					triangleData.push([currneighbours[1],point,currentvalue])
+
+					// drawLine(endSlidesvg,currneighbours[0][0],currneighbours[0][1],point[0],point[1],'grey','0.2%')
+					// drawLine(endSlidesvg,point[0],point[1],currneighbours[1][0],currneighbours[1][1],'grey','0.2%')
+
+
+
+					sidepoint = currneighbours[0]
+					ngh = neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]].slice();
+
+					if (ngh[0][0] == currentvalue[0] && ngh[0][1] == currentvalue[1]) {
+						ngh.splice(0, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+					else {
+						ngh.splice(1, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+
+					sidepoint = currneighbours[1]
+					ngh = neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]].slice();
+
+					if (ngh[0][0] == currentvalue[0] && ngh[0][1] == currentvalue[1]) {
+						ngh.splice(0, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+					else {
+						ngh.splice(1, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+
+				}
+
+				else {
+
+
+					neighbours = []
+
+					point = currentlist[0]
+					
+					neighbours.push(startingMneigh)
+					sidepoint = startingMneigh
+					triangleData.push([startingMneigh,point,currentvalue])
+					ngh = neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]].slice();
+
+					
+
+						
+
+					
+					if (ngh[0][0] == currentvalue[0] && ngh[0][1] == currentvalue[1]) {
+						ngh.splice(0, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+					else {
+						ngh.splice(1, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+
+					neighbours.push(currentlist[1])
+
+					neighbourConnectionData[point[0] + ',' + point[1]] = neighbours
+					
+					
+					// drawLine(endSlidesvg,neighbours[0][0],neighbours[0][1],point[0],point[1],'grey','0.2%')
+					// drawLine(endSlidesvg,point[0],point[1],neighbours[1][0],neighbours[1][1],'grey','0.2%')
+
+					
+
+					for (k = 1; k < currentlist.length - 1; k++) {
+						neighbours = []
+
+						index = (k - 1)
+						if (index < 0) {
+							index = index + currentlist.length
+						}
+						if (index >= currentlist.length) {
+							index = index % currentlist.length
+						}
+						
+						neighbours.push(currentlist[index])
+
+						index = (k + 1)
+						if (index < 0) {
+							index = index + currentlist.length
+						}
+						if (index >= currentlist.length) {
+							index = index % currentlist.length
+						}
+						
+						neighbours.push(currentlist[index])
+
+						point = currentlist[k]
+						neighbourConnectionData[point[0] + ',' + point[1]] = neighbours
+						// drawLine(endSlidesvg,neighbours[0][0],neighbours[0][1],point[0],point[1],'grey','0.2%')
+						// drawLine(endSlidesvg,point[0],point[1],neighbours[1][0],neighbours[1][1],'grey','0.2%')
+						triangleData.push([neighbours[0],point,currentvalue])
+
+					}
+
+					triangleData.push([ currentlist[currentlist.length - 2], currentlist[currentlist.length - 1],currentvalue])
+
+					
+
+					neighbours = []
+
+					point = currentlist[currentlist.length - 1]
+					
+					neighbours.push(endingMneigh)
+					sidepoint = endingMneigh
+
+					triangleData.push([endingMneigh,point,currentvalue])
+					ngh = neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]].slice();
+
+					
+					if (ngh[0][0] == currentvalue[0] && ngh[0][1] == currentvalue[1]) {
+						ngh.splice(0, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+					else {
+						ngh.splice(1, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+
+					neighbours.push(currentlist[currentlist.length - 2])
+
+					neighbourConnectionData[point[0] + ',' + point[1]] = neighbours
+					
+					
+					// drawLine(endSlidesvg,neighbours[0][0],neighbours[0][1],point[0],point[1],'grey','0.2%')
+					// drawLine(endSlidesvg,point[0],point[1],neighbours[1][0],neighbours[1][1],'grey','0.2%')
+					
+
+
+				}
+				ranges = []
+
+
+
+				for (ind=0; ind < visitablenodes.length;ind++) {
+					node = visitablenodes[ind]
+					ranges.push(getPossibilityRange(node, creationNode[node[0]+','+node[1]])[0])
+				}
+
+				
+
+				minvalueindex = indexOfmin(ranges)
+				prevPrange = ranges[minvalueindex]
+
+				
+				nextnode = visitablenodes[minvalueindex]
+
+
+				visitablenodes.splice(minvalueindex, 1);
+
+
+				// drawDot(endSlidesvg,nextnode[0],nextnode[1], '0.3%', 'violet')
+
+			}
+
+			return triangleData
+
+		}
+
+
+
+		triangleData = formPrism()
+
+
+		function drawPrism() {
+			colorchoices = ['rgba(0,0,0,0.3)']
+
+			for (i=0; i<triangleData.length; i++) {
+				ithTriangleSet = triangleData[i]
+				var polyElement = document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
+				polypoints = ithTriangleSet[0][0] + ',' +ithTriangleSet[0][1] + ' ' + ithTriangleSet[1][0] + ',' + ithTriangleSet[1][1] + ' ' + ithTriangleSet[2][0] + ',' + ithTriangleSet[2][1]
+				polyElement.setAttribute('points',polypoints);
+				polyElement.setAttribute('id','triangleNo' + i);
+				polyElement.style.fill = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+				polyElement.style.strokeWidth = '0.05%';
+				polyElement.style.stroke = 'rgba(255,255,255,0.3)';
+				endSlidesvg.appendChild(polyElement);
+			}
+		}
+
+		drawPrism()
+
+		colorchosenStatus = {}
+
+
+		colorscheme = ['single','analogous','complimentary']
+		colorconfig = [['blue',290,240] ,['orange',70,30],['red',50,3],['violet',335,290]]
+
+	
+
+		choice = colorconfig[parseInt(Math.random()*(colorconfig.length))];
+		scheme = colorscheme[parseInt(Math.random()*(colorscheme.length))];
+
+		function linktoGithub(event) {
+			alldiv = endSlidesvg.children;
+			for (i = 0; i < alldiv.length; i++) {
+				element = alldiv[i]
+				if (element.tagName == 'polygon') {
+					colorchoice = colorPick(element.points[0].x,element.points[0].y);
+					element.style.fill = colorchoice;
+					element.style.stroke = colorchoice;
+					colorchosenStatus[element.id.toString()] = [1,colorPick(posX,posY)];
+				}
+			}
+			window.open('https://github.com/prajwalsouza');
+		}
+
+
+
+
+
+		function colorPick(xval,yval) {
+			lvalue = 10 + ((xval/window.innerWidth)*70) + (Math.random() - 0.5)*20
+			if (scheme == 'single') {
+				hvalue = choice[2]
+			}
+			else if (scheme == 'analogous') {
+				hvalue = choice[1] - ((yval/window.innerHeight)*100)
+			}
+			else if (scheme == 'complimentary') {
+				if (yval < window.innerHeight/2) {
+					hvalue = choice[2] + 200
+				}
+				else {
+					hvalue = choice[2]
+				}
+			}
+			else if (scheme == 'complimentary-random') {
+				if (Math.random() < 0.5) {
+					hvalue = choice[2] + 200
+				}
+				else {
+					hvalue = choice[2]
+				}
+			}
+			svalue = 100
+			return 'hsl(' + hvalue + ',' + svalue + '%,' + lvalue + '%)'
+		}
+
+
+
+		function giveColor(event) {
+			var bRect = endSlidesvg.getBoundingClientRect();
+			posX = event.clientX - bRect.left;
+			posY = event.clientY - bRect.top;
+			colorchoice = colorPick(posX,posY)
+			event.target.style.fill = colorchoice
+			event.target.style.stroke = colorchoice
+			colorchosenStatus[event.target.id.toString()] = [1,colorPick(posX,posY)]
+			
+		}
+
+		endSlidesvg.addEventListener('mouseover',giveColor);
+		endSlidesvg.addEventListener('click',linktoGithub);
+
+
+
+
+
+		slide1svg = document.getElementById('slide1svg')
+
+		function drawVerticalLines(divId) {
+			for (i = 1; i < 100; i++) {
+				colorchosen = 'hsla(' + parseInt(i*3.58) + ',100%,50%,0.2)'
+				deviation = Math.random()*0;
+				drawLine(divId, i+deviation+'%', '0%', i+deviation+'%', Math.random()*30 +'%', colorchosen,0.3)
+			}
+		}
+
+
+		drawVerticalLines(slide1svg)
+
+		slide2svg = document.getElementById('slide2svg')
+
+		function addBallAndSensors(divId) {
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			circleElement.setAttribute('r','6%');
+			circleElement.setAttribute('cx','65%');
+			circleElement.setAttribute('cy','30%');
+			circleElement.style.fill = 'rgba(0,200,255,0.07)'
+			circleElement.style.strokeWidth = '0';
+			circleElement.setAttribute('id','outersensor');
+			divId.appendChild(circleElement);
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			circleElement.setAttribute('r','4%');
+			circleElement.setAttribute('cx','65%');
+			circleElement.setAttribute('cy','30%');
+			circleElement.style.fill = 'rgba(0,200,255,0.07)'
+			circleElement.style.strokeWidth = '0';
+			circleElement.setAttribute('id','innersensor');
+			divId.appendChild(circleElement);
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			circleElement.setAttribute('r','2%');
+			circleElement.setAttribute('cx','65%');
+			circleElement.setAttribute('cy','30%');
+			circleElement.style.fill = 'rgba(0,200,255,0.6)'
+			circleElement.style.strokeWidth = '0';
+			circleElement.setAttribute('id','ball');
+			divId.appendChild(circleElement);
+
+			colorchoices = ['rgba(255, 132, 10, 0.64)','rgba(255, 222, 10, 0.64)']
+
+			for (i = 0; i < 10; i++) {
+				var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+				circleElement.setAttribute('r','1%');
+				circleElement.setAttribute('cx',Math.random()*100 + '%');
+				circleElement.setAttribute('cy', Math.random()*100 + '%');
+				circleElement.style.fill = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+				circleElement.style.strokeWidth = '0';
+				circleElement.setAttribute('class','obstacle');
+				divId.appendChild(circleElement);
 			}
 
 		}
 
-		slide1.style.backgroundImage = 'url(/Images/slide1.jpg)'
-		slide1.style.backgroundSize = 'cover';
-		if (canvaswidth >= canvasheight) {
-			coverRL.style.background = 'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,0))';
+		function outersensorchangein(event) {
+			document.getElementById('outersensor').style.fill = 'rgba(138,43,226,0.1)'
 		}
-		else {
-			coverRL.style.background = 'linear-gradient(0deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,0))';
+
+		function outersensorchangeout(event) {
+			document.getElementById('outersensor').style.fill = 'rgba(0,200,255,0.07)'
 		}
+
+		function innersensorchangein(event) {
+			document.getElementById('innersensor').style.fill = 'rgba(138,43,226,0.1)'
+		}
+
+		function innersensorchangeout(event) {
+			document.getElementById('innersensor').style.fill = 'rgba(0,200,255,0.07)'
+		}
+
+
+		addBallAndSensors(slide2svg)
+
+		document.getElementById('outersensor').addEventListener('mouseover', outersensorchangein)
+		document.getElementById('outersensor').addEventListener('mouseout', outersensorchangeout)
+
+		document.getElementById('innersensor').addEventListener('mouseover', innersensorchangein)
+		document.getElementById('innersensor').addEventListener('mouseout', innersensorchangeout)
+
+
+
 		
-		slide5.style.backgroundImage = 'url(/Images/grid.jpg)'
-		slide5.style.backgroundSize = 'cover';
 
-		// life Saver
-		aboutProjectsCanvas.width=canvaswidth;
-		aboutProjectsCanvas.height=canvasheight;
+		slide3svg = document.getElementById('slide3svg')
 
-		function drawrectAboutProjects() {
-			aboutProjectsCanvasCTX = aboutProjectsCanvas.getContext('2d');
-			posx = Math.random()*canvaswidth;
-			posy = Math.random()*canvasheight;
-			colorchoices = ['rgba(255, 132, 10, 0.64)','rgba(255, 222, 10, 0.64)']
-			aboutProjectsCanvasCTX.strokeStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
-			aboutProjectsCanvasCTX.beginPath();
-			sizeDeviation = Math.min(canvaswidth,canvasheight)/50;
-			sizeBase = Math.min(canvaswidth,canvasheight)/30;
-			sizew = Math.random()*sizeDeviation + sizeBase;
-			sizey = Math.random()*sizeDeviation + sizeBase;
-			aboutProjectsCanvasCTX.rect(posx,posy,sizew,sizey)
-			aboutProjectsCanvasCTX.stroke();
+		function drawGridSquare(divId,xcor,ycor, side, fillcolor) {
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('width',side);
+			rectElement.setAttribute('height',side);
+			rectElement.setAttribute('x',xcor);
+			rectElement.setAttribute('y',ycor);
+			rectElement.style.fill = fillcolor
+			rectElement.style.strokeWidth = '0';
+			divId.appendChild(rectElement);
 		}
 
-		for (k = 0; k < 30; k++) {
-			drawrectAboutProjects();
-		}
- 
-		function aboutProjectsResponse(event) {
-			aboutProjectsCanvasCTX = aboutProjectsCanvas.getContext('2d');
-			var rect = aboutProjectsCanvas.getBoundingClientRect();
-			posx = event.clientX - rect.left;
-			posy = event.clientY - rect.top;
-			colorchoices = ['rgba(255, 132, 10, 0.64)','rgba(255, 222, 10, 0.64)']
-			aboutProjectsCanvasCTX.strokeStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
-			aboutProjectsCanvasCTX.beginPath();
-			sizeDeviation = Math.min(canvaswidth,canvasheight)/50;
-			sizeBase = Math.min(canvaswidth,canvasheight)/30;
-			sizew = Math.random()*sizeDeviation + sizeBase;
-			sizey = Math.random()*sizeDeviation + sizeBase;
-			aboutProjectsCanvasCTX.rect(posx,posy,sizew,sizey)
-			aboutProjectsCanvasCTX.stroke();
-
+		function drawGridSquares() {
+			gridsqSize = 40;
+			colorchoices = ['rgba(0,200,255,0.6)','rgba(0,140,255,0.6)']
+			for (i=0; i < 30; i++) {
+				fillcolorchoice = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+				posX = Math.random()*window.innerWidth;
+				posY = Math.random()*window.innerHeight;
+				drawGridSquare(slide3svg, posX, posY, gridsqSize, fillcolorchoice)
+			}
 		}
 
-		aboutProjectsCanvas.addEventListener('click', aboutProjectsResponse);
+		drawGridSquares()
 
-		document.addEventListener("scroll", pagescroll);
 
-		// life Saver
-		rlcanvas.width=canvaswidth;
-		rlcanvas.height=canvasheight;
+
+
+		slide4dots = document.getElementById('slide4dots')
+
+		function drawDot(divId,xcor,ycor, radius, color) {
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			circleElement.setAttribute('r',radius);
+			circleElement.setAttribute('cx',xcor);
+			circleElement.setAttribute('cy',ycor);
+			circleElement.style.fill = color
+			circleElement.style.strokeWidth = '0';
+			divId.appendChild(circleElement);
+		}
+
+		function drawLine(divId,initxcor,initycor, finalxcor, finalycor, color, strokewidth) {
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1',initxcor);
+			lineElement.setAttribute('y1',initycor);
+			lineElement.setAttribute('x2',finalxcor);
+			lineElement.setAttribute('y2',finalycor);
+			lineElement.style.stroke = color
+			lineElement.style.strokeWidth = strokewidth+'%';
+			divId.appendChild(lineElement);
+		}
+
+
+
 
 		pointsMemory = [];
 
-
-
-		
-
-		function drawConnectingDots(canvasOfInterest,type,pointOfInterest) {
-			var context = canvasOfInterest.getContext("2d");
+		function drawConnectingDots(slideOfInterest,type,pointOfInterest) {
 			colorchoices = ['rgba(0,200,255,1)','rgba(0,140,255,1)']
-			delta = Math.min(canvaswidth,canvasheight)/8;
-			radiusDeviation = Math.min(canvaswidth,canvasheight)/170;
-			radiusBase = Math.min(canvaswidth,canvasheight)/230;
-			context.strokeStyle = 'rgba(0,0,0,0.1)';
+			delta = 12;
+			radiusDeviation = 0.2;
+			radiusBase = 0.33;
 			initpointnumber = 50;
 
 			if (type != 'newpoint') {
 				for (i = 0; i < initpointnumber; i ++) {
-					posX = parseInt(Math.random()*canvaswidth);
-					posY = parseInt(Math.random()*canvasheight);
+					posX = parseInt(Math.random()*100);
+					posY = parseInt(Math.random()*100);
 					pointsMemory.push([posX,posY]);
 				}
 
 				for (i = 0; i < pointsMemory.length; i ++) {
-					p1X = pointsMemory[i][0];
-					p1Y = pointsMemory[i][1];
+					p1X = pointsMemory[i][0]*window.innerWidth*0.01;
+					p1Y = pointsMemory[i][1]*window.innerHeight*0.01;
 					for (j = 0; j < pointsMemory.length; j++) {
 						if (pointsMemory[j] != pointsMemory[i]) {
-							p2X = pointsMemory[j][0];
-							p2Y = pointsMemory[j][1];
+							p2X = pointsMemory[j][0]*window.innerWidth*0.01;
+							p2Y = pointsMemory[j][1]*window.innerHeight*0.01;
 							distance = Math.sqrt(((p2X-p1X)*(p2X-p1X)) + ((p2Y-p1Y)*(p2Y-p1Y)))
-							if (distance < delta) {
-								context.strokeStyle = 'rgba(0,0,0,' + (Math.random()*0.1 + 0.01).toString() +')';
-								context.beginPath();
-								context.moveTo(p1X,p1Y);
-								context.lineTo(p2X,p2Y);
-								context.stroke();
+							if (distance < delta*window.innerWidth*0.01) {
+								strokecolor = 'rgba(0,0,0,' + (Math.random()*0.1 + 0.01).toString() +')';
+								drawLine(slideOfInterest,pointsMemory[i][0]+'%',pointsMemory[i][1]+'%', pointsMemory[j][0]+'%', pointsMemory[j][1]+'%', strokecolor, 0.1)
 							}
 						}
 					}
 					radius = Math.random()*radiusDeviation + radiusBase; 
-					context.fillStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
-					context.beginPath();
-					context.strokeStyle = 'rgba(255,255,255,0)';
-					context.arc(p1X, p1Y, radius, 0, 2 * Math.PI);
-					context.fill();
+					colorchosen = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+					drawDot(slideOfInterest,pointsMemory[i][0]+'%',pointsMemory[i][1]+'%',radius+'%', colorchosen)
 
 				}
 			}
@@ -463,122 +964,104 @@
 			if (type == 'newpoint') {
 				p1X = pointOfInterest[0];
 				p1Y = pointOfInterest[1];
+				pointToBeAdded = [(pointOfInterest[0]/window.innerWidth)*100, (pointOfInterest[1]/window.innerHeight)*100]
 				for (j = 0; j < pointsMemory.length; j++) {
 					if (pointsMemory[j] != pointsMemory[i]) {
-						p2X = pointsMemory[j][0];
-						p2Y = pointsMemory[j][1];
+						p2X = pointsMemory[j][0]*window.innerWidth*0.01;
+						p2Y = pointsMemory[j][1]*window.innerHeight*0.01;
 						distance = Math.sqrt(((p2X-p1X)*(p2X-p1X)) + ((p2Y-p1Y)*(p2Y-p1Y)))
-						if (distance < delta) {
-							context.strokeStyle = 'rgba(0,0,0,' + (Math.random()*0.2 + 0.1).toString() +')';
-							context.beginPath();
-							context.moveTo(p1X,p1Y);
-							context.lineTo(p2X,p2Y);
-							context.stroke();
+						if (distance < delta*window.innerWidth*0.01) {
+							strokecolor = 'rgba(0,0,0,' + (Math.random()*0.1 + 0.01).toString() +')';
+							drawLine(slideOfInterest,pointToBeAdded[0]+'%',pointToBeAdded[1]+'%', pointsMemory[j][0]+'%', pointsMemory[j][1]+'%', strokecolor, 0.1)
 						}
 					}
 				}
 				radius = Math.random()*radiusDeviation + radiusBase; 
-				context.fillStyle = colorchoices[parseInt(Math.random()*(colorchoices.length))];
-				context.beginPath();
-				context.strokeStyle = 'rgba(255,255,255,0)';
-				context.arc(p1X, p1Y, radius, 0, 2 * Math.PI);
-				context.fill();
-				pointsMemory.push(pointOfInterest);
+				colorchosen = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+				
+				drawDot(slideOfInterest,pointToBeAdded[0]+'%',pointToBeAdded[1]+'%',radius+'%', colorchosen)
+				pointsMemory.push(pointToBeAdded);
+				console.log(pointToBeAdded[0],pointToBeAdded[1])
 			}
 
 		}
 
-		function rlcanvasResponse(event) {
-			rlcanvasCTX = rlcanvas.getContext('2d');
-			var rect = rlcanvas.getBoundingClientRect();
+		function addingdots(event) {
+			var rect = slide4dots.getBoundingClientRect();
 			posx = event.clientX - rect.left;
 			posy = event.clientY - rect.top;
-			drawConnectingDots(rlcanvas,'newpoint',[posx,posy]);
-
+			drawConnectingDots(slide4dots,'newpoint',[posx,posy]);
 		}
 
-		coverRL.style.pointerEvents = 'none';
-		rlTitle.style.pointerEvents = 'none';
-		aboutRL.style.pointerEvents = 'none';
-		aboutProjects.style.pointerEvents = 'none';
 
-		rlcanvas.addEventListener('click', rlcanvasResponse);
+		drawConnectingDots(slide4dots,'addingmany', [0,0])
+		slide4dots.addEventListener('click', addingdots);
 
-		drawConnectingDots(rlcanvas);
+		if (window.innerWidth > window.innerHeight) {
+			document.getElementById('slide4cover').style.background = 'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,0))';
+		}
+		else {
+			document.getElementById('slide4cover').style.background = 'linear-gradient(0deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,0))';
+		}
+		
 
-		function drawScene(canvasOfInterest,type,pointOfInterest) {
-			var context = canvasOfInterest.getContext("2d");
-			colorchoices = ['rgba(132, 192, 21, 0.94)','rgba(212, 222, 16, 0.94)']
-			context.beginPath();
-			context.strokeStyle = 'rgba(166, 99, 22, 0.34)';
-			context.lineWidth = 20;
-			context.moveTo(canvaswidth/4,canvasheight);
-			context.lineTo(canvaswidth/4,canvasheight/1.5);
-			context.stroke();
-			context.lineWidth = 15;
-			context.lineTo(canvaswidth/4 - canvaswidth/20,canvasheight/1.5 - canvasheight/10);
-			context.stroke();
-			context.moveTo(canvaswidth/4,canvasheight/1.5 + canvasheight/10);
-			context.lineTo(canvaswidth/4 + canvaswidth/20,canvasheight/1.5 - canvasheight/25);
-			context.stroke();
+
+
+		projectsIntro = document.getElementById('projectsIntro')
+
+
+		function drawRectangle(divId,xcor,ycor, wdh, hgt, strokecolor) {
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('width',wdh);
+			rectElement.setAttribute('height',hgt);
+			rectElement.setAttribute('x',xcor);
+			rectElement.setAttribute('y',ycor);
+			rectElement.style.stroke = strokecolor
+			rectElement.style.strokeWidth = '0.1%';
+			rectElement.style.fill = 'None';
+			divId.appendChild(rectElement);
 		}
 
-		function outrocanvasResponse(event) {
-			var rect = outrocanvas.getBoundingClientRect();
-			posx = event.clientX - rect.left;
-			posy = event.clientY - rect.top;
-			var context = outrocanvas.getContext("2d");
-			leafspreadDelta = Math.min(canvasheight,canvaswidth)/5;
-			leafcolorchoices = ['rgba(132, 192, 21, 0.34)','rgba(212, 222, 16, 0.34)','rgba(161, 250, 20,0.34)']
-			skycolorchoices = ['rgba(17, 156, 242, 0.14)','rgba(15, 193, 228, 0.14)','rgba(255, 255, 255,0.6)']
-			xdist = (posx - canvaswidth/4)*(posx - canvaswidth/4);
-			ydist = (posy - canvasheight/1.5 + canvasheight/10)*(posy - canvasheight/1.5 + canvasheight/10);
-			if (Math.sqrt(xdist + ydist) < leafspreadDelta) {
-				context.fillStyle = leafcolorchoices[parseInt(Math.random()*(leafcolorchoices.length))];
-				context.beginPath();
-				context.strokeStyle = 'rgba(255,255,255,0)';
-				radiusDeviation = Math.min(canvaswidth,canvasheight)/30;
-				radiusBase = Math.min(canvaswidth,canvasheight)/100;
-				radius = Math.random()*radiusDeviation + radiusBase; 
-				context.arc(posx, posy, radius, 0, 2 * Math.PI);
-				context.fill();
-			}
-			if (posy < canvasheight/4) {
-				context.fillStyle = skycolorchoices[parseInt(Math.random()*(skycolorchoices.length))];
-				context.beginPath();
-				context.strokeStyle = 'rgba(255,255,255,0)';
-				radiusDeviation = Math.min(canvaswidth,canvasheight)/30;
-				radiusBase = Math.min(canvaswidth,canvasheight)/100;
-				radius = Math.random()*radiusDeviation + radiusBase; 
-				context.arc(posx, posy, radius, 0, 2 * Math.PI);
-				context.fill();
+		function drawRectangles() {
+			colorchoices = ['rgba(255, 132, 10, 0.64)','rgba(255, 222, 10, 0.64)']
+			for (i=0; i < 30; i++) {
+				strokecolorchoice = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+				sizeDeviation = 2;
+				sizeBaseW = 2;
+				sizeBaseH = (window.innerWidth/window.innerHeight)*sizeBaseW;
+				sizew = Math.random()*sizeDeviation + sizeBaseW;
+				sizeh = Math.random()*sizeDeviation + sizeBaseH;
+				posX = Math.random()*100;
+				posY = Math.random()*100;
+				drawRectangle(projectsIntro, posX + '%', posY + '%', sizew + '%', sizeh + '%', strokecolorchoice)
 			}
 		}
 
-		outrocanvas.addEventListener('click', outrocanvasResponse);
+		drawRectangles()
 
-		outrocanvas.width=canvaswidth;
-		outrocanvas.height=canvasheight;
+		function reactprojectsIntro(event) {
+			var bRect = projectsIntro.getBoundingClientRect();
+			posX = event.clientX - bRect.left;
+			posY = event.clientY - bRect.top;
 
-		drawScene(outrocanvas);
-			
-		aboutProjectsCanvas.style.cursor = 'crosshair';
-		rlcanvas.style.cursor = 'crosshair';
-		outrocanvas.style.cursor = 'crosshair';
+			colorchoices = ['rgba(255, 132, 10, 0.64)','rgba(255, 222, 10, 0.64)']
+			strokecolorchoice = colorchoices[parseInt(Math.random()*(colorchoices.length))];
 
+			sizeDeviation = 2;
+			sizeBaseW = 2;
+			sizeBaseH = (window.innerWidth/window.innerHeight)*sizeBaseW;
+			sizew = Math.random()*sizeDeviation + sizeBaseW;
+			sizeh = Math.random()*sizeDeviation + sizeBaseH;
 
+			drawRectangle(projectsIntro, posX, posY, sizew + '%', sizeh + '%', strokecolorchoice)
+		}
 
-		// if (detectmob()) {
-		// 	document.body.innerHTML = 'Mobile Detected';
-		// } 
-
-
+		projectsIntro.addEventListener('click', reactprojectsIntro);
 
 
 		
+			
 		</script>
-
-
 
 
 	</body>
