@@ -1,0 +1,936 @@
+<html>
+	<head>
+		<title> Triangle Mesh Generation </title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+			a {
+				cursor: pointer;
+			}
+		</style>
+		<!-- Google Analytics Code -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+		<script type="application/ld+json">
+			{
+			  "@type": "Projects",
+			  "name": "Triangle Mesh Generation Algorithm",
+			  "author": "Prajwal DSouza",
+			  "description": "Generates Random Triangle Mesh and colors it from one end to the other as a gradient."
+			  }
+		</script>
+		  <meta charset="UTF-8">
+  		  <meta name="description" content="Random Triangle Mesh Generation @prajwalsouza.github.io: A collection experiments and projects related to math, physics and computer science">
+		  <meta name="keywords" content="Triangle Mesh Generation, Random Triangle Mesh Generation, Approximate Denauley Triangulation">
+		  <meta name="author" content="Prajwal DSouza">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body style='margin:0px; display: block:'>
+		<div id='main' style='z-index:1; position: relative;cursor:crosshair;box-shadow: 0px 10px 80px rgba(0,0,0,0.2);'>
+			<div height="100%" width="100%" style='z-index:2; position: absolute; left: 0;right: 0;top:0; bottom: 0;'>
+				<svg id='maindots' height="100%" width="100%">
+				<a href="https://prajwalsouza.github.io" target="_blank" style="z-index: 1;">
+					<text x="50%" y="63%" fill="rgba(0,140,255,2)" font-family="Calibri" style='font-size:25px;font-size: 1.9vw;' text-anchor="middle">
+						prajwalsouza.github.io
+					</text>
+				</a>
+				</svg>
+			</div>
+			<!-- <div id='maincover' width="100%" height="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0;  pointer-events: none;'> 
+				<svg height="100%" width="100%">
+				</svg>
+			</div> -->
+			<div height="100%" width="100%" style='z-index:1; position: relative; pointer-events: none;'>
+				<svg id='maintextdetails' height="100%" width="100%">
+					<text x="50%" y="50%" fill="black" font-family="Calibri" style='font-size:35px;font-size: 3.4vw;' text-anchor="middle">
+						Random Triangle Mesh Generation
+					</text>
+					<text x="50%" y="45%" fill="black" font-family="Calibri" style='font-size:23px;font-size: 1.7vw;' text-anchor="middle">
+						<!-- <tspan x="50%" dy="0%">I tried Q learning.</tspan>
+						<tspan x="50%" dy="5%">It's where an agent learns from its environment, </tspan> 
+						<tspan x="50%" dy="5%">based on the rewards it gets, and hence does better.</tspan>
+						<tspan x="50%" dy="5%">The next two projects are based on this. </tspan> -->
+					</text>
+
+				</svg>
+			</div>
+		</div>
+
+
+		<div id='colorchoiceSlide' height="100%" width="100%" style='z-index:1; position: relative;'>
+			<div height="100%" style='z-index:1; position: relative; left: 0;right: 0;top:0; bottom: 0;'>
+				<svg id='colorchoiceSvg' height="100%" width="100%">
+					<text x="25%" y="25%" fill="black" font-family="Calibri" style='font-size:35px;font-size: 2.3vw;'>
+						<tspan x="30%" dy="0%">Base Color</tspan>
+
+						<tspan x="60%" dy="0%">Color Scheme</tspan> 
+					</text>
+				</svg>
+			</div>
+		</div>
+		
+		
+		<div id='demoSlide' height="100%" width="100%" style='z-index:1; position: relative; cursor: pointer;box-shadow: 0px -10px 80px rgba(0,0,0,0.2);'>
+			<div height="100%" style='z-index:1; position: absolute;left: 0;right: 0;top:0; bottom: 0;'>
+				<svg id='demoSlidesvg' height="100%" width="100%" >
+				</svg>
+
+			</div>
+			<div id='demoSlidecover' width="100%" height="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0; background-color: rgba(0,0,0, 0); pointer-events: none;'>
+				<svg height="100%" width="100%">
+				</svg>
+			</div>
+			<div height="100%" width="100%" style='z-index:1; position: relative; pointer-events: none; '>
+				<svg id='d' height="100%" width="100%">
+					<text x="50%" y="50%" fill="white" font-family="Calibri" style='font-size:28px;font-size: 1.9vw;' text-anchor="middle" id='linkID'>
+						<tspan x="50%" dy="0%">Tap/Click to Finish</tspan>
+
+						<tspan x="50%" dy="5%"></tspan> 
+
+					</text>
+				</svg>
+			</div>
+		</div>
+
+
+		<script type="text/javascript">
+
+
+		// Fixing for Mozilla
+
+		demoSlidesvg = document.getElementById('demoSlidesvg')
+
+		pointsMemoryPrism = []
+		neighbourConnectionData = {}
+		creationNode = {}
+
+		// From https://stackoverflow.com/questions/22521982/js-check-if-point-inside-a-polygon
+
+		function inside(point, vs) {
+			// ray-casting algorithm based on
+			// http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+
+			var x = point[0], y = point[1];
+
+			var inside = false;
+			for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+				var xi = vs[i][0], yi = vs[i][1];
+				var xj = vs[j][0], yj = vs[j][1];
+
+				var intersect = ((yi > y) != (yj > y))
+					&& (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+				if (intersect) inside = !inside;
+			}
+
+			return inside;
+		};
+
+		
+
+
+		
+		averagedistance = 30
+		radiusdeviation = 20
+		angledeviation = 10
+
+		function getPossibilityRange(thepoint,mainnode) {
+			connectedpoints = neighbourConnectionData[thepoint[0] + ',' + thepoint[1]].slice()
+			pointofinterest = connectedpoints[0]
+			Angle1 = Math.atan2(pointofinterest[1] - thepoint[1],pointofinterest[0] - thepoint[0])*180/Math.PI
+			if (Angle1 < 0) {
+				Angle1 = 360 + Angle1
+			}
+
+			pointofinterest = connectedpoints[1]
+			Angle2 = Math.atan2(pointofinterest[1] - thepoint[1],pointofinterest[0] - thepoint[0])*180/Math.PI
+			if (Angle2 < 0) {
+				Angle2 = 360 + Angle2
+			}
+
+			Anglemain = Math.atan2(mainnode[1] - thepoint[1],mainnode[0] - thepoint[0])*180/Math.PI
+			if (Anglemain < 0) {
+				Anglemain = 360 + Anglemain
+			}
+
+			maxvalue = Math.max(Angle1,Angle2)
+			minvalue = Math.min(Angle1,Angle2)
+
+			if (Anglemain < maxvalue && Anglemain > minvalue) {
+				possibilityrange = 360 - Math.abs(Angle2 - Angle1)
+				between = [Angle2,Angle1]
+				startingcue = -1
+			}
+			else {
+				possibilityrange = Math.abs(Angle2 - Angle1)
+				between = [Angle2,Angle1]
+				startingcue = 1
+			}
+
+			if(minvalue == Angle1) {
+				startingMneigh = connectedpoints[0]
+				endingMneigh = connectedpoints[1]
+			}
+			else {
+				startingMneigh = connectedpoints[1]
+				endingMneigh = connectedpoints[0]
+			}
+
+
+			return [possibilityrange,between,startingMneigh,endingMneigh,startingcue]
+		}
+
+
+		function pickAngleInRange(rangeLength,extremes,startingcuevalue) {
+			intervaldivision = parseInt(rangeLength/50);
+			minvalue = Math.min(extremes[0],extremes[1])
+			maxvalue = Math.max(extremes[0],extremes[1])
+			anglevalues = []
+
+			if (startingcuevalue == 1) {
+				anglevalue = minvalue
+				for (i=0; i < intervaldivision; i++) {
+					anglevalue = anglevalue + 50 + (angledeviation*(Math.random() - 0.5))
+					if (Math.abs(maxvalue - anglevalue) > 30) {
+						anglevalues.push(anglevalue)
+					}
+				}
+			}
+			else {
+				anglevalue = minvalue
+				for (i=0; i < intervaldivision; i++) {
+					anglevalue = anglevalue - 50 + (angledeviation*(Math.random() - 0.5))
+					if (anglevalue < 0) {
+						anglevalue = 360 + anglevalue
+					}
+					if (Math.abs(maxvalue - anglevalue) > 30) {
+						anglevalues.push(anglevalue)
+					}
+					
+				}
+			}
+
+
+			return anglevalues
+		}
+
+		function indexOfmin(arr) {
+			if (arr.length === 0) {
+				return -1;
+			}
+
+			var min = arr[0];
+			var minIndex = 0;
+
+			for (var i = 1; i < arr.length; i++) {
+				if (arr[i] < min) {
+					minIndex = i;
+					min = arr[i];
+				}
+			}
+
+			return minIndex;
+		}
+
+		function drawText(divId, textdata, xcor, ycor,size) {
+			var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+			textElement.setAttribute('x',xcor);
+			textElement.setAttribute('y',ycor);
+			textElement.setAttribute('font-size',size);
+			textElement.innerHTML = textdata
+			divId.appendChild(textElement);
+		}
+
+		
+
+
+		
+		
+		function formPrism() {
+			triangleData = []
+
+			angles = pickAngleInRange(360,[0,390],1)
+
+
+			initvalue = [Math.random()*window.innerWidth, Math.random()*window.innerHeight];
+			currentvalue = initvalue
+
+			pointsList = []
+			pointsList.push[currentvalue]
+			currentlist = []
+
+			visitablenodes = []
+
+			for (j = 0; j < angles.length; j++) {
+				angle = angles[j]
+				radius = averagedistance + (radiusdeviation*Math.random())
+
+				xvalue = currentvalue[0] + radius*Math.cos(angle*Math.PI/180)
+				yvalue = currentvalue[1] + radius*Math.sin(angle*Math.PI/180)
+
+				if(inside([xvalue,yvalue],visitablenodes)) {
+					console.log("Point Outside")
+				}
+				else {
+					pointsList.push([xvalue,yvalue])
+					creationNode[xvalue+','+yvalue] = currentvalue
+					if (xvalue <= window.innerWidth*1.2 && xvalue >= -0.2*window.innerWidth && yvalue <= window.innerHeight*1.2 && yvalue >= -0.2*window.innerHeight) {
+						visitablenodes.push([xvalue,yvalue])
+					}
+					currentlist.push([xvalue,yvalue])
+				}
+			}
+
+
+			for (k = 0; k < currentlist.length; k++) {
+				neighbours = []
+
+				index = (k - 1)
+				if (index < 0) {
+					index = index + currentlist.length
+				}
+				if (index >= currentlist.length) {
+					index = index % currentlist.length
+				}
+				
+				neighbours.push(currentlist[index])
+
+				index = (k + 1)
+				if (index < 0) {
+					index = index + currentlist.length
+				}
+				if (index >= currentlist.length) {
+					index = index % currentlist.length
+				}
+				
+				neighbours.push(currentlist[index])
+
+				point = currentlist[k]
+				neighbourConnectionData[point[0] + ',' + point[1]] = neighbours
+				triangleData.push([neighbours[0],point,currentvalue])
+
+			}
+
+			ranges = []
+			for (m=0; m < visitablenodes.length;m++) {
+				node = visitablenodes[m]
+				ranges.push(getPossibilityRange(node, currentvalue)[0])
+			}
+
+
+			minvalueindex = indexOfmin(ranges)
+			nextnode = visitablenodes[minvalueindex]
+
+
+			visitablenodes.splice(minvalueindex, 1);
+
+
+
+
+			
+
+
+			while(visitablenodes.length != 0) {
+
+				prange = getPossibilityRange(nextnode, creationNode[nextnode[0]+','+nextnode[1]])
+				mainnodevalue = currentvalue
+				currentvalue = nextnode
+
+
+				// drawDot(demoSlidesvg,currentvalue[0],currentvalue[1], '0.3%', 'blue')
+				// drawText(demoSlidesvg,h,currentvalue[0],currentvalue[1],14)
+
+				angles = pickAngleInRange(prange[0],prange[1],prange[4])
+				startingMneigh = prange[2]
+				endingMneigh = prange[3]
+
+				currentlist = []
+				for (j = 0; j < angles.length; j++) {
+
+					angle = angles[j]
+					radius = averagedistance + (radiusdeviation*Math.random())
+
+					xvalue = currentvalue[0] + radius*Math.cos(angle*Math.PI/180)
+					yvalue = currentvalue[1] + radius*Math.sin(angle*Math.PI/180)
+
+					if(inside([xvalue,yvalue],visitablenodes)) {
+						// console.log("Point Outside")
+					}
+					else {
+						pointsList.push([xvalue,yvalue])
+						creationNode[xvalue+','+yvalue] = currentvalue
+						if (xvalue <= window.innerWidth*1.2 && xvalue >= -0.2*window.innerWidth && yvalue <= window.innerHeight*1.2 && yvalue >= -0.2*window.innerHeight) {
+							visitablenodes.push([xvalue,yvalue])
+						}
+						currentlist.push([xvalue,yvalue])
+						// drawLine(demoSlidesvg,currentvalue[0],currentvalue[1],xvalue,yvalue,'red','0.4%')
+						// drawDot(demoSlidesvg,xvalue,yvalue, '0.3%', 'orange')
+						// drawText(demoSlidesvg,1,xvalue,yvalue,10)
+					}
+
+				}
+				
+
+
+
+				if(currentlist.length == 0) {
+					currneighbours = neighbourConnectionData[currentvalue[0] + ',' + currentvalue[1]]
+
+					// drawLine(demoSlidesvg,currneighbours[0][0],currneighbours[0][1],currneighbours[1][0],currneighbours[1][1],'grey','0.2%')
+					n1 = currneighbours[0]
+					n1neighbours = neighbourConnectionData[n1[0] + ',' + n1[1]]
+					if (n1neighbours[0][0] == currentvalue[0] && n1neighbours[0][1] == currentvalue[1]) {
+						n1neighbours.splice(0, 1, currneighbours[1]);
+					}
+					else {
+						n1neighbours.splice(1, 1, currneighbours[1]);
+					}
+					n2 = currneighbours[1]
+					n2neighbours = neighbourConnectionData[n2[0] + ',' + n2[1]]
+					if (n2neighbours[0][0] == currentvalue[0] && n2neighbours[0][1] == currentvalue[1]) {
+						n2neighbours.splice(0, 1, currneighbours[0]);
+					}
+					else {
+						n2neighbours.splice(1, 1, currneighbours[0]);
+					}
+
+					triangleData.push([currneighbours[0],currneighbours[1],currentvalue])
+
+				}
+
+
+				else if (currentlist.length == 1) {
+
+					point = currentlist[0]
+					currneighbours = neighbourConnectionData[currentvalue[0] + ',' + currentvalue[1]]
+
+					neighbourConnectionData[point[0] + ',' + point[1]] = currneighbours
+					triangleData.push([currneighbours[0],point,currentvalue])
+					triangleData.push([currneighbours[1],point,currentvalue])
+
+					// drawLine(demoSlidesvg,currneighbours[0][0],currneighbours[0][1],point[0],point[1],'grey','0.2%')
+					// drawLine(demoSlidesvg,point[0],point[1],currneighbours[1][0],currneighbours[1][1],'grey','0.2%')
+
+
+
+					sidepoint = currneighbours[0]
+					ngh = neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]].slice();
+
+					if (ngh[0][0] == currentvalue[0] && ngh[0][1] == currentvalue[1]) {
+						ngh.splice(0, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+					else {
+						ngh.splice(1, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+
+					sidepoint = currneighbours[1]
+					ngh = neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]].slice();
+
+					if (ngh[0][0] == currentvalue[0] && ngh[0][1] == currentvalue[1]) {
+						ngh.splice(0, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+					else {
+						ngh.splice(1, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+
+				}
+
+				else {
+
+
+					neighbours = []
+
+					point = currentlist[0]
+					
+					neighbours.push(startingMneigh)
+					sidepoint = startingMneigh
+					triangleData.push([startingMneigh,point,currentvalue])
+					ngh = neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]].slice();
+
+					
+
+						
+
+					
+					if (ngh[0][0] == currentvalue[0] && ngh[0][1] == currentvalue[1]) {
+						ngh.splice(0, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+					else {
+						ngh.splice(1, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+
+					neighbours.push(currentlist[1])
+
+					neighbourConnectionData[point[0] + ',' + point[1]] = neighbours
+					
+					
+					// drawLine(demoSlidesvg,neighbours[0][0],neighbours[0][1],point[0],point[1],'grey','0.2%')
+					// drawLine(demoSlidesvg,point[0],point[1],neighbours[1][0],neighbours[1][1],'grey','0.2%')
+
+					
+
+					for (k = 1; k < currentlist.length - 1; k++) {
+						neighbours = []
+
+						index = (k - 1)
+						if (index < 0) {
+							index = index + currentlist.length
+						}
+						if (index >= currentlist.length) {
+							index = index % currentlist.length
+						}
+						
+						neighbours.push(currentlist[index])
+
+						index = (k + 1)
+						if (index < 0) {
+							index = index + currentlist.length
+						}
+						if (index >= currentlist.length) {
+							index = index % currentlist.length
+						}
+						
+						neighbours.push(currentlist[index])
+
+						point = currentlist[k]
+						neighbourConnectionData[point[0] + ',' + point[1]] = neighbours
+						// drawLine(demoSlidesvg,neighbours[0][0],neighbours[0][1],point[0],point[1],'grey','0.2%')
+						// drawLine(demoSlidesvg,point[0],point[1],neighbours[1][0],neighbours[1][1],'grey','0.2%')
+						triangleData.push([neighbours[0],point,currentvalue])
+
+					}
+
+					triangleData.push([ currentlist[currentlist.length - 2], currentlist[currentlist.length - 1],currentvalue])
+
+					
+
+					neighbours = []
+
+					point = currentlist[currentlist.length - 1]
+					
+					neighbours.push(endingMneigh)
+					sidepoint = endingMneigh
+
+					triangleData.push([endingMneigh,point,currentvalue])
+					ngh = neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]].slice();
+
+					
+					if (ngh[0][0] == currentvalue[0] && ngh[0][1] == currentvalue[1]) {
+						ngh.splice(0, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+					else {
+						ngh.splice(1, 1, point);
+						neighbourConnectionData[sidepoint[0] + ',' + sidepoint[1]] = ngh
+					}
+
+					neighbours.push(currentlist[currentlist.length - 2])
+
+					neighbourConnectionData[point[0] + ',' + point[1]] = neighbours
+					
+					
+					// drawLine(demoSlidesvg,neighbours[0][0],neighbours[0][1],point[0],point[1],'grey','0.2%')
+					// drawLine(demoSlidesvg,point[0],point[1],neighbours[1][0],neighbours[1][1],'grey','0.2%')
+					
+
+
+				}
+				ranges = []
+
+
+
+				for (ind=0; ind < visitablenodes.length;ind++) {
+					node = visitablenodes[ind]
+					ranges.push(getPossibilityRange(node, creationNode[node[0]+','+node[1]])[0])
+				}
+
+				
+
+				minvalueindex = indexOfmin(ranges)
+				prevPrange = ranges[minvalueindex]
+
+				
+				nextnode = visitablenodes[minvalueindex]
+
+
+				visitablenodes.splice(minvalueindex, 1);
+
+
+				// drawDot(demoSlidesvg,nextnode[0],nextnode[1], '0.3%', 'violet')
+
+			}
+
+			return triangleData
+
+		}
+
+
+
+		triangleData = formPrism()
+
+
+		function drawPrism() {
+			colorchoices = ['rgba(0,0,0,0.3)']
+
+			for (i=0; i<triangleData.length; i++) {
+				ithTriangleSet = triangleData[i]
+				var polyElement = document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
+				polypoints = ithTriangleSet[0][0] + ',' +ithTriangleSet[0][1] + ' ' + ithTriangleSet[1][0] + ',' + ithTriangleSet[1][1] + ' ' + ithTriangleSet[2][0] + ',' + ithTriangleSet[2][1]
+				polyElement.setAttribute('points',polypoints);
+				polyElement.setAttribute('id','triangleNo' + i);
+				polyElement.style.fill = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+				polyElement.style.strokeWidth = '0.05%';
+				polyElement.style.stroke = 'rgba(255,255,255,0.3)';
+				demoSlidesvg.appendChild(polyElement);
+			}
+		}
+
+		drawPrism()
+
+		colorchosenStatus = {}
+
+
+		colorscheme = ['single','analogous','complimentary']
+		colorconfig = [['blue',290,240] ,['orange',70,30],['red',50,3],['violet',335,290]]
+
+	
+
+		choice = colorconfig[parseInt(Math.random()*(colorconfig.length))];
+		scheme = colorscheme[parseInt(Math.random()*(colorscheme.length))];
+
+		function linktoGithub(event) {
+			alldiv = demoSlidesvg.children;
+			for (i = 0; i < alldiv.length; i++) {
+				element = alldiv[i]
+				if (element.tagName == 'polygon') {
+					colorchoice = colorPick(element.points[0].x,element.points[0].y);
+					element.style.fill = colorchoice;
+					element.style.stroke = colorchoice;
+					colorchosenStatus[element.id.toString()] = [1,colorPick(posX,posY)];
+				}
+			}
+		}
+
+
+
+
+
+		function colorPick(xval,yval) {
+			lvalue = 10 + ((xval/window.innerWidth)*70) + (Math.random() - 0.5)*20
+			if (scheme == 'single') {
+				hvalue = choice[2]
+			}
+			else if (scheme == 'analogous') {
+				hvalue = choice[1] - ((yval/window.innerHeight)*100)
+			}
+			else if (scheme == 'complimentary') {
+				if (yval < window.innerHeight/2) {
+					hvalue = choice[2] + 180
+				}
+				else {
+					hvalue = choice[2]
+				}
+			}
+			else if (scheme == 'complimentary-random') {
+				if (Math.random() < 0.5) {
+					hvalue = choice[2] + 200
+				}
+				else {
+					hvalue = choice[2]
+				}
+			}
+			svalue = 100
+			return 'hsl(' + hvalue + ',' + svalue + '%,' + lvalue + '%)'
+		}
+
+
+
+		function giveColor(event) {
+			var bRect = demoSlidesvg.getBoundingClientRect();
+			posX = event.clientX - bRect.left;
+			posY = event.clientY - bRect.top;
+			colorchoice = colorPick(posX,posY)
+			event.target.style.fill = colorchoice
+			event.target.style.stroke = colorchoice
+			colorchosenStatus[event.target.id.toString()] = [1,colorPick(posX,posY)]
+			
+		}
+
+		demoSlidesvg.addEventListener('mouseover',giveColor);
+		demoSlidesvg.addEventListener('click',linktoGithub);
+
+
+
+
+
+
+
+
+
+		function testingRange() {
+
+			initvalue = [302, 273];
+			currentvalue = initvalue
+
+			angle = Math.random()*360
+			radius = averagedistance + (radiusdeviation*Math.random())
+
+			xvalue = currentvalue[0] + radius*Math.cos(angle*Math.PI/180)
+			yvalue = currentvalue[1] + radius*Math.sin(angle*Math.PI/180)
+
+
+			mainnode = currentvalue
+			interestnode = [250.54242383023535, 268.8352035928806]
+
+			drawDot(demoSlidesvg,mainnode[0],mainnode[1], '0.3%', 'black')
+			drawDot(demoSlidesvg,interestnode[0],interestnode[1], '0.5%', 'blue')
+			drawLine(demoSlidesvg,mainnode[0],mainnode[1],interestnode[0],interestnode[1],'grey','0.2%')
+
+			angle = Math.random()*360
+			radius = averagedistance + (radiusdeviation*Math.random())
+
+			xvalue = interestnode[0] + radius*Math.cos(angle*Math.PI/180)
+			yvalue = interestnode[1] + radius*Math.sin(angle*Math.PI/180)
+
+			neighbour1 = [226.88548833806917, 224.6347675123611]
+
+			angle = Math.random()*360
+			radius = averagedistance + (radiusdeviation*Math.random())
+
+			xvalue = interestnode[0] + radius*Math.cos(angle*Math.PI/180)
+			yvalue = interestnode[1] + radius*Math.sin(angle*Math.PI/180)
+
+			neighbour2 = [272.528069858692, 316.71010460844485]
+
+			drawDot(demoSlidesvg,neighbour1[0],neighbour1[1], '0.3%', 'red')
+			drawDot(demoSlidesvg,neighbour2[0],neighbour2[1], '0.3%', 'red')
+			drawLine(demoSlidesvg,neighbour1[0],neighbour1[1],interestnode[0],interestnode[1],'grey','0.2%')
+			drawLine(demoSlidesvg,neighbour2[0],neighbour2[1],interestnode[0],interestnode[1],'grey','0.2%')
+
+			neighbourConnectionData[interestnode[0] + ',' + interestnode[1]] = [neighbour1,neighbour2]
+
+
+			prange = getPossibilityRange(interestnode, mainnode)
+
+			console.log(prange)
+
+			angles = pickAngleInRange(prange[0],prange[1],prange[4])
+
+			console.log(angles)
+
+			for (i = 0; i < angles.length; i++) {
+				angle = angles[i]
+				radius = averagedistance + (radiusdeviation*Math.random())
+
+				xvalue = interestnode[0] + radius*Math.cos(angle*Math.PI/180)
+				yvalue = interestnode[1] + radius*Math.sin(angle*Math.PI/180)
+				drawDot(demoSlidesvg,xvalue,yvalue, '0.3%', 'orange')
+
+			}
+
+
+		}
+
+	
+
+		colorchoiceSvg = document.getElementById('colorchoiceSvg')
+
+		function rectClick(event) {
+			document.getElementById(choice[2] + '-colorconfig').setAttribute('stroke','black')
+			document.getElementById(choice[2] + '-colorconfig').setAttribute('stroke-width','0%')
+			for (i = 0; i < colorconfig.length; i++) {
+				hvalue = colorconfig[i][2];
+				if (event.target.id == hvalue + '-colorconfig') {
+					choice = colorconfig[i];
+					event.target.setAttribute('stroke','black')
+					event.target.setAttribute('stroke-width','0.2%')
+				}
+			}
+		}
+
+		function textClick(event) {
+			document.getElementById(scheme).setAttribute('fill','grey')
+			for (i = 0; i < colorscheme.length; i++) {
+				thescheme = colorscheme[i];
+				if (event.target.id == thescheme) {
+					scheme = thescheme;
+					event.target.setAttribute('fill', 'rgba(0,140,255,0.6)');
+				}
+			}
+		}
+
+		for (i = 0; i < colorconfig.length; i++) {
+			hvalue = colorconfig[i][2];
+			svalue = 100;
+			lvalue = 50;
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('width','5%');
+			rectElement.setAttribute('height','3.5%');
+			rectElement.style.cursor = 'pointer';
+			rectElement.setAttribute('x', '30%');
+			rectElement.setAttribute('id', hvalue + '-colorconfig');
+			rectElement.setAttribute('y',35 + (i*8) + '%');
+			rectElement.style.fill = 'hsl(' + hvalue + ',' + svalue + '%,' + lvalue + '%)';
+			// rectElement.style.strokeWidth = '0';
+			if (colorconfig[i] == choice) {
+				rectElement.setAttribute('stroke-width', '0.2%');
+				rectElement.setAttribute('stroke', 'rgba(0,0,0,1)');
+			}
+			rectElement.addEventListener('click',rectClick);
+			colorchoiceSvg.appendChild(rectElement);
+		}
+
+		for (i = 0; i < colorscheme.length; i++) {
+			thescheme = colorscheme[i];
+			var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+			textElement.setAttribute('x', '60%');
+			textElement.setAttribute('y',40 + (i*8) + '%');
+			textElement.setAttribute('fill','grey');
+			textElement.style.cursor = 'pointer';
+			textElement.style.fontFamily = 'Calibri';
+			textElement.setAttribute('id',thescheme);
+			textElement.innerHTML = thescheme;
+			textElement.setAttribute('font-size', '140%'); 
+			textElement.setAttribute('font-size', '1.8vw'); 
+			if (colorscheme[i] == scheme) {
+				textElement.setAttribute('fill', 'rgba(0,140,255,0.6)');
+			}
+			textElement.addEventListener('click',textClick);
+			colorchoiceSvg.appendChild(textElement);
+		}
+
+
+
+		
+
+
+
+
+		maindots = document.getElementById('maindots')
+
+		function drawDot(divId,xcor,ycor, radius, color) {
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			circleElement.setAttribute('r',radius);
+			circleElement.setAttribute('cx',xcor);
+			circleElement.setAttribute('cy',ycor);
+			circleElement.style.fill = color
+			circleElement.style.strokeWidth = '0';
+			divId.appendChild(circleElement);
+		}
+
+		function drawLine(divId,initxcor,initycor, finalxcor, finalycor, color, strokewidth) {
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1',initxcor);
+			lineElement.setAttribute('y1',initycor);
+			lineElement.setAttribute('x2',finalxcor);
+			lineElement.setAttribute('y2',finalycor);
+			lineElement.style.stroke = color
+			lineElement.style.strokeWidth = strokewidth+'%';
+			divId.appendChild(lineElement);
+		}
+
+
+
+
+		pointsMemory = [];
+
+		function drawConnectingDots(slideOfInterest,type,pointOfInterest) {
+			colorchoices = ['rgba(0,200,255,1)','rgba(0,140,255,1)']
+			delta = 7;
+			radiusDeviation = 0.2;
+			radiusBase = 0.33;
+			initpointnumber = 50;
+
+			if (type != 'newpoint') {
+				for (i = 0; i < initpointnumber; i ++) {
+					posX = parseInt(Math.random()*100);
+					posY = parseInt(Math.random()*100);
+					pointsMemory.push([posX,posY]);
+				}
+
+				for (i = 0; i < pointsMemory.length; i ++) {
+					p1X = pointsMemory[i][0]*window.innerWidth*0.01;
+					p1Y = pointsMemory[i][1]*window.innerHeight*0.01;
+					for (j = 0; j < pointsMemory.length; j++) {
+						if (pointsMemory[j] != pointsMemory[i]) {
+							p2X = pointsMemory[j][0]*window.innerWidth*0.01;
+							p2Y = pointsMemory[j][1]*window.innerHeight*0.01;
+							distance = Math.sqrt(((p2X-p1X)*(p2X-p1X)) + ((p2Y-p1Y)*(p2Y-p1Y)))
+							if (distance < delta*window.innerWidth*0.01) {
+								strokecolor = 'rgba(0,0,0,' + (Math.random()*0.1 + 0.01).toString() +')';
+								drawLine(slideOfInterest,pointsMemory[i][0]+'%',pointsMemory[i][1]+'%', pointsMemory[j][0]+'%', pointsMemory[j][1]+'%', strokecolor, 0.1)
+							}
+						}
+					}
+					radius = Math.random()*radiusDeviation + radiusBase; 
+					colorchosen = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+					drawDot(slideOfInterest,pointsMemory[i][0]+'%',pointsMemory[i][1]+'%',radius+'%', colorchosen)
+
+				}
+			}
+
+			if (type == 'newpoint') {
+				p1X = pointOfInterest[0];
+				p1Y = pointOfInterest[1];
+				pointToBeAdded = [(pointOfInterest[0]/window.innerWidth)*100, (pointOfInterest[1]/window.innerHeight)*100]
+				for (j = 0; j < pointsMemory.length; j++) {
+					if (pointsMemory[j] != pointsMemory[i]) {
+						p2X = pointsMemory[j][0]*window.innerWidth*0.01;
+						p2Y = pointsMemory[j][1]*window.innerHeight*0.01;
+						distance = Math.sqrt(((p2X-p1X)*(p2X-p1X)) + ((p2Y-p1Y)*(p2Y-p1Y)))
+						if (distance < delta*window.innerWidth*0.01) {
+							strokecolor = 'rgba(0,0,0,' + (Math.random()*0.1 + 0.01).toString() +')';
+							drawLine(slideOfInterest,pointToBeAdded[0]+'%',pointToBeAdded[1]+'%', pointsMemory[j][0]+'%', pointsMemory[j][1]+'%', strokecolor, 0.1)
+						}
+					}
+				}
+				radius = Math.random()*radiusDeviation + radiusBase; 
+				colorchosen = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+				
+				drawDot(slideOfInterest,pointToBeAdded[0]+'%',pointToBeAdded[1]+'%',radius+'%', colorchosen)
+				pointsMemory.push(pointToBeAdded);
+				console.log(pointToBeAdded[0],pointToBeAdded[1])
+			}
+
+		}
+
+		function addingdots(event) {
+			var rect = maindots.getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			drawConnectingDots(maindots,'newpoint',[posx,posy]);
+		}
+
+
+		drawConnectingDots(maindots,'addingmany', [0,0])
+		maindots.addEventListener('click', addingdots);
+
+		// if (window.innerWidth > window.innerHeight) {
+		// 	document.getElementById('maincover').style.background = 'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,0))';
+		// }
+		// else {
+		// 	document.getElementById('maincover').style.background = 'linear-gradient(0deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,0))';
+		// }
+		
+
+
+
+		
+			
+		</script>
+
+
+	</body>
+<html>
