@@ -12,6 +12,18 @@
 		  ga('create', 'UA-103589215-2', 'auto');
 		  ga('send', 'pageview');
 		</script>
+		<script type="application/ld+json">
+			{
+			  "@type": "Projects",
+			  "name": "Prajwal DSouza Flocking Simulation",
+			  "author": "Prajwal DSouza",
+			  "description": "Demonstation of Flocking Algorithm, with some predators."
+			  }
+		</script>
+		  <meta charset="UTF-8">
+  		  <meta name="description" content="Demonstation of Flocking Algorithm, with some predators.">
+		  <meta name="keywords" content="Flocking Simulation, Flocking Behaviour, Boids, Swarm Dynamics">
+		  <meta name="author" content="Prajwal DSouza">
 	</head>
 	<body style='margin:0px;'>
 
@@ -24,9 +36,10 @@
 					</a>
 					<text id="workingOf" x="50%" y="50%" fill="rgba(140,0,255,1)" font-family="Calibri" style='font-size:15px;font-size: 1.4vw;' text-anchor="middle"> Individuals maintain separation between them. They steer towards the average direction of their neighbours. </text>
 					<text id="addIndividualButton" x="50%" y="60%" fill="rgba(0,140,255,1)" font-family="Calibri" style='font-size:18px;font-size: 1.5vw; cursor:pointer;' text-anchor="middle"> Add Individual </text>
-					<text id="addObstacleButton" x="50%" y="65%" fill="black" font-family="Calibri" style='font-size:18px;font-size: 1.5vw; cursor:pointer;' text-anchor="middle"> Add Obstacle</text>
+					<text id="addPredatorButton" x="50%" y="65%" fill="black" font-family="Calibri" style='font-size:18px;font-size: 1.5vw; cursor:pointer;' text-anchor="middle"> Add Predator</text>
 					<text id="clearIndividualsButton" x="50%" y="70%" fill="black" font-family="Calibri" style='font-size:18px;font-size: 1.5vw; cursor:pointer;' text-anchor="middle">Clear Individuals</text>
-					<text id="clearObstaclesButton" x="50%" y="75%" fill="black" font-family="Calibri" style='font-size:18px;font-size: 1.5vw; cursor:pointer;' text-anchor="middle">Clear Obstacles</text>
+					<text id="clearPredatorsButton" x="50%" y="75%" fill="black" font-family="Calibri" style='font-size:18px;font-size: 1.5vw; cursor:pointer;' text-anchor="middle">Clear Predators</text>
+					<text id="individualcountbox" x="50%" y="80%" fill="black" font-family="Calibri" style='font-size:10px;font-size: 1.1vw; cursor:pointer;' text-anchor="middle">Individual Count : 50</text>
 					<a href="https://prajwalsouza.github.io" target="_blank">
 					<text id="linkToMain" x="50%" y="90%" fill="rgba(0,140,255,0.6)" font-family="Calibri" style='font-size:18px;font-size: 1.2vw; cursor:pointer;' text-anchor="middle">prajwalsouza.github.io</text>
 					</a>
@@ -59,7 +72,7 @@
 
 
 		addIndividualMode = 1;
-		addObstacleMode = 0;
+		addPredatorMode = 0;
 
 		function changeAddIndividualMode(event) {
 			if (addIndividualMode == 1) {
@@ -69,20 +82,20 @@
 			else if (addIndividualMode == 0) {
 				addIndividualMode = 1;
 				document.getElementById('addIndividualButton').style.fill = 'rgba(0,140,255,1)'
-				addObstacleMode = 0;	
-				document.getElementById('addObstacleButton').style.fill = 'rgba(0,0,0,1)'
+				addPredatorMode = 0;	
+				document.getElementById('addPredatorButton').style.fill = 'rgba(0,0,0,1)'
 
 			}
 		}
 
-		function changeAddObstacleMode(event) {
-			if (addObstacleMode == 1) {
-				addObstacleMode = 0;
-				document.getElementById('addObstacleButton').style.fill = 'rgba(0,0,0,1)'
+		function changeAddPredatorMode(event) {
+			if (addPredatorMode == 1) {
+				addPredatorMode = 0;
+				document.getElementById('addPredatorButton').style.fill = 'rgba(0,0,0,1)'
 			}
-			else if (addObstacleMode == 0) {
-				addObstacleMode = 1;
-				document.getElementById('addObstacleButton').style.fill = 'rgba(0,140,255,1)'
+			else if (addPredatorMode == 0) {
+				addPredatorMode = 1;
+				document.getElementById('addPredatorButton').style.fill = 'rgba(0,140,255,1)'
 
 				addIndividualMode = 0;
 				document.getElementById('addIndividualButton').style.fill = 'rgba(0,0,0,1)'
@@ -90,7 +103,7 @@
 		}
 
 		document.getElementById('addIndividualButton').addEventListener('click', changeAddIndividualMode)
-		document.getElementById('addObstacleButton').addEventListener('click', changeAddObstacleMode)
+		document.getElementById('addPredatorButton').addEventListener('click', changeAddPredatorMode)
 
 		
 
@@ -165,28 +178,32 @@
 				world.removeBody(objectIDs[i])
 			}
 			objectIDs = []
+			document.getElementById('individualcountbox').innerHTML = 'Individual Count : ' + objectIDs.length;
+
 
 		}
 
 		document.getElementById('clearIndividualsButton').addEventListener('click', removeIndividuals)
 
 
-		function removeObstacles(event) {
-			for (i = 0; i < obstacleIDs.length; i ++) {
-				world.removeBody(obstacleIDs[i])
+		function removePredators(event) {
+			for (i = 0; i < PredatorIDs.length; i ++) {
+				world.removeBody(PredatorIDs[i])
 			}
-			obstacleIDs = []
+			PredatorIDs = []
+			predatorEatCount = {}
 
 		}
 
-		document.getElementById('clearObstaclesButton').addEventListener('click', removeObstacles)
+		document.getElementById('clearPredatorsButton').addEventListener('click', removePredators)
 
 
 
 
 		objectIDs = []
 
-		obstacleIDs = []
+		PredatorIDs = []
+		predatorEatCount = {}
 
 
 		// Add some Individuals
@@ -208,6 +225,26 @@
 			world.add(individual);
 
 			objectIDs.push(individual)
+		}
+
+		for (k = 0; k < 2; k++) {
+			theball = Physics.body('circle', {
+				x: Math.random()*viewWidth, // x-coordinate
+				y: Math.random()*viewHeight, // y-coordinate
+				vx: (Math.random() - 0.5)*0.4, // velocity in x-direction
+				vy: (Math.random() - 0.5)*0.4, // velocity in y-direction
+				// treatment: 'static',
+				mass: 1,
+				radius: 10,
+				styles: {
+					fillStyle: 'rgba(255,0,0,0.6)'
+				}
+			});
+
+			world.add(theball);
+
+			PredatorIDs.push(theball)
+			predatorEatCount[theball] = 0;
 		}
 
 
@@ -232,25 +269,28 @@
 					world.add(individual);
 
 					objectIDs.push(individual)
+					document.getElementById('individualcountbox').innerHTML = 'Individual Count : ' + objectIDs.length;
+
 
 				}
-				else if(addObstacleMode == 1) {
+				else if(addPredatorMode == 1) {
 					theball = Physics.body('circle', {
 						x: event.clientX, // x-coordinate
 						y: event.clientY, // y-coordinate
 						vx: 0, // velocity in x-direction
 						vy: 0, // velocity in y-direction
-						treatment: 'static',
+						// treatment: 'static',
 						mass: 1,
-						radius: 50,
+						radius: 10,
 						styles: {
-							fillStyle: 'rgba(140,255,0,0.2)'
+							fillStyle: 'rgba(255,0,0,1)'
 						}
 					});
 
 					world.add(theball);
 
-					obstacleIDs.push(theball)
+					PredatorIDs.push(theball)
+					predatorEatCount[theball] = 0;
 				}
 			}
 			,'interact:move': function( pos ){
@@ -267,7 +307,8 @@
 		xdiv = 7
 		ydiv = 7
 
-		blockData = {}
+		blockDataIndividuals = {}
+		blockDataPredators = {}
 		xblocklength = parseInt(viewWidth/xdiv);
 		yblocklength = parseInt(viewHeight/ydiv);
 
@@ -276,10 +317,15 @@
 		world.add(Physics.behavior('newtonian', { max: avgblocklength, strength: -1}))
 
 		function makeBlocks() {
-			blockData = {}
+			blockDataIndividuals = {}
 			for (i = 0; i <= 9; i++) {
 				for (j = 0; j <= 9; j++) {
-					blockData[i + '-' + j] = []
+					blockDataIndividuals[i + '-' + j] = []
+				}
+			}
+			for (i = 0; i <= 9; i++) {
+				for (j = 0; j <= 9; j++) {
+					blockDataPredators[i + '-' + j] = []
 				}
 			}
 		}
@@ -302,47 +348,134 @@
 			for (k = 0; k < objectIDs.length; k++) {
 				objectOfInterest = objectIDs[k];
 				blockCoords = coordToBlockValue(objectOfInterest.state.pos.x,objectOfInterest.state.pos.y);
-				blockData[blockCoords[0] + '-' + blockCoords[1]].push(objectOfInterest)
+				blockDataIndividuals[blockCoords[0] + '-' + blockCoords[1]].push(objectOfInterest)
+			}
+			for (k = 0; k < PredatorIDs.length; k++) {
+				objectOfInterest = PredatorIDs[k];
+				blockCoords = coordToBlockValue(objectOfInterest.state.pos.x,objectOfInterest.state.pos.y);
+				blockDataPredators[blockCoords[0] + '-' + blockCoords[1]].push(objectOfInterest)
 			}
 		}
 
+		
+
+
+
+
+
+
 
 		function applySwarmAlgorithm() {
+			tempobjectIDs = objectIDs;
 			if (objectIDs.length != 0) {
 				for (p=0; p<objectIDs.length; p++) {
 					chosenbody = objectIDs[p];
 					coordsX = chosenbody.state.pos.x;
 					coordsY = chosenbody.state.pos.y;
-					bCoordvalues = coordToBlockValue(coordsX,coordsY)
-					neighbours = blockData[bCoordvalues[0] + '-' + bCoordvalues[1]]
+					bCoordvalues = coordToBlockValue(coordsX,coordsY);
+					neighbours = blockDataIndividuals[bCoordvalues[0] + '-' + bCoordvalues[1]]
+					preds = blockDataPredators[bCoordvalues[0] + '-' + bCoordvalues[1]]
 
-					avgVx = 0;
-					avgVy = 0;
 
-					for (m = 0; m < neighbours.length; m++) {
-						if (neighbours[m] != chosenbody) {
-							neighbourvel = neighbours[m].state.vel;
-							avgVy = avgVy + neighbourvel.y;
-							avgVx = avgVx + neighbourvel.x;
+
+					if (preds.length == 0) {
+						avgVx = 0;
+						avgVy = 0;
+
+						for (m = 0; m < neighbours.length; m++) {
+							if (neighbours[m] != chosenbody) {
+								neighbourvel = neighbours[m].state.vel;
+								avgVy = avgVy + neighbourvel.y;
+								avgVx = avgVx + neighbourvel.x;
+							}
+						}
+
+						velocityToAdjustToX = avgVx/neighbours.length
+						velocityToAdjustToY = avgVy/neighbours.length
+
+						scale = 0.05
+
+						chosenbody.applyForce(Physics.vector( velocityToAdjustToX*scale, velocityToAdjustToY*scale));
+
+						currentvelocity = chosenbody.state.vel;
+						if (currentvelocity.norm() > 0.11) {
+							speedfactor = 0.11/currentvelocity.norm();
+							chosenbody.state.vel = chosenbody.state.vel.mult(speedfactor);
 						}
 					}
 
-					velocityToAdjustToX = avgVx/neighbours.length
-					velocityToAdjustToY = avgVy/neighbours.length
+					else {
+						avgVx = 0;
+						avgVy = 0;
 
-					scale = 0.05
+						baseRepulsivevel = 0.2;
 
-					chosenbody.applyForce(Physics.vector( velocityToAdjustToX*scale, velocityToAdjustToY*scale));
+						eaten = 0;
+						eatingdistance = 40;
 
-					currentvelocity = chosenbody.state.vel;
-					if (currentvelocity.norm() > 0.11) {
-						speedfactor = 0.11/currentvelocity.norm();
-						chosenbody.state.vel = chosenbody.state.vel.mult(speedfactor);
+
+						for (m = 0; m < preds.length; m++) {
+							if (preds[m].state.pos.dist(chosenbody.state.pos) < eatingdistance) {
+								eaten = 1;
+								predatorEatCount[objectOfInterest] = predatorEatCount[objectOfInterest] + 1;
+								count = predatorEatCount[objectOfInterest]
+								if (count <= 10) {
+									preds[m].view.alpha = count*0.1; //fillStyle = 'rgba(255,0,0,' + count*0.1 + ')';
+									console.log(preds[m].view.alpha);
+								}
+								// predcolor = console.log(preds[m].styles.fillStyle);
+
+							}
+
+							neighbourvel = preds[m].state.vel;
+							if (preds[m].state.pos.x < coordsX) {
+								avgVx = avgVx + neighbourvel.x + baseRepulsivevel;
+							}
+							else {
+								avgVx = avgVx - neighbourvel.x - baseRepulsivevel;
+							}
+
+							if (preds[m].state.pos.y < coordsY) {
+								avgVy = avgVy + neighbourvel.y + baseRepulsivevel;
+							}
+							else {
+								avgVy = avgVy - neighbourvel.y - baseRepulsivevel;
+							}
+
+							
+						}
+
+						if (eaten == 1) {
+							world.removeBody(chosenbody)
+							tempobjectIDs.splice(tempobjectIDs.indexOf(chosenbody), 1);
+							document.getElementById('individualcountbox').innerHTML = 'Individual Count : ' + tempobjectIDs.length;
+						}
+						else {
+							velocityToAdjustToX = avgVx/preds.length;
+							velocityToAdjustToY = avgVy/preds.length;
+
+							// console.log(velocityToAdjustToX,velocityToAdjustToY)
+
+							scale = 0.08
+
+							chosenbody.applyForce(Physics.vector( velocityToAdjustToX*scale, velocityToAdjustToY*scale));
+
+							currentvelocity = chosenbody.state.vel;
+							if (currentvelocity.norm() > 0.11) {
+								speedfactor = 0.11/currentvelocity.norm();
+								chosenbody.state.vel = chosenbody.state.vel.mult(speedfactor);
+							}
+						}
+
+							
 					}
+
+
 
 				}
 
 			}
+			objectIDs = tempobjectIDs;
 		}
 
 
