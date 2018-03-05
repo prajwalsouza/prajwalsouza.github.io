@@ -1,0 +1,1274 @@
+<html>
+	<head>
+		<title> Spider Web Simulation </title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<script src="physicsjs-full.min.js" type="text/javascript"></script>
+
+		<!-- Google Analytics Code -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+		<script type="application/ld+json">
+			{
+			  "@type": "Projects",
+			  "name": "Spider Web Simulation",
+			  "author": "Prajwal DSouza",
+			  "description": "A spider web simulation using physicsjs based on the work of work of Thiemo Krink and Fritz Vollrath"
+			  }
+		</script>
+		  <meta charset="UTF-8">
+  		  <meta name="description" content="A spider web simulation using physicsjs based on the work of work of Thiemo Krink and Fritz Vollrath">
+		  <meta name="keywords" content="Spider, web simulation, physicsjs, ubermenschiv, Thiemo krink, Fritz Vollrath">
+		  <meta name="author" content="Prajwal DSouza">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+	</head>
+	<body style='margin:0px;width:100%; height: 100%;'>
+		<div id="containWeb" style='margin:0px;width:100%; height: 100%;overflow: hidden; box-shadow: 0px 20px 50px rgba(0,0,0,0.2);'> 
+			
+		</div>
+		<div id="containLab" style='margin:0px;width:100%; height: 100%;overflow: hidden;box-shadow: 0px 20px 50px rgba(0,0,0,0.2);'> 
+			<svg id='genelab' height="100%" width="100%">
+			</svg>
+		</div>
+
+		<div id="settings" style='margin:0px;width:100%; height: 100%;overflow: hidden;'> 
+			<svg id='settingsSvg' height="100%" width="100%">
+			</svg>
+		</div>
+		
+		<script>
+
+		genes = []
+		geneVariationRange = []
+		genedescription = []
+		geneName = []
+
+		// Initial East Angle Gene (Gene 01)
+		eastangle = 30
+		genes.push(eastangle)
+		geneVariationRange.push([5,50,5])
+		genedescription.push('It determines the angle between East direction and the main radius.')
+		geneName.push('Initial East Angle Gene')
+		
+		// Number of Main Radii Gene (Gene 02)
+		mainradiinumber = 6
+		genes.push(mainradiinumber)
+		geneVariationRange.push([3,8,1])
+		genedescription.push('It determines the number of main radii in the web.')
+		geneName.push('Number of Main Radii Gene')
+
+		// Main Radii Spacing Deviation Gene (Gene 03)
+		spacingdeviation = 10
+		genes.push(spacingdeviation)
+		geneVariationRange.push([0,20,2])
+		genedescription.push("It influences the variation in the spacing angle between the main radii.")
+		geneName.push('Main Radii Spacing Deviation Gene')
+
+		// Web Length (spanning) preference East  (Gene 04)
+		lengthPreferenceEast = (0.33)
+		genes.push(lengthPreferenceEast)
+		geneVariationRange.push([0.1,1,0.05])
+		genedescription.push('The web has a preference to extend in various directions. This determines the scaling in  the East direction.')
+		geneName.push('Web Length (spanning) preference East Gene')
+
+		// Web Length (spanning) preference West (Gene 05)
+		lengthPreferenceWest = (0.33)
+		genes.push(lengthPreferenceWest)
+		geneVariationRange.push([0.1,1,0.05])
+		genedescription.push('The web has a preference to extend in various directions. This determines the scaling in  the West direction.')
+		geneName.push('Web Length (spanning) preference West Gene')
+
+		// Web Length (spanning) preference North  (Gene 06)
+		lengthPreferenceNorth = (0.33)
+		genes.push(lengthPreferenceNorth)
+		geneVariationRange.push([0.1,1,0.05])
+		genedescription.push('The web has a preference to extend in various directions. This determines the scaling in  the North direction.')
+		geneName.push('Web Length (spanning) preference North Gene')
+
+		// Web Length (spanning) preference South  (Gene 07)
+		lengthPreferenceSouth = (0.33)
+		genes.push(lengthPreferenceSouth)
+		geneVariationRange.push([0.1,1,0.05])
+		genedescription.push('The web has a preference to extend in various directions. This determines the scaling in  the South direction.')
+		geneName.push('Web Length (spanning) preference South Gene')
+
+		// Web frame Factor (Gene 08)
+		interpolationFactor = 0.5
+		genes.push(interpolationFactor)
+		geneVariationRange.push([0.1,1,0.1])
+		genedescription.push('This determines the bending of the frame shape.')
+		geneName.push('Web frame Factor Gene')
+
+		// Sub radii Angle preference East  (Gene 09)
+		eastSubradiiPref = 20
+		genes.push(eastSubradiiPref)
+		geneVariationRange.push([10,30,2])
+		genedescription.push('The web has smaller radii. The spacing between the smaller radii in the east direction is influenced by this.')
+		geneName.push('Sub radii Angle preference East Gene')
+		
+		// Sub radii Angle preference South  (Gene 10)
+		southSubradiiPref = 20
+		genes.push(southSubradiiPref)
+		geneVariationRange.push([10,30,2])
+		genedescription.push('The web has smaller radii. The spacing between the smaller radii in the south direction is influenced by this.')
+		geneName.push('Sub radii Angle preference South Gene')
+		
+		// Sub radii Angle preference West  (Gene 11)
+		westSubradiiPref = 20
+		genes.push(westSubradiiPref)
+		geneVariationRange.push([10,30,2])
+		genedescription.push('The web has smaller radii. The spacing between the smaller radii in the west direction is influenced by this.')
+		geneName.push('Sub radii Angle preference West Gene')
+		
+		// Sub radii Angle preference North  (Gene 12)
+		northSubradiiPref = 20
+		genes.push(northSubradiiPref)
+		geneVariationRange.push([10,30,2])
+		genedescription.push('The web has smaller radii. The spacing between the smaller radii in the north direction is influenced by this.')
+		geneName.push('Sub radii Angle preference North Gene')
+
+		// Initial Inner Spiral Distance  (Gene 13)
+		initialspiraldistance = 5
+		genes.push(initialspiraldistance)
+		geneVariationRange.push([1,20,2])
+		genedescription.push('The web has a inner smaller spiral. This is the starting distance of that spiral from the center.')
+		geneName.push('Initial Inner Spiral Distance Gene')
+
+		// Final Inner Spiral Distance  (Gene 14)
+		endspiraldistance = 50
+		genes.push(endspiraldistance)
+		geneVariationRange.push([20,100,5])
+		genedescription.push('The web has a inner smaller spiral. This is the maximum distance of that spiral.')
+		geneName.push('Final Inner Spiral Distance Gene')
+
+		// InterSpiral Distance Factor  (Gene 15)
+		distanceproductFactor = 1.008
+		genes.push(distanceproductFactor)
+		geneVariationRange.push([1.001,1.02,0.001])
+		genedescription.push('It determines the outward spiraling factor.')
+		geneName.push('InterSpiral Distance Factor Gene')
+
+		// Mesh Deviation Factor  (Gene 16)
+		meshdeviationFactor = 0.2
+		genes.push(meshdeviationFactor)
+		geneVariationRange.push([0,0.5,0.05])
+		genedescription.push('It is scale factor influencing the mesh size.')
+		geneName.push('Mesh Deviation Factor Gene')
+
+		// Reverse Move Distance Factor  (Gene 17)
+		reverseDistanceFactor = 5
+		genes.push(reverseDistanceFactor)
+		geneVariationRange.push([3,8,1])
+		genedescription.push('It determines the InterSpiral distance when the weaving reverses direction.')
+		geneName.push('Reverse Move Distance Factor Gene')
+
+
+		svgGenelab = document.getElementById('genelab')
+
+		function geneHover(event) {
+			geneNumber = boxIDs[event.target.id]
+			document.getElementById('genedescription').innerHTML = genedescription[geneNumber]
+			document.getElementById('genename').innerHTML = geneName[geneNumber]
+			if (geneNumber == 14) {
+				document.getElementById('genevalue').innerHTML = "It's current value is " + genes[geneNumber].toFixed(3) + ""
+			}
+			else {
+				document.getElementById('genevalue').innerHTML = "It's current value is " + genes[geneNumber].toFixed(2) + ""
+			}
+			
+		}
+
+		function geneOut(event) {
+			document.getElementById('genedescription').innerHTML = "Click on the genes to change their values. Click 'update web' to see the changes."
+			document.getElementById('genename').innerHTML = ""
+			document.getElementById('genevalue').innerHTML = ""
+		}
+
+		function getRangePointer(min, max, value) {
+			return (value - min)/(max - min)
+		}
+
+		function geneClick(event) {
+			geneNumber = boxIDs[event.target.id]
+			gVar = geneVariationRange[geneNumber]
+			gEarlier = genes[geneNumber]
+			if (genes[geneNumber] + gVar[2] > gVar[1]) {
+				genes[geneNumber] = gVar[0]
+			}
+			else {
+				genes[geneNumber] = genes[geneNumber] + gVar[2]
+			}
+			if (geneNumber == 14) {
+				document.getElementById('genevalue').innerHTML = "It's value was changed from " + gEarlier.toFixed(3) + " to " + genes[geneNumber].toFixed(3) + ""
+			}
+			else {
+				document.getElementById('genevalue').innerHTML = "It's value was changed from " + gEarlier.toFixed(2) + " to " + genes[geneNumber].toFixed(2) + ""
+			}
+			
+
+			scaledfactor = (1 - getRangePointer(gVar[0],gVar[1],genes[geneNumber]))*50
+
+			event.target.style.fill = 'hsla(' + parseInt(180 + (300-180)*geneNumber/genes.length) + ',100%, ' + scaledfactor + '%, 1)'
+
+		}
+
+		boxwidth = window.innerWidth/30
+		boxgap = window.innerWidth/500
+
+		boxIDs = {}
+		geneBoxColor = {}
+
+		for(i = 0; i < genes.length; i++) {
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('height',boxwidth);
+			rectElement.setAttribute('width', boxwidth);
+			rectElement.setAttribute('id', 'gene' + i);
+			rectElement.setAttribute('x', window.innerWidth/5 + ((boxwidth + boxgap)*i));
+			rectElement.setAttribute('y', '50%');
+			rectElement.style.opacity = 1;
+			gVar = geneVariationRange[i]
+			scaledfactor = (1 - getRangePointer(gVar[0],gVar[1],genes[i]))*50
+			rectElement.style.fill = 'hsla(' + parseInt(180 + (300-180)*i/genes.length) + ',100%, ' + scaledfactor + '%, 1)'
+			rectElement.style.strokeWidth = '0';
+			svgGenelab.appendChild(rectElement);
+			rectElement.addEventListener('mouseover', geneHover)
+			rectElement.addEventListener('mouseout', geneOut)
+			rectElement.addEventListener('click', geneClick)
+			rectElement.style.cursor = 'pointer'
+			boxIDs[rectElement.id] = i
+			geneBoxColor[rectElement.id] = 'hsla(' + parseInt(180 + (300-180)*i/genes.length) + ',100%, ' + scaledfactor + '%, 1)'
+		}
+
+		if(window.innerHeight <= window.innerWidth) {
+			var div = document.createElement("div");
+			div.innerHTML = "Settings";
+			div.style.textAlign = "center";
+			div.id = "settingstitle";
+			div.style.position = "absolute";
+			div.style.fontSize = "3vw";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '230%'
+			div.style.transform = 'translate(-50%, -230%)';
+			document.getElementById('settings').appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = "Web Color";
+			div.style.textAlign = "center";
+			div.id = "colorsettinglabel";
+			div.style.position = "absolute";
+			div.style.fontSize = "2vw";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.color = 'hsla(199,100%,50%,1)'
+			div.style.left = '50%'
+			div.style.top = '240%'
+			div.style.transform = 'translate(-50%, -240%)';
+			document.getElementById('settings').appendChild(div);
+		}
+		else {
+			var div = document.createElement("div");
+			div.innerHTML = "Settings";
+			div.style.textAlign = "center";
+			div.id = "settingstitle";
+			div.style.position = "absolute";
+			div.style.fontSize = "3vh";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '230%'
+			div.style.transform = 'translate(-50%, -230%)';
+			document.getElementById('settings').appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = "Web Color";
+			div.style.textAlign = "center";
+			div.id = "colorsettinglabel";
+			div.style.position = "absolute";
+			div.style.fontSize = "2vh";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.color = 'hsla(199,100%,50%,1)'
+			div.style.left = '50%'
+			div.style.top = '240%'
+			div.style.transform = 'translate(-50%, -240%)';
+			document.getElementById('settings').appendChild(div);
+		}
+
+		textshow = true
+
+		function textToggle(event) {
+			if(textshow == true) {
+				document.getElementById('maintext').style.opacity = 0
+				document.getElementById('maintext').style.pointerEvents = 'none'
+				document.getElementById('madeUsing').style.opacity = 0
+				document.getElementById('madeUsing').style.pointerEvents = 'none'
+				document.getElementById('collaborationWith').style.opacity = 0
+				document.getElementById('collaborationWith').style.pointerEvents = 'none'
+				document.getElementById('websitelink').style.opacity = 0
+				document.getElementById('websitelink').style.pointerEvents = 'none'
+				document.getElementById('textsettinglabel').innerHTML = "Text on Simulation State : <b style='color:orange;'>Hidden</b>"
+				textshow = false
+
+			}
+			else {
+				document.getElementById('maintext').style.opacity = 1
+				document.getElementById('maintext').style.pointerEvents = 'auto'
+				document.getElementById('madeUsing').style.opacity = 1
+				document.getElementById('madeUsing').style.pointerEvents = 'auto'
+				document.getElementById('collaborationWith').style.opacity = 1
+				document.getElementById('collaborationWith').style.pointerEvents = 'auto'
+				document.getElementById('websitelink').style.opacity = 1
+				document.getElementById('websitelink').style.pointerEvents = 'auto'
+				textshow = true
+				document.getElementById('textsettinglabel').innerHTML = "Text on Simulation State : <b style='color:orange;'>Visible</b>"
+
+			}
+		}
+
+		function thicknessToggle(event) {
+			webthickness = webthickness + 0.2
+			if (webthickness > 3) {
+				webthickness = 1
+			}
+			document.getElementById("thicknesssettinglabel").innerHTML = "Web Thickness : <b style='color:orange;'> " + webthickness.toFixed(1) + "</b>";
+
+		}
+
+		var div = document.createElement("div");
+		div.innerHTML = "Text on Simulation State : <b style='color:orange;'>Visible</b>";
+		div.style.textAlign = "center";
+		div.id = "textsettinglabel";
+		div.style.position = "absolute";
+		if (window.innerHeight <= window.innerWidth) {
+			div.style.fontSize = "2vw";
+		}
+		else {
+			div.style.fontSize = "2vh";
+		}
+		div.style.fontFamily = "Calibri";
+		div.style.zIndex = '2';
+		div.style.color = 'hsla(199,100%,50%,1)'
+		div.style.left = '50%'
+		div.style.top = '265%'
+		div.style.cursor = 'pointer'
+		div.style.transform = 'translate(-50%, -265%)';
+		div.addEventListener('click', textToggle)
+		document.getElementById('settings').appendChild(div);
+
+		webthickness = 1.5
+
+		var div = document.createElement("div");
+		div.innerHTML = "Web Thickness : <b style='color:orange;'> " + webthickness + "</b>";
+		div.style.textAlign = "center";
+		div.id = "thicknesssettinglabel";
+		div.style.position = "absolute";
+		if(window.innerHeight <= window.innerWidth) {
+			div.style.fontSize = "2vw";
+		}
+		else {
+			div.style.fontSize = "2vh";
+		}
+		div.style.fontFamily = "Calibri";
+		div.style.zIndex = '2';
+		div.style.color = 'hsla(199,100%,50%,1)'
+		div.style.left = '50%'
+		div.style.top = '275%'
+		div.style.cursor = 'pointer'
+		div.style.transform = 'translate(-50%, -275%)';
+		div.addEventListener('click',thicknessToggle)
+		document.getElementById('settings').appendChild(div);
+
+		var div = document.createElement("div");
+		div.innerHTML = 'The experiment was an attempt to reconstruct the <a href="http://www.cs.bham.ac.uk/~jer/spider.pdf" target="_blank" style="text-decoration: none; color: inherit;">work of Thiemo Krink and Fritz Vollrath</a>. Most of the parameters mentioned in their paper have been given as genes here. Their variations give different type of webs. Although not a perfect reconstruction, we hope this is close enough.';
+		div.style.textAlign = "center";
+		div.id = "about";
+		div.style.position = "absolute";
+		if(window.innerHeight <= window.innerWidth) {
+			div.style.fontSize = "1vw";
+		}
+		else {
+			div.style.fontSize = "1vh";
+		}
+		div.style.fontFamily = "Calibri";
+		div.style.zIndex = '2';
+		div.style.color = 'hsla(199,100%,0%,1)'
+		div.style.left = '50%'
+		div.style.top = '305%'
+		div.style.transform = 'translate(-50%, -305%)';
+		document.getElementById('settings').appendChild(div);
+
+		settingsSvg = document.getElementById('settingsSvg')
+
+		webcolor = 'hsla(50,100%,50%,1)'
+
+		function colorHover(event) {
+			var rect = event.target.getBoundingClientRect();
+			var x = event.clientX - rect.left;
+			var y = event.clientY - rect.top;
+
+			w = event.target.getBBox().width
+			h = event.target.getBBox().height
+
+			hvalue = 350*x/w
+			lvalue = 50*y/h
+
+			event.target.style.fill = 'hsla(' + hvalue + ', 100%, ' + lvalue + '%, 1)'
+		}
+		function colorOut(event) {
+			event.target.style.fill = webcolor
+		}
+		function colorClick(event) {
+			var rect = event.target.getBoundingClientRect();
+			var x = event.clientX - rect.left;
+			var y = event.clientY - rect.top;
+
+			w = event.target.getBBox().width
+			h = event.target.getBBox().height
+
+			hvalue = 350*x/w
+			lvalue = 50*y/h
+
+			webcolor = 'hsla(' + hvalue + ', 100%, ' + lvalue + '%, 1)'
+		}
+
+		var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+		rectElement.setAttribute('height','10%');
+		rectElement.setAttribute('width', '40%');
+		rectElement.setAttribute('id', 'colorpick');
+		rectElement.setAttribute('x', '30%');
+		rectElement.setAttribute('y', '37%');
+		rectElement.style.opacity = 1;
+		rectElement.style.fill = webcolor
+		rectElement.style.strokeWidth = '0';
+		settingsSvg.appendChild(rectElement);
+		rectElement.addEventListener('mousemove', colorHover)
+		rectElement.addEventListener('mouseout', colorOut)
+		rectElement.addEventListener('click', colorClick)
+		rectElement.style.cursor = 'crosshair'
+		
+
+		// possibleColors = ['hsla(50,100%,50%,1)','hsla(190,100%,50%,1)','hsla(50,100%,50%,1)']
+		
+		// settingsSvg.appendChild(rectElement);
+
+
+
+		if(window.innerHeight <= window.innerWidth) {
+
+			var div = document.createElement("div");
+			div.innerHTML = "Gene Lab";
+			div.style.textAlign = "center";
+			div.id = "genelabtitle";
+			div.style.position = "absolute";
+			div.style.fontSize = "3vw";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '120%'
+			div.style.transform = 'translate(-50%, -120%)';
+			document.getElementById('containLab').appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = "";
+			div.style.textAlign = "center";
+			div.id = "genename";
+			div.style.position = "absolute";
+			div.style.fontSize = "2vw";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.color = 'hsla(199,100%,50%,1)'
+			div.style.left = '50%'
+			div.style.top = '135%'
+			div.style.transform = 'translate(-50%, -135%)';
+			document.getElementById('containLab').appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = "";
+			div.style.textAlign = "center";
+			div.id = "genevalue";
+			div.style.position = "absolute";
+			div.style.fontSize = "2vw";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '170%'
+			div.style.transform = 'translate(-50%, -170%)';
+			document.getElementById('containLab').appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = "Click on the genes to change their values. Click 'update web' to see the changes.";
+			div.style.textAlign = "center";
+			div.id = "genedescription";
+			div.style.position = "absolute";
+			div.style.fontSize = "1.5vw";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '145%'
+			div.style.transform = 'translate(-50%, -145%)';
+			document.getElementById('containLab').appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = "Update Web";
+			div.style.textAlign = "center";
+			div.id = "updateWeb";
+			div.style.position = "absolute";
+			div.style.fontSize = "2vw";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '185%'
+			div.style.cursor = 'pointer'
+			div.style.color = 'hsla(40,100%,50%,1)'
+			div.style.transform = 'translate(-50%, -185%)';
+			div.addEventListener('click', CreateWeb)
+			document.getElementById('containLab').appendChild(div);
+		}
+		else {
+			var div = document.createElement("div");
+			div.innerHTML = "Gene Lab";
+			div.style.textAlign = "center";
+			div.id = "genelabtitle";
+			div.style.position = "absolute";
+			div.style.fontSize = "3vh";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '120%'
+			div.style.transform = 'translate(-50%, -120%)';
+			document.getElementById('containLab').appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = "";
+			div.style.textAlign = "center";
+			div.id = "genename";
+			div.style.position = "absolute";
+			div.style.fontSize = "2vh";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.color = 'hsla(199,100%,50%,1)'
+			div.style.left = '50%'
+			div.style.top = '135%'
+			div.style.transform = 'translate(-50%, -135%)';
+			document.getElementById('containLab').appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = "";
+			div.style.textAlign = "center";
+			div.id = "genevalue";
+			div.style.position = "absolute";
+			div.style.fontSize = "2vh";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '170%'
+			div.style.transform = 'translate(-50%, -170%)';
+			document.getElementById('containLab').appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = "Click on the genes to change their values. Click 'update web' to see the changes.";
+			div.style.textAlign = "center";
+			div.id = "genedescription";
+			div.style.position = "absolute";
+			div.style.fontSize = "1.5vh";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '145%'
+			div.style.transform = 'translate(-50%, -145%)';
+			document.getElementById('containLab').appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = "Update Web";
+			div.style.textAlign = "center";
+			div.id = "updateWeb";
+			div.style.position = "absolute";
+			div.style.fontSize = "2vh";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '185%'
+			div.style.cursor = 'pointer'
+			div.style.color = 'hsla(40,100%,50%,1)'
+			div.style.transform = 'translate(-50%, -185%)';
+			div.addEventListener('click', CreateWeb)
+			document.getElementById('containLab').appendChild(div);
+		}
+
+		if(window.innerHeight <= window.innerWidth) {
+			var div = document.createElement("div");
+			div.innerHTML = "Spider Web Simulation";
+			div.style.textAlign = "center";
+			div.id = "maintext";
+			div.style.position = "absolute";
+			div.style.fontSize = "6vw";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '30%'
+			div.style.transform = 'translate(-50%, -30%)';
+			document.getElementById("containWeb").appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = 'Made using <a href="http://wellcaffeinated.net/PhysicsJS/" target="_blank" style="text-decoration: none; color: inherit;">PhysicsJS</a> and based on <a href="http://www.cs.bham.ac.uk/~jer/spider.pdf" target="_blank" style="text-decoration: none; color: inherit;">work of Thiemo Krink and Fritz Vollrath.</a>'
+			div.id = "madeUsing";
+			div.style.textAlign = "center";
+			div.style.position = "absolute";
+			div.style.fontSize = "2vw";
+			div.style.zIndex = '2';
+			div.style.fontFamily = "Calibri";
+			div.style.left = '50%'
+			div.style.top = '60%'
+			div.style.color = 'hsla(199,100%,50%,1)'
+			div.style.transform = 'translate(-50%, -60%)';
+			document.getElementById("containWeb").appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = 'In collaboration with <a href="https://www.instagram.com/ubermenschiv/" target="_blank" style="text-decoration: none; color: inherit;">ubermenschiv</a>'
+			div.id = "collaborationWith";
+			div.style.textAlign = "center";
+			div.style.position = "absolute";
+			div.style.fontSize = "1.5vw";
+			div.style.zIndex = '2';
+			div.style.fontFamily = "Calibri";
+			div.style.left = '50%'
+			div.style.top = '70%'
+			div.style.color = 'hsla(215,100%,50%,1)'
+			div.style.transform = 'translate(-50%, -70%)';
+			document.getElementById("containWeb").appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = '<a href="https://prajwalsouza.github.io" target="_blank" style="text-decoration: none;color: inherit;">prajwalsouza.github.io</a>'
+			div.style.textAlign = "center";
+			div.id = "websitelink";
+			div.style.position = "absolute";
+			div.style.fontSize = "1vw";
+			div.style.zIndex = '2';
+			div.style.fontFamily = "Calibri";
+			div.style.left = '50%'
+			div.style.top = '95%'
+			div.style.color = 'hsla(270,100%,50%,1)'
+			div.style.transform = 'translate(-50%, -95%)';
+			document.getElementById("containWeb").appendChild(div);
+		
+		}
+		else {
+			var div = document.createElement("div");
+			div.innerHTML = "Spider Web Simulation";
+			div.style.textAlign = "center";
+			div.id = "maintext";
+			div.style.position = "absolute";
+			div.style.fontSize = "8vh";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '2';
+			div.style.left = '50%'
+			div.style.top = '30%'
+			div.style.transform = 'translate(-50%, -30%)';
+			document.getElementById("containWeb").appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = 'Made using <a href="http://wellcaffeinated.net/PhysicsJS/" target="_blank" style="text-decoration: none; color: inherit;">PhysicsJS</a> and based on <a href="http://www.cs.bham.ac.uk/~jer/spider.pdf" target="_blank" style="text-decoration: none; color: inherit;">work of Thiemo Krink and Fritz Vollrath.</a>'
+			div.id = "madeUsing";
+			div.style.textAlign = "center";
+			div.style.position = "absolute";
+			div.style.fontSize = "3vh";
+			div.style.zIndex = '2';
+			div.style.fontFamily = "Calibri";
+			div.style.left = '50%'
+			div.style.top = '60%'
+			div.style.color = 'hsla(199,100%,50%,1)'
+			div.style.transform = 'translate(-50%, -60%)';
+			document.getElementById("containWeb").appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = 'In collaboration with <a href="https://www.instagram.com/ubermenschiv/" target="_blank" style="text-decoration: none; color: inherit;">ubermenschiv</a>'
+			div.id = "collaborationWith";
+			div.style.textAlign = "center";
+			div.style.position = "absolute";
+			div.style.fontSize = "2vh";
+			div.style.zIndex = '2';
+			div.style.fontFamily = "Calibri";
+			div.style.left = '50%'
+			div.style.top = '70%'
+			div.style.color = 'hsla(215,100%,50%,1)'
+			div.style.transform = 'translate(-50%, -70%)';
+			document.getElementById("containWeb").appendChild(div);
+
+			var div = document.createElement("div");
+			div.innerHTML = '<a href="https://prajwalsouza.github.io" target="_blank" style="text-decoration: none;color: inherit;">prajwalsouza.github.io</a>'
+			div.style.textAlign = "center";
+			div.id = "websitelink";
+			div.style.position = "absolute";
+			div.style.fontSize = "2vh";
+			div.style.zIndex = '2';
+			div.style.fontFamily = "Calibri";
+			div.style.left = '50%'
+			div.style.top = '95%'
+			div.style.color = 'hsla(270,100%,50%,1)'
+			div.style.transform = 'translate(-50%, -95%)';
+			document.getElementById("containWeb").appendChild(div);
+
+		
+		}
+
+		// From https://stackoverflow.com/questions/22521982/js-check-if-point-inside-a-polygon
+		function inside(point, vs) {
+			// ray-casting algorithm based on
+			// http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+
+			var x = point[0], y = point[1];
+
+			var inside = false;
+			for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+				var xi = vs[i][0], yi = vs[i][1];
+				var xj = vs[j][0], yj = vs[j][1];
+
+				var intersect = ((yi > y) != (yj > y))
+					&& (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+				if (intersect) inside = !inside;
+			}
+
+			return inside;
+		};
+
+
+
+		function getIntersection(from, thread) {
+			x1 = from[0][0]
+			y1 = from[0][1]
+
+			x2 = from[1][0]
+			y2 = from[1][1]
+
+			x3 = thread[0][0]
+			y3 = thread[0][1]
+
+			x4 = thread[1][0]
+			y4 = thread[1][1]
+
+
+			x43 = x4 - x3
+			y31 = y3 - y1
+			x31 = x3 - x1
+			y43 = y4 - y3
+			y21 = y2 - y1
+			x21 = x2 - x1
+
+			t = ((x43*y31) - (x31*y43))/((x43*y21) - (x21*y43))
+
+
+			intersectionpoint = [x1 + (x2 - x1)*t , y1 + (y2 - y1)*t]
+
+			return intersectionpoint
+
+		}
+
+
+
+		function CreateWeb() {
+			Physics({ timestep: 8, sleepDisabled: true },function (world) {
+
+			// bounds of the window
+			var viewportBounds = Physics.aabb(0, 0, window.innerWidth, window.innerHeight)
+				,edgeBounce
+				,renderer
+				;
+
+			// create a renderer
+			renderer = Physics.renderer('canvas', {
+				el: 'viewport'
+			});
+
+			// add the renderer
+			world.add(renderer);
+			// render on each step
+			world.on('step', function () {
+				world.render();
+			});
+
+			 // constrain objects to these bounds
+			edgeBounce = Physics.behavior('edge-collision-detection', {
+				aabb: viewportBounds
+				,restitution: 0.2
+				,cof: 0.2
+			});
+
+			world.add(edgeBounce)
+
+			// resize events
+			window.addEventListener('resize', function () {
+
+				// as of 0.7.0 the renderer will auto resize... so we just take the values from the renderer
+				viewportBounds = Physics.aabb(0, 0, renderer.width, renderer.height);
+				// update the boundaries
+				edgeBounce.setAABB(viewportBounds);
+
+			}, true);
+
+			// for constraints
+			var rigidConstraints = Physics.behavior('verlet-constraints', {
+				iterations: 1
+			});
+
+			
+
+
+
+
+			allPoints = []
+			allPointsConnections = {}
+			connections = []
+			
+
+			// Getting the centre
+			centredeviation = 10
+			centerX = window.innerWidth/2 + 2*(Math.random() - 0.5)*centredeviation
+			centerY = window.innerHeight/2 + 2*(Math.random() - 0.5)*centredeviation
+
+			centrepoint = [centerX,centerY]
+			allPointsConnections[centrepoint[0] + '-' + centrepoint[1]] = []
+			allPoints.push(centrepoint)
+
+			
+			radiiAngles = []
+			radiiArm = []
+
+			
+			anglespacing = 360/genes[1]
+
+			
+
+			angleiter = genes[0]
+
+			
+			lengthPreferenceEast = genes[3]*window.innerWidth
+			lengthPreferenceWest = genes[4]*window.innerWidth
+			lengthPreferenceNorth = genes[5]*window.innerHeight
+			lengthPreferenceSouth = genes[6]*window.innerHeight
+
+			interpolationFactor = genes[7]
+
+			avgprefLength = (lengthPreferenceEast + lengthPreferenceSouth + lengthPreferenceNorth + lengthPreferenceWest)/4
+
+			mainradiilengths = []
+
+			
+			while(angleiter < 360) {
+				radiiAngles.push(angleiter)
+				if (angleiter <= 90 && angleiter > 0) {
+					y = ((lengthPreferenceSouth - lengthPreferenceEast - 90*interpolationFactor)/(90*90))*(angleiter*angleiter) + (interpolationFactor*angleiter) + lengthPreferenceEast
+					mainradiilengths.push(y)
+				}
+				else if (angleiter <= 180 && angleiter > 90) {
+					anglecompensate = angleiter - 90
+					y = ((lengthPreferenceWest - lengthPreferenceSouth - 90*interpolationFactor)/(90*90))*(anglecompensate*anglecompensate) + (interpolationFactor*anglecompensate) + lengthPreferenceSouth
+					mainradiilengths.push(y)
+				}
+				else if (angleiter <= 270 && angleiter > 180) {
+					anglecompensate = angleiter - 180
+					y = ((lengthPreferenceNorth - lengthPreferenceWest - 90*interpolationFactor)/(90*90))*(anglecompensate*anglecompensate) + (interpolationFactor*anglecompensate) + lengthPreferenceWest
+					mainradiilengths.push(y)
+				}
+				else if (angleiter <= 360 && angleiter > 270) {
+					anglecompensate = angleiter - 270
+					y = ((lengthPreferenceEast - lengthPreferenceNorth - 90*interpolationFactor)/(90*90))*(anglecompensate*anglecompensate) + (interpolationFactor*anglecompensate) + lengthPreferenceNorth
+					mainradiilengths.push(y)
+				}
+				angleiter = angleiter + anglespacing + (genes[2]*2*(Math.random() - 0.5))
+			}
+
+
+
+			mainradiiPoints = []
+
+			for(i = 0; i < mainradiilengths.length; i++) {
+				mainradiiPoints.push([centerX + Math.cos(Math.PI*radiiAngles[i]/180)*mainradiilengths[i], centerY + Math.sin(Math.PI*radiiAngles[i]/180)*mainradiilengths[i]])
+			}
+
+
+			for(i = 0; i < mainradiiPoints.length; i++) {
+				allPointsConnections[mainradiiPoints[i][0] + '-' + mainradiiPoints[i][1]] = []
+				allPoints.push(mainradiiPoints[i])
+			}
+
+			possibleborders = [[[0,0],[window.innerWidth,0]],[[window.innerWidth,0],[window.innerWidth,window.innerHeight]],[[window.innerWidth,window.innerHeight],[0,window.innerHeight]],[[0,window.innerHeight],[0,0]]]
+
+			frameHolders = []
+
+			for(k = 0; k < mainradiiPoints.length; k++) {
+				nearestindex = 0
+				nearestindexdist = 0
+				chosenintersect = []
+				for(i = 0; i < possibleborders.length; i++) {
+					intersect = getIntersection([centrepoint,mainradiiPoints[k]],possibleborders[i])
+					dist = Math.sqrt((intersect[0] - mainradiiPoints[k][0])**2 + (intersect[1] - mainradiiPoints[k][1])**2)
+					if (i == 0) {
+						nearestindexdist = dist
+						chosenintersect = intersect
+					}
+					if(i > 0 && dist < nearestindexdist) {
+						nearestindex = i
+						nearestindexdist = dist
+						chosenintersect = intersect
+					}
+				}
+
+
+			allPointsConnections[chosenintersect[0] + '-' + chosenintersect[1]] = []
+			allPoints.push(chosenintersect)
+			frameHolders.push(chosenintersect)
+			connections.push([chosenintersect,mainradiiPoints[k]])
+			}
+
+			eastSubradiiPref = genes[8]
+			southSubradiiPref = genes[9]
+			westSubradiiPref = genes[10]
+			northSubradiiPref = genes[11]
+
+			
+
+			avgpref = (eastSubradiiPref + westSubradiiPref + northSubradiiPref + southSubradiiPref)/4
+
+			subradiiAngles = []
+			allRadii = []
+
+			for(i=0; i < radiiAngles.length; i++) {
+				currentMradii = radiiAngles[i]
+				nextMradii = radiiAngles[(i+1)%radiiAngles.length]
+				if (i == radiiAngles.length - 1) {
+					nextMradii = nextMradii + 360
+				}
+				angleiter = currentMradii
+				subangles = []
+				while(angleiter < nextMradii - avgpref/2) {
+					if(angleiter >= 315 && angleiter < 405) {
+						angleiter = angleiter + eastSubradiiPref
+					}
+					else if(angleiter < 45) {
+						angleiter = angleiter + eastSubradiiPref
+					}
+					else if(angleiter >= 45 && angleiter < 135) {
+						angleiter = angleiter + southSubradiiPref
+					}
+					else if(angleiter >= 135 && angleiter < 225) {
+						angleiter = angleiter + westSubradiiPref
+					}
+					else if(angleiter >= 225 && angleiter < 315) {
+						angleiter = angleiter + northSubradiiPref
+					}
+					subangles.push(angleiter % 360)
+					
+					
+				}
+				subangles.splice(subangles.length - 1, 1)
+				subradiiAngles.push(subangles)
+
+			}
+
+			allRadiiAngles = []
+
+
+			subradiiPoints = []
+			for(i = 0; i < subradiiAngles.length; i++) {
+				angleset = subradiiAngles[i]
+				subpoints = []
+				allRadii.push(mainradiiPoints[i])
+				arm = []
+				allRadiiAngles.push(radiiAngles[i])
+				radiiArm.push(arm)
+				for(k = 0; k < angleset.length; k++) {
+					arm = []
+					scale = 200
+					angledirection = [centerX + scale*Math.cos(Math.PI*angleset[k]/180), centerY + scale*Math.sin(Math.PI*angleset[k]/180)]
+					intersect = getIntersection([centrepoint,angledirection],[mainradiiPoints[i],mainradiiPoints[(i+1)%mainradiiPoints.length]])
+					subpoints.push(intersect)
+					allPointsConnections[intersect[0] + '-' + intersect[1]] = []
+					allPoints.push(intersect)
+					allRadii.push(intersect)
+					allRadiiAngles.push(angleset[k])
+					radiiArm.push(arm)
+				}
+				subradiiPoints.push(subpoints)
+			}
+
+			
+			endspiraldistance = genes[13]
+
+			if (endspiraldistance > avgprefLength) {
+				endspiraldistance = avgprefLength/6
+			}
+
+			initialspiraldistance = genes[12]
+
+			distance = initialspiraldistance
+
+			lastdistance = distance
+
+			spiralincrement = (endspiraldistance - initialspiraldistance)/allRadii.length
+			initRadiiAnglesIndex = Math.floor(Math.random() * allRadiiAngles.length)
+			initRadiiAngles = allRadiiAngles[initRadiiAnglesIndex]
+
+			currentIndex = initRadiiAnglesIndex
+			lastRadiiIndex = currentIndex
+
+			onRadiiPoints = []
+			spiralPoints = []
+
+			previouspoint = centrepoint
+
+
+			for(i = 0; i < allRadiiAngles.length; i++) {
+				
+
+				currentRadiiAngle = allRadiiAngles[(currentIndex + i) % allRadiiAngles.length]
+				point = [centerX + (Math.cos(currentRadiiAngle*Math.PI/180)*distance) , centerY + (Math.sin(currentRadiiAngle*Math.PI/180)*(distance))]
+
+				
+
+				connections.push([previouspoint,point])
+		
+				allPointsConnections[point[0] + '-' + point[1]] = []
+				allPoints.push(point)
+				allPointsConnections[centrepoint[0] + '-' + centrepoint[1]].push(point)
+				allPointsConnections[point[0] + '-' + point[1]].push(centrepoint)
+				connections.push([centrepoint,point])
+				
+				lastdistance = distance
+				distance = distance + spiralincrement
+				onRadiiPoints.push(point)
+				spiralPoints.push(point)
+				lastRadiiIndex = (currentIndex + i) % allRadiiAngles.length
+				previouspoint = point
+				radiiArm[(currentIndex + i) % allRadiiAngles.length].push(point)
+				
+			}
+
+			
+
+			webFrame = mainradiiPoints
+
+			nextPointStatus = 1
+			radiiIter = 1
+
+			distance = lastdistance
+
+			iterdirection = 1
+
+			distanceproductFactor = genes[14]
+
+			distance = distance*distanceproductFactor
+
+			noRoomDoubleCheck = 0
+
+			meshdeviationFactor = genes[15]
+			reverseDistanceFactor = genes[16]
+
+			
+
+
+			while(nextPointStatus == 1) {
+				currentIndex = (lastRadiiIndex + radiiIter) % allRadiiAngles.length
+				currentRadiiAngle = allRadiiAngles[currentIndex]
+				
+				pointchosen = [centerX + (Math.cos(currentRadiiAngle*Math.PI/180)*distance) , centerY + (Math.sin(currentRadiiAngle*Math.PI/180)*(distance))]
+				if (inside(pointchosen, webFrame) == false) {
+					iterdirection = (-1)*iterdirection
+					radiiIter = radiiIter + 2*iterdirection
+					distance = (distance*((distanceproductFactor)**(reverseDistanceFactor))) + (meshdeviationFactor*(Math.random() - 0.5)*2)
+					noRoomDoubleCheck = noRoomDoubleCheck + 1
+					if (noRoomDoubleCheck >= 2) {
+						break
+					}
+				}
+				else {
+					radiiIter = radiiIter + iterdirection
+					connections.push([previouspoint,pointchosen])
+					allPointsConnections[pointchosen[0] + '-' + pointchosen[1]] = []
+					allPoints.push(pointchosen)
+					// connections.push([pointchosen, onRadiiPoints[onRadiiPoints.length - allRadiiAngles.length]])
+					onRadiiPoints.push(pointchosen)
+					radiiArm[currentIndex].push(pointchosen)
+					
+					previouspoint = pointchosen
+					distance = distance*distanceproductFactor + (meshdeviationFactor*(Math.random() - 0.5)*2)
+					noRoomDoubleCheck = 0
+				}
+			}
+
+			for (i=0; i < radiiArm.length; i++) {
+				arm = radiiArm[i]
+				for (k=0; k < arm.length - 1; k++) {
+					connections.push([arm[k], arm[k+1]])
+				}
+				connections.push([arm[arm.length - 1], allRadii[i]])
+			}
+
+			for (i=0; i < allRadii.length; i++) {
+				connections.push([allRadii[(i+1)%allRadii.length], allRadii[i]])
+			}
+
+
+
+			allPointsEntities = []
+			allPointsEntitiesIDs = {}
+			for(i = 0; i < allPoints.length; i++) {
+				entity = Physics.body('circle', {
+						x: allPoints[i][0]
+						,y: allPoints[i][1]
+						,radius: 8
+						,hidden: true
+					})
+				allPointsEntities.push(entity);
+				allPointsEntitiesIDs[allPoints[i][0] + '-' + allPoints[i][1]] = entity
+
+			}
+
+			for(i = 0; i < connections.length; i++) {
+				p1 = connections[i][0]
+				p2 = connections[i][1]
+				rigidConstraints.distanceConstraint(allPointsEntitiesIDs[p1[0] + '-' + p1[1]], allPointsEntitiesIDs[p2[0] + '-' + p2[1]], 0.5);
+			}
+
+			for(i = 0; i < frameHolders.length; i++) {
+				allPointsEntitiesIDs[frameHolders[i][0] + '-' + frameHolders[i][1]].treatment = 'static'
+			}
+
+		
+
+			world.on('integrate:positions', function(){
+
+				var constraints = rigidConstraints.getConstraints().distanceConstraints
+					,c
+					,threshold = 60
+					,scratch = Physics.scratchpad()
+					,v = scratch.vector()
+					,len
+					;
+
+				for ( var i = 0, l = constraints.length; i < l; ++i ){
+
+					c = constraints[ i ];
+					len = v.clone( c.bodyB.state.pos ).vsub( c.bodyA.state.pos ).norm();
+
+					// break the constraint if above threshold
+					if ( (c.bodyA.treatment !== 'static' && c.bodyB.treatment !== 'static') && (len - c.targetLength) > threshold ){
+						rigidConstraints.remove( c );
+					}
+					else if ( (c.bodyA.treatment === 'static' && c.bodyB.treatment === 'static') && (len - c.targetLength) > 100 ){
+						rigidConstraints.remove( c );
+					}
+				}
+
+				scratch.done();
+				// higher priority than constraint resolution
+			}, null, 100);
+
+			// render
+			var webStyles = { strokeStyle: webcolor, lineWidth: webthickness };
+			world.on('render', function( data ){
+
+				var renderer = data.renderer
+					,constraints = rigidConstraints.getConstraints().distanceConstraints
+					,c
+					,ctx = renderer.ctx
+					,t = data.meta.interpolateTime || 0
+					;
+
+				// optimized line drawing
+				ctx.beginPath();
+				ctx.strokeStyle = webStyles.strokeStyle;
+				ctx.lineWidth = webStyles.lineWidth;
+				for ( var i = 0, l = constraints.length; i < l; ++i ){
+
+					c = constraints[ i ];
+					ctx.moveTo(c.bodyA.state.pos.x + c.bodyA.state.vel.x * t, c.bodyA.state.pos.y + c.bodyA.state.vel.y * t);
+					ctx.lineTo(c.bodyB.state.pos.x + c.bodyB.state.vel.x * t, c.bodyB.state.pos.y + c.bodyB.state.vel.y * t);
+				}
+				ctx.stroke();
+			});
+
+			// add things to world
+			world.add( allPointsEntities );
+			world.add( rigidConstraints );
+
+			 // add things to the world
+			world.add([
+				,Physics.behavior('body-impulse-response')
+				,Physics.behavior('body-collision-detection')
+				,Physics.behavior('sweep-prune')
+				,edgeBounce
+			]);
+
+			// add some fun interaction
+			var attractor = Physics.behavior('attractor', {
+				order: 0,
+				strength: 0.005
+			});
+			world.on({
+				'interact:poke': function( pos ){
+					world.wakeUpAll();
+					attractor.position( pos );
+					world.add( attractor );
+				}
+				,'interact:move': function( pos ){
+					attractor.position( pos );
+				}
+				,'interact:release': function(){
+					world.wakeUpAll();
+					world.remove( attractor );
+				}
+			});
+
+			// add things to the world
+			world.add([
+				Physics.behavior('interactive', { el: renderer.container, moveThrottle: 5 })
+				,Physics.behavior('constant-acceleration', {acc: Physics.vector(0,0.0000001)})
+			]);
+
+			// subscribe to ticker to advance the simulation
+			Physics.util.ticker.on(function( time ) {
+				world.step( time );
+			});
+
+
+			
+
+
+			});
+		}
+
+		CreateWeb()
+
+
+		// function scrollCheck(event) {
+		//  	scrValue = window.scrollY
+		//  	console.log(scrValue)
+		//  } 
+
+		// window.addEventListener('scroll',scrollCheck)
+
+
+
+
+		var fragment = document.createDocumentFragment();
+		fragment.appendChild(document.getElementById('viewport'));
+		document.getElementById('containWeb').appendChild(fragment);
+
+		// document.getElementById('viewport').height = canvasheight;
+		
+		</script>
+
+
+
+	</body>
+<html>
