@@ -911,7 +911,7 @@
 				chosenintersect = []
 				for(i = 0; i < possibleborders.length; i++) {
 					intersect = getIntersection([centrepoint,mainradiiPoints[k]],possibleborders[i])
-					dist = Math.sqrt((intersect[0] - mainradiiPoints[k][0])**2 + (intersect[1] - mainradiiPoints[k][1])**2)
+					dist = Math.sqrt(Math.pow((intersect[0] - mainradiiPoints[k][0]),2) + Math.pow((intersect[1] - mainradiiPoints[k][1]),2))
 					if (i == 0) {
 						nearestindexdist = dist
 						chosenintersect = intersect
@@ -1084,7 +1084,7 @@
 				if (inside(pointchosen, webFrame) == false) {
 					iterdirection = (-1)*iterdirection
 					radiiIter = radiiIter + 2*iterdirection
-					distance = (distance*((distanceproductFactor)**(reverseDistanceFactor))) + (meshdeviationFactor*(Math.random() - 0.5)*2)
+					distance = (distance*Math.pow((distanceproductFactor),(reverseDistanceFactor))) + (meshdeviationFactor*(Math.random() - 0.5)*2)
 					noRoomDoubleCheck = noRoomDoubleCheck + 1
 					if (noRoomDoubleCheck >= 2) {
 						break
