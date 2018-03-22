@@ -1,0 +1,3675 @@
+<html>
+	<head>
+		<title> Fourier Transform Visualization</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Caveat Brush' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
+
+		<!-- Google Analytics Code -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+		<script type="application/ld+json">
+			{
+			  "@type": "Projects",
+			  "name": "Fourier Transform Visualization",
+			  "author": "Prajwal DSouza",
+			  "description": "A Fourier Transform visualization based on a 3Blue1Brown video."
+			  }
+		</script>
+		  <meta charset="UTF-8">
+  		  <meta name="description" content="A Fourier Transform visualization based on a 3Blue1Brown video.">
+		  <meta name="keywords" content="Fourier Transfrom, 3Blue1Brown, Fourier Transfrom Visualized, But what is the Fourier Transform? A visual introduction, visual introduction to fourier, prajwalsouza, Prajwal DSouza">
+		  <meta name="author" content="Prajwal DSouza">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+	</head>
+	<body style='margin:0px;width:100%; height: 100%;'>
+		<div id="containAll" style='margin:0px;width:100%; height: 100%;overflow: hidden; font-size: 0;'> 
+			<div id="containIntro" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,0%,0.8);box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3); cursor: auto; position: absolute; z-index: 7; opacity: 1;'>
+				<div id="TitleText" style='margin:0px;overflow: hidden;text-align: center; font-family: Alegreya Sans SC; letter-spacing: 1vh; font-weight: lighter; font-size: 5vh; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(190,100%,100%,1); '>
+						<!-- FOURIER TRANSFORM VISUALIZATION -->
+						Fourier Transform Visualization
+				</div>
+				
+				<div id="DescriptionText" style='margin:0px;overflow: hidden;text-align: center; font-family: Handlee; font-size: 3vh; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(185,100%,50%,1); '>
+					<a href="https://www.youtube.com/watch?v=spUNpyF58BY" target="_blank" style="text-decoration: none; color: hsla(185,100%,50%,1); ">
+						Based on a 3Blue1Brown video
+					</a>
+				</div>
+
+				<div id="diveIn" style='margin:0px;overflow: hidden;transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; background: hsla(180,100%,50%,0.3); width: 10vw; height: 6vh; border-color: hsla(260,100%,50%,1); cursor: pointer;'>
+
+					<div id="diveInText" style='margin:0px;overflow: hidden;text-align: center; font-family: McLaren; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,100%,1); '>
+						VIEW
+					</div>
+					
+				</div>
+				
+				<div id="WebsiteText" style='margin:0px;overflow: hidden;text-align: center; font-family: Caveat Brush; font-size: 2.5vh; transform: translate(-50%,-65%); left: 50%; top: 65%; position: relative; color: hsla(40,100%,50%,1); '>
+					<a href="https://prajwalsouza.github.io" target="_blank" style="text-decoration: none;  color: hsla(40,100%,50%,1); ">
+						prajwalsouza.github.io
+					</a>
+				</div>
+
+				<div id="videoInfo" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 1.5vh; width: 80%; transform: translate(-50%,-70%); left: 50%; top: 70%; position: relative; color: hsla(40,100%,100%,1); '>
+					<a href="https://www.youtube.com/watch?v=spUNpyF58BY" target="_blank" style="text-decoration: none; color: hsla(185,100%,100%,1); ">
+					It's better to watch the 3Blue1Brown video first to understand the visualization presented here. And yes, the video is amazing. 
+					</a>
+				</div>
+			</div>
+			<div id="containIntroButton" style='margin:0px;width:100%; height: 5%;overflow: hidden;background: white;box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3); cursor: pointer;'>
+				<div id="introbuttonText" style='margin:0px;overflow: hidden;text-align: center; font-family: Alegreya Sans SC; letter-spacing: 1vh; font-weight: lighter; font-size: 2vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190,100%,0%,1); '>
+						Fourier Transform Visualization
+				</div>
+			</div>
+			<div id="containGraph" style='margin:0px;width:100%; height: 30%;overflow: hidden;background: white;position: relative;'>
+				<svg id='graphSvg' height="100%" width="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style='position: absolute; z-index: 1'>
+
+				</svg>
+				<div id="containGraphtexts" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: white; position: absolute; '>
+				
+				</div>
+			</div>
+			<div id="containEquationSettings" style='margin:0px;width:100%; height: 5%;overflow: hidden;background: white;box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3); cursor: pointer;'>
+			</div>
+			<div id="containequationLab" style='margin:0px;width:100%; height: 0%;overflow: hidden;background: white;box-shadow: inset 0px -10px 20px rgba(0,0,0,0.3); transition: height 1s;'>
+				<div id="equationLabTextContainer" style='margin:0px;width:100%; height: 10vh;overflow: hidden; font-size: 2vh; '>
+					<div id="equationLabText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 2vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; '>
+						The above signal is a sum, of some of the signals below.  
+					</div>
+				</div>
+			</div>
+			
+			<div id="polarSection" style='margin:0px;width:40%; height: 55%;overflow: hidden; display: inline-block;background: white;'>
+				<div id="containPolar" style='margin:0px;width:100%; height: 90%;overflow: hidden; display: inline-block;background: white;'>
+					
+				</div>
+				<div id="containPolarDetails" style='margin:0px;width:100%; height: 10%;overflow: hidden; display: inline-block;background: white;position: relative;'>
+					<svg id='wFsliderSvg' height="100%" width="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style='position: absolute; z-index: 0'>
+
+					</svg>
+					
+				</div>
+			</div>
+			
+			<div id="containTransform" style='margin:0px;width:60%; height: 55%;overflow: hidden;display: inline-block;background: white; position: relative;'>
+				<svg id='finalgraphSvg' height="90%" width="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style='position: absolute; z-index: 1'>
+
+				</svg>
+				<div id="containfinalGraphtexts" style='margin:0px;width:100%; height: 90%;overflow: hidden;background: white; position: absolute; '>
+				
+				</div>
+				<div id="containfinalblank" style='margin:0px;width:100%; height: 90%;overflow: hidden;background: white; position: relative; z-index: -1'>
+					
+				</div>
+				<div id="containfinalGraphDetails" style='margin:0px;width:100%; height: 10%;overflow: hidden;background: white; position: relative;text-align: center; font-family: Calibri; font-size: 2vh'>
+					<div id="containfinalGraphDetailsText" style='margin:0px;background: white; text-align: center; font-family: Calibri; font-size: 2vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative;'>
+						The almost Fourier Transform of the wave. (x co-ordinate)
+					</div>
+					
+				</div>
+			</div>
+			<div id="containSettings" style='margin:0px;width:100%; height: 5%;overflow: hidden;background: hsla(200 ,100%,50%,0);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; cursor: pointer; box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3);'>
+				<div id="containSettingsText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative;'>
+						Settings
+				</div>
+				
+			</div>
+		</div>
+		<div id="containSettingsDiv" style='margin:0px;width:100%; height: 0%;overflow: hidden; font-size: 0; transition: height 1s; '>
+			<div id="containInputSettingsHeading" style='margin:0px;width:100%; height: 10%;overflow: hidden;background: hsla(200 ,100%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh;'>
+				<div id="containInputSettingsHeadingText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: absolute; color: hsla(200 ,100%,50%,1)'>
+						Input Signal Settings
+				</div>
+				
+			</div>
+			<div id="containInputSetting1" style='margin:0px;width:40%; height: 7%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block;'>
+				<div id="containInputSetting1Label" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+						Input signal time range : 0s to 5s
+				</div>
+
+			</div>
+			<div id="containInputSetting1Svg" style='margin:0px;width:60%; height: 7%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; cursor: pointer; display: inline-block;'>
+				<svg id='inputsetting1Svg' height="100%" width="100%"  style='position: relative; z-index: 1'>
+				</svg>
+			</div>
+			<div id="containInputSetting2" style='margin:0px;width:40%; height: 7%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block;'>
+				<div id="containInputSetting2Label" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1)'>
+						Number of sampling points : 1300
+				</div>
+			</div>
+			<div id="containInputSetting2Svg" style='margin:0px;width:60%; height: 7%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; cursor: pointer; display: inline-block;'>
+				<svg id='inputsetting2Svg' height="100%" width="100%" style='position: relative; z-index: 1'>
+				</svg>
+			</div>
+			<div id="containInputSetting3" style='margin:0px;width:100%; height: 7%;overflow: hidden;background: hsla(210 ,100%,50%,0);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; cursor: pointer;'>
+				<div id="containInputSetting3Label" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: absolute; color: hsla(200 ,100%,0%,1)'>
+						Hide Analysis Window
+				</div>
+			</div>
+			<div id="containCGSettingsHeading" style='margin:0px;width:100%; height: 10%;overflow: hidden;background: hsla(200 ,0%,0%,0);text-align: center; position: relative; font-family: Calibri; font-size: 2vh;'>
+				<div id="containCGSettingsHeadingText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: absolute; color: hsla(200 ,100%,50%,1)'>
+						Curled up graph Settings
+				</div>
+				
+			</div>
+			<div id="containCGSetting1" style='margin:0px;width:40%; height: 7%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block;'>
+				<div id="containCGSetting1Label" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+						Graph Winding Frequency : 0 to 5 windings/Analysis Window
+				</div>
+
+			</div>
+			<div id="containCGSetting1Svg" style='margin:0px;width:60%; height: 7%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; cursor: pointer; display: inline-block;'>
+				<svg id='CGsetting1Svg' height="100%" width="100%"  style='position: relative; z-index: 1'>
+				</svg>
+			</div>
+
+			<div id="containCGSetting2" style='margin:0px;width:100%; height: 7%;overflow: hidden;background: hsla(210 ,100%,50%,0);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; cursor: pointer;'>
+				<div id="containCGSetting2Label" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: absolute; color: hsla(200 ,100%,0%,1)'>
+						Hide Centre of Mass
+				</div>
+			</div>
+			<div id="containCGSetting3" style='margin:0px;width:100%; height: 7%;overflow: hidden;background: hsla(190 ,100%,50%,0);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; cursor: pointer;'>
+				<div id="containCGSetting3Label" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: absolute; color: hsla(200 ,100%,0%,1)'>
+						Hide x co-ordinate of center of mass
+				</div>
+			</div>
+			<div id="containCGSetting4" style='margin:0px;width:100%; height: 7%;overflow: hidden;background: hsla(170 ,100%,50%,0);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; cursor: pointer;'>
+				<div id="containCGSetting4Label" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: absolute; color: hsla(200 ,100%,0%,1)'>
+						Hide y co-ordinate of center of mass
+				</div>
+			</div>
+			<div id="containoutputGSettingsHeading" style='margin:0px;width:100%; height: 10%;overflow: hidden;background: hsla(200 ,0%,0%,0);text-align: center; position: relative; font-family: Calibri; font-size: 2vh;'>
+				<div id="containoutputGSettingsHeadingText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: absolute; color: hsla(200 ,100%,50%,1)'>
+						Output graph Settings
+				</div>
+			</div>
+			<div id="containoutputGSetting1" style='margin:0px;width:100%; height: 7%;overflow: hidden;background: hsla(250 ,100%,50%,0);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; cursor: pointer;'>
+				<div id="containoutputGSetting1Label" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: absolute; color: hsla(200 ,100%,0%,1)'>
+						Plot Y co-ordinate of Center of Mass
+				</div>
+			</div>
+		</div>
+		
+		
+
+		
+		
+		<script>
+
+		// Settings Design part
+
+		// Parameters :
+
+		// Input Signal :
+		// Signal Time range : 0 to around '1 to 10'
+		// Show Analysis Window : Checkbox
+		// Number of sampling points : 1000 to 10000
+
+		// Curled up graph:
+		// MaxWinding Frequency : Range 0 to 12. Resolution 1.
+		// Show centre of mass : Check box
+		// show x co-ordinate of center of mass
+		// show y co-ordinate of center of mass
+
+		// Output Signal
+		// plot co-ordinate : X or Y 
+
+		// Draw Sliders
+
+		settingsID = {}
+
+		function sliderMove(event) {
+			sDetails = settingsID[event.target.id]
+
+			var rect = sDetails[4].getBoundingClientRect()
+			posX = event.clientX - rect.left
+			posY = event.clientY - rect.top
+
+			xPer = posX*100/rect.width
+
+			sliderClickvalue = getValFromPercentages(xPer, sDetails[1], sDetails[2],'x')
+
+			if(sliderClickvalue < sDetails[2] && sliderClickvalue > sDetails[1]) {
+				if (sDetails[8] == 'dual') {
+					if (sliderClickvalue <= sDetails[5]) {
+						document.getElementById(sDetails[7] + ' dot1').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sDetails[6], sDetails[1], sDetails[2], 'x') - getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						settingsID[event.target.id][5] = sliderClickvalue
+
+					}
+					else if (sliderClickvalue >= sDetails[6]) {
+						document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+						settingsID[event.target.id][6] = sliderClickvalue
+					}
+					else if (sliderClickvalue < sDetails[6] && sliderClickvalue > sDetails[5] && (sDetails[6] - sDetails[5]) > sDetails[3]) {
+						midpoint = (sDetails[6] + sDetails[5])/2;
+						if (sliderClickvalue > midpoint) {
+							document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+							settingsID[event.target.id][6] = sliderClickvalue
+						}
+						else {
+							document.getElementById(sDetails[7] + ' dot1').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sDetails[6], sDetails[1], sDetails[2], 'x') - getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							settingsID[event.target.id][5] = sliderClickvalue
+						}
+					}
+					sDetails[12].innerHTML = sDetails[9] + sDetails[5].toFixed(sDetails[13]) + sDetails[10] + sDetails[6].toFixed(sDetails[13]) + sDetails[11]
+				}
+				if (sDetails[8] == 'single') {
+
+					document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+					document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[1], sDetails[1], sDetails[2], 'x') + '%');
+					document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[1], sDetails[1], sDetails[2], 'x') + '%');
+					settingsID[event.target.id][6] = sliderClickvalue
+					sDetails[12].innerHTML = sDetails[9] + sDetails[6].toFixed(sDetails[13]) + sDetails[11]
+				}
+			}
+
+		}
+
+		function sliderUp(event) {
+			document.getElementById(event.target.id).addEventListener('mousedown', sliderDown)
+			document.getElementById(event.target.id).removeEventListener('mouseup', sliderUp)
+			document.getElementById(event.target.id).removeEventListener('mouseout', sliderOut)
+			document.getElementById(event.target.id).removeEventListener('mousemove', sliderMove)
+			for (cws = 0; cws < countWaves; cws++) {
+				if (waveStatus[cws][5] != 'custom wave') {
+					updateAGraph(cws)
+				}
+				else {
+					zeroTheGraph(cws)
+				}
+			}
+			updateMainGraph()
+			updatePolarFrame()
+			updatePolarAxes()
+			updatePolar()
+			plotCenterOfMass()
+			plotCOMpart()
+			updatefinalgraphAxesTicksAndLabels()
+			updateplotTransform()
+
+		}
+
+		function sliderOut(event) {
+			document.getElementById(event.target.id).addEventListener('mousedown', sliderDown)
+			document.getElementById(event.target.id).removeEventListener('mouseup', sliderUp)
+			document.getElementById(event.target.id).removeEventListener('mouseout', sliderOut)
+			document.getElementById(event.target.id).removeEventListener('mousemove', sliderMove)
+			for (cws = 0; cws < countWaves; cws++) {
+				if (waveStatus[cws][5] != 'custom wave') {
+					updateAGraph(cws)
+				}
+				else {
+					zeroTheGraph(cws)
+				}
+			}
+			updateMainGraph()
+			updatePolarFrame()
+			updatePolarAxes()
+			updatePolar()
+			plotCenterOfMass()
+			plotCOMpart()
+			updatefinalgraphAxesTicksAndLabels()
+			updateplotTransform()
+		}
+
+		function sliderDown(event) {
+			sDetails = settingsID[event.target.id]
+
+			var rect = sDetails[4].getBoundingClientRect()
+			posX = event.clientX - rect.left
+
+			xPer = posX*100/rect.width
+
+			sliderClickvalue = getValFromPercentages(xPer, sDetails[1], sDetails[2],'x')
+
+			if(sliderClickvalue < sDetails[2] && sliderClickvalue > sDetails[1]) {
+				if (sDetails[8] == 'dual') {
+					if (sliderClickvalue <= sDetails[5]) {
+						document.getElementById(sDetails[7] + ' dot1').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sDetails[6], sDetails[1], sDetails[2], 'x') - getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						settingsID[event.target.id][5] = sliderClickvalue
+
+					}
+					else if (sliderClickvalue >= sDetails[6]) {
+						document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+						settingsID[event.target.id][6] = sliderClickvalue
+					}
+					else if (sliderClickvalue < sDetails[6] && sliderClickvalue > sDetails[5] && (sDetails[6] - sDetails[5]) > sDetails[3]) {
+						midpoint = (sDetails[6] + sDetails[5])/2;
+						if (sliderClickvalue > midpoint) {
+							document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+							settingsID[event.target.id][6] = sliderClickvalue
+						}
+						else {
+							document.getElementById(sDetails[7] + ' dot1').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sDetails[6], sDetails[1], sDetails[2], 'x') - getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							settingsID[event.target.id][5] = sliderClickvalue
+						}
+					}
+					sDetails[12].innerHTML = sDetails[9] + sDetails[5].toFixed(sDetails[13]) + sDetails[10] + sDetails[6].toFixed(sDetails[13]) + sDetails[11]
+				}
+				if (sDetails[8] == 'single') {
+					document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+					document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[1], sDetails[1], sDetails[2], 'x') + '%');
+					document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[1], sDetails[1], sDetails[2], 'x') + '%');
+					settingsID[event.target.id][6] = sliderClickvalue
+					sDetails[12].innerHTML = sDetails[9] + sDetails[6].toFixed(sDetails[13]) + sDetails[11]
+				}
+			}
+
+
+			document.getElementById(event.target.id).removeEventListener('mousedown', sliderDown)
+			document.getElementById(event.target.id).addEventListener('mouseup', sliderUp)
+			document.getElementById(event.target.id).addEventListener('mouseout', sliderOut)
+			document.getElementById(event.target.id).addEventListener('mousemove', sliderMove)
+		}
+
+
+		function drawSlider(mainDivofSlider, sliderID, sliderMax, sliderMin, sliderInitLow, sliderInitHigh, minWidth, stype, slabelBegin, slabelMid, slabelEnd, labelID, decAccuracy) {
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('height','15%');
+			rectElement.setAttribute('width', '80%');
+			rectElement.setAttribute('id', sliderID + ' range');
+			rectElement.setAttribute('x', '10%');
+			rectElement.setAttribute('y', '43%');
+			rectElement.setAttribute('vector-effect','non-scaling-stroke');
+			rectElement.style.opacity = 1;
+			rectElement.style.fill = 'hsla(180,0%,90%,0.6)'
+			rectElement.style.strokeWidth = '0';
+			mainDivofSlider.appendChild(rectElement);
+			rectElement.style.pointerEvents = 'none'
+			settingsID[mainDivofSlider.id] = [1, sliderMin, sliderMax, minWidth, mainDivofSlider, sliderInitLow, sliderInitHigh, sliderID, stype,slabelBegin, slabelMid, slabelEnd, labelID, decAccuracy]
+			mainDivofSlider.addEventListener('mousedown', sliderDown)
+			rectElement.style.cursor = 'pointer'
+
+			if (stype == 'dual') {
+				var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+				rectElement.setAttribute('height','15%');
+				rectElement.setAttribute('width', getPercentages(sliderInitHigh, sliderMin, sliderMax, 'x') - getPercentages(sliderInitLow, sliderMin, sliderMax, 'x') + '%');
+				rectElement.setAttribute('id', sliderID + ' midbar');
+				rectElement.setAttribute('x', getPercentages(sliderInitLow, sliderMin, sliderMax, 'x') + '%');
+				rectElement.setAttribute('y', '43%');
+				rectElement.setAttribute('vector-effect','non-scaling-stroke');
+				rectElement.style.opacity = 1;
+				rectElement.style.fill = 'hsla(190,100%,80%,1)'
+				rectElement.style.strokeWidth = '0';
+				rectElement.style.pointerEvents = 'none'
+				mainDivofSlider.appendChild(rectElement);
+			}
+			else if(stype == 'single') {
+				var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+				rectElement.setAttribute('height','15%');
+				rectElement.setAttribute('width', getPercentages(sliderInitHigh, sliderMin, sliderMax, 'x') - getPercentages(sliderMin, sliderMin, sliderMax, 'x') + '%');
+				rectElement.setAttribute('id', sliderID + ' midbar');
+				rectElement.setAttribute('x', getPercentages(sliderMin, sliderMin, sliderMax, 'x') + '%');
+				rectElement.setAttribute('y', '43%');
+				rectElement.setAttribute('vector-effect','non-scaling-stroke');
+				rectElement.style.opacity = 1;
+				rectElement.style.fill = 'hsla(190,100%,80%,1)'
+				rectElement.style.strokeWidth = '0';
+				rectElement.style.pointerEvents = 'none'
+				mainDivofSlider.appendChild(rectElement);
+			}
+
+			
+			if (stype == 'dual') {
+				var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+				circleElement.setAttribute('cx', getPercentages(sliderInitLow, sliderMin, sliderMax, 'x') + '%');
+				circleElement.setAttribute('cy', '50%');	
+				circleElement.setAttribute('id', sliderID + ' dot1');
+				circleElement.setAttribute('r', '1.2%');
+				circleElement.setAttribute('vector-effect','non-scaling-stroke');
+				circleElement.setAttribute('fill','hsla(190,100%,50%,1)')
+				mainDivofSlider.appendChild(circleElement);
+				circleElement.style.pointerEvents = 'none'
+			}
+
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			circleElement.setAttribute('cx', getPercentages(sliderInitHigh, sliderMin, sliderMax, 'x') + '%');
+			circleElement.setAttribute('cy', '50%');	
+			circleElement.setAttribute('id', sliderID + ' dot2');
+			circleElement.setAttribute('r', '1.2%');
+			circleElement.setAttribute('vector-effect','non-scaling-stroke');
+			circleElement.setAttribute('fill','hsla(190,100%,50%,1)')
+			mainDivofSlider.appendChild(circleElement);
+			circleElement.style.pointerEvents = 'none'
+		}
+
+		drawSlider(document.getElementById('inputsetting1Svg'),'inputsetting1Slider',10,1,0,5,1, 'single', 'Input signal time range : 0 s to ', '', ' s', document.getElementById('containInputSetting1Label'), 2)
+		drawSlider(document.getElementById('inputsetting2Svg'),'inputsetting2Slider',10000,500,0,1200,1, 'single', 'Number of sampling points : ', '', '', document.getElementById('containInputSetting2Label'),0)
+
+		drawSlider(document.getElementById('CGsetting1Svg'),'CGsetting1Slider',12,1,0,5,1, 'single', 'Graph Winding Frequency : 0 to ', '', ' windings/Analysis Window', document.getElementById('containCGSetting1Label'), 2)
+
+
+
+		displaymode = 'landscape'
+
+		function checkResize(event) {
+			if(window.innerWidth < window.innerHeight) {
+				document.getElementById('containGraph').style.height = '19%'
+				document.getElementById('containIntroButton').style.height = '3%'
+				document.getElementById('containEquationSettings').style.height = '4%'
+				document.getElementById('polarSection').style.height = '40%'
+				document.getElementById('polarSection').style.width = '100%'
+				document.getElementById('containTransform').style.height = '30%'
+				document.getElementById('containTransform').style.width = '100%'
+				document.getElementById('containSettings').style.height = '4%'
+				document.getElementById('diveIn').style.width = '20vw'
+				displaymode = 'portrait'
+			}
+			else {
+				document.getElementById('containGraph').style.height = '30%'
+				document.getElementById('containIntroButton').style.height = '5%'
+				document.getElementById('containEquationSettings').style.height = '5%'
+				document.getElementById('polarSection').style.height = '55%'
+				document.getElementById('polarSection').style.width = '40%'
+				document.getElementById('containTransform').style.height = '55%'
+				document.getElementById('containTransform').style.width = '60%'
+				document.getElementById('containSettings').style.height = '5%'
+				document.getElementById('diveIn').style.width = '10vw'
+				displaymode = 'landscape'
+			}
+			updatePolarFrame()
+			updatePolarAxes()
+			updatePolar()
+			plotCenterOfMass()
+			plotCOMpart()
+			updatefinalgraphAxesTicksAndLabels()
+			updateplotTransform()
+		}
+
+		if(window.innerWidth < window.innerHeight) {
+			document.getElementById('containGraph').style.height = '19%'
+			document.getElementById('containIntroButton').style.height = '3%'
+			document.getElementById('containEquationSettings').style.height = '4%'
+			document.getElementById('polarSection').style.height = '40%'
+			document.getElementById('polarSection').style.width = '100%'
+			document.getElementById('containTransform').style.height = '30%'
+			document.getElementById('containTransform').style.width = '100%'
+			document.getElementById('containSettings').style.height = '4%'
+			document.getElementById('diveIn').style.width = '20vw'
+			displaymode = 'portrait'
+		}
+
+		window.addEventListener('resize', checkResize)
+
+		function hideSplashScreen(event) {
+			document.getElementById('containIntro').style.opacity = 0
+			document.getElementById('containIntro').style.pointerEvents = 'none'
+		}
+		function showSplashScreen(event) {
+			document.getElementById('containIntro').style.opacity = 1
+			document.getElementById('containIntro').style.pointerEvents = 'auto'
+		}
+
+		function buttonHover(event) {
+			document.getElementById('diveIn').style.background = 'hsla(180,100%,50%,0.8)'
+		}
+
+		function buttonOut(event) {
+			document.getElementById('diveIn').style.background = 'hsla(180,100%,50%,0.3)'
+		}
+
+		document.getElementById('diveIn').style.transition = 'background 0.5s'
+		document.getElementById('containIntro').style.transition = 'opacity 0.3s'
+
+		document.getElementById('diveIn').addEventListener('click', hideSplashScreen)
+		document.getElementById('diveIn').addEventListener('mouseover', buttonHover)
+		document.getElementById('diveIn').addEventListener('mouseout', buttonOut)
+
+		document.getElementById('containIntroButton').addEventListener('click', showSplashScreen)
+
+		setTimeout( function(){
+					hideSplashScreen()
+				}  , 10000)
+
+
+
+
+		graphSvg = document.getElementById('graphSvg')
+
+		graphxmax = settingsID['inputsetting1Svg'][6]
+		graphxmin = 0
+
+		settingsID['inputsetting2Svg'][6] = 1300
+
+		waveStatus = {}
+
+		
+
+
+
+		// Default Waves
+
+		waveStatus[0] = [true,1,3,0,1,'cosine',[],0,0]
+		waveStatus[1] = [false,1,8,0,1,'cosine',[],0,0]
+		// waveStatus[2] = [false,1,1,0,0,'cosine',[],0,0]
+
+		function addSWave(waveState) {
+			wave = {}
+			wavemax = 0
+			wavemin = 0
+			for (i =0; i < settingsID['inputsetting2Svg'][6]; i++) {
+				step = ((settingsID['inputsetting1Svg'][6] - graphxmin)/settingsID['inputsetting2Svg'][6])
+				xval = graphxmin + (i*step)
+				ampW = waveState[1]
+				freqW = waveState[2]
+				phasW = waveState[3]
+				shifW = waveState[4]
+				if(waveState[5] == 'cosine') {
+					yvalue = ampW*Math.cos(2*Math.PI*freqW*xval + phasW) + shifW
+				}
+				else if(waveState[5] == 'sine'){
+					yvalue = ampW*Math.sin(2*Math.PI*freqW*xval + phasW) + shifW
+				}
+				if (i == 0) {
+					wavemax = yvalue
+					wavemin = yvalue
+				}
+				if (yvalue >= wavemax) {
+					wavemax = yvalue
+				}
+				if (yvalue <= wavemin) {
+					wavemin = yvalue
+				}
+
+				wave[xval] = yvalue;
+			}
+			return [wave,wavemin,wavemax]
+		}
+
+
+		wavedata = addSWave(waveStatus[0])
+		waveStatus[0][6] = wavedata[0]
+		waveStatus[0][7] = wavedata[1]
+		waveStatus[0][8] = wavedata[2]
+
+		wavedata = addSWave(waveStatus[1])
+		waveStatus[1][6] = wavedata[0]
+		waveStatus[1][7] = wavedata[1]
+		waveStatus[1][8] = wavedata[2]
+
+		function updateSWave(waveState,numb) {
+			wave = {}
+			wavemax = 0
+			wavemin = 0
+
+			for (i =0; i < settingsID['inputsetting2Svg'][6]; i++) {
+				step = ((settingsID['inputsetting1Svg'][6] - graphxmin)/settingsID['inputsetting2Svg'][6])
+				xval = graphxmin + (i*step)
+				ampW = waveState[1]
+				freqW = waveState[2]
+				phasW = waveState[3]
+				shifW = waveState[4]
+				if(waveState[5] == 'cosine') {
+					yvalue = ampW*Math.cos(2*Math.PI*freqW*xval + phasW) + shifW
+				}
+				else if(waveState[5] == 'sine'){
+					yvalue = ampW*Math.sin(2*Math.PI*freqW*xval + phasW) + shifW
+				}
+				if (i == 0) {
+					wavemax = yvalue
+					wavemin = yvalue
+				}
+				if (yvalue >= wavemax) {
+					wavemax = yvalue
+				}
+				if (yvalue <= wavemin) {
+					wavemin = yvalue
+				}
+
+				wave[xval] = yvalue;
+			}
+
+			waveStatus[numb][6] = wave
+			waveStatus[numb][7] = wavemin
+			waveStatus[numb][8] = wavemax
+		}
+
+		function modifyGraphDrawn(event) {
+			numvalue = graphSVGid[event.target.id]
+
+
+			minvalue = waveStatus[numvalue][7]
+			maxvalue = waveStatus[numvalue][8]
+
+			var rect = event.target.getBoundingClientRect()
+			posX = event.clientX - rect.left
+			posY = event.clientY - rect.top
+
+			xPer = (posX/rect.width)*100
+			yPer = (posY/rect.height)*100
+
+			if (minvalue == maxvalue) {
+				maxvalue = maxvalue + 0.5
+				minvalue = minvalue - 0.5
+			}
+
+			LUgap = (maxvalue - minvalue)/10
+
+			maxvalue = maxvalue + LUgap
+			minvalue = minvalue - LUgap
+
+			cxpoint = getValFromPercentages(xPer, graphxmin, settingsID['inputsetting1Svg'][6],'x')
+			xinCP = parseInt(getValFromPercentages(xPer, 0, settingsID['inputsetting2Svg'][6],'x'))
+
+			drawingRes = parseInt(3*rect.width/settingsID['inputsetting2Svg'][6])
+			if (drawingRes < 2) {
+				drawingRes = 2
+			}
+			drawResDeviation = parseInt(drawingRes*2)
+
+			for (j= xinCP - drawResDeviation; j <= xinCP + drawResDeviation; j++) {
+				step = ((settingsID['inputsetting1Svg'][6] - graphxmin)/settingsID['inputsetting2Svg'][6])
+				xval = j*step
+				cxpoint = xval
+
+				cypoint = getValFromPercentages(yPer, minvalue, maxvalue,'y')
+				if (cxpoint < settingsID['inputsetting1Svg'][6] && cxpoint >= 0) {
+					modifyWavePoint(waveStatus[numvalue], numvalue, [cxpoint, cypoint])
+				}
+			}
+
+				
+
+			updateACustomGraph(numvalue)
+			updateMainGraph()
+
+			svgElement = document.getElementById('eq ' + numvalue + ' div svg')
+			svgElement.style.pointerEvents = 'auto'
+			svgElement.style.cursor = 'pointer'
+			svgElement.addEventListener('mousemove', modifyGraphDrawn)
+			svgElement.addEventListener('mouseup', checkmodifyGraphDrawn)
+			svgElement.addEventListener('mouseout', checkmodifyGraphDrawn)
+
+		}
+
+		function modifyGraphDrawnviaTouch(event) {
+			numvalue = graphSVGid[event.target.id]
+
+
+			minvalue = waveStatus[numvalue][7]
+			maxvalue = waveStatus[numvalue][8]
+
+			var touch = event.touches[0];
+			var rect = event.target.getBoundingClientRect()
+			posX = touch.pageX - rect.left
+			posY = touch.pageY - rect.top
+
+			xPer = (posX/rect.width)*100
+			yPer = (posY/rect.height)*100
+
+			if (minvalue == maxvalue) {
+				maxvalue = maxvalue + 0.5
+				minvalue = minvalue - 0.5
+			}
+
+			LUgap = (maxvalue - minvalue)/10
+
+			maxvalue = maxvalue + LUgap
+			minvalue = minvalue - LUgap
+
+			cxpoint = getValFromPercentages(xPer, graphxmin, settingsID['inputsetting1Svg'][6],'x')
+			xinCP = parseInt(getValFromPercentages(xPer, 0, settingsID['inputsetting2Svg'][6],'x'))
+
+			drawingRes = parseInt(3*rect.width/settingsID['inputsetting2Svg'][6])
+			if (drawingRes < 2) {
+				drawingRes = 2
+			}
+			drawResDeviation = parseInt(drawingRes*2)
+
+			for (j= xinCP - drawResDeviation; j <= xinCP + drawResDeviation; j++) {
+				step = ((settingsID['inputsetting1Svg'][6] - graphxmin)/settingsID['inputsetting2Svg'][6])
+				xval = j*step
+				cxpoint = xval
+
+				cypoint = getValFromPercentages(yPer, minvalue, maxvalue,'y')
+				if (cxpoint < settingsID['inputsetting1Svg'][6] && cxpoint >= 0) {
+					modifyWavePoint(waveStatus[numvalue], numvalue, [cxpoint, cypoint])
+				}
+			}
+
+			updateACustomGraph(numvalue)
+			updateMainGraph()
+
+			svgElement = document.getElementById('eq ' + numvalue + ' div svg')
+			svgElement.style.pointerEvents = 'auto'
+			svgElement.style.cursor = 'pointer'
+			svgElement.addEventListener('touchmove', modifyGraphDrawnviaTouch)
+			svgElement.addEventListener('touchend', checkmodifyGraphDrawnviaTouch)
+			svgElement.addEventListener('touchcancel', checkmodifyGraphDrawnviaTouch)
+
+		}
+
+
+		function checkmodifyGraphDrawnviaTouch(event) {
+			svgElement.removeEventListener('touchmove', modifyGraphDrawnviaTouch)
+			svgElement.removeEventListener('touchend', checkmodifyGraphDrawnviaTouch)
+			svgElement.removeEventListener('touchcancel', checkmodifyGraphDrawnviaTouch)
+		}
+
+		function checkmodifyGraphDrawn(event) {
+			svgElement.removeEventListener('mousemove', modifyGraphDrawn)
+			svgElement.removeEventListener('mouseup', checkmodifyGraphDrawn)
+			svgElement.removeEventListener('mouseout', checkmodifyGraphDrawn)
+		}
+
+
+		function modifyWavePoint(waveState,numb,point) {
+			wavemin = waveStatus[numb][7]
+			wavemax = waveStatus[numb][8]
+			wave = waveStatus[numb][6]
+
+			yvalue = point[1]
+			xval = point[0]
+			
+			if (yvalue >= wavemax) {
+				wavemax = yvalue
+			}
+			if (yvalue <= wavemin) {
+				wavemin = yvalue
+			}
+			// console.log(" chec ")
+			// console.log(xval, wave[xval])
+			wave[xval] = yvalue;
+			// console.log(xval, wave[xval])
+
+			waveStatus[numb][6] = wave
+			waveStatus[numb][7] = wavemin
+			waveStatus[numb][8] = wavemax
+		}
+
+		function zeroTheGraph(numb) {
+			wave = {}
+			wavemax = 1
+			wavemin = -1
+
+			for (i =0; i < settingsID['inputsetting2Svg'][6]; i++) {
+				step = ((settingsID['inputsetting1Svg'][6] - graphxmin)/settingsID['inputsetting2Svg'][6])
+				xval = graphxmin + (i*step)
+				wave[xval] = yvalue;
+			}
+
+			waveStatus[numb][6] = wave
+			waveStatus[numb][7] = wavemin
+			waveStatus[numb][8] = wavemax
+		}
+
+
+
+
+		
+
+		function drawgraphAxes() {
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', graphToSvgX(0) + '%');
+			lineElement.setAttribute('y1', graphToSvgY(0) + '%');
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.setAttribute('x2', graphToSvgX(settingsID['inputsetting1Svg'][6]) + '%')
+			lineElement.setAttribute('id','x main axis')
+			lineElement.setAttribute('y2', graphToSvgY(0) + '%');
+			lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+			lineElement.style.strokeWidth = '2%';
+			graphSvg.appendChild(lineElement);
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', graphToSvgX(0) + '%');
+			lineElement.setAttribute('y1', graphToSvgY(graphymax) + '%');
+			lineElement.setAttribute('x2', graphToSvgX(0) + '%')
+			lineElement.setAttribute('y2', graphToSvgY(graphymin) + '%');
+			lineElement.setAttribute('id','y main axis')
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+			lineElement.style.strokeWidth = '2%';
+			graphSvg.appendChild(lineElement);
+
+		}
+
+		function updategraphAxes() {
+			if (graphymax == graphymin) {
+				graphymax = graphymax + 0.5
+				graphymin = graphymin - 0.5
+			}
+			var lineElement = document.getElementById('x main axis')
+			lineElement.setAttribute('x1', graphToSvgX(graphxmin) + '%');
+			lineElement.setAttribute('y1', graphToSvgY(0) + '%');
+			lineElement.setAttribute('x2', graphToSvgX(settingsID['inputsetting1Svg'][6]) + '%')
+			lineElement.setAttribute('y2', graphToSvgY(0) + '%');
+
+			var lineElement = document.getElementById('y main axis')
+			lineElement.setAttribute('x1', graphToSvgX(0) + '%');
+			lineElement.setAttribute('y1', graphToSvgY(graphymax) + '%');
+			lineElement.setAttribute('x2', graphToSvgX(0) + '%')
+			lineElement.setAttribute('y2', graphToSvgY(graphymin) + '%');
+
+		}
+		
+		
+
+		function drawgraphAxesTicksAndLabels() {
+			numberofticks = parseInt(settingsID['inputsetting1Svg'][6])
+			ticklengthsX = (graphymax - graphymin)/40
+			ticklengthsY = (settingsID['inputsetting1Svg'][6] - graphxmin)/200
+
+			for(i=0; i<numberofticks; i++) {
+				var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+				lineElement.setAttribute('x1', graphToSvgX(i) + '%');
+				lineElement.setAttribute('y1', graphToSvgY(ticklengthsX) + '%');
+				lineElement.setAttribute('x2', graphToSvgX(i) + '%')
+				lineElement.setAttribute('y2', graphToSvgY(-ticklengthsX) + '%');
+				lineElement.setAttribute('id', 'x tick ' + i)
+				lineElement.setAttribute('vector-effect','non-scaling-stroke');
+				lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+				lineElement.style.strokeWidth = '1.5%';
+				graphSvg.appendChild(lineElement);
+
+				var div = document.createElement("div");
+				div.innerHTML = i;
+				div.style.textAlign = "center";
+				div.id = 'xticklabel' + i;
+				div.style.position = "absolute";
+				div.style.fontSize = "1vw";
+				div.style.fontFamily = "Calibri";
+				div.style.zIndex = '0';
+				div.style.left = graphToSvgX(i + ticklengthsY) + '%'
+				div.style.top =  graphToSvgY(-4*ticklengthsX) + '%'
+				div.style.transform = 'translate(' + (-1)*graphToSvgX(i + ticklengthsY) +  '%, ' +  (-1)*graphToSvgY(-4*ticklengthsX) + '%)';
+				document.getElementById('containGraphtexts').appendChild(div);
+				allmainGraphXticks.push([lineElement,i,div])
+			}
+
+			
+
+			for(i=parseInt(graphymin); i<=parseInt(graphymax); i++) {
+				var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+				lineElement.setAttribute('x1', graphToSvgX(ticklengthsY) + '%');
+				lineElement.setAttribute('y1', graphToSvgY(i) + '%');
+				lineElement.setAttribute('x2', graphToSvgX(-ticklengthsY) + '%')
+				lineElement.setAttribute('y2', graphToSvgY(i) + '%');
+				lineElement.setAttribute('id', 'y tick ' + i)
+				lineElement.setAttribute('vector-effect','non-scaling-stroke');
+				lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+				lineElement.style.strokeWidth = '1.5%';
+				graphSvg.appendChild(lineElement);
+				
+
+				var div = document.createElement("div");
+				div.innerHTML = i;
+				div.style.textAlign = "center";
+				div.id = 'ytick text ' + i;
+				div.style.position = "absolute";
+				div.style.fontSize = "1vw";
+				div.style.fontFamily = "Calibri";
+				div.style.zIndex = '0';
+				div.style.left = graphToSvgX(-3*ticklengthsY) + '%'
+				div.style.top =  graphToSvgY(i + ticklengthsX) + '%'
+				div.style.transform = 'translate(' + (-1)*graphToSvgX(-3*ticklengthsY) +  '%, ' +  (-1)*graphToSvgY(i + ticklengthsX) + '%';
+				document.getElementById('containGraphtexts').appendChild(div);
+				allmainGraphYticks.push([lineElement,i,div])
+			}
+		}
+
+		allmainGraphYticks = []
+		allmainGraphXticks = []
+
+		function updategraphAxesTicksAndLabels() {
+			if (graphymax == graphymin) {
+				graphymax = settingsID['inputsetting1Svg'][6] + 0.5
+				graphymin = graphymin - 0.5
+			}
+
+			numberofticks = parseInt(settingsID['inputsetting1Svg'][6])
+			ticklengthsX = (graphymax - graphymin)/40
+			ticklengthsY = (settingsID['inputsetting1Svg'][6] - 0)/200
+
+			for(i=0; i<allmainGraphXticks.length; i++) {
+				allmainGraphXticks[i][0].style.opacity = 0
+				allmainGraphXticks[i][2].style.opacity = 0
+			}
+
+			for(i=0; i<numberofticks; i++) {
+				var lineElement = document.getElementById('x tick ' + i)
+				var div = document.getElementById('xticklabel' + i)
+
+				if (lineElement != null) {
+					lineElement.setAttribute('x1', graphToSvgX(i) + '%');
+					lineElement.setAttribute('y1', graphToSvgY(ticklengthsX) + '%');
+					lineElement.setAttribute('x2', graphToSvgX(i) + '%')
+					lineElement.setAttribute('y2', graphToSvgY(-ticklengthsX) + '%');
+					lineElement.style.opacity = 1
+
+					div.style.left = graphToSvgX(i + ticklengthsY) + '%'
+					div.style.top =  graphToSvgY(-4*ticklengthsX) + '%'
+					div.style.transform = 'translate(' + (-1)*graphToSvgX(i + ticklengthsY) +  '%, ' +  (-1)*graphToSvgY(-4*ticklengthsX) + '%)';
+					div.style.opacity = 1
+
+					
+				}
+				else {
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					lineElement.setAttribute('x1', graphToSvgX(i) + '%');
+					lineElement.setAttribute('y1', graphToSvgY(ticklengthsX) + '%');
+					lineElement.setAttribute('x2', graphToSvgX(i) + '%')
+					lineElement.setAttribute('y2', graphToSvgY(-ticklengthsX) + '%');
+					lineElement.setAttribute('id', 'x tick ' + i)
+					lineElement.setAttribute('vector-effect','non-scaling-stroke');
+					lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+					lineElement.style.strokeWidth = '1.5%';
+					graphSvg.appendChild(lineElement);
+
+					var div = document.createElement("div");
+					div.innerHTML = i;
+					div.style.textAlign = "center";
+					div.id = 'xticklabel' + i;
+					div.style.position = "absolute";
+					div.style.fontSize = "1vw";
+					div.style.fontFamily = "Calibri";
+					div.style.zIndex = '0';
+					div.style.left = graphToSvgX(i + ticklengthsY) + '%'
+					div.style.top =  graphToSvgY(-4*ticklengthsX) + '%'
+					div.style.transform = 'translate(' + (-1)*graphToSvgX(i + ticklengthsY) +  '%, ' +  (-1)*graphToSvgY(-4*ticklengthsX) + '%)';
+					document.getElementById('containGraphtexts').appendChild(div);
+
+					allmainGraphXticks.push([lineElement,i,div])
+				}
+					
+			}
+
+			ylengths = Math.round((parseInt(graphymax) - parseInt(graphymin))/4)
+
+			if (ylengths == 0) {
+				ylengths = 1
+			}
+
+			for(i=0; i<allmainGraphYticks.length; i++) {
+				allmainGraphYticks[i][0].style.opacity = 0
+				allmainGraphYticks[i][2].style.opacity = 0
+			}
+
+			
+			ticktrack = 0
+			for(i=parseInt(graphymin); i<=parseInt(graphymax); i = i + 1) {
+				var lineElement = document.getElementById('y tick ' + i)
+				var divEl = document.getElementById('ytick text ' + i)
+				if(ticktrack % ylengths == 0) {
+					if (lineElement !== null && divEl !== null) {
+						lineElement.setAttribute('x1', graphToSvgX(ticklengthsY) + '%');
+						lineElement.setAttribute('y1', graphToSvgY(i) + '%');
+						lineElement.setAttribute('x2', graphToSvgX(-ticklengthsY) + '%')
+						lineElement.setAttribute('y2', graphToSvgY(i) + '%');
+						lineElement.style.opacity = 1
+						divEl.style.left = graphToSvgX(-3*ticklengthsY) + '%'
+						divEl.style.top =  graphToSvgY(i + ticklengthsX) + '%'
+						divEl.style.transform = 'translate(' + (-1)*graphToSvgX(-3*ticklengthsY) +  '%, ' +  (-1)*graphToSvgY(i + ticklengthsX) + '%';
+						divEl.style.opacity = 1
+					}
+					else {
+						var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+						lineElement.setAttribute('x1', graphToSvgX(ticklengthsY) + '%');
+						lineElement.setAttribute('y1', graphToSvgY(i) + '%');
+						lineElement.setAttribute('x2', graphToSvgX(-ticklengthsY) + '%')
+						lineElement.setAttribute('y2', graphToSvgY(i) + '%');
+						lineElement.setAttribute('id', 'y tick ' + i)
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+						lineElement.style.strokeWidth = '1.5%';
+						graphSvg.appendChild(lineElement);
+
+						var div = document.createElement("div");
+						div.innerHTML = i;
+						div.style.textAlign = "center";
+						div.id = 'ytick text ' + i;
+						div.style.position = "absolute";
+						div.style.fontSize = "1vw";
+						div.style.fontFamily = "Calibri";
+						div.style.zIndex = '0';
+						div.style.left = graphToSvgX(-3*ticklengthsY) + '%'
+						div.style.top =  graphToSvgY(i + ticklengthsX) + '%'
+						div.style.transform = 'translate(' + (-1)*graphToSvgX(-3*ticklengthsY) +  '%, ' +  (-1)*graphToSvgY(i + ticklengthsX) + '%';
+						document.getElementById('containGraphtexts').appendChild(div);
+						allmainGraphYticks.push([lineElement,i,div])
+					}
+				}
+				else {
+					if (lineElement !== null) {
+						lineElement.style.opacity = 0
+					}
+					if (divEl !== null) {
+						divEl.style.opacity = 0
+					}
+				}
+
+				ticktrack = ticktrack + 1
+					
+					
+
+				// var div = document.createElement("div");
+				// div.innerHTML = i;
+				// div.style.textAlign = "center";
+				// div.id = 'ytick' + i;
+				// div.style.position = "absolute";
+				// div.style.fontSize = "1vw";
+				// div.style.fontFamily = "Calibri";
+				// div.style.zIndex = '0';
+				// div.style.left = graphToSvgX(-3*ticklengthsY) + '%'
+				// div.style.top =  graphToSvgY(i + ticklengthsX) + '%'
+				// div.style.transform = 'translate(' + (-1)*graphToSvgX(-3*ticklengthsY) +  '%, ' +  (-1)*graphToSvgY(i + ticklengthsX) + '%';
+				// document.getElementById('containGraphtexts').appendChild(div);
+				
+			}
+		}
+
+		
+
+
+		pointsDict = []
+
+		
+
+		function graphToSvgY(value) {
+			y = ((-80)/(graphymax - graphymin))*(value - graphymin) + 90
+			return y
+		}
+
+		function graphToSvgX(value) {
+			x = (80/settingsID['inputsetting1Svg'][6])*(value) + 10
+			return x
+		}
+
+
+
+		frequency = 2
+		shift = 0
+
+		countWaves = 0
+
+		for (var key in waveStatus) {
+			countWaves = countWaves + 1
+		}
+
+		function waveEquation(value) {
+			sum = 0
+			for (j=0; j<countWaves; j++) {
+				if(waveStatus[j][0] == true) {
+					sum = sum + waveStatus[j][6][value]
+				}
+			}
+			return sum
+		}
+
+		curveDict = []
+
+		graphymax = 1.5
+		graphymin = -1.5
+
+		function drawMainGraph() {
+			pointsDict = []
+			curveDict = []
+			for (i =0; i < settingsID['inputsetting2Svg'][6]; i++) {
+				step = ((settingsID['inputsetting1Svg'][6] - graphxmin)/settingsID['inputsetting2Svg'][6])
+				xval = graphxmin + (i*step)
+				yvalue = waveEquation(xval)
+				curveDict.push([xval,yvalue])
+				if (i == 0) {
+					graphymax = yvalue
+					graphymin = yvalue
+				}
+				if (graphymax <= yvalue) {
+					graphymax = yvalue
+				}
+				if (graphymin >= yvalue) {
+					graphymin = yvalue
+				}
+			}
+
+			if (graphymax == graphymin) {
+				graphymax = settingsID['inputsetting1Svg'][6] + 0.5
+				graphymin = graphymin - 0.5
+			}
+
+			LUgapmain = (graphymax - graphymin)/10
+
+			graphymax = graphymax + LUgapmain
+			graphymin = graphymin - LUgapmain
+
+			drawgraphAxes()
+			drawgraphAxesTicksAndLabels()
+
+			for (i =0; i < curveDict.length; i++) {
+				xval = curveDict[i][0]
+				yvalue = curveDict[i][1]
+				pointsDict.push([graphToSvgX(xval),graphToSvgY(yvalue)]); 
+			}
+
+			
+
+			pString = 'M ' + pointsDict[0][0] + " " + pointsDict[0][1] + " "
+
+			for(k = 0; k < pointsDict.length; k++) {
+				pString = pString + 'L ' + pointsDict[k][0] + " " + pointsDict[k][1] + " ";
+			}
+
+			var pathElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+			pathElement.setAttribute('fill','transparent');
+			pathElement.setAttribute('vector-effect','non-scaling-stroke');
+			pathElement.setAttribute('d',pString);
+			pathElement.setAttribute('id','main graph path')
+			pathElement.style.pointerEvents = 'none'
+			colorC = 'hsla(186,100%,50%,1)'
+			pathElement.style.strokeWidth = '2%';
+			pathElement.setAttribute('stroke', colorC);
+			graphSvg.appendChild(pathElement);
+		}
+
+		drawMainGraph()
+
+		function valueLocator(event) {
+			lineElement = document.getElementById('locatorMain')
+			lineElement.style.stroke = 'hsla(15,100%,0%,1)'
+
+			var rect = graphSvg.getBoundingClientRect()
+			posX = event.clientX - rect.left
+
+			xPer = (posX/rect.width)*100
+
+			cxpoint = getValFromPercentages(xPer, 0, settingsID['inputsetting1Svg'][6],'x')
+			if (cxpoint > analysisWindow[0] && cxpoint < analysisWindow[1]) {
+				xinCP = parseInt(getValFromPercentages(graphToSvgX(cxpoint), 0, settingsID['inputsetting2Svg'][6],'x'))
+
+				step = ((settingsID['inputsetting1Svg'][6] - graphxmin)/settingsID['inputsetting2Svg'][6])
+				xval = xinCP*step
+				cxpoint = xval
+
+				yP = waveEquation(cxpoint)
+
+				lineElement.setAttribute('x1', graphToSvgX(cxpoint) + '%');
+				lineElement.setAttribute('y1', graphToSvgY(yP) + '%');
+				lineElement.setAttribute('x2', graphToSvgX(cxpoint) + '%')
+				lineElement.setAttribute('y2', graphToSvgY(0) + '%');
+
+				lineElement = document.getElementById('locatorPolar')
+				lineElement.style.stroke = 'hsla(15,100%,0%,1)'
+
+				polarX = yP*Math.cos(-2*Math.PI*windingfrequency*xval)
+				polarY = yP*Math.sin(-2*Math.PI*windingfrequency*xval)
+
+				lineElement.setAttribute('x1', polarToSvgX(0) + '%');
+				lineElement.setAttribute('y1', polarToSvgY(0) + '%');
+				lineElement.setAttribute('x2', polarToSvgX(polarX) + '%')
+				lineElement.setAttribute('y2', polarToSvgY(polarY) + '%');
+
+
+			}
+			else {
+				lineElement.style.stroke = 'hsla(32,100%,50%,0)'
+			}
+
+		}
+
+		graphSvg.style.cursor = 'pointer'
+
+
+		var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+		lineElement.setAttribute('x1', graphToSvgX(1) + '%');
+		lineElement.setAttribute('y1', graphToSvgY(graphymax) + '%');
+		lineElement.setAttribute('x2', graphToSvgX(1) + '%')
+		lineElement.setAttribute('y2', graphToSvgY(graphymin) + '%');
+		lineElement.setAttribute('vector-effect','non-scaling-stroke');
+		lineElement.style.stroke = 'hsla(32,100%,50%,0)'
+		lineElement.style.strokeWidth = '2%';
+		lineElement.id = 'locatorMain'
+		graphSvg.appendChild(lineElement);
+
+		function valueSpecifier(event) {
+			graphSvg.addEventListener('mousemove', valueLocator)
+			graphSvg.removeEventListener('mouseover', valueSpecifier)
+			graphSvg.addEventListener('mouseout', valueSpecifierOut)
+		}
+
+		function valueSpecifierOut(event) {
+			graphSvg.removeEventListener('mousemove', valueLocator)
+			graphSvg.addEventListener('mouseover', valueSpecifier)
+			graphSvg.removeEventListener('mouseout', valueSpecifierOut)
+
+			document.getElementById('locatorMain').style.stroke = 'hsla(32,100%,50%,0)'
+			document.getElementById('locatorPolar').style.stroke = 'hsla(32,100%,50%,0)'
+		}
+
+		graphSvg.addEventListener('mouseover', valueSpecifier)
+
+
+		function updateMainGraph() {
+			pointsDict = []
+			curveDict = []
+			for (i =0; i < settingsID['inputsetting2Svg'][6]; i++) {
+				step = ((settingsID['inputsetting1Svg'][6] - graphxmin)/settingsID['inputsetting2Svg'][6])
+				xval = graphxmin + (i*step)
+				yvalue = waveEquation(xval)
+				curveDict.push([xval,yvalue])
+				if (i == 0) {
+					graphymax = yvalue
+					graphymin = yvalue
+				}
+				if (graphymax <= yvalue) {
+					graphymax = yvalue
+				}
+				if (graphymin >= yvalue) {
+					graphymin = yvalue
+				}
+			}
+
+			LUgapmain = (graphymax - graphymin)/10
+
+			graphymax = graphymax + LUgapmain
+			graphymin = graphymin - LUgapmain
+
+			updategraphAxes()
+			updategraphAxesTicksAndLabels()
+
+			for (i =0; i < curveDict.length; i++) {
+				xval = curveDict[i][0]
+				yvalue = curveDict[i][1]
+				pointsDict.push([graphToSvgX(xval),graphToSvgY(yvalue)]); 
+			}
+
+			
+
+			pString = 'M ' + pointsDict[0][0] + " " + pointsDict[0][1] + " "
+
+			for(k = 0; k < pointsDict.length; k++) {
+				pString = pString + 'L ' + pointsDict[k][0] + " " + pointsDict[k][1] + " ";
+			}
+
+
+			var pathElement = document.getElementById('main graph path');
+			pathElement.setAttribute('d',pString);
+		}
+
+		function shiftdirection(val) {
+			if( val < 0) {
+				return "down"
+			}
+			else if(val > 0) {
+				return "up"
+			}
+			else {
+				return ""
+			}
+		}
+
+
+		function drawEquation() {
+			var div = document.createElement("div");
+			// div.innerHTML = "A cosine wave with frequency " + frequency + "Hz shifted "+ shiftdirection(shift) +" by " + Math.abs(shift) + ".";
+			div.innerHTML = "Input signal"
+			div.style.textAlign = "center";
+			div.id = 'equation detail';
+			div.style.position = "relative";
+			div.style.fontSize = "2.3vh";
+			div.style.fontFamily = "Calibri";
+			div.style.zIndex = '0';
+			div.style.left = '50%'
+			div.style.top =  '50%'
+			div.style.transform = 'translate(-50%,-50%)';
+			document.getElementById('containEquationSettings').appendChild(div);
+		}
+
+		drawEquation()
+
+
+		analysisWindow = [0,3]
+
+		function analysisWindow0down(event) {
+			graphSvg.addEventListener('mousemove', analysisWindow0move)
+			graphSvg.addEventListener('mouseup', analysisWindow0out)
+			document.getElementById('analysisWindow 0').removeEventListener('mousedown', analysisWindow0down)
+			graphSvg.removeEventListener('mouseover',valueSpecifier)
+		}
+
+		function analysisWindow0out(event) {
+			graphSvg.removeEventListener('mousemove', analysisWindow0move)
+			graphSvg.removeEventListener('mouseup', analysisWindow0out)
+			document.getElementById('analysisWindow 0').addEventListener('mousedown', analysisWindow0down)
+			graphSvg.addEventListener('mouseover',valueSpecifier)
+			updatePolarAxes()
+			updatePolar()
+			plotCenterOfMass()
+			plotCOMpart()
+			updatefinalgraphAxesTicksAndLabels()
+			updateplotTransform()
+		}
+
+		function analysisWindow0move(event) {
+			var rect = graphSvg.getBoundingClientRect()
+			posX = event.clientX - rect.left
+
+			xPer = (posX/rect.width)*100
+
+			cxpoint = getValFromPercentages(xPer, 0, settingsID['inputsetting1Svg'][6],'x')
+
+			if (cxpoint < analysisWindow[1] && cxpoint > 0) {
+				lineElement = document.getElementById('analysisWindow 0')
+
+				lineElement.setAttribute('x1', graphToSvgX(cxpoint) + '%');
+				lineElement.setAttribute('y1', graphToSvgY(graphymax) + '%');
+				lineElement.setAttribute('x2', graphToSvgX(cxpoint) + '%')
+				lineElement.setAttribute('y2', graphToSvgY(graphymin) + '%');
+				analysisWindow[0] = cxpoint
+
+				windowstring = "M " + graphToSvgX(analysisWindow[0]) + "," + graphToSvgY(graphymax) + " L " + graphToSvgX(analysisWindow[1]) + "," + graphToSvgY(graphymax) + " L " + graphToSvgX(analysisWindow[1]) + "," + graphToSvgY(graphymin) + " L " + graphToSvgX(analysisWindow[0]) + "," + graphToSvgY(graphymin)
+				document.getElementById('analysisWindow area').setAttribute('d',windowstring);
+			}
+
+			
+
+				
+		}
+
+		function analysisWindow1down(event) {
+			graphSvg.addEventListener('mousemove', analysisWindow1move)
+			graphSvg.addEventListener('mouseup', analysisWindow1out)
+			document.getElementById('analysisWindow 1').removeEventListener('mousedown', analysisWindow1down)
+			graphSvg.removeEventListener('mouseover',valueSpecifier)
+		}
+
+		function analysisWindow1out(event) {
+			graphSvg.removeEventListener('mousemove', analysisWindow1move)
+			graphSvg.removeEventListener('mouseup', analysisWindow1out)
+			document.getElementById('analysisWindow 1').addEventListener('mousedown', analysisWindow1down)
+			graphSvg.addEventListener('mouseover',valueSpecifier)
+			updatePolarAxes()
+			updatePolar()
+			plotCenterOfMass()
+			plotCOMpart()
+			updatefinalgraphAxesTicksAndLabels()
+			updateplotTransform()
+		}
+
+		function analysisWindow1move(event) {
+			var rect = graphSvg.getBoundingClientRect()
+			posX = event.clientX - rect.left
+
+			xPer = (posX/rect.width)*100
+
+			cxpoint = getValFromPercentages(xPer, 0, settingsID['inputsetting1Svg'][6],'x')
+
+			if (cxpoint > analysisWindow[0] && cxpoint < settingsID['inputsetting1Svg'][6]) {
+				lineElement = document.getElementById('analysisWindow 1')
+
+				lineElement.setAttribute('x1', graphToSvgX(cxpoint) + '%');
+				lineElement.setAttribute('y1', graphToSvgY(graphymax) + '%');
+				lineElement.setAttribute('x2', graphToSvgX(cxpoint) + '%')
+				lineElement.setAttribute('y2', graphToSvgY(graphymin) + '%');
+				analysisWindow[1] = cxpoint
+
+				windowstring = "M " + graphToSvgX(analysisWindow[0]) + "," + graphToSvgY(graphymax) + " L " + graphToSvgX(analysisWindow[1]) + "," + graphToSvgY(graphymax) + " L " + graphToSvgX(analysisWindow[1]) + "," + graphToSvgY(graphymin) + " L " + graphToSvgX(analysisWindow[0]) + "," + graphToSvgY(graphymin)
+				document.getElementById('analysisWindow area').setAttribute('d',windowstring);
+			}
+				
+		}
+		
+		function drawAnalysisWindow() {
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', graphToSvgX(analysisWindow[0]) + '%');
+			lineElement.setAttribute('y1', graphToSvgY(graphymax) + '%');
+			lineElement.setAttribute('x2', graphToSvgX(analysisWindow[0]) + '%')
+			lineElement.setAttribute('y2', graphToSvgY(graphymin) + '%');
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.style.stroke = 'hsla(32,100%,50%,0.2)'
+			lineElement.id = 'analysisWindow 0'
+			lineElement.style.strokeWidth = '10%';
+			lineElement.style.cursor = 'ew-resize'
+			lineElement.addEventListener('mousedown', analysisWindow0down)
+			graphSvg.appendChild(lineElement);
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', graphToSvgX(analysisWindow[1]) + '%');
+			lineElement.setAttribute('y1', graphToSvgY(graphymax) + '%');
+			lineElement.setAttribute('x2', graphToSvgX(analysisWindow[1]) + '%')
+			lineElement.setAttribute('y2', graphToSvgY(graphymin) + '%');
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.style.stroke = 'hsla(32,100%,50%,0.2)'
+			lineElement.style.strokeWidth = '10%';
+			lineElement.id = 'analysisWindow 1'
+			lineElement.style.cursor = 'ew-resize'
+			lineElement.addEventListener('mousedown', analysisWindow1down)
+			graphSvg.appendChild(lineElement);
+
+			var pathElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+			pathElement.setAttribute('fill','hsla(35,100%,50%,0.1)');
+			pathElement.setAttribute('vector-effect','non-scaling-stroke');
+			windowstring = "M " + graphToSvgX(analysisWindow[0]) + "," + graphToSvgY(graphymax) + " L " + graphToSvgX(analysisWindow[1]) + "," + graphToSvgY(graphymax) + " L " + graphToSvgX(analysisWindow[1]) + "," + graphToSvgY(graphymin) + " L " + graphToSvgX(analysisWindow[0]) + "," + graphToSvgY(graphymin)
+			pathElement.setAttribute('d',windowstring);
+			pathElement.style.pointerEvents = 'none'
+			colorC = 'hsla(186,100%,50%,1)'
+			pathElement.id = 'analysisWindow area'
+			pathElement.style.strokeWidth = '0';
+			graphSvg.appendChild(pathElement);
+
+			
+		}
+
+		drawAnalysisWindow()
+
+		function makePolarFrame() {
+			polarDiv = document.getElementById('containPolar')
+			rectB = polarDiv.getBoundingClientRect()
+			if(rectB.width < rectB.height) {
+				minDimension = rectB.width
+				polarSquareSide = 10*minDimension/10
+				polarSquareSideGap = minDimension/20
+
+				var div = document.createElement("div");
+				div.innerHTML = "";
+				div.id = 'polarFrame';
+				div.style.position = "relative";
+				div.style.zIndex = '0';
+				div.style.left = '50%'
+				div.style.top =  '50%'
+				div.style.width = polarSquareSide
+				div.style.height = polarSquareSide
+
+				div.style.transform = 'translate(-50%,-50%)';
+				document.getElementById('containPolar').appendChild(div);
+
+			}
+			else {
+				minDimension = rectB.height
+				polarSquareSide = 10*minDimension/10
+				polarSquareSideGap = minDimension/20
+
+
+				var div = document.createElement("div");
+				div.innerHTML = "";
+				div.id = 'polarFrame';
+				div.style.position = "relative";
+				div.style.zIndex = '0';
+				div.style.left = '50%'
+				div.style.top =  '50%'
+				div.style.width = polarSquareSide
+				div.style.height = polarSquareSide
+
+				div.style.transform = 'translate(-50%,-50%)';
+				document.getElementById('containPolar').appendChild(div);
+			}
+
+			
+		}
+
+		function updatePolarFrame() {
+			polarDiv = document.getElementById('containPolar')
+			rectB = polarDiv.getBoundingClientRect()
+			if(rectB.width < rectB.height) {
+				minDimension = rectB.width
+				polarSquareSide = 10*minDimension/10
+				polarSquareSideGap = minDimension/20
+
+				var div = document.getElementById("polarFrame");
+				
+				div.style.left = '50%'
+				div.style.top =  '50%'
+				div.style.width = polarSquareSide
+				div.style.height = polarSquareSide
+				div.style.transform = 'translate(-50%,-50%)';
+
+			}
+			else {
+				minDimension = rectB.height
+				polarSquareSide = 10*minDimension/10
+				polarSquareSideGap = minDimension/20
+
+
+				var div = document.getElementById("polarFrame");				
+				div.style.left = '50%'
+				div.style.top =  '50%'
+				div.style.width = polarSquareSide
+				div.style.height = polarSquareSide
+				div.style.transform = 'translate(-50%,-50%)';
+			}
+
+			
+		}
+
+		makePolarFrame()
+
+		polarymin = -graphymax
+		polarymax = graphymax
+		polarxmax = graphymax
+		polarxmin = -graphymax
+
+		function polarToSvgY(val) {
+			return (((90 - 10)/(polarymin - polarymax))*(val - polarymax)) + 10
+		}
+
+		function polarToSvgX(val) {
+			return (((90 - 10)/(polarxmax - polarxmin))*(val - polarxmin)) + 10
+		}
+
+
+		function drawPolar() {
+			document.getElementById('polarFrame').innerHTML = '<svg id="polarSvg" height="100%" width="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style="position: absolute; z-index: 1">'
+
+			polarSvg = document.getElementById('polarSvg')
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', polarToSvgX(0) + '%');
+			lineElement.setAttribute('y1', polarToSvgY(polarymin) + '%');
+			lineElement.setAttribute('id', 'polar y axis');
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.setAttribute('x2', polarToSvgX(0) + '%')
+			lineElement.setAttribute('y2', polarToSvgY(polarymax) + '%');
+			lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+			lineElement.style.strokeWidth = '2%';
+			polarSvg.appendChild(lineElement);
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', polarToSvgX(polarxmin) + '%');
+			lineElement.setAttribute('y1', polarToSvgY(0) + '%');
+			lineElement.setAttribute('id', 'polar x axis');
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.setAttribute('x2', polarToSvgX(polarxmax) + '%')
+			lineElement.setAttribute('y2', polarToSvgY(0) + '%');
+			lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+			lineElement.style.strokeWidth = '2%';
+			polarSvg.appendChild(lineElement);
+		}
+
+		function updatePolarAxes() {
+			polarymin = -graphymax
+			polarymax = graphymax
+			polarxmax = graphymax
+			polarxmin = -graphymax
+			polarSvg = document.getElementById('polarSvg')
+
+			var lineElement = document.getElementById('polar y axis')
+			lineElement.setAttribute('x1', polarToSvgX(0) + '%');
+			lineElement.setAttribute('y1', polarToSvgY(polarymin) + '%');
+			lineElement.setAttribute('x2', polarToSvgX(0) + '%')
+			lineElement.setAttribute('y2', polarToSvgY(polarymax) + '%');
+
+			var lineElement = document.getElementById('polar x axis')
+			lineElement.setAttribute('x1', polarToSvgX(polarxmin) + '%');
+			lineElement.setAttribute('y1', polarToSvgY(0) + '%');
+			lineElement.setAttribute('x2', polarToSvgX(polarxmax) + '%')
+			lineElement.setAttribute('y2', polarToSvgY(0) + '%');
+		}
+
+		drawPolar()
+
+		windingfrequency = 0.2
+
+		polarSvg = document.getElementById('polarSvg')
+
+		var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+		lineElement.setAttribute('x1', polarToSvgX(0) + '%');
+		lineElement.setAttribute('y1', polarToSvgY(polarymin) + '%');
+		lineElement.setAttribute('x2', polarToSvgX(0) + '%')
+		lineElement.setAttribute('y2', polarToSvgY(polarymax) + '%');
+		lineElement.setAttribute('vector-effect','non-scaling-stroke');
+		lineElement.style.stroke = 'hsla(32,100%,50%,0)'
+		lineElement.style.strokeWidth = '2%';
+		lineElement.id = 'locatorPolar'
+		polarSvg.appendChild(lineElement);
+
+
+		var div = document.createElement("div");
+		div.innerHTML = "Winding frequency : " + windingfrequency.toFixed(2) + " cycles/sec";
+		div.id = 'windingfrequencyDisplay';
+		div.style.position = "relative";
+		div.style.zIndex = '0';
+		div.style.left = '50%'
+		div.style.top =  '50%'
+		div.style.fontSize = '2vh'
+		div.style.fontFamily = 'Calibri'
+		div.style.textAlign =  'center'
+		div.style.cursor =  'ew-resize'
+		div.style.transform = 'translate(-50%,-50%)';
+		document.getElementById('containPolarDetails').appendChild(div);
+
+		pointsDictPolarActual = []
+
+
+		function plotPolar() {
+			pointsDictPolar = []
+
+			for (i =0; i < curveDict.length; i++) {
+				xval = curveDict[i][0]
+				if (xval > analysisWindow[1]) {
+					break
+				}
+				yvalue = curveDict[i][1]
+				polarX = yvalue*Math.cos(-2*Math.PI*windingfrequency*xval)
+				polarY = yvalue*Math.sin(-2*Math.PI*windingfrequency*xval)
+				pointsDictPolarActual.push([polarX,polarY])
+				pointsDictPolar.push([polarToSvgX(polarX),polarToSvgY(polarY)]); 
+			}
+
+			pString = 'M ' + pointsDictPolar[0][0] + " " + pointsDictPolar[0][1] + " "
+
+			for(k = 0; k < pointsDictPolar.length; k++) {
+				pString = pString + 'L ' + pointsDictPolar[k][0] + " " + pointsDictPolar[k][1] + " ";
+			}
+
+			polarSvg = document.getElementById('polarSvg')
+
+			var pathElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+			pathElement.setAttribute('fill','transparent');
+			pathElement.setAttribute('vector-effect','non-scaling-stroke');
+			pathElement.setAttribute('d',pString);
+			pathElement.setAttribute('id','polarcurve');
+			colorC = 'hsla(186,100%,50%,1)'
+			pathElement.style.strokeWidth = '2%';
+			pathElement.setAttribute('stroke', colorC);
+			polarSvg.appendChild(pathElement);
+
+
+		}
+
+		function updatePolar() {
+			polarymin = -graphymax
+			polarymax = graphymax
+			polarxmax = graphymax
+			polarxmin = -graphymax
+
+
+
+			pointsDictPolar = []
+			pointsDictPolarActual = []
+
+			for (i =0; i < curveDict.length; i++) {
+				xval = curveDict[i][0]
+				if (xval > analysisWindow[1]) {
+					break
+				}
+				if (xval > analysisWindow[0]) {
+					yvalue = curveDict[i][1]
+					polarX = yvalue*Math.cos(-2*Math.PI*windingfrequency*xval)
+					polarY = yvalue*Math.sin(-2*Math.PI*windingfrequency*xval)
+					pointsDictPolar.push([polarToSvgX(polarX),polarToSvgY(polarY)]);
+					pointsDictPolarActual.push([polarX,polarY])
+				}
+			}
+
+			pString = 'M ' + pointsDictPolar[0][0] + " " + pointsDictPolar[0][1] + " "
+
+			for(k = 0; k < pointsDictPolar.length; k++) {
+				pString = pString + 'L ' + pointsDictPolar[k][0] + " " + pointsDictPolar[k][1] + " ";
+			}
+
+
+			var pathElement = document.getElementById('polarcurve')
+			pathElement.setAttribute('d',pString);
+
+			document.getElementById('windingfrequencyDisplay').innerHTML = "Winding frequency : " + windingfrequency.toFixed(2) + " cycles/sec";
+
+
+		}
+
+
+		plotPolar()
+		settingsID['CGsetting1Svg'][6] = 5
+		minwindingFrequency = 0
+
+		function update(event) {
+			var rect = event.target.getBoundingClientRect()
+			posX = event.clientX - rect.left
+			posY = event.clientY - rect.top
+			windingfrequency = minwindingFrequency + ((posX)*(settingsID['CGsetting1Svg'][6] - minwindingFrequency)/(rect.width))
+			// console.log(windingfrequency)
+			document.getElementById('wfSlider').setAttribute('width', (posX)*(100)/(rect.width) + '%')
+			updatePolar()
+			plotCenterOfMass()
+			plotCOMpart()
+		}
+
+		function updateviaTouch(event) {
+			var touch = event.touches[0];
+			var rect = event.target.getBoundingClientRect()
+			posX = touch.pageX - rect.left
+			posY = touch.pageY - rect.top
+			windingfrequency = minwindingFrequency + ((posX)*(settingsID['CGsetting1Svg'][6] - minwindingFrequency)/(rect.width))
+			// console.log(windingfrequency)
+			document.getElementById('wfSlider').setAttribute('width', (posX)*(100)/(rect.width) + '%')
+			updatePolar()
+			plotCenterOfMass()
+			plotCOMpart()
+		}
+
+		function updatePdown(event) {
+			document.getElementById('containPolar').removeEventListener('mousedown',updatePdown)
+			document.getElementById('containPolarDetails').removeEventListener('mousedown',updatePdown)
+			document.getElementById('containPolar').addEventListener('mousemove',update)
+			document.getElementById('containPolarDetails').addEventListener('mousemove',update)
+			document.getElementById('containPolar').addEventListener('mouseup',updatePUp)
+			document.getElementById('containPolarDetails').addEventListener('mouseup',updatePUp)
+			document.getElementById('containPolar').style.cursor = 'ew-resize'
+			document.getElementById('containPolarDetails').style.cursor = 'ew-resize'
+		}
+
+		function updatePUp(event) {
+			document.getElementById('containPolar').removeEventListener('mousemove',update)
+			document.getElementById('containPolarDetails').removeEventListener('mousemove',update)
+			document.getElementById('containPolar').removeEventListener('mouseup',updatePUp)
+			document.getElementById('containPolarDetails').removeEventListener('mouseup',updatePUp)
+			document.getElementById('containPolar').addEventListener('mousedown',updatePdown)
+			document.getElementById('containPolarDetails').addEventListener('mousedown',updatePdown)
+			document.getElementById('containPolar').style.cursor = 'pointer'
+			document.getElementById('containPolarDetails').style.cursor = 'pointer'
+		}
+
+		document.getElementById('containPolarDetails').addEventListener('mousemove',update)
+		document.getElementById('containPolarDetails').addEventListener('touchmove',updateviaTouch)
+
+		document.getElementById('containPolar').addEventListener('mousemove',update)
+		document.getElementById('containPolar').addEventListener('touchmove',updateviaTouch)
+
+		document.getElementById('containPolarDetails').addEventListener('mousedown',updatePdown)
+		document.getElementById('containPolar').addEventListener('mousedown',updatePdown)
+		document.getElementById('containPolar').style.cursor = 'pointer'
+		document.getElementById('containPolarDetails').style.cursor = 'pointer'
+
+		
+
+		var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+		lineElement.setAttribute('x1', polarToSvgX(0) + '%');
+		lineElement.setAttribute('y1', polarToSvgY(0) + '%');
+		lineElement.setAttribute('vector-effect','non-scaling-stroke');
+		lineElement.setAttribute('x2', polarToSvgX(0) + '%')
+		lineElement.setAttribute('y2', polarToSvgY(0) + '%');
+		lineElement.setAttribute('id', 'x-corPolar');
+		lineElement.style.stroke = 'hsla(250,100%,50%,1)'
+		lineElement.style.strokeWidth = '2%';
+		lineElement.style.opacity = 0
+		polarSvg.appendChild(lineElement);
+
+		var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+		lineElement.setAttribute('x1', polarToSvgX(0) + '%');
+		lineElement.setAttribute('y1', polarToSvgY(0) + '%');
+		lineElement.setAttribute('vector-effect','non-scaling-stroke');
+		lineElement.setAttribute('x2', polarToSvgX(0) + '%')
+		lineElement.setAttribute('y2', polarToSvgY(0) + '%');
+		lineElement.setAttribute('id', 'y-corPolar');
+		lineElement.style.stroke = 'hsla(7,100%,50%,1)'
+		lineElement.style.strokeWidth = '2%';
+		lineElement.style.opacity = 0
+		polarSvg.appendChild(lineElement);
+
+		var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+		circleElement.setAttribute('r','1%');
+		circleElement.setAttribute('cx','0%');
+		circleElement.setAttribute('cy','0%');
+		circleElement.style.opacity = 0
+		circleElement.style.fill = 'hsla(260,100%,50%,0.6)'
+		circleElement.style.strokeWidth = '0';
+		circleElement.setAttribute('id','centerOfMass');
+		document.getElementById('polarSvg').appendChild(circleElement);
+
+		plotXcor = 1
+		plotYcor = 1
+
+		cOM = [0,0]
+
+		showCOM = true
+		showCOMx = true
+		showCOMy = true
+
+
+		function plotCenterOfMass() {
+			sumX = 0
+			sumY = 0
+
+			for(i = 0; i < pointsDictPolarActual.length; i++) {
+				sumX = sumX + pointsDictPolarActual[i][0]
+				sumY = sumY + pointsDictPolarActual[i][1]
+
+			}
+
+			avgX = sumX/pointsDictPolarActual.length
+			avgY = sumY/pointsDictPolarActual.length
+
+			cOM = [avgX,avgY]
+
+			circleElement = document.getElementById('centerOfMass')
+			circleElement.setAttribute('cx', polarToSvgX(avgX) + '%');
+			circleElement.setAttribute('cy', polarToSvgY(avgY) + '%');
+			if (showCOM == true) {
+				circleElement.style.opacity = 1
+			}
+			
+
+			if (plotXcor == 1) {
+				lineElement = document.getElementById('x-corPolar')
+				lineElement.setAttribute('x1', polarToSvgX(avgX) + '%');
+				lineElement.setAttribute('y1', polarToSvgY(0) + '%');
+				lineElement.setAttribute('x2', polarToSvgX(0) + '%');
+				lineElement.setAttribute('y2', polarToSvgY(0) + '%');
+				if (showCOMx == true) {
+					lineElement.style.opacity = 1
+				}
+				
+			}
+
+			if (plotYcor == 1) {
+				lineElement = document.getElementById('y-corPolar')
+				lineElement.setAttribute('x1', polarToSvgX(0) + '%');
+				lineElement.setAttribute('y1', polarToSvgY(avgY) + '%');
+				lineElement.setAttribute('x2', polarToSvgX(0) + '%');
+				lineElement.setAttribute('y2', polarToSvgY(0) + '%');
+				if (showCOMy == true) {
+					lineElement.style.opacity = 1
+				}
+			}
+
+		}
+
+		plotCenterOfMass()
+
+
+		finalgraphymax = graphymax
+		finalgraphymin = -graphymax
+
+		settingsID['CGsetting1Svg'][6] = settingsID['CGsetting1Svg'][6]
+
+		finalgraphSvg = document.getElementById('finalgraphSvg')
+		function finalgraphToSvgY(value) {
+			y = ((-80)/(finalgraphymax - finalgraphymin))*(value - finalgraphymin) + 90
+			return y
+		}
+
+		function finalgraphToSvgX(value) {
+			x = (80/settingsID['CGsetting1Svg'][6])*(value) + 10
+			return x
+		}
+
+
+		function svgXPercentToFinalGraph(value) {
+			x = (value - 10)*settingsID['CGsetting1Svg'][6]/80
+			return x
+		}
+
+
+		function drawgraphAxesFinalPlot() {
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', finalgraphToSvgX(0) + '%');
+			lineElement.setAttribute('y1', finalgraphToSvgY(0) + '%');
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.setAttribute('x2', finalgraphToSvgX(settingsID['CGsetting1Svg'][6]) + '%')
+			lineElement.setAttribute('y2', finalgraphToSvgY(0) + '%');
+			lineElement.setAttribute('id', 'final plot x axis');
+			lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+			lineElement.style.strokeWidth = '2%';
+			finalgraphSvg.appendChild(lineElement);
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', finalgraphToSvgX(0) + '%');
+			lineElement.setAttribute('y1', finalgraphToSvgY(finalgraphymax) + '%');
+			lineElement.setAttribute('x2', finalgraphToSvgX(0) + '%')
+			lineElement.setAttribute('y2', finalgraphToSvgY(finalgraphymin) + '%');
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.setAttribute('id', 'final plot y axis');
+			lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+			lineElement.style.strokeWidth = '2%';
+			finalgraphSvg.appendChild(lineElement);
+
+		}
+
+		function updategraphAxesFinalPlot() {
+			var lineElement = document.getElementById('final plot x axis')
+			lineElement.setAttribute('x1', finalgraphToSvgX(0) + '%');
+			lineElement.setAttribute('y1', finalgraphToSvgY(0) + '%');
+			lineElement.setAttribute('x2', finalgraphToSvgX(settingsID['CGsetting1Svg'][6]) + '%')
+			lineElement.setAttribute('y2', finalgraphToSvgY(0) + '%');
+			
+			var lineElement = document.getElementById('final plot y axis')
+			lineElement.setAttribute('x1', finalgraphToSvgX(0) + '%');
+			lineElement.setAttribute('y1', finalgraphToSvgY(finalgraphymax) + '%');
+			lineElement.setAttribute('x2', finalgraphToSvgX(0) + '%')
+			lineElement.setAttribute('y2', finalgraphToSvgY(finalgraphymin) + '%');
+
+		}
+
+		
+
+		var ellipseElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+		ellipseElement.setAttribute('rx','1%');
+		ellipseElement.setAttribute('ry','1%');
+		ellipseElement.setAttribute('cx','0%');
+		ellipseElement.setAttribute('cy','0%');
+		ellipseElement.setAttribute('vector-effect','non-scaling-stroke')
+		ellipseElement.style.opacity = 0
+		ellipseElement.style.fill = 'hsla(260,100%,50%,0.6)'
+		ellipseElement.style.strokeWidth = '0';
+		ellipseElement.setAttribute('id','centerOfMassX');
+		document.getElementById('finalgraphSvg').appendChild(ellipseElement);
+
+		function plotCOMpart() {
+			ellipseElement = document.getElementById('centerOfMassX')
+			ellipseElement.style.opacity = 1
+			if (plotXPart == true) {
+				lineElement = document.getElementById('xcor on transform')
+				document.getElementById('ycor on transform').style.opacity = 0
+			}
+			else {
+				lineElement = document.getElementById('ycor on transform')
+				document.getElementById('xcor on transform').style.opacity = 0
+			}
+			
+			lineElement.style.opacity = 1
+
+
+			if (windingfrequency < settingsID['CGsetting1Svg'][6]) {
+				ellipseElement.setAttribute('cx', finalgraphToSvgX(windingfrequency) + '%');
+				if (plotXPart == true) {
+					ellipseElement.setAttribute('cy', finalgraphToSvgY(cOM[0]) + '%');
+				}
+				else {
+					ellipseElement.setAttribute('cy', finalgraphToSvgY(-cOM[1]) + '%');
+				}
+				
+
+				lineElement.setAttribute('x1', finalgraphToSvgX(0) + '%');
+				lineElement.setAttribute('y1', finalgraphToSvgY(0) + '%');
+				lineElement.setAttribute('x2', finalgraphToSvgX(0) + '%')
+				if (plotXPart == true) {
+					lineElement.setAttribute('y2', finalgraphToSvgY(cOM[0]) + '%');
+				}
+				else {
+					lineElement.setAttribute('y2', finalgraphToSvgY(-cOM[1]) + '%');
+				}
+
+				scalevalue = 1
+				ww = finalgraphSvg.getBoundingClientRect().width
+				hh = finalgraphSvg.getBoundingClientRect().height
+				if(hh < ww) {
+					ellipseElement.setAttribute('rx',scalevalue*(hh/ww) + '%');
+					ellipseElement.setAttribute('ry',scalevalue + '%');
+				}
+				else {
+					ellipseElement.setAttribute('ry',scalevalue*(ww/hh) + '%');
+					ellipseElement.setAttribute('rx',scalevalue + '%');
+				}
+			}
+		}
+
+		allfinalGraphXticks = []
+
+		function drawfinalgraphAxesTicksAndLabels() {
+			numberofticks = parseInt(settingsID['CGsetting1Svg'][6])
+			ticklengthsX = (finalgraphymax - finalgraphymin)/40
+			ticklengthsY = (settingsID['CGsetting1Svg'][6] - 0)/200
+
+			for(i=0; i<numberofticks; i++) {
+				var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+				lineElement.setAttribute('x1', finalgraphToSvgX(i) + '%');
+				lineElement.setAttribute('y1', finalgraphToSvgY(ticklengthsX) + '%');
+				lineElement.setAttribute('x2', finalgraphToSvgX(i) + '%')
+				lineElement.setAttribute('y2', finalgraphToSvgY(-ticklengthsX) + '%');
+				lineElement.setAttribute('vector-effect','non-scaling-stroke');
+				lineElement.setAttribute('id', 'final graph xtick ' + i);
+				lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+				lineElement.style.strokeWidth = '1.5%';
+				finalgraphSvg.appendChild(lineElement);
+
+				var div = document.createElement("div");
+				div.innerHTML = i;
+				div.style.textAlign = "center";
+				div.id = 'xtick final ' + i;
+				div.style.position = "absolute";
+				div.style.fontSize = "1vw";
+				div.style.fontFamily = "Calibri";
+				div.style.zIndex = '0';
+				div.style.left = finalgraphToSvgX(i + ticklengthsY) + '%'
+				div.style.top =  finalgraphToSvgY(-4*ticklengthsX) + '%'
+				div.style.transform = 'translate(' + (-1)*finalgraphToSvgX(i + ticklengthsY) +  '%, ' +  (-1)*finalgraphToSvgY(-4*ticklengthsX) + '%)';
+				document.getElementById('containfinalGraphtexts').appendChild(div);
+				allfinalGraphXticks.push([lineElement,i,div])
+			}
+
+			
+
+			for(i=parseInt(finalgraphymin); i<=parseInt(finalgraphymax); i++) {
+				var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+				lineElement.setAttribute('x1', finalgraphToSvgX(ticklengthsY) + '%');
+				lineElement.setAttribute('y1', finalgraphToSvgY(i) + '%');
+				lineElement.setAttribute('x2', finalgraphToSvgX(-ticklengthsY) + '%')
+				lineElement.setAttribute('y2', finalgraphToSvgY(i) + '%');
+				lineElement.setAttribute('vector-effect','non-scaling-stroke');
+				lineElement.setAttribute('id', 'final graph ytick ' + i);
+				lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+				lineElement.style.strokeWidth = '1.5%';
+				finalgraphSvg.appendChild(lineElement);
+
+				// var div = document.createElement("div");
+				// div.innerHTML = i;
+				// div.style.textAlign = "center";
+				// div.id = 'ytick' + i;
+				// div.style.position = "absolute";
+				// div.style.fontSize = "1vw";
+				// div.style.fontFamily = "Calibri";
+				// div.style.zIndex = '0';
+				// div.style.left = finalgraphToSvgX(-3*ticklengthsY) + '%'
+				// div.style.top =  finalgraphToSvgY(i + ticklengthsX) + '%'
+				// div.style.transform = 'translate(' + (-1)*finalgraphToSvgX(-3*ticklengthsY) +  '%, ' +  (-1)*finalgraphToSvgY(i + ticklengthsX) + '%';
+				// document.getElementById('containGraphtexts').appendChild(div);
+			}
+		}
+
+
+		function updatefinalgraphAxesTicksAndLabels() {
+			numberofticks = parseInt(settingsID['CGsetting1Svg'][6])
+			ticklengthsX = (finalgraphymax - finalgraphymin)/40
+			ticklengthsY = (settingsID['CGsetting1Svg'][6] - 0)/200
+
+			for(i=0; i<allfinalGraphXticks.length; i++) {
+				allfinalGraphXticks[i][0].style.opacity = 0
+				allfinalGraphXticks[i][2].style.opacity = 0
+			}
+
+			for(i=0; i<numberofticks; i++) {
+				var lineElement = document.getElementById('final graph xtick ' + i)
+				if (lineElement !== null) {
+					lineElement.setAttribute('x1', finalgraphToSvgX(i) + '%');
+					lineElement.setAttribute('y1', finalgraphToSvgY(ticklengthsX) + '%');
+					lineElement.setAttribute('x2', finalgraphToSvgX(i) + '%')
+					lineElement.setAttribute('y2', finalgraphToSvgY(-ticklengthsX) + '%');
+					lineElement.style.opacity = 1
+
+					var div = document.getElementById('xtick final ' + i)
+					div.innerHTML = i;
+					div.style.left = finalgraphToSvgX(i + ticklengthsY) + '%'
+					div.style.top =  finalgraphToSvgY(-4*ticklengthsX) + '%'
+					div.style.transform = 'translate(' + (-1)*finalgraphToSvgX(i + ticklengthsY) +  '%, ' +  (-1)*finalgraphToSvgY(-4*ticklengthsX) + '%)';
+					div.style.opacity = 1
+				}
+				else {
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					lineElement.setAttribute('x1', finalgraphToSvgX(i) + '%');
+					lineElement.setAttribute('y1', finalgraphToSvgY(ticklengthsX) + '%');
+					lineElement.setAttribute('x2', finalgraphToSvgX(i) + '%')
+					lineElement.setAttribute('y2', finalgraphToSvgY(-ticklengthsX) + '%');
+					lineElement.setAttribute('vector-effect','non-scaling-stroke');
+					lineElement.setAttribute('id', 'final graph xtick ' + i);
+					lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+					lineElement.style.strokeWidth = '1.5%';
+					finalgraphSvg.appendChild(lineElement);
+
+					var div = document.createElement("div");
+					div.innerHTML = i;
+					div.style.textAlign = "center";
+					div.id = 'xtick final ' + i;
+					div.style.position = "absolute";
+					div.style.fontSize = "1vw";
+					div.style.fontFamily = "Calibri";
+					div.style.zIndex = '0';
+					div.style.left = finalgraphToSvgX(i + ticklengthsY) + '%'
+					div.style.top =  finalgraphToSvgY(-4*ticklengthsX) + '%'
+					div.style.transform = 'translate(' + (-1)*finalgraphToSvgX(i + ticklengthsY) +  '%, ' +  (-1)*finalgraphToSvgY(-4*ticklengthsX) + '%)';
+					document.getElementById('containfinalGraphtexts').appendChild(div);
+					allfinalGraphXticks.push([lineElement,i,div])
+				}
+			}
+
+			
+
+			for(i=parseInt(finalgraphymin); i<=parseInt(finalgraphymax); i++) {
+				var lineElement = document.getElementById('final graph ytick ' + i)
+				if (lineElement !== null) {
+					lineElement.setAttribute('x1', finalgraphToSvgX(ticklengthsY) + '%');
+					lineElement.setAttribute('y1', finalgraphToSvgY(i) + '%');
+					lineElement.setAttribute('x2', finalgraphToSvgX(-ticklengthsY) + '%')
+					lineElement.setAttribute('y2', finalgraphToSvgY(i) + '%');
+				}
+				
+
+				// var div = document.createElement("div");
+				// div.innerHTML = i;
+				// div.style.textAlign = "center";
+				// div.id = 'ytick' + i;
+				// div.style.position = "absolute";
+				// div.style.fontSize = "1vw";
+				// div.style.fontFamily = "Calibri";
+				// div.style.zIndex = '0';
+				// div.style.left = finalgraphToSvgX(-3*ticklengthsY) + '%'
+				// div.style.top =  finalgraphToSvgY(i + ticklengthsX) + '%'
+				// div.style.transform = 'translate(' + (-1)*finalgraphToSvgX(-3*ticklengthsY) +  '%, ' +  (-1)*finalgraphToSvgY(i + ticklengthsX) + '%';
+				// document.getElementById('containGraphtexts').appendChild(div);
+			}
+		}
+
+
+		
+		transformPointsDict = []
+		initTransformPointsDict = []
+
+		function plotTransform() {
+			curvepointsT = settingsID['inputsetting2Svg'][6]/2
+			if (curvepointsT <= 100) {
+				curvepointsT = 100
+			}
+			if (curvepointsT >= 3000) {
+				curvepointsT = 500
+			}
+
+			for (i = 0; i < curvepointsT; i++) {
+				step = (settingsID['CGsetting1Svg'][6]/curvepointsT)
+				wf = i*step
+
+				temppointsDictPolarActual = []
+
+				for (k =0; k < curveDict.length; k++) {
+					xval = curveDict[k][0]
+					if (xval > analysisWindow[1]) {
+						break
+					}
+					yvalue = curveDict[k][1]
+					polarX = yvalue*Math.cos(-2*Math.PI*wf*xval)
+					polarY = yvalue*Math.sin(-2*Math.PI*wf*xval)
+					temppointsDictPolarActual.push([polarX,polarY])
+				}
+
+				sumX = 0
+				sumY = 0
+
+				for(m = 0; m < temppointsDictPolarActual.length; m++) {
+					sumX = sumX + temppointsDictPolarActual[m][0]
+					sumY = sumY + temppointsDictPolarActual[m][1]
+
+				}
+
+				avgX = sumX/temppointsDictPolarActual.length
+				avgY = sumY/temppointsDictPolarActual.length
+
+				tempcOM = [avgX,avgY]
+
+				if (plotXPart == true) {
+					if (i == 0) {
+						finalgraphymax = avgX
+						finalgraphymin = avgX
+					}
+					if (finalgraphymax <= avgX) {
+						finalgraphymax = avgX
+					}
+					if (finalgraphymin >= avgX) {
+						finalgraphymin = avgX
+					}
+
+					initTransformPointsDict.push([wf,avgX])
+				}
+				else {
+					if (i == 0) {
+						finalgraphymax = -avgY
+						finalgraphymin = -avgY
+					}
+					if (finalgraphymax <= -avgY) {
+						finalgraphymax = -avgY
+					}
+					if (finalgraphymin >= -avgY) {
+						finalgraphymin = -avgY
+					}
+
+					initTransformPointsDict.push([wf,-avgY])
+				}
+				
+
+			}
+
+			drawfinalgraphAxesTicksAndLabels()
+			drawgraphAxesFinalPlot()
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', finalgraphToSvgX(0) + '%');
+			lineElement.setAttribute('y1', finalgraphToSvgY(finalgraphymax) + '%');
+			lineElement.setAttribute('x2', finalgraphToSvgX(0) + '%')
+			lineElement.setAttribute('y2', finalgraphToSvgY(finalgraphymin) + '%');
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.setAttribute('id', 'xcor on transform');
+			lineElement.style.stroke =  'hsla(250,100%,50%,0.5)'
+			lineElement.style.strokeWidth = '2%';
+			finalgraphSvg.appendChild(lineElement);
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', finalgraphToSvgX(0) + '%');
+			lineElement.setAttribute('y1', finalgraphToSvgY(finalgraphymax) + '%');
+			lineElement.setAttribute('x2', finalgraphToSvgX(0) + '%')
+			lineElement.setAttribute('y2', finalgraphToSvgY(finalgraphymin) + '%');
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.setAttribute('id', 'ycor on transform');
+			lineElement.style.stroke =  'hsla(7,100%,50%,1)'
+			lineElement.style.strokeWidth = '2%';
+			lineElement.style.opacity = 0
+			lineElement.style.pointerEvents = 'none'
+			finalgraphSvg.appendChild(lineElement);
+
+			plotCOMpart()
+
+			for(b=0; b < initTransformPointsDict.length; b++) {
+				wf = initTransformPointsDict[b][0]
+				avgX = initTransformPointsDict[b][1]
+				transformPointsDict.push([finalgraphToSvgX(wf),finalgraphToSvgY(avgX)])
+			}
+
+			pString = 'M ' + transformPointsDict[0][0] + " " + transformPointsDict[0][1] + " "
+
+			for(k = 0; k < transformPointsDict.length; k++) {
+				pString = pString + 'L ' + transformPointsDict[k][0] + " " + transformPointsDict[k][1] + " ";
+			}
+
+			// console.log(pString)
+
+			var pathElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+			pathElement.setAttribute('fill','transparent');
+			pathElement.setAttribute('vector-effect','non-scaling-stroke');
+			pathElement.setAttribute('d',pString);
+			pathElement.setAttribute('id','final curve path');
+			colorC = 'hsla(300,100%,50%,0.1)'
+			pathElement.style.strokeWidth = '2%';
+			pathElement.setAttribute('stroke', colorC);
+			finalgraphSvg.appendChild(pathElement);
+				
+		}
+
+
+		
+
+		document.getElementById('finalgraphSvg').style.cursor = 'pointer'
+
+		plotXPart = true
+
+		function updateplotTransform() {
+			transformPointsDict = []
+			initTransformPointsDict = []
+			curvepointsT = settingsID['inputsetting2Svg'][6]/2
+			if (curvepointsT <= 100) {
+				curvepointsT = 100
+			}
+			if (curvepointsT >= 3000) {
+				curvepointsT = 500
+			}
+			for (i = 0; i < curvepointsT; i++) {
+				step = (settingsID['CGsetting1Svg'][6]/curvepointsT)
+				wf = i*step
+
+				temppointsDictPolarActual = []
+
+				for (k =0; k < curveDict.length; k++) {
+					xval = curveDict[k][0]
+					if (xval > analysisWindow[1]) {
+						break
+					}
+					if (xval > analysisWindow[0]) {
+						yvalue = curveDict[k][1]
+						polarX = yvalue*Math.cos(-2*Math.PI*wf*xval)
+						polarY = yvalue*Math.sin(-2*Math.PI*wf*xval)
+						temppointsDictPolarActual.push([polarX,polarY])
+					}
+				}
+
+				sumX = 0
+				sumY = 0
+
+				for(m = 0; m < temppointsDictPolarActual.length; m++) {
+					sumX = sumX + temppointsDictPolarActual[m][0]
+					sumY = sumY + temppointsDictPolarActual[m][1]
+
+				}
+
+				avgX = sumX/temppointsDictPolarActual.length
+				avgY = sumY/temppointsDictPolarActual.length
+
+				tempcOM = [avgX,avgY]
+
+				if (plotXPart == true) {
+					if (i == 0) {
+						finalgraphymax = avgX
+						finalgraphymin = avgX
+					}
+					if (finalgraphymax <= avgX) {
+						finalgraphymax = avgX
+					}
+					if (finalgraphymin >= avgX) {
+						finalgraphymin = avgX
+					}
+
+					initTransformPointsDict.push([wf,avgX])
+				}
+				else {
+					if (i == 0) {
+						finalgraphymax = -avgY
+						finalgraphymin = -avgY
+					}
+					if (finalgraphymax <= -avgY) {
+						finalgraphymax = -avgY
+					}
+					if (finalgraphymin >= -avgY) {
+						finalgraphymin = -avgY
+					}
+
+					initTransformPointsDict.push([wf,-avgY])
+				}
+			}
+
+			updatefinalgraphAxesTicksAndLabels()
+			updategraphAxesFinalPlot()
+			plotCOMpart()
+
+			for(b=0; b < initTransformPointsDict.length; b++) {
+				wf = initTransformPointsDict[b][0]
+				avgX = initTransformPointsDict[b][1]
+				transformPointsDict.push([finalgraphToSvgX(wf),finalgraphToSvgY(avgX)])
+			}
+
+			pString = 'M ' + transformPointsDict[0][0] + " " + transformPointsDict[0][1] + " "
+
+			for(k = 0; k < transformPointsDict.length; k++) {
+				pString = pString + 'L ' + transformPointsDict[k][0] + " " + transformPointsDict[k][1] + " ";
+			}
+
+			// console.log(pString)
+
+			var pathElement = document.getElementById('final curve path')
+			pathElement.setAttribute('d',pString);
+				
+		}
+
+		plotTransform()
+
+		function transformGraphEvent(event) {
+			var rect = event.target.getBoundingClientRect()
+			posX = event.clientX - rect.left
+			posY = event.clientY - rect.top
+			suggestedWF = svgXPercentToFinalGraph(posX*100/rect.width)
+			if (suggestedWF < settingsID['CGsetting1Svg'][6] && suggestedWF >= 0) {
+				windingfrequency = suggestedWF
+				document.getElementById('wfSlider').setAttribute('width', (windingfrequency)*100/(settingsID['CGsetting1Svg'][6]) + '%')
+				updatePolar()
+				plotCenterOfMass()
+				plotCOMpart()
+			} 
+		}
+
+		function transformGraphEventviaTouch(event) {
+			var touch = event.touches[0]
+			var rect = event.target.getBoundingClientRect()
+			posX = touch.pageX - rect.left
+			posY = touch.pageY - rect.top
+			suggestedWF = svgXPercentToFinalGraph(posX*100/rect.width)
+			if (suggestedWF < settingsID['CGsetting1Svg'][6] && suggestedWF >= 0) {
+				windingfrequency = suggestedWF
+				document.getElementById('wfSlider').setAttribute('width', (windingfrequency)*100/(settingsID['CGsetting1Svg'][6]) + '%')
+				updatePolar()
+				plotCenterOfMass()
+				plotCOMpart()
+			} 
+		}
+
+		finalgraphSvg.addEventListener('mousemove',transformGraphEvent)
+		finalgraphSvg.addEventListener('touchmove',transformGraphEventviaTouch)
+
+		settingsStateOpen = false
+
+		function openSettings() {
+			if(settingsStateOpen == false) {
+				document.getElementById('containSettingsDiv').style.height = '100%'
+				$('html, body').animate({
+					scrollTop: $("#containSettingsDiv").offset().top
+				}, 1000);
+				settingsStateOpen = true
+				document.getElementById('containAll').style.overflow = 'auto'
+			}
+			else {
+				document.getElementById('containSettingsDiv').style.height = '0%'
+				$('html, body').animate({
+					scrollBottom: $("#containSettingsDiv").offset().bottom
+				}, 1000);
+				settingsStateOpen = false
+				if (equationLabStateOpen == false) {
+					document.getElementById('containAll').style.overflow = 'hidden'
+				}
+			}		
+		}
+
+		document.getElementById('containSettings').addEventListener('click',openSettings)
+
+		wFsliderSvg = document.getElementById('wFsliderSvg')
+
+		var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+		rectElement.setAttribute('height',"100%");
+		rectElement.setAttribute('width', (windingfrequency)*100/(settingsID['CGsetting1Svg'][6]) + '%');
+		rectElement.setAttribute('id', 'wfSlider');
+		rectElement.setAttribute('x', '0%');
+		rectElement.setAttribute('y', '0%');
+		rectElement.style.opacity = 1;
+		rectElement.style.cursor = 'ew-resize';
+		rectElement.style.fill = 'hsla(195,100%,50%,0.1)'
+		rectElement.style.transition = 'width 0.3s'
+		rectElement.style.strokeWidth = '0';
+		wFsliderSvg.appendChild(rectElement);
+		// XORboxElements.push(rectElement)
+		// rectElement.addEventListener('mouseover', statechangeXOR)
+
+
+		equationLabStateOpen = false
+
+		function openequationLab() {
+			if(equationLabStateOpen == false) {
+				document.getElementById('containequationLab').style.height = 10 + 40*countWaves + 20 + '%'
+				if (displaymode == 'portrait') {
+					document.getElementById('containequationLab').style.height = 10 + 70*countWaves + 20 + '%'
+				}
+				document.getElementById('containAll').style.overflow = 'auto'
+				equationLabStateOpen = true
+			}
+			else {
+				document.getElementById('containequationLab').style.height = '0%'
+				if (settingsStateOpen == false) {
+					document.getElementById('containAll').style.overflow = 'hidden'
+				}
+				equationLabStateOpen = false
+				updatePolarAxes()
+				updatePolar()
+				plotCenterOfMass()
+				plotCOMpart()
+				updatefinalgraphAxesTicksAndLabels()
+				updateplotTransform()
+				for(i = 0; i < countWaves; i++) {
+					document.getElementById('eq ' + i + ' blank text subdiv').innerHTML = ""
+				}
+			}	
+		}
+
+		document.getElementById('containEquationSettings').addEventListener('click',openequationLab)
+
+		function getPercentages(val, vmin, vmax, returntype) {
+			if(returntype == 'x') {
+				if (vmin != vmax) {
+					return (((90 - 10)/(vmax - vmin))*(val - vmin)) + 10
+				}
+			}
+			else if(returntype == 'y') {
+				if (vmin != vmax) {
+					return (((10 - 90)/(vmax - vmin))*(val - vmin)) + 90
+				}
+			}
+		}
+
+		function getValFromPercentages(percent, vmin, vmax, returntype) {
+			if(returntype == 'x') {
+				if (vmin != vmax) {
+					return (((percent - 10)*(vmax - vmin))/(90 - 10)) + vmin
+				}
+			}
+			else if(returntype == 'y') {
+				if (vmin != vmax) {
+					return (((percent - 90)*(vmax - vmin))/(10 - 90)) + vmin
+				}
+			}
+		}
+
+		graphSVGid = {}
+
+		function drawAGraph(data,div,wmin,wmax,xmin,xmax,num) {
+
+			var infoholderdiv = document.createElement("div");
+			infoholderdiv.id = 'graph svg info holder ' + num + ' div';
+			infoholderdiv.style.position = "relative";
+			infoholderdiv.style.zIndex = '-1';
+			infoholderdiv.style.width = '100%'
+			infoholderdiv.style.height = '25vh'
+			infoholderdiv.style.overflow = 'hidden'
+			infoholderdiv.style.position = 'absolute'
+			infoholderdiv.style.pointerEvents = 'none'
+			div.appendChild(infoholderdiv);
+
+			var infotextdiv = document.createElement("div");
+			infotextdiv.id = 'graph svg info holder text ' + num + ' div';
+			infotextdiv.style.position = "absolute";
+			infotextdiv.innerHTML = 'Click/Tap and drag to draw the function.'
+			infotextdiv.style.fontSize = '2vh'
+			infotextdiv.style.color = 'hsla(200,0%,50%,0.5)'
+			infotextdiv.style.opacity = 0
+			infotextdiv.style.fontFamily = 'Calibri'
+			infotextdiv.style.textAlign = 'center'
+			infotextdiv.style.top = '50%'
+			infotextdiv.style.left = '50%'
+			infotextdiv.style.pointerEvents = 'none'
+			infotextdiv.style.transform = 'translate(-50%,-50%)'
+			infoholderdiv.appendChild(infotextdiv);
+
+			var svgElement = document.createElementNS("http://www.w3.org/2000/svg", 'svg')
+			svgElement.setAttribute('id',div.id + " svg")
+			svgElement.setAttribute('height','25vh')
+			svgElement.setAttribute('width','100%')
+			svgElement.setAttribute('viewBox',"0 0 100 100")
+			svgElement.setAttribute('preserveAspectRatio', "none")
+			svgElement.style.position = 'relative'
+			div.appendChild(svgElement)
+
+
+			graphSVGid[svgElement.id] = num
+
+			if (wmin == wmax) {
+				wmax = wmax + 0.5
+				wmin = wmin - 0.5
+			}
+
+			LUgap = (wmax - wmin)/10
+
+			wmax = wmax + LUgap
+			wmin = wmin - LUgap
+
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', getPercentages(0,xmin,xmax,'x') + '%');
+			lineElement.setAttribute('y1', getPercentages(0,wmin,wmax,'y') + '%');
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.setAttribute('x2', getPercentages(xmax,xmin,xmax,'x') + '%')
+			lineElement.setAttribute('y2', getPercentages(0,wmin,wmax,'y') + '%');
+			lineElement.setAttribute('id', div.id + " yaxis")
+			lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+			lineElement.style.pointerEvents = 'none'
+			lineElement.style.strokeWidth = '2%';
+			svgElement.appendChild(lineElement);
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', getPercentages(0,xmin,xmax,'x') + '%');
+			lineElement.setAttribute('y1', getPercentages(wmin,wmin,wmax,'y') + '%');
+			lineElement.setAttribute('x2', getPercentages(0,xmin,xmax,'x') + '%')
+			lineElement.setAttribute('y2', getPercentages(wmax,wmin,wmax,'y') + '%');
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.setAttribute('id', div.id + " xaxis")
+			lineElement.style.stroke = 'hsla(32,1%,70%,1)'
+			lineElement.style.pointerEvents = 'none'
+			lineElement.style.strokeWidth = '2%';
+			svgElement.appendChild(lineElement);
+
+			jump = 3
+
+			pDict = []
+			for(m=0; m<settingsID['inputsetting2Svg'][6]; m = m+jump) {
+				step = (xmax/settingsID['inputsetting2Svg'][6])
+				xval = m*step
+				yvalue = data[xval]
+				pDict.push([getPercentages(xval,xmin,xmax,'x'),getPercentages(yvalue,wmin,wmax,'y')]); 
+			}
+
+			pString = 'M ' + pDict[0][0] + " " + pDict[0][1] + " "
+
+			for(k = 0; k < pDict.length; k++) {
+				pString = pString + 'L ' + pDict[k][0] + " " + pDict[k][1] + " ";
+			}
+
+
+			var pathElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+			pathElement.setAttribute('fill','transparent');
+			pathElement.setAttribute('vector-effect','non-scaling-stroke');
+			pathElement.setAttribute('id',div.id + " path");
+			pathElement.setAttribute('d',pString);
+			colorC = 'hsla(' + ((num+1)/countWaves)*40 + ',100%,50%,0.5)'
+			pathElement.style.strokeWidth = '2%';
+			pathElement.style.pointerEvents = 'none'
+			pathElement.setAttribute('stroke', colorC);
+			svgElement.appendChild(pathElement);
+
+		}
+
+		function updateAGraph(num) {
+			var svgElement = document.getElementById('eq ' + num + ' div svg')
+
+			wavedata = waveStatus[num]
+			updateSWave(wavedata, num)
+
+			wavedata = waveStatus[num]
+			wmin = wavedata[7]
+			wmax = wavedata[8]
+			data = wavedata[6]
+
+			xmin = 0
+			xmax = settingsID['inputsetting1Svg'][6]
+
+			if (wmin == wmax) {
+				wmax = wmax + 0.5
+				wmin = wmin - 0.5
+			}
+
+
+			LUgap = (wmax - wmin)/10
+
+			wmax = wmax + LUgap
+			wmin = wmin - LUgap
+
+			var lineElement = document.getElementById('eq ' + num + ' div yaxis')
+			lineElement.setAttribute('x1', getPercentages(0,xmin,xmax,'x') + '%');
+			lineElement.setAttribute('y1', getPercentages(0,wmin,wmax,'y') + '%');
+			lineElement.setAttribute('x2', getPercentages(xmax,xmin,xmax,'x') + '%')
+			lineElement.setAttribute('y2', getPercentages(0,wmin,wmax,'y') + '%');
+
+			var lineElement = document.getElementById('eq ' + num + ' div xaxis')
+			lineElement.setAttribute('x1', getPercentages(0,xmin,xmax,'x') + '%');
+			lineElement.setAttribute('y1', getPercentages(wmin,wmin,wmax,'y') + '%');
+			lineElement.setAttribute('x2', getPercentages(0,xmin,xmax,'x') + '%')
+			lineElement.setAttribute('y2', getPercentages(wmax,wmin,wmax,'y') + '%');
+			
+			jump = 1
+
+			pDict = []
+			for(m=0; m<settingsID['inputsetting2Svg'][6]; m = m+jump) {
+				step = (xmax/settingsID['inputsetting2Svg'][6])
+				xval = m*step
+				yvalue = data[xval]
+				pDict.push([getPercentages(xval,xmin,xmax,'x'),getPercentages(yvalue,wmin,wmax,'y')]); 
+			}
+
+			pString = 'M ' + pDict[0][0] + " " + pDict[0][1] + " "
+
+			for(k = 0; k < pDict.length; k++) {
+				pString = pString + 'L ' + pDict[k][0] + " " + pDict[k][1] + " ";
+			}
+
+
+			var pathElement = document.getElementById('eq ' + num + ' div path')
+			pathElement.setAttribute('d',pString);
+
+		}
+
+		function updateACustomGraph(num) {
+			var svgElement = document.getElementById('eq ' + num + ' div svg')
+
+			wavedata = waveStatus[num]
+			wmin = wavedata[7]
+			wmax = wavedata[8]
+			data = wavedata[6]
+
+			xmin = 0
+			xmax = settingsID['inputsetting1Svg'][6]
+
+			if (wmin == wmax) {
+				wmax = wmax + 0.5
+				wmin = wmin - 0.5
+			}
+
+
+			LUgap = (wmax - wmin)/10
+
+			wmax = wmax + LUgap
+			wmin = wmin - LUgap
+
+			var lineElement = document.getElementById('eq ' + num + ' div yaxis')
+			lineElement.setAttribute('x1', getPercentages(0,xmin,xmax,'x') + '%');
+			lineElement.setAttribute('y1', getPercentages(0,wmin,wmax,'y') + '%');
+			lineElement.setAttribute('x2', getPercentages(xmax,xmin,xmax,'x') + '%')
+			lineElement.setAttribute('y2', getPercentages(0,wmin,wmax,'y') + '%');
+
+			var lineElement = document.getElementById('eq ' + num + ' div xaxis')
+			lineElement.setAttribute('x1', getPercentages(0,xmin,xmax,'x') + '%');
+			lineElement.setAttribute('y1', getPercentages(wmin,wmin,wmax,'y') + '%');
+			lineElement.setAttribute('x2', getPercentages(0,xmin,xmax,'x') + '%')
+			lineElement.setAttribute('y2', getPercentages(wmax,wmin,wmax,'y') + '%');
+			
+			jump = 1
+
+			pDict = []
+			for(m=0; m<settingsID['inputsetting2Svg'][6]; m = m+jump) {
+				step = (xmax/settingsID['inputsetting2Svg'][6])
+				xval = m*step
+				if (data[xval] != undefined) {
+					yvalue = data[xval]
+				}
+				else {
+					yvalue = 0
+				}
+				pDict.push([getPercentages(xval,xmin,xmax,'x'),getPercentages(yvalue,wmin,wmax,'y')]); 
+			}
+
+			pString = 'M ' + pDict[0][0] + " " + pDict[0][1] + " "
+
+			for(k = 0; k < pDict.length; k++) {
+				pString = pString + 'L ' + pDict[k][0] + " " + pDict[k][1] + " ";
+			}
+
+
+			var pathElement = document.getElementById('eq ' + num + ' div path')
+			pathElement.setAttribute('d',pString);
+
+		}
+
+		maxSAmplitude = 2
+		minSAmplitude = 0
+
+		maxSFrequency = 10
+		minSFrequency = 0.1
+
+		maxSPhase = Math.PI/2
+		minSPhase = 0
+
+		maxSShift = 1
+		minSShift = -1
+
+		controlIDs = {}
+
+		function controlClick(event) {
+			if (controlIDs[event.target.id][2] == false) {
+				ivalue = controlIDs[event.target.id][0]
+				typevalue = controlIDs[event.target.id][1]
+				mainDIV = document.getElementById('control ' + typevalue + ' ' + ivalue + ' div');
+				mainDIV.style.cursor = 'ew-resize'
+				// svgDIV = document.getElementById('control ' + typevalue + ' ' + ivalue + ' svg');
+				// svgDIV.style.pointerEvents = 'auto'
+				mainDIV.addEventListener('mousemove',updateControlValue)
+				
+				document.getElementById('control ' + typevalue + ' text ' + ivalue + ' div').style.fontWeight = 'bold'
+				controlIDs[event.target.id][2] = true
+			}
+			else {
+				ivalue = controlIDs[event.target.id][0]
+				typevalue = controlIDs[event.target.id][1]
+				mainDIV = document.getElementById('control ' + typevalue + ' ' + ivalue + ' div');
+				mainDIV.style.cursor = 'pointer'
+				mainDIV.removeEventListener('mousemove',updateControlValue)
+				// svgDIV = document.getElementById('control ' + typevalue + ' ' + ivalue + ' svg');
+				// svgDIV.style.pointerEvents = 'none'
+				document.getElementById('control ' + typevalue + ' text ' + ivalue + ' div').style.fontWeight = 'normal'
+				controlIDs[event.target.id][2] = false
+			}
+				
+		}
+
+		function controlClickviaTouch(event) {
+			var touch = event.touches[0]
+
+			ivalue = controlIDs[event.target.id][0]
+			typevalue = controlIDs[event.target.id][1]
+			mainDIV = document.getElementById('control ' + typevalue + ' ' + ivalue + ' div');
+			mainDIV.style.cursor = 'ew-resize'
+			svgDIV = document.getElementById('control ' + typevalue + ' ' + ivalue + ' svg');
+			svgDIV.style.pointerEvents = 'auto'
+			document.getElementById('control ' + typevalue + ' text ' + ivalue + ' div').style.fontWeight = 'bold'
+		}
+
+		function updateControlValue(event) {
+			ivalue = controlIDs[event.target.id][0]
+			typevalue = controlIDs[event.target.id][1]
+			rect = document.getElementById('control ' + typevalue + ' ' + ivalue + ' div').getBoundingClientRect()
+			if(typevalue == 'amp') {
+				maxVal = maxSAmplitude
+				minVal = minSAmplitude
+				tval = 1
+				tstring = 'Amplitude : '
+			}
+			else if(typevalue == 'freq') {
+				maxVal = maxSFrequency
+				minVal = minSFrequency
+				tval = 2
+				tstring = 'Frequency : '
+			}
+			else if(typevalue == 'phas') {
+				maxVal = maxSPhase
+				minVal = minSPhase
+				tval = 3
+				tstring = 'Phase : '
+			}
+			else if(typevalue == 'shif') {
+				maxVal = maxSShift
+				minVal = minSShift
+				tval = 4
+				tstring = 'Shift : '
+			}
+			changevaluepercent = (event.clientX - rect.left)/rect.width
+			changevalue = (maxVal - minVal)*changevaluepercent + minVal
+			rectElement = document.getElementById('control ' + typevalue + ' ' + ivalue + ' slider')
+			rectElement.setAttribute('width' , (changevaluepercent)*100 + '%')
+
+			waveStatus[ivalue][tval] = changevalue
+			document.getElementById('control ' + typevalue + ' text ' + ivalue + ' div').innerHTML = tstring + changevalue.toFixed(2)
+			if (waveStatus[ivalue][0] == true) {
+				document.getElementById('eq ' + ivalue + ' blank text subdiv').innerHTML = "The tranform result hasn't been updated. Close this section to update it."
+			}
+
+			updateAGraph(ivalue)
+			updateMainGraph()
+		}
+
+
+
+		function updateControlValueviaTouch(event) {
+			var touch = event.touches[0]
+			ivalue = controlIDs[event.target.id][0]
+			typevalue = controlIDs[event.target.id][1]
+			rect = document.getElementById('control ' + typevalue + ' ' + ivalue + ' div').getBoundingClientRect()
+			if(typevalue == 'amp') {
+				maxVal = maxSAmplitude
+				minVal = minSAmplitude
+				tval = 1
+				tstring = 'Amplitude : '
+			}
+			else if(typevalue == 'freq') {
+				maxVal = maxSFrequency
+				minVal = minSFrequency
+				tval = 2
+				tstring = 'Frequency : '
+			}
+			else if(typevalue == 'phas') {
+				maxVal = maxSPhase
+				minVal = minSPhase
+				tval = 3
+				tstring = 'Phase : '
+			}
+			else if(typevalue == 'shif') {
+				maxVal = maxSShift
+				minVal = minSShift
+				tval = 4
+				tstring = 'Shift : '
+			}
+
+			changevaluepercent = (touch.pageX - rect.left)/rect.width
+			changevalue = (maxVal - minVal)*changevaluepercent + minVal
+			rectElement = document.getElementById('control ' + typevalue + ' ' + ivalue + ' slider')
+			rectElement.setAttribute('width' , (changevaluepercent)*100 + '%')
+
+			waveStatus[ivalue][tval] = changevalue
+			document.getElementById('control ' + typevalue + ' text ' + ivalue + ' div').innerHTML = tstring + changevalue.toFixed(2)
+			if (waveStatus[ivalue][0] == true) {
+				document.getElementById('eq ' + ivalue + ' blank text subdiv').innerHTML = "The tranform result hasn't been updated. Close this section to update it."
+			}
+
+			updateAGraph(ivalue)
+			updateMainGraph()
+
+		}
+
+		function changeSinosoidType(event) {
+			ivalue = controlIDs[event.target.id][0]
+			typevalue = controlIDs[event.target.id][1]
+
+			if (waveStatus[ivalue][5] == 'cosine') {
+				waveStatus[ivalue][5] = 'sine'
+			}
+			else if(waveStatus[ivalue][5] == 'sine') {
+				waveStatus[ivalue][5] = 'custom wave'
+				document.getElementById('control amp ' + ivalue + ' div').style.opacity = 0.3
+				document.getElementById('control freq ' + ivalue + ' div').style.opacity = 0.3
+				document.getElementById('control phas ' + ivalue + ' div').style.opacity = 0.3
+				document.getElementById('control shif ' + ivalue + ' div').style.opacity = 0.3
+				document.getElementById('control amp ' + ivalue + ' div').style.pointerEvents = 'none'
+				document.getElementById('control freq ' + ivalue + ' div').style.pointerEvents = 'none'
+				document.getElementById('control phas ' + ivalue + ' div').style.pointerEvents = 'none'
+				document.getElementById('control shif ' + ivalue + ' div').style.pointerEvents = 'none'
+				svgElement = document.getElementById('eq ' + ivalue + ' div svg')
+				svgElement.style.pointerEvents = 'auto'
+				svgElement.style.cursor = 'pointer'
+				svgElement.addEventListener('mousedown', modifyGraphDrawn)
+
+				document.getElementById('graph svg info holder text ' + ivalue + ' div').style.opacity = 1;
+
+
+			}
+			else {
+				waveStatus[ivalue][5] = 'cosine'
+				document.getElementById('control amp ' + ivalue + ' div').style.opacity = 1
+				document.getElementById('control freq ' + ivalue + ' div').style.opacity = 1
+				document.getElementById('control phas ' + ivalue + ' div').style.opacity = 1
+				document.getElementById('control shif ' + ivalue + ' div').style.opacity = 1
+				document.getElementById('control amp ' + ivalue + ' div').style.pointerEvents = 'auto'
+				document.getElementById('control freq ' + ivalue + ' div').style.pointerEvents = 'auto'
+				document.getElementById('control phas ' + ivalue + ' div').style.pointerEvents = 'auto'
+				document.getElementById('control shif ' + ivalue + ' div').style.pointerEvents = 'auto'
+				svgElement = document.getElementById('eq ' + ivalue + ' div svg')
+				svgElement.style.pointerEvents = 'auto'
+				svgElement.style.cursor = 'auto'
+				svgElement.removeEventListener('mousedown', modifyGraphDrawn)
+				document.getElementById('graph svg info holder text ' + ivalue + ' div').style.opacity = 0;
+			}
+			
+
+			document.getElementById('control ' + typevalue + ' text ' + ivalue + ' div').innerHTML = 'Type : ' + waveStatus[ivalue][5]
+
+			if (waveStatus[ivalue][0] == true) {
+				document.getElementById('eq ' + ivalue + ' blank text subdiv').innerHTML = "The tranform result hasn't been updated. Close this section to update it."
+			}
+
+			if(waveStatus[ivalue][5] != 'custom wave') {
+				updateAGraph(ivalue)
+			}
+
+			
+			updateMainGraph()
+
+		}
+
+
+		function changeStatus(event) {
+			ivalue = controlIDs[event.target.id][0]
+			typevalue = controlIDs[event.target.id][1]
+
+			if (waveStatus[ivalue][0] == true) {
+				waveStatus[ivalue][0] = false
+				document.getElementById('control ' + typevalue + ' text ' + ivalue + ' div').innerHTML = 'Status : not part of the sum'
+				document.getElementById('eq ' + ivalue + ' div').style.opacity = 0.4
+			}
+			else {
+				waveStatus[ivalue][0] = true
+				document.getElementById('control ' + typevalue + ' text ' + ivalue + ' div').innerHTML = 'Status : part of the sum'
+				document.getElementById('eq ' + ivalue + ' div').style.opacity = 1
+			}
+
+			if (waveStatus[ivalue][0] == true) {
+				document.getElementById('eq ' + ivalue + ' blank text subdiv').innerHTML = "The tranform result hasn't been updated. Close this section to update it."
+			}
+			
+			updateAGraph(ivalue)
+			updateMainGraph()
+
+		}
+
+		function removeDiv(event) {
+
+			ivalue = controlIDs[event.target.id][0]
+			typevalue = controlIDs[event.target.id][1]
+
+			delete waveStatus[ivalue]
+			
+			elm = document.getElementById('eq ' + ivalue + ' div')
+			elm.outerHTML = ""
+			delete elm
+
+			elm = document.getElementById('eq ' + ivalue + ' blank div')
+			elm.outerHTML = ""
+			delete elm
+
+
+
+			for(i = ivalue + 1; i <countWaves; i++) {
+				waveStatus[i - 1] = waveStatus[i]
+			}
+
+			delete waveStatus[countWaves - 1]
+
+
+
+			countWaves = countWaves - 1
+
+			updateMainGraph()
+
+		}
+
+		function controlOut(event) {
+			ivalue = controlIDs[event.target.id][0]
+			typevalue = controlIDs[event.target.id][1]
+			mainDIV = document.getElementById('control ' + typevalue + ' ' + ivalue + ' div');
+			mainDIV.style.cursor = 'pointer'
+			mainDIV.removeEventListener('mousemove',updateControlValue)
+			// svgDIV = document.getElementById('control ' + typevalue + ' ' + ivalue + ' svg');
+			// svgDIV.style.pointerEvents = 'none'
+			document.getElementById('control ' + typevalue + ' text ' + ivalue + ' div').style.fontWeight = 'normal'
+			controlIDs[event.target.id][2] = false
+		}
+
+		function drawControls(maindiv,stateoptions,indexval) {
+
+			signState = stateoptions[5]
+			ampC = stateoptions[0]
+			freqC = stateoptions[1]
+			phasC = stateoptions[2]
+			shifC = stateoptions[3]
+			typeval = stateoptions[4]
+
+			var div = document.createElement("div");
+			div.id = 'controls ' + indexval + ' div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			div.style.width = '100%'
+			div.style.height = '10vh'
+			if (displaymode == 'portrait') {
+				div.style.height = '35vh'
+			}
+			div.style.fontSize = '0'
+			div.style.overflow = 'hidden'
+			maindiv.appendChild(div);
+
+			controldiv = div
+			var div = document.createElement("div");
+			div.id = 'control amp ' + indexval + ' div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			div.style.width = '25%'
+			if (displaymode == 'portrait') {
+				div.style.width = '100%'
+			}
+			div.style.height = '5vh'
+			div.style.display = 'inline-block'
+			div.style.cursor = 'pointer'
+			div.style.overflow = 'hidden'
+			controldiv.appendChild(div);
+			controlIDs[div.id] = [indexval,'amp',false]
+			div.addEventListener('mousedown',controlClick)
+			div.addEventListener('touchstart',controlClickviaTouch)
+			div.addEventListener('mouseout',controlOut)
+			div.addEventListener('touchmove', updateControlValueviaTouch)
+			div.addEventListener('touchend', controlOut)
+			
+
+
+			controlsubdiv = div
+			var div = document.createElement("div");
+			div.id = 'control amp text ' + indexval + ' div';
+			div.style.position = "absolute";
+			div.innerHTML = 'Amplitude : ' + ampC.toFixed(2);
+			div.style.fontSize = '2vh'
+			div.style.fontFamily = 'Calibri'
+			div.style.textAlign = 'center'
+			div.style.top = '50%'
+			div.style.left = '50%'
+			div.style.pointerEvents = 'none'
+			div.style.transform = 'translate(-50%,-50%)'
+			div.style.pointerEvents = 'none'
+			controlsubdiv.appendChild(div);
+			// controlIDs[div.id] = [indexval,'amp',false]
+
+			var svgElement = document.createElementNS("http://www.w3.org/2000/svg", 'svg')
+			svgElement.setAttribute('id','control amp ' + indexval + ' svg')
+			svgElement.setAttribute('height','100%')
+			svgElement.setAttribute('width','100%')
+			svgElement.setAttribute('viewBox',"0 0 100 100")
+			svgElement.setAttribute('preserveAspectRatio', "none")
+			svgElement.style.position = 'absolute'
+			svgElement.style.pointerEvents = 'none'
+			controlsubdiv.appendChild(svgElement)
+			// controlIDs[svgElement.id] = [indexval,'amp',false]
+
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('height',"100%");
+			rectElement.setAttribute('width', (ampC - minSAmplitude)*100/(maxSAmplitude - minSAmplitude) + '%');
+			rectElement.setAttribute('id','control amp ' + indexval + ' slider')
+			rectElement.setAttribute('x', '0%');
+			rectElement.setAttribute('y', '0%');
+			rectElement.style.opacity = 1;
+			rectElement.style.fill = 'hsla(190,100%,50%,0.1)'
+			rectElement.style.transition = 'width 0.3s'
+			rectElement.style.strokeWidth = '0';
+			rectElement.style.pointerEvents = 'none'
+			svgElement.appendChild(rectElement);
+			// controlIDs[rectElement.id] = [indexval,'amp',false]
+
+			var div = document.createElement("div");
+			div.id = 'control freq ' + indexval + ' div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			div.style.width = '25%'
+			if (displaymode == 'portrait') {
+				div.style.width = '100%'
+			}
+			div.style.height = '5vh'
+			div.style.display = 'inline-block'
+			div.style.cursor = 'pointer'
+			div.style.overflow = 'hidden'
+			controldiv.appendChild(div);
+			controlIDs[div.id] = [indexval,'freq',false]
+			div.addEventListener('mousedown',controlClick)
+			div.addEventListener('touchstart',controlClickviaTouch)
+			div.addEventListener('mouseout',controlOut)
+			div.addEventListener('touchmove', updateControlValueviaTouch)
+			div.addEventListener('touchend', controlOut)
+
+			controlsubdiv = div
+			var div = document.createElement("div");
+			div.id = 'control freq text ' + indexval + ' div';
+			div.style.position = "absolute";
+			div.innerHTML = 'Frequency : ' + freqC.toFixed(2);
+			div.style.fontSize = '2vh'
+			div.style.fontFamily = 'Calibri'
+			div.style.textAlign = 'center'
+			div.style.top = '50%'
+			div.style.left = '50%'
+			div.style.pointerEvents = 'none'
+			div.style.transform = 'translate(-50%,-50%)'
+			controlsubdiv.appendChild(div);
+			controlIDs[div.id] = [indexval,'freq',false]
+
+			var svgElement = document.createElementNS("http://www.w3.org/2000/svg", 'svg')
+			svgElement.setAttribute('id','control freq ' + indexval + ' svg')
+			svgElement.setAttribute('height','100%')
+			svgElement.setAttribute('width','100%')
+			svgElement.setAttribute('viewBox',"0 0 100 100")
+			svgElement.setAttribute('preserveAspectRatio', "none")
+			svgElement.style.position = 'absolute'
+			controlsubdiv.appendChild(svgElement)
+			controlIDs[svgElement.id] = [indexval,'freq',false]
+			svgElement.style.pointerEvents = 'none'
+			
+
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('height',"100%");
+			rectElement.setAttribute('width', (freqC - minSFrequency)*100/(maxSFrequency - minSFrequency) + '%');
+			rectElement.setAttribute('id','control freq ' + indexval + ' slider')
+			rectElement.setAttribute('x', '0%');
+			rectElement.setAttribute('y', '0%');
+			rectElement.style.opacity = 1;
+			rectElement.style.fill = 'hsla(230,100%,50%,0.1)'
+			rectElement.style.transition = 'width 0.3s'
+			rectElement.style.strokeWidth = '0';
+			rectElement.style.pointerEvents = 'none'
+			svgElement.appendChild(rectElement);
+			controlIDs[rectElement.id] = [indexval,'freq',false]
+
+			var div = document.createElement("div");
+			div.id = 'control phas ' + indexval + ' div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			div.style.width = '25%'
+			if (displaymode == 'portrait') {
+				div.style.width = '100%'
+			}
+			div.style.height = '5vh'
+			div.style.display = 'inline-block'
+			div.style.cursor = 'pointer'
+			div.style.overflow = 'hidden'
+			controldiv.appendChild(div);
+			controlIDs[div.id] = [indexval,'phas',false]
+			div.addEventListener('mousedown',controlClick)
+			div.addEventListener('touchstart',controlClickviaTouch)
+			div.addEventListener('mouseout',controlOut)
+			div.addEventListener('touchmove', updateControlValueviaTouch)
+			div.addEventListener('touchend', controlOut)
+
+			controlsubdiv = div
+			var div = document.createElement("div");
+			div.id = 'control phas text ' + indexval + ' div';
+			div.style.position = "absolute";
+			div.innerHTML = 'Phase : ' + phasC.toFixed(2);
+			div.style.fontSize = '2vh'
+			div.style.fontFamily = 'Calibri'
+			div.style.textAlign = 'center'
+			div.style.top = '50%'
+			div.style.left = '50%'
+			div.style.pointerEvents = 'none'
+			div.style.transform = 'translate(-50%,-50%)'
+			controlsubdiv.appendChild(div);
+			// controlIDs[div.id] = [indexval,'phas',false]
+
+			var svgElement = document.createElementNS("http://www.w3.org/2000/svg", 'svg')
+			svgElement.setAttribute('id','control phas ' + indexval + ' svg')
+			svgElement.setAttribute('height','100%')
+			svgElement.setAttribute('width','100%')
+			svgElement.setAttribute('viewBox',"0 0 100 100")
+			svgElement.setAttribute('preserveAspectRatio', "none")
+			svgElement.style.position = 'absolute'
+			controlsubdiv.appendChild(svgElement)
+			// controlIDs[svgElement.id] = [indexval,'phas',false]
+			svgElement.style.pointerEvents = 'none'
+
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('height',"100%");
+			rectElement.setAttribute('width', (phasC - minSPhase)*100/(maxSPhase - minSPhase) + '%');
+			rectElement.setAttribute('id','control phas ' + indexval + ' slider')
+			rectElement.setAttribute('x', '0%');
+			rectElement.setAttribute('y', '0%');
+			rectElement.style.opacity = 1;
+			rectElement.style.fill = 'hsla(270,100%,50%,0.1)'
+			rectElement.style.transition = 'width 0.3s'
+			rectElement.style.strokeWidth = '0';
+			rectElement.style.pointerEvents = 'none'
+			svgElement.appendChild(rectElement);
+			// controlIDs[rectElement.id] = [indexval,'phas',false]
+
+			var div = document.createElement("div");
+			div.id = 'control shif ' + indexval + ' div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			div.style.width = '25%'
+			if (displaymode == 'portrait') {
+				div.style.width = '100%'
+			}
+			div.style.height = '5vh'
+			div.style.display = 'inline-block'
+			div.style.cursor = 'pointer'
+			div.style.overflow = 'hidden'
+			controldiv.appendChild(div);
+			controlIDs[div.id] = [indexval,'shif',false]
+			div.addEventListener('mousedown',controlClick)
+			div.addEventListener('touchstart',controlClickviaTouch)
+			div.addEventListener('mouseout',controlOut)
+			div.addEventListener('touchmove', updateControlValueviaTouch)
+			div.addEventListener('touchend', controlOut)
+
+			controlsubdiv = div
+			var div = document.createElement("div");
+			div.id = 'control shif text ' + indexval + ' div';
+			div.style.position = "absolute";
+			div.innerHTML = 'Shift : ' + shifC.toFixed(2);
+			div.style.fontSize = '2vh'
+			div.style.fontFamily = 'Calibri'
+			div.style.textAlign = 'center'
+			div.style.top = '50%'
+			div.style.left = '50%'
+			div.style.pointerEvents = 'none'
+			div.style.transform = 'translate(-50%,-50%)'
+			controlsubdiv.appendChild(div);
+			// controlIDs[div.id] = [indexval,'shif',false]
+
+			var svgElement = document.createElementNS("http://www.w3.org/2000/svg", 'svg')
+			svgElement.setAttribute('id','control shif ' + indexval + ' svg')
+			svgElement.setAttribute('height','100%')
+			svgElement.setAttribute('width','100%')
+			svgElement.setAttribute('viewBox',"0 0 100 100")
+			svgElement.setAttribute('preserveAspectRatio', "none")
+			svgElement.style.position = 'absolute'
+			controlsubdiv.appendChild(svgElement)
+			// controlIDs[svgElement.id] = [indexval,'shif',false]
+			svgElement.style.pointerEvents = 'none'
+
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('height',"100%");
+			rectElement.setAttribute('width', (shifC - minSShift)*100/(maxSShift - minSShift) + '%');
+			rectElement.setAttribute('id','control shif ' + indexval + ' slider')
+			rectElement.setAttribute('x', '0%');
+			rectElement.setAttribute('y', '0%');
+			rectElement.style.opacity = 1;
+			rectElement.style.fill = 'hsla(310,100%,50%,0.1)'
+			rectElement.style.transition = 'width 0.3s'
+			rectElement.style.strokeWidth = '0';
+			rectElement.style.pointerEvents = 'none'
+			svgElement.appendChild(rectElement);
+			// controlIDs[rectElement.id] = [indexval,'shif',false]
+
+			var div = document.createElement("div");
+			div.id = 'control type ' + indexval + ' div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			div.style.width = '30%'
+			if (displaymode == 'portrait') {
+				div.style.width = '100%'
+			}
+			div.style.height = '5vh'
+			div.style.display = 'inline-block'
+			div.style.overflow = 'hidden'
+			controldiv.appendChild(div);
+
+			controlsubdiv = div
+			var div = document.createElement("div");
+			div.id = 'control type text ' + indexval + ' div';
+			div.style.position = "absolute";
+			div.innerHTML = 'Type : ' + typeval;
+			div.style.fontSize = '2vh'
+			div.style.fontFamily = 'Calibri'
+			div.style.textAlign = 'center'
+			div.style.cursor = 'pointer'
+			div.style.top = '50%'
+			div.style.left = '50%'
+			div.style.transform = 'translate(-50%,-50%)'
+			controlsubdiv.appendChild(div);
+			controlIDs[div.id] = [indexval,'type',false]
+			div.addEventListener('click',changeSinosoidType)
+
+			var div = document.createElement("div");
+			div.id = 'control status ' + indexval + ' div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			div.style.width = '40%'
+			if (displaymode == 'portrait') {
+				div.style.width = '100%'
+			}
+			div.style.height = '5vh'
+			div.style.display = 'inline-block'
+			div.style.overflow = 'hidden'
+			controldiv.appendChild(div);
+
+			controlsubdiv = div
+			var div = document.createElement("div");
+			div.id = 'control status text ' + indexval + ' div';
+			div.style.position = "absolute";
+			if (signState == true) {
+				div.innerHTML = 'Status : part of the sum'
+			}
+			else {
+				div.innerHTML = 'Status : not part of the sum'
+			}
+			div.style.fontSize = '2vh'
+			div.style.fontFamily = 'Calibri'
+			div.style.textAlign = 'center'
+			div.style.top = '50%'
+			div.style.left = '50%'
+			div.style.cursor = 'pointer'
+			div.style.transform = 'translate(-50%,-50%)'
+			controlsubdiv.appendChild(div);
+			controlIDs[div.id] = [indexval,'status',false]
+			div.addEventListener('click', changeStatus)
+
+			var div = document.createElement("div");
+			div.id = 'control remove ' + indexval + ' div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			div.style.width = '30%'
+			if (displaymode == 'portrait') {
+				div.style.width = '100%'
+			}
+			div.style.height = '5vh'
+			div.style.display = 'inline-block'
+			div.style.overflow = 'hidden'
+			controldiv.appendChild(div);
+
+			controlsubdiv = div
+			var div = document.createElement("div");
+			div.id = 'control remove text ' + indexval + ' div';
+			div.style.position = "absolute";
+			div.innerHTML = 'Remove Signal'
+			div.style.fontSize = '2vh'
+			div.style.fontFamily = 'Calibri'
+			div.style.textAlign = 'center'
+			div.style.top = '50%'
+			div.style.left = '50%'
+			div.style.cursor = 'pointer'
+			div.style.transform = 'translate(-50%,-50%)'
+			controlsubdiv.appendChild(div);
+			controlIDs[div.id] = [indexval,'remove',false]
+			div.addEventListener('click',removeDiv)
+
+		}
+
+
+		for (i=0; i<countWaves; i++) {
+			eqSettingDiv = document.getElementById('containequationLab')
+			var div = document.createElement("div");
+			div.id = 'eq ' + i + ' div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			if (waveStatus[i][0] == false) {
+				div.style.opacity = 0.4
+			}
+			div.style.width = '100%'
+			div.style.height = '35vh'
+			if (displaymode == 'portrait') {
+				div.style.height = '60vh'
+			}
+			document.getElementById('containequationLab').appendChild(div);
+
+			var div = document.createElement("div");
+			div.id = 'eq ' + i + ' blank div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			div.style.width = '100%'
+			div.style.height = '5vh'
+			document.getElementById('containequationLab').appendChild(div);
+
+			var subdiv = document.createElement("div");
+			subdiv.id = 'eq ' + i + ' blank text subdiv';
+			subdiv.style.position = "relative";
+			subdiv.style.zIndex = '0';
+			subdiv.style.position = "absolute";
+			subdiv.innerHTML = ''
+			subdiv.style.fontSize = '1.6vh'
+			subdiv.style.fontFamily = 'Calibri'
+			subdiv.style.textAlign = 'center'
+			subdiv.style.top = '50%'
+			subdiv.style.color = 'hsla(195,100%,50%,0.7)'
+			subdiv.style.left = '50%'
+			subdiv.style.transform = 'translate(-50%,-50%)'
+			div.appendChild(subdiv);
+
+
+		}
+
+		function addSinosoidWave() {
+			waveStatus[countWaves] = [false,0.5,1,0,0,'cosine',[],0,0]
+			wavedata = addSWave(waveStatus[countWaves])
+			waveStatus[countWaves][6] = wavedata[0]
+			waveStatus[countWaves][7] = wavedata[1]
+			waveStatus[countWaves][8] = wavedata[2]
+
+			eqSettingDiv = document.getElementById('containequationLab')
+			var div = document.createElement("div");
+			div.id = 'eq ' + countWaves + ' div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			if (waveStatus[countWaves][0] == false) {
+				div.style.opacity = 0.4
+			}
+			div.style.width = '100%'
+			div.style.height = '35vh'
+
+			document.getElementById('containequationLab').insertBefore(div, document.getElementById('add signal div'));
+
+
+			var div = document.createElement("div");
+			div.id = 'eq ' + countWaves + ' blank div';
+			div.style.position = "relative";
+			div.style.zIndex = '0';
+			div.style.width = '100%'
+			div.style.height = '5vh'
+			document.getElementById('containequationLab').insertBefore(div, document.getElementById('add signal div'));
+
+			var subdiv = document.createElement("div");
+			subdiv.id = 'eq ' + countWaves + ' blank text subdiv';
+			subdiv.style.position = "relative";
+			subdiv.style.zIndex = '0';
+			subdiv.style.position = "absolute";
+			subdiv.innerHTML = ''
+			subdiv.style.fontSize = '1.6vh'
+			subdiv.style.fontFamily = 'Calibri'
+			subdiv.style.textAlign = 'center'
+			subdiv.style.top = '50%'
+			subdiv.style.color = 'hsla(195,100%,50%,0.7)'
+			subdiv.style.left = '50%'
+			subdiv.style.transform = 'translate(-50%,-50%)'
+			div.appendChild(subdiv);
+
+			cw = countWaves
+
+			countWaves = countWaves + 1
+
+			drawAGraph(waveStatus[cw][6],document.getElementById('eq '+ cw + ' div'),waveStatus[cw][7],waveStatus[cw][8],0,settingsID['inputsetting1Svg'][6],cw)
+
+			drawControls(document.getElementById('eq '+ cw + ' div'), [waveStatus[cw][1],waveStatus[cw][2],waveStatus[cw][3],waveStatus[cw][4],waveStatus[cw][5],waveStatus[cw][0]],cw)
+
+			document.getElementById('containequationLab').style.height = 10 + 40*countWaves + 20 + '%'
+			if (displaymode == 'portrait') {
+				document.getElementById('containequationLab').style.height = 10 + 70*countWaves + 20 + '%'
+			}
+
+		}
+
+
+		var div = document.createElement("div");
+		div.id = 'add signal div';
+		div.style.position = "relative";
+		div.style.zIndex = '0';
+		div.style.overflow = 'hidden'
+		div.style.width = '100%'
+		div.style.height = '20vh'
+		document.getElementById('containequationLab').appendChild(div);
+
+		var subdiv = document.createElement("div");
+		subdiv.id = 'add signal div text';
+		subdiv.style.position = "relative";
+		subdiv.style.zIndex = '0';
+		subdiv.style.position = "absolute";
+		subdiv.innerHTML = 'Add Signal'
+		subdiv.style.fontSize = '2.5vh'
+		subdiv.style.cursor = 'pointer'
+		subdiv.style.fontFamily = 'Calibri'
+		subdiv.style.textAlign = 'center'
+		subdiv.style.top = '50%'
+		subdiv.style.color = 'hsla(195,100%,50%,1)'
+		subdiv.style.left = '50%'
+		subdiv.style.transform = 'translate(-50%,-50%)'
+		div.appendChild(subdiv);
+		div.addEventListener('click',addSinosoidWave)
+
+		drawAGraph(waveStatus[0][6],document.getElementById('eq '+ 0 + ' div'),waveStatus[0][7],waveStatus[0][8],0,settingsID['inputsetting1Svg'][6],0)
+
+		drawControls(document.getElementById('eq '+ 0 + ' div'), [waveStatus[0][1],waveStatus[0][2],waveStatus[0][3],waveStatus[0][4],waveStatus[0][5],waveStatus[0][0]],0)
+
+		drawAGraph(waveStatus[1][6],document.getElementById('eq '+ 1 + ' div'),waveStatus[1][7],waveStatus[1][8],0,settingsID['inputsetting1Svg'][6],1)
+
+		drawControls(document.getElementById('eq '+ 1 + ' div'), [waveStatus[1][1],waveStatus[1][2],waveStatus[1][3],waveStatus[1][4],waveStatus[1][5],waveStatus[1][0]],1)
+
+		// drawAGraph(waveStatus[2][6],document.getElementById('eq '+ 2 + ' div'),waveStatus[2][7],waveStatus[2][8],0,settingsID['inputsetting1Svg'][6],2)
+
+		// drawControls(document.getElementById('eq '+ 2 + ' div'), [waveStatus[2][1],waveStatus[2][2],waveStatus[2][3],waveStatus[2][4],waveStatus[2][5],waveStatus[2][0]],2)
+
+		drawAnalysisWindowValue = true
+
+
+		inputSetting3C = document.getElementById('containInputSetting3')
+
+		function changeinputSetting3(event) {
+			if (drawAnalysisWindowValue == true) {
+				drawAnalysisWindowValue = false
+				document.getElementById('analysisWindow 0').style.pointerEvents = 'none'
+				document.getElementById('analysisWindow 0').style.opacity = '0'
+				document.getElementById('analysisWindow 1').style.pointerEvents = 'none'
+				document.getElementById('analysisWindow 1').style.opacity = '0'
+				document.getElementById('analysisWindow area').style.pointerEvents = 'none'
+				document.getElementById('analysisWindow area').style.opacity = '0'
+				document.getElementById('containInputSetting3Label').innerHTML = 'Show Analysis Window'
+			}
+			else if (drawAnalysisWindowValue == false) {
+				drawAnalysisWindowValue = true
+				document.getElementById('analysisWindow 0').style.pointerEvents = 'auto'
+				document.getElementById('analysisWindow 0').style.opacity = '1'
+				document.getElementById('analysisWindow 1').style.pointerEvents = 'auto'
+				document.getElementById('analysisWindow 1').style.opacity = '1'
+				document.getElementById('analysisWindow area').style.pointerEvents = 'auto'
+				document.getElementById('analysisWindow area').style.opacity = '1'
+				document.getElementById('containInputSetting3Label').innerHTML = 'Hide Analysis Window'
+			}
+		}
+
+		inputSetting3C.addEventListener('click', changeinputSetting3)
+
+
+		showCOM = true
+		CGSetting2C = document.getElementById('containCGSetting2')
+
+		function changeCGSetting2(event) {
+			if (showCOM == true) {
+				showCOM = false
+				document.getElementById('centerOfMass').style.pointerEvents = 'none'
+				document.getElementById('centerOfMass').style.opacity = '0'
+				document.getElementById('containCGSetting2Label').innerHTML = 'Show Centre of Mass'
+			}
+			else if (showCOM == false) {
+				showCOM = true
+				document.getElementById('centerOfMass').style.pointerEvents = 'auto'
+				document.getElementById('centerOfMass').style.opacity = '1'
+				document.getElementById('containCGSetting2Label').innerHTML = 'Hide Centre of Mass'
+			}
+		}
+
+		CGSetting2C.addEventListener('click', changeCGSetting2)
+
+
+		showCOMx = true
+		CGSetting3C = document.getElementById('containCGSetting3')
+
+		function changeCGSetting3(event) {
+			if (showCOMx == true) {
+				showCOMx = false
+				document.getElementById('x-corPolar').style.pointerEvents = 'none'
+				document.getElementById('x-corPolar').style.opacity = '0'
+				document.getElementById('xcor on transform').style.pointerEvents = 'none'
+				document.getElementById('xcor on transform').style.opacity = '0'
+				document.getElementById('containCGSetting3Label').innerHTML = 'Show x co-ordinate of center of mass'
+			}
+			else if (showCOMx == false) {
+				showCOMx = true
+				document.getElementById('x-corPolar').style.pointerEvents = 'auto'
+				document.getElementById('x-corPolar').style.opacity = '1'
+				document.getElementById('xcor on transform').style.pointerEvents = 'auto'
+				document.getElementById('xcor on transform').style.opacity = '1'
+				document.getElementById('containCGSetting3Label').innerHTML = 'Hide x co-ordinate of center of mass'
+			}
+		}
+
+		CGSetting3C.addEventListener('click', changeCGSetting3)
+
+		showCOMy = true
+		CGSetting4C = document.getElementById('containCGSetting4')
+
+		function changeCGSetting4(event) {
+			if (showCOMy == true) {
+				showCOMy = false
+				document.getElementById('y-corPolar').style.pointerEvents = 'none'
+				document.getElementById('y-corPolar').style.opacity = '0'
+				document.getElementById('ycor on transform').style.pointerEvents = 'none'
+				document.getElementById('ycor on transform').style.opacity = '0'
+				document.getElementById('containCGSetting4Label').innerHTML = 'Show y co-ordinate of center of mass'
+			}
+			else if (showCOMy == false) {
+				showCOMy = true
+				document.getElementById('y-corPolar').style.pointerEvents = 'auto'
+				document.getElementById('y-corPolar').style.opacity = '1'
+				document.getElementById('ycor on transform').style.pointerEvents = 'auto'
+				document.getElementById('ycor on transform').style.opacity = '1'
+				document.getElementById('containCGSetting4Label').innerHTML = 'Hide y co-ordinate of center of mass'
+			}
+		}
+
+		CGSetting4C.addEventListener('click', changeCGSetting4)
+
+		plotXPart = true
+		outputGSetting1C = document.getElementById('containoutputGSetting1')
+
+		function changeoutputGSetting1(event) {
+			if (plotXPart == true) {
+				plotXPart = false
+				document.getElementById('containoutputGSetting1Label').innerHTML = 'Plot X co-ordinate of Center of Mass'
+				document.getElementById('containfinalGraphDetailsText').innerHTML = 'The almost Fourier Transform of the wave. (y co-ordinate)'
+				plotCOMpart()
+				updatefinalgraphAxesTicksAndLabels()
+				updateplotTransform()
+			}
+			else if (plotXPart == false) {
+				plotXPart = true
+				document.getElementById('containoutputGSetting1Label').innerHTML = 'Plot Y co-ordinate of Center of Mass'
+				document.getElementById('containfinalGraphDetailsText').innerHTML = 'The almost Fourier Transform of the wave. (x co-ordinate)'
+				plotCOMpart()
+				updatefinalgraphAxesTicksAndLabels()
+				updateplotTransform()
+			}
+		}
+
+		outputGSetting1C.addEventListener('click', changeoutputGSetting1)
+
+
+
+
+		
+
+
+		
+
+
+
+		
+		</script>
+
+
+
+	</body>
+<html>
