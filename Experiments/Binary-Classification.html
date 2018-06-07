@@ -90,9 +90,10 @@
 			circleElement.setAttribute('cx', px + '%');
 			circleElement.setAttribute('cy', py + '%');
 			blueData.push([px, py])
-			blueweights.push(Math.random())
+			w = Math.random()
+			blueweights.push(w)
 			circleElement.setAttribute('id', 'blue ' + i);
-			circleElement.setAttribute('r', '0.5%');
+			circleElement.setAttribute('r', 0.4 + (w*0.3) + '%');
 			circleElement.setAttribute('vector-effect','non-scaling-stroke');
 			circleElement.setAttribute('fill','hsla(10,100%,50%,1)')
 			dataSvg.appendChild(circleElement);
@@ -110,9 +111,10 @@
 			circleElement.setAttribute('cx', px + '%');
 			circleElement.setAttribute('cy', py + '%');
 			redData.push([px, py])
-			redweights.push(Math.random())
+			w = Math.random()
+			redweights.push(w)
 			circleElement.setAttribute('id', 'red ' + i);
-			circleElement.setAttribute('r', '0.5%');
+			circleElement.setAttribute('r', 0.4 + (w*0.3) + '%');
 			circleElement.setAttribute('vector-effect','non-scaling-stroke');
 			circleElement.setAttribute('fill','hsla(190,100%,50%,1)')
 			dataSvg.appendChild(circleElement);
