@@ -1,0 +1,253 @@
+<html>
+	<head>
+		<title> Binary Classification </title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Caveat Brush' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
+		
+		<!-- Google Analytics Code -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+		<script type="application/ld+json">
+			{
+			  "@type": "Projects",
+			  "name": "Binary Classification",
+			  "author": "Prajwal DSouza",
+			  "description": "Classifier inspired by electrostatics, here demonstrated with two classes and two dimensional weighted data."
+			  }
+		</script>
+		  <meta charset="UTF-8">
+  		  <meta name="description" content="Classifier inspired by electrostatics, here demonstrated with two classes and two dimensional weighted data.">
+		  <meta name="keywords" content="Machine Learning, Classifier, Electrostatics, Prajwal DSouza, Artificial intelligence, Binary Classification, Algorithm, weighted data.">
+		  <meta name="author" content="Prajwal DSouza">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+	</head>
+	<body style='margin:0px;width:100%; height: 100%;'>
+		<div id="containAll" style='margin:0px;width:100%; height: 100%;overflow: hidden; font-size: 0;'> 
+			<div id="containIntro" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,100%,0); cursor: auto; position: absolute; z-index: 10; opacity: 1;'>
+				<div id="TitleText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; letter-spacing: 1vh; font-weight: lighter; font-size: 5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190,100%,10%,1); '>
+						BINARY CLASSIFICATION
+				</div>
+				<div id="Titledescription" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-weight: lighter; font-size: 3vh; transform: translate(-50%,-54%); left: 50%; top: 54%; position: relative; color: hsla(190,100%,10%,1); '>
+						Demonstration of an classifier inspired by electrostatics. Two classes, Two dimensional weighted data, used to predict the class of the new datapoint.
+				</div>
+				<div id="WebsiteText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-80%); left: 50%; top: 80%; position: relative; color: hsla(40,100%,50%,1); z-index: 10;'>
+					<a href="https://prajwalsouza.github.io" target="_blank" style="text-decoration: none;  color: hsla(40,0%,50%,0.6); ">
+						prajwalsouza.github.io
+					</a>
+				</div>
+			</div>
+			<div id="containData" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,100%,0); cursor: auto; position: absolute; z-index: 2; opacity: 1;'>
+				<svg id='dataSvg' height="100%" width="100%" style='position: absolute; z-index: 2'>
+
+				</svg>
+			</div>
+			
+			<div id="containcanvas" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,100%,0); cursor: auto; position: absolute; z-index: 2; opacity: 1;'>
+				<canvas id='plotcanvas' height="100%" width="100%" style='position: absolute; z-index: 2; opacity: 0.1;'>
+
+				</canvas>
+			</div>
+		</div>
+
+		
+		<script>
+
+		dataSvg = document.getElementById('dataSvg')
+		// plotSvg = document.getElementById('plotSvg')
+
+		plotcanvas = document.getElementById('plotcanvas')
+		plotcanvas.width = window.innerWidth;
+		plotcanvas.height = window.innerHeight;
+
+		blueData = []
+		redData = []
+
+		blueweights = []
+		redweights = []
+
+		for (i=0; i < 20; i++) {
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			px = Math.random()*50
+			py = Math.random()*50
+			if (Math.random() < 0.2) {
+				px = Math.random()*100
+				py = Math.random()*100
+			}
+			circleElement.setAttribute('cx', px + '%');
+			circleElement.setAttribute('cy', py + '%');
+			blueData.push([px, py])
+			blueweights.push(Math.random())
+			circleElement.setAttribute('id', 'blue ' + i);
+			circleElement.setAttribute('r', '0.5%');
+			circleElement.setAttribute('vector-effect','non-scaling-stroke');
+			circleElement.setAttribute('fill','hsla(10,100%,50%,1)')
+			dataSvg.appendChild(circleElement);
+			circleElement.style.pointerEvents = 'none'
+		}
+
+		for (i=0; i < 20; i++) {
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			px = 30 + Math.random()*80
+			py = 50 + Math.random()*50
+			if (Math.random() < 0.2) {
+				px = Math.random()*100
+				py = Math.random()*100
+			}
+			circleElement.setAttribute('cx', px + '%');
+			circleElement.setAttribute('cy', py + '%');
+			redData.push([px, py])
+			redweights.push(Math.random())
+			circleElement.setAttribute('id', 'red ' + i);
+			circleElement.setAttribute('r', '0.5%');
+			circleElement.setAttribute('vector-effect','non-scaling-stroke');
+			circleElement.setAttribute('fill','hsla(190,100%,50%,1)')
+			dataSvg.appendChild(circleElement);
+			circleElement.style.pointerEvents = 'none'
+		}
+
+		colorchoices = ['rgba(255, 132, 10, 0.1)','rgba(255, 222, 10, 0.1)']
+		
+
+		function fillSpace() {
+			
+			xpoints = 200
+			ypoints = 200
+
+			for (i=0; i < xpoints; i++) {
+				for (j=0; j < ypoints; j++) {
+					var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+					rectElement.setAttribute('height',100/xpoints + "%");
+					rectElement.setAttribute('width', 100/ypoints +  '%');
+					rectElement.setAttribute('id', 'rect ' + i + ',' + j);
+					rectElement.setAttribute('x', i + '%');
+					rectElement.setAttribute('y', j + '%');
+					rectElement.style.opacity = 1;
+					rectElement.style.fill = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+					// plotSvg.appendChild(rectElement);
+				}
+			}
+		}
+
+		var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+		circleElement.setAttribute('cx', Math.random()*100 + '%');
+		circleElement.setAttribute('cy', Math.random()*100 + '%');
+		circleElement.setAttribute('id', 'newpoint');
+		circleElement.setAttribute('r', '0.8%');
+		circleElement.setAttribute('vector-effect','non-scaling-stroke');
+		circleElement.setAttribute('fill','hsla(270,100%,50%,0.2)')
+		dataSvg.appendChild(circleElement);
+		circleElement.style.pointerEvents = 'none'
+		circleElement.style.opacity = 1
+
+
+		function forceFactor(newp, weight, pointdata) {
+			pos = pointdata
+			pOI = newp
+
+			posXv = (pOI[0] - pos[0])
+			posYv = (pOI[1] - pos[1])
+
+			distance = Math.sqrt((posXv*posXv) + (posYv*posYv))
+			force = (weight*1)/(distance*distance)
+
+			xval = Math.abs(force*posXv/distance)
+			yval = Math.abs(force*posYv/distance)
+
+			return [xval, yval]
+		}
+
+		function predict(datapoint, class1data, class2data, class1W, class2W) {
+
+			class1x = 0
+			class1y = 0
+			for (a1 = 0; a1 < class1data.length; a1++) {
+				value = forceFactor(datapoint, class1W[a1], class1data[a1])
+				class1x = class1x + value[0]
+				class1y = class1y + value[1]
+			}
+
+			class1value = Math.sqrt((class1x*class1x) + (class1y*class1y))
+
+			class2x = 0
+			class2y = 0
+			for (a1 = 0; a1 < class2data.length; a1++) {
+				value = forceFactor(datapoint, class2W[a1], class2data[a1])
+				class2x = class2x + value[0]
+				class2y = class2y + value[1]
+			}
+
+			class2value = Math.sqrt((class2x*class2x) + (class2y*class2y))
+
+
+			if (class1value >= class2value) {
+				return 1
+			}
+			else {
+				return 0
+			}
+		}
+
+		function predictPoint(event) {
+			context = plotcanvas.getContext("2d");
+	
+			var rect = plotcanvas.getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+
+			posxP = posx*100/rect.width;
+			posyP = posy*100/rect.height;
+
+			pred = predict([posxP, posyP], blueData, redData, blueweights, redweights)
+
+			circleElement = document.getElementById('newpoint')
+			circleElement.setAttribute('cx', posxP + '%');
+			circleElement.setAttribute('cy', posyP + '%');
+			if (pred == 1) {
+				circleElement.setAttribute('fill','hsla(10,100%,50%,0.7)')
+				context.fillStyle = 'hsla(10,100%,50%,1)'
+				context.beginPath();
+				context.strokeStyle = 'rgba(255,255,255,0)';
+				context.arc(posx, posy, 4, 0, 2 * Math.PI);
+				context.fill();
+			}
+			else {
+				circleElement.setAttribute('fill','hsla(190,100%,50%,0.7)')
+				context.fillStyle = 'hsla(190,100%,50%,1)'
+				context.beginPath();
+				context.strokeStyle = 'rgba(255,255,255,0)';
+				context.arc(posx, posy, 4, 0, 2 * Math.PI);
+				context.fill();
+			}
+			// circleElement.style.opacity = 1
+		}
+
+		document.getElementById('containAll').addEventListener('mousemove', predictPoint);
+
+
+
+
+
+
+
+
+
+		</script>
+
+
+
+	</body>
+<html>
