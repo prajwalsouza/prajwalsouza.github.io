@@ -45,7 +45,7 @@
 						Demonstration of an classifier inspired by electrostatics. </br>Two classes, Two dimensional weighted data, used to predict the class of the new datapoint.
 				</div>
 				<div id="informationText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 2vh; transform: translate(-50%,-55%); left: 50%; top: 55%; position: relative; color: hsla(40,0%,50%,1); z-index: 10; cursor: pointer;'>
-					Press 'd' to display the decision boundary, <br>press 'c' clear it.
+					Press 'd' to display the decision boundary, <br>press 'c' clear it. Else, simply click/tap here.
 				</div>
 				<div id="WebsiteText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-70%); left: 50%; top: 70%; position: relative; color: hsla(40,100%,50%,1); z-index: 10;'>
 					<a href="https://prajwalsouza.github.io" target="_blank" style="text-decoration: none;  color: hsla(40,0%,50%,0.6); ">
@@ -310,6 +310,20 @@
 			}
 		}
 
+		showdecisionBoundary = false
+
+		function handleDecisionDisplay(event) {
+			if(showdecisionBoundary) {
+				showdecisionBoundary = false
+				context = plotcanvas.getContext("2d");
+				context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+			}
+			else {
+				showdecisionBoundary = true
+				fillSpaceCanvas()
+			}
+		}
+
 		document.getElementById('containAll').addEventListener('mousemove', predictPoint);
 
 		window.addEventListener('keypress', handlekeys)
@@ -326,19 +340,8 @@
 
 		document.getElementById('Titledescription').addEventListener('click', aboutTheClassifier)
 		document.getElementById('TitleText').addEventListener('click', aboutTheClassifier)
-		document.getElementById('informationText').addEventListener('click', aboutTheClassifier)
+		document.getElementById('informationText').addEventListener('click', handleDecisionDisplay)
 		document.getElementById('backbutton').addEventListener('click', hideaboutTheClassifier)
-
-
-
-
-		
-
-
-
-
-
-
 
 
 
