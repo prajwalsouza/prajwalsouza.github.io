@@ -376,7 +376,7 @@
 				       document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
 
 
-			// window.onbeforeunload = closingCode;
+			window.onbeforeunload = closingCode;
 			function closingCode(){
 				newStoreRef.set({
 					'page': "Binary-Classification",
