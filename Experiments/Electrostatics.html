@@ -1678,10 +1678,10 @@
 				       document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
 
 
-			// window.onbeforeunload = closingCode;
+			window.onbeforeunload = closingCode;
 			function closingCode(){
 				newStoreRef.set({
-					'page': "mainWebsite",
+					'page': "Electrostatics",
 					'pageheight' : docheight,
 					'navigatordata' : [navigator.platform, navigator.language, navigator.appVersion, navigator.vendor, navigator.product, screen.width, screen.height, screen.colorDepth, screen.pixelDepth, history.length],
 					"scrolldata": scrldata
