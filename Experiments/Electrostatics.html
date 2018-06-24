@@ -1121,6 +1121,7 @@
 			document.getElementById('containcanvas').addEventListener('mousemove', mousemoveResponse)
 			document.getElementById('containcanvas').addEventListener('mouseout', mouseoutResponse)
 			document.getElementById('SliderCancel').removeEventListener('click', closeDirichletEditor)
+			document.getElementById('containcanvas').removeEventListener('click', clickDirichletResponse)
 			// ctxDirichlet.clearRect(0,0, canvaswidth, canvasheight)
 			// DrawCellsDirichlet()
 		}
@@ -1222,6 +1223,7 @@
 			document.getElementById('containcanvas').addEventListener('mousemove', mousemoveResponse)
 			document.getElementById('containcanvas').addEventListener('mouseout', mouseoutResponse)
 			document.getElementById('SliderCancel').removeEventListener('click', closeCDEditor)
+			document.getElementById('containcanvas').removeEventListener('click', clickCDResponse)
 			// ctxDirichlet.clearRect(0,0, canvaswidth, canvasheight)
 			// DrawCellsDirichlet()
 			document.getElementById('containSliderClear').style.opacity = 1
@@ -1644,6 +1646,47 @@
 		
 
 
+		</script>
+		
+		<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
+
+		<script type="text/javascript">
+			scrldata = []
+			function scrollcalc(event) {
+				var d = new Date();
+				scrldata.push([d.getTime(),document.body.scrollTop])
+			}
+			window.addEventListener("scroll", scrollcalc);
+		</script>
+
+		<script>
+
+			var config = {
+				apiKey: "AIzaSyArJkAsZBO3mYesyf74qT4HGbz2eW7rFkg",
+				authDomain: "website-prajwal.firebaseapp.com",
+				databaseURL: "https://website-prajwal.firebaseio.com",
+				storageBucket: "website-prajwal.appspot.com"
+			};
+			firebase.initializeApp(config);
+
+			var rootRef = firebase.database().ref()
+			var storesRef = rootRef.child('scrollData/');
+			var newStoreRef = storesRef.push();
+
+			var docheight = Math.max( document.body.scrollHeight, document.body.offsetHeight, 
+				       document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
+
+
+			// window.onbeforeunload = closingCode;
+			function closingCode(){
+				newStoreRef.set({
+					'page': "mainWebsite",
+					'pageheight' : docheight,
+					'navigatordata' : [navigator.platform, navigator.language, navigator.appVersion, navigator.vendor, navigator.product, screen.width, screen.height, screen.colorDepth, screen.pixelDepth, history.length],
+					"scrolldata": scrldata
+				});
+			}
 		</script>
 
 
