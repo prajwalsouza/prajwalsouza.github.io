@@ -57,6 +57,46 @@
 				</div>
 			</div>
 			
+			<div id='slide11' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);'>
+				<div id="slide11Texts" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,0%,1); cursor: auto; position: relative; z-index: 7; opacity: 1;'>
+					<div id="TitleText11" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri;  font-weight: lighter; font-size: 4vmax; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(190,100%,50%,1); '>
+							Electrostatics
+					</div>
+					<div id="DescriptionText11" onclick="window.open('https://en.wikipedia.org/wiki/Poisson%27s_equation#Electrostatics')" style='margin:0px;overflow: hidden;text-align: center; cursor: pointer; font-family: McLaren; font-size: 1.5vmax; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(190,0%,100%,1); '>
+							Simulation solving Poisson's Equation using finite differences.
+					</div>
+					<div id="diveIn11" onmouseover="buttonhover(event,190,11)" onmouseout="buttonout(event,190,11)" onclick="window.open('https://prajwalsouza.github.io/Experiments/Electrostatics.html')" style='margin:0px;overflow: hidden;transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; transition: background 0.5s; background: hsla(190,100%,50%,0.3); width: 10vmax; height: 5.5vh; border-color: hsla(260,100%,50%,1); cursor: pointer;'>
+						
+						<div id="diveInText11" style='margin:0px;overflow: hidden;text-align: center; font-family: McLaren; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,100%,1); '>
+							VIEW
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div id='slide10' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);'>
+				<div height="100%" style='z-index:1; position: absolute;left: 0;right: 0;top:0; bottom: 0;'>
+					<svg id='slide10svg' height="100%" width="100%">
+					</svg>
+				</div>
+				<div id="slide10Texts" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,0%,0); cursor: auto; position: relative; z-index: 7; opacity: 1;'>
+					<div id="TitleText10" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri;  font-weight: lighter; font-size: 4vmax; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(190,100%,0%,1); '>
+							Binary Classification
+					</div>
+					<div id="DescriptionText10" style='margin:0px;overflow: hidden;text-align: center; cursor: pointer; font-family: McLaren; font-size: 1.5vmax; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(190,0%,50%,1); '>
+							Demonstration of an classifier inspired by electrostatics.
+					</div>
+					<div id="diveIn10" onmouseover="buttonhover(event,250,10)" onmouseout="buttonout(event,250,10)" onclick="window.open('https://prajwalsouza.github.io/Experiments/Binary-Classification.html')" style='margin:0px;overflow: hidden;transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; transition: background 0.5s; background: hsla(250,100%,50%,0.3); width: 10vmax; height: 5.5vh; border-color: hsla(260,100%,50%,1); cursor: pointer;'>
+						
+						<div id="diveInText10" style='margin:0px;overflow: hidden;text-align: center; font-family: McLaren; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,100%,1); '>
+							VIEW
+						</div>
+					</div>
+				</div>
+
+			</div>
+			
 			<div id='slide9' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);'>
 				<div id="slide9Texts" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,0%,0); cursor: auto; position: relative; z-index: 7; opacity: 1;'>
 					<div id='aboutProjects' height="100%" width="100%" style='z-index:0; position: absolute;cursor:crosshair; left: 0;right: 0;top:0; bottom: 0;'>
@@ -1315,7 +1355,71 @@
 
 		projectsIntro.addEventListener('click', reactprojectsIntro);
 
+		function slide10Display() {
+			sld10svg = document.getElementById('slide10svg')
+			for (i=0; i < 20; i++) {
 
+				var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+				px = Math.random()*50
+				py = Math.random()*50
+				if (Math.random() < 0.2) {
+					px = Math.random()*100
+					py = Math.random()*100
+				}
+				circleElement.setAttribute('cx', px + '%');
+				circleElement.setAttribute('cy', py + '%');
+				w = Math.random()
+				circleElement.setAttribute('id', 'blue ' + i);
+				circleElement.setAttribute('r', 0.4 + (w*3) + '%');
+				circleElement.setAttribute('vector-effect','non-scaling-stroke');
+				circleElement.setAttribute('fill','hsla(10,100%,50%,0.1)')
+				sld10svg.appendChild(circleElement);
+				circleElement.style.pointerEvents = 'none'
+
+				var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+				circleElement.setAttribute('cx', px + '%');
+				circleElement.setAttribute('cy', py + '%');
+				circleElement.setAttribute('id', 'blue ' + i);
+				circleElement.setAttribute('r', 0.4 + (w*0.3) + '%');
+				circleElement.setAttribute('vector-effect','non-scaling-stroke');
+				circleElement.setAttribute('fill','hsla(10,100%,50%,1)')
+				sld10svg.appendChild(circleElement);
+				circleElement.style.pointerEvents = 'none'
+
+
+			}
+
+			for (i=0; i < 20; i++) {
+				var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+				px = 30 + Math.random()*80
+				py = 50 + Math.random()*50
+				if (Math.random() < 0.2) {
+					px = Math.random()*100
+					py = Math.random()*100
+				}
+				circleElement.setAttribute('cx', px + '%');
+				circleElement.setAttribute('cy', py + '%');
+				w = Math.random()
+				circleElement.setAttribute('id', 'red ' + i);
+				circleElement.setAttribute('r', 0.4 + (w*3) + '%');
+				circleElement.setAttribute('vector-effect','non-scaling-stroke');
+				circleElement.setAttribute('fill','hsla(190,100%,50%,0.1)')
+				sld10svg.appendChild(circleElement);
+				circleElement.style.pointerEvents = 'none'
+
+				var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+				circleElement.setAttribute('cx', px + '%');
+				circleElement.setAttribute('cy', py + '%');
+				circleElement.setAttribute('id', 'red ' + i);
+				circleElement.setAttribute('r', 0.4 + (w*0.3) + '%');
+				circleElement.setAttribute('vector-effect','non-scaling-stroke');
+				circleElement.setAttribute('fill','hsla(190,100%,50%,1)')
+				sld10svg.appendChild(circleElement);
+				circleElement.style.pointerEvents = 'none'
+			}
+		}
+
+		slide10Display()
 
 		
 			
