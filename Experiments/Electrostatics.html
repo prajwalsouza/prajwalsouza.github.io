@@ -1,0 +1,1579 @@
+<html>
+	<head>
+		<title> Solving Poisson's Equation - Electrostatics</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Caveat Brush' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+
+		<!-- Google Analytics Code -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+		<script type="application/ld+json">
+			{
+			  "@type": "Projects",
+			  "name": "Solving Poisson's Equation - Electrostatics",
+			  "author": "Prajwal DSouza",
+			  "description": "An attempt to solve Poisson's equation for Electrostatics using Finite difference method and Gauss Seidel Method to solve the equations. (with only dirichlet conditions)"
+			  }
+		</script>
+		  <meta charset="UTF-8">
+		  <meta name="description" content="An attempt to solve Poisson's equation for Electrostatics using Finite difference method and Gauss Seidel Method to solve the equations.">
+		  <meta name="keywords" content="Possions equation, laplace equation, electrostatics simulation, electrostatics, charge density, dirichlet conditions, electric field, simulation, capacitor simulation, dipole simulation, prajwalsouza, Prajwal DSouza">
+		  <meta name="author" content="Prajwal DSouza">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+	</head>
+	<body style='margin:0px;width:100%; height: 100%;'>
+		<div id="containAll" style='margin:0px;width:100%; height: 100%;overflow:auto; font-size: 0;'> 
+			<div id="containEditSliderPane" style='margin:0px;width:100%; height: 10%;overflow: hidden;background: hsla(300,100%,100%,0.9); cursor: auto; position: absolute; z-index: 0; opacity: 0; top: 90%; pointer-events: none;'>
+				<div id="containSliderLabel" style='margin:0px;width:15%; height: 100%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block;'>
+					<div id="SliderLabel" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+								
+					</div>
+				</div>
+				<div id="containEditSliderSvg" style='margin:0px;width:60%; height: 100%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; cursor: pointer; display: inline-block;'>
+					<svg id='editSliderSvg' height="100%" width="100%"  style='position: relative; z-index: 1' >
+					</svg>
+				</div>
+
+				<div id="containSliderClears" style='margin:0px;width:15%; height: 100%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+					<div id="containSliderClear" style='margin:0px;width:50%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+						<div id="SliderClear" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+									Clear Condition
+						</div>
+					</div>
+					<div id="containSliderClearAll" style='margin:0px;width:50%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+						<div id="SliderClearAll" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+									Clear All
+						</div>
+					</div>
+				</div>
+
+				<div id="containSliderCancel" style='margin:0px;width:10%; height: 100%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+					<div id="SliderCancel" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+								Back
+					</div>
+				</div>
+					
+			</div>
+			<div id='containTextsAndCanvas' style="position: relative; height: 85%;">
+				<div id="containIntro" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,100%,0); cursor: auto; position: absolute; z-index: 4; opacity: 1; pointer-events: none;'>
+					<div id="TitleText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; letter-spacing: 1vh; font-weight: lighter; font-size: 5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190,100%,10%,1); '>
+							SOLVING ELECTROSTATICS
+					</div>
+					
+				</div>
+				<div id="containViewOptionsPane" style='margin:0px;width:100%; height: 50%;overflow: hidden;background: hsla(300,100%,100%,0.9); cursor: auto; position: absolute; z-index: 0; opacity: 0; pointer-events: none; top: 50%'>
+					<div id="containViewSetText" style='margin:0px;width:100%; height: 30%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block;'>
+						<div id="containshowViewText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 4vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1);'>
+								Display Setting
+						</div>
+					</div>
+					<div id='containViewSet' style="position: relative; height: 70%;">
+						<div id="containshowDirichlet" style='margin:0px;width:50%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+							<div id="containshowDirichletText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+									Dirichlet Conditions
+							</div>
+							<div id="containshowDirichletStatus" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1);'>
+								Visible
+							</div>
+						</div>
+						<div id="containshowCdensity" style='margin:0px;width:50%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer; opacity: 0.5;'>
+							<div id="containshowCdensityText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+									Charge Density
+							</div>
+							<div id="containshowCdensityStatus" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1);'>
+								Invisible
+							</div>
+						</div>
+						<div id="containshowEfield" style='margin:0px;width:50%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+							<div id="containshowEfieldText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+									Electric Field
+							</div>
+							<div id="containshowEFieldStatus" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1);'>
+								Visible
+							</div>
+						</div>
+						<div id="containshowvoltage" style='margin:0px;width:50%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+							<div id="containshowvoltageText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+									Voltage
+							</div>
+							<div id="containshowvoltageStatus" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1);'>
+								Visible
+							</div>
+						</div>
+					</div>
+					
+				</div>
+
+				<div id="containotherOptionsPane" style='margin:0px;width:100%; height: 50%;overflow: hidden;background: hsla(300,100%,100%,0.9); cursor: auto; position: absolute; z-index: 0; opacity: 0; pointer-events: none; top: 50%'>
+					<div id="containotherSetText" style='margin:0px;width:100%; height: 30%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block;'>
+						<div id="containshowotherText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 4vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1);'>
+								Other Settings
+						</div>
+						<div id="containsettingInstr" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1);'>
+								(solves very slowly for very small sizes)
+						</div>
+						
+					</div>
+					<div id='containOtherSet' style="position: relative; height: 70%;">
+						<div id="containcellsizeset" style='margin:0px;width:50%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+							<div id="containshowcellsizesetText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+									Cell Size
+							</div>
+							<div id="containshowcellSizeInstr" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1);'>
+								Tap to change. <br>
+							</div>
+						</div>
+						<div id="containcellspacesizeset" style='margin:0px;width:50%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+							<div id="containshowcellspacesizesetText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+									Cell Spacing
+							</div>
+							<div id="containshowcellspaceSizeInstr" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1);'>
+								Tap to change.
+							</div>
+						</div>
+						<div id="containcellsizevalue" style='margin:0px;width:50%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+							<div id="containshowcellsizevalueText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 6vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+									18
+							</div>
+						</div>
+						<div id="containcellspacevalue" style='margin:0px;width:50%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+							<div id="containshowcellspacevalueText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 6vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1);'>
+									1
+							</div>
+						</div>
+					</div>
+					
+				</div>
+
+				<div id="containEditOptionsPane" style='margin:0px;width:100%; height: 70%;overflow: hidden;background: hsla(300,100%,100%,0.9); cursor: auto; position: absolute; z-index: 0; opacity: 0; pointer-events: none; top: 30%'>
+					<div id="containEditSetText" style='margin:0px;width:100%; height: 30%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; border-bottom: 3px solid hsla(210,0%,50%,0.1);'>
+						<div id="containshowEditText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 4vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1);'>
+								Edit Configurations
+						</div>
+						<div id="containshowEditTextAdditional" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(40 ,100%,50%,1);'>
+								Select one of the two configurations below to change.
+						</div>
+					</div>
+					<div id='containeditSet' style="position: relative; height: 30%;">
+						<div id="containeditDirichlet" style='margin:0px;width:50%; height: 100%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer; '>
+							<div id="containeditDirichletText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1); width: 90%;'>
+									Dirichlet Conditions
+							</div>
+							<div id="containeditDirichletinfo" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1); width: 90%;'>
+								Fixes voltage values at given points. 
+							</div>
+						</div>
+						<div id="containeditCdensity" style='margin:0px;width:50%; height: 100%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer; opacity: 1;'>
+							<div id="containeditCdensityText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1); width: 90%;'>
+									Charge Density
+							</div>
+							<div id="containeditCdensityStatus" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190 ,100%,50%,1); width: 90%;'>
+								Set the charge distribution thoughout. 
+							</div>
+						</div>
+					</div>
+					<div id="containCustomEditSetText" style='margin:0px;width:100%; height: 10%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; border-bottom: 3px solid hsla(210,0%,50%,0.1); border-top: 3px solid hsla(210,0%,50%,0.1);'>
+						<div id="containshowCustomEditText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 3vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(260 ,100%,50%,1);'>
+								Preset Configurations
+						</div>
+					</div>
+					<div id="containCustomConfig1" style='margin:0px;width:33%; height: 30%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+						<div id="containCustomConfig1Text" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-10%); left: 50%; top: 10%; position: relative; color: hsla(5 ,100%,0%,1);'>
+								Capacitor
+						</div>
+						<div id="containCustomConfig1TextAdditional" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2vh; transform: translate(-50%,-30%); left: 50%; top: 30%; position: relative; color: hsla(210 ,100%,50%,1);'>
+								Two lines separated and kept at +1V and -1V. (Dirichlet Conditions)
+						</div>
+					</div>
+					<div id="containCustomConfig2" style='margin:0px;width:33%; height: 30%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+						<div id="containCustomConfig2Text" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-10%); left: 50%; top: 10%; position: relative; color: hsla(5 ,100%,0%,1);'>
+								Dipole
+						</div>
+						<div id="containCustomConfig2TextAdditional" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2vh; transform: translate(-50%,-30%); left: 50%; top: 30%; position: relative; color: hsla(210 ,100%,50%,1);'>
+								Two regions of positive and negative charge density separated by a distance.
+						</div>
+					</div>
+					<div id="containCustomConfig3" style='margin:0px;width:33%; height: 30%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer;'>
+						<div id="containCustomConfig3Text" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-10%); left: 50%; top: 10%; position: relative; color: hsla(5 ,100%,0%,1);'>
+								Cavity
+						</div>
+						<div id="containCustomConfig3TextAdditional" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2vh; transform: translate(-50%,-30%); left: 50%; top: 30%; position: relative; color: hsla(210 ,100%,50%,1);'>
+								A rectangle of fixed +1V. (Dirichlet Conditions)
+						</div>
+					</div>
+
+				</div>
+
+				
+
+
+				
+				
+				<div id="containcanvas" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,100%,0); position: relative; z-index: 2; opacity: 1; cursor: cell; box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3);'>
+					<canvas id='plotcanvas' height="100%" width="100%" style='position: absolute; z-index: 2; opacity: 0.1;'>
+					</canvas>
+
+					<canvas id='plotCdensitycanvas' height="100%" width="100%" style='position: absolute; z-index: 2; opacity: 0;'>
+
+					</canvas>
+					<canvas id='plotDirichletcanvas' height="100%" width="100%" style='position: absolute; z-index: 2; opacity: 0.2;'>
+
+					</canvas>
+					<canvas id='plotEFieldcanvas' height="100%" width="100%" style='position: absolute; z-index: 5; opacity: 1;'>
+
+					</canvas>
+
+				</div>
+			</div>
+			<div id="containInfoDiv" style='margin:0px;width:100%; height: 15%;overflow: hidden; font-size: 0; transition: height 1s; z-index: 2'>
+				<div id="containshowInfo" style='margin:0px;width:100%; height: 40%;overflow: hidden;background: hsla(200 ,100%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; '>
+					<div id="infoText" style='margin:0px; width: 90%; overflow: hidden;text-align: center; font-family: Calibri; font-weight: lighter; font-size: 2vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190,100%,10%,1); '>
+								
+					</div>
+				</div>
+				<div id="containshowSolveB" style='margin:0px;width:50%; height: 60%;overflow: hidden;background: hsla(190 ,100%,50%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer; box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3);'>
+					<div id="containsolveText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 4.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,100%,1);'>
+							Solve
+					</div>
+				</div>
+				<div id="containshoweditB" style='margin:0px;width:17%; height: 60%;overflow: hidden;background: hsla(200 ,100%,50%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3); cursor: pointer;'>
+					<div id="containeditText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,100%,1); width: 90%;'>
+							Edit Config
+					</div>
+				</div>
+				
+				<div id="containshowviewOptionsB" style='margin:0px;width:17%; height: 60%;overflow: hidden;background: hsla(210 ,100%,50%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3); cursor: pointer;'>
+					<div id="containviewOptionsText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-weight: auto; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,100%,1); width: 90%'>
+							Display Options
+					</div>
+				</div>
+				
+				<div id="containshowAllSettingsB" style='margin:0px;width:16%; height: 60%;overflow: hidden;background: hsla(220 ,100%,50%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3); cursor: pointer;'>
+					<div id="containAllSettingsText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,100%,1); width: 90%;'>
+							Other Settings
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<script>
+
+		function getPercentages(val, vmin, vmax, returntype) {
+			if(returntype == 'x') {
+				if (vmin != vmax) {
+					return (((90 - 10)/(vmax - vmin))*(val - vmin)) + 10
+				}
+			}
+			else if(returntype == 'y') {
+				if (vmin != vmax) {
+					return (((10 - 90)/(vmax - vmin))*(val - vmin)) + 90
+				}
+			}
+		}
+
+		sliderSetupID = {}
+
+		function getValFromPercentages(percent, vmin, vmax, returntype) {
+			if(returntype == 'x') {
+				if (vmin != vmax) {
+					return (((percent - 10)*(vmax - vmin))/(90 - 10)) + vmin
+				}
+			}
+			else if(returntype == 'y') {
+				if (vmin != vmax) {
+					return (((percent - 90)*(vmax - vmin))/(10 - 90)) + vmin
+				}
+			}
+		}
+
+		function sliderMove(event) {
+			sDetails = sliderSetupID[event.target.id]
+
+			var rect = sDetails[4].getBoundingClientRect()
+			posX = event.clientX - rect.left
+			posY = event.clientY - rect.top
+
+			xPer = posX*100/rect.width
+
+			sliderClickvalue = getValFromPercentages(xPer, sDetails[1], sDetails[2],'x')
+
+			if(sliderClickvalue < sDetails[2] && sliderClickvalue > sDetails[1]) {
+				if (sDetails[8] == 'dual') {
+					if (sliderClickvalue <= sDetails[5]) {
+						document.getElementById(sDetails[7] + ' dot1').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sDetails[6], sDetails[1], sDetails[2], 'x') - getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						sliderSetupID[event.target.id][5] = sliderClickvalue
+
+					}
+					else if (sliderClickvalue >= sDetails[6]) {
+						document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+						sliderSetupID[event.target.id][6] = sliderClickvalue
+					}
+					else if (sliderClickvalue < sDetails[6] && sliderClickvalue > sDetails[5] && (sDetails[6] - sDetails[5]) > sDetails[3]) {
+						midpoint = (sDetails[6] + sDetails[5])/2;
+						if (sliderClickvalue > midpoint) {
+							document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+							sliderSetupID[event.target.id][6] = sliderClickvalue
+						}
+						else {
+							document.getElementById(sDetails[7] + ' dot1').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sDetails[6], sDetails[1], sDetails[2], 'x') - getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							sliderSetupID[event.target.id][5] = sliderClickvalue
+						}
+					}
+					sDetails[12].innerHTML = sDetails[9] + sDetails[5].toFixed(sDetails[13]) + sDetails[10] + sDetails[6].toFixed(sDetails[13]) + sDetails[11]
+				}
+				if (sDetails[8] == 'single') {
+
+					document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+					document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[1], sDetails[1], sDetails[2], 'x') + '%');
+					document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[1], sDetails[1], sDetails[2], 'x') + '%');
+					sliderSetupID[event.target.id][6] = sliderClickvalue
+					sDetails[12].innerHTML = sDetails[9] + sDetails[6].toFixed(sDetails[13]) + sDetails[11]
+				}
+			}
+
+		}
+
+		function sliderUp(event) {
+			document.getElementById(event.target.id).addEventListener('mousedown', sliderDown)
+			document.getElementById(event.target.id).removeEventListener('mouseup', sliderUp)
+			document.getElementById(event.target.id).removeEventListener('mouseout', sliderOut)
+			document.getElementById(event.target.id).removeEventListener('mousemove', sliderMove)
+			
+
+		}
+
+		function sliderOut(event) {
+			document.getElementById(event.target.id).addEventListener('mousedown', sliderDown)
+			document.getElementById(event.target.id).removeEventListener('mouseup', sliderUp)
+			document.getElementById(event.target.id).removeEventListener('mouseout', sliderOut)
+			document.getElementById(event.target.id).removeEventListener('mousemove', sliderMove)
+			
+		}
+
+		function sliderDown(event) {
+			sDetails = sliderSetupID[event.target.id]
+
+			var rect = sDetails[4].getBoundingClientRect()
+			posX = event.clientX - rect.left
+
+			xPer = posX*100/rect.width
+
+			sliderClickvalue = getValFromPercentages(xPer, sDetails[1], sDetails[2],'x')
+
+			if(sliderClickvalue < sDetails[2] && sliderClickvalue > sDetails[1]) {
+				if (sDetails[8] == 'dual') {
+					if (sliderClickvalue <= sDetails[5]) {
+						document.getElementById(sDetails[7] + ' dot1').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sDetails[6], sDetails[1], sDetails[2], 'x') - getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						sliderSetupID[event.target.id][5] = sliderClickvalue
+
+					}
+					else if (sliderClickvalue >= sDetails[6]) {
+						document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+						document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+						sliderSetupID[event.target.id][6] = sliderClickvalue
+					}
+					else if (sliderClickvalue < sDetails[6] && sliderClickvalue > sDetails[5] && (sDetails[6] - sDetails[5]) > sDetails[3]) {
+						midpoint = (sDetails[6] + sDetails[5])/2;
+						if (sliderClickvalue > midpoint) {
+							document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[5], sDetails[1], sDetails[2], 'x') + '%');
+							sliderSetupID[event.target.id][6] = sliderClickvalue
+						}
+						else {
+							document.getElementById(sDetails[7] + ' dot1').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sDetails[6], sDetails[1], sDetails[2], 'x') - getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+							sliderSetupID[event.target.id][5] = sliderClickvalue
+						}
+					}
+					sDetails[12].innerHTML = sDetails[9] + sDetails[5].toFixed(sDetails[13]) + sDetails[10] + sDetails[6].toFixed(sDetails[13]) + sDetails[11]
+				}
+				if (sDetails[8] == 'single') {
+					document.getElementById(sDetails[7] + ' dot2').setAttribute('cx', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') + '%');
+					document.getElementById(sDetails[7] + ' midbar').setAttribute('width', getPercentages(sliderClickvalue, sDetails[1], sDetails[2], 'x') - getPercentages(sDetails[1], sDetails[1], sDetails[2], 'x') + '%');
+					document.getElementById(sDetails[7] + ' midbar').setAttribute('x', getPercentages(sDetails[1], sDetails[1], sDetails[2], 'x') + '%');
+					sliderSetupID[event.target.id][6] = sliderClickvalue
+					sDetails[12].innerHTML = sDetails[9] + sDetails[6].toFixed(sDetails[13]) + sDetails[11]
+				}
+			}
+
+
+			document.getElementById(event.target.id).removeEventListener('mousedown', sliderDown)
+			document.getElementById(event.target.id).addEventListener('mouseup', sliderUp)
+			document.getElementById(event.target.id).addEventListener('mouseout', sliderOut)
+			document.getElementById(event.target.id).addEventListener('mousemove', sliderMove)
+		}
+
+		function drawSlider(mainDivofSlider, sliderID, sliderMax, sliderMin, sliderInitLow, sliderInitHigh, minWidth, stype, slabelBegin, slabelMid, slabelEnd, labelID, decAccuracy) {
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('height','15%');
+			rectElement.setAttribute('width', '80%');
+			rectElement.setAttribute('id', sliderID + ' range');
+			rectElement.setAttribute('x', '10%');
+			rectElement.setAttribute('y', '43%');
+			rectElement.setAttribute('vector-effect','non-scaling-stroke');
+			rectElement.style.opacity = 1;
+			rectElement.style.fill = 'hsla(180,0%,90%,0.6)'
+			rectElement.style.strokeWidth = '0';
+			mainDivofSlider.appendChild(rectElement);
+			rectElement.style.pointerEvents = 'none'
+			mainDivofSlider.addEventListener('mousedown', sliderDown)
+			rectElement.style.cursor = 'pointer'
+			sliderSetupID[mainDivofSlider.id] = [1, sliderMin, sliderMax, minWidth, mainDivofSlider, sliderInitLow, sliderInitHigh, sliderID, stype,slabelBegin, slabelMid, slabelEnd, labelID, decAccuracy]
+
+			sDetails = sliderSetupID[mainDivofSlider.id]
+
+			if (stype == 'dual') {
+				var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+				rectElement.setAttribute('height','15%');
+				rectElement.setAttribute('width', getPercentages(sliderInitHigh, sliderMin, sliderMax, 'x') - getPercentages(sliderInitLow, sliderMin, sliderMax, 'x') + '%');
+				rectElement.setAttribute('id', sliderID + ' midbar');
+				rectElement.setAttribute('x', getPercentages(sliderInitLow, sliderMin, sliderMax, 'x') + '%');
+				rectElement.setAttribute('y', '43%');
+				rectElement.setAttribute('vector-effect','non-scaling-stroke');
+				rectElement.style.opacity = 1;
+				rectElement.style.fill = 'hsla(190,100%,80%,1)'
+				rectElement.style.strokeWidth = '0';
+				rectElement.style.pointerEvents = 'none'
+				mainDivofSlider.appendChild(rectElement);
+				sDetails[12].innerHTML = sDetails[9] + sDetails[5].toFixed(sDetails[13]) + sDetails[10] + sDetails[6].toFixed(sDetails[13]) + sDetails[11]
+			}
+			else if(stype == 'single') {
+				var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+				rectElement.setAttribute('height','15%');
+				rectElement.setAttribute('width', getPercentages(sliderInitHigh, sliderMin, sliderMax, 'x') - getPercentages(sliderMin, sliderMin, sliderMax, 'x') + '%');
+				rectElement.setAttribute('id', sliderID + ' midbar');
+				rectElement.setAttribute('x', getPercentages(sliderMin, sliderMin, sliderMax, 'x') + '%');
+				rectElement.setAttribute('y', '43%');
+				rectElement.setAttribute('vector-effect','non-scaling-stroke');
+				rectElement.style.opacity = 1;
+				rectElement.style.fill = 'hsla(190,100%,80%,1)'
+				rectElement.style.strokeWidth = '0';
+				rectElement.style.pointerEvents = 'none'
+				mainDivofSlider.appendChild(rectElement);
+				sDetails[12].innerHTML = sDetails[9] + sDetails[6].toFixed(sDetails[13]) + sDetails[11]
+			}
+
+			
+			if (stype == 'dual') {
+				var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+				circleElement.setAttribute('cx', getPercentages(sliderInitLow, sliderMin, sliderMax, 'x') + '%');
+				circleElement.setAttribute('cy', '50%');	
+				circleElement.setAttribute('id', sliderID + ' dot1');
+				circleElement.setAttribute('r', '1.2%');
+				circleElement.setAttribute('vector-effect','non-scaling-stroke');
+				circleElement.setAttribute('fill','hsla(190,100%,50%,1)')
+				mainDivofSlider.appendChild(circleElement);
+				circleElement.style.pointerEvents = 'none'
+			}
+
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			circleElement.setAttribute('cx', getPercentages(sliderInitHigh, sliderMin, sliderMax, 'x') + '%');
+			circleElement.setAttribute('cy', '50%');	
+			circleElement.setAttribute('id', sliderID + ' dot2');
+			circleElement.setAttribute('r', '1.2%');
+			circleElement.setAttribute('vector-effect','non-scaling-stroke');
+			circleElement.setAttribute('fill','hsla(190,100%,50%,1)')
+			mainDivofSlider.appendChild(circleElement);
+			circleElement.style.pointerEvents = 'none'
+		}
+
+		drawSlider(document.getElementById('editSliderSvg'),'slidersvg',10,1,0,5,1, 'single', 'Voltage Value : ', '', ' V', document.getElementById('SliderLabel'), 2)
+
+
+		plotcanvas = document.getElementById('plotcanvas')
+		plotDirichletcanvas = document.getElementById('plotDirichletcanvas')
+		plotCdensitycanvas = document.getElementById('plotCdensitycanvas')
+		plotEFieldcanvas = document.getElementById('plotEFieldcanvas')
+
+		ctx = plotcanvas.getContext('2d')
+		ctxDirichlet = plotDirichletcanvas.getContext('2d')
+		ctxCdensity = plotCdensitycanvas.getContext('2d')
+		ctxEField = plotEFieldcanvas.getContext('2d')
+
+		cellsidelength = 18
+		cellgap = 1
+
+		plotcanvas.width = window.innerWidth;
+		plotcanvas.height = 0.85*window.innerHeight;
+
+		plotDirichletcanvas.width = window.innerWidth;
+		plotDirichletcanvas.height = 0.85*window.innerHeight;
+
+		plotCdensitycanvas.width = window.innerWidth;
+		plotCdensitycanvas.height = 0.85*window.innerHeight;
+
+		plotEFieldcanvas.width = window.innerWidth;
+		plotEFieldcanvas.height = 0.85*window.innerHeight;
+
+		canvaswidth = plotcanvas.width
+		canvasheight = plotcanvas.height
+
+		// code from https://stackoverflow.com/questions/808826/draw-arrow-on-canvas-tag
+
+		function canvas_arrow(context, fromx, fromy, tox, toy){
+			var headlen = 4;   // length of head in pixels
+			var angle = Math.atan2(toy-fromy,tox-fromx);
+			context.moveTo(fromx, fromy);
+			context.lineTo(tox, toy);
+			context.lineTo(tox-headlen*Math.cos(angle-Math.PI/6),toy-headlen*Math.sin(angle-Math.PI/6));
+			context.moveTo(tox, toy);
+			context.lineTo(tox-headlen*Math.cos(angle+Math.PI/6),toy-headlen*Math.sin(angle+Math.PI/6));
+		}
+
+		function DrawCell(X1,Y1,X2,Y2,fillColor,ctxtypes) {
+			ctxtypes.fillStyle=fillColor;
+			ctxtypes.fillRect(X1,Y1,X2,Y2);
+		}
+
+		function DrawBorder(ctxtypes) {
+			ctxtypes.lineWidth = '3px';
+			ctxtypes.rect(0,0,canvaswidth,canvasheight);
+			ctxtypes.stroke();
+		}
+
+
+		var cells = {};
+		var celldimensions = {};
+
+		chargedensity = {}
+		dirichlet = {}
+		dirichletValues = {}
+		efield = {}
+		efieldValues = {}
+
+
+		function computeEField() {
+			for (var key in cells) {
+				if (cells.hasOwnProperty(key)) {
+					liveX = parseInt(key.split(",")[0]);
+					liveY = parseInt(key.split(",")[1]);
+					if (liveX < xmax - 1 && liveY < ymax - 1) {
+						eX = (cells[(liveX + 1).toString() + ',' + liveY.toString()] - cells[liveX.toString() + ',' + liveY.toString()])/(-hvalue)
+						eY = (cells[liveX.toString() + ',' + (liveY + 1).toString()] - cells[liveX.toString() + ',' + liveY.toString()])/(-hvalue)
+						eval = Math.sqrt((eX*eX) + (eY*eY))
+						efield[key] = [eX, eY, eval]
+						efieldValues[key] = eval
+					}
+				}
+			}
+		}
+
+		// Skip All computations if cellside is very small
+
+		function plotEField() {
+			ctxEField.clearRect(0,0,plotEFieldcanvas.width,plotEFieldcanvas.height);
+			highEvalue = normalize(efieldValues)[1]
+			factor = 30/highEvalue
+			skipval = 1
+			if (cellsidelength < 7) {
+				skipval = parseInt(5 - (cellsidelength/2))
+			}
+			if (cellsidelength < 3) {
+				skipval = 8
+			}
+			for (var key in cells) {
+				if (cells.hasOwnProperty(key)) {
+					liveX = parseInt(key.split(",")[0]);
+					liveY = parseInt(key.split(",")[1]);
+
+					if (liveX < xmax - 1 && liveY < ymax - 1 && (liveX % skipval) == 0 && (liveY % skipval) == 0) {
+						posXvalue = celldimensions[key][0] + cellsidelength/2
+						posYvalue = celldimensions[key][1] + cellsidelength/2
+						ctxEField.beginPath();
+						ctxEField.strokeStyle = 'rgba(0,0,0,0.3)'
+						ctxEField.fillStyle="rgb(0,0,0)";
+
+						endpX = posXvalue + (efield[key][0]*factor)
+						endpY = posYvalue + (efield[key][1]*factor)
+
+						canvas_arrow(ctxEField, posXvalue, posYvalue, endpX, endpY)
+
+						ctxEField.stroke();
+					}
+				}
+			}
+		}
+
+
+		xcount = 0;
+		ycount = 0;
+
+		function setupCells() {
+			for(xpos = cellgap; xpos < canvaswidth - cellsidelength; xpos = xpos + cellsidelength + cellgap) {
+				ycount = 0;
+				for(ypos = cellgap; ypos < canvasheight - cellsidelength; ypos = ypos + cellsidelength + cellgap) {
+					cells[xcount.toString() + ',' + ycount.toString()] = Math.random();
+					celldimensions[xcount.toString() + ',' + ycount.toString()] = [xpos,ypos];
+					chargedensity[xcount.toString() + ',' + ycount.toString()] = 0;
+
+					dirichlet[xcount.toString() + ',' + ycount.toString()] = 0;
+					//DrawCell(xpos, ypos, cellsidelength, cellsidelength, "rgba(131, 3, 251, 0.12)");
+					ycount = ycount + 1;
+				}
+				xcount = xcount + 1;
+			}
+		}
+
+		setupCells()
+			
+
+		xmax = xcount
+		ymax = ycount
+
+		function groundboundary() {
+			// body...
+			for (xv=0; xv<xmax; xv++) {
+				for (yv=0; yv<ymax; yv++) {
+					if (xv == 0) {
+						cells[xv.toString() + ',' + yv.toString()] = 0;
+						dirichlet[xv.toString() + ',' + yv.toString()] = 1;
+						dirichletValues[xv.toString() + ',' + yv.toString()] = 0;
+						chargedensity[xv.toString() + ',' + yv.toString()] = 0;
+					}
+
+					if (xv == xmax - 1) {
+						cells[xv.toString() + ',' + yv.toString()] = 0;
+						dirichlet[xv.toString() + ',' + yv.toString()] = 1;
+						dirichletValues[xv.toString() + ',' + yv.toString()] = 0;
+						chargedensity[xv.toString() + ',' + yv.toString()] = 0;
+					}
+
+					if (yv == 0) {
+						cells[xv.toString() + ',' + yv.toString()] = 0;
+						dirichlet[xv.toString() + ',' + yv.toString()] = 1;
+						dirichletValues[xv.toString() + ',' + yv.toString()] = 0;
+						chargedensity[xv.toString() + ',' + yv.toString()] = 0;
+					}
+
+					if (yv == ymax - 1) {
+						cells[xv.toString() + ',' + yv.toString()] = 0;
+						dirichlet[xv.toString() + ',' + yv.toString()] = 1;
+						dirichletValues[xv.toString() + ',' + yv.toString()] = 0;
+						chargedensity[xv.toString() + ',' + yv.toString()] = 0;
+					}
+				}
+			}
+		}
+
+		function cavity() {
+			// body...
+			for (xv=parseInt(xmax/3); xv<parseInt(2*xmax/3); xv++) {
+				for (yv=parseInt(ymax/3); yv<parseInt(2*ymax/3); yv++) {
+					if (xv == parseInt(xmax/3)) {
+						cells[xv.toString() + ',' + yv.toString()] = 0;
+						dirichlet[xv.toString() + ',' + yv.toString()] = 1;
+						dirichletValues[xv.toString() + ',' + yv.toString()] = 1;
+						chargedensity[xv.toString() + ',' + yv.toString()] = 0;
+					}
+
+					if (xv == parseInt(2*xmax/3) - 1) {
+						cells[xv.toString() + ',' + yv.toString()] = 0;
+						dirichlet[xv.toString() + ',' + yv.toString()] = 1;
+						dirichletValues[xv.toString() + ',' + yv.toString()] = 1;
+						chargedensity[xv.toString() + ',' + yv.toString()] = 0;
+					}
+
+					if (yv == parseInt(ymax/3)) {
+						cells[xv.toString() + ',' + yv.toString()] = 0;
+						dirichlet[xv.toString() + ',' + yv.toString()] = 1;
+						dirichletValues[xv.toString() + ',' + yv.toString()] = 1;
+						chargedensity[xv.toString() + ',' + yv.toString()] = 0;
+					}
+
+					if (yv == parseInt(2*ymax/3) - 1) {
+						cells[xv.toString() + ',' + yv.toString()] = 0;
+						dirichlet[xv.toString() + ',' + yv.toString()] = 1;
+						dirichletValues[xv.toString() + ',' + yv.toString()] = 1;
+						chargedensity[xv.toString() + ',' + yv.toString()] = 0;
+					}
+				}
+			}
+		}
+
+			
+		function capacitor() {
+		
+			// Set Dirichlet 
+
+			for (xcount = parseInt(xmax/3); xcount < parseInt(2*xmax/3); xcount++) {
+				ycount = parseInt(ymax/3) - 1
+				cells[xcount.toString() + ',' + ycount.toString()] = 1;
+				dirichlet[xcount.toString() + ',' + ycount.toString()] = 1;
+				dirichletValues[xcount.toString() + ',' + ycount.toString()] = 1;
+			}
+
+			for (xcount = parseInt(xmax/3); xcount < parseInt(2*xmax/3); xcount++) {
+				ycount = parseInt(2*ymax/3)
+				cells[xcount.toString() + ',' + ycount.toString()] = -1;
+				dirichlet[xcount.toString() + ',' + ycount.toString()] = 1;
+				dirichletValues[xcount.toString() + ',' + ycount.toString()] = -1;
+			}
+
+		}
+
+		function dipole() {
+			// Set Charge Density
+
+			chargelocation1 = [xmax/4, ymax/2]
+			chargelocation2 = [3*xmax/4, ymax/2]
+
+			for (k=0; k < 5; k ++) {
+				for (m=0; m < 5; m ++) {
+					chargedensity[parseInt(chargelocation1[0] + k).toString() + ',' + parseInt(chargelocation1[1] + m).toString()] = 1;
+					chargedensity[parseInt(chargelocation2[0] + k).toString() + ',' + parseInt(chargelocation2[1] + m).toString()] = -1;
+				}
+			}
+		}
+
+		capacitor()
+		// dipole()
+
+		function normalize(dict, Ntype) {
+			keys = Object.keys(dict)
+			highest = dict[keys[parseInt(Math.random()*(keys.length))]];
+			lowest = highest
+			for (var key in dict) {
+				if (dict.hasOwnProperty(key)) {
+					if (dict[key] > highest) {
+						highest = dict[key]
+					}
+					if (dict[key] < lowest) {
+						lowest = dict[key]
+					}
+				}
+			}
+
+			if (Ntype != 'bounds') {
+				for (var key in dict) {
+					if (dict.hasOwnProperty(key)) {
+						if (highest == lowest) {
+							dict[key] = 0
+						}
+						else {
+							dict[key] = (dict[key] - lowest)/(highest - lowest)
+						}
+						
+					}
+				}
+			}
+
+			// console.log(highest, lowest)
+
+			return [lowest, highest]
+
+		}
+
+		function normalizeWithValues(dict, Ntype, lowestv, highestv) {
+			highest = highestv;
+			lowest = lowestv
+			
+
+			if (Ntype != 'bounds') {
+				for (var key in dict) {
+					if (dict.hasOwnProperty(key)) {
+						if (highest == lowest) {
+							dict[key] = 0
+						}
+						else {
+							dict[key] = (dict[key] - lowest)/(highest - lowest)
+						}
+						
+					}
+				}
+			}
+
+			// console.log(highest, lowest)
+
+			return [lowest, highest]
+
+		}
+
+		function normalvalue(value, lowest, highest) {
+			if (highest == lowest) {
+				return 0
+			}
+			else {
+				return (value - lowest)/(highest - lowest)
+			}
+		}
+
+
+		containshowCdensityState = 0
+		containshowDirichletState = 1
+		containshowEfieldState = 1
+		containshowvoltageState = 1
+
+		solveiter = 0
+
+		function solveToggle(event) {
+			if (solve == 0) {
+				solve = 1
+			}
+			else {
+				solve = 0
+				document.getElementById('containsolveText').innerHTML = 'Solve'
+			}
+		}
+
+		trackViewOptions = 0
+
+		function viewOptionsToggle(event) {
+			if (trackViewOptions == 0) {
+				solve = 0
+				document.getElementById('containsolveText').innerHTML = 'Solve'
+				document.getElementById('containViewOptionsPane').style.opacity = 1
+				document.getElementById('containViewOptionsPane').style.zIndex = 10
+				document.getElementById('containViewOptionsPane').style.pointerEvents = 'auto'
+				document.getElementById('containviewOptionsText').style.fontWeight = 'bold';
+				trackViewOptions = 1
+				document.getElementById('containEditOptionsPane').style.opacity = 0
+				document.getElementById('containEditOptionsPane').style.zIndex = 0
+				document.getElementById('containEditOptionsPane').style.pointerEvents = 'none'
+				document.getElementById('containeditText').style.fontWeight = 'normal';
+				trackeditOptions = 0
+				document.getElementById('containotherOptionsPane').style.opacity = 0
+				document.getElementById('containotherOptionsPane').style.zIndex = 0
+				document.getElementById('containotherOptionsPane').style.pointerEvents = 'none'
+				document.getElementById('containAllSettingsText').style.fontWeight = 'normal';
+				trackallOptions = 0
+			}
+			else {
+				document.getElementById('containViewOptionsPane').style.opacity = 0
+				document.getElementById('containViewOptionsPane').style.zIndex = 0
+				document.getElementById('containViewOptionsPane').style.pointerEvents = 'none'
+				document.getElementById('containviewOptionsText').style.fontWeight = 'normal';
+				trackViewOptions = 0
+			}
+		}
+
+		trackeditOptions = 0
+
+		function editOptionsToggle(event) {
+			if (trackeditOptions == 0) {
+				solve = 0
+				document.getElementById('containsolveText').innerHTML = 'Solve'
+				document.getElementById('containEditOptionsPane').style.opacity = 1
+				document.getElementById('containEditOptionsPane').style.zIndex = 10
+				document.getElementById('containEditOptionsPane').style.pointerEvents = 'auto'
+				document.getElementById('containeditText').style.fontWeight = 'bold';
+				trackeditOptions = 1
+				document.getElementById('containViewOptionsPane').style.opacity = 0
+				document.getElementById('containViewOptionsPane').style.zIndex = 0
+				document.getElementById('containViewOptionsPane').style.pointerEvents = 'none'
+				document.getElementById('containviewOptionsText').style.fontWeight = 'normal';
+				trackViewOptions = 0
+				document.getElementById('containotherOptionsPane').style.opacity = 0
+				document.getElementById('containotherOptionsPane').style.zIndex = 0
+				document.getElementById('containotherOptionsPane').style.pointerEvents = 'none'
+				document.getElementById('containAllSettingsText').style.fontWeight = 'normal';
+				trackallOptions = 0
+			}
+			else {
+				document.getElementById('containEditOptionsPane').style.opacity = 0
+				document.getElementById('containEditOptionsPane').style.zIndex = 0
+				document.getElementById('containEditOptionsPane').style.pointerEvents = 'none'
+				document.getElementById('containeditText').style.fontWeight = 'normal';
+				trackeditOptions = 0
+			}
+		}
+
+		trackallOptions = 0
+
+		function viewAllSetToggle(event) {
+			if (trackallOptions == 0) {
+				solve = 0
+				document.getElementById('containsolveText').innerHTML = 'Solve'
+				document.getElementById('containotherOptionsPane').style.opacity = 1
+				document.getElementById('containotherOptionsPane').style.zIndex = 10
+				document.getElementById('containotherOptionsPane').style.pointerEvents = 'auto'
+				document.getElementById('containAllSettingsText').style.fontWeight = 'bold';
+				trackallOptions = 1
+				document.getElementById('containEditOptionsPane').style.opacity = 0
+				document.getElementById('containEditOptionsPane').style.zIndex = 0
+				document.getElementById('containEditOptionsPane').style.pointerEvents = 'none'
+				document.getElementById('containeditText').style.fontWeight = 'normal';
+				trackeditOptions = 0
+				document.getElementById('containViewOptionsPane').style.opacity = 0
+				document.getElementById('containViewOptionsPane').style.zIndex = 0
+				document.getElementById('containViewOptionsPane').style.pointerEvents = 'none'
+				document.getElementById('containviewOptionsText').style.fontWeight = 'normal';
+				trackViewOptions = 0
+			}
+			else {
+				document.getElementById('containotherOptionsPane').style.opacity = 0
+				document.getElementById('containotherOptionsPane').style.zIndex = 0
+				document.getElementById('containotherOptionsPane').style.pointerEvents = 'none'
+				document.getElementById('containAllSettingsText').style.fontWeight = 'normal';
+				trackallOptions = 0
+			}
+		}
+
+		function setSliderBounds(slidername, high, low, currvalue) {
+			sliderSetupID[slidername][1] = low
+			sliderSetupID[slidername][2] = high
+			sliderSetupID[slidername][6] = currvalue
+		}
+
+		function clickDirichletResponse(event) {
+			var rect = plotcanvas.getBoundingClientRect();
+			var posX = event.clientX - rect.left;
+			var posY = event.clientY - rect.top;
+
+			cX = parseInt((posX - (cellsidelength/5)) / (cellsidelength + cellgap));
+			cY = parseInt((posY - (cellsidelength/5)) / (cellsidelength + cellgap));
+			if (cX < xmax && cY < ymax  && cX >= 0 && cY >= 0) {
+				key = cX.toString() + ',' + cY.toString();
+				dirichlet[key] = 1
+				dirichletValues[key] = sliderSetupID['editSliderSvg'][6]
+				normalizedValue = normalvalue(sliderSetupID['editSliderSvg'][6], sliderSetupID['editSliderSvg'][1], sliderSetupID['editSliderSvg'][2])
+				baseintensity = 0.2
+				DrawCellwithLabel(cX, cY, 'rgba(255, 255, 255,1)', ctxDirichlet)
+				DrawCellwithLabel(cX, cY,  'hsla(230, 100%, 50%, ' + (baseintensity + (0.7*normalizedValue)) + ')', ctxDirichlet)
+			}
+			solveiter = 0
+		}
+
+		function clickclearDirichletResponse(event) {
+			var rect = plotcanvas.getBoundingClientRect();
+			var posX = event.clientX - rect.left;
+			var posY = event.clientY - rect.top;
+
+			cX = parseInt((posX - (cellsidelength/5)) / (cellsidelength + cellgap));
+			cY = parseInt((posY - (cellsidelength/5)) / (cellsidelength + cellgap));
+			if (cX < xmax && cY < ymax  && cX >= 0 && cY >= 0) {
+				key = cX.toString() + ',' + cY.toString();
+				dirichlet[key] = 0
+				dirichletValues[key] = 0
+				DrawCellwithLabel(cX, cY, 'rgba(255, 255, 255,1)', ctxDirichlet)
+			}
+			solveiter = 0
+		}
+
+		function mouseoutDirichletResponse(event) {
+			// body...
+		}
+
+		clearState = 0
+
+		function clickclearResponse(event) {
+			if(clearState == 0) {
+				document.getElementById('SliderClear').style.fontWeight = 'bold'
+				document.getElementById('SliderClear').style.color = 'hsla(190, 100%, 50%, 1)'
+				clearState = 1
+				document.getElementById('containcanvas').removeEventListener('click', clickDirichletResponse)
+				document.getElementById('containcanvas').addEventListener('click', clickclearDirichletResponse)
+				document.getElementById('infoText').innerHTML = 'Click on the pixels above to remove the Dirichlet Conditions.'
+				document.getElementById('containcanvas').style.cursor = 'crosshair'
+			}
+			else {
+				document.getElementById('SliderClear').style.fontWeight = 'normal'
+				document.getElementById('SliderClear').style.color = 'hsla(190, 0%, 0%, 1)'
+				clearState = 0
+				document.getElementById('containcanvas').addEventListener('click', clickDirichletResponse)
+				document.getElementById('containcanvas').removeEventListener('click', clickclearDirichletResponse)
+				document.getElementById('infoText').innerHTML = 'Pick a value below and tap on the pixels above to set them to that value.'
+				document.getElementById('containcanvas').style.cursor = 'cell'
+			}
+		}
+
+		function clearAllResponse(event) {
+			for (var key in cells) {
+				if (cells.hasOwnProperty(key)) {
+					dirichlet[key] = 0
+					dirichletValues[key] = 0
+					liveX = parseInt(key.split(",")[0]);
+					liveY = parseInt(key.split(",")[1]);
+					DrawCellwithLabel(liveX, liveY, 'rgba(255, 255, 255,1)', ctxDirichlet)
+				}
+			}
+			solveiter = 0
+		}
+
+
+		function openDirichletEditor(event) {
+			document.getElementById('SliderCancel').addEventListener('click', closeDirichletEditor)
+			clearState = 0
+			document.getElementById('infoText').innerHTML = 'Pick a value and tap on the pixels above to set them to that value.'
+			document.getElementById('containEditSliderPane').style.opacity = 1
+			document.getElementById('containEditSliderPane').style.zIndex = 10
+			document.getElementById('containEditSliderPane').style.pointerEvents = 'auto'
+			document.getElementById('containEditOptionsPane').style.opacity = 0
+			document.getElementById('containEditOptionsPane').style.zIndex = 0
+			document.getElementById('containEditOptionsPane').style.pointerEvents = 'none'
+			document.getElementById('containeditText').style.fontWeight = 'normal';
+			document.getElementById('containcanvas').removeEventListener('mousemove', mousemoveResponse)
+			document.getElementById('containcanvas').removeEventListener('mouseout', mouseoutResponse)
+			document.getElementById('containcanvas').addEventListener('click', clickDirichletResponse)
+			document.getElementById('containSliderClear').addEventListener('click', clickclearResponse)
+			document.getElementById('containSliderClearAll').addEventListener('click', clearAllResponse)
+			document.getElementById('containcanvas').addEventListener('mouseout', mouseoutDirichletResponse)
+
+			bounds = normalize(dirichletValues, 'bounds')
+			highval = bounds[1]
+			lowval = bounds[0]
+
+			// highval = highval + ((highval - lowval)*0.25)
+			// lowval = lowval - ((highval - lowval)*0.25)
+
+			highval = 1
+			lowval = -1
+
+			document.getElementById('plotDirichletcanvas').style.zIndex = 11;
+
+			setSliderBounds('editSliderSvg', highval, lowval, (highval+lowval)/2)
+			document.getElementById('SliderLabel').innerHTML = 'Voltage Value : ' + ((highval+lowval)/2).toFixed(2)
+			sliderSetupID['editSliderSvg'][9] = 'Voltage Value : '
+			sliderSetupID['editSliderSvg'][11] = ' V'
+		}
+
+
+		function closeDirichletEditor(event) {
+			document.getElementById('infoText').innerHTML = ''
+			document.getElementById('containEditSliderPane').style.opacity = 0
+			document.getElementById('containEditSliderPane').style.zIndex = 0
+			document.getElementById('containEditSliderPane').style.pointerEvents = 'none'
+
+			document.getElementById('containEditOptionsPane').style.opacity = 1
+			document.getElementById('containEditOptionsPane').style.zIndex = 10
+			document.getElementById('containEditOptionsPane').style.pointerEvents = 'auto'
+			document.getElementById('containeditText').style.fontWeight = 'bold';
+			document.getElementById('containcanvas').addEventListener('mousemove', mousemoveResponse)
+			document.getElementById('containcanvas').addEventListener('mouseout', mouseoutResponse)
+			document.getElementById('SliderCancel').removeEventListener('click', closeDirichletEditor)
+			// ctxDirichlet.clearRect(0,0, canvaswidth, canvasheight)
+			// DrawCellsDirichlet()
+		}
+
+		function sliderPaneHover(event) {
+			
+		}
+
+
+		function clearAllCDResponse(event) {
+			for (var key in cells) {
+				if (cells.hasOwnProperty(key)) {
+					chargedensity[key] = 0
+					cX = parseInt(key.split(",")[0]);
+					cY = parseInt(key.split(",")[1]);
+					normalizedValue = normalvalue(0, sliderSetupID['editSliderSvg'][1], sliderSetupID['editSliderSvg'][2])
+					baseintensity = 0.1
+					DrawCellwithLabel(cX, cY, 'rgba(255, 255, 255,1)', ctxCdensity)
+					DrawCellwithLabel(cX, cY,  'hsla(250, 100%, 50%, ' + (baseintensity + (0.85*normalizedValue)) + ')', ctxCdensity)
+				}
+			}
+			solveiter = 0
+		}
+
+		
+
+		function openCDEditor(event) {
+			document.getElementById('SliderCancel').addEventListener('click', closeCDEditor)
+			clearState = 0
+			document.getElementById('infoText').innerHTML = 'Pick a value and tap on the pixels above to set them to that value.'
+			document.getElementById('containEditSliderPane').style.opacity = 1
+			document.getElementById('containEditSliderPane').style.zIndex = 10
+			document.getElementById('containEditSliderPane').style.pointerEvents = 'auto'
+			document.getElementById('containEditOptionsPane').style.opacity = 0
+			document.getElementById('containEditOptionsPane').style.zIndex = 0
+			document.getElementById('containEditOptionsPane').style.pointerEvents = 'none'
+			document.getElementById('containeditText').style.fontWeight = 'normal';
+			document.getElementById('containcanvas').removeEventListener('mousemove', mousemoveResponse)
+			document.getElementById('containcanvas').removeEventListener('mouseout', mouseoutResponse)
+			document.getElementById('containcanvas').addEventListener('click', clickCDResponse)
+			document.getElementById('containSliderClearAll').addEventListener('click', clearAllCDResponse)
+			// document.getElementById('containcanvas').addEventListener('mouseout', mouseoutDirichletResponse)
+
+			document.getElementById('plotCdensitycanvas').style.opacity = 0.3
+
+			bounds = normalize(chargedensity, 'bounds')
+			highval = bounds[1]
+			lowval = bounds[0]
+
+			// highval = highval + ((highval - lowval)*0.25)
+			// lowval = lowval - ((highval - lowval)*0.25)
+
+			highval = 1
+			lowval = -1
+
+			document.getElementById('plotCdensitycanvas').style.zIndex = 11;
+
+			setSliderBounds('editSliderSvg', highval, lowval, (highval+lowval)/2)
+			document.getElementById('SliderLabel').innerHTML = 'Charge Density : ' + ((highval+lowval)/2).toFixed(2) + ' C/area'
+			sliderSetupID['editSliderSvg'][9] = 'Charge Density : '
+			sliderSetupID['editSliderSvg'][11] = ' C/area'
+
+			document.getElementById('containSliderClear').style.opacity = 0
+			document.getElementById('containSliderClear').style.height = '0%'
+			document.getElementById('containSliderClear').pointerEvents = 'none'
+			document.getElementById('containSliderClearAll').style.height = '100%'
+			document.getElementById('SliderClearAll').innerHTML = 'Set all to Zero'
+		}
+
+		function clickCDResponse(event) {
+			var rect = plotcanvas.getBoundingClientRect();
+			var posX = event.clientX - rect.left;
+			var posY = event.clientY - rect.top;
+
+			cX = parseInt((posX - (cellsidelength/5)) / (cellsidelength + cellgap));
+			cY = parseInt((posY - (cellsidelength/5)) / (cellsidelength + cellgap));
+			if (cX < xmax && cY < ymax  && cX >= 0 && cY >= 0) {
+				key = cX.toString() + ',' + cY.toString();
+				chargedensity[key] = sliderSetupID['editSliderSvg'][6]
+				normalizedValue = normalvalue(sliderSetupID['editSliderSvg'][6], sliderSetupID['editSliderSvg'][1], sliderSetupID['editSliderSvg'][2])
+				baseintensity = 0.1
+				DrawCellwithLabel(cX, cY, 'rgba(255, 255, 255,1)', ctxCdensity)
+				DrawCellwithLabel(cX, cY,  'hsla(250, 100%, 50%, ' + (baseintensity + (0.85*normalizedValue)) + ')', ctxCdensity)
+			}
+			solveiter = 0
+		}
+
+		function closeCDEditor(event) {
+			document.getElementById('plotCdensitycanvas').style.opacity = 0
+			document.getElementById('infoText').innerHTML = ''
+			document.getElementById('containEditSliderPane').style.opacity = 0
+			document.getElementById('containEditSliderPane').style.zIndex = 0
+			document.getElementById('containEditSliderPane').style.pointerEvents = 'none'
+
+			document.getElementById('containEditOptionsPane').style.opacity = 1
+			document.getElementById('containEditOptionsPane').style.zIndex = 10
+			document.getElementById('containEditOptionsPane').style.pointerEvents = 'auto'
+			document.getElementById('containeditText').style.fontWeight = 'bold';
+			document.getElementById('containcanvas').addEventListener('mousemove', mousemoveResponse)
+			document.getElementById('containcanvas').addEventListener('mouseout', mouseoutResponse)
+			document.getElementById('SliderCancel').removeEventListener('click', closeCDEditor)
+			// ctxDirichlet.clearRect(0,0, canvaswidth, canvasheight)
+			// DrawCellsDirichlet()
+			document.getElementById('containSliderClear').style.opacity = 1
+			document.getElementById('containSliderClear').style.height = '50%'
+			document.getElementById('containSliderClear').pointerEvents = 'auto'
+			document.getElementById('containSliderClearAll').style.height = '50%'
+			document.getElementById('SliderClearAll').innerHTML = 'Clear All'
+		}
+
+
+
+		document.getElementById('containshowDirichlet').addEventListener('click', DirichletToggle)
+		document.getElementById('containshowCdensity').addEventListener('click', CdensityToggle)
+		document.getElementById('containshowEfield').addEventListener('click', EfieldToggle)
+		document.getElementById('containshowvoltage').addEventListener('click', voltageToggle)
+
+		document.getElementById('containshowSolveB').addEventListener('click', solveToggle)
+
+
+		document.getElementById('containshowviewOptionsB').addEventListener('click', viewOptionsToggle)
+		document.getElementById('containshoweditB').addEventListener('click', editOptionsToggle)
+
+
+		document.getElementById('containeditDirichlet').addEventListener('click', openDirichletEditor)
+		document.getElementById('containeditCdensity').addEventListener('click', openCDEditor)
+
+		
+
+
+		document.getElementById('containEditSliderPane').addEventListener('mousemove', sliderPaneHover)
+
+		document.getElementById('containshowAllSettingsB').addEventListener('click', viewAllSetToggle)
+
+
+		function clearAllConfig() {
+			for (var key in cells) {
+				if (cells.hasOwnProperty(key)) {
+					dirichlet[key] = 0
+					dirichletValues[key] = 0
+					liveX = parseInt(key.split(",")[0]);
+					liveY = parseInt(key.split(",")[1]);
+					DrawCellwithLabel(liveX, liveY, 'rgba(255, 255, 255,1)', ctxDirichlet)
+					chargedensity[key] = 0
+					cX = parseInt(key.split(",")[0]);
+					cY = parseInt(key.split(",")[1]);
+					normalizedValue = normalvalue(0, sliderSetupID['editSliderSvg'][1], sliderSetupID['editSliderSvg'][2])
+					baseintensity = 0.1
+					DrawCellwithLabel(cX, cY, 'rgba(255, 255, 255,1)', ctxCdensity)
+					DrawCellwithLabel(cX, cY,  'hsla(250, 100%, 50%, ' + (baseintensity + (0.85*normalizedValue)) + ')', ctxCdensity)
+				}
+			}
+			solveiter = 0
+
+		}
+
+
+
+		function capacitorConfig(event) {
+			clearAllConfig()
+			capacitor()
+			drawSetup()
+		}
+
+		function dipoleConfig(event) {
+			clearAllConfig()
+			dipole()
+			drawSetup()
+		}
+
+		function cavityConfig(event) {
+			clearAllConfig()
+			cavity()
+			drawSetup()
+			console.log('cav')
+		}
+
+		function drawSetup() {
+			displayCellsCopy = JSON.parse(JSON.stringify(cells));
+
+			displayCDCopy = JSON.parse(JSON.stringify(chargedensity));
+			normalize(displayCDCopy)
+
+			displaydirichletValuesCopy = JSON.parse(JSON.stringify(dirichletValues));
+			normalize(displaydirichletValuesCopy)
+
+			DrawCells()
+			DrawCellsDirichlet()
+			DrawCellsCD()
+		}
+
+
+		document.getElementById('containCustomConfig1').addEventListener('click', capacitorConfig)
+		document.getElementById('containCustomConfig2').addEventListener('click', dipoleConfig)
+		document.getElementById('containCustomConfig3').addEventListener('click', cavityConfig)
+
+		
+
+		
+
+		function DirichletToggle(event) {
+			if (containshowDirichletState == 1) {
+				document.getElementById('plotDirichletcanvas').style.opacity = 0
+				document.getElementById('containshowDirichlet').style.opacity = 0.5
+				document.getElementById('containshowDirichletStatus').innerHTML = 'Invisible'
+				containshowDirichletState = 0
+			}
+			else {
+				document.getElementById('plotDirichletcanvas').style.opacity = 0.3
+				document.getElementById('containshowDirichlet').style.opacity = 1
+				document.getElementById('containshowDirichletStatus').innerHTML = 'Visible'
+				containshowDirichletState = 1
+			}
+		}
+
+		function CdensityToggle(event) {
+			if (containshowCdensityState == 1) {
+				document.getElementById('plotCdensitycanvas').style.opacity = 0
+				document.getElementById('containshowCdensity').style.opacity = 0.5
+				document.getElementById('containshowCdensityStatus').innerHTML = 'Invisible'
+				containshowCdensityState = 0
+			}
+			else {
+				document.getElementById('plotCdensitycanvas').style.opacity = 0.3
+				document.getElementById('containshowCdensity').style.opacity = 1
+				document.getElementById('containshowCdensityStatus').innerHTML = 'Visible'
+				containshowCdensityState = 1
+			}
+		}
+
+		function voltageToggle(event) {
+			if (containshowvoltageState == 1) {
+				document.getElementById('plotcanvas').style.opacity = 0
+				document.getElementById('containshowvoltage').style.opacity = 0.5
+				document.getElementById('containshowvoltageStatus').innerHTML = 'Invisible'
+				containshowvoltageState = 0
+			}
+			else {
+				document.getElementById('plotcanvas').style.opacity = 0.3
+				document.getElementById('containshowvoltage').style.opacity = 1
+				document.getElementById('containshowvoltageStatus').innerHTML = 'Visible'
+				containshowvoltageState = 1
+			}
+		}
+
+		function EfieldToggle(event) {
+			if (containshowEfieldState == 1) {
+				document.getElementById('plotEFieldcanvas').style.opacity = 0
+				document.getElementById('containshowEfield').style.opacity = 0.5
+				document.getElementById('containshowEFieldStatus').innerHTML = 'Invisible'
+				containshowEfieldState = 0
+			}
+			else {
+				document.getElementById('plotEFieldcanvas').style.opacity = 1
+				document.getElementById('containshowEfield').style.opacity = 1
+				document.getElementById('containshowEFieldStatus').innerHTML = 'Visible'
+				containshowEfieldState = 1
+			}
+		}
+
+
+
+		function DrawCellwithLabel(X1,Y1,fillColor,ctxtype) {
+			ctxtype.fillStyle = fillColor;
+			X = (X1*(cellsidelength+cellgap)) + cellgap;
+			Y = (Y1*(cellsidelength+cellgap)) + cellgap;
+			if (X+cellsidelength < canvaswidth && Y+cellsidelength < canvasheight) {
+				ctxtype.fillRect(X,Y,cellsidelength,cellsidelength);
+			}
+			ctxtype.fillRect(X,Y,cellsidelength,cellsidelength);
+		}
+
+		function DrawCells() {
+			for (var key in cells) {
+				if (cells.hasOwnProperty(key)) {
+					liveX = parseInt(key.split(",")[0]);
+					liveY = parseInt(key.split(",")[1]);
+					DrawCellwithLabel(liveX, liveY, 'rgba(255, 255, 255,1)', ctx)
+					DrawCellwithLabel(liveX, liveY, 'hsla(190, 100%, 50%,' + displayCellsCopy[key] + ')', ctx)
+				}
+			}
+		}
+
+		function DrawCellsDirichlet() {
+			baseintensity = 0.2
+			for (var key in cells) {
+				if (cells.hasOwnProperty(key)) {
+					liveX = parseInt(key.split(",")[0]);
+					liveY = parseInt(key.split(",")[1]);
+					if (dirichlet[key] == 1) {
+						DrawCellwithLabel(liveX, liveY, 'rgba(255, 255, 255,1)', ctxDirichlet)
+						DrawCellwithLabel(liveX, liveY,  'hsla(230, 100%, 50%, ' + (baseintensity + (0.7*displaydirichletValuesCopy[key])) + ')', ctxDirichlet)
+					}
+				}
+			}
+		}
+
+		function DrawCellsCD() {
+			baseintensity = 0.2
+			for (var key in cells) {
+				if (cells.hasOwnProperty(key)) {
+					liveX = parseInt(key.split(",")[0]);
+					liveY = parseInt(key.split(",")[1]);
+					DrawCellwithLabel(liveX, liveY, 'rgba(255, 255, 255,1)', ctxCdensity)
+					DrawCellwithLabel(liveX, liveY,  'hsla(250, 100%, 50%, ' + (baseintensity + (0.7*displayCDCopy[key])) + ')', ctxCdensity)
+				}
+			}
+		}
+
+		displayCellsCopy = JSON.parse(JSON.stringify(cells));
+
+		displayCDCopy = JSON.parse(JSON.stringify(chargedensity));
+		normalize(displayCDCopy)
+
+		displaydirichletValuesCopy = JSON.parse(JSON.stringify(dirichletValues));
+		normalize(displaydirichletValuesCopy)
+
+		DrawCells()
+		DrawCellsDirichlet()
+		DrawCellsCD()
+
+		hvalue = 1
+		epsilon = 1
+
+		function SolveStep() {
+			for (var key in cells) {
+				if (cells.hasOwnProperty(key)) {
+					liveX = parseInt(key.split(",")[0]);
+					liveY = parseInt(key.split(",")[1]);
+					if (dirichlet[key] == 1) {
+						cells[key] = dirichletValues[key]
+					}
+					else {
+						// V[i][j] = 0.25*(V[i-1][j] + V[i+1][j] + V[i][j-1] + V[i][j+1] + (rho[i][j]*(h*h)/epsilon))
+						VLeft = cells[(liveX - 1).toString() + ',' + liveY.toString()]
+						if (VLeft == undefined) {
+							VLeft = 0
+						}
+						VRight = cells[(liveX + 1).toString() + ',' + liveY.toString()]
+						if (VRight == undefined) {
+							VRight = 0
+						}
+						VUp = cells[liveX.toString() + ',' + (liveY - 1).toString()]
+						if (VUp == undefined) {
+							VUp = 0
+						}
+						VDown = cells[liveX.toString() + ',' + (liveY + 1).toString()]
+						if (VDown == undefined) {
+							VDown = 0
+						}
+						cells[key] = 0.25*(VLeft + VRight + VUp + VDown + (chargedensity[key]*hvalue*hvalue/epsilon))
+					}
+				}
+			}
+		}
+
+
+		function mousemoveResponse(event) {
+			var rect = plotcanvas.getBoundingClientRect();
+			var posX = event.clientX - rect.left;
+			var posY = event.clientY - rect.top;
+
+			cX = parseInt((posX - (cellsidelength/5)) / (cellsidelength + cellgap));
+			cY = parseInt((posY - (cellsidelength/5)) / (cellsidelength + cellgap));
+			if (cX < xmax && cY < ymax  && cX >= 0 && cY >= 0) {
+				key = cX.toString() + ',' + cY.toString();
+				additionalString = '.'
+				if (dirichlet[key] == 1) {
+					additionalString = additionalString + 'The point in subjected to Dirichlet condition and the voltage value here is fixed.'
+				}
+				document.getElementById('infoText').innerHTML = 'The voltage value at the point is ' + cells[key].toFixed(3) + ' and charge density is ' + chargedensity[key].toFixed(2) + additionalString
+			}
+		}
+
+		function mouseoutResponse(event) {
+			document.getElementById('infoText').innerHTML = ""
+		}
+
+		document.getElementById('containcanvas').addEventListener('mousemove', mousemoveResponse)
+		document.getElementById('containcanvas').addEventListener('mouseout', mouseoutResponse)
+
+
+		function cellsizeToggle(event) {
+			cellsidelength = (cellsidelength + 1) % 30
+			if (cellsidelength == 0) {
+				cellsidelength = 1
+			}
+			document.getElementById('containshowcellsizevalueText').innerHTML = cellsidelength
+
+			xcount = 0
+			ycount = 0
+			cells = {};
+			celldimensions = {};
+
+			ctxEField.clearRect(0,0,canvaswidth,canvasheight)
+			ctxCdensity.clearRect(0,0,canvaswidth,canvasheight)
+			ctx.clearRect(0,0,canvaswidth,canvasheight)
+			ctxDirichlet.clearRect(0,0,canvaswidth,canvasheight)
+
+
+			chargedensity = {}
+			dirichlet = {}
+			dirichletValues = {}
+			efield = {}
+			efieldValues = {}
+
+			setupCells()
+
+			xmax = xcount
+			ymax = ycount
+
+			solveiter = 0
+			capacitor()
+
+			drawSetup()
+
+			solve = 0
+
+			computeEField()
+			plotEField()
+		}
+
+		function cellspaceToggle(event) {
+			cellgap = (cellgap + 1) % 7
+			if (cellgap == 0) {
+				cellgap = 1
+			}
+			document.getElementById('containshowcellspacevalueText').innerHTML = cellgap
+
+			xcount = 0
+			ycount = 0
+			cells = {};
+			celldimensions = {};
+
+			ctxEField.clearRect(0,0,canvaswidth,canvasheight)
+			ctxCdensity.clearRect(0,0,canvaswidth,canvasheight)
+			ctx.clearRect(0,0,canvaswidth,canvasheight)
+			ctxDirichlet.clearRect(0,0,canvaswidth,canvasheight)
+
+
+			chargedensity = {}
+			dirichlet = {}
+			dirichletValues = {}
+			efield = {}
+			efieldValues = {}
+
+			setupCells()
+
+			xmax = xcount
+			ymax = ycount
+
+			solveiter = 0
+			capacitor()
+
+			drawSetup()
+
+			solve = 0
+
+			computeEField()
+			plotEField()
+		}
+
+
+		document.getElementById('containcellsizevalue').addEventListener('click', cellsizeToggle)
+
+		document.getElementById('containcellspacevalue').addEventListener('click', cellspaceToggle)
+
+		
+
+		solve = 0
+
+		computeEField()
+		plotEField()
+
+		
+
+		function Loop() {
+			var id = setInterval(frame, 100);
+			animationj = 0;
+			function frame() {
+				if (animationj < 0) {
+					clearInterval(id);
+				} 
+				else {
+					if (solve == 1) {
+						solveiter = solveiter + 1
+						SolveStep()
+						displayCellsCopy = JSON.parse(JSON.stringify(cells));
+						normalize(displayCellsCopy)
+						DrawCells()
+						computeEField()
+						plotEField()
+						document.getElementById('containsolveText').innerHTML = 'Stop Solving <span style = "font-size: 1.5vh; color:black;">at ' + solveiter + 'th iteration.'
+					}
+				}
+			}
+		}
+
+		Loop()
+		
+
+
+		</script>
+
+
+
+	</body>
+<html>
