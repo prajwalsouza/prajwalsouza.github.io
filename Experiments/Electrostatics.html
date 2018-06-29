@@ -243,7 +243,7 @@
 			<div id="containInfoDiv" style='margin:0px;width:100%; height: 15%;overflow: hidden; font-size: 0; transition: height 1s; z-index: 2'>
 				<div id="containshowInfo" style='margin:0px;width:100%; height: 40%;overflow: hidden;background: hsla(200 ,100%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; '>
 					<div id="infoText" style='margin:0px; width: 90%; overflow: hidden;text-align: center; font-family: Calibri; font-weight: lighter; font-size: 2vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(190,100%,10%,1); '>
-							An attempt to solve Poisson's equation for Electrostatics using Finite difference method and then Gauss Seidel Method to solve the difference equations.	
+						An attempt to solve Poisson's equation for Electrostatics using Finite difference method and then Gauss Seidel Method to solve the difference equations.	
 					</div>
 				</div>
 				<div id="containshowSolveB" style='margin:0px;width:50%; height: 60%;overflow: hidden;background: hsla(190 ,100%,50%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh; display: inline-block; cursor: pointer; box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3);'>
@@ -843,28 +843,42 @@
 
 		}
 
-		function normalizeWithValues(dict, Ntype, lowestv, highestv) {
-			highest = highestv;
-			lowest = lowestv
-			
-
-			if (Ntype != 'bounds') {
-				for (var key in dict) {
-					if (dict.hasOwnProperty(key)) {
-						if (highest == lowest) {
-							dict[key] = 0
-						}
-						else {
-							dict[key] = (dict[key] - lowest)/(highest - lowest)
-						}
-						
+		function normalizeWithValues(dict, lowestv, highestv) {
+			keys = Object.keys(dict)
+			highest = dict[keys[parseInt(Math.random()*(keys.length))]];
+			lowest = highest
+			for (var key in dict) {
+				if (dict.hasOwnProperty(key)) {
+					if (dict[key] > highest) {
+						highest = dict[key]
 					}
+					if (dict[key] < lowest) {
+						lowest = dict[key]
+					}
+				}
+			}
+
+			Ln = lowestv
+			Hn = highestv
+
+			Lo = lowest
+			Ho = highest
+
+			for (var key in dict) {
+				if (dict.hasOwnProperty(key)) {
+					if (highest == lowest) {
+						dict[key] = Ln
+					}
+					else {
+						dict[key] = ((dict[key] - Lo)*(Hn - Ln)/(Ho - Lo)) + Ln
+					}
+					
 				}
 			}
 
 			// console.log(highest, lowest)
 
-			return [lowest, highest]
+			return dict
 
 		}
 
@@ -1009,7 +1023,7 @@
 				normalizedValue = normalvalue(sliderSetupID['editSliderSvg'][6], sliderSetupID['editSliderSvg'][1], sliderSetupID['editSliderSvg'][2])
 				baseintensity = 0.2
 				DrawCellwithLabel(cX, cY, 'rgba(255, 255, 255,1)', ctxDirichlet)
-				DrawCellwithLabel(cX, cY,  'hsla(230, 100%, 50%, ' + (baseintensity + (0.7*normalizedValue)) + ')', ctxDirichlet)
+				DrawCellwithLabel(cX, cY,  'hsla(340, 100%, 50%, ' + (baseintensity + (0.7*normalizedValue)) + ')', ctxDirichlet)
 			}
 			solveiter = 0
 		}
@@ -1122,6 +1136,7 @@
 			document.getElementById('containcanvas').addEventListener('mouseout', mouseoutResponse)
 			document.getElementById('SliderCancel').removeEventListener('click', closeDirichletEditor)
 			document.getElementById('containcanvas').removeEventListener('click', clickDirichletResponse)
+			document.getElementById('containSliderClearAll').removeEventListener('click', clearAllResponse)
 			// ctxDirichlet.clearRect(0,0, canvaswidth, canvasheight)
 			// DrawCellsDirichlet()
 		}
@@ -1137,10 +1152,10 @@
 					chargedensity[key] = 0
 					cX = parseInt(key.split(",")[0]);
 					cY = parseInt(key.split(",")[1]);
-					normalizedValue = normalvalue(0, sliderSetupID['editSliderSvg'][1], sliderSetupID['editSliderSvg'][2])
-					baseintensity = 0.1
+					// normalizedValue = normalvalue(0, sliderSetupID['editSliderSvg'][1], sliderSetupID['editSliderSvg'][2])
+					// baseintensity = 0.1
 					DrawCellwithLabel(cX, cY, 'rgba(255, 255, 255,1)', ctxCdensity)
-					DrawCellwithLabel(cX, cY,  'hsla(250, 100%, 50%, ' + (baseintensity + (0.85*normalizedValue)) + ')', ctxCdensity)
+					// DrawCellwithLabel(cX, cY,  'hsla(250, 100%, 50%, ' + (baseintensity + (0.85*normalizedValue)) + ')', ctxCdensity)
 				}
 			}
 			solveiter = 0
@@ -1179,8 +1194,8 @@
 
 			document.getElementById('plotCdensitycanvas').style.zIndex = 11;
 
-			setSliderBounds('editSliderSvg', highval, lowval, (highval+lowval)/2)
-			document.getElementById('SliderLabel').innerHTML = 'Charge Density : ' + ((highval+lowval)/2).toFixed(2) + ' C/area'
+			setSliderBounds('editSliderSvg', highval, lowval, 1)
+			document.getElementById('SliderLabel').innerHTML = 'Charge Density : 1 C/area'
 			sliderSetupID['editSliderSvg'][9] = 'Charge Density : '
 			sliderSetupID['editSliderSvg'][11] = ' C/area'
 
@@ -1201,16 +1216,27 @@
 			if (cX < xmax && cY < ymax  && cX >= 0 && cY >= 0) {
 				key = cX.toString() + ',' + cY.toString();
 				chargedensity[key] = sliderSetupID['editSliderSvg'][6]
-				normalizedValue = normalvalue(sliderSetupID['editSliderSvg'][6], sliderSetupID['editSliderSvg'][1], sliderSetupID['editSliderSvg'][2])
+				// normalizedValue = normalvalue(sliderSetupID['editSliderSvg'][6], sliderSetupID['editSliderSvg'][1], sliderSetupID['editSliderSvg'][2])
 				baseintensity = 0.1
+				// DrawCellwithLabel(cX, cY, 'rgba(255, 255, 255,1)', ctxCdensity)
+				// DrawCellwithLabel(cX, cY,  'hsla(250, 100%, 50%, ' + (baseintensity + (0.85*normalizedValue)) + ')', ctxCdensity)
+
 				DrawCellwithLabel(cX, cY, 'rgba(255, 255, 255,1)', ctxCdensity)
-				DrawCellwithLabel(cX, cY,  'hsla(250, 100%, 50%, ' + (baseintensity + (0.85*normalizedValue)) + ')', ctxCdensity)
+				if (chargedensity[key] < 0) {
+					DrawCellwithLabel(cX, cY,  'hsla(220, 100%, 50%, ' + (baseintensity + (-0.8*chargedensity[key])) + ')', ctxCdensity)
+				}
+				else {
+					baseintensity = 0
+					DrawCellwithLabel(cX, cY,  'hsla(40, 100%, 50%, ' + (baseintensity + (0.8*chargedensity[key])) + ')', ctxCdensity)
+				}
 			}
 			solveiter = 0
 		}
 
 		function closeCDEditor(event) {
-			document.getElementById('plotCdensitycanvas').style.opacity = 0
+			if (containshowCdensityState == 0) {
+				document.getElementById('plotCdensitycanvas').style.opacity = 0
+			}
 			document.getElementById('infoText').innerHTML = ''
 			document.getElementById('containEditSliderPane').style.opacity = 0
 			document.getElementById('containEditSliderPane').style.zIndex = 0
@@ -1231,6 +1257,8 @@
 			document.getElementById('containSliderClear').pointerEvents = 'auto'
 			document.getElementById('containSliderClearAll').style.height = '50%'
 			document.getElementById('SliderClearAll').innerHTML = 'Clear All'
+
+			document.getElementById('containSliderClearAll').removeEventListener('click', clearAllCDResponse)
 		}
 
 
@@ -1290,6 +1318,10 @@
 			clearAllConfig()
 			capacitor()
 			drawSetup()
+			document.getElementById('plotDirichletcanvas').style.opacity = 0.3
+			containshowDirichletState = 1
+			document.getElementById('containshowDirichlet').style.opacity = 1
+			document.getElementById('containshowDirichletStatus').innerHTML = 'Visible'
 		}
 
 		function dipoleConfig(event) {
@@ -1301,6 +1333,10 @@
 			clearAllConfig()
 			dipole()
 			drawSetup()
+			document.getElementById('plotCdensitycanvas').style.opacity = 0.3
+			containshowCdensityState = 1
+			document.getElementById('containshowCdensity').style.opacity = 1
+			document.getElementById('containshowCdensityStatus').innerHTML = 'Visible'
 		}
 
 		function cavityConfig(event) {
@@ -1312,16 +1348,20 @@
 			clearAllConfig()
 			cavity()
 			drawSetup()
+			document.getElementById('plotDirichletcanvas').style.opacity = 0.3
+			containshowDirichletState = 1
+			document.getElementById('containshowDirichlet').style.opacity = 1
+			document.getElementById('containshowDirichletStatus').innerHTML = 'Visible'
 		}
 
 		function drawSetup() {
 			displayCellsCopy = JSON.parse(JSON.stringify(cells));
 
 			displayCDCopy = JSON.parse(JSON.stringify(chargedensity));
-			normalize(displayCDCopy)
+			normalizeWithValues(displayCDCopy, 0, 1)
 
 			displaydirichletValuesCopy = JSON.parse(JSON.stringify(dirichletValues));
-			normalize(displaydirichletValuesCopy)
+			normalizeWithValues(displaydirichletValuesCopy, 0, 1)
 
 			DrawCells()
 			DrawCellsDirichlet()
@@ -1428,20 +1468,27 @@
 					liveY = parseInt(key.split(",")[1]);
 					if (dirichlet[key] == 1) {
 						DrawCellwithLabel(liveX, liveY, 'rgba(255, 255, 255,1)', ctxDirichlet)
-						DrawCellwithLabel(liveX, liveY,  'hsla(230, 100%, 50%, ' + (baseintensity + (0.7*displaydirichletValuesCopy[key])) + ')', ctxDirichlet)
+						DrawCellwithLabel(liveX, liveY,  'hsla(340, 100%, 50%, ' + (baseintensity + (0.7*displaydirichletValuesCopy[key])) + ')', ctxDirichlet)
 					}
 				}
 			}
 		}
 
 		function DrawCellsCD() {
-			baseintensity = 0.2
+			baseintensity = 0
 			for (var key in cells) {
 				if (cells.hasOwnProperty(key)) {
 					liveX = parseInt(key.split(",")[0]);
 					liveY = parseInt(key.split(",")[1]);
 					DrawCellwithLabel(liveX, liveY, 'rgba(255, 255, 255,1)', ctxCdensity)
-					DrawCellwithLabel(liveX, liveY,  'hsla(250, 100%, 50%, ' + (baseintensity + (0.7*displayCDCopy[key])) + ')', ctxCdensity)
+					if (chargedensity[key] < 0) {
+						DrawCellwithLabel(liveX, liveY,  'hsla(220, 100%, 50%, ' + (baseintensity + (-0.8*chargedensity[key])) + ')', ctxCdensity)
+					}
+					else {
+						baseintensity = 0
+						DrawCellwithLabel(liveX, liveY,  'hsla(40, 100%, 50%, ' + (baseintensity + (0.8*chargedensity[key])) + ')', ctxCdensity)
+					}
+					
 				}
 			}
 		}
@@ -1449,10 +1496,10 @@
 		displayCellsCopy = JSON.parse(JSON.stringify(cells));
 
 		displayCDCopy = JSON.parse(JSON.stringify(chargedensity));
-		normalize(displayCDCopy)
+		normalizeWithValues(displayCDCopy, 0, 1)
 
 		displaydirichletValuesCopy = JSON.parse(JSON.stringify(dirichletValues));
-		normalize(displaydirichletValuesCopy)
+		normalizeWithValues(displaydirichletValuesCopy, 0, 1)
 
 		DrawCells()
 		DrawCellsDirichlet()
@@ -1507,7 +1554,13 @@
 				if (dirichlet[key] == 1) {
 					additionalString = additionalString + 'The point in subjected to Dirichlet condition and the voltage value here is fixed.'
 				}
-				document.getElementById('infoText').innerHTML = 'The voltage value at the point is ' + cells[key].toFixed(3) + ' and charge density is ' + chargedensity[key].toFixed(2) + additionalString
+				if (efield[key] == undefined) {
+					document.getElementById('infoText').innerHTML = 'The voltage value at the point is ' + cells[key].toFixed(3) + ', charge density is ' + chargedensity[key].toFixed(2) + " and electric field value cannot be calculated at this point. It's the boundary." + additionalString
+				}
+				else {
+					document.getElementById('infoText').innerHTML = 'The voltage value at the point is ' + cells[key].toFixed(3) + ', electric field value is ' + efield[key][2].toFixed(3) + ' and charge density is ' + chargedensity[key].toFixed(2) + additionalString
+				}
+					
 			}
 		}
 
@@ -1644,8 +1697,6 @@
 
 		Loop()
 		
-
-
 		</script>
 		
 		<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
