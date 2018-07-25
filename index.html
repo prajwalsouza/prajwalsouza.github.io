@@ -47,6 +47,26 @@
 		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0;'> 
 			<div id='maintitle' height="100%" width="100%" style="background-image: url(/Images/slide1.jpg); background-size: cover; z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5); overflow: hidden;" >
 				<div id="containIntro" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,0%,0.6); cursor: auto; position: relative; z-index: 7; opacity: 1;'>
+					<div id="menuholder" style='margin:0px;width:40%; height: 5%;overflow: hidden;background: hsla(300,100%,0%,0); cursor: auto; position: relative; z-index: 7; opacity: 1; transform: translate(-100%,-5%); left: 100%; top: 5%; '>
+						<div id="diveInM1" onclick="document.getElementById('slide11').scrollIntoView({behavior: 'smooth'});" target = "_self" style='margin:0px;overflow: hidden; position: relative; transition: background 0.5s; background: hsla(250,100%,50%,0); width: 30%; height: 100%;  border-color: hsla(260,100%,50%,0); cursor: pointer; display: inline-block;'>
+							
+							<div id="diveInTextM1" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,100%,1); '>
+								Projects
+							</div>
+						</div>
+						<div id="diveInM2" onclick="window.open('https://prajwalsouza.github.io/Courses.html')" style='margin:0px;overflow: hidden; position: relative; transition: background 0.5s; background: hsla(250,100%,50%,0); width: 30%; height: 100%; border-color: hsla(260,100%,50%,0); cursor: pointer; display: inline-block;'>
+							
+							<div id="diveInTextM2" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,100%,1); '>
+								Teaching and Courses
+							</div>
+						</div>
+						<div id="diveInM3" onclick="window.open('https://github.com/prajwalsouza')" style='margin:0px;overflow: hidden; position: relative; transition: background 0.5s; background: hsla(250,100%,50%,0); width: 30%; height: 100%; border-color: hsla(260,100%,50%,0); cursor: pointer; display: inline-block;'>
+							
+							<div id="diveInTextM3" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,100%,1); '>
+								Github
+							</div>
+						</div>
+					</div>
 					<div id="TitleText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-weight: lighter; font-size: 5vmax; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(190,100%,100%,1); '>
 							prajwalsouza.github.io
 					</div>
@@ -346,6 +366,25 @@
 		// Fixing for Mozilla
 
 		document.getElementById('slide4dots').height = window.innerHeight;
+			
+		// Handling Page Sizes
+
+		if (window.innerHeight > window.innerWidth) {
+			document.getElementById('diveInM1').style.width = '100%'
+			document.getElementById('diveInM2').style.width = '100%'
+			document.getElementById('diveInM3').style.width = '100%'
+			document.getElementById('diveInTextM1').style.fontSize = '3vw'
+			document.getElementById('diveInTextM2').style.fontSize = '3vw'
+			document.getElementById('diveInTextM3').style.fontSize = '3vw'
+			document.getElementById('diveInM1').style.background = 'hsla(190,100%,50%,0.3)'
+			document.getElementById('diveInM2').style.background = 'hsla(200,100%,50%,0.3)'
+			document.getElementById('diveInM3').style.background = 'hsla(210,100%,50%,0.3)'
+			document.getElementById('diveInM1').style.height = '33%'
+			document.getElementById('diveInM2').style.height = '33%'
+			document.getElementById('diveInM3').style.height = '33%'
+			document.getElementById('menuholder').style.width = '40%'
+			document.getElementById('menuholder').style.height = '15%'
+		}
 
 
 		function buttonhover(event,hue,slnum) {
