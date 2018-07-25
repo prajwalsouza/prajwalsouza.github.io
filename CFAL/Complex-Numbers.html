@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title> Prajwal DSouza - Courses</title>
+		<title> Prajwal DSouza - Complex Numbers Course</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
 		<link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'>
@@ -83,7 +83,7 @@
 					<div style='width : 100%; height: 30%;'>
 					</div>
 					<div id="TitleText0" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri;  font-weight: normal; font-size: 3vw; position: relative; color: hsla(110,100%,0%,1); width: 100%;'>
-							<span style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 2vw;">WEEK 0</span> <span style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 4vw; font-weight: lighter;">|</span> <b>Lateral Numbers</b>
+							<span id="w0name" style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 2vw;">WEEK 0</span> <span id='w0bar' style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 4vw; font-weight: lighter;">|</span> <b>Lateral Numbers</b>
 					</div>
 					<div style='width : 100%; height: 5%;'>
 					</div>
@@ -97,7 +97,7 @@
 					</div>
 					<div style='width : 100%; height: 3%;'>
 					</div>
-					<div id="linkslink1" onclick="window.open('https://www.youtube.com/watch?v=T647CGsuOVU&list=PLiaHhY2iBX9g6KIvZ_703G3KJXapKkNaF')" style='margin:0px;overflow: hidden;text-align: center; font-family: "Source Sans Pro", sans-serif;  font-weight: lighter; width: 100%; font-size: 1.2vw; position: relative; cursor: pointer; color: hsla(110,100%,0%,1); '>
+					<div id="w0linkslink1" onclick="window.open('https://www.youtube.com/watch?v=T647CGsuOVU&list=PLiaHhY2iBX9g6KIvZ_703G3KJXapKkNaF')" style='margin:0px;overflow: hidden;text-align: center; font-family: "Source Sans Pro", sans-serif;  font-weight: lighter; width: 100%; font-size: 1.2vw; position: relative; cursor: pointer; color: hsla(110,100%,0%,1); '>
 							<b>Welch Labs</b> : Imaginary numbers are real. 
 					</div>
 					<div style='width : 100%; height: 1%;'>
@@ -110,7 +110,7 @@
 					<div style='width : 100%; height: 20%;'>
 					</div>
 					<div id="TitleText1" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri;  font-weight: normal; font-size: 3vw; position: relative; color: hsla(110,100%,0%,1); width: 100%;'>
-							<span style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 2vw;">WEEK 1</span> <span style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 4vw; font-weight: lighter;">|</span> <b>Visualizing Complex numbers</b>
+							<span id="w1name" style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 2vw;">WEEK 1</span> <span id='w1bar' style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 4vw; font-weight: lighter;">|</span> <b>Visualizing </br>Complex numbers</b>
 					</div>
 					<div style='width : 100%; height: 5%;'>
 					</div>
@@ -120,7 +120,7 @@
 					<div style='width : 100%; height: 8%;'>
 					</div>
 					<div id="w1buttonsholder" style='margin:0px;width:100%; height: 7%;overflow: hidden;background: hsla(300,100%,0%,0); cursor: auto; position: relative; z-index: 7; opacity: 1;'>
-						<div style='width : 40%; height: 100%; display: inline-block;'>
+						<div id='w1lecturenotesSpacer1' style='width : 40%; height: 100%; display: inline-block;'>
 						</div>
 						<div id="w1lecturenotes" onmouseover="buttonhover(event,200,1,'L')" onmouseout="buttonout(event,200,1,'L')" onclick="window.open('https://firebasestorage.googleapis.com/v0/b/website-prajwal.appspot.com/o/Complex%20numbers%20-%20Lecture%201.pdf?alt=media&token=519d7aec-95f5-4b27-bf0c-2f3714f300e6')" target = "_self" style='margin:0px;overflow: hidden; position: relative; transition: background 0.5s; background: hsla(200,100%,50%,0.3); width: 20%; height: 100%;  border-color: hsla(260,100%,50%,0); cursor: pointer; display: inline-block;'>
 							
@@ -160,7 +160,7 @@
 					</div>
 					<div style='width : 100%; height: 1%;'>
 					</div>
-					<div id="w1linkslink2" onclick="window.open('https://www.youtube.com/watch?v=yPl64xi_ZZA')" style='margin:0px;overflow: hidden;text-align: center; font-family: "Source Sans Pro", sans-serif;  font-weight: lighter; cursor: pointer; width: 100%; font-size: 1.2vw; position: relative; color: hsla(110,100%,0%,1); '>
+					<div id="w1linkslink3" onclick="window.open('https://www.youtube.com/watch?v=yPl64xi_ZZA')" style='margin:0px;overflow: hidden;text-align: center; font-family: "Source Sans Pro", sans-serif;  font-weight: lighter; cursor: pointer; width: 100%; font-size: 1.2vw; position: relative; color: hsla(110,100%,0%,1); '>
 							<b>Mathologer</b> : Euler's real identity NOT e to the i pi = -1
 					</div>
 				</div>
@@ -203,14 +203,48 @@
 			document.getElementById('diveInTextM1').style.fontSize = '3vw'
 			document.getElementById('diveInTextM2').style.fontSize = '3vw'
 			document.getElementById('diveInTextM3').style.fontSize = '3vw'
-			document.getElementById('diveInM1').style.background = 'hsla(190,100%,50%,0.3)'
-			document.getElementById('diveInM2').style.background = 'hsla(200,100%,50%,0.3)'
-			document.getElementById('diveInM3').style.background = 'hsla(210,100%,50%,0.3)'
-			document.getElementById('diveInM1').style.height = '33%'
-			document.getElementById('diveInM2').style.height = '33%'
-			document.getElementById('diveInM3').style.height = '33%'
+			document.getElementById('diveInM1').style.background = 'hsla(190,100%,0%,0.3)'
+			document.getElementById('diveInM2').style.background = 'hsla(200,100%,0%,0.3)'
+			document.getElementById('diveInM3').style.background = 'hsla(210,100%,0%,0.3)'
+			document.getElementById('diveInM1').style.height = '25%'
+			document.getElementById('diveInM2').style.height = '25%'
+			document.getElementById('diveInM3').style.height = '25%'
+			document.getElementById('diveInM1').style.margin = '2%'
+			document.getElementById('diveInM2').style.margin = '2%'
+			document.getElementById('diveInM3').style.margin = '2%'
 			document.getElementById('menuholder').style.width = '40%'
-			document.getElementById('menuholder').style.height = '11%'
+			document.getElementById('menuholder').style.height = '14%'
+
+			document.getElementById('TitleText').style.fontSize = '6vmax'
+			document.getElementById('DescriptionText').style.fontSize = '2vmax'
+
+			document.getElementById('TitleText0').style.fontSize = '6vmax'
+			document.getElementById('w0name').style.fontSize = '4vmax'
+			document.getElementById('w0bar').style.fontSize = '4vmax'
+
+			document.getElementById('introtext0').style.fontSize = '3.4vmax'
+			document.getElementById('linksText0').style.fontSize = '3.4vmax'
+			document.getElementById('w0linkslink1').style.fontSize = '2.7vmax'
+
+			document.getElementById('TitleText1').style.fontSize = '6vmax'
+			document.getElementById('w1name').style.fontSize = '4vmax'
+			document.getElementById('w1bar').style.fontSize = '4vmax'
+
+			document.getElementById('introtext1').style.fontSize = '3.4vmax'
+			document.getElementById('linksText1').style.fontSize = '3.4vmax'
+
+			document.getElementById('w1linkslink1').style.fontSize = '2.3vmax'
+			document.getElementById('w1linkslink2').style.fontSize = '2.3vmax'
+			document.getElementById('w1linkslink3').style.fontSize = '2.3vmax'
+
+			document.getElementById('w1lecturenotesSpacer1').style.width = '30%'
+			document.getElementById('w1lecturenotes').style.width = '40%'
+			document.getElementById('w1lecturenotesText').style.fontSize = '2.7vmax'
+
+			document.getElementById('DescriptionText0').style.fontSize = '2.7vmax'
+			document.getElementById('DescriptionText0').style.width = '90%'
+			document.getElementById('Description2Text0').style.fontSize = '2.7vmax'
+			document.getElementById('Description2Text0').style.width = '90%'
 		}
 
 
