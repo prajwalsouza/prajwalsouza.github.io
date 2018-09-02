@@ -166,6 +166,49 @@
 				</div>
 
 			</div>
+			<div id='week2' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);'>
+				<div id="week2Texts" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,0%,0); cursor: auto; position: relative; z-index: 7; opacity: 1; '>
+					<div style='width : 100%; height: 20%;'>
+					</div>
+					<div id="TitleText2" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri;  font-weight: normal; font-size: 3vw; position: relative; color: hsla(110,100%,0%,1); width: 100%;'>
+							<span id="w2name" style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 2vw;">WEEK 2</span> <span id='w0bar' style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 4vw; font-weight: lighter;">|</span> <b>Well, isn't it "undefined"?</b>
+					</div>
+					<div style='width : 100%; height: 5%;'>
+					</div>
+					<div id="introtext2" style='margin:0px;overflow: hidden;text-align: center; font-family: "Source Sans Pro", sans-serif;  font-weight: lighter; width: 100%; font-size: 2vw; position: relative; color: hsla(110,100%,0%,1); '>
+							An attempt to dig more and look into the algebra of complex numbers. 
+					</div>
+					<div style='width : 100%; height: 3%;'>
+					</div>
+					<div id="introtext2additional" style='margin:0px;overflow: hidden;text-align: center; font-family: "Source Sans Pro", sans-serif;  font-weight: lighter; width: 100%; font-size: 1.5vw; position: relative; color: hsla(45,0%,50%,1); '>
+						Sorry for the delay in the uploads. Keeping this page up has been difficult. <br/>The presentation of week 2 is uploaded as a pdf below. It's temporary and will be updated once I have enough time. <br/>Current one might contain mistakes. The course is taking shape and will take time.
+					</div>
+					<div style='width : 100%; height: 5%;'>
+					</div>
+
+					<div id="w2buttonsholder" style='margin:0px;width:100%; height: 7%;overflow: hidden;background: hsla(300,100%,0%,0); cursor: auto; position: relative; z-index: 7; opacity: 1;'>
+						<div id='w2lecturenotesSpacer1' style='width : 40%; height: 100%; display: inline-block;'>
+						</div>
+						<div id="w2lecturenotes" onmouseover="buttonhover(event,200,2,'L')" onmouseout="buttonout(event,200,2,'L')" onclick="window.open('https://firebasestorage.googleapis.com/v0/b/website-prajwal.appspot.com/o/Lateral%2011th%20Week%202%20presentation.pdf?alt=media&token=769fce94-2a5b-467c-88ac-d6f5c9ed5c48')" target = "_self" style='margin:0px;overflow: hidden; position: relative; transition: background 0.5s; background: hsla(200,100%,50%,0.3); width: 20%; height: 100%;  border-color: hsla(260,100%,50%,0); cursor: pointer; display: inline-block;'>
+							
+							<div id="w2lecturenotesText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 1.3vw; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,0%,1); '>
+								<b>Presentation PDF</b>
+							</div>
+						</div>
+						<!-- <div style='width : 10%; height: 100%; display: inline-block;'>
+						</div>
+						<div id="w1assignments" onmouseover="buttonhover(event,190,1,'A')" onmouseout="buttonout(event,190,1,'A')"onclick="window.open('https://prajwalsouza.github.io/Courses.html')" style='margin:0px;overflow: hidden; position: relative; transition: background 0.5s; background: hsla(190,100%,50%,0.3); width: 20%; height: 100%; border-color: hsla(260,100%,50%,0); cursor: pointer; display: inline-block;'>
+							
+							<div id="w1assignmentsText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 1.3vw; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,0%,1); '>
+								<b>Assignment</b>
+							</div>
+						</div>
+						<div style='width : 20%; height: 100%; display: inline-block;'>
+						</div> -->
+					</div>
+				</div>
+
+			</div>
 			<div id='endSlide' height="100%" width="100%" style='z-index:1; position: relative; cursor: pointer;box-shadow: 0px -10px 80px rgba(0,0,0,0.2);'>
 				<div height="100%" style='z-index:1; position: absolute;left: 0;right: 0;top:0; bottom: 0;'>
 					<svg id='endSlidesvg' height="100%" width="100%" >
@@ -754,7 +797,7 @@
 
 
 		function drawPrism(divId) {
-			colorchoices = ['rgba(0,0,0,0.3)']
+			colorchoices = ['rgba(0,0,0,0.7)']
 
 			for (i=0; i<triangleData.length; i++) {
 				ithTriangleSet = triangleData[i]
