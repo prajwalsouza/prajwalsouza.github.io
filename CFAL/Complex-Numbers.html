@@ -7,6 +7,8 @@
 		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic" rel="stylesheet">
+
 
 		<style type="text/css">
 			a {
@@ -76,6 +78,46 @@
 						</a>
 					</div>
 				</div>
+			</div>
+
+			<div id='webapp' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);'>
+				<div id="webappTexts" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,0%,0); cursor: auto; position: relative; z-index: 7; opacity: 1; '>
+					<div style='width : 100%; height: 30%;'>
+					</div>
+					<div id="TitleTextwebapp" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri;  font-weight: normal; font-size: 3vw; position: relative; color: hsla(110,100%,0%,1); width: 100%;'>
+							<span id="webappname" style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 2vw;">A web app</span> <span id='w0bar' style="font-family: 'Calibri'; color: hsla(200, 100%, 50%,1); font-size: 4vw; font-weight: lighter;">|</span> <b>Complex Actions</b>
+					</div>
+					<div style='width : 100%; height: 5%;'>
+					</div>
+					<div id="introtextwebapp" style='margin:0px;overflow: hidden;text-align: center; font-family: "Source Sans Pro", sans-serif;  font-weight: lighter; width: 100%; font-size: 2vw; position: relative; color: hsla(110,100%,0%,1); '>
+							Inspired by 3Blue1Brown videos, an app to think of complex numbers as actions <br/>on a space called 'complex plane'. Made using MathJS, MathQuill, latextoMath.
+					</div>
+					<div style='width : 100%; height: 5%;'>
+					</div>
+					<div id="webappbuttonsholder" style='margin:0px;width:100%; height: 7%;overflow: hidden;background: hsla(300,100%,0%,0); cursor: auto; position: relative; z-index: 7; opacity: 1;'>
+						<div id='w1lecturenotesSpacer1' style='width : 40%; height: 100%; display: inline-block;'>
+						</div>
+						<div id="webapplink" onmouseover="buttonhover(event,200,1,'App')" onmouseout="buttonout(event,200,1,'App')" onclick="window.open('https://prajwalsouza.github.io/CFAL/Complex-Actions.html')" target = "_self" style='margin:0px;overflow: hidden; position: relative; transition: background 0.5s; background: hsla(200,100%,50%,0.3); width: 20%; height: 100%;  border-color: hsla(260,100%,50%,0); cursor: pointer; display: inline-block;'>
+							
+							<div id="webapplinkText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 1.3vw; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,0%,1); '>
+								<b>View App</b>
+							</div>
+						</div>
+						<!-- <div style='width : 10%; height: 100%; display: inline-block;'>
+						</div>
+						<div id="w1assignments" onmouseover="buttonhover(event,190,1,'A')" onmouseout="buttonout(event,190,1,'A')"onclick="window.open('https://prajwalsouza.github.io/Courses.html')" style='margin:0px;overflow: hidden; position: relative; transition: background 0.5s; background: hsla(190,100%,50%,0.3); width: 20%; height: 100%; border-color: hsla(260,100%,50%,0); cursor: pointer; display: inline-block;'>
+							
+							<div id="w1assignmentsText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 1.3vw; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,0%,1); '>
+								<b>Assignment</b>
+							</div>
+						</div>
+						<div style='width : 20%; height: 100%; display: inline-block;'>
+						</div> -->
+					</div>
+					<div style='width : 100%; height: 3%;'>
+					</div>
+				</div>
+
 			</div>
 			
 			<div id='week0' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);'>
@@ -295,6 +337,9 @@
 			if (type == 'L') {
 				document.getElementById('w' + slnum + 'lecturenotes').style.background = 'hsla(' + hue + ',100%,50%,0.7)';
 			}
+			else if (type == 'App') {
+				document.getElementById('webapplink').style.background = 'hsla(' + hue + ',100%,50%,0.7)';
+			}
 			else {
 				document.getElementById('w' + slnum + 'assignments').style.background = 'hsla(' + hue + ',100%,50%,0.7)';
 			}
@@ -304,6 +349,9 @@
 		function buttonout(event,hue,slnum,type) {
 			if (type == 'L') {
 				document.getElementById('w' + slnum + 'lecturenotes').style.background = 'hsla(' + hue + ',100%,50%,0.3)';
+			}
+			else if (type == 'App') {
+				document.getElementById('webapplink').style.background = 'hsla(' + hue + ',100%,50%,0.3)';
 			}
 			else {
 				document.getElementById('w' + slnum + 'assignments').style.background = 'hsla(' + hue + ',100%,50%,0.3)';
