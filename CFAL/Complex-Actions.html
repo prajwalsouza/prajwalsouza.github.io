@@ -1,0 +1,812 @@
+<html>
+	<head>
+		<title>Complex Actions - Prajwal DSouza</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Itim" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic" rel="stylesheet">
+
+		<style type="text/css">
+			a {
+				cursor: pointer;
+			}
+		</style>
+
+		<script src="Complex-Actions-Files/math.min.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="Complex-Actions-Files/mathquill.css"/>
+		<link rel="stylesheet" href="Complex-Actions-Files/complex-actions.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="Complex-Actions-Files/mathquill.min.js"></script>
+		<script src="Complex-Actions-Files/latex-to-js.js"></script>
+		<!-- <script src="semantic.min.js"></script> -->
+		<!-- <link rel="stylesheet" href="semantic.min.css"/> -->
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+		  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+		  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+		<!-- Google Analytics Code -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+		<script type="application/ld+json">
+			{
+			  "@type": "Courses",
+			  "name": "Complex Numbers",
+			  "author": "Prajwal DSouza",
+			  "description": "A course on Complex numbers by Prajwal DSouza"
+			  }
+		</script>
+		  <meta charset="UTF-8">
+  		  <meta name="description" content="A course on Complex numbers by Prajwal DSouza">
+		  <meta name="keywords" content="Complex Numbers, Simulations">
+		  <meta name="author" content="Prajwal DSouza">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body style='margin:0px; display: block;'>
+		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; overflow: hidden;'> 
+			<div id="heading">
+				<div id="maintitle"> <div id="maintitletext">Complex Actions <span style="font-size: 1vw; color: black;">(under development)</span></div>
+				</div>
+				<div id="undobutton"> <div id="undobuttontext"> Undo </div>
+				</div>
+				<div id="redobutton"> <div id="redobuttontext"> Redo </div>
+				</div>
+				<div id="clearpointsbutton"> <div id="clearpointsbuttontext"> Clear points </div></div>
+				<div id="settingsbutton"> <div id="settingsbuttontext"> Settings </div></div>
+			</div>
+			<div id="complexplaneholderandactions">
+				<div id="actionstray">
+					<div id="actray-gradient"> </div>
+				</div>
+				<div id="complexplaneholder">
+					<div id='complexplanelabels'>
+					</div>
+					<svg id='complexplaneSvg' height="100%" width="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+					</svg>
+				</div>
+			</div>
+			<div id="infobar"><div id="infobartext">Pick one of the actions. Click 'Perform Action'. The numbers on the complex plane will be subjected to those actions.</div></div>
+			<div id="controlbar">
+				<div id="numberinputholder">
+					<div id='numberinput'>
+						<div id='numberinputreal' class="numberinputcl"> 0 </div>
+						<div id='numberinputplus' class="numberinputcl">&nbsp+&nbsp</div>
+						<div id='numberinputimaginary' class="numberinputcl"> 1 </div>
+						<div id='numberinputim' class="numberinputcl">&nbspi</div>
+					</div>
+				</div>
+				<div id="actionbutton"> <div id="actionbuttontext"> Perform Action </div></div>
+			</div>
+		</div>
+		<div id="containLab" style='margin:0px;width:100%; height: 0%; font-size: 0;'> 
+			<div id="actionsheading"></div>
+			<div id="actionslistholder"></div>
+		</div>
+		<div id="containSettings" style='margin:0px;width:100%; height: 100%; font-size: 0;'>
+			<div id="polarsetting" class="settingclass"><div id="polarsettingtext">Show Polar Coordinates</div></div>
+			<div id="showLinessetting" class="settingclass"><div id="showLinessettingtext">Hide Lines</div></div>
+			<div id="showlabelssetting" class="settingclass"><div id="showlabelssettingtext">Hide labels</div></div>
+			<div id="some4setting" class="settingclass"></div>
+			<div id="some5setting" class="settingclass"></div>
+			<div id="some6setting" class="settingclass"></div>
+			<div id="some7setting" class="settingclass"></div>
+			<div id="some8setting" class="settingclass"></div>
+			<div id="some9setting" class="settingclass"></div>
+			<div id="some10setting" class="settingclass"></div>
+			<div id="some11setting" class="settingclass"></div>
+			<div id="some12setting" class="settingclass"></div>
+			<div id="settingsTitle" class="settingsTitle"><div id="settingstitletext">Settings</div></div>
+		</div>
+
+
+		<script type="text/javascript">
+
+		complexplaneSvg = document.getElementById('complexplaneSvg')
+
+		pointscatlog = []
+		catlogpointer = 0
+
+		gymax = 2
+		gymin = -2
+
+		scalefactor = (document.getElementById('complexplaneholder').clientWidth/document.getElementById('complexplaneholder').clientHeight)
+
+		gxmax = gymax*scalefactor
+		gxmin = gymin*scalefactor
+
+		function drawLineToSvg(svgchoice, x1value, y1value, x2value, y2value, label, cls, scolor, swidth) {
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', x1value);
+			lineElement.setAttribute('y1', y1value);
+			lineElement.setAttribute('x2', x2value);
+			lineElement.setAttribute('y2', y2value);
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.setAttribute('id',label)
+			lineElement.setAttribute('class', cls)
+			lineElement.style.stroke = scolor
+			lineElement.style.strokeWidth = swidth
+			svgchoice.appendChild(lineElement);
+		}
+
+
+		function drawgraphAxes() {
+			drawLineToSvg(complexplaneSvg, graphToSvgX(gxmin) + '%', graphToSvgY(0) + '%', graphToSvgX(gxmax) + '%', graphToSvgY(0) + '%', 'x axis main', 'axes','hsla(32,1%,70%,1)', '2%')
+			
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(gymax) + '%', graphToSvgX(0) + '%', graphToSvgY(gymin) + '%', 'y axis main' ,'axes','hsla(32,1%,70%,1)', '2%')
+		}
+
+		drawgraphAxes()
+
+		function drawVerticalLines() {
+			for (nthVline = parseInt(gxmin); nthVline < gxmax ; nthVline++) {
+				drawLineToSvg(complexplaneSvg, graphToSvgX(nthVline) + '%', graphToSvgY(gymax) + '%', graphToSvgX(nthVline) + '%', graphToSvgY(gymin) + '%', 'V-line ' + nthVline ,'Vline','hsla(32,1%,70%,0.3)', '1%')
+			}
+		}
+
+		drawVerticalLines()
+
+
+
+		function drawHorizontalLines() {
+			for (nthHline =parseInt(gymin); nthHline < gymax; nthHline++) {
+				drawLineToSvg(complexplaneSvg, graphToSvgX(gxmax) + '%', graphToSvgY(nthHline) + '%', graphToSvgX(gxmin) + '%', graphToSvgY(nthHline) + '%', 'H-line ' + nthHline , 'Hline','hsla(32,1%,70%,0.3)', '1%')
+			}
+		}
+
+		drawHorizontalLines()
+
+		function drawCircletoSvg(svgchoice, x1value, x2value, radiusx, radiusy, scolor, swidth, fcolor, cls, label) {
+			var ellipseElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+			ellipseElement.setAttribute('rx', radiusx);
+			ellipseElement.setAttribute('ry', radiusy);
+			ellipseElement.setAttribute('cx', x1value);
+			ellipseElement.setAttribute('cy', x2value);
+			ellipseElement.setAttribute('class', cls);
+			ellipseElement.setAttribute('id', label);
+			ellipseElement.style.fill = fcolor
+			ellipseElement.style.stroke = scolor
+			ellipseElement.style.strokeWidth = swidth
+			ellipseElement.setAttribute('vector-effect','non-scaling-stroke');
+			svgchoice.appendChild(ellipseElement);
+		}
+
+		drawCircletoSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', Math.abs(graphToSvgX(1) - graphToSvgX(0)) + '%', Math.abs(graphToSvgY(1) - graphToSvgY(0)) + '%', 'hsla(32,1%,70%,0.4)', '1%', 'none', 'polarcircles','r = 1')
+
+		function drawPolarCircles() {
+			for (nthrad = 2; nthrad < 5; nthrad++) {
+				drawCircletoSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', Math.abs(graphToSvgX(nthrad) - graphToSvgX(0)) + '%', Math.abs(graphToSvgY(nthrad) - graphToSvgY(0)) + '%', 'hsla(32,1%,70%,0.3)', '1%', 'none', 'polarcircles', 'r = ' + nthrad)
+			}
+		}
+
+		
+
+		drawPolarCircles()
+
+
+
+		function graphToSvgY(value) {
+			symax = 10
+			symin = 90
+			y = (((symax - symin)/(gymax - gymin))*(value - gymax)) + (symax)
+			return y
+		}
+
+		function graphToSvgX(value) {
+			sxmax = 90
+			sxmin = 10
+			x = (((sxmax - sxmin)/(gxmax - gxmin))*(value - gxmax)) + (sxmax)
+			return x
+		}
+
+		uniqueID = 0
+
+		function drawComplexNumber(realpart, imaginarypart, colorchoice, uID) {
+			plotsize = 1/25
+			drawCircletoSvg(complexplaneSvg, graphToSvgX(realpart) + '%', graphToSvgY(imaginarypart) + '%', Math.abs(graphToSvgX(1) - graphToSvgX(0))*plotsize + '%', Math.abs(graphToSvgY(1) - graphToSvgY(0))*plotsize + '%', 'white' , '1%', colorchoice, 'c number circle', uID + 'c number dot ' + realpart + ' , ' + imaginarypart)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(realpart) + '%', graphToSvgY(imaginarypart) + '%', uID + 'c number ' + realpart + ' , ' + imaginarypart, 'c number line' , colorchoice, '3%')
+		}
+
+		
+
+		function hidePolar() {
+			polarcircles = document.getElementsByClassName('polarcircles')
+			for (k=0; k < polarcircles.length; k++) {
+				polarcircles[k].style.opacity = 0;
+			}
+			polarangles = document.getElementsByClassName('polar angle')
+			for (k=0; k < polarangles.length; k++) {
+				polarangles[k].style.opacity = 0;
+			}
+		}
+
+		function showPolar() {
+			polarcircles = document.getElementsByClassName('polarcircles')
+			for (k=0; k < polarcircles.length; k++) {
+				polarcircles[k].style.opacity = 1;
+			}
+			polarangles = document.getElementsByClassName('polar angle')
+			for (k=0; k < polarangles.length; k++) {
+				polarangles[k].style.opacity = 1;
+			}
+		}
+
+
+		function addTexttoSvg(divchoice, x1value, x2value, label, cls, fcolor, textdata) {
+			var textElement =  document.createElement("div");
+			textElement.style.left= x1value;
+			textElement.style.top = x2value;
+			textElement.setAttribute('id', label);
+			textElement.setAttribute('class', cls);
+			textElement.style.color = fcolor
+			textElement.style.fontSize = '2vh'
+			textElement.style.fontFamily = 'Itim, cursive'
+			textElement.style.position = 'absolute'
+			// textElement.style.stroke = scolor
+			// textElement.style.strokeWidth = swidth
+			textElement.innerHTML = textdata
+			divchoice.appendChild(textElement);
+		}
+
+		// <text x="0" y="15" fill="red">I love SVG!</text>
+		complexplanelabels = document.getElementById('complexplanelabels')
+
+		function labelPoint(realpart, imaginarypart, colortype, Ltype, uID) {
+			if (imaginarypart == 0) {
+				if (typeof(realpart) == 'number') {
+					addTexttoSvg(complexplanelabels, graphToSvgX(realpart) +'%', graphToSvgY(0) +'%', uID +  'c number text ' + realpart + ' , ' + imaginarypart + Ltype, 'c number text' , colortype, realpart)
+				}
+				else {
+					addTexttoSvg(complexplanelabels, graphToSvgX(realpart) +'%', graphToSvgY(0) +'%',uID +  'c number text ' + realpart + ' , ' + imaginarypart + Ltype, 'c number text' , colortype, realpart.toFixed(1))
+				}
+			}
+			else if (realpart == 0) {
+				if (typeof(imaginarypart) == 'number') {
+					addTexttoSvg(complexplanelabels, graphToSvgX(0) +'%', graphToSvgY(imaginarypart) +'%',uID +  'c number text ' + realpart + ' , ' + imaginarypart +Ltype, 'c number text' , colortype, imaginarypart + 'i')
+				}
+				else {
+					addTexttoSvg(complexplanelabels, graphToSvgX(0) +'%', graphToSvgY(imaginarypart) +'%', uID + 'c number text ' + realpart + ' , ' + imaginarypart +Ltype, 'c number text' , colortype, imaginarypart.toFixed(1) + 'i')
+				}
+			}
+			else {
+				addTexttoSvg(complexplanelabels, graphToSvgX(realpart) +'%', graphToSvgY(imaginarypart) +'%', uID +  'c number text ' + realpart + ' , ' + imaginarypart + Ltype, 'c number text' , colortype, realpart.toFixed(1) + ' + ' + imaginarypart.toFixed(1) + 'i')
+			}
+
+
+
+		}
+
+		function drawAxisLabels() {
+			for (nthV =parseInt(gxmin); nthV < gxmax; nthV++) {
+				labelPoint(nthV, 0, 'hsla(190, 100%,0%, 0.4)',' axis', "")
+			}
+			for (nthH = parseInt(gymin) + 1; nthH < gymax; nthH++) {
+				labelPoint(0, nthH, 'hsla(190, 100%,0%, 0.4)', ' axis', "")
+			}
+		}
+
+		drawAxisLabels()
+
+		numbersOnThePlaneValues = []
+		numbersOnThePlaneId = []
+		numbersOnThePlaneStates = []
+
+		function addComplexNumberToPlane(re, im) {
+			uID = uniqueID
+			values = rectToPolar(re,im)
+			colorS = 100 - (100*(values[0] % (Math.max(gymax - gymin,gxmax - gxmin)))/(Math.max(gymax - gymin,gxmax - gxmin)))
+			labelPoint(re,im,'hsla(' + (values[1]*300/(2*Math.PI)) + ', ' + colorS + '%,50%, 1)','', uID)
+			drawComplexNumber(re,im ,'hsla(' + (values[1]*300/(2*Math.PI)) + ', ' + colorS + '%,50%, 0.3)', uID)
+			numbersOnThePlaneId.push([uID + 'c number ' + re + ' , ' + im,uID + 'c number dot ' + re + ' , ' + im,uID + 'c number text ' + re + ' , ' + im])
+			numbersOnThePlaneValues.push([re, im])
+			numbersOnThePlaneStates.push(1)
+			uniqueID = uniqueID + 1
+		}
+
+		
+		
+		
+
+		function rectToPolar(xval, yval) {
+			rval = Math.sqrt((xval**2) + (yval**2))
+			// tval = Math.atan(yval/xval)
+			val = Math.abs(yval/xval)
+			if (xval >= 0 && yval >= 0) {
+				tval = Math.atan(val)
+			}
+			else if (xval < 0 && yval >= 0) {
+				tval = Math.PI - Math.atan(val)
+			}
+			else if (xval >= 0 && yval < 0) {
+				tval = (2*Math.PI) - Math.atan(val)
+			}
+			else if (xval < 0 && yval < 0) {
+				tval = (Math.PI) + Math.atan(val)
+			}
+
+			return [rval, tval]
+		}
+
+		
+
+		function actionclickhandler(event) {
+			selectAction(actionlistmap[event.target.id])
+		}
+
+
+		function addActionToTray(acname) {
+			var actextElement =  document.createElement("div");
+			actextElement.setAttribute('id', 'actiontext ' + acname);
+			actextElement.setAttribute('class', 'actiontext');
+			actextElement.style.fontSize = '2vw'
+			actextElement.style.textAlign = 'center'
+			actextElement.style.fontFamily = 'Calibri'
+			actextElement.innerHTML = acname
+			actextElement.style.cursor = 'pointer'
+			actextElement.style.height = '15%'
+			document.getElementById('actionstray').appendChild(actextElement);
+			actextElement.addEventListener('click', actionclickhandler)
+			actionlist.push(acname)
+			actionlistmap[actextElement.id] = acname
+		}
+
+		function addBlankActions(num) {
+			var actextElement =  document.createElement("div");
+			actextElement.setAttribute('id', 'actiontext blank' + num);
+			actextElement.setAttribute('class', 'actiontext blank');
+			actextElement.style.fontSize = '2vw'
+			actextElement.style.textAlign = 'center'
+			actextElement.style.fontFamily = 'Calibri'
+			actextElement.innerHTML = ''
+			actextElement.style.cursor = 'pointer'
+			actextElement.style.height = '20%'
+			document.getElementById('actionstray').appendChild(actextElement);
+		}
+
+		actionlist = []
+		actionlistmap = {}
+
+		addBlankActions(1)
+
+		addActionToTray('Add Point')
+		addActionToTray('Add to')
+		addActionToTray('Multiply by')
+		addActionToTray('Raise to power')
+		addActionToTray('Squared - added to')
+
+
+		addBlankActions(2)
+
+		
+
+		actionselected = ''
+
+		function selectAction(name) {
+			for(k = 0; k < actionlist.length; k++) {
+				document.getElementById('actiontext ' + actionlist[k]).style.fontWeight = 'normal'
+			}
+			document.getElementById('actiontext ' + name).style.fontWeight = 'bold'
+			actionselected = name
+			// h = document.getElementById('actionstray').offsetHeight;
+			// document.getElementById('actionstray').scrollTo(0,(actionlist.indexOf(actionselected) + 1)*(h)/(actionlist.length + 2));
+		}
+
+		selectAction('Multiply by')
+
+		
+		h = document.getElementById('actionstray').offsetHeight
+		document.getElementById('actionstray').scrollBy(0,(actionlist.indexOf(actionselected) + 2)*(h)/(actionlist.length + 2));
+
+
+		realliveinput = '0'
+		imaginaryliveinput = '1'
+
+		pointscatlog.push([JSON.parse(JSON.stringify(numbersOnThePlaneId)),JSON.parse(JSON.stringify(numbersOnThePlaneValues)),JSON.parse(JSON.stringify(numbersOnThePlaneStates))])
+
+		var MQ = MathQuill.getInterface(2);
+
+		var realpartinput = document.getElementById('numberinputreal');
+		var realpartinputMathField = MQ.MathField(realpartinput, {
+			autoCommands: 'pi theta sqrt sum',
+			handlers: {
+				edit: function() {
+				var enteredMath = realpartinputMathField.latex(); 
+				evaluatedmath = math.eval(latex_to_js(enteredMath))
+				// if (realliveinput.offsetHeight > 0.2*window.innerHeight) {
+				// 	realliveinput.style.fontSize = '2.2vw'
+				// }
+				// else {
+				// 	realliveinput.style.fontSize = '2.6vw'
+				// }
+				realliveinput = evaluatedmath
+			}
+		}});
+
+
+
+		var imaginarypartinput = document.getElementById('numberinputimaginary');
+		var imaginarypartinputMathField = MQ.MathField(imaginarypartinput, {
+			autoCommands: 'pi theta sqrt sum',
+			handlers: {
+				edit: function() {
+				var enteredMath = imaginarypartinputMathField.latex(); 
+				evaluatedmath = math.eval(latex_to_js(enteredMath))
+				// if (imaginarypartinput.offsetHeight > 0.2*window.innerHeight) {
+				// 	imaginarypartinput.style.fontSize = '2.2vw'
+				// }
+				// else {
+				// 	imaginarypartinput.style.fontSize = '2.6vw'
+				// }
+				imaginaryliveinput = evaluatedmath
+			}
+		}});
+
+		actiontype = 'simple'
+
+		function updatelabel(re, im, label) {
+			txtElement = document.getElementById(label)
+			if (re == 0) {
+				if (typeof(im) == 'number') {
+					txtElement.style.left = graphToSvgX(0) +'%';
+					txtElement.style.top = graphToSvgY(im) +'%';
+					txtElement.innerHTML = im + 'i'
+				}
+				else {
+					txtElement.style.left = graphToSvgX(0) +'%';
+					txtElement.style.top = graphToSvgY(im) +'%';
+					txtElement.innerHTML = im.toFixed(1) + 'i'
+				}
+			}
+			else if (im == 0) {
+				if (typeof(re) == 'number') {
+					txtElement.style.left = graphToSvgX(re) +'%';
+					txtElement.style.top = graphToSvgY(0) +'%';
+					txtElement.innerHTML = re
+				}
+				else {
+					txtElement.style.left = graphToSvgX(re) +'%';
+					txtElement.style.top = graphToSvgY(0) +'%';
+					txtElement.innerHTML = re.toFixed(1)
+				}
+			}
+			else {
+				txtElement.style.left = graphToSvgX(re) +'%';
+				txtElement.style.top = graphToSvgY(im) +'%';
+				txtElement.innerHTML = re.toFixed(1) + ' + ' + im.toFixed(1) + 'i';
+			}
+		}
+
+		function updateDrawing(re, im, elabel, llabel) {
+			ellipElement = document.getElementById(elabel)
+			linElement = document.getElementById(llabel)
+
+			ellipElement.setAttribute('cx', graphToSvgX(re) +'%');
+			ellipElement.setAttribute('cy', graphToSvgY(im) +'%');
+
+			linElement.setAttribute('x2', graphToSvgX(re) +'%');
+			linElement.setAttribute('y2', graphToSvgY(im) +'%');
+
+		}
+
+		function performAction(event) {
+			catlogpointer = pointscatlog.length - 1
+			chosenvalue = math.eval('(' + realliveinput + ') + (' + imaginaryliveinput + ')i')
+			console.log("")
+			if (intheZone == true) {
+				pointscatlog.push([JSON.parse(JSON.stringify(numbersOnThePlaneId)),JSON.parse(JSON.stringify(numbersOnThePlaneValues)),JSON.parse(JSON.stringify(numbersOnThePlaneStates))])
+				intheZone = false
+			}
+			if (actiontype == 'simple') {
+				console.log("Action performed : ", actionselected)
+				if (actionselected == 'Add Point') {
+					addComplexNumberToPlane(chosenvalue.re, chosenvalue.im)
+					console.log("Added : ", chosenvalue)
+				}
+				else {
+					for (k = 0; k < numbersOnThePlaneValues.length; k++) {
+						if (numbersOnThePlaneStates[k] == 1) {
+							value = numbersOnThePlaneValues[k]
+							appliedToValue = math.eval('(' + value[0] + ') + (' + value[1] + ')i')
+
+							console.log("On : ", appliedToValue)
+
+							if (actionselected == 'Raise to power') {
+								result = math.eval('('+ appliedToValue + ')^(' + chosenvalue + ')')
+							}
+
+							if (actionselected == 'Multiply by') {
+								result = math.eval('('+ chosenvalue + ')*(' + appliedToValue + ')')
+							}
+							if (actionselected == 'Add to') {
+								result = math.eval('('+ chosenvalue + ') + (' + appliedToValue + ')')
+							}
+
+							if (actionselected == 'Squared - added to') {
+								result = math.eval('((' + appliedToValue + ')^2) + ' + '(' + chosenvalue + ')')
+							}
+
+							if (typeof(result) == 'number') {
+								tresult = {}
+								tresult['re'] = result
+								tresult['im'] = 0
+								result = tresult
+							}
+							numbersOnThePlaneValues[k][0] = result.re
+							numbersOnThePlaneValues[k][1] = result.im
+
+							console.log("Result : ", result)
+
+							if (result.re != Infinity && result.im != Infinity && result.re != -Infinity && result.im != -Infinity) {
+								updatelabel(result.re, result.im, numbersOnThePlaneId[k][2])
+								updateDrawing(result.re, result.im, numbersOnThePlaneId[k][1],  numbersOnThePlaneId[k][0])
+							}
+							else {
+								console.log("Infinities!")
+							}
+						}
+					}
+
+				}
+					
+			}
+			console.log("")
+			pointscatlog.push([JSON.parse(JSON.stringify(numbersOnThePlaneId)),JSON.parse(JSON.stringify(numbersOnThePlaneValues)),JSON.parse(JSON.stringify(numbersOnThePlaneStates))])
+			catlogpointer = catlogpointer + 1
+		}
+
+		actionbuttontext = document.getElementById('actionbuttontext')
+		actionbuttontext.addEventListener('click', performAction)
+
+		undobuttontext = document.getElementById('undobuttontext')
+		redobuttontext = document.getElementById('redobuttontext')
+		clearpointsbuttontext = document.getElementById('clearpointsbuttontext')
+
+		intheZone = false
+
+		function undobutton() {
+			if (catlogpointer - 1 != -1) {
+				catlogpointer = catlogpointer - 1
+				intheZone = true
+				catlogdata = pointscatlog[catlogpointer]
+				for (k = 0; k < catlogdata[1].length; k++) {
+					statedata = catlogdata[2][k]
+					if (statedata == 1) {
+						values = catlogdata[1][k]
+						if (values[0] != Infinity && values[1] != Infinity && values[0] != -Infinity && values[1] != -Infinity) {
+							updatelabel(values[0], values[1], catlogdata[0][k][2])
+							updateDrawing(values[0], values[1], catlogdata[0][k][1],  catlogdata[0][k][0])
+						}
+					}
+				}
+				numbersOnThePlaneId = JSON.parse(JSON.stringify(catlogdata[0]))
+				numbersOnThePlaneValues = JSON.parse(JSON.stringify(catlogdata[1]))
+				numbersOnThePlaneStates = JSON.parse(JSON.stringify(catlogdata[2]))
+				// pointscatlog.push([JSON.parse(JSON.stringify(numbersOnThePlaneId)),JSON.parse(JSON.stringify(numbersOnThePlaneValues))])
+			}
+				
+		}
+
+		function redobutton() {
+			if (catlogpointer + 1 != pointscatlog.length) {
+				catlogpointer = catlogpointer + 1
+				catlogdata = pointscatlog[catlogpointer]
+				intheZone = true
+				for (k = 0; k < catlogdata[1].length; k++) {
+					statedata = catlogdata[2][k]
+					if (statedata == 1) {
+						values = catlogdata[1][k]
+						if (values[0] != Infinity && values[1] != Infinity && values[0] != -Infinity && values[1] != -Infinity) {
+							updatelabel(values[0], values[1], catlogdata[0][k][2])
+							updateDrawing(values[0], values[1], catlogdata[0][k][1],  catlogdata[0][k][0])
+						}
+					}
+				}
+				numbersOnThePlaneId = JSON.parse(JSON.stringify(catlogdata[0]))
+				numbersOnThePlaneValues = JSON.parse(JSON.stringify(catlogdata[1]))
+				numbersOnThePlaneStates = JSON.parse(JSON.stringify(catlogdata[2]))
+				// pointscatlog.push([JSON.parse(JSON.stringify(numbersOnThePlaneId)),JSON.parse(JSON.stringify(numbersOnThePlaneValues))])
+			}
+				
+		}
+
+		function clearpointsbutton() {
+			for (k =0; k < numbersOnThePlaneStates.length; k++) {
+				numbersOnThePlaneStates[k] = 0
+				llabel = numbersOnThePlaneId[k][0]
+				elabel = numbersOnThePlaneId[k][1]
+				txt = numbersOnThePlaneId[k][2]
+
+				ellipElement = document.getElementById(elabel)
+				linElement = document.getElementById(llabel)
+				txtElement = document.getElementById(txt)
+
+				ellipElement.style.opacity = 0;
+				linElement.style.opacity = 0;
+				txtElement.style.opacity = 0;
+
+			}
+		}
+
+
+
+		undobuttontext.addEventListener('click', undobutton)
+		redobuttontext.addEventListener('click', redobutton)
+		clearpointsbuttontext.addEventListener('click', clearpointsbutton)
+
+		function settingsClick(event) {
+			document.getElementById('containSettings').scrollIntoView({behavior: 'smooth'});
+		}
+
+		document.getElementById('settingsbutton').addEventListener('click', settingsClick)
+
+
+		function polarsettingHandler(event) {
+			if (showPolarState == 'hidden') {
+				showPolar()
+				showPolarState = 'visible';
+				document.getElementById('polarsettingtext').innerHTML = 'Hide Polar Coordinates'
+			}
+			else {
+				hidePolar()
+				showPolarState = 'hidden'
+				document.getElementById('polarsettingtext').innerHTML = 'Show Polar Coordinates'
+			}
+		}
+
+
+		polarsetting = document.getElementById('polarsetting')
+		showPolarState = 'hidden'
+		polarsetting.addEventListener('click', polarsettingHandler)
+
+		function showLinessettingHandler(event) {
+			lines = document.getElementsByClassName('c number line')
+			if (showLinesState == 'hidden') {
+				for (m = 0; m < lines.length; m++) {
+					lines[m].style.opacity = 1
+				}
+				showLinesState = 'visible';
+				document.getElementById('showLinessettingtext').innerHTML = 'Hide Lines'
+			}
+			else {
+				for (m = 0; m < lines.length; m++) {
+					lines[m].style.opacity = 0
+				}
+				showLinesState = 'hidden'
+				document.getElementById('showLinessettingtext').innerHTML = 'Show Lines'
+			}
+		}
+
+		showLinessetting = document.getElementById('showLinessetting')
+		showLinesState = 'visible'
+		showLinessetting.addEventListener('click', showLinessettingHandler)
+
+
+		function showlabelssettingHandler(event) {
+			labels = document.getElementsByClassName('c number text')
+			if (showlabelsState == 'hidden') {
+				for (m = 0; m < labels.length; m++) {
+					labels[m].style.opacity = 1
+				}
+				showlabelsState = 'visible';
+				document.getElementById('showlabelssettingtext').innerHTML = 'Hide labels'
+			}
+			else {
+				for (m = 0; m < labels.length; m++) {
+					labels[m].style.opacity = 0
+				}
+				showlabelsState = 'hidden'
+				document.getElementById('showlabelssettingtext').innerHTML = 'Show labels'
+			}
+		}
+
+		showlabelssetting = document.getElementById('showlabelssetting')
+		showlabelsState = 'visible'
+		showlabelssetting.addEventListener('click', showlabelssettingHandler)
+
+		function polarToRect(rvalue, thetavalue) {
+			return [rvalue*Math.cos(thetavalue), rvalue*Math.sin(thetavalue)]
+		}
+
+		function drawPolarLines() {
+			largeR = Math.abs(gymax - gymin)
+			largeTheta = Math.PI/6
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + 'pi/6' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+			largeTheta = Math.PI/4
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + 'pi/4' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+			largeTheta = Math.PI/3
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + 'pi/3' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+			largeTheta = 2*Math.PI/3
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + '2pi/3' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+			largeTheta = 3*Math.PI/4
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + '3pi/4' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+			largeTheta = 5*Math.PI/6
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + '5pi/6' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+			largeTheta = 7*Math.PI/6
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + '7pi/6' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+			largeTheta = 8*Math.PI/6
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + '8pi/6' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+			largeTheta = 10*Math.PI/6
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + '10pi/6' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+			largeTheta = 11*Math.PI/6
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + '11pi/6' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+			largeTheta = 5*Math.PI/4
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + '5pi/4' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+			largeTheta = 7*Math.PI/4
+			cartXY = polarToRect(largeR, largeTheta)
+			drawLineToSvg(complexplaneSvg, graphToSvgX(0) + '%', graphToSvgY(0) + '%', graphToSvgX(cartXY[0]) + '%', graphToSvgY(cartXY[1]) + '%', 'Polar angles ' + '7pi/4' , 'polar angle','hsla(32,1%,70%,0.3)', '1%')
+		}
+
+		drawPolarLines()
+
+
+		hidePolar()
+
+		function addpointsonunitcircle(n) {
+			for (i = 0; i < n; i++) {
+				v = (i*(2*Math.PI)/n);
+				addComplexNumberToPlane(polarToRect(1,v)[0],polarToRect(1,v)[1])
+			}
+		}
+
+		function addpointsonfullplane(n) {
+			spacing = Math.max((gxmax - gxmin),(gymax - gymin))/n
+			for (i = 0; i < n; i++) {
+				for (j = 0; j < n; j++) {
+					x = gxmin + (i*spacing)
+					y = gymin + (j*spacing)
+					addComplexNumberToPlane(x,y)
+				}
+			}
+		}
+
+		function addpointsoncircle(n,radius) {
+			for (i = 0; i < n; i++) {
+				v = (i*(2*Math.PI)/n);
+				addComplexNumberToPlane(polarToRect(radius,v)[0],polarToRect(radius,v)[1])
+			}
+		}
+
+		// addpointsoncircle(50,0.5)
+
+		addComplexNumberToPlane(1,1)
+
+			
+
+
+
+
+
+
+
+
+
+
+
+	
+			
+		</script>
+
+
+	</body>
+<html>
