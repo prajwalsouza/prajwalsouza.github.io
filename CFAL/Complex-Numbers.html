@@ -7,8 +7,6 @@
 		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic" rel="stylesheet">
-
 
 		<style type="text/css">
 			a {
@@ -80,7 +78,14 @@
 				</div>
 			</div>
 
-			<div id='webapp' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);'>
+			<div id='webapp' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5); opacity: 1;'>
+				<div id='webappsvgcontainer' height="100%" width="100%" style='z-index:0; position: absolute;cursor:crosshair; left: 0;right: 0;top:0; bottom: 0;'>
+					<div height="100%" style='z-index:2; position: relative; left: 0;right: 0;top:0; bottom: 0;'>
+						<svg id='webappsvg' height="100%" width="100%">
+						</svg>
+					</div>
+				</div>
+
 				<div id="webappTexts" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,0%,0); cursor: auto; position: relative; z-index: 7; opacity: 1; '>
 					<div style='width : 100%; height: 30%;'>
 					</div>
@@ -336,6 +341,58 @@
 			document.getElementById('Description2Text0').style.fontSize = '2.7vmax'
 			document.getElementById('Description2Text0').style.width = '90%'
 		}
+
+
+		projectsIntro = document.getElementById('webappsvg')
+
+
+		function drawRectangle(divId,xcor,ycor, wdh, hgt, strokecolor) {
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('width',wdh);
+			rectElement.setAttribute('height',hgt);
+			rectElement.setAttribute('x',xcor);
+			rectElement.setAttribute('y',ycor);
+			rectElement.style.stroke = strokecolor
+			rectElement.style.strokeWidth = '0.1%';
+			rectElement.style.fill = 'None';
+			divId.appendChild(rectElement);
+		}
+
+		function drawRectangles() {
+			colorchoices = ['rgba(255, 132, 10, 0.64)','rgba(255, 222, 10, 0.64)']
+			for (i=0; i < 30; i++) {
+				strokecolorchoice = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+				sizeDeviation = 2;
+				sizeBaseW = 2;
+				sizeBaseH = (window.innerWidth/window.innerHeight)*sizeBaseW;
+				sizew = Math.random()*sizeDeviation + sizeBaseW;
+				sizeh = Math.random()*sizeDeviation + sizeBaseH;
+				posX = Math.random()*100;
+				posY = Math.random()*100;
+				drawRectangle(projectsIntro, posX + '%', posY + '%', sizew + '%', sizeh + '%', strokecolorchoice)
+			}
+		}
+
+		drawRectangles()
+
+		function reactprojectsIntro(event) {
+			var bRect = projectsIntro.getBoundingClientRect();
+			posX = event.clientX - bRect.left;
+			posY = event.clientY - bRect.top;
+
+			colorchoices = ['rgba(255, 132, 10, 0.64)','rgba(255, 222, 10, 0.64)']
+			strokecolorchoice = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+
+			sizeDeviation = 2;
+			sizeBaseW = 2;
+			sizeBaseH = (window.innerWidth/window.innerHeight)*sizeBaseW;
+			sizew = Math.random()*sizeDeviation + sizeBaseW;
+			sizeh = Math.random()*sizeDeviation + sizeBaseH;
+
+			drawRectangle(projectsIntro, posX, posY, sizew + '%', sizeh + '%', strokecolorchoice)
+		}
+
+		projectsIntro.addEventListener('click', reactprojectsIntro);
 
 
 		function buttonhover(event,hue,slnum,type) {
