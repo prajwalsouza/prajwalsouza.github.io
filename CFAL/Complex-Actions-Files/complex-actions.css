@@ -1,0 +1,260 @@
+#containAll {
+	display: grid;
+	grid-template-rows: 10% 64% 6% 20%;
+	box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+}
+
+#heading {
+	display: grid;
+	grid-template-columns: 60% 10% 10% 10% 10%;  
+}
+
+#complexplaneholderandactions {
+	display: grid;
+	grid-template-columns: 20% 80%;  
+}
+
+#complexplaneholder {
+	box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3);
+	display: block;
+	overflow: hidden;
+}
+
+
+#complexplanelabels {
+	position: absolute;
+	height: 64%;
+	width: 80%;
+	overflow: hidden;
+}
+
+#complexplaneSvg {
+	z-index: 10;
+}
+
+#infobar {
+	text-align: center;
+	z-index: 10;
+	box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+
+}
+
+#controlbar {
+	display: grid;
+	grid-template-columns: 70% 30%;
+}
+
+#actionstray {
+	overflow-y: scroll;
+}
+
+#actray-gradient {
+	background: linear-gradient(0deg, hsla(190,100%, 100%, 1),hsla(190,100%, 100%, 0),hsla(190,100%, 100%, 1));
+	width: 20%;
+	height: 65%;
+	position: absolute;
+	pointer-events: none;
+}
+
+/*#actray-gradient::-webkit-scrollbar {
+	width: 10px;
+}*/
+
+#actionbuttontext {
+	position: relative;
+	width: 90%;
+	transform: translate(-30%, -50%);
+	left: 30%;
+	top: 50%;
+	font-size: 2vw;
+	font-family: Patrick Hand SC;
+	cursor: pointer;
+	text-align: center;	
+
+}
+
+#actionbutton {
+	/*box-shadow: 0px 0px 20px rgba(0,0,0,0.3);*/
+/*	border: 3px;
+	border-color: hsla(0,100%,100%,0);
+	border-bottom-width: 3px; 
+	border-bottom-color: hsla(190,100%,50%,1); */
+}
+
+#numberinputholder {
+	overflow-y: auto;
+}
+
+#numberinput {
+	overflow-x: auto;
+	position: relative;
+	width: 90%;
+	text-align: center;
+	transform: translate(-50%, -50%);
+	left: 50%;
+	top: 50%;
+	font-family: Calibri;
+	font-size: 2.6vw;
+}
+
+.numberinputcl {
+	display: inline-block;
+}
+
+#numberinputreal, #numberinputimaginary  {
+	border-color: hsla(0,100%,100%,0);
+	border-bottom-width: 3px; 
+	border-bottom-color: hsla(190,100%,50%,1); 
+}
+
+#maintitletext, #actionlabbuttontext, #undobuttontext, #redobuttontext, #clearpointsbuttontext, #settingsbuttontext {
+	font-family: Alegreya Sans;
+	font-size: 2.5vw;
+	color: hsla(195,100%,50%,1);
+	/*text-align: center;*/
+	position: relative;
+	width: 90%;
+	transform: translate(-30%, -50%);
+	left: 30%;
+	top: 50%;
+}
+
+#undobuttontext, #redobuttontext, #clearpointsbuttontext, #settingsbuttontext {
+	font-size: 1.4vw;
+	color: grey;
+	transform: translate(-70%, -50%);
+	left: 70%;
+	cursor: pointer;
+}
+
+#infobartext {
+	font-size: 1.3vw;
+	position: relative;
+	transform: translate(-50%,-50%);
+	left: 50%;
+	top: 50%;
+	font-family: Calibri;
+}
+
+
+#containLab, #containSettings {
+	display: grid;
+}
+
+#containSettings {
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 2px;
+}
+
+#settingsTitle {
+	grid-column: 1 / 5;
+}
+
+.settingclass {
+	/*background-color: blue;*/
+	box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3);
+	text-align: center;
+	font-size: 2vw;
+	font-family: Calibri;
+	color: black;
+	cursor: pointer;
+}
+
+#polarsetting {
+	background-color: hsla(200, 100%, 40%, 1);
+	color: white;
+}
+
+#polarsettingtext {
+	transform: translate(-50%,-50%);
+	left: 50%;
+	top: 50%;
+	position: relative;
+}
+
+#showLinessetting {
+	background-color: hsla(210, 100%, 40%, 1);
+	color: white;
+}
+
+#showLinessettingtext {
+	transform: translate(-50%,-50%);
+	left: 50%;
+	top: 50%;
+	position: relative;
+}
+
+#showlabelssetting {
+	background-color: hsla(210, 100%, 40%, 1);
+	color: white;
+}
+
+#showlabelssettingtext {
+	transform: translate(-50%,-50%);
+	left: 50%;
+	top: 50%;
+	position: relative;
+}
+
+
+
+#some4setting {
+	background-color: hsla(230, 100%, 40%, 1);
+	color: white;
+}
+
+#some5setting {
+	background-color: hsla(240, 100%, 40%, 1);
+	color: white;
+}
+
+#some6setting {
+	background-color: hsla(250, 100%, 40%, 1);
+	color: white;
+}
+
+#some7setting {
+	background-color: hsla(260, 100%, 40%, 1);
+	color: white;
+}
+
+#some8setting {
+	background-color: hsla(270, 100%, 40%, 1);
+	color: white;
+}
+
+#some9setting {
+	background-color: hsla(280, 100%, 40%, 1);
+	color: white;
+}
+
+#some10setting {
+	background-color: hsla(290, 100%, 40%, 1);
+	color: white;
+}
+
+#some11setting {
+	background-color: hsla(300, 100%, 40%, 1);
+	color: white;
+}
+
+#some12setting {
+	background-color: hsla(310, 100%, 40%, 1);
+	color: white;
+}
+
+
+
+
+#settingstitletext {
+	transform: translate(-50%,-50%);
+	left: 50%;
+	top: 50%;
+	position: relative;
+	font-size: 3vw;
+	text-align: center;
+	font-family: Mclaren;
+}
+
