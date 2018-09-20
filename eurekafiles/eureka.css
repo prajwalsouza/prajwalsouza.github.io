@@ -1,0 +1,389 @@
+#containMainUI {
+	background-image: linear-gradient(to right, hsla(190,100%,50%,1), hsla(230,100%,50%,1));
+}
+
+#MainUI {
+	top: 2%;
+	left: 2%;
+	position: absolute;
+	width: 96%;
+	height: 96%;
+	background: white;
+}
+
+#MainUIblocks {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	grid-template-rows: 100%;  
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	z-index: 1;
+	pointer-events: none;
+}
+
+#topic1holder,#topic2holder {
+	background: hsla(1,100%,50%,0);
+	display: grid;
+	grid-template-rows: 20% 20% 8% 7% 25% 20%;
+	grid-template-columns: 100%;  
+	z-index: 2;
+}
+
+#topic2holder {
+	background: hsla(230,100%,50%,0.02);
+}
+
+#topic1name, #topic1subject, #topic1description,#topic2name, #topic2subject, #topic2description {
+	font-family: Calibri;
+	text-align: center;
+	pointer-events: auto;
+	cursor: pointer;
+}
+
+#topic1name, #topic2name {
+	font-size: 2.5vw;
+}
+
+#topic1subject {
+	font-size: 1.5vw;
+	color: hsla(190,100%,50%,1);
+}
+
+#topic2subject {
+	font-size: 1.5vw;
+	color: hsla(230,100%,50%,1);
+}
+
+#topic1description,#topic2description {
+	font-size: 1vw;
+	position: relative;
+	left: 20%;
+	width: 60%;
+}
+
+
+#MainUIcomponents {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: none;
+	display: grid;
+	grid-template-rows: 4% 16% 20% 41% 7% 12%;
+	grid-template-columns: 100%; 
+	font-family: Calibri;
+	z-index: 0;
+}
+
+#MainUInext {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: none;
+	display: grid;
+	grid-template-rows: 40% 10% 21% 2% 7% 20%;
+	grid-template-columns: 100%; 
+	font-family: Calibri;
+	z-index: 0;
+	pointer-events: none;
+	visibility: hidden;
+}
+
+#nextrelateText {
+	font-family: Calibri Light;
+	font-size: 2.7vw;
+	text-align: center;
+}
+
+
+#UIquestions {
+	font-family: Calibri Light;
+	font-size: 2.7vw;
+	text-align: center;
+}
+
+#UIskip {
+	font-size: 1.5vw;
+	text-align: center;
+	color: grey;
+	pointer-events: auto;
+	cursor: pointer;
+}
+
+#UIabout {
+	font-size: 1.5vw;
+	text-align: center;
+	color: grey;
+	pointer-events: auto;
+	cursor: pointer;
+	font-family: Calibri Light;
+}
+
+#UIoptions {
+	display: grid;
+	grid-template-columns: 22% 11% 4% 11% 4% 11% 4% 11% 22%;
+	font-family: Calibri;
+	text-align: center;
+	z-index: 4;
+}
+
+#nextoptions {
+	display: grid;
+	grid-template-columns: 30% 11% 18% 11% 30%;
+	font-family: Calibri;
+	text-align: center;
+	z-index: 4;
+}
+
+#optionYes, #optionNo, #optionMaybe, #optionSkip, #nextoptionSubmit, #nextoptionSkip {
+	font-family: 'Averia Sans Libre', cursive;
+	font-size: 1.4vw;
+	pointer-events: auto;
+	cursor: pointer;
+	border: solid hsla(190,0%,50%,1);
+	border-radius: 10px;
+	border-width: 1px;
+	/*box-shadow: 0px 3px 15px rgba(0,0,0,0.2);*/
+}
+
+#optionspacer1, #optionspacer2 {
+	pointer-events: none;
+}
+
+#optionYesname, #optionNoname, #optionMaybename, #optionSkipname,#UIaboutname,#nextrelateTextcontent, #nextoptionSubmitname, #nextoptionSkipname {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: relative;
+	pointer-events: none;
+}
+
+input[type=text] {
+	padding: 0;
+	height: 26%;
+	position: relative;
+	outline: none;
+	border: 1px solid #cdcdcd;
+	border-color: rgba(0,0,0,0);
+	background-color: hsla(0,0%,0%,0);
+	align-self: center;/*
+	-webkit-border-image: -webkit-linear-gradient(black, rgba(0, 0, 0, 0)) 1 100%;
+	-moz-border-image: -moz-linear-gradient(black, rgba(0, 0, 0, 0)) 1 100%;    
+	-o-border-image: -o-linear-gradient(black, rgba(0, 0, 0, 0)) 1 100%;*/
+	/*border-image: linear-gradient(to right, black, rgba(0, 0, 0, 0)) 2 100%;*/
+}
+
+.advancedSearchTextbox {
+	font-size: 1.8vw;
+	width: 80%;
+	margin-right: -4px;
+	left: 10%;
+	z-index: 10; 
+	pointer-events: auto;
+	font-family: Mclaren;
+	text-align: center;
+	background:
+		linear-gradient(to right, hsla(190,100%,50%,1), hsla(230,100%,50%,1))
+		left 
+		bottom
+		#777    
+		no-repeat; 
+	background-size:100% 1px ;
+}
+
+::placeholder { 
+	color:    hsla(190,100%,0%,0.3);
+}
+
+
+#containSubjects {
+	display: grid;
+	grid-template-columns: 33% 34% 33%;
+	grid-template-rows: 50% 50%;
+	box-shadow: 0px 20px 100px rgba(0,0,0,0.5);
+}
+
+#subjectbio, #subjectphysics, #subjectai, #subjectecon, #subjectblank{
+	display: grid;
+	grid-template-rows: 5fr 1fr 2fr;
+	border: solid;
+/*	border-image: linear-gradient(45deg, hsla(190,0%,50%,0), hsla(190,0%,50%,1), hsla(190,0%,50%,0), hsla(190,0%,50%,1), hsla(190,0%,50%,0)) 30;
+*/	border-image: radial-gradient(hsla(190,0%,50%,0), hsla(190,0%,50%,0), hsla(190,0%,50%,1), hsla(190,0%,50%,0), hsla(190,0%,50%,0)) 30;
+	cursor: pointer;
+}
+
+#subjectbionameH, #subjectphysicsnameH, #subjectainameH, #subjecteconnameH, #subjectblanknameH, #subjectsHeadnameH {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: relative;
+	pointer-events: none;
+	text-align: center;
+	font-family: Calibri;
+	font-size: 2vw;
+}
+
+#subjectbiosvg, #subjectphysicssvg, #subjectaisvg, #subjecteconsvg {
+	pointer-events: none;
+}
+
+#subjectbioname, #subjectphysicsname, #subjectainame, #subjecteconname, #subjectblankname, #subjectsHeadname {
+	pointer-events: none;
+}
+#subjectbiodesc, #subjectphysicsdesc, #subjectaidesc, #subjectecondesc, #subjectblankdesc, #subjectsHeaddesc {
+	pointer-events: none;
+}
+
+
+
+
+#subjectbiodescH, #subjectphysicsdescH, #subjectaidescH, #subjectecondescH, #subjectblankdescH, #subjectsHeaddescH {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: relative;
+	pointer-events: none;
+	text-align: center;
+	font-family: Calibri;
+	font-size: 1.5vw;
+	width: 90%;
+	pointer-events: none;
+}
+
+
+
+#subjectsHeadnameH {
+	font-size: 3vw;
+	font-family: 'Averia Sans Libre', cursive;
+}
+
+#subjectsHeaddescH {
+	font-size: 1.5vw;
+	font-family: 'Averia Sans Libre', cursive;
+}
+
+
+#subjectsHead {
+	display: grid;
+	grid-template-rows: 2fr 1fr 2fr;
+	border: solid;
+	border-image: linear-gradient(45deg, hsla(190,0%,50%,0), hsla(190,0%,50%,1), hsla(190,0%,50%,0), hsla(190,0%,50%,1), hsla(190,0%,50%,0)) 30;
+	border-image: radial-gradient(hsla(190,0%,50%,0), hsla(190,0%,50%,0), hsla(190,0%,50%,1), hsla(190,0%,50%,0), hsla(190,0%,50%,0)) 30;
+	border-left-width: 0;
+	border-top-width: 0;
+}
+
+#subjectbio, #subjectecon {
+	border-left-width: 0;
+	border-top-width: 0;
+}
+
+#subjectecon {
+	border-bottom-width: 0;
+}
+
+#subjectphysics {
+	border-left-width: 0;
+	border-top-width: 0;
+	border-right-width: 0;
+}
+
+
+#subjectai {
+	border-left-width: 0;
+	border-top-width: 0;
+	border-bottom-width: 0;
+}
+
+#subjectblank {
+	border-width: 0;
+}
+
+#subjectblank {
+	grid-template-rows: 10fr 10fr 10fr;
+}
+
+#subjectblankname {
+	text-align: center;
+	font-family: Calibri;
+	align-self: center;
+	left: 10px;
+	width: 80%;
+	position: relative;
+}
+
+#containBrain {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	grid-template-rows: 25% 25% 25% 25%;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+#containBrainBack {
+	position: absolute;
+	z-index: 0;
+	overflow: hidden;
+}
+
+#containBrainBackConn {
+	position: absolute;
+	z-index: -3;
+	overflow: hidden;
+}
+
+#containBraintexts {
+	position: absolute;
+	z-index: -2;
+	overflow: hidden;
+}
+
+#infoholder {
+	font-size: 1vw;
+	font-family: Calibri;
+	color: hsla(190,0%,50%,0.7);
+	left: 0px;
+	top: 0px;
+}
+
+#brainTitle {
+	display: grid;
+	grid-template-rows: 40% 30% 30%;
+}
+
+#projectname {
+	font-size: 6vw;
+	font-family: Calibri;
+	text-align: center;
+	/*top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);*/
+}
+
+#projectdesc {
+	font-size: 2vw;
+	font-family: 'Averia Sans Libre', cursive;
+	text-align: center;
+	/*top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);*/
+}
+
+#abouttheproject {
+	font-size: 1.7vw;
+	font-family: Calibri Light;
+	text-align: center;
+	justify-content: center;
+	grid-column: 1 / 3;
+	grid-row: 3 / 5;
+	/*background: hsla(0,0%,50%,0.1);*/
+	background: linear-gradient(to bottom, hsla(190,0%,50%,0), hsla(230,0%,100%,1));
+}
+
+#abouttheprojectdata {
+	position: relative;
+	width: 80%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
