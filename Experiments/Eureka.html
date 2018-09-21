@@ -40,7 +40,7 @@
 			  }
 		</script>
 		  <meta charset="UTF-8">
-  		  <meta name="description" content="A search for distant neurons.">
+		  <meta name="description" content="A search for distant neurons.">
 		  <meta name="keywords" content="project, eureka,undiscovered public knowledge, simulations">
 		  <meta name="author" content="Prajwal DSouza">
 		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -178,12 +178,12 @@
 			</div>
 			<div id="subjectblank"><div id="subjectblanksvg"></div><div id="subjectblankname">You can disable/enable their usage in the random selection by clicking on them. </div><div id="subjectblankdesc"> </div></div>
 		</div>
-		<div id="containBrainFull" style='margin:0px;width:100%; height: 200%;'>
+		<div id="containBrainFull" style='margin:0px;width:100%; height: 200%; overflow: hidden;'>
 			<div id="containBraintexts" style='margin:0px;width:100%; height: 200%;'>
 				<div id='infoholder'></div>
 			</div>
 			<div id="containBrainBack" style='margin:0px;width:100%; height: 200%;'>
-				<svg id='brainsvg' height="100%" width="100%" viewBox="0 0 100 100" >
+				<svg id='brainsvg' height="100%" width="100%" viewBox="0 0 100 100">
 					
 				</svg>
 			</div>
@@ -203,13 +203,16 @@
 				<div id="brainspacer3"></div>
 				<div id="abouttheproject">
 					<div id="abouttheprojectdata">
-					In 1990, Don Swanson, an information theorist proposed the idea of undiscovered public knowledge. He started finding patterns in scientific literature which at first glance didn’t seem to have an common citations, but were on similar topics and were related on certain level. <br/><br/>
+					In 1986, Don Swanson, an information theorist proposed the idea of "undiscovered public knowledge". He started finding patterns in scientific literature which at first glance didn’t seem to have an common citations, but were on similar topics and were related on certain level. <br/><br/>
 
 					He wrote certain software to find such connections. <br/><br/>
 
 					In this project, we start in a slightly different direction. We start with some random topics and then we asked the question, “Is there is a connection between the topics?” or “Is there a way I can connect the topics in a way no one ever has?” <br/><br/>
 
-					The belief is that the “Eureka moment” happens when such connections happen and this is a search for such connection.	
+					The belief is that the “Eureka moment” happens when such connections happen and this is a search for such connection. There are lot of redundant possibilities. But, once in a while, we hope, something might just click.	<br/><br/>
+					<a href="https://prajwalsouza.github.io" target="_blank" style="text-decoration: none;  color: hsla(190,100%,50%,1); pointer-events: auto; cursor: pointer;">
+						prajwalsouza.github.io
+					</a>
 					</div>
 				</div>
 				<div id="brainspacer5"></div>
@@ -241,6 +244,10 @@
 		var storesRef = rootRef.child('eurekaEventData/');
 		var newStoreRef = storesRef.push();
 
+		// To delete data
+		// storesRef.remove();
+
+		// To save data
 		window.onbeforeunload = closingCode;
 
 		function closingCode(){
@@ -250,6 +257,19 @@
 				"datalength": eventdirectory.length
 			});
 		}	
+
+		function readData() {
+			storesRef.on("value", function(snapshot) {
+				console.log(snapshot.val());
+			}, function (errorObject) {
+				console.log("The read failed: " + errorObject.code);
+			});
+		}
+
+		// readData()
+
+
+		
 
 		colorsBySubject = {}
 
@@ -278,7 +298,6 @@
 
 
 		function chooseWords(subject1, subject2) {
-
 			if(subject1 == 'ECONOMICS'){
 				chosenword = econwords[parseInt(Math.random()*(econwords.length))]
 			}
@@ -355,6 +374,10 @@
 		subjectsL = ['subjectbio','subjectphysics','subjectai','subjectecon']
 		subjectT = [1,1,1,1]
 
+		function addSubject(sname, shue, slabel, sstorage, sglossaryname) {
+			
+		}
+
 		eventdirectory = []
 
 		eventdetails = []
@@ -374,7 +397,7 @@
 			sub2 = availableSub[parseInt(Math.random()*(availableSub.length))];
 
 			eventdetails.push(uid)
-			eventdetails.push(d)
+			eventdetails.push(d.toString())
 			eventdetails.push(sub1)
 			eventdetails.push(sub2)
 			chooseWords(sub1,sub2)
@@ -489,25 +512,44 @@
 		document.getElementById('MainUI').style.width = (100 - 2*(backgap)*100) + '%'
 
 		function moveuptopics() {
-			document.getElementById('topic1holder').style.gridTemplateRows = '5% 20% 8% 7% 40% 20%'
-			document.getElementById('topic2holder').style.gridTemplateRows = '5% 20% 8% 7% 40% 20%'
+			if (window.innerWidth > window.innerHeight) {
+				document.getElementById('topic1holder').style.gridTemplateRows = '5% 20% 8% 7% 40% 20%'
+				document.getElementById('topic2holder').style.gridTemplateRows = '5% 20% 8% 7% 40% 20%'
 
-			document.getElementById('MainUIcomponents').style.gridTemplateRows = '5% 0% 20% 57% 7% 12%'
-			document.getElementById('topic1description').style.visibility = 'hidden'
-			document.getElementById('topic2description').style.visibility = 'hidden'
+				document.getElementById('MainUIcomponents').style.gridTemplateRows = '5% 0% 20% 57% 7% 12%'
+				document.getElementById('topic1description').style.visibility = 'hidden'
+				document.getElementById('topic2description').style.visibility = 'hidden'
+				
+			}
+			else {
+				
+				document.getElementById('topic2holder').style.gridTemplateRows = '47% 8% 7% 35% 3%'
+			}
+
+			// document.getElementById('topic1description').style.visibility = 'hidden'
+			// document.getElementById('topic2description').style.visibility = 'hidden'
 			document.getElementById('UIquestions').style.visibility = 'hidden'
 			document.getElementById('UIoptions').style.visibility = 'hidden'
 
 			document.getElementById('MainUInext').style.visibility = 'visible'
+				
 		}
 
 		function moveuptopicsback() {
-			document.getElementById('topic1holder').style.gridTemplateRows = '20% 20% 8% 7% 25% 20%'
-			document.getElementById('topic2holder').style.gridTemplateRows = '20% 20% 8% 7% 25% 20%'
+			if (window.innerWidth > window.innerHeight) {
+				document.getElementById('topic1holder').style.gridTemplateRows = '20% 20% 8% 7% 25% 20%'
+				document.getElementById('topic2holder').style.gridTemplateRows = '20% 20% 8% 7% 25% 20%'
 
-			document.getElementById('MainUIcomponents').style.gridTemplateRows = '4% 16% 20% 41% 7% 12%'
-			document.getElementById('topic1description').style.visibility = 'visible'
-			document.getElementById('topic2description').style.visibility = 'visible'
+				document.getElementById('MainUIcomponents').style.gridTemplateRows = '4% 16% 20% 41% 7% 12%'
+				document.getElementById('topic1description').style.visibility = 'visible'
+				document.getElementById('topic2description').style.visibility = 'visible'
+			}
+			else {
+				document.getElementById('topic2holder').style.gridTemplateRows = '30% 8% 7% 35% 20%'
+			}
+
+			// document.getElementById('topic1description').style.visibility = 'visible'
+			// document.getElementById('topic2description').style.visibility = 'visible'
 			document.getElementById('UIquestions').style.visibility = 'visible'
 			document.getElementById('UIoptions').style.visibility = 'visible'
 
@@ -579,7 +621,7 @@
 
 		datasecpts = {}
 
-		function createneurons(subjectnum,xl,xu,yl,yu, jerkx, jerky) {
+		function createneurons(subjectnum,xl,xu,yl,yu, jerkx, jerky, rbase, rdev) {
 			xlrange = xl
 			xurange = xu
 			ylrange = yl
@@ -593,7 +635,7 @@
 				ypos = (jerk*jerky) + ylrange + Math.random()*(yurange - ylrange)
 				yps = ypos
 				ypos = ypos + '%'
-				rval = 0.3 + (Math.random()*0.2)  + '%'
+				rval = rbase + (Math.random()*rdev)  + '%'
 				drawDot(brainsvg, xpos, ypos, rval, 'hsla(' + subjectcolors[subjectnum] + ',100%,50%,' + (0.2 + Math.random()*0.4) +  ')', subjectnum + '-' + m)
 				document.getElementById(subjectnum + '-' + m).addEventListener('mouseover', overNode)
 				document.getElementById(subjectnum + '-' + m).setAttribute('onclick', "window.open('" + wordsholder[subjectnum][m][2] + "')")
@@ -609,10 +651,7 @@
 			}
 		}
 
-		createneurons(0, -25, 80, -25, 25, 0, 1)
-		createneurons(1, 50, 120, -25, 50, -1 , 0 )
-		createneurons(2, 50, 120, 35, 125, -1, 0)
-		createneurons(3, -25, 65, 50, 125, 1, -1)
+		
 
 		function drawLine(divId,initxcor,initycor, finalxcor, finalycor, color, strokewidth) {
 			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
@@ -628,7 +667,7 @@
 		averageconn = 4
 
 
-		function connectrandom() {
+		function connectrandom(thick) {
 			for (subjectnum = 0; subjectnum < subjects.length; subjectnum++) {
 				for (m = 0; m < wordsholder[subjectnum].length; m++) {
 					conns = averageconn 
@@ -651,7 +690,7 @@
 									if (npoints[conn] != [xps, yps] && Math.random() < 0.2) {
 										nxp = npoints[conn][0]
 										nyp = npoints[conn][1]
-										drawLine(brainconnsvg, xp, yp, nxp, nyp, 'hsla(0,100%,0%,0.4)', 0.02)	
+										drawLine(brainconnsvg, xp, yp, nxp, nyp, 'hsla(0,100%,0%,0.4)', thick)	
 									}
 									// subnum = parseInt(Math.random()*3)
 									// wnumber = parseInt(Math.random()*(wordsholder[subnum].length - 1))
@@ -669,7 +708,163 @@
 			}
 		}
 
-		connectrandom()
+		
+
+		// For mobile phones
+		// document.onresize = handleSize()
+
+		function handleSize() {
+			if (window.innerWidth < window.innerHeight) {
+				document.getElementById('MainUIblocks').style.gridTemplateRows = '50% 50%'
+				document.getElementById('MainUIblocks').style.gridTemplateColumns = '100%'
+
+				document.getElementById('topic1holder').style.gridTemplateRows = '20% 8% 7% 35% 30%'
+				document.getElementById('topic1holder').style.gridTemplateColumns = '30% 70%'
+
+				document.getElementById('topic1name').style.textAlign = 'left'
+				document.getElementById('topic1description').style.textAlign = 'left'
+				document.getElementById('topic1subject').style.textAlign = 'left'
+				document.getElementById('topic1description').style.left = '0'
+
+				document.getElementById('topic1name').style.fontSize = '3vh'
+				document.getElementById('topic1description').style.fontSize = '1.5vh'
+				document.getElementById('topic1subject').style.fontSize = '2vh'
+
+				document.getElementById('topic1neuron').style.gridColumn = '1 / 2'
+				document.getElementById('topic1neuron').style.gridRow = '1 / 5'
+				document.getElementById('topic1name').style.gridColumn = '2 / 3'
+				document.getElementById('topic1name').style.gridRow = '2 / 3'
+				document.getElementById('topic1subject').style.gridColumn = '2 / 3'
+				document.getElementById('topic1subject').style.gridRow = '3 / 4'
+				document.getElementById('topic1description').style.gridColumn = '2 / 3'
+				document.getElementById('topic1description').style.gridRow = '4 / 5'
+
+				document.getElementById('topic2holder').style.gridTemplateRows = '30% 8% 7% 35% 20%'
+				document.getElementById('topic2holder').style.gridTemplateColumns = '30% 70%'
+
+				document.getElementById('topic2name').style.textAlign = 'left'
+				document.getElementById('topic2description').style.textAlign = 'left'
+				document.getElementById('topic2subject').style.textAlign = 'left'
+				document.getElementById('topic2description').style.left = '0'
+
+				document.getElementById('topic2name').style.fontSize = '3vh'
+				document.getElementById('topic2description').style.fontSize = '1.5vh'
+				document.getElementById('topic2subject').style.fontSize = '2vh'
+
+				document.getElementById('topic2neuron').style.gridColumn = '1 / 2'
+				document.getElementById('topic2neuron').style.gridRow = '1 / 5'
+				document.getElementById('topic2name').style.gridColumn = '2 / 3'
+				document.getElementById('topic2name').style.gridRow = '2 / 3'
+				document.getElementById('topic2subject').style.gridColumn = '2 / 3'
+				document.getElementById('topic2subject').style.gridRow = '3 / 4'
+				document.getElementById('topic2description').style.gridColumn = '2 / 3'
+				document.getElementById('topic2description').style.gridRow = '4 / 5'
+
+				document.getElementById('UIquestions').style.gridColumn = '1 / 2'
+				document.getElementById('UIquestions').style.gridRow = '2 / 3'
+
+				document.getElementById('UIquestions').style.fontSize = '3.5vh'
+
+				document.getElementById('MainUIcomponents').style.gridTemplateRows = '37% 10% 5% 7% 29% 12%'
+				document.getElementById('MainUIcomponents').style.gridTemplateColumns = '100%'
+
+
+				document.getElementById('UIabout').style.gridRow = '4 / 5'
+				document.getElementById('UIaboutname').style.fontSize = '2vh'
+				
+
+				document.getElementById('containSubjects').style.gridTemplateRows = '33% 34% 33%'
+				document.getElementById('containSubjects').style.gridTemplateColumns = '50% 50%'
+
+				document.getElementById('UIoptions').style.gridColumn = '1 / 2'
+				document.getElementById('UIoptions').style.gridRow = '3 / 4'
+
+				document.getElementById('UIoptions').style.gridTemplateColumns = '10% 17% 4% 17% 4% 17% 4% 17% 10%';
+
+				document.getElementById('optionYes').style.fontSize = '2.5vmax';
+				document.getElementById('optionNo').style.fontSize = '2.5vmax';
+				document.getElementById('optionMaybe').style.fontSize = '2.5vmax';
+				document.getElementById('optionSkip').style.fontSize = '2.5vmax';
+				document.getElementById('nextoptionSubmit').style.fontSize = '2.5vmax';
+				document.getElementById('nextoptionSkip').style.fontSize = '2.5vmax';
+
+				document.getElementById('UIneuronconnection').style.visibility = 'hidden'
+
+
+				document.getElementById('MainUInext').style.gridTemplateRows = '35% 7% 13% 7% 5% 38%'
+
+				document.getElementById('nextrelateTextcontent').style.fontSize = '3vh'
+				document.getElementById('textinputExplanation').style.fontSize = '2.5vh'
+
+				document.getElementById('nextoptions').style.gridTemplateColumns = '25% 16% 18% 16% 25%';
+
+				document.getElementById('subjectsHeadnameH').style.fontSize = '4vh'
+				document.getElementById('subjectsHeaddescH').style.fontSize = '2.2vh'
+				document.getElementById('subjectbionameH').style.fontSize = '3vh'
+				document.getElementById('subjectbiodescH').style.fontSize = '2vh'
+				document.getElementById('subjectphysicsnameH').style.fontSize = '3vh'
+				document.getElementById('subjectphysicsdescH').style.fontSize = '2vh'
+				document.getElementById('subjectainameH').style.fontSize = '3vh'
+				document.getElementById('subjectaidescH').style.fontSize = '2vh'
+				document.getElementById('subjecteconnameH').style.fontSize = '3vh'
+				document.getElementById('subjectecondescH').style.fontSize = '2vh'
+
+				document.getElementById('subjectphysics').style.borderRightWidth = 'initial'
+				document.getElementById('subjectai').style.borderBottomWidth = 'initial'
+				document.getElementById('subjectbio').style.borderRightWidth = '0'
+				document.getElementById('subjectai').style.borderRightWidth = '0'
+
+				document.getElementById('abouttheprojectdata').style.fontSize = '2.7vh'
+				document.getElementById('projectname').style.fontSize = '10vh'
+				document.getElementById('projectdesc').style.fontSize = '5vh'
+
+				document.getElementById('brainTitle').style.gridColumn = '1 / 3'
+				document.getElementById('brainTitle').style.gridRow = '1 / 3'
+
+				document.getElementById('containBrainBack').style.opacity = '0.4'
+				document.getElementById('containBrainBackConn').style.opacity = '0.4'
+
+				maxX = 100
+				maxY = 100 + (65/wHratio)
+				minX =  0
+				minY = 0 - (65/wHratio)
+
+
+
+				createneurons(0, minX, 60, minY, 50, 0, 1,2.4*0.3/wHratio,1.4*0.2/wHratio)
+				createneurons(1, 50, maxX, minY, 50, -1, 0,2.4*0.3/wHratio,1.4*0.2/wHratio)
+				createneurons(2, 50, maxX, 35, maxY, -1, 0,2.4*0.3/wHratio,1.4*0.2/wHratio)
+				createneurons(3, minX, 65, 50, maxY, 1, -1,2.4*0.3/wHratio,1.4*0.2/wHratio)
+
+				connectrandom(0.2/wHratio)
+
+
+			}
+			else if (window.innerWidth >= window.innerHeight) {
+				// document.getElementById('MainUIblocks').style.gridTemplateRows = '100%'
+				// document.getElementById('MainUIblocks').style.gridTemplateColumns = '50% 50%'
+				
+
+				// document.getElementById('containSubjects').style.gridTemplateColumns = '33% 34% 33%'
+				// document.getElementById('containSubjects').style.gridTemplateRows = '50% 50%'
+				// document.getElementById('containBrainFull').style.height = '50%'
+
+				maxX = 100
+				maxY = 100 
+				minX = 0
+				minY = 0
+
+				createneurons(0, minX, 80, minY, 25, 0, 1,0.3,0.2)
+				createneurons(1, 50, maxX, minY, 50, -1 , 0 ,0.3,0.2)
+				createneurons(2, 50, maxX, 35, maxY, -1, 0,0.3,0.2)
+				createneurons(3, minX, 65, 50, maxY, 1, -1,0.3,0.2)
+
+				connectrandom(0.02)
+			}
+		}
+
+		handleSize()
+			
 			
 		
 
