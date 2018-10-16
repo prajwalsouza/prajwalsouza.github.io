@@ -627,8 +627,8 @@
 			ylrange = yl
 			yurange = yu
 			wordsfromsub = wordsholder[subjectnum].length
-			if (wordsholder[subjectnum].length > 200) {
-				wordsfromsub = 200
+			if (wordsholder[subjectnum].length > 150) {
+				wordsfromsub = 150
 			}
 			for (m = 0; m < wordsfromsub; m++) {
 				jerk = Math.random()*10
@@ -672,8 +672,12 @@
 
 
 		function connectrandom(thick) {
+			wordsfromsub = wordsholder[subjectnum].length
+			if (wordsholder[subjectnum].length > 150) {
+				wordsfromsub = 150
+			}
 			for (subjectnum = 0; subjectnum < subjects.length; subjectnum++) {
-				for (m = 0; m < wordsholder[subjectnum].length; m++) {
+				for (m = 0; m < wordsfromsub; m++) {
 					conns = averageconn 
 					xp = wordidmap[subjectnum + '-' + m][2]
 					yp = wordidmap[subjectnum + '-' + m][3]
