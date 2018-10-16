@@ -626,7 +626,11 @@
 			xurange = xu
 			ylrange = yl
 			yurange = yu
-			for (m = 0; m < wordsholder[subjectnum].length; m++) {
+			wordsfromsub = wordsholder[subjectnum].length
+			if (wordsholder[subjectnum].length > 100) {
+				wordsfromsub = 100
+			}
+			for (m = 0; m < wordsfromsub; m++) {
 				jerk = Math.random()*10
 				xpos = (jerk*jerkx) + xlrange + Math.random()*(xurange - xlrange)
 				xps = xpos
