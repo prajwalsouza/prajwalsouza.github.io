@@ -672,11 +672,11 @@
 
 
 		function connectrandom(thick) {
-			wordsfromsub = wordsholder[subjectnum].length
-			if (wordsholder[subjectnum].length > 150) {
-				wordsfromsub = 150
-			}
 			for (subjectnum = 0; subjectnum < subjects.length; subjectnum++) {
+				wordsfromsub = wordsholder[subjectnum].length
+				if (wordsholder[subjectnum].length > 150) {
+					wordsfromsub = 150
+				}
 				for (m = 0; m < wordsfromsub; m++) {
 					conns = averageconn 
 					xp = wordidmap[subjectnum + '-' + m][2]
