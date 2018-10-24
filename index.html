@@ -27,6 +27,11 @@
 		<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script> 
 		
+		<script type="text/javascript" src="eurekafiles/physicswords.json"></script>
+		<script type="text/javascript" src="eurekafiles/artificialIntelwords.json"></script>
+		<script type="text/javascript" src="eurekafiles/biowords.json"></script>
+		<script type="text/javascript" src="eurekafiles/economicswords.json"></script>
+		
 		
 	
 		<script type="application/ld+json">
@@ -75,6 +80,39 @@
 							Hi. I'm Prajwal DSouza. It's my projects page.
 					</div>
 				</div>
+			</div>
+			
+			<div id='slide12' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5); overflow: hidden;'>
+				<div height="100%" width="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0;'>
+					<svg id='slide12brainconnsvg' height="100%" width="100%">
+					</svg>
+				</div>
+				<div height="100%" width="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0;'>
+					<svg id='slide12svg' height="100%" width="100%">
+					</svg>
+				</div>
+				<div id='slide12cover' width="100%" height="100%" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0;  pointer-events: none;'> 
+					<svg height="100%" width="100%">
+					</svg>
+				</div>
+				<div id="containBraintexts" style='z-index:1; position: absolute; left: 0;right: 0;top:0; bottom: 0;  pointer-events: none;'>
+					<div id='infoholder'></div>
+				</div>
+				<div id="slide12Texts" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(190,100%,100%,0); cursor: auto; position: relative; z-index: 7; opacity: 1;'>
+					<div id="TitleText12" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri;  font-weight: lighter; font-size: 4vmax; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(190,100%,0%,1); '>
+							Project Eureka
+					</div>
+					<div id="DescriptionText12" onclick="window.open('https://www.researchgate.net/publication/221653369_Undiscovered_Public_Knowledge_A_Ten-Year_Update')" style='margin:0px;overflow: hidden;text-align: center; cursor: pointer; font-family: McLaren; font-size: 1.5vmax; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(190,0%,0%,1); '>
+							A search for distant neural connections. To find a link between seemingly unrelated topics.
+					</div>
+					<div id="diveIn12" onmouseover="buttonhover(event,190,12)" onmouseout="buttonout(event,190,12)" onclick="window.open('https://prajwalsouza.github.io/Experiments/Eureka.html')" style='margin:0px;overflow: hidden;transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; transition: background 0.5s; background: hsla(190,100%,50%,0.3); width: 10vmax; height: 5.5vh; border-color: hsla(260,100%,50%,1); cursor: pointer;'>
+						
+						<div id="diveInText12" style='margin:0px;overflow: hidden;text-align: center; font-family: McLaren; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,100%,1); '>
+							VIEW
+						</div>
+					</div>
+				</div>
+
 			</div>
 			
 			<div id='slide11' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);'>
@@ -1462,6 +1500,114 @@
 		}
 
 		slide10Display()
+			
+		function drawDotslide12(divId,xcor,ycor, radius, color, cid) {
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			circleElement.setAttribute('r',radius);
+			circleElement.setAttribute('cx',xcor);
+			circleElement.setAttribute('cy',ycor);
+			circleElement.setAttribute('id',cid);
+			circleElement.style.fill = color
+			circleElement.style.strokeWidth = '0';
+			divId.appendChild(circleElement);
+		}
+
+
+		wordidmap = {}
+
+		var econwords = econwords
+		var aiwords = artificialIntelwords
+		var biowords = biowords
+
+		wordsholder = [biowords, aiwords, econwords]
+		subjects = ['BIOLOGY','ARTIFICIAL INTELLIGENCE' ,'ECONOMICS']
+
+		slide12svg = document.getElementById('slide12svg')
+		brainconnsvg = document.getElementById('slide12brainconnsvg')
+
+		subjectcolors = ['190','240','290']
+
+		datasecpts = {}
+
+		document.getElementById('infoholder').style.fontFamily = 'Calibri'
+
+
+		function overNode(event) {
+			snum = wordidmap[event.target.id][0]
+			wnum = wordidmap[event.target.id][1]
+			word = wordsholder[snum][wnum][0].charAt(0).toUpperCase() + wordsholder[snum][wnum][0].slice(1);
+			document.getElementById('infoholder').innerHTML = '<span style="font-size: 0.7vw; color: hsla(190,100%,0%,1);">' +word + '</span><br/><span style="font-size: 0.7vw; color: hsla(' + subjectcolors[snum] + ',100%,50%,1);">' + subjects[snum] + '</span>'
+			var rect = document.getElementById('containBraintexts').getBoundingClientRect();
+			var x = event.clientX - rect.left; //x position within the element.
+			var y = event.clientY - rect.top;
+			document.getElementById('infoholder').style.left = x + 'px'
+			document.getElementById('infoholder').style.top = y + 'px'
+			document.getElementById('infoholder').style.transform = 'translate(' + ((1)*x) + 'px, ' + ((1)*y) + 'px)' 
+
+		}
+
+		function createneurons(subjectnum,xl,xu,yl,yu, jerkx, jerky) {
+			xlrange = xl
+			xurange = xu
+			ylrange = yl
+			yurange = yu
+			wordsfromsub = wordsholder[subjectnum].length
+			if (wordsholder[subjectnum].length > 80) {
+				wordsfromsub = 80
+			}
+			for (m = 0; m < wordsfromsub; m++) {
+				jerk = Math.random()*10
+				xpos = (jerk*jerkx) + xlrange + Math.random()*(xurange - xlrange)
+				xps = xpos
+				xpos = xpos + '%'
+				jerk = Math.random()*10
+				ypos = (jerk*jerky) + ylrange + Math.random()*(yurange - ylrange)
+				yps = ypos
+				ypos = ypos + '%'
+				rval = 0.3 + (Math.random()*0.2)  + '%'
+				drawDotslide12(slide12svg, xpos, ypos, rval, 'hsla(' + subjectcolors[subjectnum] + ',100%,50%,' + (0.2 + Math.random()*0.4) +  ')', subjectnum + '-' + m)
+				document.getElementById(subjectnum + '-' + m).addEventListener('mouseover', overNode)
+				document.getElementById(subjectnum + '-' + m).setAttribute('onclick', "window.open('" + wordsholder[subjectnum][m][2] + "')")
+				wordidmap[subjectnum + '-' + m] = [subjectnum,m,xpos, ypos, xps, yps]
+				document.getElementById(subjectnum + '-' + m).style.cursor = 'pointer'
+				
+				// Locationtracing
+				seq = parseInt(xps/3) + "-" + parseInt(yps/3)
+				if (typeof datasecpts[seq] == 'undefined') {
+					datasecpts[seq] = []
+				}
+				datasecpts[seq].push([xps, yps])
+			}
+		}
+
+		createneurons(0, 0, 100, 0, 35, 0, 1)
+		createneurons(1, 0, 100, 35, 70, -1 , 0 )
+		createneurons(2, 0, 100, 70, 100, -1, 0)
+
+		function drawLineslide12(divId,initxcor,initycor, finalxcor, finalycor, color, strokewidth) {
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1',initxcor);
+			lineElement.setAttribute('y1',initycor);
+			lineElement.setAttribute('x2',finalxcor);
+			lineElement.setAttribute('y2',finalycor);
+			lineElement.style.stroke = color
+			lineElement.style.strokeWidth = strokewidth+'%';
+			divId.appendChild(lineElement);
+		}
+
+		
+
+		document.getElementById('slide12Texts').style.pointerEvents = 'none'
+		document.getElementById('diveIn12').style.pointerEvents = 'auto'
+
+		if (window.innerWidth > window.innerHeight) {
+			document.getElementById('slide12cover').style.background = 'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,0))';
+		}
+		else {
+			document.getElementById('slide12cover').style.background = 'linear-gradient(0deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(255,255,255,0))';
+		}
+
+
 
 		
 			
