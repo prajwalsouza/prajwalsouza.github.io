@@ -27,8 +27,6 @@
 		<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script> 
 		
-		<script type="text/javascript" src="eurekafiles/physicswords.json"></script>
-		<script type="text/javascript" src="eurekafiles/artificialIntelwords.json"></script>
 		<script type="text/javascript" src="eurekafiles/biowords.json"></script>
 		<script type="text/javascript" src="eurekafiles/economicswords.json"></script>
 		
@@ -1516,11 +1514,10 @@
 		wordidmap = {}
 
 		var econwords = econwords
-		var aiwords = artificialIntelwords
 		var biowords = biowords
 
-		wordsholder = [biowords, aiwords, econwords]
-		subjects = ['BIOLOGY','ARTIFICIAL INTELLIGENCE' ,'ECONOMICS']
+		wordsholder = [biowords, econwords]
+		subjects = ['BIOLOGY','ECONOMICS']
 
 		slide12svg = document.getElementById('slide12svg')
 		brainconnsvg = document.getElementById('slide12brainconnsvg')
@@ -1580,9 +1577,8 @@
 			}
 		}
 
-		createneurons(0, 0, 100, 0, 35, 0, 1)
-		createneurons(1, 0, 100, 35, 70, -1 , 0 )
-		createneurons(2, 0, 100, 70, 100, -1, 0)
+		createneurons(0, 0, 100, 0, 50, 0, 1)
+		createneurons(1, 0, 100, 50, 100, -1 , 0 )
 
 		function drawLineslide12(divId,initxcor,initycor, finalxcor, finalycor, color, strokewidth) {
 			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
