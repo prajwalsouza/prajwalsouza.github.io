@@ -73,14 +73,13 @@
 			</div>
 			
 			<div id='slide1' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);'>
+				<div height="100%" style='z-index:0; position: absolute; left: 0;right: 0;top:0; bottom: 0;'>
+					<svg id='slide1svg' height="100%" width="100%">
+					</svg>
+				</div>
 				<div id="slide1Texts" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,0%,0); cursor: auto; position: relative; z-index: 7; opacity: 1;'>
-					<div id='aboutProjects' height="100%" width="100%" style='z-index:0; position: absolute;cursor:crosshair; left: 0;right: 0;top:0; bottom: 0;'>
-						<div height="100%" style='z-index:0; position: relative; left: 0;right: 0;top:0; bottom: 0;'>
-							<svg id='projectsIntro' height="100%" width="100%">
-							</svg>
-						</div>
-					</div>
-					<div id="DescriptionText1" onclick="window.open('https://www.youtube.com/watch?v=spUNpyF58BY')" style='margin:0px;overflow: hidden;text-align: center; cursor: pointer; font-family: McLaren; font-size: 1.5vmax; transform: translate(-50%,-35%); left: 50%; top: 35%; position: relative; color: hsla(190,100%,50%,1); '>
+					
+					<div id="DescriptionText1" style='margin:0px;overflow: hidden;text-align: center; cursor: pointer; font-family: McLaren; font-size: 1.5vmax; transform: translate(-50%,-35%); left: 50%; top: 35%; position: relative; color: hsla(190,100%,50%,1); '>
 							The not so complex
 					</div>
 					<div id="TitleText1" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri;  font-weight: lighter; font-size: 4vmax; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(110,100%,0%,1); '>
@@ -90,6 +89,27 @@
 						
 						<div id="diveInText1" style='margin:0px;overflow: hidden;text-align: center; font-family: McLaren; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,100%,1); '>
 							VIEW
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div id='slide2' style='z-index:1; position: relative; box-shadow: 0px 20px 100px rgba(0,0,0,0.5);'>
+				<div height="100%" style='z-index:0; position: absolute; left: 0;right: 0;top:0; bottom: 0;'>
+					<svg id='slide2svg' height="100%" width="100%">
+					</svg>
+				</div>
+				<div id="slide2Texts" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,0%,0); cursor: auto; position: relative; z-index: 7; opacity: 1;'>
+					<div id="DescriptionText2" style='margin:0px;overflow: hidden;text-align: center; cursor: pointer; font-family: McLaren; font-size: 1.5vmax; transform: translate(-50%,-35%); left: 50%; top: 35%; position: relative; color: hsla(190,100%,50%,1); '>
+							Volume 2
+					</div>
+					<div id="TitleText2" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri;  font-weight: lighter; font-size: 4vmax; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(110,100%,0%,1); '>
+							10th Grade Physics
+					</div>
+					<div id="diveIn2" onmouseover="buttonhover(event,190,2)" onmouseout="buttonout(event,190,2)" onclick="window.open('https://drive.google.com/drive/folders/1Anj4I8egsv7_FWqGwmEcYHXGue3hlL1x?usp=sharing')" style='margin:0px;overflow: hidden;transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; transition: background 0.5s; background: hsla(190,100%,50%,0.3); width: 20vmax; height: 5.5vh; border-color: hsla(190,100%,50%,1); cursor: pointer;'>
+						
+						<div id="diveInText2" style='margin:0px;overflow: hidden;text-align: center; font-family: McLaren; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(185,100%,100%,1); '>
+							View Presentations
 						</div>
 					</div>
 				</div>
@@ -132,17 +152,14 @@
 			document.getElementById('diveInTextM1').style.fontSize = '3vw'
 			document.getElementById('diveInTextM2').style.fontSize = '3vw'
 			document.getElementById('diveInTextM3').style.fontSize = '3vw'
-			document.getElementById('diveInM1').style.background = 'hsla(190,100%,0%,0.3)'
-			document.getElementById('diveInM2').style.background = 'hsla(200,100%,0%,0.3)'
-			document.getElementById('diveInM3').style.background = 'hsla(210,100%,0%,0.3)'
-			document.getElementById('diveInM1').style.height = '25%'
-			document.getElementById('diveInM2').style.height = '25%'
-			document.getElementById('diveInM3').style.height = '25%'
-			document.getElementById('diveInM1').style.margin = '2%'
-			document.getElementById('diveInM2').style.margin = '2%'
-			document.getElementById('diveInM3').style.margin = '2%'
+			document.getElementById('diveInM1').style.background = 'hsla(190,100%,50%,0.3)'
+			document.getElementById('diveInM2').style.background = 'hsla(200,100%,50%,0.3)'
+			document.getElementById('diveInM3').style.background = 'hsla(210,100%,50%,0.3)'
+			document.getElementById('diveInM1').style.height = '33%'
+			document.getElementById('diveInM2').style.height = '33%'
+			document.getElementById('diveInM3').style.height = '33%'
 			document.getElementById('menuholder').style.width = '40%'
-			document.getElementById('menuholder').style.height = '14%'
+			document.getElementById('menuholder').style.height = '11%'
 		}
 
 
@@ -153,6 +170,33 @@
 		function buttonout(event,hue,slnum) {
 			document.getElementById('diveIn' + slnum).style.background = 'hsla(' + hue + ',100%,50%,0.3)';
 		}
+
+
+		slide1svg = document.getElementById('slide1svg')
+
+		function drawGridSquare(divId,xcor,ycor, side, fillcolor) {
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('width',side);
+			rectElement.setAttribute('height',side);
+			rectElement.setAttribute('x',xcor);
+			rectElement.setAttribute('y',ycor);
+			rectElement.style.fill = fillcolor
+			rectElement.style.strokeWidth = '0';
+			divId.appendChild(rectElement);
+		}
+
+		function drawGridSquares() {
+			gridsqSize = 40;
+			colorchoices = ['rgba(0,200,255,0.2)','rgba(0,140,255,0.1)']
+			for (i=0; i < 30; i++) {
+				fillcolorchoice = colorchoices[parseInt(Math.random()*(colorchoices.length))];
+				posX = Math.random()*window.innerWidth;
+				posY = Math.random()*window.innerHeight;
+				drawGridSquare(slide1svg, posX, posY, gridsqSize, fillcolorchoice)
+			}
+		}
+
+		drawGridSquares()
 
 
 
@@ -803,6 +847,33 @@
 
 		}
 
+		function drawLine(divId,initxcor,initycor, finalxcor, finalycor, color, strokewidth) {
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1',initxcor);
+			lineElement.setAttribute('y1',initycor);
+			lineElement.setAttribute('x2',finalxcor);
+			lineElement.setAttribute('y2',finalycor);
+			lineElement.style.stroke = color
+			lineElement.style.strokeWidth = strokewidth+'%';
+			divId.appendChild(lineElement);
+		}
+
+		slide2svg = document.getElementById('slide2svg')
+
+		function drawVerticalLines(divId) {
+			for (i = 1; i < 100; i++) {
+				colorchosen = 'hsla(' + parseInt(i*3.58) + ',100%,50%,0.2)'
+				deviation = Math.random()*0;
+				drawLine(divId, i+deviation+'%', '0%', i+deviation+'%', Math.random()*30 +'%', colorchosen,0.3)
+			}
+		}
+
+
+		drawVerticalLines(slide2svg)
+
+
+
+
 	
 
 
@@ -818,3 +889,4 @@
 
 	</body>
 <html>
+
