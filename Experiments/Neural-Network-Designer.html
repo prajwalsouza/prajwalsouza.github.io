@@ -1,0 +1,2281 @@
+<html>
+	<head>
+		<title> Neural Network Designer </title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+		<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Caveat Brush' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
+
+		<link rel="icon" href="referencefiles/icon.png">
+		
+			
+		<style type="text/css">
+			*:focus {
+				outline: none;
+			}
+		</style>
+		<!-- Google Analytics Code -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+		<!-- <link href='referencefiles/designerCSS.css' rel='stylesheet'> -->
+		<script type="application/ld+json">
+			{
+			  "@type": "Projects",
+			  "name": "Neural Network Designer",
+			  "author": "Prajwal DSouza",
+			  "description": "A simple editor to design and simulate neural networks."
+			  }
+		</script>
+		  <meta charset="UTF-8">
+  		  <meta name="description" content="A simple editor to design and simulate neural networks.">
+		  <meta name="keywords" content="Neural Network Designer, Prajwal DSouza, prajwalsouza, Xor network, neural network, activation functions, neurons, weights, bias, neural network simulation, feed forward network">
+		  <meta name="author" content="Prajwal DSouza">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+	</head>
+	<body style='margin:0px;width:100%; height: 100%;'>
+		<div id="containAll" style='margin:0px;width:100%; height: 100%;overflow: hidden; font-size: 0;'> 
+			<div id="mainicon" style="width: 5%; height: 10%; position: absolute; background: white; cursor: pointer; z-index: 12;">
+				<svg id='iconmainsvg' height="100%" width="100%" style='position: relative; z-index: 11' viewBox='0 0 100 100' preserveAspectRatio="none">
+					<!-- <polygon points="25,35 75,35" stroke="hsla(40,0%,50%,1)" stroke-width="5"/>
+					<polygon points="25,50 75,50" stroke="hsla(40,0%,50%,1)" stroke-width="5"/>
+					<polygon points="25,65 75,65" stroke="hsla(40,0%,50%,1)" stroke-width="5"/> -->
+					<polyline id='mainiconline' points="30,70 30,32 70,68 70,30" stroke="hsla(190,0%,50%,1)" stroke-width="5" fill='none' style='transition: stroke 0.3s;'>
+					</polygon>
+				</svg>
+			</div>
+			<div id="intro" style="width: 100%; height: 100%; position: absolute; background: linear-gradient(to bottom, hsla(1,0%,100%,0.9), hsla(1,0%,100%,1),hsla(1,0%,100%,0.9)); pointer-events: auto; z-index: 10; visibility: hidden;">
+				<svg id='introsvg' height="100%" width="100%" style='position: absolute; z-index: 10;' >
+					
+				</svg>
+				<div id="TitleText" style='margin:0px;overflow: hidden;text-align: center; font-family: Alegreya Sans SC; letter-spacing: 1vh; font-weight: lighter; font-size: 8vw; transform: translate(-50%,-40%); left: 50%; top: 40%; position: relative; color: hsla(190,100%,0%,1); '>
+						
+				</div>
+				<div id="DescriptionText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 2vw; transform: translate(-50%,-70%); left: 50%; top: 70%; position: relative; color: hsla(185,0%,50%,1); '>
+					A tool to visualize neural networks.
+				</div>
+				<div id="websiteText" style='margin:0px;overflow: hidden;text-align: center; font-family: Calibri; font-size: 1.7vw; transform: translate(-50%,-80%); left: 50%; top: 80%; position: relative; color: hsla(185,100%,50%,1); cursor: pointer; pointer-events: auto; z-index: 11;'>
+					<a href="https://prajwalsouza.github.io" target="_blank" style="text-decoration: none; color: hsla(185,100%,50%,1); ">
+						prajwalsouza.github.io
+					</a>
+				</div>
+				
+			</div>
+			<div id="containNselectorHolder" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(45,100%,100%,0); cursor: auto; position: absolute; z-index: 6; opacity: 1; box-shadow: 0px 0px 40px hsla(5,0%,0%,0.2); display: inline-block; font-size: 0; pointer-events: none;'>
+				<div id="containNselector" style='transition: left 1s, width 1s; margin:0px;width:35%; left: 65%; height: 100%;overflow: hidden;background: hsla(45,100%,100%,1); cursor: auto; position: absolute; z-index: 6; opacity: 1; box-shadow: 0px 0px 40px hsla(5,0%,0%,0.2); pointer-events: auto;'>
+					<div id="slideicon" style="width: 10%; height: 10%; position: absolute; background: hsla(2,100%,100%,1); cursor: pointer; z-index: 9;  pointer-events: all;">
+						<svg id='slideiconsvg' height="100%" width="100%" style='position: relative; z-index: 10' viewBox='0 0 100 100' preserveAspectRatio="none">
+							<polyline id="slideiconline" points="35,30 70,50 35,70" stroke="hsla(190,100%,50%,1)" fill="none" stroke-width="5">
+								<animate id="slideiconanimation" begin="indefinite" dur= '0.3s' attributeName='points' repeatCount='0' to='70,30 35,50 70,70' fill="freeze" />
+								<animate id="slideiconrevanimation" begin="indefinite" dur= '0.3s' attributeName='points' repeatCount='0' to='35,30 70,50 35,70' fill="freeze" />	
+							</polyline>
+						</svg>
+					</div>
+					
+					<div id="containNselectorDelete" style='margin:0px;width:30%; height: 10%; float:right; overflow: hidden;background: hsla(45,100%,100%,1); font-size: 2.8vw; font-family: Calibri;'>
+						<table width="100%" height='100%' style="border: 1px solid white; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;"><tr>
+							<td id="deletename" style="text-align:  left; vertical-align: middle; color:red;font-weight: normal; font-family: Calibri; font-size: 2vw; cursor: pointer;">Delete</td>
+
+						</tr>
+						</table>
+					</div>
+					<div id="containNselectorName" style='margin:0px;width:60%; height: 10%; float: right; overflow: hidden;background: hsla(45,100%,100%,1); font-size: 2.8vw; font-family: Calibri;'>
+						<div id='NselectorName' style='transform: translate(-50%, -50%); left: 50%; top: 50%; position: relative; width: 100%; color: hsla(190,100%,50%,1);'>&nbsp&nbsp&nbspNeuron
+						</div>
+					</div>
+							
+					<div id="containNselectorType" style='margin:0px;width:100%; height: 15%;overflow: hidden;background: hsla(190,100%,100%,1);''>
+						<div style='transform: translate(-50%, -25%); font-family: Alegreya Sans SC; left: 50%; top: 25%; position: relative; font-size: 2vw; width: 100%; height: 50%;'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspType
+						</div>
+						<div id="containNselectorTypeOptions" style='margin:0px;width:100%; height: 50%;overflow: hidden;background: hsla(10,100%,100%,1); display: inline-block;'>
+							<div id="containNselectorTypeOptionsInner" style='margin:0px;width:80%; font-weight: normal;  position: relative; height: 70%;overflow: hidden;background: hsla(80,100%,100%,1); display: inline-block; left: 50%; top: 50%; transform: translate(-50%,-50%); cursor: pointer;font-family: sans-serif; font-size: 1vw; '>
+								<table width="100%" height='100%' style="border: 1px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;"><tr>
+									<td id='Ntypeinputselect' style="text-align: center; vertical-align: middle; border-right: 1px solid black; ">Input</td>
+									<td id='Ntypehiddenselect' style="text-align: center; vertical-align: middle; border-right: 1px solid black; background: black; color: white;">Hidden</td>
+									<td id='Ntypeoutputselect' style="text-align: center; vertical-align: middle;">Output</td>
+
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div id="containNselectorActF" style='margin:0px;width:100%; height: 15%;overflow: hidden;background: hsla(45,100%,100%,1);''>
+						<div style='transform: translate(-50%, -25%); font-family: Alegreya Sans SC; left: 50%; top: 25%; position: relative; font-size: 2vw; width: 100%; height: 50%;'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspActivation Function
+						</div>
+						<div id="containNselectorActFOptions" style='margin:0px;width:100%; height: 50%;overflow: hidden;background: hsla(10,100%,100%,1); display: inline-block;'>
+							<div id="containNselectorActFOptionsInner" style='margin:0px;width:80%; font-weight: normal;  position: relative; height: 70%;overflow: hidden;background: hsla(80,100%,100%,1); display: inline-block; left: 50%; top: 50%; transform: translate(-50%,-50%); cursor: pointer;font-family: sans-serif; font-size: 1vw; '>
+								<table width="100%" height='100%' style="border: 1px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;"><tr>
+									<td id='NactFidentityselect' style="text-align: center; vertical-align: middle; border-right: 1px solid black; ">Identity</td>
+									<td id='NactFsigmoidselect' style="text-align: center; vertical-align: middle; border-right: 1px solid black; background: black; color: white;">Sigmoid</td>
+									<td id='NactFreluselect' style="text-align: center; vertical-align: middle; border-right: 1px solid black">ReLu</td>
+									<td id='NactFbinaryselect' style="text-align: center; vertical-align: middle; border-right: 1px solid black">Binary</td>
+									<td id='NactFtanhselect' style="text-align: center; vertical-align: middle;">Tanh</td>
+
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					
+					<div id="containNselectorColor" style='margin:0px;width:100%; height: 15%;overflow: hidden;background: hsla(47,100%,100%,1);''>
+						<div style='transform: translate(-50%, -25%); font-family: Alegreya Sans SC; left: 50%; top: 25%; position: relative; font-size: 2vw; width: 100%; height: 50%;'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspColor
+						</div>
+						<div id="containNselectorColorOptions" style='margin:0px;width:100%; height: 50%;overflow: hidden;background: hsla(10,100%,100%,1); display: inline-block;'>
+							<div id="containNselectorColorOptionsInner" style='margin:0px;width:80%; font-weight: normal;  position: relative; height: 70%;overflow: hidden;background: hsla(80,100%,100%,1); display: inline-block; left: 50%; top: 50%; transform: translate(-50%,-50%); cursor: pointer;font-family: sans-serif; font-size: 1vw; '>
+								<table width="100%" height='100%' style="border: 1px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);"><tr>
+									<td style="text-align: center; vertical-align: middle; border-right: 1px solid black; color: white;">
+										<input id='colorinput' type="number" min = '1' max = '349' step ='1' value='190' maxlength="3" style="border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1vw; font-weight: bold; color: white; background: transparent;"></input>
+								
+									</td>
+									
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div id="containNselectorInitValue" style='margin:0px;width:100%; height: 10%;overflow: hidden;background: hsla(25,100%,100%,1);''>
+						<div id="containNselectorInitValueOptions" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(10,100%,100%,1); display: inline-block;'>
+							<div id="containNselectorInitValueOptionsInner" style='margin:0px;width:85%; font-weight: normal;  position: relative; height: 70%;overflow: hidden;background: hsla(80,100%,100%,1); display: inline-block; left: 50%; top: 50%; transform: translate(-50%,-50%); cursor: pointer;font-family: sans-serif; font-size: 1vw; '>
+								<table width="100%" height='100%' style="border: 1px solid white; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;"><tr>
+									<td id="initvaluename" style="text-align:  left; vertical-align: middle; font-weight: normal; font-family: Alegreya Sans SC; font-size: 2vw">Initial Value</td>
+									<td style="text-align: center; vertical-align: middle; border: 1px solid black; ">
+									<input id='initvalueinput' type="number" value='1.2' style="border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1vw; font-weight: bold;"></input>
+									</td>
+
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div id="containNselectorBias" style='margin:0px;width:100%; height: 10%;overflow: hidden;background: hsla(222,100%,100%,1);''>
+						<div id="containNselectorBiasOptions" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(10,100%,100%,1); display: inline-block;'>
+							<div id="containNselectorBiasOptionsInner" style='margin:0px;width:85%; font-weight: normal;  position: relative; height: 70%;overflow: hidden;background: hsla(80,100%,100%,1); display: inline-block; left: 50%; top: 50%; transform: translate(-50%,-50%); cursor: pointer;font-family: sans-serif; font-size: 1vw; '>
+								<table width="100%" height='100%' style="border: 1px solid white; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;"><tr>
+									<td style="text-align: left; vertical-align: middle; font-weight: normal; font-family: Alegreya Sans SC; font-size: 2vw">Bias</td>
+									<td style="text-align: center; vertical-align: middle; border: 1px solid black; ">
+										<input id='biasinput' type="number" value='2.4' style="border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1vw; font-weight: bold;"></input>
+						
+									</td>
+
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div id="containNselectorSize" style='margin:0px;width:100%; height: 10%;overflow: hidden;background: hsla(80,100%,100%,1);''>
+						<div id="containNselectorSizeOptions" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(10,100%,100%,1); display: inline-block;'>
+							<div id="containNselectorSizeOptionsInner" style='margin:0px;width:85%; font-weight: normal;  position: relative; height: 70%;overflow: hidden;background: hsla(80,100%,100%,1); display: inline-block; left: 50%; top: 50%; transform: translate(-50%,-50%); cursor: pointer;font-family: sans-serif; font-size: 1vw; '>
+								<table width="100%" height='100%' style="border: 1px solid white; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;"><tr>
+									<td style="text-align: left; vertical-align: middle; font-weight: normal; font-family: Alegreya Sans SC; font-size: 2vw">Size</td>
+									<td style="text-align: center; vertical-align: middle; border: 1px solid black; ">
+										<input id='sizeinput' type="number" value='1' min='0.01' max='10' step ='0.1' maxlength="4" style="border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1vw; font-weight: bold;"></input>
+									</td>
+
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div id="containNselectorGrp" style='margin:0px;width:100%; height: 10%;overflow: hidden;background: hsla(43,100%,100%,1);''>
+						<div id="containNselectorGrpOptions" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(10,100%,100%,1); display: inline-block;'>
+							<div id="containNselectorGrpOptionsInner" style='margin:0px;width:85%; font-weight: normal;  position: relative; height: 70%;overflow: hidden;background: hsla(80,100%,100%,1); display: inline-block; left: 50%; top: 50%; transform: translate(-50%,-50%); cursor: pointer;font-family: sans-serif; font-size: 1vw; '>
+								<table width="100%" height='100%' style="border: 1px solid white; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;"><tr>
+									<td style="text-align: left; vertical-align: middle; font-weight: normal; font-family: Alegreya Sans SC; font-size: 2vw">Group</td>
+									<td style="text-align: center; vertical-align: middle; border: 1px solid black; "> 
+									<input id='grpinput' type="text" value='none' style="border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1vw; font-weight: bold;"></input>
+									</td>
+
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div id="containWselectorHolder" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(45,100%,100%,0); cursor: auto; position: absolute; z-index: 6; opacity: 1; box-shadow: 0px 0px 40px hsla(5,0%,0%,0.2); display: inline-block; font-size: 0; pointer-events: none;'>
+				<div id="containWselector" style='transition: left 1s, width 1s; margin:0px;width:35%; left: 65%; height: 100%;overflow: hidden;background: hsla(45,100%,100%,1); cursor: auto; position: absolute; z-index: 6; opacity: 1; box-shadow: 0px 0px 40px hsla(5,0%,0%,0.2); pointer-events: auto;'>
+					<div id="Wslideicon" style="width: 10%; height: 10%; position: absolute; background: hsla(2,100%,100%,1); cursor: pointer; z-index: 9;  pointer-events: all;">
+						<svg id='Wslideiconsvg' height="100%" width="100%" style='position: relative; z-index: 10' viewBox='0 0 100 100' preserveAspectRatio="none">
+							<polyline id="Wslideiconline" points="35,30 70,50 35,70" stroke="hsla(190,0%,50%,1)" fill="none" stroke-width="5">
+								<animate id="slideiconanimationW" begin="indefinite" dur= '0.3s' attributeName='points' repeatCount='0' to='70,30 35,50 70,70' fill="freeze" />
+								<animate id="slideiconrevanimationW" begin="indefinite" dur= '0.3s' attributeName='points' repeatCount='0' to='35,30 70,50 35,70' fill="freeze" />	
+							</polyline>
+						</svg>
+					</div>
+					<div id="containWselectorName" style='margin:0px;width:90%; height: 10%; float: right; overflow: hidden;background: hsla(45,0%,100%,1); font-size: 2.8vw; font-family: Calibri;'>
+						<div id='WselectorName' style='transform: translate(-50%, -50%); left: 50%; top: 50%; position: relative; width: 100%; color: hsla(190,0%,50%,1);'>&nbsp&nbsp&nbspWeight
+						</div>
+					</div>
+					
+					
+					<div id="containWselectorWValue" style='margin:0px;width:100%; height: 10%;overflow: hidden;background: hsla(25,100%,100%,1);''>
+						<div id="containWselectorWValueOptions" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(10,100%,100%,1); display: inline-block;'>
+							<div id="containWselectorWValueOptionsInner" style='margin:0px;width:85%; font-weight: normal;  position: relative; height: 70%;overflow: hidden;background: hsla(80,100%,100%,1); display: inline-block; left: 50%; top: 50%; transform: translate(-50%,-50%); cursor: pointer;font-family: sans-serif; font-size: 1vw; '>
+								<table width="100%" height='100%' style="border: 1px solid white; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;"><tr>
+									<td style="text-align:  left; vertical-align: middle; font-weight: normal; font-family: Alegreya Sans SC; font-size: 2vw">Weight Value</td>
+									<td style="text-align: center; vertical-align: middle; border: 1px solid black; ">
+									<input id='whtvalueinput' type="number" value='1.2' style="border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1vw; font-weight: bold;"></input>
+									</td>
+
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					
+					
+				</div>	
+			</div>
+			
+			<div id="containMenu" style='margin:0px;width:5%; height: 100%;overflow: hidden;background: hsla(45,100%,100%,0); cursor: auto; position: absolute; z-index: 6; opacity: 1; cursor: pointer; pointer-events: none;'>
+				<div id="holder" style="width: 5%; height: 10%; position: relative; background: hsla(0,0%,100%,0.5); transition: top 0.5s, left 0.5s; ">
+					
+				</div>
+				<div id="expandicon" style="width: 100%; height: 3%; background: hsla(0,0%,100%,1); transition: top 0.5s, left 0.5s; box-shadow: inset 0px 2px 2px hsla(0,0%,0%,0.4); pointer-events: auto; z-index: 11;">
+					<svg id='expandiconsvg' height="100%" width="100%" style='position: relative; z-index: 10' strokewidth='2' viewBox='0 0 100 100' preserveAspectRatio="none">
+						<polygon id="menuiconline" points="40,60 50,40 60,60" stroke="none" fill="hsla(190,100%,50%,1)" stroke-width="5">
+							<animate id="menuiconanimation" begin="indefinite" dur= '0.3s' attributeName='points' repeatCount='0' to='40,40 50,60 60,40' fill="freeze" />
+							<animate id="menuiconrevanimation" begin="indefinite" dur= '0.3s' attributeName='points' repeatCount='0' to='40,60 50,40 60,60' fill="freeze" />	
+						</polygon>
+					</svg>
+				</div>
+				
+				<div id="playpause" style="width: 100%; height: 10%; background: hsla(0,0%,100%,0.5); transition: top 0.5s, left 0.5s; box-shadow: inset 0px 2px 2px hsla(0,0%,0%,0.4); pointer-events: auto;">
+					<svg id='iconplaypause' height="100%" width="100%" style='position: relative; z-index: 10' viewBox='0 0 100 100' preserveAspectRatio="none">
+						<polygon points="35,30 70,50 70,50 35,70" fill="hsla(190,0%,50%,1)" stroke-width="0"> 
+							<animate id="line1animation1" begin="indefinite" dur= '0.3s' attributeName='points' repeatCount='0' to='35,30 45,30 45,70 35,70 ' fill="freeze" />
+							<animate id="line1revanimation1" begin="indefinite" dur= '0.3s' attributeName='points' repeatCount='0' to='35,30 70,50 70,50 35,70' fill="freeze" />
+						</polygon>
+						<polygon points="35,30 35,30 35,70 35,70" fill="hsla(190,0%,50%,1)" stroke-width="0"> 
+							<animate id="line1animation2" begin="indefinite" dur= '0.3s' attributeName='points' repeatCount='0' to='55,30 65,30 65,70 55,70 ' fill="freeze" />
+							<animate id="line1revanimation2" begin="indefinite" dur= '0.3s' attributeName='points' repeatCount='0' to="35,30 35,30 35,70 35,70" fill="freeze" />
+						</polygon>
+
+					</svg>
+				</div>
+				
+				<div id="addButton" style="width: 100%; height: 10%; background: hsla(0,0%,100%,0.5); transition: top 0.5s, left 0.5s; pointer-events: auto; box-shadow: inset 0px 2px 2px hsla(0,0%,0%,0.4);">
+					<svg id='iconaddButton' height="100%" width="100%" style='position: relative; z-index: 10' viewBox='0 0 100 100' preserveAspectRatio="none">
+						<polygon id='plus1' points="35,50 65,50" stroke="hsla(40,0%,50%,1)" stroke-width="5" style='transition: stroke 0.3s;'>
+							<animateTransform id="plusline1animation" begin="indefinite" dur= '0.3s' attributeName='transform' type='rotate' repeatCount='0' from="0 50 50" to="225 50 50" fill="freeze" />
+							<animateTransform id="plusline1revanimation" begin="indefinite" dur= '0.3s' attributeName='transform' type='rotate' repeatCount='0' from="225 50 50" to="0 50 50" fill="freeze" />
+						</polygon>
+						<polygon id= 'plus2' points="50,35 50,65" stroke="hsla(40,0%,50%,1)" stroke-width="5" style='transition: stroke 0.3s;'>
+							<animateTransform id="plusline2animation" begin="indefinite" dur= '0.3s' attributeName='transform' type='rotate' repeatCount='0' from="0 50 50" to="225 50 50" fill="freeze" />
+							<animateTransform id="plusline2revanimation" begin="indefinite" dur= '0.3s' attributeName='transform' type='rotate' repeatCount='0' from="225 50 50" to="0 50 50" fill="freeze" />
+						</polygon>
+					</svg>
+				</div>
+				<div id="addNButton" style="width: 100%; height: 0%; background: hsla(0,0%,100%,0.5); transition: top 0.5s, left 0.5s; box-shadow: inset 0px 2px 2px hsla(190,100%,50%,0.4); transition: height 0.5s; pointer-events: auto;">
+					<svg id='iconaddNButton' height="100%" width="100%" style='position: relative; z-index: 10' viewBox='0 0 100 100' preserveAspectRatio="none">
+						<polyline id='iconaddNButtonL' points="40,60 40,42 60,58 60,40" stroke="hsla(190,0%,50%,1)" stroke-width="5" fill='none' style='transition: stroke 0.3s;'>
+						</polygon>
+					</svg>
+				</div>
+				<div id="addWButton" style="width: 100%; height: 0%; background: hsla(0,0%,100%,0.5); transition: top 0.5s, left 0.5s; box-shadow: inset 0px 2px 2px hsla(190,100%,50%,0.4);transition: height 0.5s; pointer-events: auto;">
+					<svg id='iconaddWButton' height="100%" width="100%" style='position: relative; z-index: 10' viewBox='0 0 100 100' preserveAspectRatio="none">
+						<polyline id='iconaddWButtonL' points="40,40 40,60 50,50 60,60 60,40" stroke="hsla(190,0%,50%,1)" stroke-width="5" fill='none' style='transition: stroke 0.3s;'>
+						</polygon>
+					</svg>
+				</div>
+				<div id="dataicon" style="width: 100%; height: 10%; background: hsla(0,0%,100%,0.5); transition: top 0.5s, left 0.5s; pointer-events: auto; box-shadow: inset 0px 2px 2px hsla(0,0%,0%,0.4);">
+					<svg id='dataiconsvg' height="100%" width="100%" style='position: relative; z-index: 10' viewBox='-10 -10 40 40' preserveAspectRatio="none">
+						<path stroke='hsla(0,0%,50%,1)' stroke-width='0.5%' d="M17.896,12.706v-0.005v-0.003L15.855,2.507c-0.046-0.24-0.255-0.413-0.5-0.413H4.899c-0.24,0-0.447,0.166-0.498,0.4L2.106,12.696c-0.008,0.035-0.013,0.071-0.013,0.107v4.593c0,0.28,0.229,0.51,0.51,0.51h14.792c0.28,0,0.51-0.229,0.51-0.51v-4.593C17.906,12.77,17.904,12.737,17.896,12.706 M5.31,3.114h9.625l1.842,9.179h-4.481c-0.28,0-0.51,0.229-0.51,0.511c0,0.703-1.081,1.546-1.785,1.546c-0.704,0-1.785-0.843-1.785-1.546c0-0.281-0.229-0.511-0.51-0.511H3.239L5.31,3.114zM16.886,16.886H3.114v-3.572H7.25c0.235,1.021,1.658,2.032,2.75,2.032c1.092,0,2.515-1.012,2.749-2.032h4.137V16.886z"/>
+					</svg>
+				</div>
+				<div id="loadpreseticon" style="width: 100%; height: 10%; background: hsla(0,0%,100%,0.5); transition: top 0.5s, left 0.5s; pointer-events: auto; box-shadow: inset 0px 2px 2px hsla(0,0%,0%,0.4);">
+					<svg id='loadpreseticonsvg' height="100%" width="100%" style='position: relative; z-index: 10' viewBox='-10 -10 40 40' preserveAspectRatio="none">
+						<path d="M17.927,5.828h-4.41l-1.929-1.961c-0.078-0.079-0.186-0.125-0.297-0.125H4.159c-0.229,0-0.417,0.188-0.417,0.417v1.669H2.073c-0.229,0-0.417,0.188-0.417,0.417v9.596c0,0.229,0.188,0.417,0.417,0.417h15.854c0.229,0,0.417-0.188,0.417-0.417V6.245C18.344,6.016,18.156,5.828,17.927,5.828 M4.577,4.577h6.539l1.231,1.251h-7.77V4.577z M17.51,15.424H2.491V6.663H17.51V15.424z"></path>
+					</svg>
+				</div>
+				
+	
+				<div id="settingsicon" style="width: 100%; height: 10%; background: hsla(0,0%,100%,0.5); transition: top 0.5s, left 0.5s; pointer-events: auto; box-shadow: inset 0px 2px 2px hsla(0,0%,0%,0.4);">
+					<svg id='settingsiconsvg' height="100%" width="100%" style='position: relative; z-index: 10' viewBox='-10 -10 40 40' preserveAspectRatio="none">
+						<path d="M17.498,11.697c-0.453-0.453-0.704-1.055-0.704-1.697c0-0.642,0.251-1.244,0.704-1.697c0.069-0.071,0.15-0.141,0.257-0.22c0.127-0.097,0.181-0.262,0.137-0.417c-0.164-0.558-0.388-1.093-0.662-1.597c-0.075-0.141-0.231-0.22-0.391-0.199c-0.13,0.02-0.238,0.027-0.336,0.027c-1.325,0-2.401-1.076-2.401-2.4c0-0.099,0.008-0.207,0.027-0.336c0.021-0.158-0.059-0.316-0.199-0.391c-0.503-0.274-1.039-0.498-1.597-0.662c-0.154-0.044-0.32,0.01-0.416,0.137c-0.079,0.106-0.148,0.188-0.22,0.257C11.244,2.956,10.643,3.207,10,3.207c-0.642,0-1.244-0.25-1.697-0.704c-0.071-0.069-0.141-0.15-0.22-0.257C7.987,2.119,7.821,2.065,7.667,2.109C7.109,2.275,6.571,2.497,6.07,2.771C5.929,2.846,5.85,3.004,5.871,3.162c0.02,0.129,0.027,0.237,0.027,0.336c0,1.325-1.076,2.4-2.401,2.4c-0.098,0-0.206-0.007-0.335-0.027C3.001,5.851,2.845,5.929,2.77,6.07C2.496,6.572,2.274,7.109,2.108,7.667c-0.044,0.154,0.01,0.32,0.137,0.417c0.106,0.079,0.187,0.148,0.256,0.22c0.938,0.936,0.938,2.458,0,3.394c-0.069,0.072-0.15,0.141-0.256,0.221c-0.127,0.096-0.181,0.262-0.137,0.416c0.166,0.557,0.388,1.096,0.662,1.596c0.075,0.143,0.231,0.221,0.392,0.199c0.129-0.02,0.237-0.027,0.335-0.027c1.325,0,2.401,1.076,2.401,2.402c0,0.098-0.007,0.205-0.027,0.334C5.85,16.996,5.929,17.154,6.07,17.23c0.501,0.273,1.04,0.496,1.597,0.66c0.154,0.047,0.32-0.008,0.417-0.137c0.079-0.105,0.148-0.186,0.22-0.256c0.454-0.453,1.055-0.703,1.697-0.703c0.643,0,1.244,0.25,1.697,0.703c0.071,0.07,0.141,0.15,0.22,0.256c0.073,0.098,0.188,0.152,0.307,0.152c0.036,0,0.073-0.004,0.109-0.016c0.558-0.164,1.096-0.387,1.597-0.66c0.141-0.076,0.22-0.234,0.199-0.393c-0.02-0.129-0.027-0.236-0.027-0.334c0-1.326,1.076-2.402,2.401-2.402c0.098,0,0.206,0.008,0.336,0.027c0.159,0.021,0.315-0.057,0.391-0.199c0.274-0.5,0.496-1.039,0.662-1.596c0.044-0.154-0.01-0.32-0.137-0.416C17.648,11.838,17.567,11.77,17.498,11.697 M16.671,13.334c-0.059-0.002-0.114-0.002-0.168-0.002c-1.749,0-3.173,1.422-3.173,3.172c0,0.053,0.002,0.109,0.004,0.166c-0.312,0.158-0.64,0.295-0.976,0.406c-0.039-0.045-0.077-0.086-0.115-0.123c-0.601-0.6-1.396-0.93-2.243-0.93s-1.643,0.33-2.243,0.93c-0.039,0.037-0.077,0.078-0.116,0.123c-0.336-0.111-0.664-0.248-0.976-0.406c0.002-0.057,0.004-0.113,0.004-0.166c0-1.75-1.423-3.172-3.172-3.172c-0.054,0-0.11,0-0.168,0.002c-0.158-0.312-0.293-0.639-0.405-0.975c0.044-0.039,0.085-0.078,0.124-0.115c1.236-1.236,1.236-3.25,0-4.486C3.009,7.719,2.969,7.68,2.924,7.642c0.112-0.336,0.247-0.664,0.405-0.976C3.387,6.668,3.443,6.67,3.497,6.67c1.75,0,3.172-1.423,3.172-3.172c0-0.054-0.002-0.11-0.004-0.168c0.312-0.158,0.64-0.293,0.976-0.405C7.68,2.969,7.719,3.01,7.757,3.048c0.6,0.6,1.396,0.93,2.243,0.93s1.643-0.33,2.243-0.93c0.038-0.039,0.076-0.079,0.115-0.123c0.336,0.112,0.663,0.247,0.976,0.405c-0.002,0.058-0.004,0.114-0.004,0.168c0,1.749,1.424,3.172,3.173,3.172c0.054,0,0.109-0.002,0.168-0.004c0.158,0.312,0.293,0.64,0.405,0.976c-0.045,0.038-0.086,0.077-0.124,0.116c-0.6,0.6-0.93,1.396-0.93,2.242c0,0.847,0.33,1.645,0.93,2.244c0.038,0.037,0.079,0.076,0.124,0.115C16.964,12.695,16.829,13.021,16.671,13.334 M10,5.417c-2.528,0-4.584,2.056-4.584,4.583c0,2.529,2.056,4.584,4.584,4.584s4.584-2.055,4.584-4.584C14.584,7.472,12.528,5.417,10,5.417 M10,13.812c-2.102,0-3.812-1.709-3.812-3.812c0-2.102,1.71-3.812,3.812-3.812c2.102,0,3.812,1.71,3.812,3.812C13.812,12.104,12.102,13.812,10,13.812"></path>
+					</svg>
+				</div>
+			</div>
+
+			<div id="cSvg" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,100%,0); cursor: auto; position: absolute; z-index: 5; opacity: 1; cursor: auto;'>
+				<div id="infotext" style='position: absolute; margin:0px;width:100%; height: 100%; pointer-events: none; z-index: 20'>
+					<div id='infoholder' style="color: black; font-size: 1vw; font-family: Calibri"></div>
+				</div>
+				<div id="focusback" style='position: absolute; margin:0px;width:100%; height: 100%; pointer-events: none; z-index: 19; background:hsla(0,100%,100%,0);'>
+									
+				</div>
+				<svg id='neuronSvg' height="100%" width="100%" style='position: absolute; z-index: 2; pointer-events: none;'>
+
+				</svg>
+				<svg id='weightsSvg' height="100%" width="100%" style='position: absolute; z-index: 1; pointer-events: none;'>
+
+				</svg>
+				
+			</div>
+		</div>
+
+		
+		<script>
+
+
+
+		function drawDot(divId,xcor,ycor, radius, color,id) {
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			circleElement.setAttribute('r',radius);
+			circleElement.setAttribute('cx',xcor);
+			circleElement.setAttribute('cy',ycor);
+			circleElement.setAttribute('id',id);
+			circleElement.style.fill = color
+			circleElement.style.transition = 'fill 1s, stroke 1s'
+			circleElement.style.cursor = 'pointer'
+			circleElement.style.strokeWidth = '0';
+			divId.appendChild(circleElement);
+		}
+
+		function drawCircle(divId,xcor,ycor, radius, color,id, stkwidth) {
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+			circleElement.setAttribute('r',radius);
+			circleElement.setAttribute('cx',xcor);
+			circleElement.setAttribute('cy',ycor);
+			circleElement.setAttribute('id',id);
+			circleElement.style.fill = 'white'
+			circleElement.style.stroke = color;
+			circleElement.style.transition = 'fill 1s, stroke 1s'
+			circleElement.style.cursor = 'pointer'
+			circleElement.style.strokeWidth = stkwidth;
+			divId.appendChild(circleElement);
+		}
+
+		function drawLine(divId,initxcor,initycor, finalxcor, finalycor, color, strokewidth,id) {
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1',initxcor);
+			lineElement.setAttribute('y1',initycor);
+			lineElement.setAttribute('x2',finalxcor);
+			lineElement.setAttribute('y2',finalycor);
+			lineElement.setAttribute('id',id);
+			lineElement.style.stroke = color
+			lineElement.style.transition = 'fill 1s, stroke 1s'
+			lineElement.style.cursor = 'pointer'
+			lineElement.style.strokeWidth = strokewidth+'%';
+			divId.appendChild(lineElement);
+		}
+
+		var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+		lineElement.setAttribute('x1','-30%');
+		lineElement.setAttribute('y1','-30%');
+		lineElement.setAttribute('x2','-45%');
+		lineElement.setAttribute('y2','-45%');
+		lineElement.setAttribute('id','focusweight');
+		lineElement.style.stroke = 'hsla(1,0%,0%,0.5)'
+		lineElement.style.cursor = 'pointer'
+		lineElement.style.pointerEvents = 'none'
+		lineElement.style.strokeWidth = 0.2 + '%';
+		weightsSvg.appendChild(lineElement);
+
+		var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+		lineElement.setAttribute('x1','-30%');
+		lineElement.setAttribute('y1','-30%');
+		lineElement.setAttribute('x2','-45%');
+		lineElement.setAttribute('y2','-45%');
+		lineElement.setAttribute('id','editweight');
+		lineElement.style.stroke = 'hsla(45,100%,50%,0.5)'
+		lineElement.style.cursor = 'pointer'
+		lineElement.style.pointerEvents = 'none'
+		lineElement.style.strokeWidth = 0.5 + '%';
+		weightsSvg.appendChild(lineElement);
+
+
+		neuronSvg = document.getElementById('neuronSvg')
+
+		uid = 0
+		neuronlibrary = []
+		neuronlibraryuid = {}
+		neuronState = {}
+
+		activationfunctions = ['identity','sigmoid','relu','binary','tanh']
+
+		
+
+		function addNeuron(actfunction, bias, initvalue, color, size, position, group, type) {
+			uid = uid + 1
+			clr = 'hsla(' + color + ',100%,50%,1)'
+			if (type == 'hidden') {
+				drawDot(neuronSvg, position[0] + '%', position[1] + '%', size + '%', clr, uid)
+			}
+			else if (type == 'input') {
+				drawCircle(neuronSvg, position[0] + '%', position[1] + '%', size + '%', clr, uid, '0.4%')
+			}
+			else if (type == 'output') {
+				drawCircle(neuronSvg, position[0] + '%', position[1] + '%', size + '%'
+					, clr, uid, '0.2%')
+			}
+			
+			currentvalue = initvalue
+			neuronlibrary.push([uid, actfunction, bias, initvalue, color, size, position, group, type, currentvalue])
+			neuronlibraryuid[uid] = [uid, actfunction, bias, initvalue, color, size, position, group, type, currentvalue]
+			neuronState[uid] = 'dormant'
+			document.getElementById(uid).style.pointerEvents = 'auto'
+			document.getElementById(uid).addEventListener('mouseover', normalHover)
+			document.getElementById(uid).addEventListener('mouseout', normalout)
+
+		}
+
+		
+
+		weightlibrary = []
+		weightlibraryuid = {}
+		weightlibraryconn = {}
+		weightstate = {}
+
+		connections = {}
+
+		function addWeight(neuron1uid, neuron2uid, initvalue, color, size) {
+			if (neuron1uid != neuron2uid && typeof weightlibraryconn[neuron1uid + '-' + neuron2uid] == 'undefined') {
+				if (neuronlibraryuid[neuron1uid][8] == neuronlibraryuid[neuron2uid][8] && neuronlibraryuid[neuron1uid][8] == 'input') {
+				}
+				else if (neuronlibraryuid[neuron1uid][8] == neuronlibraryuid[neuron2uid][8] && neuronlibraryuid[neuron1uid][8] == 'output') {
+					
+				}
+				else if ((neuronlibraryuid[neuron1uid][8] == 'output' && neuronlibraryuid[neuron2uid][8] == 'input') || (neuronlibraryuid[neuron2uid][8] == 'output' && neuronlibraryuid[neuron1uid][8] == 'input')) {
+					
+				}
+				else {
+					uid = uid + 1
+					psn1 = neuronlibraryuid[neuron1uid][6]
+					psn2 = neuronlibraryuid[neuron2uid][6]
+					currentvalue = initvalue
+					clr = 'hsla(0,0%,0%,' + sigmoid(initvalue)*0.15 + ')'
+					size = 0.05 + sigmoid(initvalue)*0.05
+					drawLine(weightsSvg,psn1[0] + '%',psn1[1] + '%',psn2[0] + '%',psn2[1] + '%', clr, size, uid)
+					weightlibrary.push([uid, neuron1uid, neuron2uid, initvalue, color, size, currentvalue])
+					weightlibraryuid[uid] = [uid, neuron1uid, neuron2uid, initvalue, color, size, currentvalue,[psn1, psn2]]
+					weightstate[uid] = 'dormant'
+					weightlibraryconn[neuron1uid + '-' + neuron2uid] = uid
+					weightlibraryconn[neuron2uid + '-' + neuron1uid] = uid
+					 if (typeof connections[neuron1uid] !== 'undefined') {
+					 	connections[neuron1uid].push(neuron2uid)
+					 }
+					 else {
+					 	connections[neuron1uid] = [neuron2uid]
+					 }
+
+					  if (typeof connections[neuron2uid] !== 'undefined') {
+					 	connections[neuron2uid].push(neuron1uid)
+					 }
+					 else {
+					 	connections[neuron2uid] = [neuron1uid]
+					 }
+					 document.getElementById(uid).style.pointerEvents = 'auto'
+					 document.getElementById(uid).addEventListener('mouseover', normalWHover)
+					 document.getElementById(uid).addEventListener('mouseout', normalout)
+			
+			
+				}
+					
+			}
+		}
+
+		function generateRandom() {
+			for (i = 0; i < 10; i++) {
+				if (Math.random() > 0.7) {
+					tp = 'input'
+					cl = 45
+				}
+				else {
+					tp = 'hidden'
+					cl = 190
+				}
+				addNeuron('sigmoid', 1, 0.5, cl, 0.5, [Math.random()*100,Math.random()*100], 'layer1',  tp)
+			}
+
+			for (i = 0; i < 20; i++) {
+				n1 = neuronlibrary[parseInt(Math.random()*neuronlibrary.length)][0]
+				n2 = neuronlibrary[parseInt(Math.random()*neuronlibrary.length)][0]
+				addWeight(n1, n2, 0.5, 0.1, '0.1%')
+			}
+		}
+
+		function simulatedFeedForward(hiddenlayers) {
+			for (i = 0; i < 10; i++) {
+				tp = 'input'
+				cl = 45
+				addNeuron('sigmoid', 1, 0.5, cl, 0.6, [20,(i+1.5)*8], 'inputlayer',  tp)
+			}
+			for (hd = 1; hd < (hiddenlayers+1); hd++) {
+				for (i = 0; i < 10; i++) {
+					tp = 'hidden'
+					cl = 190
+					addNeuron('sigmoid', 1, 0.5, cl, 0.6, [20 + hd*(55/hiddenlayers),(i+1.5)*8], 'hiddenlayer',  tp)
+				}
+			}
+
+
+			for (i = 0; i < 10; i++) {
+				tp = 'output'
+				cl = 260
+				addNeuron('sigmoid', 1, 0.5, cl, 0.6, [80,(i+1.5)*8], 'outputlayer',  tp)
+			}
+
+			for (hd = 1; hd < (hiddenlayers+2); hd++) {
+				for (i = ((hd - 1)*10) + 1; i < ((hd)*10) + 1; i++) {
+					for (j = ((hd)*10) + 1; j < ((hd + 1)*10) + 1; j++) {
+						addWeight(i, j, 0.5 - Math.random(), 0.1, '0.1%')
+					}
+				}
+			}
+		
+		}
+
+
+		function clustered(numb) {
+			stx = 50
+			sty = 50
+			wx = 5
+			wy = 9
+			for (i = 0; i < numb; i++) {
+				if (Math.random() > 0.9) {
+					tp = 'input'
+					cl = 210
+				}
+				else if (Math.random() < 0.04) {
+					tp = 'output'
+					cl = 240
+				}
+				else {
+					tp = 'hidden'
+					cl = 190
+				}
+				stx = stx + (Math.random()*wx) - wx/2
+				sty = sty + (Math.random()*wy) - wy/2
+				if (stx < 5) {
+					stx = 5 - Math.random()*3
+				}
+				else if (stx >= 95) {
+					stx = 95 + Math.random()*3
+				}
+				if (sty < 5) {
+					sty = 5 - Math.random()*3
+				}
+				else if (sty >= 95) {
+					sty = 95 + Math.random()*3
+				}
+
+				actselect = activationfunctions[parseInt(Math.random()*activationfunctions.length)]
+				
+				addNeuron(actselect, 1, 0.5, cl, 0.4, [stx,sty], 'firstlayer',  tp)
+			}
+			
+		
+			for (i = 10; i < numb - 10; i++) {
+				for (j = i - 5; j < i; j++) {
+					addWeight(i + 2 - parseInt(Math.random()*4), j + 2 - parseInt(Math.random()*4), 0.5, 0.1, '0.1%')
+				}
+			}
+
+			
+		}
+
+		simulatedFeedForward(5)
+		// clustered(100)
+
+		
+
+		function addneuronClick() {
+			var rect = neuronSvg.getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			addNeuron(nselectactF, neuronbiasvalue, neuroninitialvalue, neuroncolorchoice, neuronsizevalue, [posx*100/window.innerWidth,posy*100/window.innerHeight], neurongrpvalue, nselecttype)
+		}
+
+
+		// Adding display line
+		drawLine(weightsSvg,'0%','0%','0%','0%', 0.6, '0.3', 'weightdisplay')
+
+		
+		function addweightMove() {
+			var rect = neuronSvg.getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			displayweight = document.getElementById('weightdisplay')
+			displayweight.style.stroke = 'hsla(0,0%,0%,0.1)'
+			displayweight.setAttribute('x2', posx*100/window.innerWidth + '%')
+			displayweight.setAttribute('y2', posy*100/window.innerHeight + '%')
+
+		}
+
+		cSvg = document.getElementById('cSvg')
+
+		function addweightKeyup() {
+			if (event.keyCode == 27) {
+				cSvg.addEventListener('click', addweightClick)
+				cSvg.removeEventListener('mousemove', addweightMove)
+				cSvg.removeEventListener('keyup', addweightKeyup)
+				cSvg.removeEventListener('click', addweightN2Click)
+
+				displayweight = document.getElementById('weightdisplay')
+				displayweight.setAttribute('x1', 0*100/window.innerWidth + '%')
+				displayweight.setAttribute('y1', 0*100/window.innerHeight + '%')
+
+				displayweight.setAttribute('x2', 0*100/window.innerWidth + '%')
+				displayweight.setAttribute('y2', 0*100/window.innerHeight + '%')
+			}
+		}
+
+		
+
+		function addweightN2Click() {
+			if (typeof weightlibraryconn[currentN1Selection + '-' + event.target.id] !== 'undefined') {
+				console.log('A weight already exists between them.')
+			}
+			if (event.target.id != 'cSvg' && currentN1Selection != event.target.id && typeof weightlibraryconn[currentN1Selection + '-' + event.target.id] == 'undefined' && typeof neuronlibraryuid[event.target.id] !== 'undefined') {
+				
+				addWeight(currentN1Selection, event.target.id, neuronwhtvalue, 0.1, '0.1%')
+				cSvg.addEventListener('click', addweightClick)
+				cSvg.removeEventListener('mousemove', addweightMove)
+				window.removeEventListener('keyup', addweightKeyup)
+				cSvg.removeEventListener('click', addweightN2Click)
+
+				displayweight = document.getElementById('weightdisplay')
+				displayweight.setAttribute('x1', 0*100/window.innerWidth + '%')
+				displayweight.setAttribute('y1', 0*100/window.innerHeight + '%')
+
+				displayweight.setAttribute('x2', 0*100/window.innerWidth + '%')
+				displayweight.setAttribute('y2', 0*100/window.innerHeight + '%')
+				
+			}
+		}
+
+		currentN1Selection = 0
+
+		function addweightClick() {
+			var rect = neuronSvg.getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			if (event.target.id != 'cSvg' && typeof neuronlibraryuid[event.target.id] !== 'undefined') {
+				currentN1Selection = event.target.id
+				displayweight = document.getElementById('weightdisplay')
+				displayweight.setAttribute('x1', posx*100/window.innerWidth + '%')
+				displayweight.setAttribute('y1', posy*100/window.innerHeight + '%')
+
+				displayweight.setAttribute('x2', posx*100/window.innerWidth + '%')
+				displayweight.setAttribute('y2', posy*100/window.innerHeight + '%')
+
+				cSvg.removeEventListener('click', addweightClick)
+				cSvg.addEventListener('mousemove', addweightMove)
+				window.addEventListener('keyup', addweightKeyup)
+				cSvg.addEventListener('click', addweightN2Click)
+			}
+
+		}
+
+
+		// neuronSvg.addEventListener('click', addneuronClick)
+		// neuronSvg.addEventListener('click', addweightClick)
+
+		function normalMDmousemove() {
+			vecx = event.clientX
+			vecy = event.clientY
+			vecx = vecx*100/window.innerWidth
+			vecy = vecy*100/window.innerHeight
+			if (typeof neuronlibraryuid[movingneuron.id] !== 'undefined') {
+				tempx = neuronlibraryuid[movingneuron.id][6][0]
+				tempy = neuronlibraryuid[movingneuron.id][6][1]
+
+				neuronlibraryuid[movingneuron.id][6][0] = vecx
+				neuronlibraryuid[movingneuron.id][6][1] = vecy
+
+				movingneuron.setAttribute('cx', vecx + '%')
+				movingneuron.setAttribute('cy', vecy + '%')
+				cnns = connections[movingneuron.id]
+				if (typeof cnns !== 'undefined') {
+					for (m=0; m < cnns.length; m++) {
+						wht = weightlibraryconn[movingneuron.id + '-' + cnns[m]]
+						welement = document.getElementById(wht)
+						if (weightlibraryuid[wht][1] == movingneuron.id) {
+							weightlibraryuid[wht][7][0] = [vecx,vecy]
+							welement.setAttribute('x1', vecx + '%')
+							welement.setAttribute('y1', vecy + '%')	
+						}
+						else if (weightlibraryuid[wht][2] == movingneuron.id){
+							weightlibraryuid[wht][7][1] = [vecx,vecy]
+							welement.setAttribute('x2', vecx + '%')
+							welement.setAttribute('y2', vecy + '%')
+						}
+						
+
+					}
+				}
+			}
+				
+		}
+
+		movingneuron = 0
+		draginit = 0
+
+		function normalMDmousemovedrag() {
+			dvecx = event.clientX - draginit.clientX
+			dvecy = event.clientY - draginit.clientY
+			dragfactor = 1
+
+			for (var key in weightlibraryuid) {
+				vec1 = weightlibraryuid[key][7][0]
+				vec2 = weightlibraryuid[key][7][1]
+
+				vec1x = (vec1[0]*window.innerWidth/100) + (dragfactor*dvecx)
+				vec2x = (vec2[0]*window.innerWidth/100) + (dragfactor*dvecx)
+				vec1y = (vec1[1]*window.innerHeight/100) + (dragfactor*dvecy)
+				vec2y = (vec2[1]*window.innerHeight/100) + (dragfactor*dvecy)	
+						
+
+				vec1x = vec1x*100/window.innerWidth
+				vec1y = vec1y*100/window.innerHeight
+				vec2x = vec2x*100/window.innerWidth
+				vec2y = vec2y*100/window.innerHeight
+
+				
+				weightlibraryuid[key][7][0] = [vec1x,vec1y]
+				weightlibraryuid[key][7][1] = [vec2x,vec2y]
+
+
+				welement = document.getElementById(key)
+				welement.setAttribute('x1', vec1x + '%')
+				welement.setAttribute('y1', vec1y + '%')
+				welement.setAttribute('x2', vec2x + '%')
+				welement.setAttribute('y2', vec2y + '%')
+
+			}
+			for (var key in neuronlibraryuid) {
+				vec = neuronlibraryuid[key][6]
+				vecx = (vec[0]*window.innerWidth/100) + (dragfactor*dvecx)
+				vecy = (vec[1]*window.innerHeight/100) + (dragfactor*dvecy)
+
+				vecx = vecx*100/window.innerWidth
+				vecy = vecy*100/window.innerHeight
+
+				neuronlibraryuid[key][6][0] = vecx
+				neuronlibraryuid[key][6][1] = vecy
+
+				element = document.getElementById(key)
+				element.setAttribute('cx', vecx + '%')
+				element.setAttribute('cy', vecy + '%')
+
+			}
+
+			draginit = event
+
+			if (edittype == 'change' || typeof neuronlibraryuid[editneuron] !== 'undefined') {
+				vec = neuronlibraryuid[editneuron][6]
+				vecx = vec[0]
+				vecy = vec[1]
+
+				document.getElementById('editneuron').setAttribute('cx', vecx + '%')
+				document.getElementById('editneuron').setAttribute('cy', vecy + '%')
+
+				dragup = true
+
+			}
+
+				
+
+		}
+
+		function normalMDmouseup() {
+			cSvg.removeEventListener('mousemove', normalMDmousemove)
+			cSvg.removeEventListener('mouseup', normalMDmouseup)
+			cSvg.addEventListener('mousedown', normalMDown)
+		}
+
+		dragup = false
+
+		function normalMDmouseupdrag() {
+			cSvg.removeEventListener('mousemove', normalMDmousemovedrag)
+			cSvg.removeEventListener('mouseup', normalMDmouseupdrag)
+			cSvg.addEventListener('mousedown', normalMDown)
+			cSvg.style.cursor = 'auto'
+			
+		}
+
+		function normalMDown() {
+			if (event.target.id != 'cSvg') {
+				cSvg.removeEventListener('mousedown', normalMDown)
+				cSvg.addEventListener('mousemove', normalMDmousemove)
+				cSvg.addEventListener('mouseup', normalMDmouseup)
+				movingneuron = event.target
+			}
+			else if (event.target.id == 'cSvg') {
+				draginit = event
+				cSvg.removeEventListener('mousedown', normalMDown)
+				cSvg.addEventListener('mousemove', normalMDmousemovedrag)
+				cSvg.addEventListener('mouseup', normalMDmouseupdrag)
+				cSvg.style.cursor = 'grabbing'
+
+			}
+
+
+		}
+
+		function loadNWEditor(elementOI, typeOE, ifNtype) {
+
+			if (typeOE == 'N') {
+				document.getElementById('containNselectorHolder').style.visibility = 'visible'
+				document.getElementById('containNselector').style.pointerEvents = 'auto'
+				document.getElementById('containWselectorHolder').style.visibility = 'hidden'
+				document.getElementById('containWselector').style.pointerEvents = 'none'
+
+
+				document.getElementById('NselectorName').innerHTML = 'Edit Neuron'
+				document.getElementById('initvaluename').innerHTML = 'Current Value'
+				
+
+				if (ifNtype == 'H') {
+					hiddenNselect()
+				}
+				else if (ifNtype == 'I') {
+					inputNselect()
+				}
+				else if (ifNtype == 'O') {
+					outputNselect()
+				}
+
+				typeAF = neuronlibraryuid[elementOI][1]
+
+				actFNselectInd(typeAF)
+
+				document.getElementById('colorinput').value = neuronlibraryuid[elementOI][4]
+				document.getElementById('slideiconline').style.stroke = 'hsla(' + neuronlibraryuid[elementOI][4] + ',100%,50%,1)'
+				document.getElementById('NselectorName').style.color = 'hsla(' + neuronlibraryuid[elementOI][4] + ',100%,50%,1)'
+				
+				document.getElementById('initvalueinput').value = neuronlibraryuid[elementOI][3]
+
+				document.getElementById('biasinput').value = neuronlibraryuid[elementOI][2]
+
+				document.getElementById('sizeinput').value = neuronlibraryuid[elementOI][5]
+
+				document.getElementById('grpinput').value = neuronlibraryuid[elementOI][7]
+
+				editneuron = event.target.id
+				edittype = 'change'
+				document.getElementById('editneuron').setAttribute('cx', neuronlibraryuid[event.target.id][6][0] + '%')
+				document.getElementById('editneuron').setAttribute('cy', neuronlibraryuid[event.target.id][6][1] + '%')
+				document.getElementById('editneuron').setAttribute('r', parseFloat(neuronlibraryuid[event.target.id][5]) + 1 + '%')
+
+				document.getElementById('editneuron').style.stroke = 'hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,50%,0.7)'
+
+				document.getElementById('deletename').style.pointerEvents = 'auto'
+				document.getElementById('deletename').style.visibility = 'visible'
+				
+			}
+			else if (typeOE == 'W') {
+				editweight = event.target.id
+				document.getElementById('containWselectorHolder').style.visibility = 'visible'
+				document.getElementById('containWselector').style.pointerEvents = 'auto'
+				document.getElementById('containNselectorHolder').style.visibility = 'hidden'
+				document.getElementById('containNselector').style.pointerEvents = 'none'
+				edittype = 'change'
+				document.getElementById('editweight').setAttribute('x1',weightlibraryuid[event.target.id][7][0][0] + '%')
+				document.getElementById('editweight').setAttribute('y1',weightlibraryuid[event.target.id][7][0][1] + '%')
+				document.getElementById('editweight').setAttribute('x2',weightlibraryuid[event.target.id][7][1][0] + '%')
+				document.getElementById('editweight').setAttribute('y2',weightlibraryuid[event.target.id][7][1][1] + '%')
+
+				document.getElementById('whtvalueinput').value = weightlibraryuid[elementOI][3]
+
+
+				document.getElementById('WselectorName').innerHTML = 'Edit Weight'
+				document.getElementById('initvaluename').innerHTML = 'Current Value'
+					
+			}
+		}
+
+		function normalclick() {
+			if (typeof neuronlibraryuid[event.target.id] !== 'undefined') {
+				if (event.target.id != 'cSvg' && neuronlibraryuid[event.target.id][8] == 'input') {
+					loadNWEditor(event.target.id,'N','I')
+					
+				}
+				else if (event.target.id != 'cSvg' && neuronlibraryuid[event.target.id][8] == 'hidden') {
+					loadNWEditor(event.target.id,'N','H')
+					
+				}
+				else if (event.target.id != 'cSvg' && neuronlibraryuid[event.target.id][8] == 'output') {
+					loadNWEditor(event.target.id,'N','O')
+					
+				}
+			}
+			else if (typeof weightlibraryuid[event.target.id] !== 'undefined') {
+				if (event.target.id != 'cSvg' && typeof weightlibraryuid[event.target.id] !== 'undefined') {
+					 loadNWEditor(event.target.id,'W', 'none')
+				}
+			}
+			
+			else if (event.target.id == 'cSvg') {
+				if (nmode == 'addN' || nmode == 'addW' || edittype == 'change') {
+					document.getElementById('containWselectorHolder').style.visibility = 'hidden'
+					document.getElementById('containWselector').style.pointerEvents = 'none'
+					document.getElementById('containNselectorHolder').style.visibility = 'hidden'
+					document.getElementById('containNselector').style.pointerEvents = 'none'
+
+				}
+				if (dragup == false || edittype == 'change') {
+					document.getElementById('editneuron').setAttribute('cx', '-20%')
+					document.getElementById('editneuron').setAttribute('cy', '-20%')
+
+					document.getElementById('focusweight').setAttribute('x1','-10%')
+					document.getElementById('focusweight').setAttribute('y1','-10%')
+					document.getElementById('focusweight').setAttribute('x2','-10%')
+					document.getElementById('focusweight').setAttribute('y2','-10%')
+
+					document.getElementById('editweight').setAttribute('x1','-10%')
+					document.getElementById('editweight').setAttribute('y1','-10%')
+					document.getElementById('editweight').setAttribute('x2','-10%')
+					document.getElementById('editweight').setAttribute('y2','-10%')
+
+						
+				}
+
+				edittype = 'add'
+				dragup = false
+
+
+				document.getElementById('deletename').style.pointerEvents = 'none'
+				document.getElementById('deletename').style.visibility = 'hidden'
+
+
+				
+				
+			}
+		}
+
+		function normalWHover() {
+			if (event.target.id != 'cSvg' && typeof weightlibraryuid[event.target.id] !== 'undefined') {
+				document.getElementById('infoholder').style.visibility = 'visible'
+				document.getElementById('infoholder').innerHTML = 'Weight ' + ' <br/><span style="font-size: 0.9vw; color: hsla(40,0%,10%,1);">' + 'Value : ' + weightlibraryuid[event.target.id][6] + '</span>'
+				var rect = document.getElementById('cSvg').getBoundingClientRect();
+				var x = event.clientX - rect.left; 
+				var y = event.clientY - rect.top;
+
+				document.getElementById('infoholder').style.left = x + 'px'
+				document.getElementById('infoholder').style.top = y + 'px'
+				document.getElementById('infoholder').style.transform = 'translate(' + ((1)*x) + 'px, ' + ((1)*y) + 'px)' 
+
+				document.getElementById('focusweight').setAttribute('x1',weightlibraryuid[event.target.id][7][0][0] + '%')
+				document.getElementById('focusweight').setAttribute('y1',weightlibraryuid[event.target.id][7][0][1] + '%')
+				document.getElementById('focusweight').setAttribute('x2',weightlibraryuid[event.target.id][7][1][0] + '%')
+				document.getElementById('focusweight').setAttribute('y2',weightlibraryuid[event.target.id][7][1][1] + '%')
+
+				document.getElementById('focusback').style.background = 'radial-gradient(ellipse at ' + x*100/rect.width + '% ' + y*100/rect.height + '%, hsla(45,100%,100%,0.6) 0%, hsla(22,100%,100%,0.3) 32%, hsla(34,100%,100%,0) 55%, hsla(45,100%,100%,0) 100%)'
+
+			}
+		}
+
+
+		function normalHover() {
+			// console.log(event.target.id)
+			// console.log(document.elementFromPoint(event.clientX, event.clientY))
+			if (event.target.id != 'cSvg' && neuronlibraryuid[event.target.id][8] == 'input') {
+				if (activeNeurons.indexOf(event.target.id) == -1) {
+					activeNeurons.push(event.target.id)	
+				}
+				
+				neuronState[event.target.id] = 'active'
+				document.getElementById('infoholder').style.visibility = 'visible'
+				document.getElementById('infoholder').innerHTML = 'Neuron type : ' + neuronlibraryuid[event.target.id][8] + ' <br/><span style="font-size: 0.9vw; color: hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,30%,1);">' + 'Current value : ' + neuronlibraryuid[event.target.id][9] + '</span>' + ' <br/><span style="font-size: 0.9vw; color: hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,50%,1);">' + 'Activation Function : ' + neuronlibraryuid[event.target.id][1] + '</span>'
+				var rect = document.getElementById('cSvg').getBoundingClientRect();
+				var x = event.clientX - rect.left; 
+				var y = event.clientY - rect.top;
+
+				document.getElementById('infoholder').style.left = x + 'px'
+				document.getElementById('infoholder').style.top = y + 'px'
+				document.getElementById('infoholder').style.transform = 'translate(' + ((1)*x) + 'px, ' + ((1)*y) + 'px)' 
+
+				document.getElementById('focusback').style.background = 'radial-gradient(ellipse at ' + x*100/rect.width + '% ' + y*100/rect.height + '%, hsla(45,100%,100%,0.6) 0%, hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,100%,0.3) 32%, hsla(34,100%,100%,0) 55%, hsla(45,100%,100%,0) 100%)'
+
+				
+				event.target.style.fill = 'hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,' + sigmoid(neuronlibraryuid[event.target.id][9])*50 + '%,1)'
+			}
+			else if (event.target.id != 'cSvg' && neuronlibraryuid[event.target.id][8] == 'hidden') {
+				document.getElementById('infoholder').style.visibility = 'visible'
+				document.getElementById('infoholder').innerHTML = 'Neuron type : ' + neuronlibraryuid[event.target.id][8] + ' <br/><span style="font-size: 0.9vw; color: hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,20%,1);">' + 'Current value : ' + neuronlibraryuid[event.target.id][9] + '</span>' + ' <br/><span style="font-size: 0.9vw; color: hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,40%,1);">' + 'Activation Function : ' + neuronlibraryuid[event.target.id][1] + '</span>' + ' <br/><span style="font-size: 0.9vw; color: hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,60%,1);">' + 'Bias : ' + neuronlibraryuid[event.target.id][2] + '</span>'
+				var rect = document.getElementById('cSvg').getBoundingClientRect();
+				var x = event.clientX - rect.left; 
+				var y = event.clientY - rect.top;
+
+				document.getElementById('infoholder').style.left = x + 'px'
+				document.getElementById('infoholder').style.top = y + 'px'
+				document.getElementById('infoholder').style.transform = 'translate(' + ((1)*x) + 'px, ' + ((1)*y) + 'px)' 
+
+				document.getElementById('focusback').style.background = 'radial-gradient(ellipse at ' + x*100/rect.width + '% ' + y*100/rect.height + '%, hsla(45,100%,100%,0.6) 0%, hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,100%,0.3) 32%, hsla(34,100%,100%,0) 55%, hsla(45,100%,100%,0) 100%)'
+
+			}
+			else if (event.target.id != 'cSvg' && neuronlibraryuid[event.target.id][8] == 'output') {
+				document.getElementById('infoholder').style.visibility = 'visible'
+				document.getElementById('infoholder').innerHTML = 'Neuron type : ' + neuronlibraryuid[event.target.id][8] + ' <br/><span style="font-size: 0.9vw; color: hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,20%,1);">' + 'Current value : ' + neuronlibraryuid[event.target.id][9] + '</span>' + ' <br/><span style="font-size: 0.9vw; color: hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,40%,1);">' + 'Activation Function : ' + neuronlibraryuid[event.target.id][1] + '</span>' + ' <br/><span style="font-size: 0.9vw; color: hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,60%,1);">' + 'Bias : ' + neuronlibraryuid[event.target.id][2] + '</span>'
+				var rect = document.getElementById('cSvg').getBoundingClientRect();
+				var x = event.clientX - rect.left; 
+				var y = event.clientY - rect.top;
+
+				document.getElementById('infoholder').style.left = x + 'px'
+				document.getElementById('infoholder').style.top = y + 'px'
+				document.getElementById('infoholder').style.transform = 'translate(' + ((1)*x) + 'px, ' + ((1)*y) + 'px)' 
+
+				document.getElementById('focusback').style.background = 'radial-gradient(ellipse at ' + x*100/rect.width + '% ' + y*100/rect.height + '%, hsla(45,100%,100%,0.6) 0%, hsla(' + neuronlibraryuid[event.target.id][4] + ',100%,100%,0.3) 32%, hsla(34,100%,100%,0) 55%, hsla(45,100%,100%,0) 100%)'
+
+			}
+			
+			
+		}
+
+		function normalout() {
+			document.getElementById('infoholder').style.visibility = 'hidden'
+			document.getElementById('focusback').style.background = 'radial-gradient(ellipse at ' + (-10) + '% ' + (-10) + '%, hsla(45,100%,100%,0) 0%, hsla(45,100%,100%,0) 62%, hsla(45,100%,100%,0) 100%)'
+			document.getElementById('focusweight').setAttribute('x1', (-3) + '%')
+			document.getElementById('focusweight').setAttribute('y1', (-3) + '%')
+			document.getElementById('focusweight').setAttribute('x2', (-3) + '%')
+			document.getElementById('focusweight').setAttribute('y2', (-3) + '%')
+
+		}
+
+
+		function normalwheel() {
+			whlvalue = (event.wheelDeltaY)/Math.abs(event.wheelDeltaY)
+			scalefactorup = 0.1
+			scalefactordown = 0.1
+
+			
+			for (var key in weightlibraryuid) {
+				vec1 = weightlibraryuid[key][7][0]
+				vec2 = weightlibraryuid[key][7][1]
+
+				vec1x = vec1[0]*window.innerWidth/100
+				vec2x = vec2[0]*window.innerWidth/100
+				vec1y = vec1[1]*window.innerHeight/100
+				vec2y = vec2[1]*window.innerHeight/100
+
+				if (whlvalue == 1) {
+					delvec1x = scalefactorup*(vec1x - event.clientX)
+					delvec1y = scalefactorup*(vec1y - event.clientY)
+					delvec2x = scalefactorup*(vec2x - event.clientX)
+					delvec2y = scalefactorup*(vec2y - event.clientY)
+					vec1x = vec1x + delvec1x
+					vec1y = vec1y + delvec1y
+					vec2x = vec2x + delvec2x
+					vec2y = vec2y + delvec2y
+				}
+				else if (whlvalue == -1) {
+					delvec1x = scalefactordown*(vec1x - event.clientX)
+					delvec1y = scalefactordown*(vec1y - event.clientY)
+					delvec2x = scalefactordown*(vec2x - event.clientX)
+					delvec2y = scalefactordown*(vec2y - event.clientY)
+					vec1x = vec1x - delvec1x
+					vec1y = vec1y - delvec1y
+					vec2x = vec2x - delvec2x
+					vec2y = vec2y - delvec2y
+				}
+
+				
+
+				vec1x = vec1x*100/window.innerWidth
+				vec1y = vec1y*100/window.innerHeight
+				vec2x = vec2x*100/window.innerWidth
+				vec2y = vec2y*100/window.innerHeight
+
+				
+				weightlibraryuid[key][7][0] = [vec1x,vec1y]
+				weightlibraryuid[key][7][1] = [vec2x,vec2y]
+
+
+				welement = document.getElementById(key)
+				welement.setAttribute('x1', vec1x + '%')
+				welement.setAttribute('y1', vec1y + '%')
+				welement.setAttribute('x2', vec2x + '%')
+				welement.setAttribute('y2', vec2y + '%')
+
+			}
+			for (var key in neuronlibraryuid) {
+				vec = neuronlibraryuid[key][6]
+				vecx = vec[0]*window.innerWidth/100
+				vecy = vec[1]*window.innerHeight/100
+
+				if (whlvalue == 1) {
+					delvecx = scalefactorup*(vecx - event.clientX)
+					delvecy = scalefactorup*(vecy - event.clientY)
+					vecx = vecx + delvecx
+					vecy = vecy + delvecy
+				}
+				else if (whlvalue == -1) {
+					delvecx = scalefactordown*(vecx - event.clientX)
+					delvecy = scalefactordown*(vecy - event.clientY)
+					vecx = vecx - delvecx
+					vecy = vecy - delvecy
+
+				}
+
+				vecx = vecx*100/window.innerWidth
+				vecy = vecy*100/window.innerHeight
+
+				neuronlibraryuid[key][6][0] = vecx
+				neuronlibraryuid[key][6][1] = vecy
+
+				element = document.getElementById(key)
+				element.setAttribute('cx', vecx + '%')
+				element.setAttribute('cy', vecy + '%')
+
+			}
+
+			if (edittype == 'change' || typeof neuronlibraryuid[editneuron] !== 'undefined') {
+				vec = neuronlibraryuid[editneuron][6]
+				vecx = vec[0]
+				vecy = vec[1]
+
+				document.getElementById('editneuron').setAttribute('cx', vecx + '%')
+				document.getElementById('editneuron').setAttribute('cy', vecy + '%')
+
+			}
+			
+
+			
+		}
+
+
+		
+		function activationvalue(func, val) {
+			if (func == 'identity') {
+				rval = val
+			}
+			else if (func == 'tanh') {
+				rval = (2/(1 + Math.exp(-2*val))) - 1
+			}
+			else if (func == 'sigmoid') {
+				rval = (1/(1 + Math.exp(-val)))
+			}
+			else if (func == 'relu') {
+				if (val < 0) {
+					rval = 0
+				}
+				else {
+					rval = val
+				}
+			}
+			else if (func == 'binary') {
+				if (val < 0) {
+					rval = 0
+				}
+				else {
+					rval = 1
+				}
+			}
+
+			return rval
+		}
+
+		function sigmoid(val) {
+			return (1/(1 + Math.exp(-val)))
+		}
+
+
+		// Mode of operation
+		function selectMode(mode) {
+			if (mode == 'addneuron') {
+				// cSvg.removeEventListener('mouseover', normalHover)
+				cSvg.removeEventListener('mousedown', normalMDown)
+				cSvg.addEventListener('click', addneuronClick)
+				cSvg.removeEventListener('click', addweightClick)
+				cSvg.addEventListener('mousewheel', normalwheel)
+				cSvg.style.cursor = 'crosshair'
+				cSvg.removeEventListener('click', normalclick)
+			}
+			else if (mode == 'addweight') {
+				// cSvg.removeEventListener('mouseover', normalHover)
+				cSvg.removeEventListener('mousedown', normalMDown)
+				cSvg.addEventListener('click', addweightClick)
+				cSvg.removeEventListener('click', addneuronClick)
+				cSvg.addEventListener('mousewheel', normalwheel)
+				cSvg.style.cursor = 'crosshair'
+				cSvg.removeEventListener('click', normalclick)
+			}
+			else if (mode == 'normal') {
+				// cSvg.addEventListener('mouseover', normalHover)
+				cSvg.addEventListener('mousedown', normalMDown)
+				cSvg.addEventListener('mousewheel', normalwheel)
+				cSvg.addEventListener('click', normalclick)
+				cSvg.removeEventListener('click', addweightClick)
+				cSvg.removeEventListener('click', addneuronClick)
+				cSvg.style.cursor = 'auto'
+			}
+		}
+
+		activeNeurons = []
+
+
+		selectMode('normal')
+
+		animationspeedfactor = 400
+
+		start = 0
+		toweighttransfer = 0
+
+		function absorb() {
+			for (k = 0; k < changedWghts.length; k++) {
+				currentvalue = weightlibraryuid[changedWghts[k].id][6]
+				changedWghts[k].style.stroke = 'hsla(0,0%,0%,' + sigmoid(currentvalue)*0.15 + ')'
+			}
+			for (k = 0; k < activeNeurons.length; k++) {
+				if (typeof neuronlibraryuid[activeNeurons[k]] !== 'undefined') {
+					type = neuronlibraryuid[activeNeurons[k]][8]
+					if (type != 'input') {
+						cnodes = connections[activeNeurons[k]]
+						whtsum = 0
+						if (typeof cnodes !== 'undefined') {
+							for (m = 0; m < cnodes.length; m++) {
+								if (neuronlibraryuid[cnodes[m]][8] != 'output') {
+									wht = weightlibraryconn[activeNeurons[k] + '-' + cnodes[m]]
+									if (weightstate[wht] == 'active') {
+										whtsum = whtsum + (weightlibraryuid[wht][6]*neuronlibraryuid[cnodes[m]][9])
+									}	
+								}
+								
+							}
+						}
+						value = activationvalue(neuronlibraryuid[activeNeurons[k]][1], whtsum)
+						neuronlibraryuid[activeNeurons[k]][9] = value
+					}
+					
+					if (type == 'hidden') {
+						document.getElementById(activeNeurons[k]).style.fill = 'hsla(' + neuronlibraryuid[activeNeurons[k]][4] + ',100%,' + sigmoid(neuronlibraryuid[activeNeurons[k]][9])*50 + '%,1)' 
+
+					}
+					else if (type == 'input') {
+						document.getElementById(activeNeurons[k]).style.stroke = 'hsla(' + neuronlibraryuid[activeNeurons[k]][4] + ',100%,' + sigmoid(neuronlibraryuid[activeNeurons[k]][9])*50 + '%,1)'
+						document.getElementById(activeNeurons[k]).style.fill = 'hsla(' + neuronlibraryuid[activeNeurons[k]][4] + ',100%,' + sigmoid(neuronlibraryuid[activeNeurons[k]][9])*50 + '%,1)'
+
+					}
+					else if (type == 'output') {
+						document.getElementById(activeNeurons[k]).style.stroke = 'hsla(' + neuronlibraryuid[activeNeurons[k]][4] + ',100%,' + sigmoid(neuronlibraryuid[activeNeurons[k]][9])*50 + '%,1)'
+						document.getElementById(activeNeurons[k]).style.fill = 'hsla(' + neuronlibraryuid[activeNeurons[k]][4] + ',100%,' + sigmoid(neuronlibraryuid[activeNeurons[k]][9])*50 + '%,1)'
+					}
+				}
+					
+				
+			}
+			
+			toweighttransfer = 1
+			changedWghts = []
+		}
+
+		changedWghts = []
+		dormantNeurons1 = []
+		dormantNeurons2 = []
+
+		activeNeuronscopy = []
+
+		function fire() {
+			activeNeuronscopy = JSON.parse(JSON.stringify(activeNeurons))
+
+			tempactivetracker = {}
+			for (k = 0; k < activeNeuronscopy.length; k++) {
+				conns = connections[activeNeuronscopy[k]]
+				if (typeof conns !== 'undefined') {
+					type = neuronlibraryuid[activeNeuronscopy[k]][8]
+					if (type == 'hidden') {
+						document.getElementById(activeNeuronscopy[k]).style.fill = 'hsla(' + neuronlibraryuid[activeNeuronscopy[k]][4] + ',100%,50%,1)' 
+					}
+					else if (type == 'input') {
+						document.getElementById(activeNeuronscopy[k]).style.stroke = 'hsla(' + neuronlibraryuid[activeNeuronscopy[k]][4] + ',100%,50%,1)'  
+						document.getElementById(activeNeuronscopy[k]).style.fill = 'white'
+					}
+					else if (type == 'output') {
+						document.getElementById(activeNeuronscopy[k]).style.stroke = 'hsla(' + neuronlibraryuid[activeNeuronscopy[k]][4] + ',100%,50%,1)'  
+						document.getElementById(activeNeuronscopy[k]).style.fill = 'white'
+					}
+					
+					neuronState[activeNeuronscopy[k]] = 'recovering'
+					if (animationcounter % 4 == 0) {
+						dormantNeurons1.push(activeNeuronscopy[k])
+					}
+					else if ((animationcounter + 2) % 4 == 0) {
+						dormantNeurons2.push(activeNeuronscopy[k])
+					}
+					if (typeof conns !== 'undefined') {
+						for (m = 0; m < conns.length; m++) {
+							if (neuronState[conns[m]] == 'dormant' && neuronlibraryuid[conns[m]][8] != 'input' && neuronlibraryuid[activeNeuronscopy[k]][8] != 'output') {
+								wght = document.getElementById(weightlibraryconn[activeNeuronscopy[k] + '-' + conns[m]])
+								wght.style.stroke = 'hsla(' + neuronlibraryuid[activeNeuronscopy[k]][4] + ',100%,' + sigmoid(weightlibraryuid[wght.id][6]*neuronlibraryuid[activeNeuronscopy[k]][9])*100 + '%,0.8)'
+								changedWghts.push(wght)
+								weightstate[weightlibraryconn[activeNeuronscopy[k] + '-' + conns[m]]] = 'active'
+								if (typeof tempactivetracker[conns[m]] == 'undefined') {
+
+									if (activeNeurons.indexOf(conns[m]) == -1) {
+										activeNeurons.push(conns[m])	
+									}
+					
+									tempactivetracker[conns[m]] = 1
+								}		
+							}
+						}
+						var index = activeNeurons.indexOf(activeNeuronscopy[k]);
+						if (index > -1) {
+							activeNeurons.splice(index, 1);
+						}
+					}
+				}
+					
+					
+			}
+			toweighttransfer = 0
+			for (k = 0; k < activeNeurons.length; k++) {
+				neuronState[activeNeurons[k]] = 'active'
+			}
+
+			if ((animationcounter + 2) % 4 == 0) {
+				for (k = 0; k < dormantNeurons1.length; k++) {
+					neuronState[dormantNeurons1[k]] = 'dormant'
+				}
+				dormantNeurons1 = []
+			}
+			else if ((animationcounter + 0) % 4 == 0) {
+				for (k = 0; k < dormantNeurons2.length; k++) {
+					neuronState[dormantNeurons2[k]] = 'dormant'
+				}
+				dormantNeurons2 = []
+			}
+			
+		}
+
+		animationcounter = 0
+
+		function Loop() {
+			var id = setInterval(frame, animationspeedfactor);
+			function frame() {
+				if (start == 1) {
+					animationcounter = animationcounter + 1
+					if (toweighttransfer == 1) {
+						fire()
+					}
+					else {
+						absorb()
+					}
+				}
+			}
+		}
+		
+
+		Loop();
+
+		document.getElementById('playpause').addEventListener('click', function() {
+
+			document.getElementById('editneuron').setAttribute('cx', '-20%')
+			document.getElementById('editneuron').setAttribute('cy', '-20%')
+			if (start == 1) {
+				start = 0
+				l1 = document.getElementById('line1revanimation1')
+				l1.beginElement()
+				l2 = document.getElementById('line1revanimation2')
+				l2.beginElement()
+			}
+			else {
+				start = 1
+				l1 = document.getElementById('line1animation1')
+				l1.beginElement()
+				l2 = document.getElementById('line1animation2')
+				l2.beginElement()
+			}
+		})
+
+		displayaddbuttons = 0
+		
+
+		document.getElementById('addButton').addEventListener('click', function() {
+
+			document.getElementById('editneuron').setAttribute('cx', '-20%')
+			document.getElementById('editneuron').setAttribute('cy', '-20%')
+			if (displayaddbuttons == 1) {
+				displayaddbuttons = 0
+				document.getElementById('addNButton').style.height = '0%';
+				document.getElementById('addWButton').style.height = '0%';
+				l1 = document.getElementById('plusline1revanimation')
+				l1.beginElement()
+				l2 = document.getElementById('plusline2revanimation')
+				l2.beginElement()
+
+				nmode = 'normal'
+				selectMode('normal')
+				cSvg.removeEventListener('mousemove', showneuronpreview)
+				document.getElementById('neurondot').setAttribute('cx', '-30%')
+				document.getElementById('neurondot').setAttribute('cy', '-30%')
+				
+				document.getElementById('iconaddNButtonL').style.stroke = 'hsla(190,0%,50%,1)'
+				document.getElementById('iconaddWButtonL').style.stroke = 'hsla(190,0%,50%,1)'
+
+				document.getElementById('plus1').style.stroke = 'hsla(190,0%,50%,1)'
+				document.getElementById('plus2').style.stroke = 'hsla(190,0%,50%,1)'
+
+				document.getElementById('containNselectorHolder').style.visibility = 'hidden'
+				document.getElementById('containNselectorHolder').style.pointerEvents = 'none'
+
+				document.getElementById('deletename').style.pointerEvents = 'none'
+				document.getElementById('deletename').style.visibility = 'hidden'
+
+				document.getElementById('containWselectorHolder').style.visibility = 'hidden'
+				document.getElementById('containWselector').style.pointerEvents = 'none'
+			
+				
+
+			}
+			else {
+				displayaddbuttons = 1
+				document.getElementById('addNButton').style.height = '10%';
+				document.getElementById('addWButton').style.height = '10%';
+				l1 = document.getElementById('plusline1animation')
+				l1.beginElement()
+				l2 = document.getElementById('plusline2animation')
+				l2.beginElement()
+				document.getElementById('plus1').style.stroke = 'hsla(190,100%,50%,1)'
+				document.getElementById('plus2').style.stroke = 'hsla(190,100%,50%,1)'
+
+				document.getElementById('deletename').style.pointerEvents = 'none'
+				document.getElementById('deletename').style.visibility = 'hidden'
+			}
+		})
+
+		visiblesplash = 0
+
+		document.getElementById('mainicon').addEventListener('click', function() {
+			document.getElementById('editneuron').setAttribute('cx', '-20%')
+			document.getElementById('editneuron').setAttribute('cy', '-20%')
+			if (visiblesplash == 1) {
+				visiblesplash = 0
+				document.getElementById('intro').style.visibility = 'hidden'
+				document.getElementById('intro').style.pointerEvents = 'none'
+				document.getElementById('mainicon').style.background = 'white'
+				// document.getElementById('mainicon').style.boxShadow = '0px 0px 10px hsla(0,0%,0%,0.4)'
+				document.getElementById('mainicon').addEventListener('mouseover', mouseovermainicon)
+				document.getElementById('mainicon').addEventListener('mouseout', mouseoutmainicon)
+
+				document.getElementById('mainiconline').style.stroke = 'hsla(190,100%,0%,1)'
+
+
+
+			}
+			else {
+				visiblesplash = 1
+				document.getElementById('mainicon').removeEventListener('mouseover', mouseovermainicon)
+				document.getElementById('mainicon').removeEventListener('mouseout', mouseoutmainicon)
+
+				document.getElementById('intro').style.visibility = 'visible'
+				document.getElementById('intro').style.pointerEvents = 'auto'
+				document.getElementById('mainicon').style.background = 'white'
+				// document.getElementById('mainicon').style.boxShadow = 'none'
+
+				document.getElementById('mainiconline').style.stroke = 'hsla(270,100%,50%,1)'
+			}
+		})
+
+		function mouseovermainicon () {
+			document.getElementById('editneuron').setAttribute('cx', '-20%')
+			document.getElementById('editneuron').setAttribute('cy', '-20%')
+			
+			document.getElementById('intro').style.visibility = 'visible'
+			document.getElementById('intro').style.pointerEvents = 'auto'
+			document.getElementById('mainicon').style.background = 'white'
+			
+		}
+
+		document.getElementById('mainicon').addEventListener('mouseover', mouseovermainicon)
+
+		function mouseoutmainicon() {
+			document.getElementById('editneuron').setAttribute('cx', '-20%')
+			document.getElementById('editneuron').setAttribute('cy', '-20%')
+			
+			document.getElementById('intro').style.visibility = 'hidden'
+			document.getElementById('intro').style.pointerEvents = 'none'
+			document.getElementById('mainicon').style.background = 'white'
+			
+		}
+		document.getElementById('mainicon').addEventListener('mouseout', mouseoutmainicon )
+
+
+		nmode = 'normal'
+
+		document.getElementById('containNselectorHolder').style.visibility = 'hidden'
+		document.getElementById('containNselectorHolder').style.pointerEvents = 'none'
+
+		document.getElementById('deletename').style.pointerEvents = 'none'
+		document.getElementById('deletename').style.visibility = 'hidden'
+		document.getElementById('containWselectorHolder').style.visibility = 'hidden'
+		document.getElementById('containWselector').style.pointerEvents = 'none'
+
+		document.getElementById('addNButton').addEventListener('click', function() {
+			document.getElementById('editneuron').setAttribute('cx', '-20%')
+			document.getElementById('editneuron').setAttribute('cy', '-20%')
+			if (nmode == 'normal' || nmode == 'addW') {
+
+				nmode = 'addN'
+				selectMode('addneuron')
+
+				document.getElementById('NselectorName').innerHTML = 'Add Neuron'
+				document.getElementById('initvaluename').innerHTML = 'Initial Value'
+				
+				document.getElementById('containNselectorHolder').style.visibility = 'visible'
+				document.getElementById('deletename').style.pointerEvents = 'none'
+				document.getElementById('deletename').style.visibility = 'hidden'
+
+				
+				document.getElementById('containNselector').style.pointerEvents = 'auto'
+				document.getElementById('deletename').style.pointerEvents = 'none'
+				document.getElementById('deletename').style.visibility = 'hidden'
+				document.getElementById('iconaddNButtonL').style.stroke = 'hsla(190,100%,50%,1)'
+				document.getElementById('iconaddWButtonL').style.stroke = 'hsla(190,0%,50%,1)'
+				document.getElementById('containWselectorHolder').style.visibility = 'hidden'
+				document.getElementById('containWselector').style.pointerEvents = 'none'
+
+				cSvg.addEventListener('mousemove', showneuronpreview)
+
+				
+
+			}
+			else {
+				nmode = 'normal'
+				selectMode('normal')
+				document.getElementById('neurondot').setAttribute('cx', '-30%')
+				document.getElementById('neurondot').setAttribute('cy', '-30%')
+				document.getElementById('containNselectorHolder').style.visibility = 'hidden'
+				document.getElementById('deletename').style.pointerEvents = 'none'
+				document.getElementById('deletename').style.visibility = 'hidden'
+				document.getElementById('containNselector').style.pointerEvents = 'none'
+				document.getElementById('iconaddNButtonL').style.stroke = 'hsla(190,0%,50%,1)'
+				document.getElementById('iconaddWButtonL').style.stroke = 'hsla(190,0%,50%,1)'
+				document.getElementById('containWselectorHolder').style.visibility = 'hidden'
+				document.getElementById('containWselector').style.pointerEvents = 'none'
+
+				cSvg.removeEventListener('mousemove', showneuronpreview)
+
+			
+			}
+		})
+
+		document.getElementById('addWButton').addEventListener('click', function() {
+			document.getElementById('editneuron').setAttribute('cx', '-20%')
+			document.getElementById('editneuron').setAttribute('cy', '-20%')
+			if (nmode == 'normal' || nmode == 'addN') {
+				nmode = 'addW'
+				selectMode('addweight')
+
+				document.getElementById('containWselectorHolder').style.visibility = 'visible'
+				document.getElementById('containWselector').style.pointerEvents = 'auto'
+				
+				cSvg.removeEventListener('mousemove', showneuronpreview)
+				document.getElementById('neurondot').setAttribute('cx', '-30%')
+				document.getElementById('neurondot').setAttribute('cy', '-30%')
+				document.getElementById('iconaddNButtonL').style.stroke = 'hsla(190,0%,50%,1)'
+				document.getElementById('iconaddWButtonL').style.stroke = 'hsla(190,100%,50%,1)'
+
+				document.getElementById('WselectorName').innerHTML = 'Add Weight'
+				document.getElementById('initvaluename').innerHTML = 'Initial Value'
+				
+
+			}
+			else {
+				nmode = 'normal'
+				selectMode('normal')
+				cSvg.removeEventListener('mousemove', showneuronpreview)
+				document.getElementById('neurondot').setAttribute('cx', '-30%')
+				document.getElementById('neurondot').setAttribute('cy', '-30%')
+				document.getElementById('containNselectorHolder').style.visibility = 'hidden'
+				document.getElementById('containNselectorHolder').style.pointerEvents = 'none'
+				document.getElementById('containWselectorHolder').style.visibility = 'hidden'
+				document.getElementById('containWselector').style.pointerEvents = 'none'
+			
+				document.getElementById('iconaddNButtonL').style.stroke = 'hsla(190,0%,50%,1)'
+				document.getElementById('iconaddWButtonL').style.stroke = 'hsla(190,0%,50%,1)'
+			}
+		})
+
+		slideN = 0
+		function slideNselector() {
+			if (slideN == 0) {
+				slideN = 1
+				document.getElementById('containNselector').style.left = '96.5%'
+				l1 = document.getElementById('slideiconanimation')
+				l1.beginElement()
+			}
+			else {
+				document.getElementById('containNselector').style.left = '65%'
+				slideN = 0
+				l1 = document.getElementById('slideiconrevanimation')
+				l1.beginElement()
+			}
+		}
+		document.getElementById('slideicon').addEventListener('click', slideNselector)
+
+		slideW = 0
+		function slideWselector() {
+			if (slideW == 0) {
+				slideW = 1
+				document.getElementById('containWselector').style.left = '96.5%'
+				l1 = document.getElementById('slideiconanimationW')
+				l1.beginElement()
+			}
+			else {
+				document.getElementById('containWselector').style.left = '65%'
+				slideW = 0
+				l1 = document.getElementById('slideiconrevanimationW')
+				l1.beginElement()
+			}
+		}
+		document.getElementById('Wslideicon').addEventListener('click', slideWselector)
+
+
+		edittype = 'add'
+		editneuron = ''
+		editweight = ''
+
+		nselecttype = 'hidden'
+		nselectactF = 'sigmoid'
+
+
+
+
+		function inputNselect() {
+			if (edittype == 'add') {
+				document.getElementById('Ntypeinputselect').style.background = 'black'
+				document.getElementById('Ntypeinputselect').style.color = 'white'
+				document.getElementById('Ntypehiddenselect').style.background = 'white'
+				document.getElementById('Ntypehiddenselect').style.color = 'black'
+				document.getElementById('Ntypeoutputselect').style.background = 'white'
+				document.getElementById('Ntypeoutputselect').style.color = 'black'
+				document.getElementById('containNselectorActF').style.height = '0%'
+				document.getElementById('containNselectorBias').style.height = '0%'
+				document.getElementById('containNselectorInitValue').style.height = '10%'
+				nselecttype = 'input'
+			}
+			else if (edittype == 'change') {
+				document.getElementById('Ntypeinputselect').style.background = 'black'
+				document.getElementById('Ntypeinputselect').style.color = 'white'
+				document.getElementById('Ntypehiddenselect').style.background = 'white'
+				document.getElementById('Ntypehiddenselect').style.color = 'black'
+				document.getElementById('Ntypeoutputselect').style.background = 'white'
+				document.getElementById('Ntypeoutputselect').style.color = 'black'
+				document.getElementById('containNselectorActF').style.height = '0%'
+				document.getElementById('containNselectorBias').style.height = '0%'
+				document.getElementById('containNselectorInitValue').style.height = '10%'
+				if (typeof neuronlibraryuid[editneuron] !== 'undefined') {
+					neuronlibraryuid[editneuron][8] = 'input'
+					document.getElementById(editneuron).style.strokeWidth = '0.4%'
+					document.getElementById(editneuron).style.stroke = 'hsla(' + neuronlibraryuid[editneuron][4] + ', 100%, 50%, 1)'
+					document.getElementById(editneuron).style.fill = 'white'
+
+				}
+					
+			}
+			
+		}
+		document.getElementById('Ntypeinputselect').addEventListener('click', inputNselect)
+			
+		function outputNselect() {
+			if (edittype == 'add') {
+				document.getElementById('Ntypeinputselect').style.background = 'white'
+				document.getElementById('Ntypeinputselect').style.color = 'black'
+				document.getElementById('Ntypehiddenselect').style.background = 'white'
+				document.getElementById('Ntypehiddenselect').style.color = 'black'
+				document.getElementById('Ntypeoutputselect').style.background = 'black'
+				document.getElementById('Ntypeoutputselect').style.color = 'white'
+				// document.getElementById('containNselectorActF').style.height = '0%'
+				// document.getElementById('containNselectorBias').style.height = '0%'
+				document.getElementById('containNselectorInitValue').style.height = '0%'
+				nselecttype = 'output'
+			}
+			else if(edittype == 'change') {
+				document.getElementById('Ntypeinputselect').style.background = 'white'
+				document.getElementById('Ntypeinputselect').style.color = 'black'
+				document.getElementById('Ntypehiddenselect').style.background = 'white'
+				document.getElementById('Ntypehiddenselect').style.color = 'black'
+				document.getElementById('Ntypeoutputselect').style.background = 'black'
+				document.getElementById('Ntypeoutputselect').style.color = 'white'
+				// document.getElementById('containNselectorActF').style.height = '0%'
+				// document.getElementById('containNselectorBias').style.height = '0%'
+				document.getElementById('containNselectorInitValue').style.height = '0%'
+				if (typeof neuronlibraryuid[editneuron] !== 'undefined') {
+					neuronlibraryuid[editneuron][8] = 'output'
+					document.getElementById(editneuron).style.strokeWidth = '0.2%'
+					document.getElementById(editneuron).style.stroke = 'hsla(' + neuronlibraryuid[editneuron][4] + ', 100%, 50%, 1)'
+					document.getElementById(editneuron).style.fill = 'white'
+				}
+			}
+
+
+		}
+
+		document.getElementById('Ntypeoutputselect').addEventListener('click', outputNselect)
+		
+
+		function hiddenNselect() {
+			if (edittype == 'add') {
+				nselecttype = 'hidden'
+		
+				document.getElementById('Ntypeinputselect').style.background = 'white'
+				document.getElementById('Ntypeinputselect').style.color = 'black'
+				document.getElementById('Ntypehiddenselect').style.background = 'black'
+				document.getElementById('Ntypehiddenselect').style.color = 'white'
+				document.getElementById('Ntypeoutputselect').style.background = 'white'
+				document.getElementById('Ntypeoutputselect').style.color = 'black'
+				document.getElementById('containNselectorActF').style.height = '15%'
+				document.getElementById('containNselectorBias').style.height = '10%'
+				document.getElementById('containNselectorInitValue').style.height = '10%'
+			}
+			else if (edittype == 'change') {
+				document.getElementById('Ntypeinputselect').style.background = 'white'
+				document.getElementById('Ntypeinputselect').style.color = 'black'
+				document.getElementById('Ntypehiddenselect').style.background = 'black'
+				document.getElementById('Ntypehiddenselect').style.color = 'white'
+				document.getElementById('Ntypeoutputselect').style.background = 'white'
+				document.getElementById('Ntypeoutputselect').style.color = 'black'
+				document.getElementById('containNselectorActF').style.height = '15%'
+				document.getElementById('containNselectorBias').style.height = '10%'
+				document.getElementById('containNselectorInitValue').style.height = '10%'
+				if (typeof neuronlibraryuid[editneuron] !== 'undefined') {
+					neuronlibraryuid[editneuron][8] = 'hidden'
+					document.getElementById(editneuron).style.strokeWidth = '0%'
+					document.getElementById(editneuron).style.fill = 'hsla(' + neuronlibraryuid[editneuron][4] + ', 100%, 50%, 1)'
+					// document.getElementById(editneuron).style.fill = 'white'
+				}
+
+			}
+			
+
+		}
+
+		
+		document.getElementById('Ntypehiddenselect').addEventListener('click', hiddenNselect)
+		
+		actFmap = {}
+		actFmap['NactFsigmoidselect'] = 'sigmoid'
+		actFmap['NactFidentityselect'] = 'identity'
+		actFmap['NactFbinaryselect'] = 'binary'
+		actFmap['NactFreluselect'] = 'relu'
+		actFmap['NactFtanhselect'] = 'tanh'
+
+		function actFNselectInd(selecttypeid) {
+			document.getElementById('NactFidentityselect').style.background = 'white'
+			document.getElementById('NactFidentityselect').style.color = 'black'
+			document.getElementById('NactFsigmoidselect').style.background = 'white'
+			document.getElementById('NactFsigmoidselect').style.color = 'black'
+			document.getElementById('NactFbinaryselect').style.background = 'white'
+			document.getElementById('NactFbinaryselect').style.color = 'black'
+			document.getElementById('NactFtanhselect').style.background = 'white'
+			document.getElementById('NactFtanhselect').style.color = 'black'
+			document.getElementById('NactFreluselect').style.background = 'white'
+			document.getElementById('NactFreluselect').style.color = 'black'
+
+			document.getElementById('NactF' + selecttypeid + 'select').style.color = 'white'
+			document.getElementById('NactF' + selecttypeid + 'select').style.background = 'black'
+
+			
+
+		}
+
+		function actFNselect() {
+			if (edittype == 'add') {
+				document.getElementById('NactFidentityselect').style.background = 'white'
+				document.getElementById('NactFidentityselect').style.color = 'black'
+				document.getElementById('NactFsigmoidselect').style.background = 'white'
+				document.getElementById('NactFsigmoidselect').style.color = 'black'
+				document.getElementById('NactFbinaryselect').style.background = 'white'
+				document.getElementById('NactFbinaryselect').style.color = 'black'
+				document.getElementById('NactFtanhselect').style.background = 'white'
+				document.getElementById('NactFtanhselect').style.color = 'black'
+				document.getElementById('NactFreluselect').style.background = 'white'
+				document.getElementById('NactFreluselect').style.color = 'black'
+
+				event.target.style.color = 'white'
+				event.target.style.background = 'black'
+
+				nselectactF = actFmap[event.target.id]
+				
+
+			}
+			else if (edittype == 'change') {
+				document.getElementById('NactFidentityselect').style.background = 'white'
+				document.getElementById('NactFidentityselect').style.color = 'black'
+				document.getElementById('NactFsigmoidselect').style.background = 'white'
+				document.getElementById('NactFsigmoidselect').style.color = 'black'
+				document.getElementById('NactFbinaryselect').style.background = 'white'
+				document.getElementById('NactFbinaryselect').style.color = 'black'
+				document.getElementById('NactFtanhselect').style.background = 'white'
+				document.getElementById('NactFtanhselect').style.color = 'black'
+				document.getElementById('NactFreluselect').style.background = 'white'
+				document.getElementById('NactFreluselect').style.color = 'black'
+
+				event.target.style.color = 'white'
+				event.target.style.background = 'black'
+				if (typeof neuronlibraryuid[editneuron] !== 'undefined') {
+					neuronlibraryuid[editneuron][1] = actFmap[event.target.id]
+				}
+			}
+				
+		}
+		
+		document.getElementById('NactFsigmoidselect').addEventListener('click', actFNselect)
+		document.getElementById('NactFtanhselect').addEventListener('click', actFNselect)
+		document.getElementById('NactFidentityselect').addEventListener('click', actFNselect)
+		document.getElementById('NactFbinaryselect').addEventListener('click', actFNselect)
+		document.getElementById('NactFreluselect').addEventListener('click', actFNselect)
+
+		neuroncolorchoice = 190
+
+		function colorhover() {
+			if (edittype == 'add') {
+				var rect = document.getElementById('colorinput').getBoundingClientRect();
+				posx = event.clientX - rect.left;
+				posy = event.clientY - rect.top;
+				document.getElementById('slideiconline').style.stroke = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'
+				document.getElementById('NselectorName').style.color = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'
+				document.getElementById('colorinput').value = parseInt(posx*349/rect.width)	
+			}
+			else if (edittype == 'change') {
+				var rect = document.getElementById('colorinput').getBoundingClientRect();
+				posx = event.clientX - rect.left;
+				posy = event.clientY - rect.top;
+				document.getElementById('slideiconline').style.stroke = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'
+				document.getElementById('NselectorName').style.color = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'
+				document.getElementById('colorinput').value = parseInt(posx*349/rect.width)
+				if (typeof neuronlibraryuid[editneuron] !== 'undefined') {
+					if (neuronlibraryuid[editneuron][8] == 'input' || neuronlibraryuid[editneuron][8] == 'output') {
+						document.getElementById(editneuron).style.stroke = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'	
+					}
+					else if (neuronlibraryuid[editneuron][8] == 'hidden') {
+						document.getElementById(editneuron).style.fill = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'	
+					}
+				}
+			}
+			
+		}
+
+		function colorclick() {
+			if (edittype == 'add') {
+				var rect = document.getElementById('colorinput').getBoundingClientRect();
+				posx = event.clientX - rect.left;
+				posy = event.clientY - rect.top;
+				document.getElementById('slideiconline').style.stroke = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'
+				document.getElementById('NselectorName').style.color = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'
+				neuroncolorchoice = parseInt(posx*349/rect.width)
+				document.getElementById('colorinput').value = neuroncolorchoice
+				
+			}
+			else if (edittype == 'change') {
+				var rect = document.getElementById('colorinput').getBoundingClientRect();
+				posx = event.clientX - rect.left;
+				posy = event.clientY - rect.top;
+				document.getElementById('slideiconline').style.stroke = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'
+				document.getElementById('NselectorName').style.color = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'
+				document.getElementById('colorinput').value = neuroncolorchoice
+				if (typeof neuronlibraryuid[editneuron] !== 'undefined') {
+					if (neuronlibraryuid[editneuron][8] == 'input' || neuronlibraryuid[editneuron][8] == 'output') {
+						document.getElementById(editneuron).style.stroke = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'	
+					}
+					else if (neuronlibraryuid[editneuron][8] == 'hidden') {
+						document.getElementById(editneuron).style.fill = 'hsla(' + posx*349/rect.width + ',100%,50%,1)'	
+					}
+					neuronlibraryuid[editneuron][4] = parseInt(posx*349/rect.width)
+				}
+			}
+			
+		}
+
+		function colormouseout() {
+			if (edittype == 'add') {
+				document.getElementById('slideiconline').style.stroke = 'hsla(' + neuroncolorchoice + ',100%,50%,1)'
+				document.getElementById('NselectorName').style.color = 'hsla(' + neuroncolorchoice + ',100%,50%,1)'
+				document.getElementById('colorinput').value = neuroncolorchoice
+			
+			}
+			else if (edittype == 'change') {
+
+				document.getElementById('slideiconline').style.stroke = 'hsla(' + neuronlibraryuid[editneuron][4] + ',100%,50%,1)'
+				document.getElementById('NselectorName').style.color = 'hsla(' + neuronlibraryuid[editneuron][4] + ',100%,50%,1)'
+				document.getElementById('colorinput').value = neuronlibraryuid[editneuron][4]
+				if (neuronlibraryuid[editneuron][8] == 'input' || neuronlibraryuid[editneuron][8] == 'output') {
+					document.getElementById(editneuron).style.stroke = 'hsla(' + neuronlibraryuid[editneuron][4] + ',100%,50%,1)'	
+				}
+				else if (neuronlibraryuid[editneuron][8] == 'hidden') {
+					document.getElementById(editneuron).style.fill = 'hsla(' + neuronlibraryuid[editneuron][4] + ',100%,50%,1)'	
+				}
+			}
+		}
+
+		document.getElementById('colorinput').addEventListener('mousemove', colorhover)
+		document.getElementById('containNselectorColorOptionsInner').addEventListener('mousemove', colorhover)
+		document.getElementById('containNselectorColorOptionsInner').addEventListener('mouseout', colormouseout)
+		document.getElementById('colorinput').addEventListener('mouseout', colormouseout)
+
+		document.getElementById('colorinput').addEventListener('click', colorclick)
+
+		
+		neuroninitialvalue = 1.2
+
+		function initvaluechange() {
+			if (edittype == 'add') {
+				neuroninitialvalue = document.getElementById('initvalueinput').value
+			}
+			else if (edittype == 'change') {
+				neuronlibraryuid[editneuron][9] = document.getElementById('initvalueinput').value
+
+			}
+		}
+		document.getElementById('initvalueinput').addEventListener("change", initvaluechange);
+
+		neuronbiasvalue = 2.4
+
+		function biasvaluechange() {
+			if (edittype == 'add') {
+				neuronbiasvalue = document.getElementById('biasinput').value
+			}
+			else if (edittype == 'change') {
+				neuronlibraryuid[editneuron][2] = document.getElementById('biasinput').value
+				
+			}
+		}
+		document.getElementById('biasinput').addEventListener("change", biasvaluechange);
+
+		neuronsizevalue = 1;
+
+		function sizevaluechange() {
+			if (edittype == 'add') {
+				neuronsizevalue = document.getElementById('sizeinput').value
+			}
+			else if (edittype == 'change') {
+				neuronlibraryuid[editneuron][5] = document.getElementById('sizeinput').value
+				document.getElementById(editneuron).setAttribute('r', neuronlibraryuid[editneuron][5] + '%')
+				document.getElementById('editneuron').setAttribute('r', parseFloat(neuronlibraryuid[editneuron][5]) + 1 + '%')
+				
+			}	
+			
+		}
+		document.getElementById('sizeinput').addEventListener("change", sizevaluechange);
+
+		neurongrpvalue = 'none';
+
+		function grpvaluechange() {
+			if (edittype == 'add') {
+				neurongrpvalue = document.getElementById('grpinput').value
+			}
+			else if (edittype == 'change') {
+				neuronlibraryuid[editneuron][7] = document.getElementById('grpinput').value
+				
+			}
+		}
+		document.getElementById('grpinput').addEventListener("change", grpvaluechange);
+
+		var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+		circleElement.setAttribute('r','1%');
+		circleElement.setAttribute('cx','-30%');
+		circleElement.setAttribute('cy','-30%');
+		circleElement.setAttribute('id','neurondot');
+		circleElement.style.fill = 'blue'
+		circleElement.style.opacity = 0.2
+		circleElement.style.pointerEvents = 'none'
+		circleElement.style.strokeWidth = '0';
+		neuronSvg.appendChild(circleElement);
+
+		var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+		circleElement.setAttribute('r','1%');
+		circleElement.setAttribute('cx','-30%');
+		circleElement.setAttribute('cy','-30%');
+		circleElement.setAttribute('id','editneuron');
+		circleElement.style.fill = 'none'
+		circleElement.style.opacity = 0.8
+		circleElement.style.pointerEvents = 'none'
+		circleElement.style.strokeWidth = '3';
+		circleElement.setAttribute('stroke-dasharray','5 5');
+		neuronSvg.appendChild(circleElement);
+
+
+		function showneuronpreview() {
+			var rect = neuronSvg.getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			
+			document.getElementById('neurondot').setAttribute('cx', posx*100/rect.width + '%')
+			document.getElementById('neurondot').setAttribute('cy', posy*100/rect.height + '%')
+
+
+			clr = 'hsla(' + neuroncolorchoice + ',100%,50%,1)'
+			type = nselecttype
+			if (type == 'hidden') {
+				document.getElementById('neurondot').setAttribute('r', neuronsizevalue + '%')
+				document.getElementById('neurondot').style.fill = clr
+				document.getElementById('neurondot').style.strokeWidth = '0%'
+
+			}
+			else if (type == 'input') {
+				document.getElementById('neurondot').setAttribute('r', neuronsizevalue)
+				document.getElementById('neurondot').style.strokeWidth = '0.4%'
+				document.getElementById('neurondot').style.stroke = clr	
+				document.getElementById('neurondot').style.fill = 'white'
+				
+			}
+			else if (type == 'output') {
+				document.getElementById('neurondot').setAttribute('r', neuronsizevalue)
+
+				document.getElementById('neurondot').style.strokeWidth = '0.2%'
+				document.getElementById('neurondot').style.stroke = clr
+				document.getElementById('neurondot').style.fill = 'white'
+				
+			}
+
+
+		}
+
+		function getwhtindex(id) {
+			for (wt = 0; wt < weightlibrary.length; wt++) {
+				if (weightlibrary[wt][0] == id) {
+					return wt
+					break
+				}
+			}
+		}
+
+		function getNindex(id) {
+			for (wt = 0; wt < neuronlibrary.length; wt++) {
+				if (neuronlibrary[wt][0] == id) {
+					return wt
+					break
+				}
+			}
+		}
+
+		function deleteNhandler() {
+			if (typeof neuronlibraryuid[editneuron] !== 'undefined') {
+				cnn = connections[editneuron]
+			}
+			if (typeof cnn !== 'undefined') {
+				for (j = 0; j < cnn.length; j++) {
+					ind = connections[cnn[j]].indexOf(parseInt(editneuron))
+					connections[cnn[j]].splice(ind, 1)
+					whtassociated = weightlibraryconn[editneuron + '-' + cnn[j]]
+					// delete weightlibrary[whtassociated]
+					ind = getwhtindex(whtassociated)
+					weightlibrary.splice(ind, 1)
+					delete weightlibraryuid[whtassociated]
+					delete weightlibraryconn[editneuron + '-' + cnn[j]]
+					delete weightlibraryconn[cnn[j] + '-' + editneuron]
+					delete weightstate[whtassociated]
+
+					whtelement = document.getElementById(whtassociated)
+
+					if (changedWghts.indexOf(whtelement) !== -1) {
+						changedWghts.splice(changedWghts.indexOf(whtelement), 1)
+					}
+					
+
+					document.getElementById(whtassociated).remove()
+
+				}
+				delete connections[editneuron]
+				ind = getNindex(editneuron)
+				neuronlibrary.splice(ind, 1)
+
+				delete neuronlibraryuid[editneuron]
+				delete neuronState[editneuron]
+
+				if (activeNeurons.indexOf(editneuron) !== -1) {
+					activeNeurons.splice(activeNeurons.indexOf(editneuron), 1)
+				}
+
+				if (activeNeuronscopy.indexOf(editneuron) !== -1) {
+					activeNeuronscopy.splice(activeNeuronscopy.indexOf(editneuron), 1)
+				}
+
+
+				if (dormantNeurons1.indexOf(editneuron) !== -1) {
+					dormantNeurons1.splice(dormantNeurons1.indexOf(editneuron), 1)
+				}
+
+
+				if (dormantNeurons2.indexOf(editneuron) !== -1) {
+					dormantNeurons2.splice(dormantNeurons2.indexOf(editneuron), 1)
+				}
+				
+
+				document.getElementById(editneuron).remove()
+
+				edittype = 'none'
+
+				document.getElementById('containNselectorHolder').style.visibility = 'hidden'
+				document.getElementById('containNselector').style.pointerEvents = 'none'
+				document.getElementById('containWselectorHolder').style.visibility = 'hidden'
+				document.getElementById('containWselector').style.pointerEvents = 'none'
+
+				document.getElementById('deletename').style.visibility = 'hidden'
+				document.getElementById('deletename').style.pointerEvents = 'none'
+
+				document.getElementById('editneuron').setAttribute('cx', '-20%')
+				document.getElementById('editneuron').setAttribute('cy', '-20%')
+					
+
+			}
+		}
+
+		document.getElementById('deletename').addEventListener('click', deleteNhandler)
+
+
+		neuronwhtvalue = 0.5 - Math.random()*0.5
+		document.getElementById('whtvalueinput').value = neuronwhtvalue
+		document.getElementById('whtvalueinput').step = '0.001'
+		function whtvaluechange() {
+			if (edittype == 'add') {
+				neuronwhtvalue = document.getElementById('whtvalueinput').value
+			}
+			else if (edittype == 'change') {
+				weightlibraryuid[editweight][6] = document.getElementById('whtvalueinput').value
+			}
+		}
+		document.getElementById('whtvalueinput').addEventListener("change", whtvaluechange);
+
+		expandmenustate = 'open'
+		function expandmenuhandle() {
+			if (expandmenustate == 'open') {
+				expandmenustate = 'close'
+				document.getElementById('playpause').style.transform = 'translate(0%,-1000%)'
+				document.getElementById('addButton').style.transform = 'translate(0%,-1000%)'
+				document.getElementById('addNButton').style.transform = 'translate(0%,-1000%)'
+				document.getElementById('addWButton').style.transform = 'translate(0%,-1000%)'
+				document.getElementById('dataicon').style.transform = 'translate(0%,-1000%)'
+				document.getElementById('loadpreseticon').style.transform = 'translate(0%,-1000%)'
+				document.getElementById('settingsicon').style.transform = 'translate(0%,-1000%)'
+				l1 = document.getElementById('menuiconanimation')
+				l1.beginElement()
+			}
+			else if (expandmenustate == 'close') {
+				expandmenustate = 'open'
+				document.getElementById('playpause').style.transform = 'translate(0%,0%)'
+				document.getElementById('addButton').style.transform = 'translate(0%,0%)'
+				document.getElementById('addNButton').style.transform = 'translate(0%,0%)'
+				document.getElementById('addWButton').style.transform = 'translate(0%,0%)'
+				document.getElementById('dataicon').style.transform = 'translate(0%,0%)'
+				document.getElementById('loadpreseticon').style.transform = 'translate(0%,0%)'
+				document.getElementById('settingsicon').style.transform = 'translate(0%,0%)'
+				l1 = document.getElementById('menuiconrevanimation')
+				l1.beginElement()
+			}
+		}
+		document.getElementById('expandicon').addEventListener('click', expandmenuhandle)
+
+		document.getElementById('playpause').style.transition = 'transform 0.5s, height 0.5s'
+		document.getElementById('addButton').style.transition = 'transform 0.5s, height 0.5s'
+		document.getElementById('addNButton').style.transition = 'transform 0.5s, height 0.5s'
+		document.getElementById('addWButton').style.transition = 'transform 0.5s, height 0.5s'
+		document.getElementById('dataicon').style.transition = 'transform 0.5s, height 0.5s'
+		document.getElementById('loadpreseticon').style.transition = 'transform 0.5s, height 0.5s'
+		document.getElementById('settingsicon').style.transition = 'transform 0.5s, height 0.5s'
+
+		document.getElementById('websiteText').style.pointerEvents = 'auto'
+
+		function generatepointsonline(p1,p2,segments) {
+			p1x = p1[0]
+			p1y = p1[1]
+			p2x = p2[0]
+			p2y = p2[1]
+
+			returnpoints = []
+			for(k = 0; k < segments; k++) {
+				tvalue = k/segments
+				valuex = (tvalue*p1x) + ((1 - tvalue)*p2x)
+				valuey = (tvalue*p1y) + ((1 - tvalue)*p2y)
+				returnpoints.push([valuex,valuey])
+			}
+
+			return returnpoints 
+
+		}
+
+
+		function meshArt(svgchoice, paths, deviation, density, ptradius, ptcolor, lnthickness, lncolor, averageconnections, connectionspread) {
+			pts = []
+			for (pth = 0; pth < paths.length; pth++) {
+				path = paths[pth]
+				if (path.length == 1) {
+					for (ln=0; ln < path.length; ln++) {
+					}
+				}
+				else if (path.length > 1) {
+					for (ln=0; ln < path.length - 1; ln++) {
+						points = generatepointsonline(path[ln], path[ln + 1], density)
+
+						for (pt = 0; pt < points.length; pt++) {
+							devx = deviation*(Math.random() - 0.5)/2
+							devy = deviation*(Math.random() - 0.5)/2
+							pts.push([points[pt][0] + devx,points[pt][1] + devy,svgchoice.id + '-meshArt-' + ln + '-' + pt,ln, pth])
+							drawDot(svgchoice, points[pt][0] + devx + '%', points[pt][1] + devy + '%', ptradius + '%', ptcolor, svgchoice.id + '-meshArt-' + ln + '-' + pt)
+							// drawLine(svgchoice, ,initycor, finalxcor, finalycor, color, strokewidth,id)
+						}
+					}	
+				}
+			}
+
+			for (pt = 0; pt < pts.length; pt++) {
+				for (cn = 0; cn < averageconnections; cn++) {
+					searchpindex = pt + parseInt((Math.random() - 0.5)*connectionspread)
+					
+					if (searchpindex >= 0 && searchpindex < pts.length && pts[searchpindex][3] == pts[pt][3] && pts[searchpindex][4] == pts[pt][4]) {
+
+						drawLine(svgchoice, pts[searchpindex][0] + '%',pts[searchpindex][1] + '%', pts[pt][0] + '%', pts[pt][1] + '%', lncolor, lnthickness, svgchoice.id + '-meshArt-line' + pt + '-' + searchpindex)
+					}
+						
+				}
+				
+			}
+					
+		}
+
+		pathforicon = [[[30,70],[30,30],[70,70],[70,30]]]
+
+		// meshArt(iconmainsvg, pathforicon, 20, 100, 0.4, 'hsla(190,100%,50%,0.4)',0.1,'hsla(0,100%,0%,0.2)', 10, 10)
+		
+		pathfortext = [[[14.521841794569067,39.006024096385545],[14.167650531286895,33.13253012048193],[17.591499409681226,38.855421686746986],[17.82762691853601,32.98192771084337]],[[23.140495867768596,33.13253012048193],[20.425029515938608,32.83132530120482],[20.66115702479339,35.8433734939759],[22.78630460448642,36.144578313253014]],[[20.66115702479339,35.8433734939759],[20.66115702479339,38.704819277108435],[23.140495867768596,38.855421686746986]],[[25.14757969303424,32.83132530120482],[24.911452184179456,37.5],[25.50177095631641,38.704819277108435],[27.272727272727273,38.704819277108435],[28.09917355371901,37.80120481927711],[28.33530106257379,32.68072289156626]],[[31.16883116883117,39.006024096385545],[30.932703659976386,32.98192771084337],[32.93978748524203,32.98192771084337],[33.64817001180638,34.036144578313255],[32.467532467532465,36.596385542168676],[31.28689492325856,36.596385542168676]],[[32.58559622195986,37.04819277108434],[33.88429752066116,39.006024096385545]],[[35.53719008264463,38.855421686746986],[37.78040141676505,32.68072289156626],[39.43329397874852,39.006024096385545]],[[36.24557260920897,37.19879518072289],[38.72491145218418,37.04819277108434]],[[41.55844155844156,32.98192771084337],[41.67650531286895,38.55421686746988],[43.91971664698937,38.855421686746986]],[[47.93388429752066,39.006024096385545],[47.93388429752066,32.83132530120482],[51.239669421487605,39.006024096385545],[51.239669421487605,32.53012048192771]],[[56.67060212514758,32.98192771084337],[53.837072018890204,32.98192771084337],[53.837072018890204,36.295180722891565],[56.552538370720185,35.8433734939759]],[[56.67060212514758,38.855421686746986],[53.71900826446281,39.006024096385545],[53.71900826446281,35.993975903614455]],[[59.74025974025974,39.006024096385545],[59.62219598583235,32.98192771084337]],[[57.6151121605667,32.98192771084337],[61.27508854781582,32.98192771084337]],[[63.04604486422668,32.83132530120482],[64.34474616292798,39.1566265060241],[65.99763872491145,34.93975903614458],[67.53246753246754,39.1566265060241],[69.42148760330579,33.13253012048193]],[[72.13695395513578,32.83132530120482],[74.02597402597402,33.28313253012048],[74.73435655253837,36.144578313253014],[74.3801652892562,38.25301204819277],[71.90082644628099,38.704819277108435],[70.83825265643448,35.54216867469879],[72.25501770956316,32.98192771084337]],[[77.21369539551358,38.855421686746986],[77.09563164108619,33.13253012048193],[79.456906729634,33.13253012048193],[79.5749704840614,35.39156626506024],[77.44982290436836,36.295180722891565]],[[80.16528925619835,39.1566265060241],[78.98465171192444,36.44578313253012]],[[82.40850059031877,32.37951807228916],[82.52656434474616,39.1566265060241]],[[85.12396694214875,32.53012048192771],[82.40850059031877,36.295180722891565],[85.8323494687131,39.30722891566265]],[[31.16883116883117,45.48192771084337],[31.16883116883117,51.355421686746986],[33.53010625737898,50.903614457831324],[34.5926800472255,47.74096385542169],[33.88429752066116,45.63253012048193],[31.16883116883117,45.18072289156626]],[[39.66942148760331,45.63253012048193],[36.95395513577332,45.33132530120482],[36.95395513577332,48.493975903614455],[39.197166469893745,48.04216867469879]],[[36.95395513577332,48.493975903614455],[37.07201889020071,51.506024096385545],[39.7874852420307,51.506024096385545]],[[43.91971664698937,45.78313253012048],[42.03069657615112,45.33132530120482],[41.55844155844156,47.59036144578313],[43.09327036599764,48.644578313253014],[43.68358913813459,50.45180722891566],[42.621015348288076,51.355421686746986],[41.086186540731994,50.602409638554214]],[[46.162927981109796,45.18072289156626],[46.51711924439197,51.95783132530121]],[[52.65643447461629,45.933734939759034],[49.586776859504134,45.48192771084337],[48.878394332939784,48.94578313253012],[49.82290436835891,50.903614457831324],[52.06611570247934,51.05421686746988],[52.06611570247934,51.05421686746988],[52.06611570247934,48.644578313253014]],[[54.663518299881936,51.6566265060241],[54.42739079102716,45.18072289156626],[57.96930342384888,51.355421686746986],[58.20543093270366,44.87951807228916]],[[63.63636363636363,45.03012048192771],[60.56670602125148,45.48192771084337],[60.56670602125148,48.493975903614455],[63.164108618654076,48.19277108433735]],[[63.75442739079103,51.506024096385545],[60.684769775678866,51.355421686746986],[60.684769775678866,49.096385542168676]],[[65.64344746162928,51.6566265060241],[65.52538370720188,45.33132530120482],[67.41440377804014,45.18072289156626],[68.24085005903187,47.28915662650602],[67.06021251475796,49.096385542168676],[65.76151121605668,48.94578313253012]],[[68.47697756788666,51.355421686746986],[67.06021251475796,49.096385542168676]]]
+
+		for (pl=0; pl < pathfortext.length; pl++) {
+			for (k = 0; k < pathfortext[pl].length; k++) {
+				pathfortext[pl][k][0] = pathfortext[pl][k][0]*1
+				pathfortext[pl][k][1] = pathfortext[pl][k][1]*1.8 - 35 
+			}
+		}
+		// pathfortext = [[[30,70],[30,30],[60,70],[60,30]]]
+
+		meshArt(introsvg, pathfortext, 2, 10, 0.2, 'hsla(190,100%,50%,0.4)',0.1,'hsla(0,100%,0%,0.2)', 10, 10)
+
+		// coverpath = [[[0,0],[100,0]],[[0,10],[100,10]],[[0,20],[100,20]],[[0,30],[100,30]],[[0,40],[100,40]],[[0,50],[100,50]],[[0,60],[100,60]]]
+
+		// meshArt(introsvg, coverpath, 30, 100, 0.4, 'hsla(45,100%,50%,0)',0.1,'hsla(45,100%,50%,0.1)', 10, 10)
+
+		// stringL = '[['
+		// function getpoints() {
+		// 	var rect = document.getElementById('intro').getBoundingClientRect();
+		// 	posx = event.clientX - rect.left;
+		// 	posy = event.clientY - rect.top;
+		// 	// console.log(posx*100/rect.width,posy*100/rect.height)
+		// 	stringL = stringL + posx*100/rect.width + ',' + posy*100/rect.height + '],['
+		// 	console.log(stringL)
+		// }
+		// document.getElementById('intro').addEventListener('click', getpoints)
+
+		// function pointdecouple() {
+		// 	stringL = stringL + '$$'
+		// }
+		// window.addEventListener('keydown', pointdecouple)
+
+		</script>
+
+
+
+	</body>
+<html>
