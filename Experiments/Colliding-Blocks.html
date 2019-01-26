@@ -986,7 +986,7 @@
 		}
 
 		function massinputfunction(event) {
-			if (isNaN(parseInt(event.target.value))) { 
+			if (isNaN(parseInt(event.target.value)) || parseInt(event.target.value) == 0) { 
 			}
 			else {
 				m2 = parseInt(event.target.value)
