@@ -31,7 +31,7 @@
   		  <meta name="description" content="A block collision simulation based on a 3Blue1Brown video.">
 		  <meta name="keywords" content="3Blue1Brown, blockcollision, PI, value of pi, counting problem, prajwalsouza, Prajwal DSouza">
 		  <meta name="author" content="Prajwal DSouza">
-		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1, maximum-scale=1">
 
 
 	</head>
@@ -59,26 +59,32 @@
 			<div id="mainsimulationcontrols" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative; display: inline-block;border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'>
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;">
 					<tr>
-						<td colspan="10" id='aboutspace' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;">An interactive based on a <a id="3b1bvideolink" href="https://www.youtube.com/watch?v=HEfHFsfGXjs" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); ">3Blue1Brown video</a> and G Galperin's work <a id="galperinlink" href="https://www.maths.tcd.ie/~lebed/Galperin.%20Playing%20pool%20with%20pi.pdf" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); "> "Playing Pool with π" </a>
+						<td colspan="4" rowspan="2" id='aboutspace' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;">An interactive based on a <a id="3b1bvideolink" href="https://www.youtube.com/watch?v=HEfHFsfGXjs" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); ">3Blue1Brown video</a> and G Galperin's work <a id="galperinlink" href="https://www.maths.tcd.ie/~lebed/Galperin.%20Playing%20pool%20with%20pi.pdf" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); "> "Playing Pool with π" </a>
 						</td>
 						<td colspan="1" id='spacer' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 1.8vmin; ">
 						</td>
-						<td colspan="1" id='mass2text' style="text-align: center; vertical-align: middle; border-right: 1px solid black; font-size: 1.8vmin; color: hsla(190, 100%, 50%, 1); ">Mass 2
+						<td colspan="1" id='mass2text' style="text-align: left; vertical-align: bottom; border-right: 0px solid black; font-size: 1.8vmin; color: hsla(260, 100%, 50%, 1); ">Mass 2
 						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 1px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0.05);">
-							<input id='mass2input' type="number" min = '1' step ='1' value='100' style="border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;"></input>
+						<td colspan="1" id='initialvelocity2text' style="text-align: left; vertical-align: bottom; border-right: 0px solid black; font-size: 1.8vmin; color: hsla(260, 100%, 50%, 1); ">Initial Velocity 2
+						</td>
+						<td colspan="1" id='initialvelocity1text' style="text-align: left; vertical-align: bottom; border-right: 0px solid black; font-size: 1.8vmin; color: hsla(190, 100%, 50%, 1); ">Initial Velocity 1
+						</td>
+						
+						
+					</tr>
+					<tr>
+						<td colspan="1" id='spacer2' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 1.8vmin; ">
+						</td>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid white; color:black;font-size: 1.8vmin; background: hsla(260, 100%, 0%, 0);">
+							<input id='mass2input' type="number" min = '1' step ='1' value='100' style="border: 0px; border-bottom: 2px solid hsla(260, 100%, 50%,1); height: 70%; width: 100%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;"></input>
 									
 						</td>
-						<td colspan="1" id='initialvelocity2text' style="text-align: center; vertical-align: middle; border-right: 1px solid black; font-size: 1.8vmin; color: hsla(190, 100%, 50%, 1); ">Initial Velocity 2
-						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 1px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0.05);">
-							<input id='initialvelocity2input' type="number" step ='any' value='-1' style="border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;"></input>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0);">
+							<input id='initialvelocity2input' type="number" step ='any' value='-1' style="border: 0px; border-bottom: 2px solid hsla(260, 100%, 50%,1); height: 70%; width: 100%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;"></input>
 									
 						</td>
-						<td colspan="1" id='initialvelocity1text' style="text-align: center; vertical-align: middle; border-right: 1px solid black; font-size: 1.8vmin; color: hsla(190, 100%, 50%, 1); ">Initial Velocity 1
-						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 1px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0.05);">
-							<input id='initialvelocity1input' type="number" step ='any' value='0' style="border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;"></input>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0);">
+							<input id='initialvelocity1input' type="number" step ='any' value='0' style="border: 0px; border-bottom: 2px solid hsla(190, 100%, 50%,1); height: 70%; width: 100%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;"></input>
 									
 						</td>
 						
@@ -1509,6 +1515,29 @@
 			addText('mainsimulation', 'collisiontext' , options)
 
 			options = {}
+			options.x = 4
+			options.y = 0.8
+			options.fontSize = 5
+			options.text = 'Velocity 1 : ' + initvector[0]
+			options.textcolor = 'hsla(190, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(190, 100%, 70%, 1)'
+			}
+			addText('mainsimulation', 'velocity1text' , options)
+
+			options = {}
+			options.x = 4
+			options.y = 0.7
+			options.fontSize = 5
+			options.text = 'Velocity 2 : ' + initvector[1]
+			options.textcolor = 'hsla(260, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(260, 100%, 70%, 1)'
+			}
+			addText('mainsimulation', 'velocity2text' , options)
+
+
+			options = {}
 			options.x = -1.5
 			options.y = 0.7
 			options.fontSize = 5
@@ -2378,6 +2407,14 @@
 								addedpointdata = addPoint('velocityphasespacegraph', 'velocityPhaseSpacePoint' + collisiontimescounter , options)
 
 								pointsofVgraph.push(addedpointdata[0])
+
+								options = {}
+								options.text = 'Velocity 1 : ' + velocityvalues[collisiontimescounter - 1 - (clstimes.length - clstimecount - 1)][0].toFixed(4)
+								updateText('mainsimulation', 'velocity1text' , options)
+
+								options = {}
+								options.text = 'Velocity 2 : ' + velocityvalues[collisiontimescounter - 1 - (clstimes.length - clstimecount - 1)][1].toFixed(3)
+								updateText('mainsimulation', 'velocity2text' , options)
 
 								options = {}
 								options.x1 = velocityvalues[collisiontimescounter - 1 - (clstimes.length - clstimecount - 1)][1]*Math.sqrt(m2)
