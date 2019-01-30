@@ -75,16 +75,16 @@
 					<tr>
 						<td colspan="1" id='spacer2' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 1.8vmin; ">
 						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid white; color:black;font-size: 1.8vmin; background: hsla(260, 100%, 0%, 0);">
-							<input id='mass2input' type="number" min = '1' step ='1' value='100' style="border: 0px; border-bottom: 2px solid hsla(260, 100%, 50%,1); height: 70%; width: 100%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;"></input>
+						<td colspan="1" style="text-align: left; vertical-align: middle; border-right: 0px solid white; color:black;font-size: 1.8vmin; background: hsla(260, 100%, 0%, 0);">
+							<input id='mass2input' type="number" min = '1' step ='1' value='100' style="border: 0px; border-bottom: 2px solid hsla(260, 100%, 50%,1); height: 70%; width: 90%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background-color: hsla(190, 100%, 0%, 0.05);"></input>
 									
 						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0);">
-							<input id='initialvelocity2input' type="number" step ='any' value='-1' style="border: 0px; border-bottom: 2px solid hsla(260, 100%, 50%,1); height: 70%; width: 100%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;"></input>
+						<td colspan="1" style="text-align: left; vertical-align: middle; border-right: 0px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0);">
+							<input id='initialvelocity2input' type="number" step ='any' value='-1' style="border: 0px; border-bottom: 2px solid hsla(260, 100%, 50%,1); height: 70%; width: 90%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background-color: hsla(190, 100%, 0%, 0.05);"></input>
 									
 						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0);">
-							<input id='initialvelocity1input' type="number" step ='any' value='0' style="border: 0px; border-bottom: 2px solid hsla(190, 100%, 50%,1); height: 70%; width: 100%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;"></input>
+						<td colspan="1" style="text-align: left; vertical-align: middle; border-right: 0px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0);">
+							<input id='initialvelocity1input' type="number" step ='any' value='0' style="border: 0px; border-bottom: 2px solid hsla(190, 100%, 50%,1); height: 70%; width: 90%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background-color: hsla(190, 100%, 0%, 0.05);"></input>
 									
 						</td>
 						
@@ -1145,10 +1145,44 @@
 
 		document.getElementById('initialvelocity2input').addEventListener('input',initialvelocity2inputfunction)
 		document.getElementById('initialvelocity1input').addEventListener('input',initialvelocity1inputfunction)
-		
 		document.getElementById('mass2input').addEventListener('input', massinputfunction)
 
+		// function changeIV2(event) {
+		// 	currvalue = event.target.value
+		// 	var locker = lockScroll()
+		// 	console.log(currvalue, event.deltaX, event.deltaY)
+		// }
 
+		// function openIV2Scroller(event) {
+		// 	event.target.addEventListener('wheel', changeIV2)
+		// }
+
+
+		// function closeIV2Scroller(event) {
+		// 	event.target.removeEventListener('wheel', changeIV2)
+		// }
+
+
+		// document.getElementById('initialvelocity2input').addEventListener('mouseover', openIV2Scroller)
+		// document.getElementById('initialvelocity2input').addEventListener('mouseout', closeIV2Scroller)
+
+		function lockScroll() {
+			var lockX = window.scrollX;
+			var lockY = window.scrollY;
+
+			function lockIt() {
+				window.scrollTo(lockX,lockY);
+				return false;
+			}
+
+			window.addEventListener("scroll",lockIt,false)
+
+			return {
+				stop: function(){
+					window.removeEventListener("scroll",lockIt,false)
+				}
+			}
+		}
 
 		function analyzecondition() {
 			// m1 = 1
@@ -2592,7 +2626,7 @@
 				document.body.style.backgroundColor = 'white'
 				document.body.style.color = 'black'
 				
-				document.getElementById('darkmodetext').innerHTML = 'Dark Mode'
+				// document.getElementById('darkmodetext').innerHTML = 'Dark Mode'
 				document.getElementById('darkmodetext').style.color = 'black'
 				
 				
@@ -2600,7 +2634,7 @@
 			else {
 				document.body.style.backgroundColor = 'black'
 				document.body.style.color = 'white'
-				document.getElementById('darkmodetext').innerHTML = 'Light Mode'
+				// document.getElementById('darkmodetext').innerHTML = 'Light Mode'
 				document.getElementById('darkmodetext').style.color = 'white'
 				
 			}
