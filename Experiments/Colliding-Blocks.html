@@ -165,6 +165,19 @@
 					</tr>
 				</table>
 			</div>
+			<div id="worldlinegraphholder" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; display: inline-block;'>
+				<div id="worldlinegraphbox" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; display: inline-block;'>
+				
+				</div>
+			</div>
+			<div id="worldlineTextholder" style='margin:0px;width:100%; height: 5%;overflow: hidden;position: relative; display: inline-block;border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;">
+					<tr>
+						<td colspan="1" id='worldlineText' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;"> Worldline Diagram
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 
 		
@@ -211,6 +224,8 @@
 			document.getElementById('transformedpositionphasespacegraphText').style.fontSize = '3vmin'
 			document.getElementById('transformedvelocityphasespacegraphText').style.fontSize = '3vmin'
 			document.getElementById('billiardsgraphText').style.fontSize = '3vmin'
+			document.getElementById('worldlineText').style.fontSize = '3vmin'
+
 
 			// document.getElementById('positionphasespacegraphText').style.fontSize = '5vmin'
 
@@ -733,6 +748,56 @@
 			graphData[graphname].lineData[linename] = [lineElement, lineoptions]
 			return [lineElement, lineoptions]
 		}
+
+
+		function updateLine(graphname, linename, linevalues) {
+
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			lineoptions = gdata.lineData[linename][1]
+			lineElement = gdata.lineData[linename][0]
+			
+			if (linevalues.x1 != 0) {
+				lineoptions.x1 = linevalues.x1 || lineoptions.x1	
+			}
+			else {
+				lineoptions.x1 = linevalues.x1
+			}
+
+
+			if (linevalues.y1 != 0) {
+				lineoptions.y1 = linevalues.y1 || lineoptions.y1	
+			}
+			else {
+				lineoptions.y1 = linevalues.y1
+			}
+
+
+			if (linevalues.x2 != 0) {
+				lineoptions.x2 = linevalues.x2 || lineoptions.x2	
+			}
+			else {
+				lineoptions.x2 = linevalues.x2
+			}
+
+
+			if (linevalues.y2 != 0) {
+				lineoptions.y2 = linevalues.y2 || lineoptions.y2	
+			}
+			else {
+				lineoptions.y2 = linevalues.y2
+			}
+
+			lineElement.setAttribute('x1', graphToScaledX(lineoptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
+			lineElement.setAttribute('y1', graphToScaledY(lineoptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
+			lineElement.setAttribute('x2', graphToScaledX(lineoptions.x2, gdata.xmin, gdata.xmax, aratio) + '%')
+			lineElement.setAttribute('y2', graphToScaledY(lineoptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
+			
+			
+			graphData[graphname].lineData[linename] = [lineElement, lineoptions]
+		}
+
 
 		function distanceBTWgraphToSvg(p1, p2, xmin, xmax, ymin, ymax, aspectratio) {
 			pt1 = [graphToScaledX(p1[0], xmin, xmax, aspectratio), graphToScaledY(p1[1], ymin, ymax, aspectratio)]
@@ -1391,6 +1456,7 @@
 			document.getElementById("transformedvelocityphasespacegraphbox").innerHTML = ""
 			document.getElementById("transformedpositionphasespacegraphbox").innerHTML = ""
 			document.getElementById("billiardsgraphbox").innerHTML = ""
+			document.getElementById("worldlinegraphbox").innerHTML = ""
 
 
 
@@ -2309,9 +2375,147 @@
 			
 			addText('transformedvelocityphasespacegraph', 'transformedvelocityphasespacegraphAxisY' , options)
 
-			
+
+			worldlinegraphholder = document.getElementById('worldlinegraphholder')
+			worldlinegraphbox = document.getElementById('worldlinegraphbox')
+
+			ppholderaratio = worldlinegraphholder.offsetWidth/worldlinegraphholder.offsetHeight
+
+			// document.getElementById('worldlinegraphbox').style.width = (100/ppholderaratio) + '%'
+
+			graphoptions = {}
+			graphoptions.xmax = 30
+			graphoptions.xmin = -1
+			graphoptions.ymax = uptotime - 100
+			graphoptions.ymin = -1
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility = 'yes'
+			graphoptions.yaxisvisibility = 'yes'
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'yes'
 
 
+			graphoptions.yaxislabel = 'time'
+			graphoptions.xaxislabel = 'position'
+
+
+			graphoptions.xmajorgridlabelshift = 2
+			graphoptions.ymajorgridlabelshift = 0
+
+			graphoptions.fontSize = 2.5
+
+			graphoptions.gridlinenumber = 6
+			graphoptions.xlabelexclusionsstart = 1
+			graphoptions.ylabelexclusionsstart = 1
+			graphoptions.ylabelexclusionsend = 1
+			addGraph(worldlinegraphbox , 'worldlinegraph', graphoptions)
+
+
+			for (colllision = 0; colllision < distancevalues.length - 1; colllision++) {
+				pos1 = distancevalues[colllision][0]
+				pos2 = distancevalues[colllision][1]
+				timev = timevalues[colllision]
+
+				pos1next = distancevalues[colllision + 1][0]
+				pos2next = distancevalues[colllision + 1][1]
+				timevnext = timevalues[colllision + 1]
+
+
+				options = {}
+				options.x1 = pos1
+				options.y1 = timev
+				options.x2 = pos1next
+				options.y2 = timevnext
+				options.linecolor = 'hsla(190, 100%, 50%, 0.5)'
+				if (darkmode) {
+					options.linecolor = 'hsla(190, 100%, 70%, 1)'
+				}
+				options.strokewidth = 2
+				addLine('worldlinegraph', 'worldline1-' + colllision , options)
+
+
+				options = {}
+				options.x1 = pos2
+				options.y1 = timev
+				options.x2 = pos2next
+				options.y2 = timevnext
+				options.linecolor = 'hsla(260, 100%, 50%, 0.5)'
+				if (darkmode) {
+					options.linecolor = 'hsla(260, 100%, 70%, 1)'
+				}
+				options.strokewidth = 2
+				addLine('worldlinegraph', 'worldline2-' + colllision , options)
+
+				// break
+
+			}
+
+
+			options = {}
+			options.x1 = 0
+			options.y1 = 0
+			options.x2 = 0
+			options.y2 = 0
+			options.linecolor = 'hsla(40, 100%, 50%, 0.5)'
+			options.strokedasharray = '5,5'
+			if (darkmode) {
+				options.linecolor = 'hsla(40, 100%, 70%, 1)'
+			}
+			options.strokewidth = 2
+			addLine('worldlinegraph', 'worldlinetimeline' , options)
+
+			options = {}
+			options.x = 31
+			options.y = 0
+			options.fontSize = 2.6
+			options.text = 'position'
+			options.textcolor = 'hsla(0, 100%, 0%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(0, 100%, 100%, 1)'
+			}
+			addText('worldlinegraph', 'worldlinegraphpostext' , options)
+
+			options = {}
+			options.x = 0
+			options.y = uptotime - 100
+			options.fontSize = 2.6
+			options.text = 'time'
+			options.textcolor = 'hsla(0, 100%, 0%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(0, 100%, 100%, 1)'
+			}
+			addText('worldlinegraph', 'worldlinegraphtimetext' , options)
+
+			options = {}
+			options.x = 5
+			options.y = 0
+			options.pointcolor = 'hsla(190, 100%, 50%, 1)'
+			if (darkmode) {
+				options.pointcolor = 'hsla(190, 100%, 80%, 1)'
+			}
+			options.pointsize = 0.7
+			addPoint('worldlinegraph', 'worldlinegraphpoint1' , options)
+
+			options = {}
+			options.x = 5
+			options.y = 0
+			options.pointcolor = 'hsla(260, 100%, 50%, 1)'
+			if (darkmode) {
+				options.pointcolor = 'hsla(260, 100%, 80%, 1)'
+			}
+			options.pointsize = 0.7
+			addPoint('worldlinegraph', 'worldlinegraphpoint2' , options)
+
+
+
+
+		
 
 			linesofVgraph = []
 			pointsofVgraph = []
@@ -2341,6 +2545,15 @@
 				// console.log(t)
 				if (t < uptotime) {
 					// console.log(timestep)
+
+					options = {}
+					options.y1 = t
+					options.y2 = t
+					options.x1 = -10
+					options.x2 = 40
+
+					updateLine('worldlinegraph', 'worldlinetimeline', options) 
+
 					if (collisionFlag == false) {
 						t = t + timestep
 						currenttime = t
@@ -2510,6 +2723,10 @@
 					updatePoint('positionphasespacegraph', 'positionPhaseSpacePoint', px2 + boxwidth, px1 + boxwidth)
 					updatePoint('positionphasespacegraph', 'positionPhaseSpacePoint1', px2 + boxwidth, 0)
 					updatePoint('positionphasespacegraph', 'positionPhaseSpacePoint2', 0, px1 + boxwidth)
+
+					updatePoint('worldlinegraph', 'worldlinegraphpoint1', px1 + boxwidth, t)
+
+					updatePoint('worldlinegraph', 'worldlinegraphpoint2', px2 + boxwidth, t)
 
 					updatePoint('transformedpositionphasespacegraph', 'transformedpositionPhaseSpacePoint', Math.sqrt(m2)*(px2 + boxwidth), Math.sqrt(m1)*(px1 + boxwidth))
 					updatePoint('transformedpositionphasespacegraph', 'transformedpositionPhaseSpacePoint1', Math.sqrt(m2)*(px2 + boxwidth), 0)
