@@ -2,7 +2,11 @@
 	<head>
 		<title>Gravitational Waves</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		
+		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
 		<!-- Google Analytics Code -->
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -29,21 +33,102 @@
 	</head>
 	<body style='margin:0px; display: block;'>
 		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'> 
-			<div id="unfilteredsignaldisplayH" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+			<div id="introtitleH" style='margin:0px;width:100%; height: 8%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-family: Source Sans Pro; font-size: 2vw;">
+					<tr>
+						<td colspan="4" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 4vmin;">
+							<a href="https://pycbc.org/tutorials/3/3_WaveformMatchedFilter/" target="_blank" style="text-decoration: none; color: hsla(210,100%,0%,1); ">On Matched Filtering of Gravitational Waves</a>  
+						</td>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 4vmin;">
+							<a href="https://prajwalsouza.github.io" target="_blank" style="text-decoration: none; color: hsla(190,100%,50%,1); font-size: 2vmin;">prajwalsouza.github.io</a>
+						</td>
+						
+					</tr>
+
+
+					
+				</table>
+			</div>
+			<div id="unfilteredsignaldisplayHAndplayer" style='margin:0px;width:100%; height: 23%;overflow: hidden;position: relative;z-index: 4; display: inline-block; box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);'>
+				<div id="unfilteredsignaldisplayH" style='margin:0px;width:100%; height: 80%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+
+				</div>
+				<div id="player" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+					<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw; ">
+						<tr>
+							<td colspan="2" id='pauseplay' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin; cursor: pointer;">
+								Pause
+							</td>
+							<td colspan="15" id='playline' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; position: relative; cursor: pointer;">
+								<div id="playlineH" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
 
 			</div>
-			<div id="signaldisplayH" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+			<div id="info1H" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Open Sans; font-size: 2vw;">
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin; padding: 1.2%;">
+							This visualization is based on the data processed at a tutorial using <a href="https://pycbc.org/" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); ">pycbc</a>, a python library used for signal processing of gravitational wave data. The signal above is the data from the gravitational wave <a href="https://en.wikipedia.org/wiki/First_observation_of_gravitational_waves" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); ">GW150914</a> detected at the Hanford detector.
+							Band pass filtering is done to remove harmonics from AC sources etc. A technique called matched filtering is employed to detect the gravitational waves. 
+						</td>
+						
+					</tr>
+				</table>
+			</div>	
+
+			<div id="signaldisplayH" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block; box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);'>
 
 			</div>
-			<div id="unfilteredgwavedisplayH" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+
+			<div id="info25H" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Open Sans; font-size: 2vw;">
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin; padding: 1.2%;">
+							Matched filtering is similar to auto correlation and involves sliding the signal that one is looking for. The signal we are looking for is due collision of two blackholes of around 36 solar masses.
+						</td>
+						
+					</tr>
+				</table>
+			</div>	
+
+			<div id="autocrdisplayH" style='margin:0px;width:100%; height: 30%;overflow: hidden;position: relative;z-index: 4; display: inline-block; box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);'>
 
 			</div>
-			<div id="gwavedisplayH" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+
+			<div id="info2H" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Open Sans; font-size: 2vw;">
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin; padding: 1.2%;">
+							 Using this technique, we can get the signal to noise ratio (SNR) which can help us locate the signal in the data. 
+						</td>
+						
+					</tr>
+				</table>
+			</div>	
+
+			<div id="unfilteredgwavedisplayH" style='margin:0px;width: 100%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block; box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);'>
 
 			</div>
-			<div id="autocrdisplayH" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+			<div id="info3H" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Open Sans; font-size: 2vw;">
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin; padding: 1.2%;">
+							The Wave template was generated using the pycbc module which uses <a href="https://arxiv.org/pdf/1611.03703.pdf" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); ">‘SEOBNRv4_opt’ model</a>. The generated wave from is then passed through the same band pass filter. 
+						</td>
+						
+					</tr>
+				</table>
+			</div>	
+
+			<div id="gwavedisplayH" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block; box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);'>
 
 			</div>
+			
 		</div>
 
 
@@ -1873,6 +1958,20 @@
 		
 		addGraph(gwavedisplay, 'gwavedisplaygraph', graphoptions)
 
+		options = {}
+		options.y = maxvaluecr/40
+		// console.log(options.x)
+		options.x = newtemplatetimes.length*0.1
+		options.textcolor = 'hsla(190, 20%, 0%, 1)'
+		options.fontSize = 8
+		options.text = 'Filtered Wave tempate'
+		if (darkmode) {
+			// options.textcolor = 'hsla(190, 20%, 70%, 1)'
+		}
+		addText('gwavedisplaygraph', 'displaytext-gwave' , options)
+
+
+
 		plotF('gwavedisplaygraph','gwave-plt', undefined, newtemplate, 'hsla(10, 100%, 50%, 1', 0.5)
 
 
@@ -1955,6 +2054,19 @@
 		// graphoptions.isComplexPlane = ''
 		
 		addGraph(gwavedisplay, 'unfilteredgwavedisplay', graphoptions)
+
+		options = {}
+		options.y = maxvaluecr/40
+		// console.log(options.x)
+		options.x = newnftemplate.length*0.1
+		options.textcolor = 'hsla(190, 20%, 0%, 1)'
+		options.fontSize = 8
+		options.text = 'Wave tempate for the collision of two 36 solar mass blackholes'
+		if (darkmode) {
+			// options.textcolor = 'hsla(190, 20%, 70%, 1)'
+		}
+		addText('unfilteredgwavedisplay', 'displaytext-unfgwave' , options)
+
 
 		
 		gwavetimestepdata = []
@@ -2058,9 +2170,6 @@
 
 		function getSegmentSNR(timeindex) {
 			starttimeindex = 0
-			if (timeindex > 0) {
-				starttimeindex = timeindex - 1
-			}
 			endtimeindex = timeindex
 			returnarray = []
 
@@ -2079,42 +2188,58 @@
 			return [returnarray, returntimearray]
 		}
 
+
+
 		// for 2 : 7450
 		// for 1 : 
-		snrshift = 7450*(2/sampleEvery)
-		loopstart = 24000
+		// snrshift = 7450*(2/sampleEvery)
+		snrshift = -100
+		loopstart = snrshift
 		looppoint = loopstart
-		
-		function playLoop() {
-			loopinterval = setInterval(frame, 1);
-			function frame() {
-				plotarray = getSegment(looppoint)
-				plotarraysnr = getSegmentSNR(looppoint - snrshift)
-				plotarraystrain = getSegmentStrain(looppoint + catchstrainindex)
-				if (looppoint == loopstart) {
-					plotF('signaldisplaygraph','signal-plt', timestepdata, plotarray, 'hsla(190, 100%, 50%, 1', 0.5)
-					plotF('unfsignaldisplaygraph','unfsignal-plt', timestepdata, plotarraystrain, 'hsla(190, 100%, 50%, 1', 0.5)
-					plotF('autocrgraph','filtered-plt', plotarraysnr[1], plotarraysnr[0], 'hsla(190, 100%, 50%, 1', 0.5)
 
-				}
-				else if (looppoint != 0) {
-					updateplotF('signaldisplaygraph','signal-plt', timestepdata, plotarray)
-					updateplotF('unfsignaldisplaygraph','unfsignal-plt', timestepdata, plotarraystrain)
-					plotF('autocrgraph','filtered-plt', plotarraysnr[1], plotarraysnr[0], 'hsla(190, 100%, 50%, 1', 0.5)
-				}
-				
-				options = {}
-				options.text = newwhitedatatimes[looppoint]
-				updateText('signaldisplaygraph', 'timedisplaytext', options)
-				// options = {}
-				// options.text = newsnrtimes[looppoint - snrshift]
-				// updateText('autocrgraph', 'timedisplaytext-gwave', options)
+
+		
+		// compresstimes 26001 11101 31120
+		// to 30001 15101 35120
+
+
+		function setAtLoop(loopp) {
+			plotarray = getSegment(loopp)
+			plotarraystrain = getSegmentStrain(loopp + catchstrainindex)
+			
+			if (loopp != 0) {
+				updatePoint('autocrgraph', 'snrpoint', loopp - snrshift, snr[loopp - snrshift])
+				updateplotF('signaldisplaygraph','signal-plt', timestepdata, plotarray)
+				updateplotF('unfsignaldisplaygraph','unfsignal-plt', timestepdata, plotarraystrain)
+				// plotF('autocrgraph','filtered-plt', plotarraysnr[1], plotarraysnr[0], 'hsla(260, 100%, 50%, 1', 0.5)
+			}
+			
+			options = {}
+			timemilli = (newwhitedatatimes[loopp - snrshift] + 315964800)*1000
+			d = new Date(timemilli)
+			// var d = new Date(timemilli)
+			options.text = "Time : " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + "." + d.getUTCMilliseconds()
+			updateText('signaldisplaygraph', 'timedisplaytext', options)
+			updateText('unfsignaldisplaygraph', 'timedisplaytext', options)
+			
+			// options = {}
+			// options.text = newsnrtimes[loopp - snrshift]
+			// updateText('autocrgraph', 'timedisplaytext-gwave', options)
+			setPlayerAt((loopp - snrshift)*100/whitedata.length)
+		}
+
+
+		function playLoop() {
+			loopinterval = setInterval(frame, 10);
+			function frame() {
+				setAtLoop(looppoint)
 				looppoint = looppoint + 1
-				if (looppoint % 1000 == 1) {
-					// console.log(newwhitedatatimes[looppoint + 1] - newwhitedatatimes[looppoint], newstraintimes[looppoint + catchstrainindex + 1] - newstraintimes[looppoint + catchstrainindex])
-				} 
+				// if (loopp % 1000 == 1) {
+				// 	// console.log(looppoint, looppoint - snrshift, looppoint + catchstrainindex)
+				// 	// console.log(newwhitedatatimes[looppoint + 1] - newwhitedatatimes[looppoint], newstraintimes[looppoint + catchstrainindex + 1] - newstraintimes[looppoint + catchstrainindex])
+				// } 
 				 // console.log(looptime)
-				if (looppoint == whitedatatimes.length) {
+				if (looppoint == whitedata.length + snrshift) {
 					clearInterval(loopinterval);
 					looppoint = 0
 				}
@@ -2163,13 +2288,24 @@
 		// console.log(options.x)
 		options.x = durationindex*0.8
 		options.textcolor = 'hsla(190, 20%, 0%, 1)'
-		options.fontSize = 6
+		options.fontSize = 7
 		options.text = ''
 		if (darkmode) {
 			// options.textcolor = 'hsla(190, 20%, 70%, 1)'
 		}
 		addText('signaldisplaygraph', 'timedisplaytext' , options)
 
+		options = {}
+		options.y = maxvaluecr/2
+		// console.log(options.x)
+		options.x = durationindex*0.05
+		options.textcolor = 'hsla(190, 20%, 0%, 1)'
+		options.fontSize = 8
+		options.text = 'Band pass filtered Strain data along with the wave template'
+		if (darkmode) {
+			// options.textcolor = 'hsla(190, 20%, 70%, 1)'
+		}
+		addText('signaldisplaygraph', 'detectordisplaytext' , options)
 
 
 		newstrain = []
@@ -2250,6 +2386,29 @@
 		
 		addGraph(unfsignaldisplay, 'unfsignaldisplaygraph', graphoptions)
 
+		options = {}
+		options.y = maxvaluecr/2
+		// console.log(options.x)
+		options.x = durationindex*0.8
+		options.textcolor = 'hsla(190, 20%, 0%, 1)'
+		options.fontSize = 7
+		options.text = ''
+		if (darkmode) {
+			// options.textcolor = 'hsla(190, 20%, 70%, 1)'
+		}
+		addText('unfsignaldisplaygraph', 'timedisplaytext' , options)
+
+		options = {}
+		options.y = maxvaluecr/2
+		// console.log(options.x)
+		options.x = durationindex*0.05
+		options.textcolor = 'hsla(190, 20%, 0%, 1)'
+		options.fontSize = 9
+		options.text = 'Strain data from LIGO Hanford on Sep 14, 2015	from 09:50:44 UTC.'
+		if (darkmode) {
+			// options.textcolor = 'hsla(190, 20%, 70%, 1)'
+		}
+		addText('unfsignaldisplaygraph', 'detectordisplaytext' , options)
 
 		function deleteSegments(collection) {
 			if (typeof collection != 'undefined') {
@@ -2260,60 +2419,59 @@
 		}
 
 		function wheelHandle(event) {
+			graphOfInterest = event.target.id
 			whlvalue = (event.wheelDeltaY)/Math.abs(event.wheelDeltaY)
 			scalefactorup = 0.1
 			scalefactordown = 0.1
 
-			gdata = graphData['signaldisplaygraph']
+			if (typeof graphData[graphOfInterest] !== 'undefined') {
+				gdata = graphData[graphOfInterest]
 
-			scale = gdata.ymax - gdata.ymin
-			expstring = scale.toExponential().toString()
-			ordery = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
-			// console.log(ordery)
+				scale = gdata.ymax - gdata.ymin
+				expstring = scale.toExponential().toString()
+				ordery = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				// console.log(ordery)
 
-			scale = gdata.xmax - gdata.xmin
-			expstring = scale.toExponential().toString()
-			orderx = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
-			// console.log(orderx)
-			
-			var rect = document.getElementById('signaldisplaygraph').getBoundingClientRect();
-			posx = event.clientX - rect.left;
-			posy = event.clientY - rect.top;
+				scale = gdata.xmax - gdata.xmin
+				expstring = scale.toExponential().toString()
+				orderx = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				// console.log(orderx)
+				
+				var rect = document.getElementById(graphOfInterest).getBoundingClientRect();
+				posx = event.clientX - rect.left;
+				posy = event.clientY - rect.top;
 
-			posx = posx/rect.width
-			posy = posy/rect.height
-			posy = 1 - posy
-			currentvalues = graphData['signaldisplaygraph']
-			// console.log(whlvalue)
-			if (whlvalue < 0) {
-				newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactorup
-				newscaley = (currentvalues.ymax - currentvalues.ymin)*scalefactorup
-				options = {}
-				options.xmin = currentvalues.xmin - (2*newscalex*(1 - posx))
-				options.xmax = currentvalues.xmax + (2*newscalex*(posx))
-				options.ymin = currentvalues.ymin - (2*newscaley*(1 - posy))
-				options.ymax = currentvalues.ymax + (2*newscaley*(posy))
-				updateGraphZoom('signaldisplaygraph', options)
+				posx = posx/rect.width
+				posy = posy/rect.height
+				posy = 1 - posy
+				currentvalues = graphData[graphOfInterest]
+				// console.log(whlvalue)
+				if (whlvalue < 0) {
+					newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactorup
+					newscaley = (currentvalues.ymax - currentvalues.ymin)*scalefactorup
+					options = {}
+					options.xmin = currentvalues.xmin - (2*newscalex*(1 - posx))
+					options.xmax = currentvalues.xmax + (2*newscalex*(posx))
+					options.ymin = currentvalues.ymin - (2*newscaley*(1 - posy))
+					options.ymax = currentvalues.ymax + (2*newscaley*(posy))
+					updateGraphZoom(graphOfInterest, options)
+				}
+				else if (whlvalue >= 0 && orderx < 14 && ordery < 14) {
+					newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactordown
+					newscaley = (currentvalues.ymax - currentvalues.ymin)*scalefactordown
+					options = {}
+					options.xmin = currentvalues.xmin + (2*newscalex*(posx))
+					options.xmax = currentvalues.xmax - (2*newscalex*(1 - posx))
+					options.ymin = currentvalues.ymin + (2*newscaley*(posy))
+					options.ymax = currentvalues.ymax - (2*newscaley*(1 - posy))
+					updateGraphZoom(graphOfInterest, options)
+				}
 			}
-			else if (whlvalue >= 0 && orderx < 14 && ordery < 14) {
-				newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactordown
-				newscaley = (currentvalues.ymax - currentvalues.ymin)*scalefactordown
-				options = {}
-				options.xmin = currentvalues.xmin + (2*newscalex*(posx))
-				options.xmax = currentvalues.xmax - (2*newscalex*(1 - posx))
-				options.ymin = currentvalues.ymin + (2*newscaley*(posy))
-				options.ymax = currentvalues.ymax - (2*newscaley*(1 - posy))
-				updateGraphZoom('signaldisplaygraph', options)
-			}
-			
-					
-
-
+				
 		}
 
-
-		document.getElementById('signaldisplaygraph').addEventListener('wheel', wheelHandle)
-
+		
+		
 		newsnr = []
 		// maxvaluecr = Number.NEGATIVE_INFINITY
 		// minvaluecr = Number.POSITIVE_INFINITY
@@ -2321,6 +2479,7 @@
 		// minvaluecr = 0
 		// maxcount = 0
 		// mincount = 0
+
 
 
 		for (k = 0; k < snr.length; k = k + sampleEvery) {
@@ -2392,7 +2551,7 @@
 		options = {}
 		options.y = maxvaluecr/2
 		// console.log(options.x)
-		options.x = newsnr.length*0.8
+		options.x = newsnr.length*0.1
 		options.textcolor = 'hsla(190, 20%, 0%, 1)'
 		options.fontSize = 6
 		options.text = 'Signal to Noise Ratio'
@@ -2401,9 +2560,160 @@
 		}
 		addText('autocrgraph', 'timedisplaytext-gwave' , options)
 
+		options = {}
+		options.x = 0
+		options.y = 0
+		options.pointcolor = 'hsla(260, 100%, 50%, 1)'
+		if (darkmode) {
+			options.pointcolor = 'hsla(40, 100%, 70%, 1)'
+		}
+		options.pointsize = 1.2
+		addPoint('autocrgraph', 'snrpoint' , options)
 
 
 		plotF('signaldisplaygraph', 'gwaveover-plt', gwavetimestepdata, newtemplate, 'hsla(50, 100%, 50%, 1', 0.5)
+
+		playline = document.getElementById('playlineH')
+		graphoptions = {}
+		graphoptions.xmax = 100
+		graphoptions.xmin = 0
+		graphoptions.ymax = 1
+		graphoptions.ymin = -1
+		graphoptions.axislocationX = 0
+		graphoptions.axislocationY = 0
+
+		graphoptions.xaxislabelvisibility = 'no'
+		graphoptions.yaxislabelvisibility = 'no'
+
+		// graphoptions.ymajorgridlinesextension = 'yes'
+		// graphoptions.xmajorgridlinesextension = 'yes'
+
+		graphoptions.xaxisvisibility = 'no'
+		graphoptions.yaxisvisibility = 'no'
+		graphoptions.xmajorgridlinesvisibility = 'no'
+		graphoptions.ymajorgridlinesvisibility = 'no'
+		graphoptions.ymajorgridlabelvisibility = 'no'
+		graphoptions.xmajorgridlabelvisibility = 'no'
+
+		graphoptions.fontSize = 2
+
+		// graphoptions.unitAspectRatio = 'yes'
+		// graphoptions.fixAxis = 'yaxis'
+		// graphoptions.fixAxisStretchCentrally = 'yes'
+
+		
+		addGraph(playline, 'playlinegraph', graphoptions)
+
+		// console.log(graphData['playlinegraph'].aspectratio)
+
+		options = {}
+		options.x1 = 100
+		options.y1 = 0
+		options.x2 = 0
+		options.y2 = 0
+		options.strokewidth = 2
+		options.linecolor = 'hsla(190, 20%, 70%, 1)'
+		if (darkmode) {
+			options.linecolor = 'hsla(190, 20%, 70%, 0.5)'
+		}
+		addLine('playlinegraph', 'playlineLineback' , options)
+
+
+		options = {}
+		options.x1 = 20
+		options.y1 = 0
+		options.x2 = 0
+		options.y2 = 0
+		options.strokewidth = 2
+		options.linecolor = 'hsla(190, 100%, 50%, 1)'
+		if (darkmode) {
+			options.linecolor = 'hsla(190, 100%, 70%, 0.5)'
+		}
+		addLine('playlinegraph', 'playlineLinetop' , options)
+
+		options = {}
+		options.x = 20
+		options.y = 0
+		options.pointcolor = 'hsla(190, 100%, 50%, 1)'
+		options.pointsize = 20
+		addPoint('playlinegraph', 'playlinepoint' , options)
+
+		function setPlayerAt(valuechoice) {
+			// valuechoice = valuechoice + snrshift
+			options = {}
+			options.y1 = 0
+			options.y2 = 0
+			options.x1 = 0
+			options.x2 = valuechoice 
+
+			updateLine('playlinegraph', 'playlineLinetop', options)
+			updatePoint('playlinegraph', 'playlinepoint', valuechoice, 0)
+		}
+
+		function handleplaylineclick(event) {
+			if (typeof loopinterval !== 'undefined') {
+				clearInterval(loopinterval);	
+			}
+			var rect = document.getElementById('playlineH').getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			if (posx/rect.width <= 0.05) {
+				slidervalue = 0	
+			}
+			else if (posx/rect.width >= 0.95) {
+				slidervalue = 100
+			}
+			else {
+				slidervalue = (((posx/rect.width) - 0.05)/0.9)*100	
+			}
+			// console.log(posx/rect.width)
+			setPlayerAt(slidervalue)
+			looppoint = parseInt(slidervalue*0.01*whitedata.length) + snrshift
+			setAtLoop(looppoint)
+			playmode = true
+			document.getElementById('pauseplay').innerHTML = 'Play'
+		}
+
+		document.getElementById('playlinegraph').style.pointerEvents = 'None'
+		document.getElementById('playlineH').addEventListener('click', handleplaylineclick)
+
+		playmode = false
+
+		function handleplay(event) {
+			if (playmode == true) {
+				// console.log(typeof loopinterval)
+				if (typeof loopinterval !== 'undefined') {
+					clearInterval(loopinterval);
+					// console.log('yes')	
+				}
+				// looptime = 0
+				playLoop()
+				playmode = false
+				document.getElementById('pauseplay').innerHTML = 'Pause'
+			}
+			else {
+				if (typeof loopinterval !== 'undefined') {
+					clearInterval(loopinterval);
+					// console.log('yes')	
+				}
+				playmode = true
+				document.getElementById('pauseplay').innerHTML = 'Play'
+			}
+			
+				
+		}
+		document.getElementById('pauseplay').addEventListener('click', handleplay)
+
+		plotarray = getSegment(looppoint)
+		plotarraystrain = getSegmentStrain(looppoint + catchstrainindex)
+
+		plotarraysnr = getSegmentSNR(snr.length)
+		plotF('signaldisplaygraph','signal-plt', timestepdata, plotarray, 'hsla(190, 100%, 50%, 1', 0.5)
+		plotF('unfsignaldisplaygraph','unfsignal-plt', timestepdata, plotarraystrain, 'hsla(190, 100%, 50%, 1', 0.5)
+		plotF('autocrgraph','filtered-plt', plotarraysnr[1], plotarraysnr[0], 'hsla(260, 100%, 50%, 0.3', 0.5)
+
+
+		// document.getElementById('signaldisplaygraph').addEventListener('wheel', wheelHandle)
 
 
 		// https://gwpy.github.io/docs/latest/examples/signal/gw150914.html
