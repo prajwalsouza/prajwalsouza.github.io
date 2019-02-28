@@ -1,0 +1,4034 @@
+<html>
+	<head>
+		<title>Complex Functions</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Itim" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC" rel="stylesheet">
+
+		<style type="text/css">
+			a {
+				cursor: pointer;
+			}
+		</style>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.5.0/math.min.js" type="text/javascript"></script>
+		<!-- <link rel="stylesheet" href="mathquill.css"/> -->
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+		<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+		<!-- <script src="mathquill.min.js"></script> -->
+		<!-- <script src="latex-to-js.js"></script> -->
+		<!-- <script src="semantic.min.js"></script> -->
+		<!-- <link rel="stylesheet" href="semantic.min.css"/> -->
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+		  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+		  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+		<!-- Google Analytics Code -->
+		<!-- <script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script> -->
+		<script type="application/ld+json">
+			{
+			  "@type": "Simulation",
+			  "name": "Complex Functions",
+			  "author": "Prajwal DSouza",
+			  "description": "A visualization of complex function based on an animation from 3Blue1Brown video"
+			  }
+		</script>
+		  <meta charset="UTF-8">
+		  <meta name="description" content="A visualization of complex function based on an animation from 3Blue1Brown video">
+		  <meta name="keywords" content="Complex Numbers, 3Blue1Brown, Complex Functions, Laurent Series, Simulations">
+		  <meta name="author" content="Prajwal DSouza">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body style='margin:0px; display: block;'>
+		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'> 
+			<div id="controlTitleSection" style='margin:0px;width:30%; height: 70%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+				<div id="titleH" style='margin:0px;width:100%; height: 30%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+					<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Calibri; font-size: 1vw;">
+						<tr>
+							<td colspan="1" id='maintitle' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 4vmin; font-weight: bold;  color: hsla(190, 100%, 50%, 1);">
+								Complex Functions <br/> <font style="font-size: 2.3vmin; font-weight: lighter; color: hsla(190, 0%, 60%, 1);">
+								An attempt to plot them </font><br/><font style="font-size: 2.3vmin; font-weight: lighter; color: hsla(190, 100%, 0%, 1);">Based on certain amazing animations <br/> in a  <a href="https://www.youtube.com/watch?v=sD0NjbwqlYw" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); "> video at 3Blue1Brown</a></font>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="functioncontrols" style='margin:0px;width:100%; height: 70%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+					<table width="100%" height='20%' style="border: 0px solid black; border-collapse: separate; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw; border-spacing: 0px;">
+						<tr>
+							<td colspan="1" rowspan="1"></td>
+							<td colspan="9" rowspan="1" id='functiontitle' style="text-align: left; vertical-align: middle; border: 0px solid black; font-size: 2.5vmin; font-weight: lighter;">
+								Function Input
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"></td>
+							<td colspan="4" rowspan="1" id='functionsimple' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%,0%, 0.1); font-size: 2.3vmin; background-color: hsla(100,0%,50%, 0.1); cursor: pointer; border-bottom: 1px solid hsla(190, 0%, 0%, 1)" onmouseover="displayText('Type a function that only depends on z. If n is used, it will be set to 1.')" onmouseout="displayText('default')">
+								Simple
+							</td>
+							<td colspan="4" rowspan="1" id='functionsummation' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%,0%, 0.1); font-size: 2.3vmin; color: hsla(190, 100%, 50%, 1); cursor: pointer; border-bottom: 1px solid hsla(190, 0%, 0%, 0)" onmouseover="displayText('Type in a summation term involving z and index n. Do not use other letters. Math.js will give errors.')" onmouseout="displayText('default')">
+								Summation
+							</td>
+							<td colspan="1" rowspan="1"></td>
+						</tr>
+						<tr></tr>
+					</table>
+					<table id="summationTable" width="100%" height='80%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;">
+						<tr></tr>
+						<tr>
+							<td colspan="1" rowspan="1"></td>
+							<td colspan="9" rowspan="1" id='summationtitle' style="text-align: left; vertical-align: middle; border: 0px solid black; font-size: 2.3vmin; font-weight: lighter;">
+								Summation Term
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="2"></td>
+							<td colspan="8" rowspan="2" id='inputfunction' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin;" onmouseover="displayText('Type the function/summation term as text.')" onmouseout="displayText('default')">
+								<input id='inputfunctiontext' value='1/(n^z)' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Calibri; font-size: 2.3vmin; font-weight: lighter; color: black;"></input>
+
+							</td>
+							<td colspan="1" rowspan="2"></td>
+						</tr>
+						<tr>
+						</tr>
+						<tr>
+						</tr>
+						<tr>
+						</tr>
+						<tr id="holdindexrange" onmouseover="displayText('Input summation ranges for index n. ')" onmouseout="displayText('default')">
+							<td colspan="1" rowspan="1"></td>
+							
+							<td colspan="2" id="nlowertext" style="text-align: center;">
+								from (n = ) 
+							</td>
+							<td colspan="2" id="nlowervalue">
+								<input id='nlowerinput' type="number" min = '0' step ='1' value='1' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 1.8vmin; color: black;"></input>
+
+							</td>
+							<td colspan="2" id="nuppertext" style="text-align: center;">
+								to (m = )
+							</td>
+							<td colspan="2" id="nuppervalue">
+								<input id='nupperinput' type="number" min = '1' step ='1' value='10' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 1.8vmin; color: black;"></input>
+							</td>
+							<td colspan="1" rowspan="1"></td>
+						</tr>
+						<tr>
+						</tr>
+						<tr onmouseover="displayText('Equation processed and displayed using MathJax (https://www.mathjax.org/)')" onmouseout="displayText('default')">
+							<td colspan="1" rowspan="1"></td>
+							<td colspan="8" id='equationdisplay' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; border: 1px solid hsla(210, 100%, 50%,0.2);">
+								$$f(z) = \sum_{n=1}^{\infty} 2^{-n} = 1$$
+							</td>
+							<td colspan="1" rowspan="1"></td>
+						</tr>
+						<!-- <tr>
+							<td colspan="10" id='currentinputvaluetext' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="10" id='currentoutputvaluetext' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;">
+								
+							</td>
+						</tr> -->
+					</table>
+				</div>
+			</div>
+			<div id="complexplaneTableH" style='margin:0px;width:70%; height: 70%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+				<table id="complexplaneinputTable" width="97%" height='97%' style="border: 0px solid hsla(190, 0%, 50%,0.2); border-collapse: separate; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw; position: absolute;">
+					<tr>
+						
+						<td colspan="6" id='infotext' style="text-align: right; vertical-align: middle; border: 0px solid hsla(190, 0%, 50%,0.2); font-size: 2vmin; cursor: pointer; color: hsla(190, 100%, 0%, 1); font-weight: normal; height: 20%;" onmouseover="displayText('Input and output values of the function. Input is set by moving the cursor over the complex plane.')" onmouseout="displayText('default')">
+							
+						</td>
+					</tr>
+					<tr>
+					
+					</tr>
+				</table>
+				<table id="complexplaneTable" width="100%" height='97%' style="border: 0px solid hsla(190, 0%, 50%,0.2); border-collapse: separate; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;">
+					<tr>
+						<td>
+							<table width="100%" height='100%' style="border: 1px solid hsla(190, 0%, 50%, 1); border-collapse: separate; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;">
+								<tr>
+									<td>
+										<div id="complexplane" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+											<div id="containcanvas" style='margin:0px;width:100%; height: 100%;overflow: hidden;background: hsla(300,100%,100%,0); cursor: auto; position: absolute; z-index: 0; opacity: 1;'>
+												<canvas id='plotcanvas' height="100%" width="100%" style='position: absolute; z-index: 0; opacity: 1; width: 100%; height: 100%;'>
+												</canvas>
+											</div>
+										</div>
+									</td>
+								</tr>	
+							</table>
+										
+						</td>
+					</tr>	
+				</table>
+			</div>
+			<div id="presetFunctionsText" style='margin:0px;width:30%; height: 5%;overflow: hidden;position: relative;z-index: 4; display: inline-block; visibility: hidden;'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: separate; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw; border-spacing: 0px;">
+					<tr>
+						<td colspan="1"></td>
+						<td colspan="8" id='presentextdisplay' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%,0%, 0.1); font-size: 2.3vmin; background-color: hsla(100,0%,0%, 0); cursor: pointer;">
+							Preset Functions
+						</td>
+						<td colspan="1"></td>
+					</tr>
+				</table>
+			</div>
+			<div id="player" style='margin:0px;width:70%; height: 5%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+				<div id="computeholder" style='margin:0px;width:55%; height: 100%;overflow: hidden;position: absolute;z-index: 5;' onmouseover="displayText('The color grid on the graph transforms from the input values to the output values of the function. The animation involved is first computed.')" onmouseout="displayText('default')">
+					<table width="100%" height='95%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;">
+						<tr>
+							<!-- <td></td> -->
+							<td colspan="10" id='computebutton' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%, 50%,0.2); font-size: 2.3vmin; cursor: pointer;">
+								Compute Transform Animation
+							</td>
+							<!-- <td></td> -->
+						</tr>
+					</table>
+				
+				</div>
+				<div id="playerholder" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative;z-index: 3;'>
+					<table width="100%" height='95%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;">
+						<tr>	
+							<td></td>
+							<td colspan="4" id='pauseplay' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%, 50%,0.2); font-size: 2.3vmin; cursor: pointer; color: hsla(190, 100%, 50%, 1); font-weight: normal;" onmouseover="displayText('Plays the animation showing the transformation from input to the output of the mesh')" onmouseout="displayText('default')">
+								Play
+							</td>
+							<td></td>
+							<td colspan="16" id='playline' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; position: relative; cursor: pointer;">
+								<div id="playlineH" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+									</div>
+								</div>
+							</td>
+							<td colspan="5" id='finaltransformH' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%, 50%,0.2); font-size: 2vmin; cursor: pointer;" onmouseover="displayText('Computing the full animation can take long. This tries to compute the final output state of the grid directly')" onmouseout="displayText('default')">
+								Final Result
+							</td>
+							<td></td>
+							<td colspan="4" id='editmeshH' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%, 50%,0.2); font-size: 2vmin; cursor: pointer;"  onmouseover="displayText('Edit the mesh/grid on the complex plane.')" onmouseout="displayText('default')">
+								Edit Mesh
+							</td>
+							<td></td>
+							<td colspan="4" id='darkmodeH' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%, 50%,0.2); font-size: 2vmin; cursor: pointer;"  onmouseover="displayText('Toggle between light and dark mode for 3Blue1Brown Style.')" onmouseout="displayText('default')">
+								DarkMode
+							</td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="infodisplayH" style='margin:0px;width:30%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;">
+					<tr>	
+						<td></td>
+						<td colspan="8" id='infotext2' style="text-align: center; vertical-align: middle; border: 0px solid hsla(190, 0%, 50%,0.2); font-size: 2vmin; cursor: pointer; color: hsla(190, 100%, 0%, 1); font-weight: normal;">
+							Made using Math.js, MathJax to visualize complex functions. Input point is in orange. If the complex function is a summation, then each term is a complex number which can be represented as a line. Sum of these lines added vectorially gives us the resulting output point in black.
+						</td>
+						<td></td>
+					</tr>
+					
+				</table>
+			</div>
+			<div id="ntermdisplayHold" style='margin:0px;width:70%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+				<div id="meshsettingdisplayHold" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: absolute;z-index: 5; display: inline-block; opacity: 0; visibility: hidden;'>
+					<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;">
+						<tr>
+							<td colspan="1" rowspan="1"></td>
+							<td colspan="4" rowspan="1" id='meshsetdisplaytitle' style="text-align: left; vertical-align: middle; border: 0px solid black; font-size: 2.5vmin; font-weight: lighter;">
+								Mesh Settings
+							</td>
+							<td colspan="15" rowspan="1" id='removemeshdisplaytitle' style="text-align: left; vertical-align: middle; border: 0px solid black; font-size: 2.2vmin; font-weight: lighter; color: hsla(190, 100%, 50%, 1); cursor: pointer;">
+								Remove Mesh
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"></td>
+							<td colspan="5" id="meshrestext" style="text-align: center; font-size: 2vmin;">
+								Mesh Resolution
+							</td>
+							<td colspan="1" rowspan="1"></td>
+							<td colspan="5" id="meshcolstext" style="text-align: center; font-size: 2vmin;">
+								Mesh Columns
+							</td>
+							<td colspan="1" rowspan="1"></td>
+							<td colspan="5" id="meshrowstext" style="text-align: center; font-size: 2vmin;">
+								Mesh Rows
+							</td>
+							
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"></td>
+							<td colspan="5" id="meshresvalue">
+								<input id='meshresinput' type="number" min = '10e-14' step ='10e-14' value='0.1' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 1.8vmin; color: black;"></input>
+
+							</td>
+							<td colspan="1" rowspan="1"></td>
+							<td colspan="5" id="meshcolsvalue">
+								<input id='meshcolsinput' type="number" min = '1' step ='1' value='20' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 1.8vmin; color: black;"></input>
+
+							</td>
+							<td colspan="1" rowspan="1"></td>
+							<td colspan="5" id="meshrowsvalue">
+								<input id='meshrowsinput' type="number" min = '0' step ='1' value='20' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 1.8vmin; color: black;"></input>
+
+							</td>
+						</tr>
+
+						
+					</table>
+				</div>
+				<table id="spectrumholder" width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;"  onmouseover="displayText('If the function is a summation, then the magnitude of each term is plotted. The color indicates the argument of the complex term with red for 180, blue of 0 and violet for -180.')" onmouseout="displayText('default')">
+					<tr>
+						<td colspan="1" rowspan="1"></td>
+						<td colspan="19" rowspan="1" id='ntermdisplaytitle' style="text-align: left; vertical-align: middle; border: 0px solid black; font-size: 2.5vmin; font-weight: lighter;">
+							Summation Term Magnitudes
+						</td>
+					</tr>
+					<tr>	
+						<!-- <td></td> -->
+						<td colspan="20" id='ntermdisplay' style="text-align: center; vertical-align: middle; border: 0px solid hsla(190, 0%, 50%,0.2); font-size: 2vmin; cursor: pointer; color: hsla(190, 100%, 0%, 1); font-weight: normal; position: relative;">
+						</td>
+						<!-- <td></td> -->
+					</tr>
+					
+				</table>
+
+
+			</div>
+			
+			<!-- <div id="textEquationInfo" style='margin:0px;width:70%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
+
+			</div> -->
+		</div>
+
+
+		<script type="text/javascript">
+
+
+		darkmode = false
+
+		if (darkmode) {
+			document.body.style.background = 'black'
+		}
+
+		function graphToSvgY(value, graphymin, graphymax) {
+			if (graphymin == graphymax) {
+				graphymin = graphymin - 1
+				graphymax = graphymax + 1
+				console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+			}
+			if (graphymin > graphymax) {
+				temp = graphymin
+				graphymin = graphymax
+				graphymax = temp
+				console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+			}
+			y = ((-80)/(graphymax - graphymin))*(value - graphymin) + 90
+			return y
+		}
+
+		function graphToScaledY(value, graphymin, graphymax, aspectratio) {
+			if(aspectratio > 1) {
+				if (graphymin == graphymax) {
+					graphymin = graphymin - 1
+					graphymax = graphymax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				if (graphymin > graphymax) {
+					temp = graphymin
+					graphymin = graphymax
+					graphymax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				y = ((-80)/(graphymax - graphymin))*(value - graphymin) + 90
+				
+			}
+			else {
+				if (graphymin == graphymax) {
+					graphymin = graphymin - 1
+					graphymax = graphymax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				if (graphymin > graphymax) {
+					temp = graphymin
+					graphymin = graphymax
+					graphymax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				aspectratio = 1/aspectratio
+				vl = (100*(1 - aspectratio)/2) + (10*aspectratio)
+				vh = (100*(aspectratio + 1)/2) - (10*aspectratio)
+				y = ((vl - vh)/(graphymax - graphymin))*(value - graphymin) + vh
+				// console.log(x)
+				// console.log(v1, v2)
+				// y = (((v2 - v1)/(100))*(y)) + v1
+			}
+
+			return y
+		}
+
+		function svgToGraphY(percentvalue, graphymin, graphymax, aspectratio) {
+			if(aspectratio > 1) {
+				if (graphymin == graphymax) {
+					graphymin = graphymin - 1
+					graphymax = graphymax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				if (graphymin > graphymax) {
+					temp = graphymin
+					graphymin = graphymax
+					graphymax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+
+				y = ((percentvalue - 90)*(graphymax - graphymin)/((-1)*80)) + graphymin
+				
+			}
+			else {
+				if (graphymin == graphymax) {
+					graphymin = graphymin - 1
+					graphymax = graphymax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				if (graphymin > graphymax) {
+					temp = graphymin
+					graphymin = graphymax
+					graphymax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				aspectratio = 1/aspectratio
+				vl = (100*(1 - aspectratio)/2) + (10*aspectratio)
+				vh = (100*(aspectratio + 1)/2) - (10*aspectratio)
+
+				// y = ((vl - vh)/(graphymax - graphymin))*(value - graphymin) + vh
+				y = (((percentvalue - vh)*(graphymax - graphymin))/(vl - vh)) + graphymin
+				// console.log(x)
+				// console.log(v1, v2)
+				// y = (((v2 - v1)/(100))*(y)) + v1
+			}
+
+			return y
+		}
+
+
+		function graphToSvgX(value, graphxmin, graphxmax) {
+			if (graphxmin == graphxmax) {
+				graphxmin = graphxmin - 1
+				graphxmax = graphxmax + 1
+				console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+			}
+			if (graphxmin > graphxmax) {
+				temp = graphxmin
+				graphxmin = graphxmax
+				graphxmax = temp
+				console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+			}
+			x = ((80)/(graphxmax - graphxmin))*(value - graphxmin) + 10
+			return x
+		}
+
+		function graphToScaledX(value, graphxmin, graphxmax, aspectratio) {
+			if (aspectratio <= 1) {
+				if (graphxmin == graphxmax) {
+					graphxmin = graphxmin - 1
+					graphxmax = graphxmax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				if (graphxmin > graphxmax) {
+					temp = graphxmin
+					graphxmin = graphxmax
+					graphxmax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				x = ((80)/(graphxmax - graphxmin))*(value - graphxmin) + 10
+			}
+			else {
+				if (graphxmin == graphxmax) {
+					graphxmin = graphxmin - 1
+					graphxmax = graphxmax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				if (graphxmin > graphxmax) {
+					temp = graphxmin
+					graphxmin = graphxmax
+					graphxmax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				vl = (100*(1 - aspectratio)/2) + (10*aspectratio)
+				vh = (100*(aspectratio + 1)/2) - (10*aspectratio)
+				x = ((vh - vl)/(graphxmax - graphxmin))*(value - graphxmin) + vl
+				// console.log(x)
+				// console.log(v1, v2)
+				// y - y1 = (y2 - y1)/(x2 - x1) * (x - x1)
+				// x = (((v2 - v1)/(90))*(x - 10)) + v1
+				// console.log(x)
+				// console.log('_') 
+			}
+			return x
+		}
+
+		function svgToGraphX(percentvalue, graphxmin, graphxmax, aspectratio) {
+			if (aspectratio <= 1) {
+				if (graphxmin == graphxmax) {
+					graphxmin = graphxmin - 1
+					graphxmax = graphxmax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				if (graphxmin > graphxmax) {
+					temp = graphxmin
+					graphxmin = graphxmax
+					graphxmax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+
+				x = ((percentvalue - 10)*(graphxmax - graphxmin)/80) + graphxmin
+			}
+			else {
+				if (graphxmin == graphxmax) {
+					graphxmin = graphxmin - 1
+					graphxmax = graphxmax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				if (graphxmin > graphxmax) {
+					temp = graphxmin
+					graphxmin = graphxmax
+					graphxmax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				vl = (100*(1 - aspectratio)/2) + (10*aspectratio)
+				vh = (100*(aspectratio + 1)/2) - (10*aspectratio)
+
+				// x = ((vh - vl)/(graphxmax - graphxmin))*(value - graphxmin) + vl
+
+				x = ((percentvalue - vl)*(graphxmax - graphxmin)/(vh - vl)) + graphxmin
+				// console.log(x)
+				// console.log(v1, v2)
+				// y - y1 = (y2 - y1)/(x2 - x1) * (x - x1)
+				// x = (((v2 - v1)/(90))*(x - 10)) + v1
+				// console.log(x)
+				// console.log('_') 
+			}
+			return x
+		}
+
+		function isInt(n){
+			return Number(n) === n && n % 1 === 0;
+		}
+
+		function isFloat(n){
+			return Number(n) === n && n % 1 !== 0;
+		}
+
+		function gridtickvalues(valmin, valmax, ticksexpected) {
+			expstring = ((valmax - valmin)/ticksexpected).toExponential()
+			majorgridorder = parseFloat(Math.pow(10 , expstring.slice(expstring.indexOf('e') + 1)))
+			// console.log(expstring)
+			if (expstring.indexOf('.') != -1) {
+				majorgriddivision = parseFloat(expstring.slice(0, expstring.indexOf('.'))*majorgridorder)	
+			}
+			else {
+				majorgriddivision = parseFloat(expstring.slice(0, expstring.indexOf('e'))*majorgridorder)
+			}
+			
+			// console.log(majorgriddivision)
+			// console.log(majorgridorder)
+
+			integerchoices = [1,2,5,10]
+			for(choice = 0; choice < integerchoices.length - 1; choice++) {
+				if (majorgriddivision < integerchoices[choice + 1]*majorgridorder) {
+					majorgriddivisionchoice = majorgridorder*integerchoices[choice]
+					break
+				}
+			}
+			// console.log(majorgriddivisionchoice)
+
+			if(valmin > 0) {
+				majorgridstart = Math.ceil(valmin/majorgriddivisionchoice)*majorgriddivisionchoice;
+				majorgridstart = majorgridstart - majorgriddivisionchoice
+			}
+			else if(valmin < 0) {
+				majorgridstart = Math.floor(valmin/majorgriddivisionchoice)*majorgriddivisionchoice;
+			}
+			else{
+				majorgridstart = majorgriddivisionchoice;
+			}
+
+			// majorgridstart = majorgridstart - majorgriddivisionchoice
+			// console.log(majorgridstart, (valmax + majorgriddivisionchoice), majorgriddivisionchoice)
+
+			majortickvalues = []
+			for(majoraxispoint = majorgridstart; majoraxispoint < (valmax + majorgriddivisionchoice); majoraxispoint = majoraxispoint + majorgriddivisionchoice) {
+				majortickvalues.push(majoraxispoint)
+			}
+
+			return majortickvalues
+		}
+
+		function updateGraphZoom(graphname, newMinMax) {
+			gdata = graphData[graphname]
+
+			svgElement = gdata.svgElement
+
+			if (newMinMax.xmin != 0) {
+				gdata.xmin = newMinMax.xmin || gdata.xmin
+			}
+			else {
+				gdata.xmin = 0
+			}
+
+			if (newMinMax.xmax != 0) {
+				gdata.xmax = newMinMax.xmax || gdata.xmax
+			}
+			else {
+				gdata.xmax = 0
+			}
+
+			if (newMinMax.ymin != 0) {
+				gdata.ymin = newMinMax.ymin || gdata.ymin
+			}
+			else {
+				gdata.ymin = 0
+			}
+
+			if (newMinMax.ymax != 0) {
+				gdata.ymax = newMinMax.ymax || gdata.ymax
+			}
+			else {
+				gdata.ymax = 0
+			}
+
+			aratio = gdata.aspectratio
+
+			if (gdata.unitAspectRatio == 'yes') {
+				if (gdata.fixAxis == 'yaxis') {
+					if (gdata.fixAxisStretchCentrally == 'yes') {
+						centre = (gdata.xmax + gdata.xmin)/2
+						gdata.xmin = centre - ((gdata.ymax - gdata.ymin)*aratio/2)
+						gdata.xmax = centre + ((gdata.ymax - gdata.ymin)*aratio/2)
+					}
+					else {
+						gdata.xmax = gdata.xmin + (gdata.ymax - gdata.ymin)*aratio
+					}
+					
+				}
+				else {
+					if (gdata.fixAxisStretchCentrally == 'yes') {
+						centre = (gdata.ymax + gdata.ymin)/2
+						gdata.ymin = centre - ((gdata.xmax - gdata.xmin)*aratio/2)
+						gdata.ymax = centre + ((gdata.xmax - gdata.xmin)*aratio/2)
+					}
+					else {
+						gdata.ymax = gdata.ymin + (gdata.xmax - gdata.xmin)*aratio	
+					}
+					
+				}
+			}
+
+			if (gdata.yaxisvisibility == 'yes') {
+				var lineElement = gdata.yaxisElement
+				lineElement.setAttribute('x1', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('x2', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(gdata.ymin, gdata.ymin, gdata.ymax, aratio) + '%');
+				if (darkmode == false) {
+					lineElement.style.stroke = gdata.yaxiscolor
+				}
+				else {
+					lineElement.style.stroke = 'hsla(0, 0%, 100%, 1)'
+				}
+				gdata.yaxisElement = lineElement
+			}
+
+			if (gdata.xaxisvisibility == 'yes') {
+				var lineElement = gdata.xaxisElement
+				lineElement.setAttribute('x1', graphToScaledX(gdata.xmin, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('x2', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + '%');
+				if (darkmode == false) {
+					lineElement.style.stroke = gdata.xaxiscolor
+				}
+				else {
+					lineElement.style.stroke = 'hsla(0, 0%, 100%, 1)'
+				}
+				gdata.xaxisElement = lineElement
+			}
+
+			deleteSegments(gdata.xmajorgridElements)
+
+			if (gdata.xmajorgridlinesvisibility == 'yes') {
+				xmajortickvalues = gridtickvalues(gdata.xmin, gdata.xmax, ticks)
+				gdata.xmajorgridElements = []
+				for (m = 0; m < xmajortickvalues.length; m++) {
+					ticklocation = xmajortickvalues[m]
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					ylength = (gdata.ymax - gdata.ymin)
+					if (gdata.xmajorgridlinesextension == 'yes') {
+						lineElement.setAttribute('x1', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(gdata.ymin - (ylength)/2, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(gdata.ymax + (ylength)/2, gdata.ymin, gdata.ymax, aratio) + '%');
+						
+					}
+					else {
+						lineElement.setAttribute('x1', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(gdata.ymin, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('id', gdata.name + '-xmajorgridline-' + m)
+					}
+					if (darkmode == false) {
+						lineElement.style.stroke = gdata.xmajorgridcolor
+					}
+					else {
+						lineElement.style.stroke = 'hsla(0, 0%, 100%, 1)'
+					}	
+					lineElement.style.strokeWidth = gdata.xmajorgridthickness + '%';
+					gdata.xmajorgridElements.push(lineElement)
+					svgElement.appendChild(lineElement);
+				}
+				gdata.xmajorgridticks = xmajortickvalues
+			}
+
+			deleteSegments(gdata.ymajorgridElements)
+
+			if (gdata.ymajorgridlinesvisibility == 'yes') {
+				ymajortickvalues = gridtickvalues(gdata.ymin, gdata.ymax, ticks)
+				gdata.ymajorgridElements = []
+				for (m = 0; m < ymajortickvalues.length; m++) {
+					ticklocation = ymajortickvalues[m]
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					xlength = (gdata.xmax - gdata.xmin)
+					if (gdata.ymajorgridlinesextension == 'yes') {
+						lineElement.setAttribute('x1', graphToScaledX((gdata.xmin) - xlength/2, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(gdata.xmax + (xlength/2), gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+					}
+					else {
+						lineElement.setAttribute('x1', graphToScaledX(gdata.xmin, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+					}
+					lineElement.setAttribute('id', gdata.name + '-ymajorgridline-' + m)
+					if (darkmode == false) {
+						lineElement.style.stroke = gdata.ymajorgridcolor
+					}
+					else {
+						lineElement.style.stroke = 'hsla(0, 0%, 100%, 1)'
+					}	
+					lineElement.style.strokeWidth = gdata.ymajorgridthickness + '%';
+					gdata.ymajorgridElements.push(lineElement)
+					svgElement.appendChild(lineElement);
+				}
+				gdata.ymajorgridticks = ymajortickvalues
+			}
+
+			deleteSegments(gdata.ymajorlabelsElements)
+
+			if (gdata.ymajorgridlabelvisibility == 'yes') {
+				gdata.ymajorlabelsElements = []
+				ymajortickvalues = gridtickvalues(gdata.ymin, gdata.ymax, ticks)
+				scale = gdata.ymax - gdata.ymin
+				expstring = scale.toExponential().toString()
+				order = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				labelylocationX = gdata.axislocationX
+				if (graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) < 0) {
+					labelylocationX = gdata.xmin
+				}
+				if (graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) > 100) {
+					labelylocationX = gdata.xmax
+				}
+				for (m = gdata.ylabelexclusionsstart; m < ymajortickvalues.length - gdata.ylabelexclusionsend; m++) {
+					ticklocation = ymajortickvalues[m]
+
+					
+					var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+					
+
+					if(isInt(ticklocation)) {
+						if (gdata.isComplexPlane == 'yes') {
+							textElement.innerHTML = ticklocation + 'i'
+						}
+						else {
+							textElement.innerHTML = ticklocation
+						}
+					}
+					else {
+						// console.log(ticklocation)
+						if (Math.abs(ticklocation) < 0.01 && order > 2) {
+							ticklocation = ticklocation.toExponential(order)
+							// console.log(ticklocation)	
+						}
+						else {
+							ticklocation = ticklocation.toFixed(order + 1)
+							// console.log('check')
+						}
+						if (gdata.isComplexPlane == 'yes') {
+							textElement.innerHTML = ticklocation + 'i'
+						}
+						else {
+							textElement.innerHTML = ticklocation	
+						}
+						if(ticklocation == 0) {
+							textElement.innerHTML = 0
+						}
+
+					}
+
+
+					textElement.setAttribute('x', graphToScaledX(labelylocationX, gdata.xmin, gdata.xmax, aratio) + 0.5 + gdata.ymajorgridlabelshift + '%');
+					textElement.setAttribute('y',graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + 0.5 + '%');
+					textElement.setAttribute('id',name + '-yticklabel-' + m)
+					textElement.style.fontSize = gdata.fontSize
+					textElement.style.fontFamily = 'Calibri'
+					// textElement.setAttribute('text-anchor', 'middle')
+					textElement.style.fill = gdata.ymajorgridlabelcolor
+					if (darkmode == false) {
+						textElement.style.fill = gdata.ymajorgridlabelcolor
+					}
+					else {
+						textElement.style.fill = 'hsla(0, 0%, 100%, 1)'
+					}	
+					svgElement.appendChild(textElement);
+
+					gdata.ymajorlabelsElements.push(textElement)
+					
+				}
+			}
+
+
+			deleteSegments(gdata.xmajorlabelsElements)
+
+			if (gdata.xmajorgridlabelvisibility == 'yes') {
+				gdata.xmajorlabelsElements = []
+				xmajortickvalues = gridtickvalues(gdata.xmin, gdata.xmax, ticks)
+				scale = gdata.xmax - gdata.xmin
+				expstring = scale.toExponential().toString()
+				order = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				
+				labelxlocationY = gdata.axislocationY
+				if (graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) < 0) {
+					labelxlocationY = gdata.ymax
+				}
+				if (graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) > 100) {
+					labelxlocationY = gdata.ymin
+				}
+
+
+				for (m = gdata.xlabelexclusionsstart; m < xmajortickvalues.length - gdata.xlabelexclusionsend; m++) {
+					ticklocation = xmajortickvalues[m]
+
+					var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+
+					if(isInt(ticklocation)) {
+						textElement.innerHTML = ticklocation
+					}
+					else {
+						
+						if (Math.abs(ticklocation) < 0.01 && order > 2) {
+							ticklocation = ticklocation.toExponential(order)
+							// console.log(ticklocation)
+							
+						}
+						else {
+							ticklocation = ticklocation.toFixed(order + 1)
+						}
+						textElement.innerHTML = ticklocation	
+						
+						if(ticklocation == 0) {
+							textElement.innerHTML = 0
+						}
+
+					}
+
+					transformedXval = graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) - 1
+					textElement.setAttribute('x', transformedXval + '%');
+					transformedYval = graphToScaledY(labelxlocationY, gdata.ymin, gdata.ymax, aratio) + 2 + gdata.xmajorgridlabelshift
+					textElement.setAttribute('y', transformedYval + '%');
+					textElement.setAttribute('id',name + '-xticklabel-' + m)
+					textElement.style.fontSize = gdata.fontSize
+					textElement.setAttribute('text-anchor', 'middle')
+					if (parseFloat(order) >= 2) {
+						textElement.setAttribute('transform', 'rotate(90, ' + transformedXval + ', ' + transformedYval + ')')	
+					}
+					textElement.style.fontFamily = 'Calibri'
+					if (darkmode == false) {
+						textElement.style.fill = gdata.xmajorgridlabelcolor
+					}
+					else {
+						textElement.style.fill = 'hsla(0, 0%, 100%, 1)'
+					}
+					svgElement.appendChild(textElement);
+					
+					gdata.xmajorlabelsElements.push(textElement)
+					
+				}
+			}
+
+
+			if (gdata.xaxislabelvisibility == 'yes') {
+				var textElement = gdata.xaxislabelElement 
+				textElement.setAttribute('x', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + gdata.xaxislabelshift + '%');
+				textElement.setAttribute('y',graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + 1 + '%');
+				gdata.xaxislabelElement = textElement
+			}
+
+
+			if (gdata.yaxislabelvisibility == 'yes') {
+				var textElement = gdata.yaxislabelElement
+				textElement.setAttribute('x', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + 0 + '%');
+				textElement.setAttribute('y',graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) - gdata.yaxislabelshift + '%');
+				gdata.yaxislabelElement = textElement
+				
+			}
+
+
+			for (var key in gdata.lineData) {
+				lineElement = gdata.lineData[key][0]
+				lineoptions = gdata.lineData[key][1]
+
+				lineElement.setAttribute('x1', graphToScaledX(lineoptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(lineoptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('x2', graphToScaledX(lineoptions.x2, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(lineoptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
+			}
+
+			for (var key in gdata.circleData) {
+				circleElement = gdata.circleData[key][0]
+				circleoptions = gdata.circleData[key][1]
+				rx = distanceBTWgraphToSvg([0,0],[circleoptions.radius, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				ry = distanceBTWgraphToSvg([0,0],[0,circleoptions.radius], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				circleElement.setAttribute('cx', graphToScaledX(circleoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+				circleElement.setAttribute('cy', graphToScaledY(circleoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+				circleElement.setAttribute('rx', rx + '%')
+				circleElement.setAttribute('ry', ry + '%');
+				
+			}
+
+			for (var key in gdata.pathData) {
+				pathElement = gdata.pathData[key][0]
+				pathoptions = gdata.pathData[key][1]
+				// console.log(pathElement)
+				pathstring = 'M'
+				for (pth = 0; pth < pathoptions.points.length; pth++) {
+					if (pth == 0) {
+						pathstring = pathstring + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+					}
+					else {
+						pathstring = pathstring + 'L' + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+					}
+				}
+				pathElement.setAttribute('d', pathstring);
+
+			}
+
+			for (var key in gdata.ellipseData) {
+				ellipseElement = gdata.ellipseData[key][0]
+				ellipseoptions = gdata.ellipseData[key][1]
+				rx = distanceBTWgraphToSvg([0,0],[ellipseoptions.rx, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				ry = distanceBTWgraphToSvg([0,0],[0, ellipseoptions.ry], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				ellipseElement.setAttribute('cx', graphToScaledX(ellipseoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+				ellipseElement.setAttribute('cy', graphToScaledY(ellipseoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+				ellipseElement.setAttribute('rx', rx + '%')
+				ellipseElement.setAttribute('ry', ry + '%');
+				
+			}
+
+			for (var key in gdata.textData) {
+				textElement = gdata.textData[key][0]
+				textoptions = gdata.textData[key][1]
+				textElement.setAttribute('x', graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+				textElement.setAttribute('y', graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			
+			}
+
+			for (var key in gdata.rectData) {
+				rectElement = gdata.rectData[key][0]
+				rectoptions = gdata.rectData[key][1]
+				
+				
+				rx = distanceBTWgraphToSvg([0,0],[rectoptions.w, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				ry = distanceBTWgraphToSvg([0,0],[0, rectoptions.h], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				
+				rectElement.setAttribute('x', graphToScaledX(rectoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+				rectElement.setAttribute('y', graphToScaledY(rectoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+				rectElement.setAttribute('width', rx + '%')
+				rectElement.setAttribute('height', ry + '%');
+			}			
+
+			for (var key in gdata.pointData) {
+				pointElement = gdata.pointData[key][0]
+				pointoptions = gdata.pointData[key][1]
+				
+				
+				pointElement.setAttribute('cx', graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+				pointElement.setAttribute('cy', graphToScaledY(pointoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			}			
+
+
+		}
+
+		function addGraph(parentdiv, name, gdata) {
+			gdata = gdata || {}
+
+			gdata.name = name || 'graph' + Math.random().toString()
+
+			if (gdata.axislocationX != 0) {
+				gdata.axislocationX = gdata.axislocationX || 0
+			}
+			else {
+				gdata.axislocationX = 0
+			}
+			if (gdata.axislocationY != 0) {
+				gdata.axislocationY = gdata.axislocationY || 0
+			}
+			else {
+				gdata.axislocationY = 0
+			}
+			if (gdata.xmin != 0) {
+				gdata.xmin = gdata.xmin || -1
+			}
+			else {
+				gdata.xmin = 0
+			}
+			if (gdata.xmax != 0) {
+				gdata.xmax = gdata.xmax || -1
+			}
+			else {
+				gdata.xmax = 0
+			}
+			if (gdata.ymin != 0) {
+				gdata.ymin = gdata.ymin || -1
+			}
+			else {
+				gdata.ymin = 0
+			}
+			if (gdata.ymax != 0) {
+				gdata.ymax = gdata.ymax || -1
+			}
+			else {
+				gdata.ymax = 0
+			}
+
+			gdata.unitAspectRatio = gdata.unitAspectRatio || 'no'
+			gdata.fixAxis = gdata.fixAxis || 'yaxis'
+			gdata.fixAxisStretchCentrally = gdata.fixAxisStretchCentrally || 'no'
+
+
+			gdata.xaxisvisibility = gdata.xaxisvisibility || 'yes'
+			gdata.yaxisvisibility = gdata.yaxisvisibility || 'yes'
+
+			gdata.xaxislabelvisibility = gdata.xaxislabelvisibility || 'yes' 
+			gdata.yaxislabelvisibility = gdata.yaxislabelvisibility || 'yes'
+			
+			gdata.xmajorgridlinesvisibility = gdata.xmajorgridlinesvisibility || 'yes'
+			gdata.ymajorgridlinesvisibility = gdata.ymajorgridlinesvisibility || 'yes'
+
+			var svgElement = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+			svgElement.setAttribute('height',"100%");
+			svgElement.setAttribute('width', '100%');
+			svgElement.setAttribute('viewBox',"0 0 100 100")
+			// svgElement.setAttribute('preserveAspectRatio',"none")
+			svgElement.setAttribute('id', name)
+			svgElement.style.position = "absolute";
+			svgElement.style.left = '0%'
+			svgElement.style.top = '0%'
+			parentdiv.appendChild(svgElement)
+			gdata.svgElement = svgElement
+			gdata.parentElement = parentdiv
+
+			gdata.fontSize = gdata.fontSize || 5
+
+			gdata.gridlinenumber = gdata.gridlinenumber || 10
+			ticks = gdata.gridlinenumber
+
+			gdata.parentW = parentdiv.offsetWidth
+			gdata.parentH = parentdiv.offsetHeight
+
+			aratio = parentdiv.offsetWidth/parentdiv.offsetHeight
+
+			if (gdata.unitAspectRatio == 'yes') {
+				if (gdata.fixAxis == 'yaxis') {
+					if (gdata.fixAxisStretchCentrally == 'yes') {
+						centre = (gdata.xmax + gdata.xmin)/2
+						gdata.xmin = centre - ((gdata.ymax - gdata.ymin)*aratio/2)
+						gdata.xmax = centre + ((gdata.ymax - gdata.ymin)*aratio/2)
+					}
+					else {
+						gdata.xmax = gdata.xmin + (gdata.ymax - gdata.ymin)*aratio
+					}
+					
+				}
+				else {
+					if (gdata.fixAxisStretchCentrally == 'yes') {
+						centre = (gdata.ymax + gdata.ymin)/2
+						gdata.ymin = centre - ((gdata.xmax - gdata.xmin)*aratio/2)
+						gdata.ymax = centre + ((gdata.xmax - gdata.xmin)*aratio/2)
+					}
+					else {
+						gdata.ymax = gdata.ymin + (gdata.xmax - gdata.xmin)*aratio	
+					}
+					
+				}
+			}
+
+
+
+			if (darkmode) {
+				gdata.yaxiscolor = gdata.yaxiscolor || 'hsla(0, 100%, 100%, 1)'			
+				gdata.xaxiscolor = gdata.xaxiscolor || 'hsla(0, 100%, 100%, 1)'			
+				gdata.xmajorgridlabelcolor = gdata.xmajorgridlabelcolor || 'hsla(0, 100%, 100%, 1)'
+				gdata.ymajorgridlabelcolor = gdata.ymajorgridlabelcolor || 'hsla(0, 100%, 100%, 1)'
+				gdata.xmajorgridcolor = gdata.xmajorgridcolor || 'hsla(0, 100%, 100%, 1)'
+				gdata.ymajorgridcolor = gdata.ymajorgridcolor || 'hsla(0, 100%, 100%, 1)'
+			}
+
+			gdata.yaxisthickness = gdata.yaxisthickness || 0.5
+			gdata.yaxiscolor = gdata.yaxiscolor || 'hsla(0, 50%, 0%, 1)'
+
+
+			if (gdata.yaxisvisibility == 'yes') {
+				var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+				lineElement.setAttribute('x1', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('vector-effect','non-scaling-stroke');
+				lineElement.setAttribute('x2', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(gdata.ymin, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('id', gdata.name + '-yaxis')
+				lineElement.style.stroke = gdata.yaxiscolor
+				lineElement.style.strokeWidth = gdata.yaxisthickness + '%';
+				gdata.yaxisElement = lineElement
+				svgElement.appendChild(lineElement);
+			}
+
+			gdata.xaxisthickness = gdata.xaxisthickness || 0.5
+			gdata.xaxiscolor = gdata.xaxiscolor || 'hsla(0, 50%, 0%, 1)'
+
+			
+			if (gdata.xaxisvisibility == 'yes') {
+				var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+				lineElement.setAttribute('x1', graphToScaledX(gdata.xmin, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('vector-effect','non-scaling-stroke');
+				lineElement.setAttribute('x2', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('id', gdata.name + '-xaxis')
+				lineElement.style.stroke = gdata.xaxiscolor
+				lineElement.style.strokeWidth = gdata.xaxisthickness + '%';
+				gdata.xaxisElement = lineElement
+				svgElement.appendChild(lineElement);
+			}
+
+
+			gdata.xmajorgridcolor = gdata.xmajorgridcolor || 'hsla(190, 0%, 50%, 1)'
+			gdata.xmajorgridthickness = gdata.xmajorgridthickness || 0.3
+
+			gdata.xmajorgridlinesextension = gdata.xmajorgridlinesextension || 'yes'
+			gdata.ymajorgridlinesextension = gdata.ymajorgridlinesextension || 'yes'
+			
+			if (gdata.xmajorgridlinesvisibility == 'yes') {
+				xmajortickvalues = gridtickvalues(gdata.xmin, gdata.xmax, ticks)
+				gdata.xmajorgridElements = []
+				for (m = 0; m < xmajortickvalues.length; m++) {
+					ticklocation = xmajortickvalues[m]
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					ylength = (gdata.ymax - gdata.ymin)
+					if (gdata.xmajorgridlinesextension == 'yes') {
+						lineElement.setAttribute('x1', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(gdata.ymin - (ylength)/2, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(gdata.ymax + (ylength)/2, gdata.ymin, gdata.ymax, aratio) + '%');
+						
+					}
+					else {
+						lineElement.setAttribute('x1', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(gdata.ymin, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('id', gdata.name + '-xmajorgridline-' + m)
+					}
+					lineElement.style.stroke = gdata.xmajorgridcolor
+					lineElement.style.strokeWidth = gdata.xmajorgridthickness + '%';
+					gdata.xmajorgridElements.push(lineElement)
+					svgElement.appendChild(lineElement);
+				}
+				gdata.xmajorgridticks = xmajortickvalues
+			}
+
+			gdata.ymajorgridcolor = gdata.ymajorgridcolor || 'hsla(190, 0%, 50%, 1)'
+			gdata.ymajorgridthickness = gdata.ymajorgridthickness || 0.3
+
+
+			if (gdata.ymajorgridlinesvisibility == 'yes') {
+				ymajortickvalues = gridtickvalues(gdata.ymin, gdata.ymax, ticks)
+				gdata.ymajorgridElements = []
+				for (m = 0; m < ymajortickvalues.length; m++) {
+					ticklocation = ymajortickvalues[m]
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					xlength = (gdata.xmax - gdata.xmin)
+					if (gdata.ymajorgridlinesextension == 'yes') {
+						lineElement.setAttribute('x1', graphToScaledX((gdata.xmin) - xlength/2, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(gdata.xmax + (xlength/2), gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+					}
+					else {
+						lineElement.setAttribute('x1', graphToScaledX(gdata.xmin, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+					}
+					lineElement.setAttribute('id', gdata.name + '-ymajorgridline-' + m)
+					lineElement.style.stroke = gdata.ymajorgridcolor
+					lineElement.style.strokeWidth = gdata.ymajorgridthickness + '%';
+					gdata.ymajorgridElements.push(lineElement)
+					svgElement.appendChild(lineElement);
+				}
+				gdata.ymajorgridticks = ymajortickvalues
+			}
+
+			
+
+			gdata.ymajorgridlabelvisibility = gdata.ymajorgridlabelvisibility || 'yes'
+			gdata.ymajorgridlabelcolor = gdata.ymajorgridlabelcolor || 'hsla(190, 0%, 50%, 1)'
+
+
+			gdata.ymajorgridlabelshift = gdata.ymajorgridlabelshift || 0.1
+			gdata.xmajorgridlabelshift = gdata.xmajorgridlabelshift || 0.1
+
+			gdata.xmajorgridlabelvisibility = gdata.xmajorgridlabelvisibility || 'yes'
+			gdata.xmajorgridlabelcolor = gdata.xmajorgridlabelcolor || 'hsla(190, 0%, 50%, 1)'
+
+
+
+			gdata.xlabelexclusionsstart = gdata.xlabelexclusionsstart || 0
+			gdata.xlabelexclusionsend = gdata.xlabelexclusionsend || 0
+
+			gdata.ylabelexclusionsstart = gdata.ylabelexclusionsstart || 0
+			gdata.ylabelexclusionsend = gdata.ylabelexclusionsend || 0
+
+
+			gdata.isComplexPlane = gdata.isComplexPlane || 'no'
+
+
+			if (gdata.ymajorgridlabelvisibility == 'yes') {
+				gdata.ymajorlabelsElements = []
+				ymajortickvalues = gridtickvalues(gdata.ymin, gdata.ymax, ticks)
+				labelylocationX = gdata.axislocationX
+				if (graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) < 0) {
+					labelylocationX = gdata.xmin
+				}
+				if (graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) > 100) {
+					labelylocationX = gdata.xmax
+				}
+				for (m = gdata.ylabelexclusionsstart; m < ymajortickvalues.length - gdata.ylabelexclusionsend; m++) {
+					ticklocation = ymajortickvalues[m]
+
+					var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+					
+
+					if(isInt(ticklocation)) {
+						if (gdata.isComplexPlane == 'yes') {
+							textElement.innerHTML = ticklocation + 'i'
+						}
+					}
+					else {
+						expstring = ticklocation.toExponential().toString()
+						order = (expstring.slice(expstring
+							.indexOf('e') + 1)*(-1))
+						if (parseFloat(order) < -1) {
+							ticklocation = ticklocation.toExponential(0)	
+						}
+						else {
+							ticklocation = ticklocation.toFixed(2)
+						}
+						// ticklocation = ticklocation.toExponential(0)
+						textElement.innerHTML = ticklocation
+						if(ticklocation == 0) {
+							textElement.innerHTML = 0
+						}
+						if (gdata.isComplexPlane == 'yes') {
+							textElement.innerHTML = ticklocation + 'i'
+						}
+
+					}
+
+
+					textElement.setAttribute('x', graphToScaledX(labelylocationX, gdata.xmin, gdata.xmax, aratio) + 0.5 + gdata.ymajorgridlabelshift + '%');
+					textElement.setAttribute('y',graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + 0.5 + '%');
+					textElement.setAttribute('id',name + '-yticklabel-' + m)
+					textElement.style.fontSize = gdata.fontSize
+					textElement.style.fontFamily = 'Calibri'
+					textElement.style.fill = gdata.ymajorgridlabelcolor
+					svgElement.appendChild(textElement);
+
+					gdata.ymajorlabelsElements.push(textElement)
+					
+				}
+			}
+
+
+			if (gdata.xmajorgridlabelvisibility == 'yes') {
+				gdata.xmajorlabelsElements = []
+				xmajortickvalues = gridtickvalues(gdata.xmin, gdata.xmax, ticks)
+				labelxlocationY = gdata.axislocationY
+				if (graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) < 0) {
+					labelxlocationY = gdata.ymin
+				}
+				if (graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) > 100) {
+					labelxlocationY = gdata.ymax
+				}
+
+
+				for (m = gdata.xlabelexclusionsstart; m < xmajortickvalues.length - gdata.xlabelexclusionsend; m++) {
+					ticklocation = xmajortickvalues[m]
+
+					var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+
+					if(isInt(ticklocation)) {
+						textElement.innerHTML = ticklocation
+					}
+					else {
+
+						expstring = ticklocation.toExponential().toString()
+						order = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+						if (parseFloat(order) < -1) {
+							ticklocation = ticklocation.toExponential(0)	
+						}
+						else {
+							ticklocation = ticklocation.toFixed(2)
+						}
+						textElement.innerHTML = ticklocation
+						if(ticklocation == 0) {
+							textElement.innerHTML = 0
+						}
+
+					}
+
+					textElement.setAttribute('x', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) - 1 + '%');
+					textElement.setAttribute('y',graphToScaledY(labelxlocationY, gdata.ymin, gdata.ymax, aratio) + 2 + gdata.xmajorgridlabelshift + '%');
+					textElement.setAttribute('id',name + '-xticklabel-' + m)
+					textElement.style.fontSize = gdata.fontSize
+					textElement.style.fontFamily = 'Calibri'
+					textElement.style.fill = gdata.ymajorgridlabelcolor
+					svgElement.appendChild(textElement);
+					
+					gdata.xmajorlabelsElements.push(textElement)
+					
+				}
+			}
+
+
+			gdata.xaxislabel = gdata.xaxislabel || 'x axis'
+			gdata.yaxislabel = gdata.yaxislabel || 'y axis'
+
+			gdata.xaxislabelshift = gdata.xaxislabelshift || 2
+			gdata.yaxislabelshift = gdata.yaxislabelshift || 2
+
+			if (gdata.xaxislabelvisibility == 'yes') {
+				var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+				textElement.innerHTML = gdata.xaxislabel 
+				textElement.setAttribute('x', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + gdata.xaxislabelshift + '%');
+				textElement.setAttribute('y',graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + 1 + '%');
+				textElement.setAttribute('id',name + '-xaxislabel')
+				textElement.style.fontSize = gdata.fontSize
+				textElement.style.fontFamily = 'Calibri'
+				
+				svgElement.appendChild(textElement);
+				gdata.xaxislabelElement = textElement
+				
+			}
+
+
+			if (gdata.yaxislabelvisibility == 'yes') {
+				var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+				textElement.innerHTML = gdata.yaxislabel 
+				textElement.setAttribute('x', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + 0 + '%');
+				textElement.setAttribute('y',graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) - gdata.yaxislabelshift + '%');
+				textElement.setAttribute('id',name + '-yaxislabel')
+				textElement.style.fontSize = gdata.fontSize
+				textElement.style.fontFamily = 'Calibri'
+				
+				svgElement.appendChild(textElement);
+				gdata.yaxislabelElement = textElement
+				
+			}
+
+			gdata.lineData = {}
+			gdata.circleData = {}
+			gdata.pointData = {}
+			gdata.ellipseData = {}
+			gdata.rectData = {}
+			gdata.textData = {}
+			gdata.pathData = {}
+
+			gdata.aspectratio = aratio
+
+
+
+			graphData[name] = gdata
+			return JSON.parse(JSON.stringify(gdata));
+		}
+
+		function getGraphCursorLocation(cursorpercent, graphname) {
+			gdata = graphData[graphname]
+
+			graphEl = document.getElementById(gdata.name)
+
+			valx = svgToGraphX(cursorpercent[0], gdata.xmin, gdata.xmax, gdata.aspectratio)
+			valy = svgToGraphY(cursorpercent[1], gdata.ymin, gdata.ymax, gdata.aspectratio)
+
+			return [valx, valy]
+		}
+
+
+		function addLine(graphname, linename, lineoptions) {
+			gdata = graphData[graphname]
+			lineoptions = lineoptions || {}
+
+			aratio = gdata.aspectratio
+
+			lineoptions.x1 = parseFloat(lineoptions.x1.toString() || 0)
+			lineoptions.y1 = parseFloat(lineoptions.y1.toString() || 0)
+			lineoptions.x2 = parseFloat(lineoptions.x2.toString() || 0.5)
+			lineoptions.y2 = parseFloat(lineoptions.y2.toString() || 0.5)
+			lineoptions.name = linename || uid
+
+			lineoptions.strokedasharray = lineoptions.strokedasharray || ""
+
+			// console.log((0).toString() || 0.5)
+
+			lineoptions.strokewidth = lineoptions.strokewidth || 1
+			lineoptions.linecolor = lineoptions.linecolor || 'hsla(190, 100%, 50%, 1)'
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', graphToScaledX(lineoptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
+			lineElement.setAttribute('y1', graphToScaledY(lineoptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
+			lineElement.setAttribute('x2', graphToScaledX(lineoptions.x2, gdata.xmin, gdata.xmax, aratio) + '%')
+			lineElement.setAttribute('y2', graphToScaledY(lineoptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
+			lineElement.setAttribute('stroke-dasharray', lineoptions.strokedasharray);
+			
+			lineElement.setAttribute('id', graphname + '-line-' + linename)
+			uid = uid + 1
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.style.stroke = lineoptions.linecolor
+			lineElement.style.strokeWidth = lineoptions.strokewidth + '%';
+			gdata.svgElement.appendChild(lineElement);
+
+			graphData[graphname].lineData[linename] = [lineElement, lineoptions]
+			return [lineElement, lineoptions]
+		}
+
+		function addPath(graphname, pathname, pathoptions) {
+			gdata = graphData[graphname]
+			pathoptions = pathoptions || {}
+
+			aratio = gdata.aspectratio
+
+			pathoptions.points = pathoptions.points || [[0, 1], [1, 0]]
+
+			pathstring = 'M'
+
+			for (pth = 0; pth < pathoptions.points.length; pth++) {
+				if (pth == 0) {
+					pathstring = pathstring + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+				}
+				else {
+					pathstring = pathstring + 'L' + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+				}
+				
+			}
+
+			// pathstring = 'M20 20 L10 10 L6 50 L9 67' 
+
+			// console.log(pathstring)
+
+			pathoptions.name = pathname || uid
+			// console.log((0).toString() || 0.5)
+
+			pathoptions.strokewidth = pathoptions.strokewidth || 1
+			pathoptions.pathcolor = pathoptions.pathcolor || 'hsla(190, 100%, 50%, 1)'
+
+			var pathElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+			pathElement.setAttribute('d', pathstring);
+			pathElement.setAttribute('id', graphname + '-path-' + pathname)
+			uid = uid + 1
+			pathElement.style.stroke = pathoptions.pathcolor
+			pathElement.style.fill = 'none'
+			pathElement.style.strokeWidth = pathoptions.strokewidth + '%';
+			gdata.svgElement.appendChild(pathElement);
+
+			graphData[graphname].pathData[pathname] = [pathElement, pathoptions]
+			return [pathElement, pathoptions]
+		}
+
+		function updatePath(graphname, pathname, npathpoints) {
+
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			pathoptions = gdata.pathData[pathname][1]
+			pathElement = gdata.pathData[pathname][0]
+
+			pathoptions.points = npathpoints || pathoptions.points
+
+			pathstring = 'M'
+
+			for (pth = 0; pth < pathoptions.points.length; pth++) {
+				if (pth == 0) {
+					pathstring = pathstring + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+				}
+				else {
+					pathstring = pathstring + 'L' + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+				}
+				
+			}
+
+			pathElement.setAttribute('d', pathstring);
+			
+			graphData[graphname].pathData[pathname] = [pathElement, pathoptions]
+
+			return [pathElement, pathoptions]
+		}
+
+
+		function updateLine(graphname, linename, linevalues) {
+
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			lineoptions = gdata.lineData[linename][1]
+			lineElement = gdata.lineData[linename][0]
+			
+			if (linevalues.x1 != 0) {
+				lineoptions.x1 = linevalues.x1 || lineoptions.x1	
+			}
+			else {
+				lineoptions.x1 = linevalues.x1
+			}
+
+
+			if (linevalues.y1 != 0) {
+				lineoptions.y1 = linevalues.y1 || lineoptions.y1	
+			}
+			else {
+				lineoptions.y1 = linevalues.y1
+			}
+
+
+			if (linevalues.x2 != 0) {
+				lineoptions.x2 = linevalues.x2 || lineoptions.x2	
+			}
+			else {
+				lineoptions.x2 = linevalues.x2
+			}
+
+
+			if (linevalues.y2 != 0) {
+				lineoptions.y2 = linevalues.y2 || lineoptions.y2	
+			}
+			else {
+				lineoptions.y2 = linevalues.y2
+			}
+
+			lineElement.setAttribute('x1', graphToScaledX(lineoptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
+			lineElement.setAttribute('y1', graphToScaledY(lineoptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
+			lineElement.setAttribute('x2', graphToScaledX(lineoptions.x2, gdata.xmin, gdata.xmax, aratio) + '%')
+			lineElement.setAttribute('y2', graphToScaledY(lineoptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
+			
+			
+			graphData[graphname].lineData[linename] = [lineElement, lineoptions]
+		}
+
+
+		function distanceBTWgraphToSvg(p1, p2, xmin, xmax, ymin, ymax, aspectratio) {
+			pt1 = [graphToScaledX(p1[0], xmin, xmax, aspectratio), graphToScaledY(p1[1], ymin, ymax, aspectratio)]
+			pt2 = [graphToScaledX(p2[0], xmin, xmax, aspectratio), graphToScaledY(p2[1], ymin, ymax, aspectratio)]
+
+			return Math.pow(Math.pow(pt1[0] - pt2[0], 2) + Math.pow(pt1[1] - pt2[1], 2), 0.5)
+		}
+
+
+		function addCircle(graphname, circlename, circleoptions) {
+			gdata = graphData[graphname]
+			circleoptions = circleoptions || {}
+			aratio = gdata.aspectratio
+
+			circleoptions.x = circleoptions.x || 0.3
+			circleoptions.y = circleoptions.y || 0.3
+			circleoptions.radius = circleoptions.radius || 0.1
+			circleoptions.name = circlename || uid
+
+			circleoptions.stroke = circleoptions.stroke || 'hsla(190, 100%, 50%, 0.5)'
+			circleoptions.strokewidth = circleoptions.strokewidth || 0.1
+			
+
+			circleoptions.circlecolor = circleoptions.circlecolor || 'hsla(190, 100%, 50%, 1)'
+
+			rx = distanceBTWgraphToSvg([0,0],[circleoptions.radius, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, circleoptions.radius], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+			circleElement.setAttribute('cx', graphToScaledX(circleoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			circleElement.setAttribute('cy', graphToScaledY(circleoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			circleElement.setAttribute('rx', rx + '%')
+			circleElement.setAttribute('ry', ry + '%');
+			circleElement.setAttribute('id', graphname + '-circle-' + circlename)
+			uid = uid + 1
+			circleElement.setAttribute('vector-effect','non-scaling-stroke');
+			circleElement.style.fill = circleoptions.circlecolor
+			circleElement.style.strokeWidth = circleoptions.strokewidth + '%';
+			circleElement.style.stroke = circleoptions.stroke;
+			gdata.svgElement.appendChild(circleElement);
+
+			graphData[graphname].circleData[circlename] = [circleElement, circleoptions]
+		}
+
+		function addEllipse(graphname, ellipsename, ellipseoptions) {
+			gdata = graphData[graphname]
+
+			aratio = gdata.aspectratio
+
+			ellipseoptions = ellipseoptions || {}
+
+			ellipseoptions.x = parseFloat(ellipseoptions.x.toString() || 0)
+			ellipseoptions.y = parseFloat(ellipseoptions.y.toString() || 0)
+			ellipseoptions.rx = parseFloat(ellipseoptions.rx.toString() || 0.3)
+			ellipseoptions.ry = parseFloat(ellipseoptions.ry.toString() || 8)
+			ellipseoptions.name = ellipsename || uid
+
+			ellipseoptions.stroke = ellipseoptions.stroke || 'hsla(190, 100%, 50%, 0.5)'
+			ellipseoptions.strokewidth = ellipseoptions.strokewidth || 0.1
+			
+			ellipseoptions.ellipsecolor = ellipseoptions.ellipsecolor || 'hsla(190, 100%, 50%, 1)'
+
+			rx = distanceBTWgraphToSvg([0,0],[ellipseoptions.rx, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, ellipseoptions.ry], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			var ellipseElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+			ellipseElement.setAttribute('cx', graphToScaledX(ellipseoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			ellipseElement.setAttribute('cy', graphToScaledY(ellipseoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			ellipseElement.setAttribute('rx', rx + '%')
+			ellipseElement.setAttribute('ry', ry + '%');
+			ellipseElement.setAttribute('id', graphname + '-ellipse-' + ellipsename)
+			uid = uid + 1
+			ellipseElement.setAttribute('vector-effect','non-scaling-stroke');
+			ellipseElement.style.fill = ellipseoptions.ellipsecolor
+			ellipseElement.style.strokeWidth = ellipseoptions.strokewidth + '%';
+			ellipseElement.style.stroke = ellipseoptions.stroke;
+			gdata.svgElement.appendChild(ellipseElement);
+
+			graphData[graphname].ellipseData[ellipsename] = [ellipseElement, ellipseoptions]
+		}
+
+		function addText(graphname, textname, textoptions) {
+			gdata = graphData[graphname]
+			textoptions = textoptions || {}
+
+			aratio = gdata.aspectratio
+
+			textoptions.x = parseFloat(textoptions.x.toString() || 0)
+			textoptions.y = parseFloat(textoptions.y.toString() || 0)
+			textoptions.text = textoptions.text || ''
+			textoptions.name = textname || uid
+
+			textoptions.textAlign = textoptions.textAlign || 'left'
+			textoptions.fontSize = textoptions.fontSize || 12
+			
+			textoptions.textcolor = textoptions.textcolor || 'hsla(190, 100%, 0%, 1)'
+			
+			var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+			textElement.setAttribute('x', graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			textElement.setAttribute('y', graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			textElement.setAttribute('id', graphname + '-text-' + textname)
+			uid = uid + 1
+			textElement.setAttribute('vector-effect','non-scaling-stroke');
+			textElement.style.fill = textoptions.textcolor
+			textElement.innerHTML = textoptions.text
+			textElement.style.fontFamily = 'Calibri'
+			textElement.style.fontSize = textoptions.fontSize;
+			if (textoptions.textAlign == 'center') {
+				textElement.setAttribute('text-anchor','middle')
+			}
+			gdata.svgElement.appendChild(textElement);
+
+			graphData[graphname].textData[textname] = [textElement, textoptions]
+			return [textElement, textoptions]
+		}
+
+		function updateText(graphname, textname, updatetext) {
+			gdata = graphData[graphname]
+
+			aratio = gdata.aspectratio
+
+			textoptions = gdata.textData[textname][1]
+			textElement = gdata.textData[textname][0]
+
+			textoptions.text = updatetext.text || textoptions.text
+			textoptions.x = updatetext.x || textoptions.x
+			textoptions.y = updatetext.y || textoptions.y
+			textoptions.name = textname || uid
+
+			textElement.innerHTML = textoptions.text
+			textElement.setAttribute('x', graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			textElement.setAttribute('y', graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			
+			
+			graphData[graphname].textData[textname] = [textElement, textoptions]
+			return [textElement, textoptions]
+		}
+
+		function addRectangle(graphname, rectname, rectoptions) {
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+			rectoptions = rectoptions || {}
+
+			rectoptions.x = parseFloat(rectoptions.x.toString() || 0)
+			rectoptions.y = parseFloat(rectoptions.y.toString() || 0)
+			rectoptions.w = parseFloat(rectoptions.w.toString() || 1)
+			rectoptions.h = parseFloat(rectoptions.h.toString() || 1)
+			rectoptions.name = rectname || uid
+
+			rectoptions.stroke = rectoptions.stroke || 'hsla(190, 100%, 50%, 0.5)'
+			rectoptions.strokewidth = rectoptions.strokewidth || 0.1
+			rectoptions.strokedasharray = rectoptions.strokedasharray || ""
+
+			
+			rectoptions.rectcolor = rectoptions.rectcolor || 'hsla(190, 100%, 50%, 1)'
+
+			rx = distanceBTWgraphToSvg([0,0],[rectoptions.w, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, rectoptions.h], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('x', graphToScaledX(rectoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			rectElement.setAttribute('y', graphToScaledY(rectoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			rectElement.setAttribute('width', rx + '%')
+			rectElement.setAttribute('height', ry + '%');
+			rectElement.setAttribute('id', graphname + '-rect-' + rectname)
+			uid = uid + 1
+			rectElement.setAttribute('vector-effect','non-scaling-stroke');
+			rectElement.style.fill = rectoptions.rectcolor
+			rectElement.style.strokeWidth = rectoptions.strokewidth + '%';
+			rectElement.style.stroke = rectoptions.stroke;
+			rectElement.setAttribute('stroke-dasharray', rectoptions.strokedasharray);
+
+			gdata.svgElement.appendChild(rectElement);
+
+			graphData[graphname].rectData[rectname] = [rectElement, rectoptions]
+
+			return [rectElement, rectoptions]
+		}
+
+
+		function updateRectangle(graphname, rectname, rectvalueupdate) {
+			gdata = graphData[graphname]
+			rectoptions = gdata.rectData[rectname][1]
+			rectElement = gdata.rectData[rectname][0]
+			aratio = gdata.aspectratio
+
+			if (rectvalueupdate.x != 0) {
+				rectoptions.x = rectvalueupdate.x || rectoptions.x	
+			}
+			else {
+				rectoptions.x = rectvalueupdate.x
+			}
+
+
+			if (rectvalueupdate.y != 0) {
+				rectoptions.y = rectvalueupdate.y || rectoptions.y	
+			}
+			else {
+				rectoptions.y = rectvalueupdate.y
+			}
+
+
+			if (rectvalueupdate.w != 0) {
+				rectoptions.w = rectvalueupdate.w || rectoptions.w	
+			}
+			else {
+				rectoptions.w = rectvalueupdate.w
+			}
+
+
+			if (rectvalueupdate.h != 0) {
+				rectoptions.h = rectvalueupdate.h || rectoptions.h	
+			}
+			else {
+				rectoptions.h = rectvalueupdate.h
+			}
+			
+			rectoptions.stroke = rectvalueupdate.stroke || rectoptions.stroke
+			rectoptions.strokewidth = rectvalueupdate.strokewidth || rectoptions.strokewidth
+			
+			rectoptions.rectcolor = rectvalueupdate.rectcolor || rectoptions.rectcolor
+
+			rx = distanceBTWgraphToSvg([0,0],[rectoptions.w, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, rectoptions.h], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			rectElement.setAttribute('x', graphToScaledX(rectoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			rectElement.setAttribute('y', graphToScaledY(rectoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			rectElement.setAttribute('width', rx + '%')
+			rectElement.setAttribute('height', ry + '%');
+			rectElement.style.fill = rectoptions.rectcolor
+			rectElement.style.strokeWidth = rectoptions.strokewidth + '%';
+			rectElement.style.stroke = rectoptions.stroke;
+
+			
+			graphData[graphname].rectData[rectname] = [rectElement, rectoptions]
+		}
+
+
+
+
+		function addPoint(graphname, pointname, pointoptions) {
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			pointoptions = pointoptions || {}
+
+			if (pointoptions.x != 0) {
+				pointoptions.x = pointoptions.x || 0.3	
+			}
+			if (pointoptions.y != 0) {
+				pointoptions.y = pointoptions.y || 0.3	
+			}
+			// pointoptions.y = pointoptions.y || 0.3
+			pointoptions.pointsize = pointoptions.pointsize || 0.7
+			pointoptions.name = pointname || uid
+
+			pointoptions.pointcolor = pointoptions.pointcolor || 'hsla(190, 100%, 50%, 1)'
+			
+			var pointElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+			pointElement.setAttribute('cx', graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			pointElement.setAttribute('cy', graphToScaledY(pointoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			pointElement.setAttribute('rx', pointoptions.pointsize + '%')
+			pointElement.setAttribute('ry', pointoptions.pointsize + '%');
+			pointElement.setAttribute('id', graphname + '-point-' + pointname)
+			uid = uid + 1
+			pointElement.setAttribute('vector-effect','non-scaling-stroke');
+			pointElement.style.fill = pointoptions.pointcolor
+			gdata.svgElement.appendChild(pointElement);
+
+			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
+			return [pointElement, pointoptions]
+		}
+
+		function updatePoint(graphname, pointname, xvalue, yvalue) {
+			pointElement = document.getElementById(graphname + '-point-' + pointname)
+			
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			pointoptions = graphData[graphname].pointData[pointname][1]
+
+			pointoptions.x = xvalue
+			pointoptions.y = yvalue
+			
+			
+			pointElement.setAttribute('cx', graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			pointElement.setAttribute('cy', graphToScaledY(pointoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+
+			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
+		}
+
+		function removePoint(graphname, pointname) {
+			pointElement = document.getElementById(graphname + '-point-' + pointname)
+			
+			pointElement.outerHTML = "";
+			delete graphData[graphname].pointData[pointname]
+		}
+
+		function removeLine(graphname, linename) {
+			lineElement = document.getElementById(graphname + '-line-' + linename)
+			lineElement.outerHTML = "";
+			delete graphData[graphname].lineData[linename]
+		}
+
+		function removePath(graphname, pathname) {
+			pathElement = document.getElementById(graphname + '-path-' + pathname)
+			pathElement.outerHTML = "";
+			delete graphData[graphname].pathData[pathname]
+		}
+
+
+
+
+		graphData = {}
+
+		// darkmode = false
+			
+		uid = 0
+		complexplane = document.getElementById('complexplane')
+		graphoptions = {}
+		graphoptions.xmax = 5
+		graphoptions.xmin = -5
+		graphoptions.ymax = 5
+		graphoptions.ymin = -5
+		graphoptions.axislocationX = 0
+		graphoptions.axislocationY = 0
+
+		graphoptions.xaxislabelvisibility = 'no'
+		graphoptions.yaxislabelvisibility = 'no'
+
+		graphoptions.ymajorgridlinesextension = 'yes'
+		graphoptions.xmajorgridlinesextension = 'yes'
+
+
+		// graphoptions.xaxisvisibility = 'no'
+		// graphoptions.yaxisvisibility = 'no'
+		// graphoptions.xmajorgridlinesvisibility = 'no'
+		// graphoptions.ymajorgridlinesvisibility = 'no'
+		// graphoptions.ymajorgridlabelvisibility = 'no'
+		// graphoptions.xmajorgridlabelvisibility = 'no'
+
+		graphoptions.fontSize = 2
+
+		graphoptions.unitAspectRatio = 'yes'
+		graphoptions.fixAxis = 'yaxis'
+		graphoptions.fixAxisStretchCentrally = 'yes'
+
+		graphoptions.isComplexPlane = 'yes'
+		
+		addGraph(complexplane, 'complexplanegraph', graphoptions)
+
+		options = {}
+		options.x = 0
+		options.y = 0
+		options.pointcolor = 'hsla(40, 100%, 50%, 1)'
+		if (darkmode) {
+			options.pointcolor = 'hsla(40, 100%, 70%, 1)'
+		}
+		addPoint('complexplanegraph', 'inputpoint' , options)
+
+		options = {}
+		options.x = 0
+		options.y = 0
+		options.pointcolor = 'hsla(260, 100%, 0%, 1)'
+		if (darkmode) {
+			options.pointcolor = 'hsla(260, 100%, 100%, 1)'
+		}
+		addPoint('complexplanegraph', 'outputpoint' , options)
+
+		options = {}
+		options.x = 0
+		options.y = 0
+		// options.textcolor = 'hsla(190, 20%, 70%, 1)'
+		options.fontSize = 3
+		if (darkmode) {
+			// options.textcolor = 'hsla(190, 20%, 70%, 1)'
+		}
+		addText('complexplanegraph', 'segmentoverhighlight' , options)
+
+
+		// options = {}
+		// options.x = 1
+		// options.y = 1
+		// options.fontSize = 2
+		// if (darkmode) {
+		// 	options.textcolor = 'hsla(0, 100%, 100%, 1)'
+		// }
+		// addText('complexplanegraph', 'inputvaluetext' , options)
+
+		playline = document.getElementById('playlineH')
+		graphoptions = {}
+		graphoptions.xmax = 100
+		graphoptions.xmin = 0
+		graphoptions.ymax = 1
+		graphoptions.ymin = -1
+		graphoptions.axislocationX = 0
+		graphoptions.axislocationY = 0
+
+		graphoptions.xaxislabelvisibility = 'no'
+		graphoptions.yaxislabelvisibility = 'no'
+
+		// graphoptions.ymajorgridlinesextension = 'yes'
+		// graphoptions.xmajorgridlinesextension = 'yes'
+
+		graphoptions.xaxisvisibility = 'no'
+		graphoptions.yaxisvisibility = 'no'
+		graphoptions.xmajorgridlinesvisibility = 'no'
+		graphoptions.ymajorgridlinesvisibility = 'no'
+		graphoptions.ymajorgridlabelvisibility = 'no'
+		graphoptions.xmajorgridlabelvisibility = 'no'
+
+		graphoptions.fontSize = 2
+
+		// graphoptions.unitAspectRatio = 'yes'
+		// graphoptions.fixAxis = 'yaxis'
+		// graphoptions.fixAxisStretchCentrally = 'yes'
+
+		
+		addGraph(playline, 'playlinegraph', graphoptions)
+
+		// console.log(graphData['playlinegraph'].aspectratio)
+
+		options = {}
+		options.x1 = 100
+		options.y1 = 0
+		options.x2 = 0
+		options.y2 = 0
+		options.strokewidth = 2
+		options.linecolor = 'hsla(190, 20%, 70%, 1)'
+		if (darkmode) {
+			options.linecolor = 'hsla(190, 20%, 70%, 0.5)'
+		}
+		addLine('playlinegraph', 'playlineLineback' , options)
+
+
+		options = {}
+		options.x1 = 20
+		options.y1 = 0
+		options.x2 = 0
+		options.y2 = 0
+		options.strokewidth = 2
+		options.linecolor = 'hsla(190, 100%, 50%, 1)'
+		if (darkmode) {
+			options.linecolor = 'hsla(190, 100%, 70%, 0.5)'
+		}
+		addLine('playlinegraph', 'playlineLinetop' , options)
+
+		options = {}
+		options.x = 20
+		options.y = 0
+		options.pointcolor = 'hsla(190, 100%, 50%, 1)'
+		options.pointsize = 20
+		addPoint('playlinegraph', 'playlinepoint' , options)
+
+		computehold = document.getElementById('computeholder')
+		graphoptions = {}
+		graphoptions.xmax = 100
+		graphoptions.xmin = 0
+		graphoptions.ymax = 1
+		graphoptions.ymin = -1
+		graphoptions.axislocationX = 0
+		graphoptions.axislocationY = 0
+
+		graphoptions.xaxislabelvisibility = 'no'
+		graphoptions.yaxislabelvisibility = 'no'
+
+		// graphoptions.ymajorgridlinesextension = 'yes'
+		// graphoptions.xmajorgridlinesextension = 'yes'
+
+		graphoptions.xaxisvisibility = 'no'
+		graphoptions.yaxisvisibility = 'no'
+		graphoptions.xmajorgridlinesvisibility = 'no'
+		graphoptions.ymajorgridlinesvisibility = 'no'
+		graphoptions.ymajorgridlabelvisibility = 'no'
+		graphoptions.xmajorgridlabelvisibility = 'no'
+
+		graphoptions.fontSize = 2
+
+		// graphoptions.unitAspectRatio = 'yes'
+		// graphoptions.fixAxis = 'yaxis'
+		// graphoptions.fixAxisStretchCentrally = 'yes'
+
+		
+		addGraph(computehold, 'computeprogressgraph', graphoptions)
+		document.getElementById('computeprogressgraph').style.pointerEvents = 'None'
+
+		options = {}
+		options.x = -10
+		options.y = 1
+		options.w = 0
+		options.h = 2
+		options.rectcolor = 'hsla(260, 100%, 50%, 0.1)'
+		if (darkmode) {
+			options.rectcolor = 'hsla(260, 100%, 90%, 0.4)'
+		}
+		addRectangle('computeprogressgraph', 'progressRect' , options)
+
+
+		function setPlayerAt(valuechoice) {
+			options = {}
+			options.y1 = 0
+			options.y2 = 0
+			options.x1 = 0
+			options.x2 = valuechoice
+
+			updateLine('playlinegraph', 'playlineLinetop', options)
+			updatePoint('playlinegraph', 'playlinepoint', valuechoice, 0)
+		}
+
+		// setPlayerAt(60)
+
+		function gridcolorX(val, minv, maxv) {
+			return 190 + ((val - minv)*(260 - 190)/(maxv - minv))
+		}
+
+		function gridcolorY(val, minv, maxv) {
+			return -10 + ((val - minv)*(80 - 0)/(maxv - minv))
+		}
+
+
+		
+
+		function addTransformLines(lowx, highx, lowy, highy) {	
+			for (g = lowx; g < 0; g++) {
+				gdclr = gridcolorX(g, lowx, highx)
+				addTransformLine(g, lowy, g, -1, gdclr)	
+			}
+			for (g = lowx; g < 0; g++) {
+				gdclr = gridcolorX(g, lowx, highx)
+				addTransformLine(g, 1, g, highy, gdclr)	
+			}
+			for (g = 0; g < highx; g++) {
+				gdclr = gridcolorX(g, lowx, highx)
+				addTransformLine(g, lowy, g, highy, gdclr)	
+			}
+			for (g = lowy; g < highy; g++) {
+				gdclr = gridcolorY(g, lowy, highy)
+				addTransformLine(lowx, g, highx, g, gdclr)	
+			}
+		}
+
+		function addTransformLinesThin(lowx, highx, lowy, highy, linesnumx, linesnumy) {	
+			// for (g = lowx; g < 0; g++) {
+			// 	gdclr = gridcolorX(g, lowx, highx)
+			// 	addTransformLineThin(g, lowy, g, -1, gdclr)	
+			// }
+			// for (g = lowx; g < 0; g++) {
+			// 	gdclr = gridcolorX(g, lowx, highx)
+			// 	addTransformLineThin(g, 1, g, highy, gdclr)	
+			// }
+			dx = (highx - lowx)/linesnumx
+			for (g = lowx; g < highx; g = g + dx) {
+				gdclr = gridcolorX(g, lowx, highx)
+				addTransformLineThin(g, lowy, g, highy, gdclr)	
+			}
+
+			dy = (highy - lowy)/linesnumy
+			for (g = lowy; g < highy; g = g + dy) {
+				gdclr = gridcolorY(g, lowy, highy)
+				addTransformLineThin(lowx, g, highx, g, gdclr)	
+			}
+		}
+
+		// transformLines = []
+		transformLinesMap = {}
+
+		function distance(point1, point2) {
+			if (point1.length == point2.length) {
+				sqrtsum = 0
+				for (k = 0; k < point1.length; k++) {
+					sqrtsum = sqrtsum + Math.pow(point1[k] - point2[k], 2)
+				}
+				return Math.pow(sqrtsum, 0.5)
+			}
+			else {
+				console.log("Points not of same dimension")
+			}
+				
+		}
+
+		function getdistancesattimes(location1, location2, fromtime, totime, timeinterval) {
+			if ((location1.length) == (location2.length)) {
+				pointsAndTimes = []
+				duration = totime - fromtime
+				tm = timeinterval/duration
+				k = 0
+				
+				tester = 0
+
+				while(tm < 1) {
+
+					tester = tester + 1
+					if (tester > 10000) {
+						// console.log('breaking',location1, location2, fromtime, totime, timeinterval)
+						break
+					}
+					tm = (timeinterval*k)/duration
+					locationvec = []
+					for (dimension = 0; dimension < location1.length; dimension++) {
+						locationD = (location2[dimension]*tm) + (1 - tm)*location1[dimension]
+						locationvec.push(locationD)
+					}
+					pointsAndTimes.push([locationvec, fromtime + (timeinterval*k)])
+					// pointTimeMap[findnearesttime(fromtime + (timeinterval*k), timestep)] = locationvec
+					// print(location, fromtime + (timeinterval*k))
+					k = k + 1
+				}
+
+				return pointsAndTimes
+			}
+			else {
+				console.log('The dimensions of end points not the same.')
+			}
+		}
+
+		function breakLine(pt1, pt2, breakingdelta) {
+			dst = distance(pt1, pt2)
+			pointnum = parseInt(dst/breakingdelta)
+			if (pointnum < 2) {
+				pointnum = 2
+			}
+			brokenpointsdata = getdistancesattimes(pt1, pt2, 0, pointnum, 1)
+			brokenpoints = []
+			for (m = 0; m < brokenpointsdata.length; m++) {
+				brokenpoints.push(brokenpointsdata[m][0])
+			}
+			return brokenpoints
+		}
+
+		breakpointsnum = 200
+		breakdelta = 0.1
+
+		function addTransformLine(px1, py1, px2, py2, clr) {
+
+			// breakdelta = 0.0
+			brokenpts = breakLine([px1, py1], [px2, py2], breakdelta)
+
+			options = {}
+			options.points = brokenpts
+			options.pathcolor = 'hsla(' + clr + ', 100%, 50%, 0.9)'
+			if (darkmode) {
+				options.pathcolor = 'hsla(' + clr + ', 100%, 70%, 0.9)'
+			}
+			options.strokewidth = 0.4
+			pathdata = addPath('complexplanegraph', 'tline ' + px1 + ' ' + py1 + ' ' + px2 + ' ' + py2, options)
+			
+			transformLinesMap['tline ' + px1 + ' ' + py1 + ' ' + px2 + ' ' + py2] = [pathdata, brokenpts]
+			return [pathdata[0], 'tline ' + px1 + ' ' + py1 + ' ' + px2 + ' ' + py2]
+		}
+
+		function updateaddedTransformLine(linepathid, px1, py1, px2, py2) {
+			// breakdelta = 0.0
+			brokenpts = breakLine([px1, py1], [px2, py2], breakdelta)
+
+			pathdata = updatePath('complexplanegraph', linepathid, brokenpts)
+			
+			transformLinesMap[linepathid] = [pathdata, brokenpts]
+			// console.log(brokenpts)
+			return pathdata[0]
+		}
+
+
+
+		function addTransformLineThin(px1, py1, px2, py2, clr) {
+			// console.log('k')
+			brokenpts = breakLine([px1, py1], [px2, py2], breakdelta)
+
+			options = {}
+			options.points = brokenpts
+			options.pathcolor = 'hsla(' + clr + ', 100%, 50%, 0.9)'
+			if (darkmode) {
+				options.pathcolor = 'hsla(' + clr + ', 100%, 70%, 0.9)'
+			}
+			options.strokewidth = 0.2
+			pathdata = addPath('complexplanegraph', 'tline ' + px1 + ' ' + py1 + ' ' + px2 + ' ' + py2, options)
+			
+			transformLinesMap['tline ' + px1 + ' ' + py1 + ' ' + px2 + ' ' + py2] = [pathdata, brokenpts]
+
+			return [pathdata[0], 'tline ' + px1 + ' ' + py1 + ' ' + px2 + ' ' + py2]
+		}
+
+		meshlines = []
+		
+		function addLineMesh(meshid, meshlowx, meshhighx, meshlowy, meshhighy, meshorder) {
+			// meshdelta = breakdelta
+			// horizonal lines (Order is Rows x Columns)
+			meshGridData['meshorder-' + meshid] = meshorder
+			for (mline = 0; mline < meshorder[0] + 1; mline++) {
+				ypart = meshlowy + ((meshhighy - meshlowy)*mline/(meshorder[0]))
+				gdclr = gridcolorY(ypart, meshlowy, meshhighy)
+				addedpath = addTransformLineThin(meshlowx, ypart, meshhighx, ypart,gdclr)
+				meshlines.push(addedpath[1])
+				meshGridData['y' + mline] = addedpath[1]
+			}
+
+			for (mline = 0; mline < meshorder[1] + 1; mline++) {
+				xpart = meshlowx + ((meshhighx - meshlowx)*mline/(meshorder[1]))
+				gdclr = gridcolorX(xpart, meshlowx, meshhighx)
+				addedpath = addTransformLineThin(xpart, meshlowy, xpart, meshhighy, gdclr)
+				meshlines.push(addedpath[1])
+				meshGridData['x' + mline] = addedpath[1]
+			}
+			
+		}
+
+		meshGridData = {}
+
+		function updateLineMesh(meshid, meshlowx, meshhighx, meshlowy, meshhighy) {
+			// meshdelta = breakdelta
+			// horizonal lines (Order is Rows x Columns)
+
+			// deleteSegments(meshlines)
+			// meshlines = []
+
+			meshorder = meshGridData['meshorder-' + meshid]
+
+			for (mline = 0; mline < meshorder[0] + 1; mline++) {
+				ypart = meshlowy + ((meshhighy - meshlowy)*mline/(meshorder[0]))
+				addedpath = updateaddedTransformLine(meshGridData['y' + mline], meshlowx, ypart, meshhighx, ypart)
+				// meshlines.push(addedpath)
+			}
+
+			for (mline = 0; mline < meshorder[1] + 1; mline++) {
+				xpart = meshlowx + ((meshhighx - meshlowx)*mline/(meshorder[1]))
+				gdclr = gridcolorX(xpart, meshlowx, meshhighx)
+				addedpath = updateaddedTransformLine(meshGridData['x' + mline], xpart, meshlowy, xpart, meshhighy, gdclr)
+				// meshlines.push(addedpath)
+			}
+			
+		}
+
+		function deleteMeshlines(collection) {
+			if (typeof collection != 'undefined') {
+				for (f = 0; f < collection.length; f++) {
+					removePath('complexplanegraph', collection[f])
+				}
+			}
+		}
+
+
+		addLineMesh('mesh1', -3, 4, 1, 3, [20, 20])
+
+		updateLineMesh('mesh1', 0, 3, -2, 2)
+
+		meshLowKnob = [0, -2]
+		meshHighKnob = [3, 2]
+
+
+		knobsizex = Math.min((graphData['complexplanegraph'].xmax - graphData['complexplanegraph'].xmin)/24, (graphData['complexplanegraph'].ymax - graphData['complexplanegraph'].ymin)/24)
+		knobsizey = knobsizex
+
+		options = {}
+		options.w = knobsizex
+		options.h = knobsizey
+		options.x = meshLowKnob[0] - options.w/2
+		options.y = meshLowKnob[1] + options.h/2
+		
+		options.rectcolor = 'hsla(260, 100%, 50%, 1)'
+		// options.pointsize = 2
+		if (darkmode) {
+			options.rectcolor = 'hsla(260, 100%, 70%, 1)'
+		}
+		knoblow = addRectangle('complexplanegraph', 'lowknobrect' , options)
+
+		options = {}
+		options.w = knobsizex
+		options.h = knobsizey
+		options.x = meshHighKnob[0] - options.w/2
+		options.y = meshHighKnob[1] + options.h/2
+		
+		options.rectcolor = 'hsla(260, 100%, 50%, 1)'
+		// options.pointsize = 2
+		if (darkmode) {
+			options.rectcolor = 'hsla(260, 100%, 70%, 1)'
+		}
+		knobhigh = addRectangle('complexplanegraph', 'highknobrect' , options)
+
+
+		options = {}
+		options.w = Math.abs(meshHighKnob[0] - meshLowKnob[0]) 
+		options.h = Math.abs(meshHighKnob[1] - meshLowKnob[1])
+		options.x = meshLowKnob[0]
+		options.y = meshHighKnob[1]
+		options.strokedasharray = [5,5]
+		options.rectcolor = 'hsla(260, 100%, 50%, 0)'
+		options.stroke = 'hsla(260, 100%, 50%, 1)'
+		options.strokewidth = 1
+		// options.pointsize = 2
+		if (darkmode) {
+			options.rectcolor = 'hsla(260, 100%, 70%, 0)'
+			options.stroke = 'hsla(260, 100%, 70%, 1)'
+
+		}
+		knobfull = addRectangle('complexplanegraph', 'fullrect' , options)
+
+		mesheditElements = [knoblow[0], knobhigh[0], knobfull[0]]
+
+		knobhigh[0].style.cursor = 'nesw-resize'
+		knoblow[0].style.cursor = 'nesw-resize'
+
+		functionmode = 'sum'
+
+		linescollection = []
+
+		// addTransformLines(parseInt(graphData['complexplanegraph'].xmin) - 2, parseInt(graphData['complexplanegraph'].xmax) + 2, parseInt(graphData['complexplanegraph'].ymin) - 2, parseInt(graphData['complexplanegraph'].ymax) + 2)
+
+		// addTransformLinesThin(0, 9, -1, 1, 90, 20)
+		// addTransformLinesThin(0, 1, -4, 4, 10, 80)
+
+		alltransformsMap = {}
+		// transformpoints = {}
+
+		if (darkmode) {
+			document.getElementById('computebutton').style.color = 'white'
+		}
+
+		function computeMidpoints() {
+			alltransformsMap = {}
+			totallines = Object.keys(transformLinesMap).length
+			nupinput = parseInt(document.getElementById('nupperinput').value)
+			nlowinput = parseInt(document.getElementById('nlowerinput').value)
+			inputfunctiontext = document.getElementById('inputfunctiontext').value
+			linenum = 0
+			for (var key in transformLinesMap) {
+				// console.log(linenum/totallines)
+				options = {}
+				options.w = (linenum/totallines)*120
+				updateRectangle('computeprogressgraph', 'progressRect' , options)
+				// document.getElementById('computebutton').innerHTML = (linenum/totallines)*120
+				linenum = linenum + 1
+				pts = transformLinesMap[key][1]
+				for (k1 = 0; k1 < pts.length; k1++) {
+					// console.log(pts[k1])
+					segmentdata = totalSumSegments(pts[k1][0] + '+' + pts[k1][1] + 'i', nupinput, nlowinput, inputfunctiontext)
+					sumvalue = segmentdata.Tsum
+					mapvalue = [sumvalue.re, sumvalue.im]
+
+					inbetweenTimesLocs = getdistancesattimes(pts[k1], mapvalue, 0, 100, 1)
+					for (t1 = 0; t1 < inbetweenTimesLocs.length; t1++) {
+						if (typeof alltransformsMap[inbetweenTimesLocs[t1][1]] == 'undefined') {
+							alltransformsMap[inbetweenTimesLocs[t1][1]] = {}
+						}
+
+						if (typeof alltransformsMap[inbetweenTimesLocs[t1][1]][key] == 'undefined') {
+							alltransformsMap[inbetweenTimesLocs[t1][1]][key] = [inbetweenTimesLocs[t1][0]]
+						}
+						else {
+							alltransformsMap[inbetweenTimesLocs[t1][1]][key].push(inbetweenTimesLocs[t1][0])
+						}
+					}
+				}
+			}
+			document.getElementById('pauseplay').innerHTML = 'Play'
+			options = {}
+			options.w = 0
+			updateRectangle('computeprogressgraph', 'progressRect' , options)
+
+		}
+
+		stepvalue = 0
+
+		lineKeys = Object.keys(transformLinesMap)
+
+		function computeStepPrep() {
+			alltransformsMap = {}
+			lineKeys = Object.keys(transformLinesMap)
+			nupinput = parseInt(document.getElementById('nupperinput').value)
+			nlowinput = parseInt(document.getElementById('nlowerinput').value)
+			inputfunctiontext = document.getElementById('inputfunctiontext').value
+			document.getElementById('computebutton').style.pointerEvents = 'none'
+			document.getElementById('computebutton').innerHTML = 'Computing...'
+			stepvalue = 0
+			computeLoop()
+		}
+
+		function computeStepEnd() {
+			document.getElementById('pauseplay').innerHTML = 'Play'
+			options = {}
+			options.w = 0
+			updateRectangle('computeprogressgraph', 'progressRect' , options)
+			clearInterval(cloopinterval)
+			enableplayline()
+			compute = false
+			document.getElementById('computebutton').style.visibility = 'hidden'
+			document.getElementById('computebutton').style.pointerEvents = 'none'
+			document.getElementById('computebutton').style.zIndex = 0
+			document.getElementById('computeholder').style.visibility = 'hidden'
+			document.getElementById('computeholder').style.pointerEvents = 'none'
+			document.getElementById('computeholder').style.zIndex = 0
+
+			document.getElementById('computebutton').innerHTML = 'Compute Transform Animation'
+		}
+		
+
+		function computeMidpointsStep(stepval) {
+			// console.log(linenum/totallines)
+			if (stepval < lineKeys.length) {
+				options = {}
+				options.w = (stepval/lineKeys.length)*120
+				updateRectangle('computeprogressgraph', 'progressRect' , options)
+				document.getElementById('computebutton').innerHTML = 'Computing... <font style="color: hsla(190, 100%, 50%, 1); font-size: 2vmin;">' + (stepval*100/lineKeys.length).toFixed(1) + '% done. </font>'
+			
+				// document.getElementById('computebutton').innerHTML = (linenum/totallines)*120
+				// linenum = linenum + 1
+				key = lineKeys[stepval]
+				pts = transformLinesMap[key][1]
+				for (k1 = 0; k1 < pts.length; k1++) {
+					// console.log(pts[k1])
+					
+					if (functionmode == 'sum') {
+						segmentdata = totalSumSegments(pts[k1][0] + '+' + pts[k1][1] + 'i', nupinput, nlowinput, inputfunctiontext)
+						sumvalue = segmentdata.Tsum
+					}
+					else {
+						sumvalue = getFuncValue(pts[k1][0] + '+' + pts[k1][1] + 'i', inputfunctiontext)
+					}
+						
+					mapvalue = [sumvalue.re, sumvalue.im]
+
+					inbetweenTimesLocs = getdistancesattimes(pts[k1], mapvalue, 0, 100, 1)
+					for (t1 = 0; t1 < inbetweenTimesLocs.length; t1++) {
+						if (typeof alltransformsMap[inbetweenTimesLocs[t1][1]] == 'undefined') {
+							alltransformsMap[inbetweenTimesLocs[t1][1]] = {}
+						}
+
+						if (typeof alltransformsMap[inbetweenTimesLocs[t1][1]][key] == 'undefined') {
+							alltransformsMap[inbetweenTimesLocs[t1][1]][key] = [inbetweenTimesLocs[t1][0]]
+						}
+						else {
+							alltransformsMap[inbetweenTimesLocs[t1][1]][key].push(inbetweenTimesLocs[t1][0])
+						}
+					}
+				}
+			}
+			else {
+				computeStepEnd()
+			}	
+		}
+
+
+		function computeFinalStep() {
+			// lineKeys = Object.keys(transformLinesMap)
+			// console.log(linenum/totallines)
+			// if (stepval < lineKeys.length) {
+				// options = {}
+				// options.w = (stepval/lineKeys.length)*120
+				// updateRectangle('computeprogressgraph', 'progressRect' , options)
+				// document.getElementById('computebutton').innerHTML = 'Computing... <font style="color: hsla(190, 100%, 50%, 1); font-size: 2vmin;">' + (stepval*100/lineKeys.length).toFixed(1) + '% done. </font>'
+			
+				// document.getElementById('computebutton').innerHTML = (linenum/totallines)*120
+				// linenum = linenum + 1
+			t1 = 100
+			alltransformsMap[t1] = {}
+			for (stepval = 0; stepval < lineKeys.length; stepval++) {
+				key = lineKeys[stepval]
+				// console.log(key)
+				pts = transformLinesMap[key][1]
+				for (k1 = 0; k1 < pts.length; k1++) {
+					// console.log(pts[k1])
+					
+					if (functionmode == 'sum') {
+						segmentdata = totalSumSegments(pts[k1][0] + '+' + pts[k1][1] + 'i', nupinput, nlowinput, inputfunctiontext)
+						sumvalue = segmentdata.Tsum
+					}
+					else {
+						sumvalue = getFuncValue(pts[k1][0] + '+' + pts[k1][1] + 'i', inputfunctiontext)
+					}
+						
+					mapvalue = [sumvalue.re, sumvalue.im]
+
+					// inbetweenTimesLocs = getdistancesattimes(pts[k1], mapvalue, 0, 100, 1)
+					// for (t1 = 0; t1 < inbetweenTimesLocs.length; t1++) {
+					
+					if (typeof alltransformsMap[t1] == 'undefined') {
+						alltransformsMap[t1] = {}
+					}
+
+
+					if (typeof alltransformsMap[t1][key] == 'undefined') {
+						alltransformsMap[t1][key] = [mapvalue]
+					}
+					else {
+						alltransformsMap[t1][key].push(mapvalue)
+					}
+				}
+			}
+		}
+
+
+		function computeFinalStep() {
+			// lineKeys = Object.keys(transformLinesMap)
+			// console.log(linenum/totallines)
+			// if (stepval < lineKeys.length) {
+				// options = {}
+				// options.w = (stepval/lineKeys.length)*120
+				// updateRectangle('computeprogressgraph', 'progressRect' , options)
+				// document.getElementById('computebutton').innerHTML = 'Computing... <font style="color: hsla(190, 100%, 50%, 1); font-size: 2vmin;">' + (stepval*100/lineKeys.length).toFixed(1) + '% done. </font>'
+			
+				// document.getElementById('computebutton').innerHTML = (linenum/totallines)*120
+				// linenum = linenum + 1
+			t1 = 100
+			alltransformsMap[t1] = {}
+			for (stepval = 0; stepval < lineKeys.length; stepval++) {
+				key = lineKeys[stepval]
+				// console.log(key)
+				pts = transformLinesMap[key][1]
+				for (k1 = 0; k1 < pts.length; k1++) {
+					// console.log(pts[k1])
+					
+					if (functionmode == 'sum') {
+						segmentdata = totalSumSegments(pts[k1][0] + '+' + pts[k1][1] + 'i', nupinput, nlowinput, inputfunctiontext)
+						sumvalue = segmentdata.Tsum
+					}
+					else {
+						sumvalue = getFuncValue(pts[k1][0] + '+' + pts[k1][1] + 'i', inputfunctiontext)
+					}
+						
+					mapvalue = [sumvalue.re, sumvalue.im]
+
+					// inbetweenTimesLocs = getdistancesattimes(pts[k1], mapvalue, 0, 100, 1)
+					// for (t1 = 0; t1 < inbetweenTimesLocs.length; t1++) {
+					
+					if (typeof alltransformsMap[t1] == 'undefined') {
+						alltransformsMap[t1] = {}
+					}
+
+
+					if (typeof alltransformsMap[t1][key] == 'undefined') {
+						alltransformsMap[t1][key] = [mapvalue]
+					}
+					else {
+						alltransformsMap[t1][key].push(mapvalue)
+					}
+				}
+			}
+		}
+
+
+
+
+		// computeMidpoints()
+
+
+		function displayGAt(timeval) {
+			locations = alltransformsMap[timeval]
+			for (var key in locations) {
+				// console.log(key)
+				// console.log(locations[key])
+				updatePath('complexplanegraph', key, locations[key])
+			}
+		}
+
+		// displayGAt(50)
+
+		// console.log(alltransformsMap)
+
+		function handleplaylineclick(event) {
+			if (typeof loopinterval !== 'undefined') {
+				clearInterval(loopinterval);	
+			}
+			var rect = document.getElementById('playlineH').getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			if (posx/rect.width <= 0.1) {
+				slidervalue = 0	
+			}
+			else if (posx/rect.width >= 0.9) {
+				slidervalue = 100
+			}
+			else {
+				slidervalue = (((posx/rect.width) - 0.1)/0.8)*100	
+			}
+			displayGAt(parseInt(slidervalue))
+			setPlayerAt(slidervalue)
+			looptime = parseInt(slidervalue)
+			playmode = true
+			document.getElementById('pauseplay').innerHTML = 'Play'
+		}
+
+		document.getElementById('playlinegraph').addEventListener('click', handleplaylineclick)
+
+		function disableplayline() {
+			document.getElementById('playline').style.pointerEvents = 'None'
+			document.getElementById('playline').style.visibility = 'hidden'
+			document.getElementById('pauseplay').style.pointerEvents = 'None'
+			document.getElementById('pauseplay').style.visibility = 'hidden'
+			// document.getElementById('pauseplay').style.visibility = 0
+
+		}
+
+		function enableplayline() {
+			document.getElementById('playline').style.pointerEvents = 'auto'
+			document.getElementById('playline').style.visibility = 'visible'
+			document.getElementById('pauseplay').style.pointerEvents = 'auto'
+			document.getElementById('pauseplay').style.visibility = 'visible'
+			// document.getElementById('pauseplay').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+		}
+
+		// document.getElementById('pauseplay').innerHTML = 'Compute'
+		compute = true
+		disableplayline()
+		playmode = true
+
+		function handleplay(event) {
+			if (compute == false) {
+				if (playmode == true) {
+					// console.log(typeof loopinterval)
+					if (typeof loopinterval !== 'undefined') {
+						clearInterval(loopinterval);
+						// console.log('yes')	
+					}
+					// looptime = 0
+					playLoop()
+					playmode = false
+					document.getElementById('pauseplay').innerHTML = 'Pause'
+				}
+				else {
+					if (typeof loopinterval !== 'undefined') {
+						clearInterval(loopinterval);
+						// console.log('yes')	
+					}
+					playmode = true
+					document.getElementById('pauseplay').innerHTML = 'Play'
+				}
+					
+			}
+			
+				
+		}
+		document.getElementById('pauseplay').addEventListener('click', handleplay)
+
+		function handlecompute(event) {
+			// setTimeout(computeMidpoints, 10)
+			computeStepPrep()
+			
+		}
+
+		document.getElementById('computebutton').addEventListener('click', handlecompute)
+
+
+
+
+
+		function ordinal_suffix_of(i) {
+			// Code from https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number 
+
+			var j = i % 10;
+			k = i % 100;
+			if (j == 1 && k != 11) {
+				return i + "st";
+			}
+			if (j == 2 && k != 12) {
+				return i + "nd";
+			}
+			if (j == 3 && k != 13) {
+				return i + "rd";
+			}
+			return i + "th";
+		}
+
+
+
+		function oversegmentEvent(event) {
+			termdata = termsegmentmap[event.target.id]
+			if (termdata[1].im > 0) {
+				textinfo = '<tspan x="0" dy="1.2em">It is the ' + ordinal_suffix_of(termdata[0])  + ' term of the summation </tspan><tspan x="0" dy="1.2em">with value ' + termdata[1].re + ' + ' + Math.abs(termdata[1].im) + ' i</tspan>'
+			}
+			else {
+				textinfo = '<tspan x="0" dy="1.2em">It is the ' + ordinal_suffix_of(termdata[0])  + ' term of the summation </tspan><tspan x="0" dy="1.2em">with value ' + termdata[1].re + ' - ' + Math.abs(termdata[1].im) + ' i</tspan>'	
+			}
+
+			// options = {}
+			// options.text = textinfo
+			// textposdata = updateText('complexplanegraph', 'segmentoverhighlight', options)
+
+			var bRect = document.getElementById('complexplanegraph').getBoundingClientRect();
+			posX = event.clientX - bRect.left;
+			posY = event.clientY - bRect.top;
+			gratio = graphData['complexplanegraph'].aspectratio
+
+			if (gratio > 1) {
+				posX = (posX/bRect.width)*100
+				posX = ((posX - 50)*gratio + 50)
+				posY = (posY/bRect.height)*100
+
+			}
+			else {
+				posX = (posX/bRect.width)*100
+				posY = (posY/bRect.height)*100
+				posY = ((posY - 50)/gratio + 50)
+				
+			}
+
+			// textposdata[0].setAttribute('x', posX)
+			// textposdata[0].setAttribute('y', posY)
+
+
+		}
+
+
+
+
+		termsegmentmap = {}
+
+		// functionmode = 'simple'
+
+
+		function lookforpoint(event) {
+
+			// options = {}
+			// options.text = ''
+			// textposdata = updateText('complexplanegraph', 'segmentoverhighlight', options)
+
+			var bRect = document.getElementById('complexplanegraph').getBoundingClientRect();
+			posX = event.clientX - bRect.left;
+			posY = event.clientY - bRect.top;
+			gratio = graphData['complexplanegraph'].aspectratio
+
+			// console.log(event.target.id)
+
+			
+			// console.log(event.target.id)
+			if (gratio > 1) {
+				posX = (posX/bRect.width)*100
+				posX = ((posX - 50)*gratio + 50)
+				posY = (posY/bRect.height)*100
+
+			}
+			else {
+				posX = (posX/bRect.width)*100
+				posY = (posY/bRect.height)*100
+				posY = ((posY - 50)/gratio + 50)
+				
+			}
+				
+			pts = getGraphCursorLocation([posX, posY], 'complexplanegraph')
+
+
+			// isgridpoint = checkPointOfGrid(pts)
+			// options = {}
+			// options.text = pts[0].toFixed(1) + '+' + pts[1].toFixed(1) + 'i'
+			// options.x = pts[0]
+			// options.y = pts[1]
+			// updateText('complexplanegraph', 'inputvaluetext', options)
+
+			
+			if (functionmode == 'sum') {
+				nupinput = parseInt(document.getElementById('nupperinput').value)
+				nlowinput = parseInt(document.getElementById('nlowerinput').value)
+			}			
+				
+			inputfunctiontext = document.getElementById('inputfunctiontext').value
+
+			segs = [1]
+
+			if (functionmode == 'sum') {
+				segmentdata = totalSumSegments(pts[0] + '+' + pts[1] + 'i', nupinput, nlowinput, inputfunctiontext)
+				sumvalue = segmentdata.Tsum
+				segs = segmentdata.segments
+			}
+			else {
+				sumvalue = getFuncValue(pts[0] + '+' + pts[1] + 'i', inputfunctiontext)
+			}
+
+			
+			// console.log(sumvalue.toPolar().phi)
+
+			if (segs.length > 0) {
+				deleteSegmentLines(linescollection)
+				linescollection = []
+
+				if (functionmode == 'sum') {
+					ntermdisplay = document.getElementById('ntermdisplay')
+					ntermdisplay.innerHTML = ''
+
+					graphoptions = {}
+					graphoptions.xmax = parseInt(nupinput)
+					graphoptions.xmin = parseInt(nlowinput)
+					graphoptions.ymax = segmentdata.maxmagnitude
+					graphoptions.ymin = 0
+					graphoptions.axislocationX = 0
+					graphoptions.axislocationY = 0
+
+					// console.log(segmentdata.maxmagnitude)
+
+					graphoptions.xaxislabelvisibility = 'no'
+					graphoptions.yaxislabelvisibility = 'no'
+
+					// graphoptions.ymajorgridlinesextension = 'yes'
+					// graphoptions.xmajorgridlinesextension = 'yes'
+
+					// graphoptions.xaxisvisibility = 'no'
+					// graphoptions.xaxislabel = 'n (summation index)'
+					graphoptions.xaxislabelshift = 20
+					
+					
+					graphoptions.yaxisvisibility = 'no'
+					graphoptions.xmajorgridlinesvisibility = 'no'
+					graphoptions.ymajorgridlinesvisibility = 'no'
+					graphoptions.ymajorgridlabelvisibility = 'no'
+					// graphoptions.xmajorgridlabelvisibility = 'no'
+					graphoptions.xmajorgridlabelshift = -10
+
+					graphoptions.fontSize = 15
+
+					graphoptions.unitAspectRatio = 'no'
+					graphoptions.fixAxis = 'xaxis'
+					graphoptions.fixAxisStretchCentrally = 'yes'
+					
+					addGraph(ntermdisplay, 'ntermdisplaygraph', graphoptions)
+
+					options = {}
+					options.x = (parseInt(nupinput) + parseInt(nlowinput))/2
+					options.y = segmentdata.maxmagnitude/1.1
+					options.fontSize = 21
+					options.text = ordinal_suffix_of(segmentdata.maxtermnumber) + ' term in the summation has the highest magnitude of ' + segmentdata.maxmagnitude
+					if (darkmode) {
+						options.textcolor = 'hsla(0, 100%, 100%, 1)'
+					}
+					options.textAlign = 'center'
+					addText('ntermdisplaygraph', 'maxvaluetext' , options)
+
+
+
+					// colordelta = (260 - 0)/segs.length
+					for (m = 0; m < segs.length; m++) {
+						options = {}
+						options.x1 = segs[m][0].re
+						options.y1 = segs[m][0].im
+						options.x2 = segs[m][1].re
+						options.y2 = segs[m][1].im
+
+						satvalue = 50 + ((segmentdata.polarValues[m].r)*50/segmentdata.maxmagnitude)
+						huvalue = ((segmentdata.polarValues[m].phi) + math.pi)*359/(2*math.pi)
+						// console.log(huvalue)
+						options.strokewidth = 2
+						options.linecolor = 'hsla(' + huvalue + ', ' + satvalue + '%, 50%, 0.3)'
+						if (darkmode) {
+							options.linecolor = 'hsla(' + huvalue + ', ' + satvalue + '%, 70%, 0.7)'
+						}
+						segmentd = addLine('complexplanegraph', 'segment' + m , options)
+						
+						// Activate this line later. Problem to be solved later. 
+
+						// segmentd[0].addEventListener('mouseover', oversegmentEvent)
+						// segmentd[0].addEventListener('mouseout', oversegmentoutEvent)
+						segmentd[0].style.cursor = 'pointer'
+						termsegmentmap[segmentd[0].id] = [m, segmentdata.termSum[m]]
+						// console.log(segmentd[0].id, termsegmentmap[segmentd[0].id])
+
+						options = {}
+						options.x1 = m + nlowinput
+						options.y1 = segmentdata.polarValues[m].r
+						options.x2 = m + nlowinput
+						options.y2 = 0
+
+						options.strokewidth = 2 + (100/segs.length)
+						options.linecolor = 'hsla(' + huvalue + ', ' + satvalue + '%, 50%, 0.3)'
+
+						if (darkmode) {
+							options.linecolor = 'hsla(' + huvalue + ', ' + satvalue + '%, 70%, 0.7)'
+						}
+						segment2 = addLine('ntermdisplaygraph', 'segmentd' + m , options)
+
+						// addDivEquation(document.getElementById('textEquationInfo'), '5%', "$$" + math.parse(inputfunctiontext).toTex() + "$$")
+						linescollection.push('segment' + m)
+					}
+				}
+
+				// console.log(sumvalue)
+				updatePoint('complexplanegraph', 'inputpoint', pts[0], pts[1])
+				updatePoint('complexplanegraph', 'outputpoint', sumvalue.re, sumvalue.im)
+
+				inputoutputText = ''
+				if (pts[1] >= 0) {
+					inputoutputText = inputoutputText + '<font style="color:hsla(40, 100%,50%,1)">Input</font> : <font style="color:hsla(190, 100%,50%,1)">' + pts[0] + '</font> + <font style="color:hsla(260, 100%,50%,1)">' + pts[1] + '</font> i'
+				}
+				else {
+					inputoutputText = inputoutputText + '<font style="color:hsla(40, 100%,50%,1)">Input</font> : <font style="color:hsla(190, 100%,50%,1)">' + pts[0] + '</font> - <font style="color:hsla(260, 100%,50%,1)">' + Math.abs(pts[1]) + '</font> i'
+				
+				}
+
+				inputoutputText = inputoutputText + '<br/>'
+
+				if (sumvalue.im >= 0) {
+					if (darkmode) {
+						inputoutputText = inputoutputText + '<font style="color:white;">Output :</font> <font style="color:hsla(190, 100%,50%,1)">' + sumvalue.re + '</font> + <font style="color:hsla(260, 100%,50%,1)">' + sumvalue.im + '</font> i'
+					}
+					else {
+						inputoutputText = inputoutputText + 'Output : <font style="color:hsla(190, 100%,50%,1)">' + sumvalue.re + '</font> + <font style="color:hsla(260, 100%,50%,1)">' + sumvalue.im + '</font> i'						
+					}
+					
+				
+				}
+				else {
+					if (darkmode) {
+						inputoutputText = inputoutputText + '<font style="color:white;">Output :</font> : <font style="color:hsla(190, 100%,50%,1)">' + sumvalue.re + '</font> - <font style="color:hsla(260, 100%,50%,1)">' + Math.abs(sumvalue.im) + '</font> i'
+					}
+					else {
+						inputoutputText = inputoutputText + 'Output : <font style="color:hsla(190, 100%,50%,1)">' + sumvalue.re + '</font> - <font style="color:hsla(260, 100%,50%,1)">' + Math.abs(sumvalue.im) + '</font> i'
+					}
+					
+			
+				}
+
+				document.getElementById('infotext').innerHTML = inputoutputText
+
+				// if (isgridpoint) {
+				// colorPoint([sumvalue.re, sumvalue.im], isgridpoint)
+				// }
+				
+				
+				
+			}
+				// console.log(pts)
+		}
+
+		document.getElementById('complexplanegraph').addEventListener('mousemove', lookforpoint)
+
+		displaysumTogglemode = true
+		function displaysumToggle(event) {
+			if (displaysumTogglemode) {
+				document.getElementById('complexplanegraph').removeEventListener('mousemove', lookforpoint)				
+				displaysumTogglemode = false
+			}
+			else {
+				document.getElementById('complexplanegraph').addEventListener('mousemove', lookforpoint)
+				displaysumTogglemode = true
+				lookforpoint(event)
+			}
+		}
+		document.getElementById('complexplanegraph').addEventListener('click', displaysumToggle)
+
+		function deleteSegments(collection) {
+			if (typeof collection != 'undefined') {
+				for (f = 0; f < collection.length; f++) {
+					collection[f].outerHTML = ''
+				}
+			}
+		}
+
+		function deleteSegmentLines(collection) {
+			if (typeof collection != 'undefined') {
+				for (f = 0; f < collection.length; f++) {
+					removeLine('complexplanegraph', collection[f])
+				}
+			}
+		}
+
+		// Problem : No complete deletion
+
+		window.onload = function() {
+			// MathJax.Hub.Config({
+			// 	ShowMathMenu: false
+			// });
+			// MathJax.Hub.Config({
+			// 	tex2jax: {
+			// 		inlineMath: [['$','$'], ['\\(','\\)']],
+			// 		processEscapes: true
+			// 	}
+			// });
+			nupinput = parseInt(document.getElementById('nupperinput').value)
+			nlowinput = parseInt(document.getElementById('nlowerinput').value)
+			inputfunctiontext = document.getElementById('inputfunctiontext').value
+
+			// console.log(math.parse(inputfunctiontext).toTex())
+			if (functionmode == 'sum') {
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
+			}
+			else {
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + " $$"
+			}
+
+			computeStepPrep()
+					
+		};
+
+
+		function inputChange(event) {
+			nupinput = parseInt(document.getElementById('nupperinput').value)
+			nlowinput = parseInt(document.getElementById('nlowerinput').value)
+			inputfunctiontext = document.getElementById('inputfunctiontext').value
+
+			// document.getElementById('pauseplay').innerHTML = 'Compute'
+			compute = true
+			disableplayline()
+			finalcheckdone = false
+			document.getElementById('computebutton').style.visibility = 'visible'
+			document.getElementById('computebutton').style.pointerEvents = 'auto'
+			document.getElementById('computebutton').style.zIndex = 5
+			document.getElementById('computeholder').style.visibility = 'visible'
+			document.getElementById('computeholder').style.pointerEvents = 'auto'
+			document.getElementById('computeholder').style.zIndex = 4
+
+			// console.log('check')
+			if (functionmode == 'sum') {
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
+			}
+			else {
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + " $$"
+			}
+			MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+			
+		}
+
+
+
+		document.getElementById('inputfunctiontext').addEventListener('input', inputChange)
+		document.getElementById('nupperinput').addEventListener('input', inputChange)
+		document.getElementById('nlowerinput').addEventListener('input', inputChange)
+
+		// var MQ = MathQuill.getInterface(2);
+
+		// var nsum = document.getElementById('nsum');
+		// var nsumField = MQ.MathField(nsum, {
+		// 	autoCommands: 'pi theta sqrt sum',
+		// 	handlers: {
+		// 		edit: function() {
+		// 		var enteredMath = nsumField.latex(); 
+		// 		// evaluatedmath = math.eval(latex_to_js(enteredMath))
+		// 		console.log(enteredMath)
+		// 	}
+		// }});
+
+
+		// test = math.eval('(' + 2 + ') + (' + 3 + ')i')
+
+		
+
+		
+		// y = math.eval("frac(1)(3)")
+		// console.log(test)
+
+		function getFuncValue(zval, etext) {
+			expr = etext
+			let scope = {z:math.complex(zval), n:1}
+			evaluated = math.complex(math.eval(expr, scope))
+			// console.log(nval, zval)
+			// console.log(evaluated)
+			return evaluated
+		}
+
+
+		function nthTerm(nval, zval, etext) {
+			expr = etext
+			let scope = {z:math.complex(zval), n:nval}
+			evaluated = math.complex(math.eval(expr, scope))
+			// console.log(nval, zval)
+			// console.log(evaluated)
+			return evaluated
+		}
+
+		function totalSum(zv, nup, nlow, inputexpr) {
+			totalsumvalue = math.eval('0')
+			for (nv = nlow; nv <= nup; nv++) {
+				nthtermvalue = nthTerm(nv, zv, inputexpr)
+				totalsumvalue = math.add(totalsumvalue, nthtermvalue)
+			}
+			// console.log('Total : ')
+			// console.log(totalsumvalue)
+			return totalsumvalue
+		}
+
+		function totalSumSegments(zv, nup, nlow, inputexpr) {
+			sum = {}
+			sum.segments = []
+			sum.termSum = []
+			totalsumvalue = math.eval('0+0i')
+			sum.maxmagnitude = 0
+			sum.polarValues = []
+			sum.maxtermnumber = 0
+			for (nv = nlow; nv <= nup; nv++) {
+				nthtermvalue = nthTerm(nv, zv, inputexpr)
+				sum.termSum.push(nthtermvalue)
+				segment = [totalsumvalue]
+				totalsumvalue = math.add(totalsumvalue, nthtermvalue)
+				segment.push(totalsumvalue)
+				sum.segments.push(segment)
+				polarval = nthtermvalue.toPolar()
+				sum.polarValues.push(polarval)
+				magnitude = polarval.r
+				if (magnitude > sum.maxmagnitude) {
+					sum.maxmagnitude = magnitude
+					sum.maxtermnumber = nv
+				}
+			}
+			// console.log('Total : ')
+			// console.log(totalsumvalue)
+			sum.Tsum = totalsumvalue
+			return sum
+		}
+
+
+		// totalSum('2+4i', nupinput, nlowinput, inputfunctiontext)
+
+		function checkPointOfGrid(pt) {
+			raiseflag = 0
+			for (f = 0; f < gridXlinesValues.length; f++) {
+				if (Math.abs(pt[0] - gridXlinesValues[f]) < plotdelta) {
+					raiseflag = 1
+					break
+				}
+			}
+			if (raiseflag == 0) {
+				for (f = 0; f < gridYlinesValues.length; f++) {
+					if (Math.abs(pt[1] - gridYlinesValues[f]) < plotdelta) {
+						raiseflag = 1
+						break
+					}
+				}
+			} 
+
+			if (raiseflag == 1) {
+				return true
+			}
+			else {
+				return false
+			}
+		}
+
+
+		// gridXlines = graphData['complexplanegraph'].xmajorgridElements
+		gridXlinesValues = graphData['complexplanegraph'].xmajorgridticks
+
+		// gridYlines = graphData['complexplanegraph'].ymajorgridElements
+		gridYlinesValues = graphData['complexplanegraph'].ymajorgridticks
+
+		plotdelta = 0.1
+
+		// mapGridElementsAndValues = {}
+		// for (g = 0 ; g < gridXlines.length; g++) {
+		// 	// mapGridElementsAndValues[gridXlines.id] = gridXlinesValues[g] 
+		// 	// gridXlines.addEventListener('mouseover', overXgridlines)
+		// }
+
+		plotcanvas = document.getElementById('plotcanvas')
+		plotcanvas.width = document.getElementById('complexplane').offsetWidth
+		plotcanvas.height = document.getElementById('complexplane').offsetHeight
+		plotcanvas.style.width = plotcanvas.width
+		plotcanvas.style.height = plotcanvas.height
+
+
+		// console.log()
+
+		function colorPoint(loc, truth) {
+
+			// var rect = plotcanvas
+
+			asratio = graphData['complexplanegraph'].aspectratio 
+			gymin = graphData['complexplanegraph'].ymin
+			gymax = graphData['complexplanegraph'].ymax
+			gxmin = graphData['complexplanegraph'].xmin
+			gxmax = graphData['complexplanegraph'].xmax
+			// console.log(gxmax, gxmin)
+
+			gx = graphToScaledX(loc[0], gxmin, gxmax, asratio)
+			gy = graphToScaledY(loc[1], gymin, gymax, asratio)
+
+			
+			context = plotcanvas.getContext("2d");
+			// context.canvas.width = 100;
+  			context.canvas.height = 100;
+  
+			
+			posxP = gx*document.getElementById('complexplane').offsetWidth/100
+			posyP = gy*document.getElementById('complexplane').offsetHeight/100
+
+			// console.log(posxP, posyP)
+
+			if (truth) {
+				context.fillStyle = 'hsla(10,100%,50%,1)'
+				context.strokeStyle = 'rgba(2,24,255,1)';
+			}
+			else {
+				context.fillStyle = 'hsla(190,100%,50%,1)'
+				context.strokeStyle = 'rgba(2,24,255,1)';
+			}
+
+
+			context.beginPath();
+			context.arc(posxP, posyP, 2, 0, 2 * Math.PI);
+			context.fill();
+			
+		}
+
+		looptime = 0
+		loopinterval = ''
+
+		function playLoop(event) {
+			loopinterval = setInterval(frame, 50);
+			function frame() {
+				looptime = looptime + 1
+				displayGAt(looptime)
+				setPlayerAt(looptime)
+				// console.log(looptime)
+				if (looptime == 99) {
+					clearInterval(loopinterval);
+					looptime = 0
+				}
+				
+			}
+		}
+
+
+		function computeLoop(event) {
+			cloopinterval = setInterval(frame2, 1);
+			function frame2() {
+				computeMidpointsStep(stepvalue)
+				stepvalue = stepvalue + 1
+			}
+		}
+
+			
+		function wheelHandle(event) {
+			whlvalue = (event.wheelDeltaY)/Math.abs(event.wheelDeltaY)
+			scalefactorup = 0.1
+			scalefactordown = 0.1
+
+			gdata = graphData['complexplanegraph']
+
+			scale = gdata.ymax - gdata.ymin
+			expstring = scale.toExponential().toString()
+			ordery = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+			// console.log(ordery)
+
+			scale = gdata.xmax - gdata.xmin
+			expstring = scale.toExponential().toString()
+			orderx = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+			// console.log(orderx)
+			
+			var rect = document.getElementById('complexplanegraph').getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+
+			posx = posx/rect.width
+			posy = posy/rect.height
+			posy = 1 - posy
+			currentvalues = graphData['complexplanegraph']
+			// console.log(whlvalue)
+			if (whlvalue < 0) {
+				newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactorup
+				newscaley = (currentvalues.ymax - currentvalues.ymin)*scalefactorup
+				options = {}
+				options.xmin = currentvalues.xmin - (2*newscalex*(1 - posx))
+				options.xmax = currentvalues.xmax + (2*newscalex*(posx))
+				options.ymin = currentvalues.ymin - (2*newscaley*(1 - posy))
+				options.ymax = currentvalues.ymax + (2*newscaley*(posy))
+				updateGraphZoom('complexplanegraph', options)
+
+				knobsizex = Math.min((graphData['complexplanegraph'].xmax - graphData['complexplanegraph'].xmin)/24, (graphData['complexplanegraph'].ymax - graphData['complexplanegraph'].ymin)/24)
+
+				options = {}
+				options.w = knobsizex
+				options.h = knobsizex
+				options.x = meshLowKnob[0] - options.w/2
+				options.y = meshLowKnob[1] + options.h/2
+
+				updateRectangle('complexplanegraph', 'lowknobrect', options)
+
+				options.x = meshHighKnob[0] - options.w/2
+				options.y = meshHighKnob[1] + options.h/2
+
+				updateRectangle('complexplanegraph', 'highknobrect', options)
+
+			}
+			else if (whlvalue >= 0 && orderx < 14 && ordery < 14) {
+				newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactordown
+				newscaley = (currentvalues.ymax - currentvalues.ymin)*scalefactordown
+				options = {}
+				options.xmin = currentvalues.xmin + (2*newscalex*(posx))
+				options.xmax = currentvalues.xmax - (2*newscalex*(1 - posx))
+				options.ymin = currentvalues.ymin + (2*newscaley*(posy))
+				options.ymax = currentvalues.ymax - (2*newscaley*(1 - posy))
+				updateGraphZoom('complexplanegraph', options)
+				knobsizex = Math.min((graphData['complexplanegraph'].xmax - graphData['complexplanegraph'].xmin)/24, (graphData['complexplanegraph'].ymax - graphData['complexplanegraph'].ymin)/24)
+				options = {}
+				options.w = knobsizex
+				options.h = knobsizex
+
+				options.x = meshLowKnob[0] - options.w/2
+				options.y = meshLowKnob[1] + options.h/2
+				updateRectangle('complexplanegraph', 'lowknobrect', options)
+
+				options.x = meshHighKnob[0] - options.w/2
+				options.y = meshHighKnob[1] + options.h/2
+				updateRectangle('complexplanegraph', 'highknobrect', options)
+			}
+			
+					
+
+
+		}
+
+		document.getElementById('complexplanegraph').addEventListener('wheel', wheelHandle)
+
+
+		function togglemeshsetting(openclose) {
+			if (openclose == 'open') {
+				document.getElementById('meshsettingdisplayHold').style.visibility = 'visible'
+				document.getElementById('meshsettingdisplayHold').style.opacity = 1
+				document.getElementById('spectrumholder').style.visibility = 'hidden'
+				document.getElementById('spectrumholder').style.opacity = 0
+			}
+			else if (openclose == 'close') {
+				document.getElementById('meshsettingdisplayHold').style.visibility = 'hidden'
+				document.getElementById('meshsettingdisplayHold').style.opacity = 0
+				document.getElementById('spectrumholder').style.visibility = 'visible'
+				document.getElementById('spectrumholder').style.opacity = 1
+			}
+		}
+
+		togglemeshsetting('close')
+		editmeshstateopen = false
+
+		for (k = 0; k < mesheditElements.length; k++) {
+			mesheditElements[k].style.opacity = 0
+		}
+
+		function handleEditMesh(event) {
+			if (editmeshstateopen) {
+				editmeshstateopen = false
+				togglemeshsetting('close')
+				document.getElementById('complexplanegraph').addEventListener('click', displaysumToggle)
+				for (k = 0; k < mesheditElements.length; k++) {
+					mesheditElements[k].style.opacity = 0
+				}
+			}
+			else {
+				editmeshstateopen = true
+				togglemeshsetting('open')
+				for (k = 0; k < mesheditElements.length; k++) {
+					mesheditElements[k].style.opacity = 1
+				}
+
+				displayGAt(0)
+				setPlayerAt(0)
+				looptime = 0
+				playmode = true
+
+				document.getElementById('complexplanegraph').removeEventListener('click', displaysumToggle)
+				if (displaysumTogglemode) {
+					displaysumTogglemode = false
+					document.getElementById('complexplanegraph').removeEventListener('mousemove', lookforpoint)
+				}
+
+
+
+
+			}
+		}
+		document.getElementById('editmeshH').addEventListener('click', handleEditMesh)
+
+
+		
+
+
+		function turnonEditMesh(event) {
+			document.getElementById('complexplanegraph-rect-lowknobrect').removeEventListener('mousedown', turnonEditMesh)
+			document.getElementById('complexplanegraph').addEventListener('mouseup', turnoffEditMesh)
+			document.getElementById('complexplanegraph').addEventListener('mousemove', lowknobEditMesh)
+
+			
+			// console.log('on')
+		}
+
+		function turnoffEditMesh(event) {
+			document.getElementById('complexplanegraph-rect-lowknobrect').addEventListener('mousedown', turnonEditMesh)
+			document.getElementById('complexplanegraph').removeEventListener('mouseup', turnoffEditMesh)
+			document.getElementById('complexplanegraph').removeEventListener('mousemove', lowknobEditMesh)
+			// console.log('off')
+		}
+
+		function lowknobEditMesh(event) {
+			var bRect = document.getElementById('complexplanegraph').getBoundingClientRect();
+			posX = event.clientX - bRect.left;
+			posY = event.clientY - bRect.top;
+			gratio = graphData['complexplanegraph'].aspectratio
+
+			if (gratio > 1) {
+				posX = (posX/bRect.width)*100
+				posX = ((posX - 50)*gratio + 50)
+				posY = (posY/bRect.height)*100
+
+			}
+			else {
+				posX = (posX/bRect.width)*100
+				posY = (posY/bRect.height)*100
+				posY = ((posY - 50)/gratio + 50)
+				
+			}
+				
+			pts = getGraphCursorLocation([posX, posY], 'complexplanegraph')
+			// console.log(pts)
+			mesh1order = meshGridData['meshorder-mesh1']
+			if (pts[0] < meshHighKnob[0] && pts[1] < meshHighKnob[1]) {
+				compute = true
+				disableplayline()
+				finalcheckdone = false
+				document.getElementById('computebutton').style.visibility = 'visible'
+				document.getElementById('computebutton').style.pointerEvents = 'auto'
+				document.getElementById('computebutton').style.zIndex = 5
+				document.getElementById('computeholder').style.visibility = 'visible'
+				document.getElementById('computeholder').style.pointerEvents = 'auto'
+				document.getElementById('computeholder').style.zIndex = 4
+
+				meshLowKnob = pts
+				// console.log(meshLowKnob)
+				knobsizex = Math.min((graphData['complexplanegraph'].xmax - graphData['complexplanegraph'].xmin)/24, (graphData['complexplanegraph'].ymax - graphData['complexplanegraph'].ymin)/24)
+				options = {}
+				options.w = knobsizex
+				options.h = knobsizex
+				options.x = meshLowKnob[0] - options.w/2
+				options.y = meshLowKnob[1] + options.h/2
+
+				updateRectangle('complexplanegraph', 'lowknobrect', options)
+
+				updateLineMesh('mesh1', meshLowKnob[0], meshHighKnob[0], meshLowKnob[1], meshHighKnob[1])
+
+				options = {}
+				options.w = Math.abs(meshHighKnob[0] - meshLowKnob[0]) 
+				options.h = Math.abs(meshHighKnob[1] - meshLowKnob[1])
+				options.x = meshLowKnob[0]
+				options.y = meshHighKnob[1]
+
+				updateRectangle('complexplanegraph', 'fullrect', options)
+			}
+
+
+
+			// console.log(pts)
+		}
+
+
+		document.getElementById('complexplanegraph-rect-lowknobrect').addEventListener('mousedown', turnonEditMesh)
+
+		function turnonEditMeshH(event) {
+			document.getElementById('complexplanegraph-rect-highknobrect').removeEventListener('mousedown', turnonEditMeshH)
+			document.getElementById('complexplanegraph').addEventListener('mouseup', turnoffEditMeshH)
+			document.getElementById('complexplanegraph').addEventListener('mousemove', highknobEditMesh)
+
+			
+			// console.log('on')
+		}
+
+		function turnoffEditMeshH(event) {
+			document.getElementById('complexplanegraph-rect-highknobrect').addEventListener('mousedown', turnonEditMeshH)
+			document.getElementById('complexplanegraph').removeEventListener('mouseup', turnoffEditMeshH)
+			document.getElementById('complexplanegraph').removeEventListener('mousemove', highknobEditMesh)
+			// console.log('off')
+		}
+
+		function highknobEditMesh(event) {
+			var bRect = document.getElementById('complexplanegraph').getBoundingClientRect();
+			posX = event.clientX - bRect.left;
+			posY = event.clientY - bRect.top;
+			gratio = graphData['complexplanegraph'].aspectratio
+
+			if (gratio > 1) {
+				posX = (posX/bRect.width)*100
+				posX = ((posX - 50)*gratio + 50)
+				posY = (posY/bRect.height)*100
+
+			}
+			else {
+				posX = (posX/bRect.width)*100
+				posY = (posY/bRect.height)*100
+				posY = ((posY - 50)/gratio + 50)
+				
+			}
+				
+			pts = getGraphCursorLocation([posX, posY], 'complexplanegraph')
+			// console.log(pts)
+			mesh1order = meshGridData['meshorder-mesh1']
+			if (pts[0] > meshLowKnob[0] && pts[1] > meshLowKnob[1]) {
+				compute = true
+				finalcheckdone = false
+				disableplayline()
+				document.getElementById('computebutton').style.visibility = 'visible'
+				document.getElementById('computebutton').style.pointerEvents = 'auto'
+				document.getElementById('computebutton').style.zIndex = 5
+				document.getElementById('computeholder').style.visibility = 'visible'
+				document.getElementById('computeholder').style.pointerEvents = 'auto'
+				document.getElementById('computeholder').style.zIndex = 4
+
+				meshHighKnob = pts
+				// console.log(meshHighKnob)
+				knobsizex = Math.min((graphData['complexplanegraph'].xmax - graphData['complexplanegraph'].xmin)/24, (graphData['complexplanegraph'].ymax - graphData['complexplanegraph'].ymin)/24)
+				options = {}
+				options.w = knobsizex
+				options.h = knobsizex
+				options.x = meshHighKnob[0] - options.w/2
+				options.y = meshHighKnob[1] + options.h/2
+
+				updateRectangle('complexplanegraph', 'highknobrect', options)
+
+				updateLineMesh('mesh1', meshLowKnob[0], meshHighKnob[0], meshLowKnob[1], meshHighKnob[1])
+
+				options = {}
+				options.w = Math.abs(meshHighKnob[0] - meshLowKnob[0]) 
+				options.h = Math.abs(meshHighKnob[1] - meshLowKnob[1])
+				options.x = meshLowKnob[0]
+				options.y = meshHighKnob[1]
+
+				updateRectangle('complexplanegraph', 'fullrect', options)
+			}
+
+
+
+			// console.log(pts)
+		}
+
+		document.getElementById('complexplanegraph-rect-highknobrect').addEventListener('mousedown', turnonEditMeshH)
+
+
+		function inputChangeMeshDelta(event) {
+			if (isNaN(parseFloat(event.target.value)) == false && parseFloat(event.target.value) > 0) {
+				breakdelta = parseFloat(event.target.value)
+				compute = true
+				finalcheckdone = false
+				disableplayline()
+				document.getElementById('computebutton').style.visibility = 'visible'
+				document.getElementById('computebutton').style.pointerEvents = 'auto'
+				document.getElementById('computebutton').style.zIndex = 5
+				document.getElementById('computeholder').style.visibility = 'visible'
+				document.getElementById('computeholder').style.pointerEvents = 'auto'
+				document.getElementById('computeholder').style.zIndex = 4
+
+				transformLinesMap = {}
+				alltransformsMap = {}
+				newmeshGridData = {}
+
+				newmeshGridData['meshorder-mesh1'] = meshGridData['meshorder-mesh1'] 
+				meshGridData = {}
+
+				meshGridData = newmeshGridData
+
+				deleteMeshlines(meshlines)
+				meshlines = []
+
+				addLineMesh('mesh1', meshLowKnob[0], meshHighKnob[0], meshLowKnob[1], meshHighKnob[1], meshGridData['meshorder-mesh1'])
+
+			}
+				
+		}
+
+
+		document.getElementById('meshresinput').addEventListener('input', inputChangeMeshDelta)
+		
+		function inputChangeMeshCols(event) {
+			if (isNaN(parseInt(event.target.value)) == false && parseInt(event.target.value) > 0) {
+				meshcolsval = parseInt(event.target.value)
+				compute = true
+				finalcheckdone = false
+				disableplayline()
+				document.getElementById('computebutton').style.visibility = 'visible'
+				document.getElementById('computebutton').style.pointerEvents = 'auto'
+				document.getElementById('computebutton').style.zIndex = 5
+				document.getElementById('computeholder').style.visibility = 'visible'
+				document.getElementById('computeholder').style.pointerEvents = 'auto'
+				document.getElementById('computeholder').style.zIndex = 4
+
+				transformLinesMap = {}
+				alltransformsMap = {}
+				newmeshGridData = {}
+
+				newmeshGridData['meshorder-mesh1'] = meshGridData['meshorder-mesh1'] 
+				meshGridData = {}
+
+				meshGridData = newmeshGridData
+
+				meshGridData['meshorder-mesh1'][1] = meshcolsval
+
+				deleteMeshlines(meshlines)
+				meshlines = []
+
+				addLineMesh('mesh1', meshLowKnob[0], meshHighKnob[0], meshLowKnob[1], meshHighKnob[1], meshGridData['meshorder-mesh1'])
+
+			}
+				
+		}
+
+
+		document.getElementById('meshcolsinput').addEventListener('input', inputChangeMeshCols)
+		
+
+		function inputChangeMeshRows(event) {
+			if (isNaN(parseInt(event.target.value)) == false && parseInt(event.target.value) > 0) {
+				meshrowsval = parseInt(event.target.value)
+				compute = true
+				finalcheckdone = false
+				disableplayline()
+				document.getElementById('computebutton').style.visibility = 'visible'
+				document.getElementById('computebutton').style.pointerEvents = 'auto'
+				document.getElementById('computebutton').style.zIndex = 5
+				document.getElementById('computeholder').style.visibility = 'visible'
+				document.getElementById('computeholder').style.pointerEvents = 'auto'
+				document.getElementById('computeholder').style.zIndex = 4
+
+				transformLinesMap = {}
+				alltransformsMap = {}
+				newmeshGridData = {}
+
+				newmeshGridData['meshorder-mesh1'] = meshGridData['meshorder-mesh1'] 
+				meshGridData = {}
+
+				meshGridData = newmeshGridData
+
+				meshGridData['meshorder-mesh1'][0] = meshrowsval
+
+				deleteMeshlines(meshlines)
+				meshlines = []
+
+				addLineMesh('mesh1', meshLowKnob[0], meshHighKnob[0], meshLowKnob[1], meshHighKnob[1], meshGridData['meshorder-mesh1'])
+
+			}
+				
+		}
+
+
+		document.getElementById('meshrowsinput').addEventListener('input', inputChangeMeshRows)
+		
+		function changetoSimple(event) {
+			functionmode = 'simple'
+			if (darkmode == false) {
+				event.target.style.color = 'hsla(190, 100%, 50%, 1)'
+				event.target.style.backgroundColor = 'hsla(190, 100%, 100%, 0)'
+				event.target.style.borderBottom = '0px solid hsla(190, 100%, 100%, 0)'
+			}
+			else {
+
+				document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
+				document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 100%, 1)'
+				document.getElementById('functionsimple').style.border = '1px solid hsla(190, 100%, 40%, 1)'
+			}
+				
+			document.getElementById('nlowertext').style.visibility = 'hidden'
+			document.getElementById('nlowervalue').style.visibility = 'hidden'
+			document.getElementById('nuppertext').style.visibility = 'hidden'
+			document.getElementById('nuppervalue').style.visibility = 'hidden'
+			
+			document.getElementById('summationtitle').innerHTML = 'Function as Text'
+
+			if (darkmode == false) {
+				document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 0%, 1)'
+				document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 0%, 50%, 0.1)'
+				document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+			}
+			else {
+				document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+				// document.getElementById('functionsummation').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+				
+			}
+				
+			document.getElementById('ntermdisplayHold').style.visibility = 'hidden'
+
+			if (functionmode == 'sum') {
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
+			}
+			else {
+				inputfunctiontext = inputfunctiontext.replace('n', '1')
+				document.getElementById('inputfunctiontext').value = inputfunctiontext
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + "$$"
+			}
+			MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+
+		}
+		document.getElementById('functionsimple').addEventListener('click', changetoSimple)
+
+		function changetoSum(event) {
+			functionmode = 'sum'
+			// console.log(darkmode)
+			if (darkmode == false) {
+				event.target.style.color = 'hsla(190, 100%, 50%, 1)'
+				event.target.style.backgroundColor = 'hsla(190, 100%, 100%, 0)'
+				event.target.style.borderBottom = '0px solid hsla(190, 100%, 100%, 0)'
+				document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 0%, 1)'
+				document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 0%, 50%, 0.1)'
+				document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+			}
+			else {
+				document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+				// document.getElementById('functionsimple').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+				document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
+				document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 100%, 1)'
+				document.getElementById('functionsummation').style.border = '1px solid hsla(190, 100%, 40%, 1)'
+			}
+
+			document.getElementById('nlowertext').style.visibility = 'visible'
+			document.getElementById('nlowervalue').style.visibility = 'visible'
+			document.getElementById('nuppertext').style.visibility = 'visible'
+			document.getElementById('nuppervalue').style.visibility = 'visible'
+
+			document.getElementById('summationtitle').innerHTML = 'Summation Term'
+
+
+			
+			document.getElementById('ntermdisplayHold').style.visibility = 'visible'
+
+			if (functionmode == 'sum') {
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
+			}
+			else {
+				inputfunctiontext = inputfunctiontext.replace('n', '1')
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + " $$"
+			}
+			MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+		}
+
+		document.getElementById('functionsummation').addEventListener('click', changetoSum)
+
+
+
+		function changetoDark() {
+			if (darkmode == false) {
+				document.body.style.backgroundColor = 'black'
+				document.getElementById('maintitle').innerHTML = 'Complex Functions <br/> <font style="font-size: 2.3vmin; font-weight: lighter; color: hsla(190, 0%, 80%, 1);">An attempt to plot them </font><br/><font style="font-size: 2.3vmin; font-weight: lighter; color: hsla(190, 100%, 100%, 1);"> Based on certain amazing animations from 3Blue1Brown</font>'
+				document.getElementById('functioncontrols').style.color = 'white'
+				document.getElementById('functiontitle').style.color = 'white'
+				if (functionmode == 'sum') {
+					document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+					// document.getElementById('functionsimple').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 100%, 1)'
+					document.getElementById('functionsummation').style.border = '1px solid hsla(190, 100%, 40%, 1)'
+				}
+				else {
+					document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+					// document.getElementById('functionsummation').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 100%, 1)'
+					document.getElementById('functionsimple').style.border = '1px solid hsla(190, 100%, 40%, 1)'
+				}
+
+				document.getElementById('summationtitle').style.color = 'white'
+				document.getElementById('inputfunctiontext').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+				document.getElementById('inputfunctiontext').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('inputfunctiontext').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+
+				document.getElementById('nlowertext').style.color = 'white'
+				document.getElementById('nlowerinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+				document.getElementById('nlowerinput').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('nlowerinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+
+				document.getElementById('nuppertext').style.color = 'white'
+				document.getElementById('nupperinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+				document.getElementById('nupperinput').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('nupperinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+
+				document.getElementById('equationdisplay').style.backgroundColor = 'hsla(100, 0%, 20%, 0)'
+				document.getElementById('equationdisplay').style.color = 'hsla(100, 0%, 100%, 1)'
+				
+				document.getElementById('equationdisplay').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+
+				document.getElementById('computebutton').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
+				document.getElementById('computebutton').style.color = 'white'
+
+				document.getElementById('pauseplay').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
+				document.getElementById('pauseplay').style.color = 'white'
+
+				document.getElementById('editmeshH').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
+				document.getElementById('editmeshH').style.color = 'white'
+
+				document.getElementById('finaltransformH').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
+				document.getElementById('finaltransformH').style.color = 'white'
+
+				document.getElementById('darkmodeH').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
+				document.getElementById('darkmodeH').style.color = 'white'
+				document.getElementById('infotext2').style.color = 'white'
+				document.getElementById('meshsetdisplaytitle').style.color = 'white'
+				document.getElementById('meshrestext').style.color = 'white'
+				document.getElementById('meshcolstext').style.color = 'white'
+				document.getElementById('meshrowstext').style.color = 'white'
+
+				document.getElementById('meshcolsinput').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('meshcolsinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+				document.getElementById('meshcolsinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+
+				document.getElementById('meshrowsinput').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('meshrowsinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+				document.getElementById('meshrowsinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+
+				document.getElementById('meshresinput').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('meshresinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+				document.getElementById('meshresinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+
+				document.getElementById('ntermdisplaytitle').style.color = 'hsla(100, 0%, 100%, 1)'
+
+				document.getElementById('complexplanegraph-point-outputpoint').style.fill = 'hsla(10, 0%, 100%,1)'
+
+				gdata = graphData['complexplanegraph']
+				for (k = 0; k < gdata.ymajorlabelsElements.length; k++) {
+					gdata.ymajorlabelsElements[k].style.fill = 'hsla(0, 0%, 100%, 1)'
+					// console.log(gdata.ymajorlabelsElements[k])
+				}
+
+				for (k = 0; k < gdata.xmajorlabelsElements.length; k++) {
+					gdata.xmajorlabelsElements[k].style.fill = 'hsla(0, 0%, 100%, 1)'
+					// console.log(gdata.ymajorlabelsElements[k])
+				}
+
+				for (k = 0; k < gdata.xmajorgridElements.length; k++) {
+					gdata.xmajorgridElements[k].style.stroke = 'hsla(0, 0%, 100%, 1)'
+					// console.log(gdata.xmajorgridElements[k])
+				}
+
+				for (k = 0; k < gdata.ymajorgridElements.length; k++) {
+					gdata.ymajorgridElements[k].style.stroke = 'hsla(0, 0%, 100%, 1)'
+					// console.log(gdata.ymajorlabelsElements[k])
+				}
+
+				gdata.xaxisElement.style.stroke =  'hsla(0, 0%, 100%, 1)'
+				gdata.yaxisElement.style.stroke =  'hsla(0, 0%, 100%, 1)'
+
+				// klines = Object.keys(gdata.lineData)
+
+				// for (k = 0; k < klines.length; k++) {
+				// 	gdata.ymajorgridElements[k].style.stroke = 'hsla(0, 0%, 100%, 1)'
+				// 	// console.log(gdata.ymajorlabelsElements[k])
+				// }
+
+
+				darkmode = true
+
+				document.getElementById('darkmodeH').innerHTML = 'LightMode'
+			}
+		}
+
+		// changetoDark()
+
+		finalcheckdone = false
+
+		function computeFinal(event) {
+			// console.log(Object.keys(alltransformsMap).length)
+			// console.log(alltransformsMap[Object.keys(alltransformsMap)[0]])
+			if (finalcheckdone == false) {
+				lineKeys = Object.keys(transformLinesMap)
+				document.getElementById('finaltransformH').innerHTML = '<font style="color: hsla(190, 100%, 50%, 1); font-size: 1.7vmin;">  processing...</font>'
+				setTimeout(assistdisplayFinalResult, 30)
+				document.getElementById('finaltransformH').removeEventListener('click', computeFinal)
+			}
+			else {
+				displayGAt(100)
+			}
+			
+		}
+
+		function assistdisplayFinalResult() {
+			computeFinalStep()
+			finalcheckdone = true
+			displayGAt(100)
+			document.getElementById('finaltransformH').innerHTML = 'Final Result'
+			document.getElementById('finaltransformH').addEventListener('click', computeFinal)
+
+		}
+
+		function finalresultLoop(event) {
+			floopinterval = setInterval(frame3, 1);
+			function frame3() {
+				computeFinalStepStep(stepvaluef)
+				stepvaluef = stepvaluef + 1
+			}
+		}
+
+
+		document.getElementById('finaltransformH').addEventListener('click', computeFinal)
+
+		meshdisplay = true
+
+		function toggleAddRemoveMesh(event) {
+			if (meshdisplay) {
+				deleteMeshlines(meshlines)
+				meshlines = []
+				document.getElementById('removemeshdisplaytitle').innerHTML = 'Add Mesh'	
+				meshdisplay = false
+
+				compute = true
+				finalcheckdone = false
+				disableplayline()
+				document.getElementById('computebutton').style.visibility = 'visible'
+				document.getElementById('computebutton').style.pointerEvents = 'auto'
+				document.getElementById('computebutton').style.zIndex = 5
+				document.getElementById('computeholder').style.visibility = 'visible'
+				document.getElementById('computeholder').style.pointerEvents = 'auto'
+				document.getElementById('computeholder').style.zIndex = 4
+				document.getElementById('computebutton').removeEventListener('click', handlecompute)
+
+				document.getElementById('complexplanegraph-rect-lowknobrect').style.visibility = 'hidden'
+				document.getElementById('complexplanegraph-rect-lowknobrect').style.pointerEvents = 'none'
+				document.getElementById('complexplanegraph-rect-highknobrect').style.visibility = 'hidden'
+				document.getElementById('complexplanegraph-rect-highknobrect').style.pointerEvents = 'none'
+				document.getElementById('complexplanegraph-rect-fullrect').style.visibility = 'hidden'
+
+				// document.getElementById('lowknobrect').style.pointerEvents = 'none'
+				document.getElementById('computebutton').removeEventListener('click', handlecompute)
+			} 
+			else {
+				compute = true
+				finalcheckdone = false
+				disableplayline()
+				document.getElementById('computebutton').style.visibility = 'visible'
+				document.getElementById('computebutton').style.pointerEvents = 'auto'
+				document.getElementById('computebutton').style.zIndex = 5
+				document.getElementById('computeholder').style.visibility = 'visible'
+				document.getElementById('computeholder').style.pointerEvents = 'auto'
+				document.getElementById('computeholder').style.zIndex = 4
+
+				transformLinesMap = {}
+				alltransformsMap = {}
+				newmeshGridData = {}
+
+				newmeshGridData['meshorder-mesh1'] = meshGridData['meshorder-mesh1'] 
+				meshGridData = {}
+
+				meshGridData = newmeshGridData
+
+				deleteMeshlines(meshlines)
+				meshlines = []
+
+				addLineMesh('mesh1', meshLowKnob[0], meshHighKnob[0], meshLowKnob[1], meshHighKnob[1], meshGridData['meshorder-mesh1'])
+
+				document.getElementById('removemeshdisplaytitle').innerHTML = 'Remove Mesh'
+				meshdisplay = true	
+				document.getElementById('computebutton').addEventListener('click', handlecompute)
+
+				document.getElementById('complexplanegraph-rect-lowknobrect').style.visibility = 'visible'
+				document.getElementById('complexplanegraph-rect-lowknobrect').style.pointerEvents = 'auto'
+				document.getElementById('complexplanegraph-rect-highknobrect').style.visibility = 'visible'
+				document.getElementById('complexplanegraph-rect-highknobrect').style.pointerEvents = 'auto'
+				document.getElementById('complexplanegraph-rect-fullrect').style.visibility = 'visible'
+
+
+
+
+				
+			}
+			
+		}
+
+		document.getElementById('removemeshdisplaytitle').addEventListener('click', toggleAddRemoveMesh)
+
+
+		function displayText(detailinfo, additionalfunc) {
+			if (typeof additionalfunc == 'undefined') {
+				if (detailinfo == 'default') {
+					detailinfo = 'Made using Math.js, MathJax to visualize complex functions. Input point is in orange. If the complex function is a summation, then each term is a complex number which can be represented as a line. Sum of these lines added vectorially gives us the resulting output point in black/white.'
+				}
+				document.getElementById('infotext2').innerHTML = detailinfo
+			}
+		}
+
+		document.getElementById('darkmodeH').addEventListener('click', changetoDark)
+
+
+	
+			
+		</script>
+
+
+	</body>
+<html>
