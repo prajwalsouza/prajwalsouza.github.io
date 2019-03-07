@@ -2,14 +2,7 @@
 	<head>
 		<title>Complex Functions</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
-		<link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'>
-		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
-		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Itim" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC" rel="stylesheet">
-
+		
 		<style type="text/css">
 			a {
 				cursor: pointer;
@@ -17,16 +10,8 @@
 		</style>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.5.0/math.min.js" type="text/javascript"></script>
-		<!-- <link rel="stylesheet" href="mathquill.css"/> -->
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 		<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
-		<!-- <script src="mathquill.min.js"></script> -->
-		<!-- <script src="latex-to-js.js"></script> -->
-		<!-- <script src="semantic.min.js"></script> -->
-		<!-- <link rel="stylesheet" href="semantic.min.css"/> -->
-		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-		  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-		  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+		
 		<!-- Google Analytics Code -->
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -46,6 +31,17 @@
 			  "description": "A visualization of complex function based on an animation from 3Blue1Brown video"
 			  }
 		</script>
+
+		<script type="text/javascript">
+			function displayText(detailinfo, additionalfunc) {
+				if (typeof additionalfunc == 'undefined') {
+					if (detailinfo == 'default') {
+						detailinfo = 'Made using Math.js, MathJax to visualize complex functions. Input point is in orange. If the complex function is a summation, then each term is a complex number which can be represented as a line. Sum of these lines added vectorially gives us the resulting output point in black/white.'
+					}
+					document.getElementById('infotext2').innerHTML = detailinfo
+				}
+			}
+		</script>
 		  <meta charset="UTF-8">
 		  <meta name="description" content="A visualization of complex function based on an animation from 3Blue1Brown video">
 		  <meta name="keywords" content="Complex Numbers, 3Blue1Brown, Complex Functions, Laurent Series, Simulations">
@@ -55,7 +51,7 @@
 	<body style='margin:0px; display: block;'>
 		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'> 
 			<div id="controlTitleSection" style='margin:0px;width:30%; height: 70%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
-				<div id="titleH" style='margin:0px;width:100%; height: 30%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+				<div id="titleH" style='margin:0px;width:100%; height: 25%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
 					<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Calibri; font-size: 1vw;">
 						<tr>
 							<td colspan="1" id='maintitle' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 4vmin; font-weight: bold;  color: hsla(190, 100%, 50%, 1);">
@@ -65,92 +61,117 @@
 						</tr>
 					</table>
 				</div>
-				<div id="functioncontrols" style='margin:0px;width:100%; height: 70%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
-					<table width="100%" height='20%' style="border: 0px solid black; border-collapse: separate; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw; border-spacing: 0px;">
-						<tr>
-							<td colspan="1" rowspan="1"></td>
-							<td colspan="9" rowspan="1" id='functiontitle' style="text-align: left; vertical-align: middle; border: 0px solid black; font-size: 2.5vmin; font-weight: lighter;">
-								Function Input
-							</td>
-						</tr>
-						<tr>
-							<td colspan="1" rowspan="1"></td>
-							<td colspan="4" rowspan="1" id='functionsimple' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%,0%, 0.1); font-size: 2.3vmin; background-color: hsla(100,0%,50%, 0.1); cursor: pointer; border-bottom: 1px solid hsla(190, 0%, 0%, 1)" onmouseover="displayText('Type a function that only depends on z. If n is used, it will be set to 1.')" onmouseout="displayText('default')">
-								Simple
-							</td>
-							<td colspan="4" rowspan="1" id='functionsummation' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%,0%, 0.1); font-size: 2.3vmin; color: hsla(190, 100%, 50%, 1); cursor: pointer; border-bottom: 1px solid hsla(190, 0%, 0%, 0)" onmouseover="displayText('Type in a summation term involving z and index n. Do not use other letters. Math.js will give errors.')" onmouseout="displayText('default')">
-								Summation
-							</td>
-							<td colspan="1" rowspan="1"></td>
-						</tr>
-						<tr></tr>
-					</table>
-					<table id="summationTable" width="100%" height='80%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;">
-						<tr></tr>
-						<tr>
-							<td colspan="1" rowspan="1"></td>
-							<td colspan="9" rowspan="1" id='summationtitle' style="text-align: left; vertical-align: middle; border: 0px solid black; font-size: 2.3vmin; font-weight: lighter;">
-								Summation Term
-							</td>
-						</tr>
-						<tr>
-							<td colspan="1" rowspan="2"></td>
-							<td colspan="8" rowspan="2" id='inputfunction' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin;" onmouseover="displayText('Type the function/summation term as text.')" onmouseout="displayText('default')">
-								<input id='inputfunctiontext' value='1/(n^z)' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Calibri; font-size: 2.3vmin; font-weight: lighter; color: black;"></input>
-
-							</td>
-							<td colspan="1" rowspan="2"></td>
-						</tr>
-						<tr>
-						</tr>
-						<tr>
-						</tr>
-						<tr>
-						</tr>
-						<tr id="holdindexrange" onmouseover="displayText('Input summation ranges for index n. ')" onmouseout="displayText('default')">
-							<td colspan="1" rowspan="1"></td>
-							
-							<td colspan="2" id="nlowertext" style="text-align: center;">
-								from (n = ) 
-							</td>
-							<td colspan="2" id="nlowervalue">
-								<input id='nlowerinput' type="number" min = '0' step ='1' value='1' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 1.8vmin; color: black;"></input>
-
-							</td>
-							<td colspan="2" id="nuppertext" style="text-align: center;">
-								to (m = )
-							</td>
-							<td colspan="2" id="nuppervalue">
-								<input id='nupperinput' type="number" min = '1' step ='1' value='10' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 1.8vmin; color: black;"></input>
-							</td>
-							<td colspan="1" rowspan="1"></td>
-						</tr>
-						<tr>
-						</tr>
-						<tr onmouseover="displayText('Equation processed and displayed using MathJax (https://www.mathjax.org/)')" onmouseout="displayText('default')">
-							<td colspan="1" rowspan="1"></td>
-							<td colspan="8" id='equationdisplay' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; border: 1px solid hsla(210, 100%, 50%,0.2);">
-								$$f(z) = \sum_{n=1}^{\infty} 2^{-n} = 1$$
-							</td>
-							<td colspan="1" rowspan="1"></td>
-						</tr>
-						<!-- <tr>
-							<td colspan="10" id='currentinputvaluetext' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="10" id='currentoutputvaluetext' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;">
+				<div id="functioncontrols" style='margin:0px;width:100%; height: 75%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+					<div id="functionchoice" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: separate; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw; border-spacing: 0px;">
+							<tr>
+								<td colspan="1" rowspan="1"></td>
+								<td colspan="9" rowspan="1" id='functiontitle' style="text-align: left; vertical-align: middle; border: 0px solid black; font-size: 2.5vmin; font-weight: lighter;">
+									Function Input
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"></td>
+								<td colspan="5" rowspan="1" id='functionsimple' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%,0%, 0.1); font-size: 2.3vmin; background-color: hsla(100,0%,50%, 0.1); cursor: pointer; border-bottom: 1px solid hsla(190, 0%, 0%, 1)" onmouseover="displayText('Type a function that only depends on z. If n is used, it will be set to 1.')" onmouseout="displayText('default')">
+									Simple
+								</td>
+								<td colspan="7" rowspan="1" id='functionsummation' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%,0%, 0.1); font-size: 2.3vmin; color: hsla(190, 100%, 50%, 1); cursor: pointer; border-bottom: 1px solid hsla(190, 0%, 0%, 0)" onmouseover="displayText('Type in a summation term involving z and index n. Do not use other letters. Math.js will give errors.')" onmouseout="displayText('default')">
+									Summation
+								</td>
 								
-							</td>
-						</tr> -->
-					</table>
+								<td colspan="4" rowspan="1" id='functionzeta' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%,0%, 0.1); font-size: 2.3vmin; background-color: hsla(100,0%,50%, 0.1); cursor: pointer; border-bottom: 1px solid hsla(190, 0%, 0%, 1)" onmouseover="displayText('Selection for Riemann Zeta Function Anaylsis.')" onmouseout="displayText('default')">
+									Zeta
+								</td>
+
+								
+								<td colspan="1" rowspan="1"></td>
+							</tr>
+							<tr></tr>
+						</table>
+					</div>
+					<div id="sumtermtableH" style='margin:0px;width:100%; height: 40%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+						<div id="displayforZetaH" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: absolute; z-index: 4; display: inline-block; visibility: hidden;'>
+							<table width="100%" height='100%' style="border: 0px solid black; border-collapse: separate; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw; border-spacing: 0px;">
+								<tr>
+									<td colspan="1" rowspan="1"></td>
+									<td colspan="9" rowspan="1" id='infoonzeta' style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 2vmin; font-weight: lighter;">
+										Values of Riemann Zeta function were estimated using the Euler - Maclaren Summation mentioned in the <a href="https://math.dartmouth.edu/archive/m56s13/public_html/Nguyen_proj.pdf" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); ">work</a> of Hanh Nguyen. Values under this method seem to be accurate enough. 
+									</td>
+									<td colspan="1" rowspan="1"></td>
+								</tr>
+
+								<tr>
+									<td colspan="1" rowspan="1"></td>
+									<td colspan="9" rowspan="1" id='plotcriticalline' style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 2.1vmin; font-weight: lighter; border: 1px solid black; cursor: pointer;" onmouseover="displayText('Zeta is plotted along a line with constant real part 0.5 and varying imaginary part. The plot starts with zero as the imaginary part. The resolution of the curve can be adjusted for accuracy in the edit mesh settings.')" onmouseout="displayText('default')">
+										Plot Zeta along Critical Line
+									</td>
+									<td colspan="1" rowspan="1"></td>
+								</tr>
+								<tr></tr>
+							</table>
+						</div>
+						<table id="summationTable" width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;">
+							<tr></tr>
+							<tr>
+								<td colspan="1" rowspan="1"></td>
+								<td colspan="9" rowspan="1" id='summationtitle' style="text-align: left; vertical-align: middle; border: 0px solid black; font-size: 2.3vmin; font-weight: lighter;">
+									Summation Term
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="2"></td>
+								<td colspan="8" rowspan="2" id='inputfunction' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin;" onmouseover="displayText('Type the function/summation term as text.')" onmouseout="displayText('default')">
+									<input id='inputfunctiontext' value='1/(n^z)' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Calibri; font-size: 2.3vmin; font-weight: lighter; color: black;"></input>
+
+								</td>
+								<td colspan="1" rowspan="2"></td>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+							</tr>
+							<tr id="holdindexrange" onmouseover="displayText('Input summation ranges for index n. ')" onmouseout="displayText('default')">
+								<td colspan="1" rowspan="1"></td>
+								
+								<td colspan="2" id="nlowertext" style="text-align: center;">
+									from (n = ) 
+								</td>
+								<td colspan="2" id="nlowervalue">
+									<input id='nlowerinput' type="number" min = '0' step ='1' value='1' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 1.8vmin; color: black;"></input>
+
+								</td>
+								<td colspan="2" id="nuppertext" style="text-align: center;">
+									to (m = )
+								</td>
+								<td colspan="2" id="nuppervalue">
+									<input id='nupperinput' type="number" min = '1' step ='1' value='10' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 1.8vmin; color: black;"></input>
+								</td>
+								<td colspan="1" rowspan="1"></td>
+							</tr>
+							<tr>
+							</tr>
+						</table>
+					</div>
+					<div id="eqtableH" style='margin:0px;width:100%; height: 40%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+						<table id="equationdisplaytable" style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw; height: 70%; width: 100%;">
+							<tr onmouseover="displayText('Equation processed and displayed using MathJax (https://www.mathjax.org/)')" onmouseout="displayText('default')">
+								<td colspan="1" rowspan="1"></td>
+								<td colspan="8" id='equationdisplay' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.7vmin; border: 1px solid hsla(210, 100%, 50%,0.2); overflow: auto;">
+									$$f(z) = \sum_{n=1}^{\infty} 2^{-n} = 1$$
+								</td>
+								<td colspan="1" rowspan="1"></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 			</div>
 			<div id="complexplaneTableH" style='margin:0px;width:70%; height: 70%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
 				<table id="complexplaneinputTable" width="97%" height='97%' style="border: 0px solid hsla(190, 0%, 50%,0.2); border-collapse: separate; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw; position: absolute;">
 					<tr>
 						
-						<td colspan="6" id='infotext' style="text-align: right; vertical-align: middle; border: 0px solid hsla(190, 0%, 50%,0.2); font-size: 2vmin; cursor: pointer; color: hsla(190, 100%, 0%, 1); font-weight: normal; height: 20%;" onmouseover="displayText('Input and output values of the function. Input is set by moving the cursor over the complex plane.')" onmouseout="displayText('default')">
+						<td colspan="6" id='infotext' style="text-align: right; vertical-align: middle; border: 0px solid hsla(190, 0%, 50%,0.2); font-size: 2vmin; cursor: pointer; color: hsla(190, 100%, 0%, 1); font-weight: normal; height: 20%; " onmouseover="displayText('Input and output values of the function. Input is set by moving the cursor over the complex plane.')" onmouseout="displayText('default')">
 							
 						</td>
 					</tr>
@@ -178,12 +199,12 @@
 					</tr>	
 				</table>
 			</div>
-			<div id="presetFunctionsText" style='margin:0px;width:30%; height: 5%;overflow: hidden;position: relative;z-index: 4; display: inline-block; visibility: hidden;'>
+			<div id="presetFunctionsText" style='margin:0px;width:30%; height: 5%;overflow: hidden;position: relative;z-index: 4; display: inline-block; visibility: hidden;pointer-events: none;'>
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: separate; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw; border-spacing: 0px;">
 					<tr>
 						<td colspan="1"></td>
-						<td colspan="8" id='presentextdisplay' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%,0%, 0.1); font-size: 2.3vmin; background-color: hsla(100,0%,0%, 0); cursor: pointer;">
-							Preset Functions
+						<td colspan="8" id='presentextdisplay' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%,0%, 0.1); font-size: 2.3vmin; background-color: hsla(100,0%,0%, 0); cursor: pointer;" onmouseover="displayText('Selection for Riemann Zeta Function Anaylsis.')" onmouseout="displayText('default')">
+							Riemann Zeta
 						</td>
 						<td colspan="1"></td>
 					</tr>
@@ -193,11 +214,9 @@
 				<div id="computeholder" style='margin:0px;width:55%; height: 100%;overflow: hidden;position: absolute;z-index: 5;' onmouseover="displayText('The color grid on the graph transforms from the input values to the output values of the function. The animation involved is first computed.')" onmouseout="displayText('default')">
 					<table width="100%" height='95%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;">
 						<tr>
-							<!-- <td></td> -->
 							<td colspan="10" id='computebutton' style="text-align: center; vertical-align: middle; border: 1px solid hsla(190, 0%, 50%,0.2); font-size: 2.3vmin; cursor: pointer;">
 								Compute Transform Animation
 							</td>
-							<!-- <td></td> -->
 						</tr>
 					</table>
 				
@@ -244,7 +263,7 @@
 				</table>
 			</div>
 			<div id="ntermdisplayHold" style='margin:0px;width:70%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
-				<div id="meshsettingdisplayHold" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: absolute;z-index: 5; display: inline-block; opacity: 0; visibility: hidden;'>
+				<div id="meshsettingdisplayHold" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: absolute;z-index: 5; display: inline-block; opacity: 0; visibility: hidden; background-color: white;'>
 					<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: lighter; font-family: Calibri; font-size: 1vw;">
 						<tr>
 							<td colspan="1" rowspan="1"></td>
@@ -273,7 +292,7 @@
 						<tr>
 							<td colspan="1" rowspan="1"></td>
 							<td colspan="5" id="meshresvalue">
-								<input id='meshresinput' type="number" min = '10e-14' step ='10e-14' value='0.1' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 1.8vmin; color: black;"></input>
+								<input id='meshresinput' type="number" min = '10e-14' step ='10e-14' value='0.02' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 1.8vmin; color: black;"></input>
 
 							</td>
 							<td colspan="1" rowspan="1"></td>
@@ -299,10 +318,8 @@
 						</td>
 					</tr>
 					<tr>	
-						<!-- <td></td> -->
 						<td colspan="20" id='ntermdisplay' style="text-align: center; vertical-align: middle; border: 0px solid hsla(190, 0%, 50%,0.2); font-size: 2vmin; cursor: pointer; color: hsla(190, 100%, 0%, 1); font-weight: normal; position: relative;">
 						</td>
-						<!-- <td></td> -->
 					</tr>
 					
 				</table>
@@ -310,14 +327,12 @@
 
 			</div>
 			
-			<!-- <div id="textEquationInfo" style='margin:0px;width:70%; height: 20%;overflow: hidden;position: relative;z-index: 4; display: inline-block;'>
-
-			</div> -->
 		</div>
 
 
 		<script type="text/javascript">
 
+		
 
 		darkmode = false
 
@@ -515,12 +530,10 @@
 				// x = ((vh - vl)/(graphxmax - graphxmin))*(value - graphxmin) + vl
 
 				x = ((percentvalue - vl)*(graphxmax - graphxmin)/(vh - vl)) + graphxmin
-				// console.log(x)
-				// console.log(v1, v2)
+
 				// y - y1 = (y2 - y1)/(x2 - x1) * (x - x1)
 				// x = (((v2 - v1)/(90))*(x - 10)) + v1
-				// console.log(x)
-				// console.log('_') 
+				 
 			}
 			return x
 		}
@@ -536,7 +549,7 @@
 		function gridtickvalues(valmin, valmax, ticksexpected) {
 			expstring = ((valmax - valmin)/ticksexpected).toExponential()
 			majorgridorder = parseFloat(Math.pow(10 , expstring.slice(expstring.indexOf('e') + 1)))
-			// console.log(expstring)
+			
 			if (expstring.indexOf('.') != -1) {
 				majorgriddivision = parseFloat(expstring.slice(0, expstring.indexOf('.'))*majorgridorder)	
 			}
@@ -544,8 +557,6 @@
 				majorgriddivision = parseFloat(expstring.slice(0, expstring.indexOf('e'))*majorgridorder)
 			}
 			
-			// console.log(majorgriddivision)
-			// console.log(majorgridorder)
 
 			integerchoices = [1,2,5,10]
 			for(choice = 0; choice < integerchoices.length - 1; choice++) {
@@ -554,7 +565,6 @@
 					break
 				}
 			}
-			// console.log(majorgriddivisionchoice)
 
 			if(valmin > 0) {
 				majorgridstart = Math.ceil(valmin/majorgriddivisionchoice)*majorgriddivisionchoice;
@@ -774,14 +784,13 @@
 						}
 					}
 					else {
-						// console.log(ticklocation)
+						
 						if (Math.abs(ticklocation) < 0.01 && order > 2) {
 							ticklocation = ticklocation.toExponential(order)
-							// console.log(ticklocation)	
+								
 						}
 						else {
 							ticklocation = ticklocation.toFixed(order + 1)
-							// console.log('check')
 						}
 						if (gdata.isComplexPlane == 'yes') {
 							textElement.innerHTML = ticklocation + 'i'
@@ -847,7 +856,7 @@
 						
 						if (Math.abs(ticklocation) < 0.01 && order > 2) {
 							ticklocation = ticklocation.toExponential(order)
-							// console.log(ticklocation)
+							
 							
 						}
 						else {
@@ -928,7 +937,6 @@
 			for (var key in gdata.pathData) {
 				pathElement = gdata.pathData[key][0]
 				pathoptions = gdata.pathData[key][1]
-				// console.log(pathElement)
 				pathstring = 'M'
 				for (pth = 0; pth < pathoptions.points.length; pth++) {
 					if (pth == 0) {
@@ -1266,7 +1274,6 @@
 						else {
 							ticklocation = ticklocation.toFixed(2)
 						}
-						// ticklocation = ticklocation.toExponential(0)
 						textElement.innerHTML = ticklocation
 						if(ticklocation == 0) {
 							textElement.innerHTML = 0
@@ -1463,9 +1470,7 @@
 				
 			}
 
-			// pathstring = 'M20 20 L10 10 L6 50 L9 67' 
-
-			// console.log(pathstring)
+			
 
 			pathoptions.name = pathname || uid
 			// console.log((0).toString() || 0.5)
@@ -1874,7 +1879,7 @@
 			delete graphData[graphname].pathData[pathname]
 		}
 
-
+		
 
 
 		graphData = {}
@@ -1897,13 +1902,6 @@
 		graphoptions.ymajorgridlinesextension = 'yes'
 		graphoptions.xmajorgridlinesextension = 'yes'
 
-
-		// graphoptions.xaxisvisibility = 'no'
-		// graphoptions.yaxisvisibility = 'no'
-		// graphoptions.xmajorgridlinesvisibility = 'no'
-		// graphoptions.ymajorgridlinesvisibility = 'no'
-		// graphoptions.ymajorgridlabelvisibility = 'no'
-		// graphoptions.xmajorgridlabelvisibility = 'no'
 
 		graphoptions.fontSize = 2
 
@@ -1944,14 +1942,32 @@
 		addText('complexplanegraph', 'segmentoverhighlight' , options)
 
 
-		// options = {}
-		// options.x = 1
-		// options.y = 1
-		// options.fontSize = 2
-		// if (darkmode) {
-		// 	options.textcolor = 'hsla(0, 100%, 100%, 1)'
-		// }
-		// addText('complexplanegraph', 'inputvaluetext' , options)
+		options = {}
+		options.x = 0
+		options.y = 0
+		options.pointcolor = 'hsla(40, 100%, 0%, 1)'
+		if (darkmode) {
+			options.pointcolor = 'hsla(40, 0%, 100%, 1)'
+		}
+		addedptcritical = addPoint('complexplanegraph', 'plotcpoint' , options)
+		addedptcritical = addedptcritical[0]
+
+		addedptcritical.style.visibility = 'hidden'
+
+
+		options = {}
+		options.x = 0
+		options.y = 0
+		options.pointcolor = 'hsla(10, 100%, 50%, 1)'
+		if (darkmode) {
+			options.pointcolor = 'hsla(10, 100%, 80%, 1)'
+		}
+		addedptcriticalinput = addPoint('complexplanegraph', 'plotcinputpoint' , options)
+		addedptcriticalinput = addedptcriticalinput[0]
+
+		addedptcriticalinput.style.visibility = 'hidden'
+
+		
 
 		playline = document.getElementById('playlineH')
 		graphoptions = {}
@@ -2073,7 +2089,6 @@
 			updatePoint('playlinegraph', 'playlinepoint', valuechoice, 0)
 		}
 
-		// setPlayerAt(60)
 
 		function gridcolorX(val, minv, maxv) {
 			return 190 + ((val - minv)*(260 - 190)/(maxv - minv))
@@ -2106,14 +2121,7 @@
 		}
 
 		function addTransformLinesThin(lowx, highx, lowy, highy, linesnumx, linesnumy) {	
-			// for (g = lowx; g < 0; g++) {
-			// 	gdclr = gridcolorX(g, lowx, highx)
-			// 	addTransformLineThin(g, lowy, g, -1, gdclr)	
-			// }
-			// for (g = lowx; g < 0; g++) {
-			// 	gdclr = gridcolorX(g, lowx, highx)
-			// 	addTransformLineThin(g, 1, g, highy, gdclr)	
-			// }
+			
 			dx = (highx - lowx)/linesnumx
 			for (g = lowx; g < highx; g = g + dx) {
 				gdclr = gridcolorX(g, lowx, highx)
@@ -2167,8 +2175,7 @@
 						locationvec.push(locationD)
 					}
 					pointsAndTimes.push([locationvec, fromtime + (timeinterval*k)])
-					// pointTimeMap[findnearesttime(fromtime + (timeinterval*k), timestep)] = locationvec
-					// print(location, fromtime + (timeinterval*k))
+					
 					k = k + 1
 				}
 
@@ -2192,9 +2199,6 @@
 			}
 			return brokenpoints
 		}
-
-		breakpointsnum = 200
-		breakdelta = 0.1
 
 		function addTransformLine(px1, py1, px2, py2, clr) {
 
@@ -2221,21 +2225,20 @@
 			pathdata = updatePath('complexplanegraph', linepathid, brokenpts)
 			
 			transformLinesMap[linepathid] = [pathdata, brokenpts]
-			// console.log(brokenpts)
 			return pathdata[0]
 		}
 
 
 
 		function addTransformLineThin(px1, py1, px2, py2, clr) {
-			// console.log('k')
+			
 			brokenpts = breakLine([px1, py1], [px2, py2], breakdelta)
 
 			options = {}
 			options.points = brokenpts
-			options.pathcolor = 'hsla(' + clr + ', 100%, 50%, 0.9)'
+			options.pathcolor = 'hsla(' + clr + ', 100%, 50%, 1)'
 			if (darkmode) {
-				options.pathcolor = 'hsla(' + clr + ', 100%, 70%, 0.9)'
+				options.pathcolor = 'hsla(' + clr + ', 100%, 70%, 1)'
 			}
 			options.strokewidth = 0.2
 			pathdata = addPath('complexplanegraph', 'tline ' + px1 + ' ' + py1 + ' ' + px2 + ' ' + py2, options)
@@ -2304,11 +2307,16 @@
 		}
 
 
+		breakpointsnum = 200
+		breakdelta = 0.1
+
+		document.getElementById('meshresinput').value = breakdelta
+
 		addLineMesh('mesh1', -3, 4, 1, 3, [20, 20])
 
-		updateLineMesh('mesh1', 0, 3, -2, 2)
+		updateLineMesh('mesh1', 1.0001, 3, -2, 2)
 
-		meshLowKnob = [0, -2]
+		meshLowKnob = [1.0001, -2]
 		meshHighKnob = [3, 2]
 
 
@@ -2385,7 +2393,7 @@
 			totallines = Object.keys(transformLinesMap).length
 			nupinput = parseInt(document.getElementById('nupperinput').value)
 			nlowinput = parseInt(document.getElementById('nlowerinput').value)
-			inputfunctiontext = document.getElementById('inputfunctiontext').value
+			inputfunctiontext = functiontouse
 			linenum = 0
 			for (var key in transformLinesMap) {
 				// console.log(linenum/totallines)
@@ -2432,10 +2440,13 @@
 			lineKeys = Object.keys(transformLinesMap)
 			nupinput = parseInt(document.getElementById('nupperinput').value)
 			nlowinput = parseInt(document.getElementById('nlowerinput').value)
-			inputfunctiontext = document.getElementById('inputfunctiontext').value
-			document.getElementById('computebutton').style.pointerEvents = 'none'
+			inputfunctiontext = functiontouse
+			// document.getElementById('computebutton').style.pointerEvents = 'none'
 			document.getElementById('computebutton').innerHTML = 'Computing...'
 			stepvalue = 0
+			document.getElementById('computebutton').removeEventListener('click', handlecompute)
+			document.getElementById('computebutton').addEventListener('click', computeStepEnd)
+
 			computeLoop()
 		}
 
@@ -2447,6 +2458,10 @@
 			clearInterval(cloopinterval)
 			enableplayline()
 			compute = false
+			stepvalue = 0
+			document.getElementById('computebutton').addEventListener('click', handlecompute)
+			document.getElementById('computebutton').removeEventListener('click', computeStepEnd)
+
 			document.getElementById('computebutton').style.visibility = 'hidden'
 			document.getElementById('computebutton').style.pointerEvents = 'none'
 			document.getElementById('computebutton').style.zIndex = 0
@@ -2464,12 +2479,13 @@
 				options = {}
 				options.w = (stepval/lineKeys.length)*120
 				updateRectangle('computeprogressgraph', 'progressRect' , options)
-				document.getElementById('computebutton').innerHTML = 'Computing... <font style="color: hsla(190, 100%, 50%, 1); font-size: 2vmin;">' + (stepval*100/lineKeys.length).toFixed(1) + '% done. </font>'
+				document.getElementById('computebutton').innerHTML = 'Computing... <font style="color: hsla(190, 100%, 50%, 1); font-size: 2vmin;">' + (stepval*100/lineKeys.length).toFixed(1) + '% done. </font> Click to cancel.'
 			
 				// document.getElementById('computebutton').innerHTML = (linenum/totallines)*120
 				// linenum = linenum + 1
 				key = lineKeys[stepval]
 				pts = transformLinesMap[key][1]
+				// console.log(pts[0])
 				for (k1 = 0; k1 < pts.length; k1++) {
 					// console.log(pts[k1])
 					
@@ -2477,11 +2493,16 @@
 						segmentdata = totalSumSegments(pts[k1][0] + '+' + pts[k1][1] + 'i', nupinput, nlowinput, inputfunctiontext)
 						sumvalue = segmentdata.Tsum
 					}
-					else {
+					else if (functionmode == 'simple') {
 						sumvalue = getFuncValue(pts[k1][0] + '+' + pts[k1][1] + 'i', inputfunctiontext)
 					}
-						
+					else {
+						sumvalue = zetaEMS(pts[k1][0] + '+' + pts[k1][1] + 'i', 50, 40)
+					}
+
 					mapvalue = [sumvalue.re, sumvalue.im]
+
+					// console.log(pts[k1], mapvalue)
 
 					inbetweenTimesLocs = getdistancesattimes(pts[k1], mapvalue, 0, 100, 1)
 					for (t1 = 0; t1 < inbetweenTimesLocs.length; t1++) {
@@ -2505,16 +2526,7 @@
 
 
 		function computeFinalStep() {
-			// lineKeys = Object.keys(transformLinesMap)
-			// console.log(linenum/totallines)
-			// if (stepval < lineKeys.length) {
-				// options = {}
-				// options.w = (stepval/lineKeys.length)*120
-				// updateRectangle('computeprogressgraph', 'progressRect' , options)
-				// document.getElementById('computebutton').innerHTML = 'Computing... <font style="color: hsla(190, 100%, 50%, 1); font-size: 2vmin;">' + (stepval*100/lineKeys.length).toFixed(1) + '% done. </font>'
 			
-				// document.getElementById('computebutton').innerHTML = (linenum/totallines)*120
-				// linenum = linenum + 1
 			t1 = 100
 			alltransformsMap[t1] = {}
 			for (stepval = 0; stepval < lineKeys.length; stepval++) {
@@ -2528,15 +2540,15 @@
 						segmentdata = totalSumSegments(pts[k1][0] + '+' + pts[k1][1] + 'i', nupinput, nlowinput, inputfunctiontext)
 						sumvalue = segmentdata.Tsum
 					}
-					else {
+					else if (functionmode == 'simple') {
 						sumvalue = getFuncValue(pts[k1][0] + '+' + pts[k1][1] + 'i', inputfunctiontext)
+					}
+					else {
+						sumvalue = zetaEMS(pts[k1][0] + '+' + pts[k1][1] + 'i', 50, 40)
 					}
 						
 					mapvalue = [sumvalue.re, sumvalue.im]
 
-					// inbetweenTimesLocs = getdistancesattimes(pts[k1], mapvalue, 0, 100, 1)
-					// for (t1 = 0; t1 < inbetweenTimesLocs.length; t1++) {
-					
 					if (typeof alltransformsMap[t1] == 'undefined') {
 						alltransformsMap[t1] = {}
 					}
@@ -2554,16 +2566,7 @@
 
 
 		function computeFinalStep() {
-			// lineKeys = Object.keys(transformLinesMap)
-			// console.log(linenum/totallines)
-			// if (stepval < lineKeys.length) {
-				// options = {}
-				// options.w = (stepval/lineKeys.length)*120
-				// updateRectangle('computeprogressgraph', 'progressRect' , options)
-				// document.getElementById('computebutton').innerHTML = 'Computing... <font style="color: hsla(190, 100%, 50%, 1); font-size: 2vmin;">' + (stepval*100/lineKeys.length).toFixed(1) + '% done. </font>'
 			
-				// document.getElementById('computebutton').innerHTML = (linenum/totallines)*120
-				// linenum = linenum + 1
 			t1 = 100
 			alltransformsMap[t1] = {}
 			for (stepval = 0; stepval < lineKeys.length; stepval++) {
@@ -2577,15 +2580,15 @@
 						segmentdata = totalSumSegments(pts[k1][0] + '+' + pts[k1][1] + 'i', nupinput, nlowinput, inputfunctiontext)
 						sumvalue = segmentdata.Tsum
 					}
-					else {
+					else if (functionmode == 'simple') {
 						sumvalue = getFuncValue(pts[k1][0] + '+' + pts[k1][1] + 'i', inputfunctiontext)
+					}
+					else {
+						sumvalue = zetaEMS(pts[k1][0] + '+' + pts[k1][1] + 'i', 50, 40)
 					}
 						
 					mapvalue = [sumvalue.re, sumvalue.im]
 
-					// inbetweenTimesLocs = getdistancesattimes(pts[k1], mapvalue, 0, 100, 1)
-					// for (t1 = 0; t1 < inbetweenTimesLocs.length; t1++) {
-					
 					if (typeof alltransformsMap[t1] == 'undefined') {
 						alltransformsMap[t1] = {}
 					}
@@ -2604,9 +2607,6 @@
 
 
 
-		// computeMidpoints()
-
-
 		function displayGAt(timeval) {
 			locations = alltransformsMap[timeval]
 			for (var key in locations) {
@@ -2616,9 +2616,7 @@
 			}
 		}
 
-		// displayGAt(50)
-
-		// console.log(alltransformsMap)
+		
 
 		function handleplaylineclick(event) {
 			if (typeof loopinterval !== 'undefined') {
@@ -2650,6 +2648,8 @@
 			document.getElementById('playline').style.visibility = 'hidden'
 			document.getElementById('pauseplay').style.pointerEvents = 'None'
 			document.getElementById('pauseplay').style.visibility = 'hidden'
+			document.getElementById('pauseplay').style.border = '0px solid black'
+			
 			// document.getElementById('pauseplay').style.visibility = 0
 
 		}
@@ -2659,7 +2659,13 @@
 			document.getElementById('playline').style.visibility = 'visible'
 			document.getElementById('pauseplay').style.pointerEvents = 'auto'
 			document.getElementById('pauseplay').style.visibility = 'visible'
-			// document.getElementById('pauseplay').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+			if (darkmode) {
+				document.getElementById('pauseplay').style.border = '1px solid hsla(190, 0%, 100%,0.6)'
+			}
+			else {
+				document.getElementById('pauseplay').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+			}
+			
 		}
 
 		// document.getElementById('pauseplay').innerHTML = 'Compute'
@@ -2759,8 +2765,6 @@
 
 			// textposdata[0].setAttribute('x', posX)
 			// textposdata[0].setAttribute('y', posY)
-
-
 		}
 
 
@@ -2815,7 +2819,7 @@
 				nlowinput = parseInt(document.getElementById('nlowerinput').value)
 			}			
 				
-			inputfunctiontext = document.getElementById('inputfunctiontext').value
+			inputfunctiontext = functiontouse
 
 			segs = [1]
 
@@ -2824,8 +2828,11 @@
 				sumvalue = segmentdata.Tsum
 				segs = segmentdata.segments
 			}
-			else {
+			else if (functionmode == 'simple') {
 				sumvalue = getFuncValue(pts[0] + '+' + pts[1] + 'i', inputfunctiontext)
+			}
+			else {
+				sumvalue = zetaEMS(pts[0] + '+' + pts[1] + 'i', 50, 40)
 			}
 
 			
@@ -2897,13 +2904,15 @@
 						options.y2 = segs[m][1].im
 
 						satvalue = 50 + ((segmentdata.polarValues[m].r)*50/segmentdata.maxmagnitude)
-						huvalue = ((segmentdata.polarValues[m].phi) + math.pi)*359/(2*math.pi)
-						// console.log(huvalue)
+
+						huvalue = ((segmentdata.polarValues[m].phi) + Math.PI)*359/(2*Math.PI)
+
 						options.strokewidth = 2
 						options.linecolor = 'hsla(' + huvalue + ', ' + satvalue + '%, 50%, 0.3)'
 						if (darkmode) {
 							options.linecolor = 'hsla(' + huvalue + ', ' + satvalue + '%, 70%, 0.7)'
 						}
+
 						segmentd = addLine('complexplanegraph', 'segment' + m , options)
 						
 						// Activate this line later. Problem to be solved later. 
@@ -2939,10 +2948,21 @@
 
 				inputoutputText = ''
 				if (pts[1] >= 0) {
-					inputoutputText = inputoutputText + '<font style="color:hsla(40, 100%,50%,1)">Input</font> : <font style="color:hsla(190, 100%,50%,1)">' + pts[0] + '</font> + <font style="color:hsla(260, 100%,50%,1)">' + pts[1] + '</font> i'
+					if (darkmode) {
+						inputoutputText = inputoutputText + '<font style="color:hsla(40, 100%,50%,1)">Input :</font> <font style="color:hsla(190, 100%,50%,1)">' + pts[0] + '</font><font style="color:white;"> + </font><font style="color:hsla(260, 100%,80%,1)">' + pts[1] + '</font><font style="color:white;"> i</font>'
+					}
+					else {
+						inputoutputText = inputoutputText + '<font style="color:hsla(40, 100%,50%,1)">Input</font> : <font style="color:hsla(190, 100%,50%,1)">' + pts[0] + '</font> + <font style="color:hsla(260, 100%,50%,1)">' + pts[1] + '</font> i'
+					}
 				}
 				else {
-					inputoutputText = inputoutputText + '<font style="color:hsla(40, 100%,50%,1)">Input</font> : <font style="color:hsla(190, 100%,50%,1)">' + pts[0] + '</font> - <font style="color:hsla(260, 100%,50%,1)">' + Math.abs(pts[1]) + '</font> i'
+					if (darkmode) {
+						inputoutputText = inputoutputText + '<font style="color:hsla(40, 100%,50%,1)">Input :</font> <font style="color:hsla(190, 100%,50%,1)">' + pts[0] + '</font><font style="color:white;"> - </font><font style="color:hsla(260, 100%,80%,1)">' + Math.abs(pts[1]) + '</font><font style="color:white;"> i</font>'
+					}
+					else {
+						inputoutputText = inputoutputText + '<font style="color:hsla(40, 100%,50%,1)">Input</font> : <font style="color:hsla(190, 100%,50%,1)">' + pts[0] + '</font> - <font style="color:hsla(260, 100%,50%,1)">' + Math.abs(pts[1]) + '</font> i'
+					}
+					
 				
 				}
 
@@ -2950,7 +2970,7 @@
 
 				if (sumvalue.im >= 0) {
 					if (darkmode) {
-						inputoutputText = inputoutputText + '<font style="color:white;">Output :</font> <font style="color:hsla(190, 100%,50%,1)">' + sumvalue.re + '</font> + <font style="color:hsla(260, 100%,50%,1)">' + sumvalue.im + '</font> i'
+						inputoutputText = inputoutputText + '<font style="color:white;">Output :</font> <font style="color:hsla(190, 100%,50%,1)">' + sumvalue.re + '</font><font style="color:white;"> +</font> <font style="color:hsla(260, 100%,80%,1)">' + sumvalue.im + '</font> <font style="color:white;"> i</font>'
 					}
 					else {
 						inputoutputText = inputoutputText + 'Output : <font style="color:hsla(190, 100%,50%,1)">' + sumvalue.re + '</font> + <font style="color:hsla(260, 100%,50%,1)">' + sumvalue.im + '</font> i'						
@@ -2960,7 +2980,7 @@
 				}
 				else {
 					if (darkmode) {
-						inputoutputText = inputoutputText + '<font style="color:white;">Output :</font> : <font style="color:hsla(190, 100%,50%,1)">' + sumvalue.re + '</font> - <font style="color:hsla(260, 100%,50%,1)">' + Math.abs(sumvalue.im) + '</font> i'
+						inputoutputText = inputoutputText + '<font style="color:white;">Output :</font> <font style="color:hsla(190, 100%,50%,1)">' + sumvalue.re + '</font><font style="color:white;"> -</font> <font style="color:hsla(260, 100%,80%,1)">' + Math.abs(sumvalue.im) + '</font> <font style="color:white;">i</font>'
 					}
 					else {
 						inputoutputText = inputoutputText + 'Output : <font style="color:hsla(190, 100%,50%,1)">' + sumvalue.re + '</font> - <font style="color:hsla(260, 100%,50%,1)">' + Math.abs(sumvalue.im) + '</font> i'
@@ -3013,18 +3033,13 @@
 			}
 		}
 
+		functiontouse = document.getElementById('inputfunctiontext').value
+
+
 		// Problem : No complete deletion
 
 		window.onload = function() {
-			// MathJax.Hub.Config({
-			// 	ShowMathMenu: false
-			// });
-			// MathJax.Hub.Config({
-			// 	tex2jax: {
-			// 		inlineMath: [['$','$'], ['\\(','\\)']],
-			// 		processEscapes: true
-			// 	}
-			// });
+			
 			nupinput = parseInt(document.getElementById('nupperinput').value)
 			nlowinput = parseInt(document.getElementById('nlowerinput').value)
 			inputfunctiontext = document.getElementById('inputfunctiontext').value
@@ -3033,13 +3048,18 @@
 			if (functionmode == 'sum') {
 				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
 			}
-			else {
+			else if (functionmode == 'simple') {
 				document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + " $$"
+			}
+			else {
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=1}^{m=\\infty} \\frac{1}{n^z} $$"
 			}
 
 			computeStepPrep()
 					
 		};
+
+
 
 
 		function inputChange(event) {
@@ -3060,11 +3080,48 @@
 
 			// console.log('check')
 			if (functionmode == 'sum') {
-				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
+				try {
+					document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
+					document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(0, 0, 0, 0)'
+					functiontouse = inputfunctiontext
+				}
+				catch(err) {
+					if (darkmode) {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.4)'
+					}
+					else {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.1)'
+					}
+					displayText('Not a valid input expression.')
+				}
+					
 			}
-			else {
-				document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + " $$"
+			else if (functionmode == 'simple') {
+				try {
+					while (inputfunctiontext.indexOf('n') != -1) {
+						inputfunctiontext = inputfunctiontext.replace('n', '1')
+					}
+					document.getElementById('inputfunctiontext').value = inputfunctiontext
+					document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + "$$"
+					document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(0, 0, 0, 0)'
+					functiontouse = inputfunctiontext
+				}
+				catch(err) {
+					if (darkmode) {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.4)'
+					}
+					else {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.1)'
+					}
+					displayText('Not a valid input expression.')
+				}
+				
 			}
+
+			else if (functionmode == 'zeta') {
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=1}^{m=\\infty} \\frac{1}{n^z} $$"
+			}
+			
 			MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 			
 		}
@@ -3075,27 +3132,7 @@
 		document.getElementById('nupperinput').addEventListener('input', inputChange)
 		document.getElementById('nlowerinput').addEventListener('input', inputChange)
 
-		// var MQ = MathQuill.getInterface(2);
-
-		// var nsum = document.getElementById('nsum');
-		// var nsumField = MQ.MathField(nsum, {
-		// 	autoCommands: 'pi theta sqrt sum',
-		// 	handlers: {
-		// 		edit: function() {
-		// 		var enteredMath = nsumField.latex(); 
-		// 		// evaluatedmath = math.eval(latex_to_js(enteredMath))
-		// 		console.log(enteredMath)
-		// 	}
-		// }});
-
-
-		// test = math.eval('(' + 2 + ') + (' + 3 + ')i')
-
 		
-
-		
-		// y = math.eval("frac(1)(3)")
-		// console.log(test)
 
 		function getFuncValue(zval, etext) {
 			expr = etext
@@ -3193,11 +3230,7 @@
 
 		plotdelta = 0.1
 
-		// mapGridElementsAndValues = {}
-		// for (g = 0 ; g < gridXlines.length; g++) {
-		// 	// mapGridElementsAndValues[gridXlines.id] = gridXlinesValues[g] 
-		// 	// gridXlines.addEventListener('mouseover', overXgridlines)
-		// }
+		
 
 		plotcanvas = document.getElementById('plotcanvas')
 		plotcanvas.width = document.getElementById('complexplane').offsetWidth
@@ -3278,7 +3311,7 @@
 
 			
 		function wheelHandle(event) {
-			whlvalue = (event.wheelDeltaY)/Math.abs(event.wheelDeltaY)
+			whlvalue = (-1)*(event.deltaY)/Math.abs(event.deltaY)
 			scalefactorup = 0.1
 			scalefactordown = 0.1
 
@@ -3328,6 +3361,14 @@
 
 				updateRectangle('complexplanegraph', 'highknobrect', options)
 
+				if (event.preventDefault) {//disable default wheel action of scrolling page
+					event.preventDefault()
+				}
+				else {
+					return false
+				}
+
+
 			}
 			else if (whlvalue >= 0 && orderx < 14 && ordery < 14) {
 				newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactordown
@@ -3350,12 +3391,20 @@
 				options.x = meshHighKnob[0] - options.w/2
 				options.y = meshHighKnob[1] + options.h/2
 				updateRectangle('complexplanegraph', 'highknobrect', options)
+				if (event.preventDefault) {//disable default wheel action of scrolling page
+					event.preventDefault()
+				}
+				else {
+					return false
+				}
 			}
 			
 					
 
 
 		}
+
+		
 
 		document.getElementById('complexplanegraph').addEventListener('wheel', wheelHandle)
 
@@ -3364,14 +3413,20 @@
 			if (openclose == 'open') {
 				document.getElementById('meshsettingdisplayHold').style.visibility = 'visible'
 				document.getElementById('meshsettingdisplayHold').style.opacity = 1
-				document.getElementById('spectrumholder').style.visibility = 'hidden'
-				document.getElementById('spectrumholder').style.opacity = 0
+				if (functionmode == 'sum') {
+					document.getElementById('spectrumholder').style.visibility = 'hidden'
+					document.getElementById('spectrumholder').style.opacity = 0
+				}
+				
 			}
 			else if (openclose == 'close') {
 				document.getElementById('meshsettingdisplayHold').style.visibility = 'hidden'
 				document.getElementById('meshsettingdisplayHold').style.opacity = 0
-				document.getElementById('spectrumholder').style.visibility = 'visible'
-				document.getElementById('spectrumholder').style.opacity = 1
+				if (functionmode == 'sum') {
+					document.getElementById('spectrumholder').style.visibility = 'visible'
+					document.getElementById('spectrumholder').style.opacity = 1	
+				}
+				
 			}
 		}
 
@@ -3696,7 +3751,7 @@
 
 				document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
 				document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 100%, 1)'
-				document.getElementById('functionsimple').style.border = '1px solid hsla(190, 100%, 40%, 1)'
+				document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
 			}
 				
 			document.getElementById('nlowertext').style.visibility = 'hidden'
@@ -3710,26 +3765,82 @@
 				document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 0%, 1)'
 				document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 0%, 50%, 0.1)'
 				document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+				document.getElementById('functionzeta').style.color = 'hsla(190, 0%, 0%, 1)'
+				document.getElementById('functionzeta').style.backgroundColor = 'hsla(190, 0%, 50%, 0.1)'
+				document.getElementById('functionzeta').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+
 			}
 			else {
 				document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 70%, 1)'
 				document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
 				// document.getElementById('functionsummation').style.border = '1px solid hsla(190, 0%, 70%, 1)'
 				document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+				document.getElementById('functionzeta').style.color = 'hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionzeta').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+				// document.getElementById('functionzeta').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionzeta').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
 				
 			}
 				
-			document.getElementById('ntermdisplayHold').style.visibility = 'hidden'
+			document.getElementById('spectrumholder').style.visibility = 'hidden'
+			document.getElementById('summationtitle').style.visibility = 'visible'
+			document.getElementById('inputfunction').style.visibility = 'visible'
+			document.getElementById('displayforZetaH').style.visibility = 'hidden'
 
 			if (functionmode == 'sum') {
-				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
+				try {
+					document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
+					document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(0, 0, 0, 0)'
+					functiontouse = inputfunctiontext
+				}
+				catch(err) {
+					if (darkmode) {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.4)'
+					}
+					else {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.1)'
+					}
+					displayText('Not a valid input expression.')
+				}
+					
 			}
-			else {
-				inputfunctiontext = inputfunctiontext.replace('n', '1')
-				document.getElementById('inputfunctiontext').value = inputfunctiontext
-				document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + "$$"
+			else if (functionmode == 'simple') {
+				try {
+					while (inputfunctiontext.indexOf('n') != -1) {
+						inputfunctiontext = inputfunctiontext.replace('n', '1')
+					}
+					document.getElementById('inputfunctiontext').value = inputfunctiontext
+					document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + "$$"
+					document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(0, 0, 0, 0)'
+					functiontouse = inputfunctiontext
+				}
+				catch(err) {
+					if (darkmode) {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.4)'
+					}
+					else {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.1)'
+					}
+					displayText('Not a valid input expression.')
+				}
+				
 			}
+
+			else if (functionmode == 'zeta') {
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=1}^{m=\\infty} \\frac{1}{n^z} $$"
+			}
+
 			MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+
+			compute = true
+			disableplayline()
+			finalcheckdone = false
+			document.getElementById('computebutton').style.visibility = 'visible'
+			document.getElementById('computebutton').style.pointerEvents = 'auto'
+			document.getElementById('computebutton').style.zIndex = 5
+			document.getElementById('computeholder').style.visibility = 'visible'
+			document.getElementById('computeholder').style.pointerEvents = 'auto'
+			document.getElementById('computeholder').style.zIndex = 4
 
 		}
 		document.getElementById('functionsimple').addEventListener('click', changetoSimple)
@@ -3744,6 +3855,9 @@
 				document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 0%, 1)'
 				document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 0%, 50%, 0.1)'
 				document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+				document.getElementById('functionzeta').style.color = 'hsla(190, 0%, 0%, 1)'
+				document.getElementById('functionzeta').style.backgroundColor = 'hsla(190, 0%, 50%, 0.1)'
+				document.getElementById('functionzeta').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
 			}
 			else {
 				document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 70%, 1)'
@@ -3752,152 +3866,192 @@
 				document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
 				document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
 				document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 100%, 1)'
-				document.getElementById('functionsummation').style.border = '1px solid hsla(190, 100%, 40%, 1)'
+				document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+				document.getElementById('functionzeta').style.color = 'hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionzeta').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+				// document.getElementById('functionzeta').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionzeta').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
 			}
 
 			document.getElementById('nlowertext').style.visibility = 'visible'
 			document.getElementById('nlowervalue').style.visibility = 'visible'
 			document.getElementById('nuppertext').style.visibility = 'visible'
 			document.getElementById('nuppervalue').style.visibility = 'visible'
+			document.getElementById('summationtitle').style.visibility = 'visible'
+			document.getElementById('inputfunction').style.visibility = 'visible'
 
 			document.getElementById('summationtitle').innerHTML = 'Summation Term'
 
+			document.getElementById('displayforZetaH').style.visibility = 'hidden'
+
 
 			
-			document.getElementById('ntermdisplayHold').style.visibility = 'visible'
+			document.getElementById('spectrumholder').style.visibility = 'visible'
 
 			if (functionmode == 'sum') {
-				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
+				try {
+					inputfunctiontext = inputfunctiontext.replace('1', 'n')
+					document.getElementById('inputfunctiontext').value = inputfunctiontext
+					document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
+					document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(0, 0, 0, 0)'
+					functiontouse = inputfunctiontext
+				}
+				catch(err) {
+					if (darkmode) {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.4)'
+					}
+					else {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.1)'
+					}
+					displayText('Not a valid input expression.')
+				}
+					
 			}
-			else {
+			else if (functionmode == 'simple')  {
 				inputfunctiontext = inputfunctiontext.replace('n', '1')
-				document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + " $$"
+				try {
+					inputfunctiontext = inputfunctiontext.replace('n', '1')
+					document.getElementById('inputfunctiontext').value = inputfunctiontext
+					document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + " $$"
+					document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(0, 0, 0, 0)'
+					functiontouse = inputfunctiontext
+				}
+				catch(err) {
+					if (darkmode) {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.4)'
+					}
+					else {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.1)'
+					}
+					displayText('Not a valid input expression.')
+				}
+				
 			}
+
+			else if (functionmode == 'zeta') {
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=1}^{m=\\infty} \\frac{1}{n^z} $$"
+			}
+
+			
 			MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+
+			compute = true
+			disableplayline()
+			finalcheckdone = false
+			document.getElementById('computebutton').style.visibility = 'visible'
+			document.getElementById('computebutton').style.pointerEvents = 'auto'
+			document.getElementById('computebutton').style.zIndex = 5
+			document.getElementById('computeholder').style.visibility = 'visible'
+			document.getElementById('computeholder').style.pointerEvents = 'auto'
+			document.getElementById('computeholder').style.zIndex = 4
 		}
 
 		document.getElementById('functionsummation').addEventListener('click', changetoSum)
 
-
-
-		function changetoDark() {
+		function changetoZeta(event) {
+			functionmode = 'zeta'
+			// console.log(darkmode)
 			if (darkmode == false) {
-				document.body.style.backgroundColor = 'black'
-				document.getElementById('maintitle').innerHTML = 'Complex Functions <br/> <font style="font-size: 2.3vmin; font-weight: lighter; color: hsla(190, 0%, 80%, 1);">An attempt to plot them </font><br/><font style="font-size: 2.3vmin; font-weight: lighter; color: hsla(190, 100%, 100%, 1);"> Based on certain amazing animations from 3Blue1Brown</font>'
-				document.getElementById('functioncontrols').style.color = 'white'
-				document.getElementById('functiontitle').style.color = 'white'
-				if (functionmode == 'sum') {
-					document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 70%, 1)'
-					document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
-					// document.getElementById('functionsimple').style.border = '1px solid hsla(190, 0%, 70%, 1)'
-					document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
-					document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
-					document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 100%, 1)'
-					document.getElementById('functionsummation').style.border = '1px solid hsla(190, 100%, 40%, 1)'
-				}
-				else {
-					document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 70%, 1)'
-					document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
-					// document.getElementById('functionsummation').style.border = '1px solid hsla(190, 0%, 70%, 1)'
-					document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
-					document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
-					document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 100%, 1)'
-					document.getElementById('functionsimple').style.border = '1px solid hsla(190, 100%, 40%, 1)'
-				}
-
-				document.getElementById('summationtitle').style.color = 'white'
-				document.getElementById('inputfunctiontext').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
-				document.getElementById('inputfunctiontext').style.color = 'hsla(100, 0%, 100%, 1)'
-				document.getElementById('inputfunctiontext').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
-
-				document.getElementById('nlowertext').style.color = 'white'
-				document.getElementById('nlowerinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
-				document.getElementById('nlowerinput').style.color = 'hsla(100, 0%, 100%, 1)'
-				document.getElementById('nlowerinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
-
-				document.getElementById('nuppertext').style.color = 'white'
-				document.getElementById('nupperinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
-				document.getElementById('nupperinput').style.color = 'hsla(100, 0%, 100%, 1)'
-				document.getElementById('nupperinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
-
-				document.getElementById('equationdisplay').style.backgroundColor = 'hsla(100, 0%, 20%, 0)'
-				document.getElementById('equationdisplay').style.color = 'hsla(100, 0%, 100%, 1)'
-				
-				document.getElementById('equationdisplay').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
-
-				document.getElementById('computebutton').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
-				document.getElementById('computebutton').style.color = 'white'
-
-				document.getElementById('pauseplay').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
-				document.getElementById('pauseplay').style.color = 'white'
-
-				document.getElementById('editmeshH').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
-				document.getElementById('editmeshH').style.color = 'white'
-
-				document.getElementById('finaltransformH').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
-				document.getElementById('finaltransformH').style.color = 'white'
-
-				document.getElementById('darkmodeH').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
-				document.getElementById('darkmodeH').style.color = 'white'
-				document.getElementById('infotext2').style.color = 'white'
-				document.getElementById('meshsetdisplaytitle').style.color = 'white'
-				document.getElementById('meshrestext').style.color = 'white'
-				document.getElementById('meshcolstext').style.color = 'white'
-				document.getElementById('meshrowstext').style.color = 'white'
-
-				document.getElementById('meshcolsinput').style.color = 'hsla(100, 0%, 100%, 1)'
-				document.getElementById('meshcolsinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
-				document.getElementById('meshcolsinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
-
-				document.getElementById('meshrowsinput').style.color = 'hsla(100, 0%, 100%, 1)'
-				document.getElementById('meshrowsinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
-				document.getElementById('meshrowsinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
-
-				document.getElementById('meshresinput').style.color = 'hsla(100, 0%, 100%, 1)'
-				document.getElementById('meshresinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
-				document.getElementById('meshresinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
-
-				document.getElementById('ntermdisplaytitle').style.color = 'hsla(100, 0%, 100%, 1)'
-
-				document.getElementById('complexplanegraph-point-outputpoint').style.fill = 'hsla(10, 0%, 100%,1)'
-
-				gdata = graphData['complexplanegraph']
-				for (k = 0; k < gdata.ymajorlabelsElements.length; k++) {
-					gdata.ymajorlabelsElements[k].style.fill = 'hsla(0, 0%, 100%, 1)'
-					// console.log(gdata.ymajorlabelsElements[k])
-				}
-
-				for (k = 0; k < gdata.xmajorlabelsElements.length; k++) {
-					gdata.xmajorlabelsElements[k].style.fill = 'hsla(0, 0%, 100%, 1)'
-					// console.log(gdata.ymajorlabelsElements[k])
-				}
-
-				for (k = 0; k < gdata.xmajorgridElements.length; k++) {
-					gdata.xmajorgridElements[k].style.stroke = 'hsla(0, 0%, 100%, 1)'
-					// console.log(gdata.xmajorgridElements[k])
-				}
-
-				for (k = 0; k < gdata.ymajorgridElements.length; k++) {
-					gdata.ymajorgridElements[k].style.stroke = 'hsla(0, 0%, 100%, 1)'
-					// console.log(gdata.ymajorlabelsElements[k])
-				}
-
-				gdata.xaxisElement.style.stroke =  'hsla(0, 0%, 100%, 1)'
-				gdata.yaxisElement.style.stroke =  'hsla(0, 0%, 100%, 1)'
-
-				// klines = Object.keys(gdata.lineData)
-
-				// for (k = 0; k < klines.length; k++) {
-				// 	gdata.ymajorgridElements[k].style.stroke = 'hsla(0, 0%, 100%, 1)'
-				// 	// console.log(gdata.ymajorlabelsElements[k])
-				// }
-
-
-				darkmode = true
-
-				document.getElementById('darkmodeH').innerHTML = 'LightMode'
+				event.target.style.color = 'hsla(190, 100%, 50%, 1)'
+				event.target.style.backgroundColor = 'hsla(190, 100%, 100%, 0)'
+				event.target.style.borderBottom = '0px solid hsla(190, 100%, 100%, 0)'
+				document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 0%, 1)'
+				document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 0%, 50%, 0.1)'
+				document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+				document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 0%, 1)'
+				document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 0%, 50%, 0.1)'
+				document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
 			}
+			else {
+				document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+				// document.getElementById('functionsimple').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+				document.getElementById('functionzeta').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
+				document.getElementById('functionzeta').style.color = 'hsla(190, 0%, 100%, 1)'
+				document.getElementById('functionzeta').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+				document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+				// document.getElementById('functionsummation').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+				document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+			}
+
+			document.getElementById('nlowertext').style.visibility = 'hidden'
+			document.getElementById('nlowervalue').style.visibility = 'hidden'
+			document.getElementById('nuppertext').style.visibility = 'hidden'
+			document.getElementById('nuppervalue').style.visibility = 'hidden'
+			document.getElementById('summationtitle').style.visibility = 'hidden'
+			document.getElementById('inputfunction').style.visibility = 'hidden'
+
+			document.getElementById('displayforZetaH').style.visibility = 'visible'
+
+			
+			// document.getElementById('summationtitle').innerHTML = 'Summation Term'
+
+
+			
+			document.getElementById('spectrumholder').style.visibility = 'hidden'
+			// document.getElementById('ntermdisplayHold').style.visibility = 'hidden'
+
+			if (functionmode == 'sum') {
+				try {
+					document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=" +  nlowinput + "}^{m=" +  nupinput + "} " + math.parse(inputfunctiontext).toTex() + " $$"
+					document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(0, 0, 0, 0)'
+					functiontouse = inputfunctiontext
+				}
+				catch(err) {
+					if (darkmode) {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.4)'
+					}
+					else {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.1)'
+					}
+					displayText('Not a valid input expression.')
+				}
+					
+			}
+			else if (functionmode == 'simple') {
+				inputfunctiontext = inputfunctiontext.replace('n', '1')
+				try {
+					document.getElementById('equationdisplay').innerHTML = " $$ f(z) = " + math.parse(inputfunctiontext).toTex() + " $$"
+					document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(0, 0, 0, 0)'
+					functiontouse = inputfunctiontext
+				}
+				catch(err) {
+					if (darkmode) {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.4)'
+					}
+					else {
+						document.getElementById('inputfunctiontext').style.backgroundColor = 'rgba(255, 0, 0, 0.1)'
+					}
+					displayText('Not a valid input expression.')
+				}
+				
+			}
+
+			else if (functionmode == 'zeta') {
+				document.getElementById('equationdisplay').innerHTML = " $$ f(z) =  \\sum_{n=1}^{m=\\infty} \\frac{1}{n^z} $$"
+			}
+
+			MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+
+			compute = true
+			disableplayline()
+			finalcheckdone = false
+			document.getElementById('computebutton').style.visibility = 'visible'
+			document.getElementById('computebutton').style.pointerEvents = 'auto'
+			document.getElementById('computebutton').style.zIndex = 5
+			document.getElementById('computeholder').style.visibility = 'visible'
+			document.getElementById('computeholder').style.pointerEvents = 'auto'
+			document.getElementById('computeholder').style.zIndex = 4
 		}
+
+
+		document.getElementById('functionzeta').addEventListener('click', changetoZeta)
+
+
+
+		
 
 		// changetoDark()
 
@@ -4013,16 +4167,489 @@
 		document.getElementById('removemeshdisplaytitle').addEventListener('click', toggleAddRemoveMesh)
 
 
-		function displayText(detailinfo, additionalfunc) {
-			if (typeof additionalfunc == 'undefined') {
-				if (detailinfo == 'default') {
-					detailinfo = 'Made using Math.js, MathJax to visualize complex functions. Input point is in orange. If the complex function is a summation, then each term is a complex number which can be represented as a line. Sum of these lines added vectorially gives us the resulting output point in black/white.'
+		
+
+		
+		math.config({
+			number: 'BigNumber', // Default type of number: 
+			// 'number' (default), 'BigNumber', or 'Fraction'
+			precision: 64        // Number of significant digits for BigNumbers
+		})
+
+		bernoulliNumbers = [1.0, -0.5, 0.16666666666666666, 0.0, -0.033333333333275914, 0.0, 0.02380952380952236, 0.0, -0.03333333333333301, 0.0, 0.07575757575757562, 0.0, -0.253113553113553, 0.0, 1.1666666666666672, 0.0, -7.092156862745103, 0.0, 54.97117794486221, 0.0, -529.124242424243, 0.0, 6192.123188405805, 0.0, -86580.25311355322, 0.0, 1425517.1666666688, 0.0, -27298231.067816135, 0.0, 601580873.9006432, 0.0, -15116315767.092178, 0.0, 429614643061.1673, 0.0, -13711655205088.354, 0.0, 488332318973593.94, 0.0, -1.92965793419401e+16, 0.0, 8.416930475736838e+17, 0.0, -4.033807185405952e+19, 0.0, 2.115074863808203e+21, 0.0, -1.208662652229655e+23, 0.0, 7.500866746076979e+24, 0.0, -5.03877810148108e+26, 0.0, 3.65287764848182e+28, 0.0, -2.8498769302450944e+30, 0.0, 2.386542749968368e+32, 0.0, -2.1399949257225386e+34, 0.0, 2.050097572347815e+36, 0.0, -2.0938005911346432e+38, 0.0, 2.275269648846358e+40, 0.0, -2.625771028623965e+42, 0.0, 3.212508210271813e+44, 0.0, -4.159827816679484e+46, 0.0, 5.692069548203546e+48, 0.0, -8.218362941978484e+50, 0.0, 1.2502904327167034e+53, 0.0, -2.001558323324844e+55, 0.0, 3.3674982915364494e+57, 0.0, -5.947097050313566e+59, 0.0, 1.1011910323628018e+62, 0.0, -2.135525954525358e+64, 0.0, 4.332889698664135e+66, 0.0, -9.188552824166966e+68, 0.0, 2.0346896776329147e+71, 0.0, -4.70038339580359e+73, 0.0, 1.131804344548429e+76, 0.0, -2.838224957069381e+78]
+
+		function zetaEMS(inputz, Nzeta, vzeta) {
+			// vzeta not more than 49
+			// This is to incooperate the fact that we dont have many bernoulli numbers. Only 100 of them.
+
+			// Nzeta will be chosen based on magnitude
+			// console.log(math.complex(inputz).toPolar().r)
+			if (math.complex(inputz).toPolar().r > Nzeta) {
+				Nzeta = parseInt(math.complex(inputz).toPolar().r)
+			}
+
+			// console.log(Nzeta)
+
+			if (vzeta > 45) {
+				vzeta = 45
+			}
+
+			sum1 = math.complex(0)
+			inputz = math.complex(inputz)
+
+
+
+
+			for (n = 1; n < Nzeta; n++) {
+				sum1 = math.add(sum1, math.pow(n, math.multiply(-1, inputz)))
+			}
+
+			sum1 = math.add(sum1, math.divide(math.pow(Nzeta, math.subtract(1, inputz)), math.subtract(inputz, 1)))
+			sum1 = math.add(sum1, math.divide(math.pow(Nzeta, math.multiply(-1, inputz)), 2))
+			
+
+			sum2 = math.complex(0)
+			for(kv = 1; kv <= vzeta + 2; kv++) {
+				tv1 = math.divide(bernoulliNumbers[2*kv], fact(2*kv))
+
+				prd = math.complex(1)
+				for (hv = 0; hv <=  (2*kv) - 2; hv++) {
+					prd = math.multiply(prd, math.add(inputz, hv))
 				}
-				document.getElementById('infotext2').innerHTML = detailinfo
+				tv2 = prd
+				tv3 = math.pow(Nzeta, math.subtract(math.subtract(1, inputz), 2*kv))
+				sum2 = math.add(sum2, math.multiply(tv1, tv2, tv3))
+			}
+				
+			return math.add(sum1, sum2)
+
+		}
+
+		function fact(valf) {
+			prdt = 1
+			for (as = 1; as <= valf; as++) {
+				prdt = prdt*as
+			}
+			return prdt
+		}
+
+		function nCr(nC, rC) {
+			return fact(nC)/fact(rC)*fact(nC - rC)
+		}
+			
+
+		// sj = '0.5+14.13i'
+
+		// console.log(zetaEMS(sj, 50, 40))
+
+		criticalZetaValues = {}
+		pclooptime = 0
+		pclinecollection = []
+
+		plotcriticallinedelta = breakdelta*0.1
+
+		function plotCriticalLine(step) {
+			tval = step*plotcriticallinedelta
+			zetavalue = zetaEMS('0.5+' + tval + 'i', 50, 40)
+			criticalZetaValues[tval] = [zetavalue.re, zetavalue.im]
+			if (step == 0) {
+				prevzeta = criticalZetaValues[(step - 1)*plotcriticallinedelta]
+				currentzeta = criticalZetaValues[tval]
+			}
+			else if (step == 1) {
+				prevzeta = criticalZetaValues[(step - 1)*plotcriticallinedelta]
+				currentzeta = criticalZetaValues[tval]
+			}
+			else {
+				prevzeta = criticalZetaValues[(step - 1)*plotcriticallinedelta]
+				currentzeta = criticalZetaValues[tval]
+
+				options = {}
+				options.points = [currentzeta, prevzeta]
+				options.pathcolor = 'hsla(40, 100%, 50%, 0.9)'
+				if (darkmode) {
+					options.pathcolor = 'hsla(40, 100%, 70%, 0.9)'
+				}
+				options.strokewidth = 0.2
+				pathdata = addPath('complexplanegraph', tval + '-criticalZeta', options)
+				updatePoint('complexplanegraph', 'plotcpoint', currentzeta[0], currentzeta[1])
+				updatePoint('complexplanegraph', 'plotcinputpoint', 0.5, tval)
+				pclinecollection.push(tval + '-criticalZeta')
+			}
+				
+		}
+
+		function reprocessPlotC(event) {
+			clearInterval(loopintervalpc);
+			pclooptime = 0
+			pcloopcancel = false
+			deleteMeshlines(pclinecollection)
+			pclinecollection = []
+			document.getElementById('plotcriticalline').removeEventListener('click', reprocessPlotC)
+			document.getElementById('plotcriticalline').addEventListener('click', processPlotC)
+			document.getElementById('plotcriticalline').innerHTML = 'Plot Zeta along Critical Line'
+
+			addedptcritical.style.visibility = 'hidden'
+			addedptcriticalinput.style.visibility = 'hidden'
+		}
+
+		function processPlotC(event) {
+			playPlotC()
+			pcloopcancel = false
+			document.getElementById('plotcriticalline').removeEventListener('click', processPlotC)
+			document.getElementById('plotcriticalline').addEventListener('click', reprocessPlotC)
+			document.getElementById('plotcriticalline').innerHTML = 'Cancel Plot'
+
+			addedptcritical.style.visibility = 'visible'
+			addedptcriticalinput.style.visibility = 'visible'
+		}
+
+		pclooptime = 0
+		function playPlotC(event) {
+			loopintervalpc = setInterval(framepc, 1);
+			function framepc() {
+				pclooptime = pclooptime + 1
+				plotCriticalLine(pclooptime)
+				document.getElementById('plotcriticalline').innerHTML = '<font style="color:hsla(190, 100%, 50%, 1); font-size:2vmin;">at 0.5 + ' + (pclooptime*plotcriticallinedelta).toFixed(1) + 'i </font> Click to Cancel..'
+				if (pcloopcancel == true) {
+					clearInterval(loopintervalpc);
+					pclooptime = 0
+					pcloopcancel = false
+				}
+				
+			}
+		}
+
+
+		document.getElementById('plotcriticalline').addEventListener('click', processPlotC)
+
+
+		function changetoDark() {
+			if (darkmode == false) {
+				document.body.style.backgroundColor = 'black'
+				document.getElementById('maintitle').innerHTML = 'Complex Functions <br/> <font style="font-size: 2.3vmin; font-weight: lighter; color: hsla(190, 0%, 80%, 1);">An attempt to plot them </font><br/><font style="font-size: 2.3vmin; font-weight: lighter; color: hsla(190, 100%, 100%, 1);">Based on certain amazing animations <br/> in a  <a href="https://www.youtube.com/watch?v=sD0NjbwqlYw" target="_blank" style="text-decoration: none; color: hsla(210,100%,80%,1); "> video at 3Blue1Brown</a>'
+				document.getElementById('functioncontrols').style.color = 'white'
+				document.getElementById('functiontitle').style.color = 'white'
+				if (functionmode == 'sum') {
+					document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+					// document.getElementById('functionsimple').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionzeta').style.color = 'hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionzeta').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+					// document.getElementById('functionzeta').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionzeta').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 100%, 1)'
+					document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+				}
+				else if (functionmode == 'simple') {
+					document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+					// document.getElementById('functionsummation').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 100%, 1)'
+					document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionzeta').style.color = 'hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionzeta').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+					// document.getElementById('functionzeta').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionzeta').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+				}
+				else {
+					document.getElementById('functionsummation').style.color = 'hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsummation').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+					// document.getElementById('functionsummation').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionzeta').style.backgroundColor = 'hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionzeta').style.color = 'hsla(190, 0%, 100%, 1)'
+					document.getElementById('functionzeta').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+					document.getElementById('functionsimple').style.color = 'hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsimple').style.backgroundColor = 'hsla(190, 0%, 30%, 1)'
+					// document.getElementById('functionsimple').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 100%, 40%, 1)'
+				}
+
+				document.getElementById('summationtitle').style.color = 'white'
+				document.getElementById('inputfunctiontext').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+				document.getElementById('inputfunctiontext').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('inputfunctiontext').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+
+				document.getElementById('nlowertext').style.color = 'white'
+				document.getElementById('nlowerinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+				document.getElementById('nlowerinput').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('nlowerinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+
+				document.getElementById('nuppertext').style.color = 'white'
+				document.getElementById('nupperinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+				document.getElementById('nupperinput').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('nupperinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+
+				document.getElementById('infoonzeta').style.color = 'white'
+				document.getElementById('plotcriticalline').style.color = 'white'
+				document.getElementById('plotcriticalline').style.border = '1px solid hsla(1, 0%, 100%, 0.6)'
+				
+				// document.getElementById('nlowerinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+				
+
+				document.getElementById('equationdisplay').style.backgroundColor = 'hsla(100, 0%, 20%, 0)'
+				document.getElementById('equationdisplay').style.color = 'hsla(100, 0%, 100%, 1)'
+				
+				document.getElementById('equationdisplay').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+
+				document.getElementById('computebutton').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
+				document.getElementById('computebutton').style.color = 'white'
+
+				document.getElementById('pauseplay').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
+				document.getElementById('pauseplay').style.color = 'white'
+
+				document.getElementById('editmeshH').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
+				document.getElementById('editmeshH').style.color = 'white'
+
+				document.getElementById('finaltransformH').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
+				document.getElementById('finaltransformH').style.color = 'white'
+
+				document.getElementById('darkmodeH').style.border = '1px solid hsla(190, 0%, 70%, 0.5)'
+				document.getElementById('darkmodeH').style.color = 'white'
+				document.getElementById('infotext2').style.color = 'white'
+				document.getElementById('meshsetdisplaytitle').style.color = 'white'
+				document.getElementById('meshrestext').style.color = 'white'
+				document.getElementById('meshcolstext').style.color = 'white'
+				document.getElementById('meshrowstext').style.color = 'white'
+
+				document.getElementById('meshcolsinput').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('meshcolsinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+				document.getElementById('meshcolsinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+
+				document.getElementById('meshrowsinput').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('meshrowsinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+				document.getElementById('meshrowsinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+
+				document.getElementById('meshresinput').style.color = 'hsla(100, 0%, 100%, 1)'
+				document.getElementById('meshresinput').style.border = '1px solid hsla(100, 0%, 100%, 0.7)'
+				document.getElementById('meshresinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+
+				document.getElementById('ntermdisplaytitle').style.color = 'hsla(100, 0%, 100%, 1)'
+
+				document.getElementById('complexplanegraph-point-outputpoint').style.fill = 'hsla(10, 0%, 100%,1)'
+
+				document.getElementById('meshsettingdisplayHold').style.backgroundColor = 'hsla(100, 0%, 0%, 1)'
+
+				options = {}
+				options.rectcolor = 'hsla(260, 100%, 80%, 0.6)'
+				updateRectangle('computeprogressgraph', 'progressRect' , options)
+				
+
+				gdata = graphData['complexplanegraph']
+				for (k = 0; k < gdata.ymajorlabelsElements.length; k++) {
+					gdata.ymajorlabelsElements[k].style.fill = 'hsla(0, 0%, 100%, 1)'
+					// console.log(gdata.ymajorlabelsElements[k])
+				}
+
+				for (k = 0; k < gdata.xmajorlabelsElements.length; k++) {
+					gdata.xmajorlabelsElements[k].style.fill = 'hsla(0, 0%, 100%, 1)'
+					// console.log(gdata.ymajorlabelsElements[k])
+				}
+
+				for (k = 0; k < gdata.xmajorgridElements.length; k++) {
+					gdata.xmajorgridElements[k].style.stroke = 'hsla(0, 0%, 100%, 1)'
+					// console.log(gdata.xmajorgridElements[k])
+				}
+
+				for (k = 0; k < gdata.ymajorgridElements.length; k++) {
+					gdata.ymajorgridElements[k].style.stroke = 'hsla(0, 0%, 100%, 1)'
+					// console.log(gdata.ymajorlabelsElements[k])
+				}
+
+				gdata.xaxisElement.style.stroke =  'hsla(0, 0%, 100%, 1)'
+				gdata.yaxisElement.style.stroke =  'hsla(0, 0%, 100%, 1)'
+
+				addedptcritical.style.fill = 'hsla(40, 100%, 100%, 1)'
+				addedptcriticalinput.style.fill = 'hsla(40, 100%, 60%,  1)'
+
+				
+
+
+				darkmode = true
+
+				document.getElementById('darkmodeH').innerHTML = 'LightMode'
+				document.getElementById('darkmodeH').removeEventListener('click', changetoDark)
+				document.getElementById('darkmodeH').addEventListener('click', changetoLight)
+
 			}
 		}
 
 		document.getElementById('darkmodeH').addEventListener('click', changetoDark)
+
+		function changetoLight() {
+			if (darkmode == true) {
+				document.body.style.backgroundColor = 'hsla(1, 0%, 100%, 0)'
+				document.getElementById('maintitle').innerHTML = 'Complex Functions <br/> <font style="font-size: 2.3vmin; font-weight: lighter; color: hsla(190, 0%, 60%, 1);">An attempt to plot them </font><br/><font style="font-size: 2.3vmin; font-weight: lighter; color: hsla(190, 100%, 0%, 1);">Based on certain amazing animations <br/> in a  <a href="https://www.youtube.com/watch?v=sD0NjbwqlYw" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); "> video at 3Blue1Brown</a>'
+				document.getElementById('functioncontrols').style.color = 'black'
+				document.getElementById('functiontitle').style.color = 'black'
+				if (functionmode == 'sum') {
+					document.getElementById('functionsimple').style.color = 'black'
+					document.getElementById('functionsimple').style.backgroundColor = 'hsla(100,0%,50%, 0.1)'
+					// document.getElementById('functionsimple').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+					document.getElementById('functionzeta').style.color = 'black'
+					document.getElementById('functionzeta').style.backgroundColor = 'hsla(100,0%,50%, 0.1)'
+					// document.getElementById('functionzeta').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionzeta').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+					document.getElementById('functionsummation').style.backgroundColor = 'white'
+					document.getElementById('functionsummation').style.color = 'hsla(190, 100%, 50%, 1)'
+					document.getElementById('functionsummation').style.border = '1px solid hsla(190, 0%,0%, 0.1)';
+					document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 0%, 0%, 0)'
+				}
+				else if (functionmode == 'simple') {
+					document.getElementById('functionsummation').style.color = 'black'
+					document.getElementById('functionsummation').style.backgroundColor = 'hsla(100,0%,50%, 0.1)'
+					// document.getElementById('functionsummation').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+					document.getElementById('functionzeta').style.color = 'black'
+					document.getElementById('functionzeta').style.backgroundColor = 'hsla(100,0%,50%, 0.1)'
+					// document.getElementById('functionzeta').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionzeta').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+					document.getElementById('functionsimple').style.backgroundColor = 'white'
+					document.getElementById('functionsimple').style.color = 'hsla(190, 100%, 50%, 1)'
+					document.getElementById('functionsimple').style.border = '1px solid hsla(190, 0%,0%, 0.1)';
+					document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 0%, 0%, 0)'
+				}
+				else {
+					document.getElementById('functionsimple').style.color = 'black'
+					document.getElementById('functionsimple').style.backgroundColor = 'hsla(100,0%,50%, 0.1)'
+					// document.getElementById('functionsimple').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsimple').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+					document.getElementById('functionsummation').style.color = 'black'
+					document.getElementById('functionsummation').style.backgroundColor = 'hsla(100,0%,50%, 0.1)'
+					// document.getElementById('functionsummation').style.border = '1px solid hsla(190, 0%, 70%, 1)'
+					document.getElementById('functionsummation').style.borderBottom = '1px solid hsla(190, 0%, 0%, 1)'
+					document.getElementById('functionzeta').style.backgroundColor = 'white'
+					document.getElementById('functionzeta').style.color = 'hsla(190, 100%, 50%, 1)'
+					document.getElementById('functionzeta').style.border = '1px solid hsla(190, 0%,0%, 0.1)';
+					document.getElementById('functionzeta').style.borderBottom = '1px solid hsla(190, 0%, 0%, 0)'
+				}
+
+				document.getElementById('summationtitle').style.color = 'black'
+				document.getElementById('inputfunctiontext').style.backgroundColor = 'white'
+				document.getElementById('inputfunctiontext').style.color = 'black'
+				document.getElementById('inputfunctiontext').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+
+				document.getElementById('nlowertext').style.color = 'black'
+				document.getElementById('nlowerinput').style.backgroundColor = 'white'
+				document.getElementById('nlowerinput').style.color = 'black'
+				document.getElementById('nlowerinput').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+
+				document.getElementById('nuppertext').style.color = 'black'
+				document.getElementById('nupperinput').style.backgroundColor = 'white'
+				document.getElementById('nupperinput').style.color = 'black'
+				document.getElementById('nupperinput').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+
+				document.getElementById('infoonzeta').style.color = 'black'
+				document.getElementById('plotcriticalline').style.color = 'black'
+				document.getElementById('plotcriticalline').style.border = '1px solid black'
+				
+				// document.getElementById('nlowerinput').style.backgroundColor = 'hsla(100, 0%, 20%, 1)'
+				
+
+				document.getElementById('equationdisplay').style.backgroundColor = 'white'
+				document.getElementById('equationdisplay').style.color = 'black'
+				
+				document.getElementById('equationdisplay').style.border = '1px solid hsla(210, 100%, 50%,0.2)'
+
+				document.getElementById('computebutton').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+				document.getElementById('computebutton').style.color = 'black'
+
+				document.getElementById('pauseplay').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+				document.getElementById('pauseplay').style.color = 'black'
+
+				document.getElementById('editmeshH').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+				document.getElementById('editmeshH').style.color = 'black'
+
+				document.getElementById('finaltransformH').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+				document.getElementById('finaltransformH').style.color = 'black'
+
+				document.getElementById('darkmodeH').style.border = '1px solid hsla(190, 0%, 50%,0.2'
+				document.getElementById('darkmodeH').style.color = 'black'
+				document.getElementById('infotext2').style.color = 'black'
+				document.getElementById('meshsetdisplaytitle').style.color = 'black'
+				document.getElementById('meshrestext').style.color = 'black'
+				document.getElementById('meshcolstext').style.color = 'black'
+				document.getElementById('meshrowstext').style.color = 'black'
+
+				document.getElementById('meshcolsinput').style.color = 'black'
+				document.getElementById('meshcolsinput').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+				document.getElementById('meshcolsinput').style.backgroundColor = 'white'
+
+				document.getElementById('meshrowsinput').style.color = 'black'
+				document.getElementById('meshrowsinput').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+				document.getElementById('meshrowsinput').style.backgroundColor = 'white'
+
+				document.getElementById('meshresinput').style.color = 'black'
+				document.getElementById('meshresinput').style.border = '1px solid hsla(190, 0%, 50%,0.2)'
+				document.getElementById('meshresinput').style.backgroundColor = 'white'
+
+				document.getElementById('ntermdisplaytitle').style.color = 'white'
+
+				document.getElementById('complexplanegraph-point-outputpoint').style.fill = 'hsla(10, 0%, 0%,1)'
+
+				document.getElementById('meshsettingdisplayHold').style.backgroundColor = 'hsla(100, 0%, 100%, 1)'
+
+				options = {}
+				options.rectcolor = 'hsla(260, 100%, 50%, 0.1)'
+				updateRectangle('computeprogressgraph', 'progressRect' , options)
+				
+
+				gdata = graphData['complexplanegraph']
+				for (k = 0; k < gdata.ymajorlabelsElements.length; k++) {
+					gdata.ymajorlabelsElements[k].style.fill = 'hsla(190, 0%, 50%, 1)'
+					// console.log(gdata.ymajorlabelsElements[k])
+				}
+
+				for (k = 0; k < gdata.xmajorlabelsElements.length; k++) {
+					gdata.xmajorlabelsElements[k].style.fill = 'hsla(190, 0%, 50%, 1)'
+					// console.log(gdata.ymajorlabelsElements[k])
+				}
+
+				for (k = 0; k < gdata.xmajorgridElements.length; k++) {
+					gdata.xmajorgridElements[k].style.stroke = 'hsla(190, 0%, 50%, 1)'
+					// console.log(gdata.xmajorgridElements[k])
+				}
+
+				for (k = 0; k < gdata.ymajorgridElements.length; k++) {
+					gdata.ymajorgridElements[k].style.stroke = 'hsla(190, 0%, 50%, 1)'
+					// console.log(gdata.ymajorlabelsElements[k])
+				}
+
+				gdata.xaxisElement.style.stroke =  'hsla(0, 50%, 0%, 1)'
+				gdata.yaxisElement.style.stroke =  'hsla(0, 50%, 0%, 1)'
+
+				addedptcritical.style.fill = 'hsla(40, 100%, 0%, 1)'
+				addedptcriticalinput.style.fill = 'hsla(10, 100%, 50%,  1)'
+
+				// klines = Object.keys(gdata.lineData)
+
+				// for (k = 0; k < klines.length; k++) {
+				// 	gdata.ymajorgridElements[k].style.stroke = 'hsla(0, 0%, 100%, 1)'
+				// 	// console.log(gdata.ymajorlabelsElements[k])
+				// }
+
+
+				darkmode = false
+
+				document.getElementById('darkmodeH').innerHTML = 'DarkMode'
+				document.getElementById('darkmodeH').addEventListener('click', changetoDark)
+				document.getElementById('darkmodeH').removeEventListener('click', changetoLight)
+			}
+		}
+
+
+
+
+
+
+
+
 
 
 	
