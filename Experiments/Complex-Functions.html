@@ -338,11 +338,13 @@
 
 		if (fixedInnerWValue < fixedInnerHValue) {
 			$('#infodisplayH').insertAfter('#controlTitleSection')
+			$('#complexplaneTableH').insertBefore('#controlTitleSection')
+			$('#player').insertBefore('#controlTitleSection')
 			
 			document.getElementById('controlTitleSection').style.height = '50%'
 			document.getElementById('controlTitleSection').style.width = '60%'
 
-			document.getElementById('complexplaneTableH').style.height = '42%'
+			document.getElementById('complexplaneTableH').style.height = '70%'
 			document.getElementById('complexplaneTableH').style.width = '100%'
 
 			document.getElementById('presetFunctionsText').style.height = '0%'
