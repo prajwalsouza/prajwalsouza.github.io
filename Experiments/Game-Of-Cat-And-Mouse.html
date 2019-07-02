@@ -63,11 +63,14 @@
 				<table width="100%" height='14%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw; ">
 					<tr>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border-bottom: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; color: white; background-color: transparent;"></td>
-						<td colspan="1" id='controltab' style="text-align: center; vertical-align: middle; border-bottom: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; color: white; background-color: hsla(260, 100%, 50%, 0.4); box-shadow: 0px 12px 0px -10px hsla(100,0%,0%,0.8); cursor: pointer;">Controls
+						<td colspan="1" id='controltab' style="text-align: center; vertical-align: middle; border-bottom: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; color: white; background-color: hsla(260, 100%, 50%, 0.4); box-shadow: 0px 12px 0px -10px hsla(100,0%,0%,0.8); cursor: pointer;">
+								<i class="fa fa-gamepad" aria-hidden="true"></i>&nbsp Controls
 						</td>
-						<td colspan="1" id='strategytab' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(260, 100%, 50%, 0.4); cursor: pointer;">Strategy
+						<td colspan="1" id='strategytab' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(260, 100%, 50%, 0.4); cursor: pointer;">
+							<i class="fa fa-lightbulb-o" aria-hidden="true"></i>&nbsp Strategy
 						</td>
-						<td colspan="1" id='settingtab' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(260, 100%, 50%, 0.4); cursor: pointer;">Settings
+						<td colspan="1" id='settingtab' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(260, 100%, 50%, 0.4); cursor: pointer;">
+							<i class="fa fa-cogs" aria-hidden="true"></i>&nbsp Settings
 						</td>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border-bottom: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; color: white; background-color: transparent;"></td>
 					</tr>
@@ -92,8 +95,9 @@
 						<td colspan="1" id="cbtn4" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(4)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(4)" >
 							<i class="fa fa-caret-left" aria-hidden="true"></i>
 						</td>
-						<td colspan="1" id="cbtn5" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 4.3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);">
-							<i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+						<td colspan="1" id="cbtn5" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);">
+							<i class="fa fa-pause-circle" aria-hidden="true"></i>
+
 						</td>
 						<td colspan="1" id="cbtn6" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(6)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(6)" >
 							<i class="fa fa-caret-right" aria-hidden="true"></i>
@@ -1767,7 +1771,7 @@
 		if (darkmode) {
 			options.pointcolor = 'hsla(190, 100%, 70%, 0)'
 		}
-		// addCircle('simulationgraph', 'dashboundary' , options)
+		addCircle('simulationgraph', 'dashboundary' , options)
 
 		options = {}
 		options.x = 0
@@ -1780,7 +1784,7 @@
 		if (darkmode) {
 			options.pointcolor = 'hsla(190, 100%, 70%, 0)'
 		}
-		// addCircle('simulationgraph', 'circlingboundary' , options)
+		addCircle('simulationgraph', 'circlingboundary' , options)
 
 		options = {}
 		options.x = catposition[0]
@@ -2234,7 +2238,6 @@
 				document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 100%, 50%, 0)"
 				document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
 			}
-			
 		}
 
 
