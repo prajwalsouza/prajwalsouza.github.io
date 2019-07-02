@@ -36,6 +36,8 @@
 	</head>
 	<body style='margin:0px; display: block;'>
 		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'> 
+			<div id="simulationH" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: absolute; z-index: 1; '>
+			</div>
 			<div id="titleH" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
 					<tr>
@@ -55,7 +57,7 @@
 					</tr>
 				</table>
 			</div>
-			<div id="simulationH" style='margin:0px;width:100%; height: 55%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+			<div id="simulationplaceholder" style='margin:0px;width:100%; height: 55%;overflow: hidden;position: relative; z-index: 4; display: inline-block; background-color: transparent;'>
 			</div>
 			
 			
@@ -1717,8 +1719,8 @@
 		graphoptions = {}
 		graphoptions.xmax = 1.1
 		graphoptions.xmin = -1.1
-		graphoptions.ymax = 1.1
-		graphoptions.ymin = -1.1
+		graphoptions.ymax = 1.7
+		graphoptions.ymin = -2.5
 		graphoptions.axislocationX = 0
 		graphoptions.axislocationY = 0
 
@@ -1839,7 +1841,7 @@
 		options.y = -0.5
 		options.text = 'Mouse Alive'
 		options.textAlign = 'center'
-		options.fontSize = 3
+		options.fontSize = 2.3
 		if (darkmode) {
 			// options.textcolor = 'hsla(190, 20%, 70%, 1)'
 		}
@@ -1893,13 +1895,15 @@
 					options = {}
 					options.text = 'Mouse Caught'
 					updateText('simulationgraph', 'mousestatus' , options)
+					closeandplayloop()
 				}
 				else if (Math.pow((mouseposition[0]*mouseposition[0]) + (mouseposition[1]*mouseposition[1]), 0.5) > 1.2) {
-					clearInterval(loopinterval);
+					// clearInterval(loopinterval);
 					// console.log('Caught')
-					options = {}
-					options.text = 'Mouse manages to escape!'
-					updateText('simulationgraph', 'mousestatus' , options)
+					// options = {}
+					// options.text = 'Mouse manages to escape!'
+					// updateText('simulationgraph', 'mousestatus' , options)
+					// closeandplayloop()
 				}
 			}
 		}
@@ -1909,11 +1913,17 @@
 				clearInterval(loopinterval);
 				playing = false
 				document.getElementById('cbtn5').innerHTML = '<i class="fa fa-play-circle" aria-hidden="true"></i>'
+				for (k = 1; k < 13; k++) {
+					document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 0.3)"
+				}
 			}
 			else {
 				playLoop()
 				playing = true
 				document.getElementById('cbtn5').innerHTML = '<i class="fa fa-pause-circle" aria-hidden="true"></i>'
+				for (k = 1; k < 13; k++) {
+					document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
+				}
 			}
 			
 		}
@@ -1931,6 +1941,10 @@
 				textopt.x = catposition[0]
 				textopt.y = catposition[1] + 0.07
 				updateText('simulationgraph', 'cattext', textopt)
+
+				options = {}
+				options.text = 'Mouse Escaped, Position : ' + mouseposition[0].toFixed(2) + ', ' + mouseposition[1].toFixed(2)
+				updateText('simulationgraph', 'mousestatus' , options)
 			}
 			else {
 				mouseangle = Math.atan2(mouseposition[1], mouseposition[0])*180/Math.PI
@@ -1939,10 +1953,10 @@
 
 				diffangle = Math.abs(mouseangle - catangle) 
 				if (diffangle > 180) {
-					options.text = 'Mouse Alive, Angle : ' + Math.abs(diffangle - 360).toFixed(2)
+					options.text = 'Mouse Alive, Angle : ' + Math.abs(diffangle - 360).toFixed(2) +', Position : ' + mouseposition[0].toFixed(2) + ', ' + mouseposition[1].toFixed(2)
 				}
 				else {
-					options.text = 'Mouse Alive, Angle : ' + diffangle.toFixed(2)
+					options.text = 'Mouse Alive, Angle : ' + diffangle.toFixed(2) +', Position : ' + mouseposition[0].toFixed(2) + ', ' + mouseposition[1].toFixed(2)
 				}
 				
 				updateText('simulationgraph', 'mousestatus' , options)
@@ -2198,47 +2212,49 @@
 
 
 		function buttonclick(name) {
-			for (m = 0; m < possiblekeys.length; m++) {
-				map[possiblekeys[m]] = false
-			}
-			document.getElementById('cbtn' + name).style.backgroundColor = "hsla(190, 100%, 0%, 1)"
-			document.getElementById('cbtn' + name).style.color = "hsla(190, 100%, 100%, 1)"
-			if (name == 1) {
-				map[37] = true
-				map[38] = true
-			}
-			else if (name == 2) {
-				map[38] = true
-			}
-			else if (name == 3) {
-				map[38] = true
-				map[39] = true
-			}
-			else if (name == 4) {
-				map[37] = true
-			}
-			else if (name == 6) {
-				map[39] = true
-			}
-			else if (name == 7) {
-				map[37] = true
-				map[40] = true
-			}
-			else if (name == 8) {
-				map[40] = true
-			}
-			else if (name == 9) {
-				map[39] = true
-				map[40] = true
-			}
-			else if (name == 10) {
-				map[82] = true
-			}
-			else if (name == 11) {
-				map[79] = true
-			}
-			else if (name == 12) {
-				map[69] = true
+			if (playing) {
+				for (m = 0; m < possiblekeys.length; m++) {
+					map[possiblekeys[m]] = false
+				}
+				document.getElementById('cbtn' + name).style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+				document.getElementById('cbtn' + name).style.color = "hsla(190, 100%, 100%, 1)"
+				if (name == 1) {
+					map[37] = true
+					map[38] = true
+				}
+				else if (name == 2) {
+					map[38] = true
+				}
+				else if (name == 3) {
+					map[38] = true
+					map[39] = true
+				}
+				else if (name == 4) {
+					map[37] = true
+				}
+				else if (name == 6) {
+					map[39] = true
+				}
+				else if (name == 7) {
+					map[37] = true
+					map[40] = true
+				}
+				else if (name == 8) {
+					map[40] = true
+				}
+				else if (name == 9) {
+					map[39] = true
+					map[40] = true
+				}
+				else if (name == 10) {
+					map[82] = true
+				}
+				else if (name == 11) {
+					map[79] = true
+				}
+				else if (name == 12) {
+					map[69] = true
+				}
 			}
 
 
@@ -2249,10 +2265,13 @@
 			for (m = 0; m < possiblekeys.length; m++) {
 				map[possiblekeys[m]] = false
 			}
-			for (k = 1; k < 13; k++) {
-				document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 100%, 50%, 0)"
-				document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
+			if (playing) {
+				for (k = 1; k < 13; k++) {
+					document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 100%, 50%, 0)"
+					document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
+				}
 			}
+				
 		}
 
 
