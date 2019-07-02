@@ -95,9 +95,8 @@
 						<td colspan="1" id="cbtn4" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(4)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(4)" >
 							<i class="fa fa-caret-left" aria-hidden="true"></i>
 						</td>
-						<td colspan="1" id="cbtn5" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);">
+						<td colspan="1" id="cbtn5" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onclick="closeandplayloop()">
 							<i class="fa fa-pause-circle" aria-hidden="true"></i>
-
 						</td>
 						<td colspan="1" id="cbtn6" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(6)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(6)" >
 							<i class="fa fa-caret-right" aria-hidden="true"></i>
@@ -1836,10 +1835,11 @@
 		mousetext = addText('simulationgraph', 'mousetext' , options)
 
 		options = {}
-		options.x = 10
-		options.y = 10
+		options.x = 0
+		options.y = -0.5
 		options.text = 'Mouse Alive'
-		options.fontSize = 2
+		options.textAlign = 'center'
+		options.fontSize = 3
 		if (darkmode) {
 			// options.textcolor = 'hsla(190, 20%, 70%, 1)'
 		}
@@ -1879,6 +1879,7 @@
 		}
 
 		looptime = 0
+		playing = true
 		function playLoop(event) {
 			loopinterval = setInterval(frame, 8);
 			function frame() {
@@ -1901,6 +1902,20 @@
 					updateText('simulationgraph', 'mousestatus' , options)
 				}
 			}
+		}
+
+		function closeandplayloop() {
+			if (playing) {
+				clearInterval(loopinterval);
+				playing = false
+				document.getElementById('cbtn5').innerHTML = '<i class="fa fa-play-circle" aria-hidden="true"></i>'
+			}
+			else {
+				playLoop()
+				playing = true
+				document.getElementById('cbtn5').innerHTML = '<i class="fa fa-pause-circle" aria-hidden="true"></i>'
+			}
+			
 		}
 
 
@@ -2252,9 +2267,9 @@
 
 		var map = {}; // You could also use an array
 		onkeydown = onkeyup = function(e){
-		e = e || event; // to deal with IE
-		map[e.keyCode] = e.type == 'keydown';
-		/* insert conditional here */
+			e = e || event; // to deal with IE
+			map[e.keyCode] = e.type == 'keydown';
+			/* insert conditional here */
 		}
 
 		for (m = 0; m < possiblekeys.length; m++) {
