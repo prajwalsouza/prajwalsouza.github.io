@@ -2287,49 +2287,99 @@
 
 
 		function assignkeys() {
+			if (playing) {
+				for (k = 1; k < 13; k++) {
+					document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 100%, 50%, 0)"
+					document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
+				}
+			}
 			if (map[82] || touchmap['cbtn10']) {
 				mousedirection ='rotate'
 				mousemovement = true
+				if (playing) {
+					document.getElementById('cbtn10').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+					document.getElementById('cbtn10').style.color = "hsla(190, 100%, 100%, 1)"
+				}
 			}
 			else if (map[69] || touchmap['cbtn12']) {
 				mousedirection ='rotate-clockwise'
 				mousemovement = true
+				if (playing) {
+					document.getElementById('cbtn12').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+					document.getElementById('cbtn12').style.color = "hsla(190, 100%, 100%, 1)"
+				}
 			}
 			else if (map[79] || touchmap['cbtn11']) {
 				mousedirection ='outward'
 				mousemovement = true
+				if (playing) {
+					document.getElementById('cbtn11').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+					document.getElementById('cbtn11').style.color = "hsla(190, 100%, 100%, 1)"
+				}
 			}
 			else if (checkTruth([37]) || touchmap['cbtn4']) {
 				mousedirection = [-1, 0]
 				mousemovement = true
+				if (playing) {
+					document.getElementById('cbtn4').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+					document.getElementById('cbtn4').style.color = "hsla(190, 100%, 100%, 1)"
+				}
 			}
 			else if (checkTruth([38]) || touchmap['cbtn2']) {
 				mousedirection = [0, 1]
 				mousemovement = true
+				if (playing) {
+					document.getElementById('cbtn2').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+					document.getElementById('cbtn2').style.color = "hsla(190, 100%, 100%, 1)"
+				}
 			}
 			else if (checkTruth([39]) || touchmap['cbtn6']) {
 				mousedirection = [1, 0]
 				mousemovement = true
+				if (playing) {
+					document.getElementById('cbtn6').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+					document.getElementById('cbtn6').style.color = "hsla(190, 100%, 100%, 1)"
+				}
 			}
 			else if (checkTruth([40]) || touchmap['cbtn8']) {
 				mousedirection = [0, -1]
 				mousemovement = true
+				if (playing) {
+					document.getElementById('cbtn8').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+					document.getElementById('cbtn8').style.color = "hsla(190, 100%, 100%, 1)"
+				}
 			}
 			else if (checkTruth([37,38]) || touchmap['cbtn1']) {
 				mousedirection = [-invsqrt2, invsqrt2]
 				mousemovement = true
+				if (playing) {
+					document.getElementById('cbtn1').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+					document.getElementById('cbtn1').style.color = "hsla(190, 100%, 100%, 1)"
+				}
 			}
 			else if (checkTruth([38,39]) || touchmap['cbtn3']) {
 				mousedirection = [invsqrt2, invsqrt2]
 				mousemovement = true
+				if (playing) {
+					document.getElementById('cbtn3').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+					document.getElementById('cbtn3').style.color = "hsla(190, 100%, 100%, 1)"
+				}
 			}
 			else if (checkTruth([39,40]) || touchmap['cbtn9']) {
 				mousedirection = [invsqrt2, -invsqrt2]
 				mousemovement = true
+				if (playing) {
+					document.getElementById('cbtn9').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+					document.getElementById('cbtn9').style.color = "hsla(190, 100%, 100%, 1)"
+				}
 			}
 			else if (checkTruth([40,37]) || touchmap['cbtn7']) {
 				mousedirection = [-invsqrt2, -invsqrt2]
 				mousemovement = true
+				if (playing) {
+					document.getElementById('cbtn7').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+					document.getElementById('cbtn7').style.color = "hsla(190, 100%, 100%, 1)"
+				}
 			}
 			else {
 				mousemovement = false
@@ -2389,15 +2439,15 @@
 
 
 		function buttonclickout() {
-			for (m = 0; m < possiblekeys.length; m++) {
-				map[possiblekeys[m]] = false
-			}
-			if (playing) {
-				for (k = 1; k < 13; k++) {
-					document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 100%, 50%, 0)"
-					document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
-				}
-			}
+			// for (m = 0; m < possiblekeys.length; m++) {
+			// 	map[possiblekeys[m]] = false
+			// }
+			// if (playing) {
+			// 	for (k = 1; k < 13; k++) {
+			// 		document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 100%, 50%, 0)"
+			// 		document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
+			// 	}
+			// }
 				
 		}
 
