@@ -2478,13 +2478,16 @@
 		}
 
 		mousemap = {}
-		onmouseover = onmouseout = function(e){
-			e = e || event; // to deal with IE
-			mousemap[e.target.id] = (e.type == 'mouseover') || (e.type == 'mousemove');
-			/* insert conditional here */
-			// console.log(touchmap)
-			// console.log(e)
+		if (window.innerHeight < window.innerWidth) {
+			onmouseover = onmouseout = function(e){
+				e = e || event; // to deal with IE
+				mousemap[e.target.id] = (e.type == 'mouseover') || (e.type == 'mousemove');
+				/* insert conditional here */
+				// console.log(touchmap)
+				// console.log(e)
+			}
 		}
+			
 
 
 
