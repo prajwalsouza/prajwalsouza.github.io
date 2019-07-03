@@ -2421,7 +2421,7 @@
 		touchmap = {}
 		ontouchstart = ontouchend = function(e){
 			e = e || event; // to deal with IE
-			touchmap[e.target.id] = e.type == 'ontouchstart';
+			touchmap[e.target.id] = e.type == 'touchstart';
 			/* insert conditional here */
 			console.log(touchmap)
 			console.log(e)
