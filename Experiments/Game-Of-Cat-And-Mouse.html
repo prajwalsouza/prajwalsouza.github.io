@@ -43,7 +43,10 @@
 					<tr>
 						<td colspan="1" id='maintitle' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 4vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 90%;">
 							Game of Cat and Mouse - Numberphile </br><font style="font-size: 4vmin; font-weight: lighter; color: hsla(190, 100%, 60%, 1);">
-							A Simulation</font>
+							A Simulation</font><font style="cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 100%, 60%, 1);" onclick="window.open('https://prajwalsouza.github.io')">
+								at prajwalsouza.github.io
+							</font>
+
 						</td>
 					</tr>
 				</table>
@@ -52,7 +55,7 @@
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 1vw;">
 					<tr>
 						<td colspan="1" id='description' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);">
-							A simulation based on a Numberphile video. Please watch the video to understand the problem simulated here.
+							A simulation based on a <font style="cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 60%, 1);" onclick="window.open('https://www.youtube.com/watch?v=vF_-ob9vseM')">Numberphile video</font>. Please watch the video to understand the problem simulated here.
 						</td>
 					</tr>
 				</table>
@@ -2414,6 +2417,16 @@
 			map[e.keyCode] = e.type == 'keydown';
 			/* insert conditional here */
 		}
+
+		touchmap = {}
+		ontouchstart = ontouchend = function(e){
+			e = e || event; // to deal with IE
+			touchmap[e.target.id] = e.type == 'ontouchstart';
+			/* insert conditional here */
+			console.log(touchmap)
+		}
+
+
 
 		for (m = 0; m < possiblekeys.length; m++) {
 			map[possiblekeys[m]] = false
