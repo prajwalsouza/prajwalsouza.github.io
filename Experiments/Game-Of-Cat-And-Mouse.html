@@ -2287,47 +2287,47 @@
 
 
 		function assignkeys() {
-			if (map[82]) {
+			if (map[82] || touchmap['cbtn10']) {
 				mousedirection ='rotate'
 				mousemovement = true
 			}
-			else if (map[69]) {
+			else if (map[69] || touchmap['cbtn12']) {
 				mousedirection ='rotate-clockwise'
 				mousemovement = true
 			}
-			else if (map[79]) {
+			else if (map[79] || touchmap['cbtn11']) {
 				mousedirection ='outward'
 				mousemovement = true
 			}
-			else if (checkTruth([37])) {
+			else if (checkTruth([37]) || touchmap['cbtn4']) {
 				mousedirection = [-1, 0]
 				mousemovement = true
 			}
-			else if (checkTruth([38])) {
+			else if (checkTruth([38]) || touchmap['cbtn2']) {
 				mousedirection = [0, 1]
 				mousemovement = true
 			}
-			else if (checkTruth([39])) {
+			else if (checkTruth([39]) || touchmap['cbtn6']) {
 				mousedirection = [1, 0]
 				mousemovement = true
 			}
-			else if (checkTruth([40])) {
+			else if (checkTruth([40]) || touchmap['cbtn8']) {
 				mousedirection = [0, -1]
 				mousemovement = true
 			}
-			else if (checkTruth([37,38])) {
+			else if (checkTruth([37,38]) || touchmap['cbtn1']) {
 				mousedirection = [-invsqrt2, invsqrt2]
 				mousemovement = true
 			}
-			else if (checkTruth([38,39])) {
+			else if (checkTruth([38,39]) || touchmap['cbtn3']) {
 				mousedirection = [invsqrt2, invsqrt2]
 				mousemovement = true
 			}
-			else if (checkTruth([39,40])) {
+			else if (checkTruth([39,40]) || touchmap['cbtn9']) {
 				mousedirection = [invsqrt2, -invsqrt2]
 				mousemovement = true
 			}
-			else if (checkTruth([40,37])) {
+			else if (checkTruth([40,37]) || touchmap['cbtn7']) {
 				mousedirection = [-invsqrt2, -invsqrt2]
 				mousemovement = true
 			}
@@ -2339,50 +2339,50 @@
 
 
 		function buttonclick(name) {
-			if (playing) {
-				for (m = 0; m < possiblekeys.length; m++) {
-					map[possiblekeys[m]] = false
-				}
-				document.getElementById('cbtn' + name).style.backgroundColor = "hsla(190, 100%, 0%, 1)"
-				document.getElementById('cbtn' + name).style.color = "hsla(190, 100%, 100%, 1)"
-				if (name == 1) {
-					map[37] = true
-					map[38] = true
-				}
-				else if (name == 2) {
-					map[38] = true
-				}
-				else if (name == 3) {
-					map[38] = true
-					map[39] = true
-				}
-				else if (name == 4) {
-					map[37] = true
-				}
-				else if (name == 6) {
-					map[39] = true
-				}
-				else if (name == 7) {
-					map[37] = true
-					map[40] = true
-				}
-				else if (name == 8) {
-					map[40] = true
-				}
-				else if (name == 9) {
-					map[39] = true
-					map[40] = true
-				}
-				else if (name == 10) {
-					map[82] = true
-				}
-				else if (name == 11) {
-					map[79] = true
-				}
-				else if (name == 12) {
-					map[69] = true
-				}
-			}
+			// if (playing) {
+			// 	for (m = 0; m < possiblekeys.length; m++) {
+			// 		map[possiblekeys[m]] = false
+			// 	}
+			// 	document.getElementById('cbtn' + name).style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+			// 	document.getElementById('cbtn' + name).style.color = "hsla(190, 100%, 100%, 1)"
+			// 	if (name == 1) {
+			// 		map[37] = true
+			// 		map[38] = true
+			// 	}
+			// 	else if (name == 2) {
+			// 		map[38] = true
+			// 	}
+			// 	else if (name == 3) {
+			// 		map[38] = true
+			// 		map[39] = true
+			// 	}
+			// 	else if (name == 4) {
+			// 		map[37] = true
+			// 	}
+			// 	else if (name == 6) {
+			// 		map[39] = true
+			// 	}
+			// 	else if (name == 7) {
+			// 		map[37] = true
+			// 		map[40] = true
+			// 	}
+			// 	else if (name == 8) {
+			// 		map[40] = true
+			// 	}
+			// 	else if (name == 9) {
+			// 		map[39] = true
+			// 		map[40] = true
+			// 	}
+			// 	else if (name == 10) {
+			// 		map[82] = true
+			// 	}
+			// 	else if (name == 11) {
+			// 		map[79] = true
+			// 	}
+			// 	else if (name == 12) {
+			// 		map[69] = true
+			// 	}
+			// }
 
 
 		}
@@ -2423,8 +2423,8 @@
 			e = e || event; // to deal with IE
 			touchmap[e.target.id] = e.type == 'touchstart';
 			/* insert conditional here */
-			console.log(touchmap)
-			console.log(e)
+			// console.log(touchmap)
+			// console.log(e)
 		}
 
 
