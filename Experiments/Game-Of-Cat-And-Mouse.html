@@ -65,20 +65,73 @@
 				<table width="100%" height='14%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw; ">
 					<tr>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border-bottom: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; color: white; background-color: transparent;"></td>
-						<td colspan="1" id='controltab' style="text-align: center; vertical-align: middle; border-bottom: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; color: white; background-color: hsla(260, 100%, 50%, 0.4); box-shadow: 0px 12px 0px -10px hsla(100,0%,0%,0.8); cursor: pointer;">
+						<td colspan="1" id='controltab' style="text-align: center; vertical-align: middle; border-bottom: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; color: white; background-color: hsla(260, 100%, 50%, 0.4); box-shadow: 0px 12px 0px -10px hsla(100,0%,0%,0.8); cursor: pointer;"  onclick="switchto('controltab')">
 								<i class="fa fa-gamepad" aria-hidden="true"></i>&nbsp Controls
 						</td>
-						<td colspan="1" id='strategytab' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(260, 100%, 50%, 0.4); cursor: pointer;">
+						<td colspan="1" id='strategytab' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(260, 100%, 50%, 0.4); cursor: pointer;" onclick="switchto('strategytab')">
 							<i class="fa fa-lightbulb-o" aria-hidden="true"></i>&nbsp Strategy
 						</td>
-						<td colspan="1" id='settingtab' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(260, 100%, 50%, 0.4); cursor: pointer;">
+						<td colspan="1" id='settingtab' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(260, 100%, 50%, 0.4); cursor: pointer;" onclick="switchto('settingtab')">
 							<i class="fa fa-cogs" aria-hidden="true"></i>&nbsp Settings
 						</td>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border-bottom: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; color: white; background-color: transparent;"></td>
 					</tr>
 				</table>
-
-				<table id="controlbuttons" width="100%" height='80%' style="border: 0px solid black; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 4vw; color: black; border-spacing: 8px;">
+				<table id="strategycontrols" width="100%" height='80%' style="border: 0px solid black; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 4vw; color: black; border-spacing: 8px; position: absolute;">
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						<td colspan="1" id="cbtn1" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(1)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(1)" onclick="">
+							<i class="fa fa-caret-right" aria-hidden="true" style="transform:rotate(240deg); webkit-transform:rotate(240deg);"></i>
+						</td>
+						<td colspan="1" id="cbtn2" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(2)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(2)" onclick="">
+							<i class="fa fa-caret-up" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn3" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(3)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(3)" onclick="">
+							<i class="fa fa-caret-right" aria-hidden="true" style="transform:rotate(315deg); webkit-transform:rotate(315deg);"></i>
+						</td>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+					</tr>
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						<td colspan="1" id="cbtn4" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(4)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(4)" >
+							<i class="fa fa-caret-left" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn5" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onclick="closeandplayloop()">
+							<i class="fa fa-pause-circle" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn6" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(6)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(6)" >
+							<i class="fa fa-caret-right" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+					</tr>
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						<td colspan="1" id="cbtn7" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(7)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(7)" >
+							<i class="fa fa-caret-right" aria-hidden="true" style="transform:rotate(135deg); webkit-transform:rotate(135deg);"></i>
+						</td>
+						<td colspan="1" id="cbtn8" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(8)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(8)" >
+							<i class="fa fa-caret-down" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn9" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(9)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(9)" >
+							<i class="fa fa-caret-right" aria-hidden="true" style="transform:rotate(45deg); webkit-transform:rotate(45deg);"></i>
+						</td>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+					</tr>
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						<td colspan="1" id="cbtn10" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 4.3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(10)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(10)">
+							<i class="fa fa-undo" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn11" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 4.3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(11)" onmouseout="buttonclickout()" ontouchend="buttonclickout()">
+							<i class="fa fa-arrows" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn12" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 4.3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(12)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(12)">
+							<i class="fa fa-repeat" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+					</tr>
+				</table>
+				<table id="settingcontrols" width="100%" height='80%' style="border: 0px solid black; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 4vw; color: black; border-spacing: 8px; position: absolute;">
 					<tr>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
 						<td colspan="1" id="cbtn1" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(1)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(1)" >
@@ -132,6 +185,61 @@
 						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
 					</tr>
 				</table>
+				<table id="controlbuttons" width="100%" height='80%' style="border: 0px solid black; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 4vw; color: black; border-spacing: 8px; position: absolute;">
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						<td colspan="1" id="cbtn1" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(1)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(1)" >
+							<i class="fa fa-caret-right" aria-hidden="true" style="transform:rotate(240deg); webkit-transform:rotate(240deg);"></i>
+						</td>
+						<td colspan="1" id="cbtn2" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(2)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(2)" >
+							<i class="fa fa-caret-up" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn3" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(3)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(3)" >
+							<i class="fa fa-caret-right" aria-hidden="true" style="transform:rotate(315deg); webkit-transform:rotate(315deg);"></i>
+						</td>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+					</tr>
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						<td colspan="1" id="cbtn4" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(4)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(4)" >
+							<i class="fa fa-caret-left" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn5" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onclick="closeandplayloop()">
+							<i class="fa fa-pause-circle" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn6" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(6)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(6)" >
+							<i class="fa fa-caret-right" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+					</tr>
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						<td colspan="1" id="cbtn7" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(7)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(7)" >
+							<i class="fa fa-caret-right" aria-hidden="true" style="transform:rotate(135deg); webkit-transform:rotate(135deg);"></i>
+						</td>
+						<td colspan="1" id="cbtn8" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(8)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(8)" >
+							<i class="fa fa-caret-down" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn9" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(9)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(9)" >
+							<i class="fa fa-caret-right" aria-hidden="true" style="transform:rotate(45deg); webkit-transform:rotate(45deg);"></i>
+						</td>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+					</tr>
+					<tr>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						<td colspan="1" id="cbtn10" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 4.3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(10)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(10)">
+							<i class="fa fa-undo" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn11" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 4.3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(11)" onmouseout="buttonclickout()" ontouchend="buttonclickout()">
+							<i class="fa fa-arrows" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" id="cbtn12" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 4.3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);" onmouseover="buttonclick(12)" onmouseout="buttonclickout()" ontouchend="buttonclickout()" ontouchstart="buttonclick(12)">
+							<i class="fa fa-repeat" aria-hidden="true"></i>
+						</td>
+						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+					</tr>
+				</table>
+
 			</div>
 		</div>
 
@@ -1860,6 +1968,22 @@
 		// addedptcritical = addedptcritical[0]
 
 		// addedptcritical.style.visibility = 'hidden'
+
+		alltabs = ['controltab', 'strategytab', 'settingtab']
+
+		function switchto(tabname) {
+			for (m = 0; m < alltabs.length; m++) {
+				if (tabname == alltabs[m]) {
+					document.getElementById(alltabs[m]).style.color = 'white'
+					document.getElementById(alltabs[m]).style.boxShadow = "0px 12px 0px -10px hsla(100,0%,0%,0.8)";
+				}
+				else {
+					document.getElementById(alltabs[m]).style.color = 'black'
+					document.getElementById(alltabs[m]).style.boxShadow = "0px 12px 0px -10px hsla(100,0%,0%,0)";
+				}
+			}
+				
+		}
 
 
 
