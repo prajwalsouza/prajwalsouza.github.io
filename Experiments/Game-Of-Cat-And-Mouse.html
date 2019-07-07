@@ -1999,18 +1999,18 @@
 		}
 
 
-		if (circlingradius > dashradius) {
-			options = {}
-			options.x = 0
-			options.y = 0
-			options.stroke = 'hsla(210, 0%, 0%, 1)'
-			options.strokewidth = 4
-			options.radius = (circlingradius + dashradius)/2
-			if (darkmode) {
-				options.pointcolor = 'hsla(190, 100%, 70%, 0)'
-			}
-			addCircle('simulationgraph', 'goldzone' , options)
-		}
+		// if (circlingradius > dashradius) {
+		// 	options = {}
+		// 	options.x = 0
+		// 	options.y = 0
+		// 	options.stroke = 'hsla(210, 0%, 0%, 1)'
+		// 	options.strokewidth = 4
+		// 	options.radius = (circlingradius + dashradius)/2
+		// 	if (darkmode) {
+		// 		options.pointcolor = 'hsla(190, 100%, 70%, 0)'
+		// 	}
+		// 	addCircle('simulationgraph', 'goldzone' , options)
+		// }
 
 
 		options = {}
@@ -2237,11 +2237,40 @@
 			
 		}
 
+		torusMode = true
+
+		worldxmax = 1.1
+		worldxmin = -1.1
+		worldymax = 1.4
+		worldymin = -2.4
+
+
+		// graphoptions.xmax = 1.1
+		// graphoptions.xmin = -1.1
+		// graphoptions.ymax = 1.4
+		// graphoptions.ymin = -2.4
+
 
 		function catmove() {
 			headdirection = checkproximity()[1]
 			newcatpositionX = catposition[0] + (headdirection[0]*catspeed*timestep)
 			newcatpositionY = catposition[1] + (headdirection[1]*catspeed*timestep)
+			if (torusMode) {
+				if (newcatpositionX > worldxmax) {
+					newcatpositionX = worldxmin
+				}
+				else if (newcatpositionX < worldxmin) {
+					newcatpositionX = worldxmax
+				}
+
+				if (newcatpositionY > worldymax) {
+					newcatpositionY = worldymin
+				}
+				else if (newcatpositionY < worldymin) {
+					newcatpositionY = worldymax
+				}
+			}
+				
 			if (Math.pow((newcatpositionX*newcatpositionX) + (newcatpositionY*newcatpositionY), 0.5) > 1) {
 				catposition[0] = newcatpositionX
 				catposition[1] = newcatpositionY
@@ -2310,8 +2339,26 @@
 						mouseposition[1] = mousedist*Math.sin((mouseangle*Math.PI/180) + (mousespeed*timestep/mousedist))
 					}
 					else {
-						mouseposition[0] = mousedist*Math.cos((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
-						mouseposition[1] = mousedist*Math.sin((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
+						newmousepositionX = mousedist*Math.cos((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
+						newmousepositionY = mousedist*Math.sin((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
+						if (torusMode) {
+							if (newmousepositionX > worldxmax) {
+								newmousepositionX = worldxmin
+							}
+							else if (newmousepositionX < worldxmin) {
+								newmousepositionX = worldxmax
+							}
+
+							if (newmousepositionY > worldymax) {
+								newmousepositionY = worldymin
+							}
+							else if (newmousepositionY < worldymin) {
+								newmousepositionY = worldymax
+							}
+						}
+						mouseposition[0] = newmousepositionX
+						mouseposition[1] = newmousepositionY
+							
 					}
 					updatePoint('simulationgraph', 'mouse', mouseposition[0], mouseposition[1])
 					textopt = {}
@@ -2329,8 +2376,25 @@
 						mouseposition[1] = mousedist*Math.sin((mouseangle*Math.PI/180) - (mousespeed*timestep/mousedist))
 					}
 					else {
-						mouseposition[0] = mousedist*Math.cos((mouseangle*Math.PI/180) - (2*catspeed*timestep/mousedist))
-						mouseposition[1] = mousedist*Math.sin((mouseangle*Math.PI/180) - (2*catspeed*timestep/mousedist))
+						newmousepositionX = mousedist*Math.cos((mouseangle*Math.PI/180) - (2*catspeed*timestep/mousedist))
+						newmousepositionY = mousedist*Math.sin((mouseangle*Math.PI/180) - (2*catspeed*timestep/mousedist))
+						if (torusMode) {
+							if (newmousepositionX > worldxmax) {
+								newmousepositionX = worldxmin
+							}
+							else if (newmousepositionX < worldxmin) {
+								newmousepositionX = worldxmax
+							}
+
+							if (newmousepositionY > worldymax) {
+								newmousepositionY = worldymin
+							}
+							else if (newmousepositionY < worldymin) {
+								newmousepositionY = worldymax
+							}
+						}
+						mouseposition[0] = newmousepositionX
+						mouseposition[1] = newmousepositionY
 					}
 					updatePoint('simulationgraph', 'mouse', mouseposition[0], mouseposition[1])
 					textopt = {}
@@ -2348,8 +2412,25 @@
 						mouseposition[1] = ((mousespeed*timestep) + mousedist)*Math.sin((mouseangle))
 					}
 					else {
-						mouseposition[0] = ((2*catspeed*timestep) + mousedist)*Math.cos((mouseangle))
-						mouseposition[1] = ((2*catspeed*timestep) + mousedist)*Math.sin((mouseangle))
+						newmousepositionX = ((2*catspeed*timestep) + mousedist)*Math.cos((mouseangle))
+						newmousepositionY = ((2*catspeed*timestep) + mousedist)*Math.sin((mouseangle))
+						if (torusMode) {
+							if (newmousepositionX > worldxmax) {
+								newmousepositionX = worldxmin
+							}
+							else if (newmousepositionX < worldxmin) {
+								newmousepositionX = worldxmax
+							}
+
+							if (newmousepositionY > worldymax) {
+								newmousepositionY = worldymin
+							}
+							else if (newmousepositionY < worldymin) {
+								newmousepositionY = worldymax
+							}
+						}
+						mouseposition[0] = newmousepositionX
+						mouseposition[1] = newmousepositionY
 					}
 					updatePoint('simulationgraph', 'mouse', mouseposition[0], mouseposition[1])
 					textopt = {}
@@ -2363,8 +2444,25 @@
 						mouseposition[1] = mouseposition[1] + (mousedirection[1]*mousespeed*timestep)
 					}
 					else {
-						mouseposition[0] = mouseposition[0] + (mousedirection[0]*2*catspeed*timestep)
-						mouseposition[1] = mouseposition[1] + (mousedirection[1]*2*catspeed*timestep)
+						newmousepositionX = mouseposition[0] + (mousedirection[0]*2*catspeed*timestep)
+						newmousepositionY = mouseposition[1] + (mousedirection[1]*2*catspeed*timestep)
+						if (torusMode) {
+							if (newmousepositionX > worldxmax) {
+								newmousepositionX = worldxmin
+							}
+							else if (newmousepositionX < worldxmin) {
+								newmousepositionX = worldxmax
+							}
+
+							if (newmousepositionY > worldymax) {
+								newmousepositionY = worldymin
+							}
+							else if (newmousepositionY < worldymin) {
+								newmousepositionY = worldymax
+							}
+						}
+						mouseposition[0] = newmousepositionX
+						mouseposition[1] = newmousepositionY
 					}
 					updatePoint('simulationgraph', 'mouse', mouseposition[0], mouseposition[1])
 					textopt = {}
@@ -2387,8 +2485,25 @@
 						mouseposition[1] = mouseposition[1] + (awaydirection[1]*mousespeed*timestep)
 					}
 					else {
-						mouseposition[0] = mouseposition[0] + (awaydirection[0]*2*catspeed*timestep)
-						mouseposition[1] = mouseposition[1] + (awaydirection[1]*2*catspeed*timestep)
+						newmousepositionX = mouseposition[0] + (awaydirection[0]*2*catspeed*timestep)
+						newmousepositionY = mouseposition[1] + (awaydirection[1]*2*catspeed*timestep)
+						if (torusMode) {
+							if (newmousepositionX > worldxmax) {
+								newmousepositionX = worldxmin
+							}
+							else if (newmousepositionX < worldxmin) {
+								newmousepositionX = worldxmax
+							}
+
+							if (newmousepositionY > worldymax) {
+								newmousepositionY = worldymin
+							}
+							else if (newmousepositionY < worldymin) {
+								newmousepositionY = worldymax
+							}
+						}
+						mouseposition[0] = newmousepositionX
+						mouseposition[1] = newmousepositionY
 					}
 					updatePoint('simulationgraph', 'mouse', mouseposition[0], mouseposition[1])
 					lineopts = {}
@@ -2413,8 +2528,25 @@
 						mouseposition[1] = mouseposition[1] + (oppvecdirection[1]*mousespeed*timestep)
 					}
 					else {
-						mouseposition[0] = mouseposition[0] + (oppvecdirection[0]*2*catspeed*timestep)
-						mouseposition[1] = mouseposition[1] + (oppvecdirection[1]*2*catspeed*timestep)
+						newmousepositionX = mouseposition[0] + (oppvecdirection[0]*2*catspeed*timestep)
+						newmousepositionY = mouseposition[1] + (oppvecdirection[1]*2*catspeed*timestep)
+						if (torusMode) {
+							if (newmousepositionX > worldxmax) {
+								newmousepositionX = worldxmin
+							}
+							else if (newmousepositionX < worldxmin) {
+								newmousepositionX = worldxmax
+							}
+
+							if (newmousepositionY > worldymax) {
+								newmousepositionY = worldymin
+							}
+							else if (newmousepositionY < worldymin) {
+								newmousepositionY = worldymax
+							}
+						}
+						mouseposition[0] = newmousepositionX
+						mouseposition[1] = newmousepositionY
 					}
 					updatePoint('simulationgraph', 'mouse', mouseposition[0], mouseposition[1])
 					updatePoint('simulationgraph', 'oppositePoint', -catposition[0], -catposition[1])
@@ -2431,8 +2563,25 @@
 						mouseposition[1] = ((mousespeed*timestep) + mousedist)*Math.sin((mouseangle))
 					}
 					else {
-						mouseposition[0] = ((2*catspeed*timestep) + mousedist)*Math.cos((mouseangle))
-						mouseposition[1] = ((2*catspeed*timestep) + mousedist)*Math.sin((mouseangle))
+						newmousepositionX = ((2*catspeed*timestep) + mousedist)*Math.cos((mouseangle))
+						newmousepositionY = ((2*catspeed*timestep) + mousedist)*Math.sin((mouseangle))
+						if (torusMode) {
+							if (newmousepositionX > worldxmax) {
+								newmousepositionX = worldxmin
+							}
+							else if (newmousepositionX < worldxmin) {
+								newmousepositionX = worldxmax
+							}
+
+							if (newmousepositionY > worldymax) {
+								newmousepositionY = worldymin
+							}
+							else if (newmousepositionY < worldymin) {
+								newmousepositionY = worldymax
+							}
+						}
+						mouseposition[0] = newmousepositionX
+						mouseposition[1] = newmousepositionY
 					}
 					updatePoint('simulationgraph', 'mouse', mouseposition[0], mouseposition[1])
 					textopt = {}
@@ -2448,8 +2597,25 @@
 						mouseposition[1] = mousedist*Math.sin((mouseangle*Math.PI/180) + (mousespeed*timestep/mousedist))
 					}
 					else {
-						mouseposition[0] = mousedist*Math.cos((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
-						mouseposition[1] = mousedist*Math.sin((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
+						newmousepositionX = mousedist*Math.cos((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
+						newmousepositionY = mousedist*Math.sin((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
+						if (torusMode) {
+							if (newmousepositionX > worldxmax) {
+								newmousepositionX = worldxmin
+							}
+							else if (newmousepositionX < worldxmin) {
+								newmousepositionX = worldxmax
+							}
+
+							if (newmousepositionY > worldymax) {
+								newmousepositionY = worldymin
+							}
+							else if (newmousepositionY < worldymin) {
+								newmousepositionY = worldymax
+							}
+						}
+						mouseposition[0] = newmousepositionX
+						mouseposition[1] = newmousepositionY
 					}
 					updatePoint('simulationgraph', 'mouse', mouseposition[0], mouseposition[1])
 					textopt = {}
@@ -2510,8 +2676,25 @@
 								mouseposition[1] = mousedist*Math.sin((mouseangle*Math.PI/180) + (mousespeed*timestep/mousedist))
 							}
 							else {
-								mouseposition[0] = mousedist*Math.cos((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
-								mouseposition[1] = mousedist*Math.sin((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
+								newmousepositionX = mousedist*Math.cos((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
+								newmousepositionY = mousedist*Math.sin((mouseangle*Math.PI/180) + (2*catspeed*timestep/mousedist))
+								if (torusMode) {
+									if (newmousepositionX > worldxmax) {
+										newmousepositionX = worldxmin
+									}
+									else if (newmousepositionX < worldxmin) {
+										newmousepositionX = worldxmax
+									}
+
+									if (newmousepositionY > worldymax) {
+										newmousepositionY = worldymin
+									}
+									else if (newmousepositionY < worldymin) {
+										newmousepositionY = worldymax
+									}
+								}
+								mouseposition[0] = newmousepositionX
+								mouseposition[1] = newmousepositionY
 							}
 							updatePoint('simulationgraph', 'mouse', mouseposition[0], mouseposition[1])
 							textopt = {}
@@ -2541,8 +2724,26 @@
 								mouseposition[1] = ((mousespeed*timestep) + mousedist)*Math.sin((mouseangle))
 							}
 							else {
-								mouseposition[0] = ((2*catspeed*timestep) + mousedist)*Math.cos((mouseangle))
-								mouseposition[1] = ((2*catspeed*timestep) + mousedist)*Math.sin((mouseangle))
+								newmousepositionX = ((2*catspeed*timestep) + mousedist)*Math.cos((mouseangle))
+								newmousepositionY = ((2*catspeed*timestep) + mousedist)*Math.sin((mouseangle))
+
+								if (torusMode) {
+									if (newmousepositionX > worldxmax) {
+										newmousepositionX = worldxmin
+									}
+									else if (newmousepositionX < worldxmin) {
+										newmousepositionX = worldxmax
+									}
+
+									if (newmousepositionY > worldymax) {
+										newmousepositionY = worldymin
+									}
+									else if (newmousepositionY < worldymin) {
+										newmousepositionY = worldymax
+									}
+								}
+								mouseposition[0] = newmousepositionX
+								mouseposition[1] = newmousepositionY
 							}
 							updatePoint('simulationgraph', 'mouse', mouseposition[0], mouseposition[1])
 							textopt = {}
