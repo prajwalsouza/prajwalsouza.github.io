@@ -2003,7 +2003,7 @@
 		}
 
 
-		torusMode = true
+		torusMode = false
 
 		worldxmax = 1.1
 		worldxmin = -1.1
@@ -2622,6 +2622,14 @@
 		tracecount = 0
 
 		function mousemove() {
+			mousedist = Math.pow((mouseposition[1]*mouseposition[1]) + (mouseposition[0]*mouseposition[0]), 0.5)
+
+			if (mousedist > 1) {
+				recordpathjumps = 1
+			}
+			else {
+				recordpathjumps = 10
+			}
 			
 			if (mousemovement) {
 				if (mousedirection == 'rotate') {
