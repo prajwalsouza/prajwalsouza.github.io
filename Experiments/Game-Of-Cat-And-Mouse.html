@@ -13,6 +13,35 @@
 			a {
 				cursor: pointer;
 			}
+			.slider {
+				-webkit-appearance: none;
+				width: 100%;
+				height: 15%;
+				border-radius: 5px;   
+				background: #d3d3d3;
+				outline: none;
+				opacity: 0.7;
+				-webkit-transition: .2s;
+				transition: opacity .2s;
+			}
+
+			.slider::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				appearance: none;
+				width: 10px;
+				height: 10px;
+				border-radius: 50%; 
+				background: hsla(200, 100%, 50%, 1);
+				cursor: pointer;
+			}
+
+			.slider::-moz-range-thumb {
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: hsla(200, 100%, 50%, 1);
+				cursor: pointer;
+			}
 		</style>
 
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.5.0/math.min.js" type="text/javascript"></script>
@@ -54,7 +83,7 @@
 			<div id="descriptionH" style='margin:0px;width:100%; height: 5%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 1vw;">
 					<tr>
-						<td colspan="1" id='description' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);">
+						<td id='info' colspan="1" id='description' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);">
 							A simulation based on a <font style="cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 60%, 1);" onclick="window.open('https://www.youtube.com/watch?v=vF_-ob9vseM')">Numberphile video</font>. Please watch the video to understand the problem simulated here.
 						</td>
 					</tr>
@@ -167,7 +196,10 @@
 						<td colspan="2" rowspan="2" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); background-color: hsla(190, 100%, 50%, 0);">
 							Cat Speed
 						</td>
-						<td colspan="2" rowspan="2">
+						<td colspan="1" rowspan="2" >
+							<input type="range" min="0" max="10" step="0.01" value="4" class="slider" id="catspeedinputrange"oninput="changeSetting('catspeedinputR')"></input>
+						</td>
+						<td colspan="1" rowspan="2" >
 							<input id='catspeedinput' type="number" min = '0' step ='0.01' value='4' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 3.2vmin; color: black;" oninput="changeSetting('catspeedinput')"></input>
 						</td>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1);background-color: transparent;"></td>
@@ -185,9 +217,13 @@
 						<td colspan="2" rowspan="2" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);  background-color: hsla(190, 100%, 50%, 0);" >
 							Mouse Speed (Pool)
 						</td>
-						<td colspan="2" rowspan="2" >
+						<td colspan="1" rowspan="2" >
+							<input type="range" min="0" max="4" step="0.01" value="1" class="slider" id="mousespeedinputrange"oninput="changeSetting('mousespeedinputR')"></input>
+						</td>
+						<td colspan="1" rowspan="2" >
 							<input id='mousespeedinput' type="number" min = '0' step ='0.01' value='1' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 3.2vmin; color: black;" oninput="changeSetting('mousespeedinput')"></input>
 						</td>
+						
 						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); background-color: transparent;"></td>
 					</tr>
 					<tr>
@@ -230,20 +266,20 @@
 					</tr>
 					<tr>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);">
+						<td colspan="1" id='circlingradiusV-box' style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('circlingradiusvisibility')">
 							<i class="fa fa-check-square-o" aria-hidden="true"></i>
 						</td>
-						<td colspan="3" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" >
+						<td colspan="3" id='circlingradiusV' style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 50%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('circlingradiusvisibility')">
 							Show Circling Radius
 						</td>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
 					</tr>
 					<tr>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);">
+						<td colspan="1" id="dashboundaryV-box" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('escaperadiusvisibility')">
 							<i class="fa fa-check-square-o" aria-hidden="true"></i>
 						</td>
-						<td colspan="3" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" >
+						<td colspan="3" id="dashboundaryV" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 50%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('escaperadiusvisibility')">
 							Show Escape Radius
 						</td>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
@@ -322,9 +358,52 @@
 
 		<script type="text/javascript">
 
-		
-		darkmode = false
+		function infodisplay(infoobject) {
+			if (infoobject == 'normal') {
+				document.getElementById('info').innerHTML = 'A simulation based on a <font style="cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 60%, 1);" onclick="window.open("https://www.youtube.com/watch?v=vF_-ob9vseM")">Numberphile video</font>. Please watch the video to understand the problem simulated here.'
+			}
+			else if (infoobject == 'up') {
+				document.getElementById('info').innerHTML = 'Moves the mouse upward. Keyboard shortcut is the <b> up </b> key.'
+			}
+			else if (infoobject == 'down') {
+				document.getElementById('info').innerHTML = 'Moves the mouse downward. Keyboard shortcut is the <b> down </b> key.'
+			}
+			else if (infoobject == 'left') {
+				document.getElementById('info').innerHTML = 'Moves the mouse left. Keyboard shortcut is the <b> left </b> key.'
+			}
+			else if (infoobject == 'right') {
+				document.getElementById('info').innerHTML = 'Moves the mouse right. Keyboard shortcut is the <b> right </b> key.'
+			}
+			else if (infoobject == 'northeast') {
+				document.getElementById('info').innerHTML = 'Moves the mouse north-east. Keyboard shortcut involves </br>holding <b> right </b> and <b> up </b> keys together.'
+			}
+			else if (infoobject == 'southeast') {
+				document.getElementById('info').innerHTML = 'Moves the mouse south-east. Keyboard shortcut involves </br>holding <b> right </b> and <b> down </b> keys together.'
+			}
+			else if (infoobject == 'northwest') {
+				document.getElementById('info').innerHTML = 'Moves the mouse north-west. Keyboard shortcut involves </br>holding <b> left </b> and <b> up </b> keys together.'
+			}
+			else if (infoobject == 'southwest') {
+				document.getElementById('info').innerHTML = 'Moves the mouse south-west. Keyboard shortcut involves </br>holding <b> left </b> and <b> down </b> keys together.'
+			}
+			else if (infoobject == 'rotate') {
+				document.getElementById('info').innerHTML = 'Mouse rotates about the center anti-clockwise. </br>Keyboard shortcut is the <b> R </b> key.'
+			}
+			else if (infoobject == 'rotateclockwise') {
+				document.getElementById('info').innerHTML = 'Mouse rotates about the center clockwise. </br>Keyboard shortcut is the <b> E </b> key.'
+			}
+			else if (infoobject == 'outward') {
+				document.getElementById('info').innerHTML = 'Mouse moves outward away from the center. </br>Keyboard shortcut is the <b> O </b> key.'
+			}
+			else if (infoobject == 'playpause') {
+				document.getElementById('info').innerHTML = 'Play/Pause the simulation. </br>Keyboard shortcut is the <b> Spacebar </b> key.'
+			}
+			
+		}
 
+		// infodisplay('playpause')
+
+		darkmode = false
 
 		if (darkmode) {
 			document.body.style.background = 'black'
@@ -2296,6 +2375,9 @@
 
 			if (tabname == 'strategytab') {
 				useTactic = true
+				if (tactic == 'circleAndDashTactic') {
+
+				}
 			}
 				
 		}
@@ -2338,6 +2420,33 @@
 		function changeSetting(settingname) {
 			if (settingname == 'catspeedinput') {
 				catspeed = document.getElementById('catspeedinput').value
+				document.getElementById('catspeedinputrange').value = catspeed
+				dashradius = 1 - (Math.PI*mousespeed/catspeed)
+				if (dashradius > 0) {
+					options = {}
+					options.radius = dashradius
+					updateCircle('simulationgraph', 'dashboundary' , options)
+				}
+				else {
+					dashradius = 0
+				}
+
+				circlingradius = mousespeed/catspeed	
+				if (circlingradius < 1) {
+					options = {}
+					options.radius = circlingradius
+					updateCircle('simulationgraph', 'circlingboundary' , options)
+
+				}
+				else {
+					circlingradius = 1
+				}
+
+			}
+			else if (settingname == 'catspeedinputR') {
+				catspeed = document.getElementById('catspeedinputrange').value
+				document.getElementById('catspeedinput').value = catspeed
+
 				dashradius = 1 - (Math.PI*mousespeed/catspeed)
 				if (dashradius > 0) {
 					options = {}
@@ -2362,6 +2471,32 @@
 			}
 			else if (settingname == 'mousespeedinput') {
 				mousespeed = document.getElementById('mousespeedinput').value
+				document.getElementById('mousespeedinputrange').value = mousespeed
+
+				dashradius = 1 - (Math.PI*mousespeed/catspeed)
+				if (dashradius > 0) {
+					options = {}
+					options.radius = dashradius
+					updateCircle('simulationgraph', 'dashboundary' , options)
+				}
+				else {
+					dashradius = 0
+				}
+
+				circlingradius = mousespeed/catspeed	
+				if (circlingradius < 1) {
+					options = {}
+					options.radius = circlingradius
+					updateCircle('simulationgraph', 'circlingboundary' , options)
+
+				}
+				else {
+					circlingradius = 1
+				}
+			}
+			else if (settingname == 'mousespeedinputR') {
+				mousespeed = document.getElementById('mousespeedinputrange').value
+				document.getElementById('mousespeedinput').value = mousespeed
 
 				dashradius = 1 - (Math.PI*mousespeed/catspeed)
 				if (dashradius > 0) {
@@ -2442,9 +2577,43 @@
 					document.getElementById('trajectoryTrace-box').innerHTML = '<i class="fa fa-check-square-o" aria-hidden="true"></i>'
 				}
 			}
+			else if (settingname == 'circlingradiusvisibility') {
+				if (settingstatus[3]) {
+					ooptions = {}
+					options.stroke = 'hsla(260, 100%, 50%, 0)'
+					updateCircle('simulationgraph', 'circlingboundary' , options)
+					settingstatus[3] = false
+					document.getElementById('circlingradiusV').style.color = 'black'
+					document.getElementById('circlingradiusV-box').innerHTML = '<i class="fa fa-square-o" aria-hidden="true"></i>'
+				}
+				else {
+					options = {}
+					options.stroke = 'hsla(210, 100%, 50%, 1)'
+					updateCircle('simulationgraph', 'circlingboundary' , options)
+					settingstatus[3] = true
+					document.getElementById('circlingradiusV').style.color = 'hsla(190, 100%, 50%, 1)'
+					document.getElementById('circlingradiusV-box').innerHTML = '<i class="fa fa-check-square-o" aria-hidden="true"></i>'
+				}
+			}
+			else if (settingname == 'escaperadiusvisibility') {
+				if (settingstatus[3]) {
+					ooptions = {}
+					options.stroke = 'hsla(260, 100%, 50%, 0)'
+					updateCircle('simulationgraph', 'dashboundary' , options)
+					settingstatus[3] = false
+					document.getElementById('dashboundaryV').style.color = 'black'
+					document.getElementById('dashboundaryV-box').innerHTML = '<i class="fa fa-square-o" aria-hidden="true"></i>'
+				}
+				else {
+					options = {}
+					options.stroke = 'hsla(260, 100%, 50%, 1)'
+					updateCircle('simulationgraph', 'dashboundary' , options)
+					settingstatus[3] = true
+					document.getElementById('dashboundaryV').style.color = 'hsla(190, 100%, 50%, 1)'
+					document.getElementById('dashboundaryV-box').innerHTML = '<i class="fa fa-check-square-o" aria-hidden="true"></i>'
+				}
+			}
 		}
-
-
 
 		function ordinal_suffix_of(i) {
 			// Code from https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number 
@@ -2495,8 +2664,16 @@
 			}
 		}
 
+		function checkpause (event) {
+			if (event.keyCode == 32) {
+				closeandplayloop()
+			}
+		}
+		window.addEventListener('keydown', checkpause)
+
 		function closeandplayloop() {
 			if (playing) {
+				infodisplay('playpause')
 				clearInterval(loopinterval);
 				playing = false
 				document.getElementById('cbtn5').innerHTML = '<i class="fa fa-play-circle" aria-hidden="true"></i>'
@@ -2506,6 +2683,7 @@
 			}
 			else {
 				playLoop()
+				infodisplay('playpause')
 				playing = true
 				document.getElementById('cbtn5').innerHTML = '<i class="fa fa-pause-circle" aria-hidden="true"></i>'
 				for (k = 1; k < 13; k++) {
@@ -3127,9 +3305,6 @@
 					}	
 				}
 			}
-
-			
-			
 		}
 
 		function checkproximity() {
@@ -3228,6 +3403,7 @@
 
 		function assignkeys() {
 			if (playing) {
+				infodisplay('normal')
 				for (k = 1; k < 13; k++) {
 					document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 100%, 50%, 0)"
 					document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
@@ -3239,6 +3415,7 @@
 				if (playing) {
 					document.getElementById('cbtn10').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
 					document.getElementById('cbtn10').style.color = "hsla(190, 100%, 100%, 1)"
+					infodisplay('rotate')
 				}
 			}
 			else if (map[69] || touchmap['cbtn12'] || mousemap['cbtn12']) {
@@ -3247,6 +3424,7 @@
 				if (playing) {
 					document.getElementById('cbtn12').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
 					document.getElementById('cbtn12').style.color = "hsla(190, 100%, 100%, 1)"
+					infodisplay('rotateclockwise')
 				}
 			}
 			else if (map[79] || touchmap['cbtn11'] || mousemap['cbtn11']) {
@@ -3255,6 +3433,7 @@
 				if (playing) {
 					document.getElementById('cbtn11').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
 					document.getElementById('cbtn11').style.color = "hsla(190, 100%, 100%, 1)"
+					infodisplay('outward')
 				}
 			}
 			else if (checkTruth([37]) || touchmap['cbtn4'] || mousemap['cbtn4']) {
@@ -3263,6 +3442,7 @@
 				if (playing) {
 					document.getElementById('cbtn4').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
 					document.getElementById('cbtn4').style.color = "hsla(190, 100%, 100%, 1)"
+					infodisplay('left')
 				}
 			}
 			else if (checkTruth([38]) || touchmap['cbtn2'] || mousemap['cbtn2']) {
@@ -3271,6 +3451,7 @@
 				if (playing) {
 					document.getElementById('cbtn2').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
 					document.getElementById('cbtn2').style.color = "hsla(190, 100%, 100%, 1)"
+					infodisplay('up')
 				}
 			}
 			else if (checkTruth([39]) || touchmap['cbtn6'] || mousemap['cbtn6']) {
@@ -3279,6 +3460,7 @@
 				if (playing) {
 					document.getElementById('cbtn6').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
 					document.getElementById('cbtn6').style.color = "hsla(190, 100%, 100%, 1)"
+					infodisplay('right')
 				}
 			}
 			else if (checkTruth([40]) || touchmap['cbtn8'] || mousemap['cbtn8']) {
@@ -3287,6 +3469,7 @@
 				if (playing) {
 					document.getElementById('cbtn8').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
 					document.getElementById('cbtn8').style.color = "hsla(190, 100%, 100%, 1)"
+					infodisplay('down')
 				}
 			}
 			else if (checkTruth([37,38]) || touchmap['cbtn1'] || mousemap['cbtn1']) {
@@ -3295,6 +3478,7 @@
 				if (playing) {
 					document.getElementById('cbtn1').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
 					document.getElementById('cbtn1').style.color = "hsla(190, 100%, 100%, 1)"
+					infodisplay('northwest')
 				}
 			}
 			else if (checkTruth([38,39]) || touchmap['cbtn3'] || mousemap['cbtn3']) {
@@ -3303,6 +3487,7 @@
 				if (playing) {
 					document.getElementById('cbtn3').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
 					document.getElementById('cbtn3').style.color = "hsla(190, 100%, 100%, 1)"
+					infodisplay('northeast')
 				}
 			}
 			else if (checkTruth([39,40]) || touchmap['cbtn9'] || mousemap['cbtn9']) {
@@ -3311,6 +3496,7 @@
 				if (playing) {
 					document.getElementById('cbtn9').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
 					document.getElementById('cbtn9').style.color = "hsla(190, 100%, 100%, 1)"
+					infodisplay('southeast')
 				}
 			}
 			else if (checkTruth([40,37]) || touchmap['cbtn7'] || mousemap['cbtn7']) {
@@ -3319,6 +3505,7 @@
 				if (playing) {
 					document.getElementById('cbtn7').style.backgroundColor = "hsla(190, 100%, 0%, 1)"
 					document.getElementById('cbtn7').style.color = "hsla(190, 100%, 100%, 1)"
+					infodisplay('southwest')
 				}
 			}
 			else {
