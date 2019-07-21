@@ -82,7 +82,7 @@
 		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'> 
 			<div id="simulationH" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: absolute; z-index: 1; '>
 			</div>
-			<div id="darkback" style='margin:0px;width:100%; height: 70%; top:30%; overflow: hidden;position: absolute; z-index: -1; '>
+			<div id="darkback" style='margin:0px;width:100%; height: 70%; top:30%; overflow: hidden;position: absolute; z-index: -1; pointer-events: none;'>
 			</div>
 			<div id="titleH" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
@@ -218,7 +218,7 @@
 					</tr>
 					
 				</table>
-				<div id="settingtabcontrolsdiv" style='margin:0px;width:100%; height: 100%; overflow: hidden;position: absolute; z-index: 4; display: inline-block; '>
+				<div id="settingtabcontrolsdiv" style='margin:0px;width:100%; height: 100%; overflow: hidden;position: absolute; z-index: 4; display: inline-block; visibility: hidden; pointer-events: none;'>
 					<table id="settingtabcontrols" width="100%" height='80%' style="border: 0px solid black; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 4vw; color: black; border-spacing: 1px;  pointer-events: none; visibility: hidden; ">
 						<tr>
 							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
@@ -2602,8 +2602,12 @@
 				}
 			}
 			document.getElementById('settingtabcontrolsdiv').style.overflow = 'hidden'
+			document.getElementById('settingtabcontrolsdiv').style.visibility = 'hidden'
+			document.getElementById('settingtabcontrolsdiv').style.pointerEvents = 'none'
 			if (tabname == 'settingtab') {
 				document.getElementById('settingtabcontrolsdiv').style.overflowY = 'scroll'
+				document.getElementById('settingtabcontrolsdiv').style.visibility = 'visible'
+				document.getElementById('settingtabcontrolsdiv').style.pointerEvents = 'auto'
 			}
 				
 		}
