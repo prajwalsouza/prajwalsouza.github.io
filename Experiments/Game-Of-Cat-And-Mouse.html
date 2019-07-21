@@ -42,6 +42,21 @@
 				background: hsla(200, 100%, 50%, 1);
 				cursor: pointer;
 			}
+
+			#settingtabcontrolsdiv::-webkit-scrollbar {
+				width: 1%;
+			}
+
+			#settingtabcontrolsdiv::-webkit-scrollbar-track {
+				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+			}
+
+			#settingtabcontrolsdiv::-webkit-scrollbar-thumb {
+				background-color: hsla(190, 100%, 50%, 1);
+				/*border-radius: 20px;*/
+				/*outline: 1px solid slategrey;*/
+			}
+
 		</style>
 
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.5.0/math.min.js" type="text/javascript"></script>
@@ -75,7 +90,6 @@
 							A Simulation</font><font style="cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 100%, 60%, 1);font-family: Source Sans Pro" onclick="window.open('https://prajwalsouza.github.io')">
 								at prajwalsouza.github.io
 							</font>
-
 						</td>
 					</tr>
 				</table>
@@ -83,8 +97,13 @@
 			<div id="descriptionH" style='margin:0px;width:100%; height: 5%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 1vw;">
 					<tr>
-						<td id='info' colspan="1" id='description' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);">
+						<td id='placeholder' colspan="1" style="width: 5%; ">
+						</td>
+						<td id='info' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);">
 							A simulation based on a <font style="cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 60%, 1);" onclick="window.open('https://www.youtube.com/watch?v=vF_-ob9vseM')">Numberphile video</font>. Please watch the video to understand the problem simulated here.
+						</td>
+						<td id='darkmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 0.6); width: 20%; cursor: pointer;">
+							Dark </br>Mode
 						</td>
 					</tr>
 				</table>
@@ -182,121 +201,123 @@
 					</tr>
 					
 				</table>
-				<table id="settingtabcontrols" width="100%" height='80%' style="border: 0px solid black; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 4vw; color: black; border-spacing: 1px; position: absolute; pointer-events: none; visibility: hidden;">
-					<tr>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
-						<td colspan="1" style="width: 20%;"></td>
-						<td colspan="1" style="width: 15%;"></td>
-						<td colspan="1" style="width: 40%;"></td>
-						<td colspan="1" style="width: 15%;"></td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
-					</tr>
-					<tr>
-						<td colspan="1" rowspan="2" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); background-color: transparent;"></td>
-						<td colspan="2" rowspan="2" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); background-color: hsla(190, 100%, 50%, 0);">
-							Cat Speed
-						</td>
-						<td colspan="1" rowspan="2" >
-							<input type="range" min="0" max="10" step="0.01" value="4" class="slider" id="catspeedinputrange"oninput="changeSetting('catspeedinputR')"></input>
-						</td>
-						<td colspan="1" rowspan="2" style="width: 30%;">
-							<input id='catspeedinput' type="number" min = '0' step ='0.01' value='4' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 3.2vmin; color: black;" oninput="changeSetting('catspeedinput')"></input>
-						</td>
-						<td colspan="1" rowspan="2" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1);background-color: transparent; width: 5%;"></td>
-					</tr>
-					<tr>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
-						<td colspan="1" style="width: 20%;"></td>
-						<td colspan="1" style="width: 15%;"></td>
-						<td colspan="1" style="width: 40%;"></td>
-						<td colspan="1" style="width: 15%;"></td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
-					</tr>
-					<tr>
-						<td colspan="1" rowspan="2" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-						<td colspan="2" rowspan="2" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);  background-color: hsla(190, 100%, 50%, 0);" >
-							Mouse Speed (Pool)
-						</td>
-						<td colspan="1" rowspan="2" >
-							<input type="range" min="0" max="4" step="0.01" value="1" class="slider" id="mousespeedinputrange"oninput="changeSetting('mousespeedinputR')"></input>
-						</td>
-						<td colspan="1" rowspan="2" >
-							<input id='mousespeedinput' type="number" min = '0' step ='0.01' value='1' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 3.2vmin; color: black;" oninput="changeSetting('mousespeedinput')"></input>
-						</td>
+				<div id="settingtabcontrolsdiv" style='margin:0px;width:100%; height: 100%; overflow: hidden;position: absolute; z-index: 4; display: inline-block; '>
+					<table id="settingtabcontrols" width="100%" height='80%' style="border: 0px solid black; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 4vw; color: black; border-spacing: 1px;  pointer-events: none; visibility: hidden; ">
+						<tr>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
+							<td colspan="1" style="width: 20%;"></td>
+							<td colspan="1" style="width: 15%;"></td>
+							<td colspan="1" style="width: 40%;"></td>
+							<td colspan="1" style="width: 15%;"></td>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="2" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); background-color: transparent;"></td>
+							<td colspan="2" rowspan="2" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); background-color: hsla(190, 100%, 50%, 0);">
+								Cat Speed
+							</td>
+							<td colspan="1" rowspan="2" >
+								<input type="range" min="0" max="10" step="0.01" value="4" class="slider" id="catspeedinputrange"oninput="changeSetting('catspeedinputR')"></input>
+							</td>
+							<td colspan="1" rowspan="2" style="width: 30%;">
+								<input id='catspeedinput' type="number" min = '0' step ='0.01' value='4' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 3.2vmin; color: black;" oninput="changeSetting('catspeedinput')"></input>
+							</td>
+							<td colspan="1" rowspan="2" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1);background-color: transparent; width: 5%;"></td>
+						</tr>
+						<tr>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
+							<td colspan="1" style="width: 20%;"></td>
+							<td colspan="1" style="width: 15%;"></td>
+							<td colspan="1" style="width: 40%;"></td>
+							<td colspan="1" style="width: 15%;"></td>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="2" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+							<td colspan="2" rowspan="2" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);  background-color: hsla(190, 100%, 50%, 0);" >
+								Mouse Speed (Pool)
+							</td>
+							<td colspan="1" rowspan="2" >
+								<input type="range" min="0" max="4" step="0.01" value="1" class="slider" id="mousespeedinputrange"oninput="changeSetting('mousespeedinputR')"></input>
+							</td>
+							<td colspan="1" rowspan="2" >
+								<input id='mousespeedinput' type="number" min = '0' step ='0.01' value='1' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-size: 3.2vmin; color: black;" oninput="changeSetting('mousespeedinput')"></input>
+							</td>
+							
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); background-color: transparent;"></td>
+						</tr>
+						<tr>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
+							<td colspan="1" style="width: 20%;"></td>
+							<td colspan="1" style="width: 15%;"></td>
+							<td colspan="1" style="width: 40%;"></td>
+							<td colspan="1" style="width: 15%;"></td>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
+						</tr>
+						<tr>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+							<td colspan="1"  id="oppositePointVisibility-box" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick ="changeSetting('oppositePointVisibility')">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							</td>
+							<td colspan="3" id="oppositePointVisibility" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 50%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick ="changeSetting('oppositePointVisibility')">
+								Show Opposite Point
+							</td>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						</tr>
+						<tr>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+							<td colspan="1" id="mcAngleVisibility-box" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick ="changeSetting('mcAngleVisibility')">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							</td>
+							<td colspan="3" id="mcAngleVisibility" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 50%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick = "changeSetting('mcAngleVisibility')">
+								Show Mouse-Cat Angle
+							</td>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						</tr>
+						<tr>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+							<td colspan="1" id="trajectoryTrace-box" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('trajectoryvisibility')">
+								<i class="fa fa-square-o" aria-hidden="true"></i>
+							</td>
+							<td colspan="3" id="trajectoryTrace" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('trajectoryvisibility')">
+								Trace Trajectory
+							</td>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						</tr>
+						<tr>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+							<td colspan="1" id='circlingradiusV-box' style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('circlingradiusvisibility')">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							</td>
+							<td colspan="3" id='circlingradiusV' style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 50%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('circlingradiusvisibility')">
+								Show Circling Radius
+							</td>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						</tr>
+						<tr>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+							<td colspan="1" id="dashboundaryV-box" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('escaperadiusvisibility')">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							</td>
+							<td colspan="3" id="dashboundaryV" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 50%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('escaperadiusvisibility')">
+								Show Escape Radius
+							</td>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						</tr>
 						
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); background-color: transparent;"></td>
-					</tr>
-					<tr>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
-						<td colspan="1" style="width: 20%;"></td>
-						<td colspan="1" style="width: 15%;"></td>
-						<td colspan="1" style="width: 40%;"></td>
-						<td colspan="1" style="width: 15%;"></td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 5%; background-color: transparent;"></td>
-					</tr>
-					<tr>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-						<td colspan="1"  id="oppositePointVisibility-box" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick ="changeSetting('oppositePointVisibility')">
-							<i class="fa fa-check-square-o" aria-hidden="true"></i>
-						</td>
-						<td colspan="3" id="oppositePointVisibility" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 50%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick ="changeSetting('oppositePointVisibility')">
-							Show Opposite Point
-						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-					</tr>
-					<tr>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-						<td colspan="1" id="mcAngleVisibility-box" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick ="changeSetting('mcAngleVisibility')">
-							<i class="fa fa-check-square-o" aria-hidden="true"></i>
-						</td>
-						<td colspan="3" id="mcAngleVisibility" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 50%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick = "changeSetting('mcAngleVisibility')">
-							Show Mouse-Cat Angle
-						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-					</tr>
-					<tr>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-						<td colspan="1" id="trajectoryTrace-box" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('trajectoryvisibility')">
-							<i class="fa fa-square-o" aria-hidden="true"></i>
-						</td>
-						<td colspan="3" id="trajectoryTrace" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('trajectoryvisibility')">
-							Trace Trajectory
-						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-					</tr>
-					<tr>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-						<td colspan="1" id='circlingradiusV-box' style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('circlingradiusvisibility')">
-							<i class="fa fa-check-square-o" aria-hidden="true"></i>
-						</td>
-						<td colspan="3" id='circlingradiusV' style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 50%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('circlingradiusvisibility')">
-							Show Circling Radius
-						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-					</tr>
-					<tr>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-						<td colspan="1" id="dashboundaryV-box" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('escaperadiusvisibility')">
-							<i class="fa fa-check-square-o" aria-hidden="true"></i>
-						</td>
-						<td colspan="3" id="dashboundaryV" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 50%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" onclick="changeSetting('escaperadiusvisibility')">
-							Show Escape Radius
-						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-					</tr>
-					
-					<tr>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);">
-							
-						</td>
-						<td colspan="1" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" >
-							
-						</td>
-						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-					</tr>
+						<tr>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: hsla(190, 100%, 50%, 0);">
+								
+							</td>
+							<td colspan="1" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); width: 70%; background-color: hsla(190, 100%, 50%, 0);" >
+								
+							</td>
+							<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
+						</tr>
 
-				</table>
+					</table>
+				</div>
 				<table id="controltabcontrols" width="100%" height='80%' style="border: 0px solid black; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 4vw; color: black; border-spacing: 8px; position: absolute;">
 					<tr>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
@@ -2081,13 +2102,46 @@
 			delete graphData[graphname].pathData[pathname]
 		}
 
+		mode = 'square'
+		if (1.25*window.innerWidth < window.innerHeight && window.innerWidth < window.innerHeight) {
+			mode = 'portrait'
+		}
+		else if (window.innerWidth > 1.3*window.innerHeight && window.innerWidth > window.innerHeight) {
+			mode = 'landscape'
+		}
+
+		console.log(mode)
+
+		apercent = 0.15
+		bpercent = 0.68
+
+		ya = 1.1
+		yb = -1.1
 
 		torusMode = false
-
-		worldxmax = 1.1
-		worldxmin = -1.1
+		worldxmax = 2
+		worldxmin = -2
 		worldymax = 1.4
 		worldymin = -2.4
+		worldymax = 1
+		worldymin = -2
+
+		if (mode == "portrait") {
+			worldxmax = 2
+			worldxmin = -2
+			if ((bpercent - apercent)*window.innerHeight < window.innerWidth) {
+				worldymax = ((yb - ya)*(0 - apercent)/(bpercent - apercent)) + ya
+				worldymin = ((yb - ya)*(1 - apercent)/(bpercent - apercent)) + ya
+			}
+			else {
+				bpercent = apercent + (window.innerWidth/window.innerHeight)
+				worldymax = ((yb - ya)*(0 - apercent)/(bpercent - apercent)) + ya
+				worldymin = ((yb - ya)*(1 - apercent)/(bpercent - apercent)) + ya
+			}
+				
+		}
+
+		console.log(mode)
 
 		
 		mousex = Math.random()*1.95 - 1
@@ -2356,6 +2410,7 @@
 		alltabs = ['controltab', 'strategytab', 'settingtab']
 
 		function switchto(tabname) {
+
 			for (m = 0; m < alltabs.length; m++) {
 				if (tabname == alltabs[m]) {
 					document.getElementById(alltabs[m]).style.color = 'white'
@@ -2378,6 +2433,10 @@
 				if (tactic == 'circleAndDashTactic') {
 
 				}
+			}
+			document.getElementById('settingtabcontrolsdiv').style.overflow = 'hidden'
+			if (tabname == 'settingtab') {
+				document.getElementById('settingtabcontrolsdiv').style.overflowY = 'scroll'
 			}
 				
 		}
