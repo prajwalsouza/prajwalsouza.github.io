@@ -500,6 +500,10 @@
 
 				if (currenttab == 'controltab') {
 					document.getElementById('controltab').style.color = "white"
+					for (bn = 1; bn < 13; bn++) {
+						document.getElementById('cbtn' + bn).style.color = "black"
+						document.getElementById('cbtn' + bn).style.backgroundColor = "transparent"
+					}
 				}
 				else if (currenttab == 'strategytab') {
 					document.getElementById('strategytab').style.color = "white"
@@ -548,6 +552,16 @@
 				if (currenttab == 'controltab') {
 					document.getElementById('controltab').style.backgroundColor = "hsla(260, 0%, 20%, 1)"
 					document.getElementById('controltab').style.color = "white"
+					ielements = document.getElementsByTagName('i')
+					for (bn = 1; bn < ielements.length; bn++) {
+						ielements[bn].style.color = "hsla(190, 100%, 50%, 1)"
+						// console.log(document.getElementById('cbtn' + bn).style.color)
+					}
+					for (bn = 1; bn < 13; bn++) {
+						document.getElementById('cbtn' + bn).style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+						console.log(document.getElementById('cbtn' + bn).style.backgroundColor)
+					}
+
 				}
 				else {
 					document.getElementById('controltab').style.backgroundColor = "hsla(260, 0%, 0%, 1)"
