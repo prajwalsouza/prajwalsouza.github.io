@@ -82,6 +82,8 @@
 		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'> 
 			<div id="simulationH" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: absolute; z-index: 1; '>
 			</div>
+			<div id="darkback" style='margin:0px;width:100%; height: 70%; top:30%; overflow: hidden;position: absolute; z-index: -1; '>
+			</div>
 			<div id="titleH" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
 					<tr>
@@ -103,18 +105,22 @@
 					</tr>
 				</table>
 			</div>
-			<div id="extraoptionsHolder" style='margin:0px;width:100%; height: 4%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+			<div id="gapHolder" style='margin:0px;width:100%; height: 1%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+			</div>
+			<div id="extraoptionsHolder" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 1vw;">
 					<tr>
 						<td id='placeholder' colspan="1" style="width: 40%; ">
 						</td>
-						<td id='torusmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 0.6); width: 20%; cursor: pointer;">
+						<td id='torusmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); background-color: hsla(190, 100%, 0%, 0.2); width: 20%; cursor: pointer; border-radius: 10px;" onclick="setTorusMode()">
 							Torus Mode
 						</td>
-						<td id='darkmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 0.6); width: 20%; cursor: pointer;">
+						<td id='placeholder' colspan="1" style="width: 5%;">
+						</td>
+						<td id='darkmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); background-color: hsla(190, 100%, 0%, 0.2); width: 20%; cursor: pointer; border-radius: 10px;" onclick="setDarkMode()">
 							Dark Mode
 						</td>
-						<td id='placeholder2' colspan="1" style="width: 5%; ">
+						<td id='placeholder2' colspan="1" style="width: 5%;">
 						</td>
 					</tr>
 				</table>
@@ -431,6 +437,140 @@
 				document.getElementById('info').innerHTML = 'Play/Pause the simulation. </br>Keyboard shortcut is the <b> Spacebar </b> key.'
 			}
 			
+		}
+
+		function setTorusMode() {
+			if (torusMode) {
+				torusMode = false
+				document.getElementById('torusmodeoption').style.backgroundColor = 'hsla(190, 100%, 0%, 0.2)'
+				document.getElementById('torusmodeoption').style.color = 'hsla(190, 100%, 100%, 1)'
+				document.getElementById('torusmodeoption').style.fontWeight = 'normal'
+			}
+			else {
+				torusMode = true
+				document.getElementById('torusmodeoption').style.backgroundColor = 'hsla(190, 100%, 50%, 1)'
+				document.getElementById('torusmodeoption').style.color = 'hsla(190, 100%, 100%, 1)'
+				document.getElementById('torusmodeoption').style.fontWeight = 'bold'
+			}
+		}
+
+
+		function setDarkMode() {
+			if (darkmode) {
+				darkmode = false
+				document.getElementById('darkmodeoption').style.backgroundColor = 'hsla(190, 100%, 0%, 0.2)'
+				document.getElementById('darkmodeoption').style.color = 'hsla(190, 100%, 100%, 1)'
+				document.getElementById('darkmodeoption').style.fontWeight = 'normal'
+
+				document.body.style.background = 'white'
+
+				document.getElementById('maintitle').style.color = 'hsla(190, 100%, 0%, 1)'
+
+				document.getElementById('maintitle').innerHTML = "Game of Cat and Mouse - Numberphile </br><font style='font-size: 4vmin; font-weight: lighter; color: hsla(190, 100%, 60%, 1);'>							A Simulation</font><font style='cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 100%, 60%, 1);font-family: Source Sans Pro' onclick='window.open('https://prajwalsouza.github.io')'>at prajwalsouza.github.io"
+
+				document.getElementById('info').style.color = 'hsla(190, 100%, 0%, 1)'
+
+				document.getElementById('info').innerHTML = "A simulation based on a <font style='cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 60%, 1);' onclick='window.open('https://www.youtube.com/watch?v=vF_-ob9vseM')'>Numberphile video</font>. Please watch the video to understand the problem simulated here."
+
+				options = {}
+				options.pointcolor = 'hsla(260, 100%, 50%, 1)'
+				updatePoint('simulationgraph', 'cat', options)
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 0%, 1)'
+				updateText('simulationgraph', 'cattext', options)
+
+				options = {}
+				options.pointcolor = 'hsla(260, 0%, 0%, 1)'
+				updatePoint('simulationgraph', 'mouse', options)
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 0%, 1)'
+				updateText('simulationgraph', 'mousetext', options)
+				
+				document.getElementById('darkback').style.backgroundColor = 'transparent'
+
+				document.getElementById('controltab').style.backgroundColor = "hsla(260, 100%, 50%, 0.4)"
+				document.getElementById('strategytab').style.backgroundColor = "hsla(260, 100%, 50%, 0.4)"
+				document.getElementById('settingtab').style.backgroundColor = "hsla(260, 100%, 50%, 0.4)"
+
+				document.getElementById('controltab').style.color = "black"
+				document.getElementById('strategytab').style.color = "black"
+				document.getElementById('settingtab').style.color = "black"
+
+				if (currenttab == 'controltab') {
+					document.getElementById('controltab').style.color = "white"
+				}
+				else if (currenttab == 'strategytab') {
+					document.getElementById('strategytab').style.color = "white"
+				}
+				else if (currenttab == 'settingtab') {
+					document.getElementById('settingtab').style.color = "white"
+				}
+				
+
+			}
+			else {
+				darkmode = true
+				document.getElementById('darkmodeoption').style.backgroundColor = 'hsla(190, 100%, 50%, 1)'
+				document.getElementById('darkmodeoption').style.color = 'hsla(190, 100%, 100%, 1)'
+				document.getElementById('darkmodeoption').style.fontWeight = 'bold'
+
+				document.body.style.background = 'black'
+
+				document.getElementById('maintitle').style.color = 'hsla(190, 100%, 100%, 1)'
+
+				document.getElementById('maintitle').innerHTML = "Game of Cat and Mouse - Numberphile </br><font style='font-size: 4vmin; font-weight: lighter; color: hsla(190, 100%, 80%, 1);'>							A Simulation</font><font style='cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 100%, 90%, 1);font-family: Source Sans Pro' onclick='window.open('https://prajwalsouza.github.io')'>at prajwalsouza.github.io"
+
+				document.getElementById('info').style.color = 'hsla(190, 0%, 90%, 1)'
+
+				document.getElementById('info').innerHTML = "A simulation based on a <font style='cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 80%, 1);' onclick='window.open('https://www.youtube.com/watch?v=vF_-ob9vseM')'>Numberphile video</font>. Please watch the video to understand the problem simulated here."
+
+
+				options = {}
+				options.pointcolor = 'hsla(260, 100%, 100%, 1)'
+				updatePoint('simulationgraph', 'cat', options)
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 100%, 1)'
+				updateText('simulationgraph', 'cattext', options)
+
+				options = {}
+				options.pointcolor = 'hsla(260, 0%, 100%, 1)'
+				updatePoint('simulationgraph', 'mouse', options)
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 100%, 1)'
+				updateText('simulationgraph', 'mousetext', options)
+
+				document.getElementById('darkback').style.backgroundColor = 'hsla(190, 0%, 10%, 1)'
+				if (currenttab == 'controltab') {
+					document.getElementById('controltab').style.backgroundColor = "hsla(260, 0%, 20%, 1)"
+					document.getElementById('controltab').style.color = "white"
+				}
+				else {
+					document.getElementById('controltab').style.backgroundColor = "hsla(260, 0%, 0%, 1)"
+					document.getElementById('controltab').style.color = "hsla(100, 0%, 55%, 1)"
+				}
+
+				if (currenttab == 'strategytab') {
+					document.getElementById('strategytab').style.backgroundColor = "hsla(260, 0%, 20%, 1)"
+					document.getElementById('strategytab').style.color = "white"
+				}
+				else {
+					document.getElementById('strategytab').style.backgroundColor = "hsla(260, 0%, 0%, 1)"
+					document.getElementById('strategytab').style.color = "hsla(100, 0%, 55%, 1)"
+				}
+
+				if (currenttab == 'settingtab') {
+					document.getElementById('settingtab').style.backgroundColor = "hsla(260, 0%, 20%, 1)"
+					document.getElementById('settingtab').style.color = "white"
+				}
+				else {
+					document.getElementById('settingtab').style.backgroundColor = "hsla(260, 0%, 0%, 1)"
+					document.getElementById('settingtab').style.color = "hsla(100, 0%, 55%, 1)"
+				}
+			}
 		}
 
 		// infodisplay('playpause')
@@ -1891,7 +2031,7 @@
 			return [textElement, textoptions]
 		}
 
-		function updateText(graphname, textname, updatetext) {
+		function updateText(graphname, textname, textvalues) {
 			gdata = graphData[graphname]
 
 			aratio = gdata.aspectratio
@@ -1899,15 +2039,15 @@
 			textoptions = gdata.textData[textname][1]
 			textElement = gdata.textData[textname][0]
 
-			textoptions.text = updatetext.text || textoptions.text
-			textoptions.x = updatetext.x || textoptions.x
-			textoptions.y = updatetext.y || textoptions.y
-			textoptions.name = textname || uid
+			textoptions.text = textvalues.text || textoptions.text
+			textoptions.x = textvalues.x || textoptions.x
+			textoptions.y = textvalues.y || textoptions.y
+			textoptions.textcolor = textvalues.textcolor || textoptions.textcolor
 
 			textElement.innerHTML = textoptions.text
 			textElement.setAttribute('x', graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
 			textElement.setAttribute('y', graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
-			
+			textElement.style.fill = textoptions.textcolor
 			
 			graphData[graphname].textData[textname] = [textElement, textoptions]
 			return [textElement, textoptions]
@@ -2152,8 +2292,6 @@
 				
 		}
 
-		console.log(mode)
-
 		
 		mousex = Math.random()*1.95 - 1
 		mousey = Math.sqrt(1 - Math.pow(mousex, 2)) - 0.05
@@ -2314,14 +2452,14 @@
 			}
 			mouse = addPoint('simulationgraph', 'mouse' , options)
 
-			options = {}
-			options.x = 0
-			options.y = 0
-			options.pointcolor = 'hsla(260, 10%, 0%, 0.3)'
-			options.pointsize = 0.5
-			if (darkmode) {
-				options.pointcolor = 'hsla(260, 10%, 0%, 0.3)'
-			}
+			// options = {}
+			// options.x = 0
+			// options.y = 0
+			// options.pointcolor = 'hsla(260, 10%, 0%, 0.3)'
+			// options.pointsize = 0.5
+			// if (darkmode) {
+			// 	options.pointcolor = 'hsla(260, 10%, 0%, 0.3)'
+			// }
 			// mouse = addPoint('simulationgraph', 'center' , options)
 
 			options = {}
@@ -2419,20 +2557,38 @@
 		setupWorld()
 
 		alltabs = ['controltab', 'strategytab', 'settingtab']
+		currenttab = 'controltab'
 
 		function switchto(tabname) {
 
 			for (m = 0; m < alltabs.length; m++) {
 				if (tabname == alltabs[m]) {
-					document.getElementById(alltabs[m]).style.color = 'white'
+					currenttab = tabname
 					document.getElementById(alltabs[m]).style.boxShadow = "0px 12px 0px -10px hsla(100,0%,0%,0.8)";
+
+					if (darkmode) {
+						document.getElementById(alltabs[m]).style.backgroundColor = "hsla(260, 0%, 20%, 1)"
+						document.getElementById(alltabs[m]).style.color = "white"
+					}
+					else {
+						document.getElementById(alltabs[m]).style.backgroundColor = "hsla(260, 100%, 50%, 0.4)"
+						document.getElementById(alltabs[m]).style.color = "white"
+					}
 
 					document.getElementById(alltabs[m] + 'controls').style.visibility = 'visible'
 					document.getElementById(alltabs[m] + 'controls').style.pointerEvents = 'auto'
 				}
 				else {
-					document.getElementById(alltabs[m]).style.color = 'black'
 					document.getElementById(alltabs[m]).style.boxShadow = "0px 12px 0px -10px hsla(100,0%,0%,0)";
+
+					if (darkmode) {
+						document.getElementById(alltabs[m]).style.backgroundColor = "hsla(260, 0%, 0%, 1)"
+						document.getElementById(alltabs[m]).style.color = "hsla(100, 0%, 55%, 1)"
+					}
+					else {
+						document.getElementById(alltabs[m]).style.backgroundColor = "hsla(260, 100%, 50%, 0.4)"
+						document.getElementById(alltabs[m]).style.color = 'black'
+					}
 
 					document.getElementById(alltabs[m] + 'controls').style.visibility = 'hidden'
 					document.getElementById(alltabs[m] + 'controls').style.pointerEvents = 'none'
