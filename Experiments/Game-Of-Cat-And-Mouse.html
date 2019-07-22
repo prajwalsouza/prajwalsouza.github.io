@@ -88,8 +88,8 @@
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
 					<tr>
 						<td colspan="1" id='maintitle' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 4vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 90%;">
-							Game of Cat and Mouse - Numberphile </br><font style="font-size: 4vmin; font-weight: lighter; color: hsla(190, 100%, 60%, 1);">
-							A Simulation</font><font style="cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 100%, 60%, 1);font-family: Source Sans Pro" onclick="window.open('https://prajwalsouza.github.io')">
+							Game of Cat and Mouse - Numberphile </br><font id="asimulationtext" style="font-size: 4vmin; font-weight: lighter; color: hsla(190, 100%, 60%, 1);">
+							A Simulation</font><font id="websitelink" style="cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 100%, 60%, 1);font-family: Source Sans Pro; z-index: 5;" onclick="window.open('https://prajwalsouza.github.io')">
 								at prajwalsouza.github.io
 							</font>
 						</td>
@@ -99,7 +99,7 @@
 			<div id="descriptionH" style='margin:0px;width:100%; height: 5%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 1vw;">
 					<tr>
-						<td id='info' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);">
+						<td id='info' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);" onclick="window.open('https://www.youtube.com/watch?v=vF_-ob9vseM')">
 							A simulation based on a <font style="cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 60%, 1);" onclick="window.open('https://www.youtube.com/watch?v=vF_-ob9vseM')">Numberphile video</font>. Please watch the video to understand the problem simulated here.
 						</td>
 					</tr>
@@ -402,7 +402,7 @@
 
 		function infodisplay(infoobject) {
 			if (infoobject == 'normal') {
-				document.getElementById('info').innerHTML = 'A simulation based on a <font style="cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 60%, 1);" onclick="window.open("https://www.youtube.com/watch?v=vF_-ob9vseM")">Numberphile video</font>. Please watch the video to understand the problem simulated here.'
+				document.getElementById('info').innerHTML = 'A simulation based on a <font style="cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 60%, 1);z-index: 5;" onclick="window.open("https://www.youtube.com/watch?v=vF_-ob9vseM")">Numberphile video</font>. Please watch the video to understand the problem simulated here.'
 			}
 			else if (infoobject == 'up') {
 				document.getElementById('info').innerHTML = 'Moves the mouse upward. Keyboard shortcut is the <b> up </b> key.'
@@ -470,12 +470,10 @@
 				document.body.style.background = 'white'
 
 				document.getElementById('maintitle').style.color = 'hsla(190, 100%, 0%, 1)'
-
-				document.getElementById('maintitle').innerHTML = "Game of Cat and Mouse - Numberphile </br><font style='font-size: 4vmin; font-weight: lighter; color: hsla(190, 100%, 60%, 1);'>							A Simulation</font><font style='cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 100%, 60%, 1);font-family: Source Sans Pro' onclick='window.open('https://prajwalsouza.github.io')'>at prajwalsouza.github.io"
+				document.getElementById('websitelink').style.color = 'hsla(260, 100%, 60%, 1)'
+				document.getElementById('asimulationtext').style.color = 'hsla(190, 100%, 60%, 1)'
 
 				document.getElementById('info').style.color = 'hsla(190, 100%, 0%, 1)'
-
-				document.getElementById('info').innerHTML = "A simulation based on a <font style='cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 60%, 1);' onclick='window.open('https://www.youtube.com/watch?v=vF_-ob9vseM')'>Numberphile video</font>. Please watch the video to understand the problem simulated here."
 
 				options = {}
 				options.pointcolor = 'hsla(260, 100%, 50%, 1)'
@@ -562,11 +560,13 @@
 
 				document.getElementById('maintitle').style.color = 'hsla(190, 100%, 100%, 1)'
 
-				document.getElementById('maintitle').innerHTML = "Game of Cat and Mouse - Numberphile </br><font style='font-size: 4vmin; font-weight: lighter; color: hsla(190, 100%, 80%, 1);'>							A Simulation</font><font style='cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 100%, 90%, 1);font-family: Source Sans Pro' onclick='window.open('https://prajwalsouza.github.io')'>at prajwalsouza.github.io"
+				document.getElementById('maintitle').style.color = 'hsla(190, 100%, 100%, 1)'
+				document.getElementById('websitelink').style.color = 'hsla(260, 100%, 80%, 1)'
+				document.getElementById('asimulationtext').style.color = 'hsla(190, 100%, 80%, 1)'
 
 				document.getElementById('info').style.color = 'hsla(190, 0%, 90%, 1)'
 
-				document.getElementById('info').innerHTML = "A simulation based on a <font style='cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 80%, 1);' onclick='window.open('https://www.youtube.com/watch?v=vF_-ob9vseM')'>Numberphile video</font>. Please watch the video to understand the problem simulated here."
+				
 
 
 				options = {}
@@ -2999,7 +2999,6 @@
 
 		useTactic = false
 		tactic = 'circleAndDashTactic'
-
 		launchenabled = false
 
 		function loadlaunchoption() {
@@ -3846,7 +3845,6 @@
 
 		function assignkeys() {
 			if (playing) {
-				infodisplay('normal')
 				if (darkmode) {
 					for (k = 1; k < 13; k++) {
 						document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 0%, 0%, 1)"
