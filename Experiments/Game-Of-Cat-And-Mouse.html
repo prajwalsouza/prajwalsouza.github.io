@@ -82,7 +82,7 @@
 		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'> 
 			<div id="simulationH" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: absolute; z-index: 1; '>
 			</div>
-			<div id="darkback" style='margin:0px;width:100%; height: 70%; top:30%; overflow: hidden;position: absolute; z-index: -1; pointer-events: none;'>
+			<div id="darkback" style='margin:0px;width:100%; height: 45%; top:55%; overflow: hidden;position: absolute; z-index: -1; pointer-events: none;'>
 			</div>
 			<div id="titleH" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
@@ -110,17 +110,21 @@
 			<div id="extraoptionsHolder" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 1vw;">
 					<tr>
-						<td id='placeholder' colspan="1" style="width: 40%; ">
+						<td id='placeholder' colspan="1" style="width: 2%; ">
 						</td>
-						<td id='torusmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); background-color: hsla(190, 100%, 0%, 0.2); width: 20%; cursor: pointer; border-radius: 10px;" onclick="setTorusMode()">
+						<td id='mousestatusdisplay' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); background-color: hsla(190, 100%, 0%, 0); width: 60%; cursor: pointer;">
+						</td>
+						<td id='placeholder2' colspan="1" style="width: 3%; ">
+						</td>
+						<td id='torusmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); background-color: hsla(190, 100%, 0%, 0.2); width: 15%; cursor: pointer; border-radius: 10px;" onclick="setTorusMode()">
 							Torus Mode
 						</td>
-						<td id='placeholder' colspan="1" style="width: 5%;">
+						<td id='placeholder3' colspan="1" style="width: 3%;">
 						</td>
-						<td id='darkmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); background-color: hsla(190, 100%, 0%, 0.2); width: 20%; cursor: pointer; border-radius: 10px;" onclick="setDarkMode()">
+						<td id='darkmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); background-color: hsla(190, 100%, 0%, 0.2); width: 15%; cursor: pointer; border-radius: 10px;" onclick="setDarkMode()">
 							Dark Mode
 						</td>
-						<td id='placeholder2' colspan="1" style="width: 5%;">
+						<td id='placeholder4' colspan="1" style="width: 2%;">
 						</td>
 					</tr>
 				</table>
@@ -335,7 +339,7 @@
 
 					</table>
 				</div>
-				<table id="controltabcontrols" width="100%" height='80%' style="border: 0px solid black; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 4vw; color: black; border-spacing: 8px; position: absolute;">
+				<table id="controltabcontrols" width="100%" height='80%' style="border: 0px solid black; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 4vw; color: black; border-spacing: 8px; position: absolute; border-color: red;">
 					<tr>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
 						<td colspan="1" id="cbtn1" style="text-align: center; vertical-align: middle; border: 1px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 6vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; background-color: hsla(190, 100%, 50%, 0);">
@@ -487,6 +491,10 @@
 				options = {}
 				options.textcolor = 'hsla(260, 0%, 0%, 1)'
 				updateText('simulationgraph', 'mousetext', options)
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 0%, 1)'
+				document.getElementById('mousestatusdisplay').style.color = options.textcolor
 				
 				document.getElementById('darkback').style.backgroundColor = 'transparent'
 
@@ -547,19 +555,20 @@
 				options.textcolor = 'hsla(260, 0%, 100%, 1)'
 				updateText('simulationgraph', 'mousetext', options)
 
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 100%, 1)'
+				document.getElementById('mousestatusdisplay').style.color = options.textcolor
+
+
 				document.getElementById('darkback').style.backgroundColor = 'hsla(190, 0%, 15%, 1)'
 
 				if (currenttab == 'controltab') {
 					document.getElementById('controltab').style.backgroundColor = "hsla(260, 0%, 20%, 1)"
 					document.getElementById('controltab').style.color = "white"
-					ielements = document.getElementsByTagName('i')
-					for (bn = 1; bn < ielements.length; bn++) {
-						ielements[bn].style.color = "hsla(190, 100%, 50%, 1)"
-						// console.log(document.getElementById('cbtn' + bn).style.color)
-					}
-					for (bn = 1; bn < 13; bn++) {
-						document.getElementById('cbtn' + bn).style.backgroundColor = "hsla(190, 100%, 0%, 1)"
-						console.log(document.getElementById('cbtn' + bn).style.backgroundColor)
+					for (k = 1; k < 13; k++) {
+						document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+						document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 50%, 1)"
 					}
 
 				}
@@ -2276,7 +2285,7 @@
 			mode = 'landscape'
 		}
 
-		console.log(mode)
+		// console.log(mode)
 
 		apercent = 0.15
 		bpercent = 0.68
@@ -2543,16 +2552,16 @@
 			}
 			mousetext = addText('simulationgraph', 'mousetext' , options)
 
-			options = {}
-			options.x = 0
-			options.y = -0.5
-			options.text = 'Mouse Alive'
-			options.textAlign = 'center'
-			options.fontSize = 2.3
-			if (darkmode) {
-				// options.textcolor = 'hsla(190, 20%, 70%, 1)'
-			}
-			mousetext = addText('simulationgraph', 'mousestatus' , options)
+			// options = {}
+			// options.x = 0
+			// options.y = -0.5
+			// options.text = 'Mouse Alive'
+			// options.textAlign = 'center'
+			// options.fontSize = 2.3
+			// if (darkmode) {
+			// 	// options.textcolor = 'hsla(190, 20%, 70%, 1)'
+			// }
+			// mousetext = addText('simulationgraph', 'mousestatus' , options)
 
 
 
@@ -2896,7 +2905,8 @@
 					// console.log('Caught')
 					options = {}
 					options.text = 'Mouse Caught'
-					updateText('simulationgraph', 'mousestatus' , options)
+					document.getElementById('mousestatusdisplay').innerHTML = options.text
+
 					closeandplayloop()
 				}
 				else if (Math.pow((mouseposition[0]*mouseposition[0]) + (mouseposition[1]*mouseposition[1]), 0.5) > 1.2) {
@@ -2904,7 +2914,7 @@
 					// console.log('Caught')
 					// options = {}
 					// options.text = 'Mouse manages to escape!'
-					// updateText('simulationgraph', 'mousestatus' , options)
+					// document.getElementById('mousestatusdisplay').innerHTML = options.text
 					// closeandplayloop()
 				}
 			}
@@ -2923,9 +2933,17 @@
 				clearInterval(loopinterval);
 				playing = false
 				document.getElementById('cbtn5').innerHTML = '<i class="fa fa-play-circle" aria-hidden="true"></i>'
-				for (k = 1; k < 13; k++) {
-					document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 0.3)"
+				if (darkmode) {
+					for (k = 1; k < 13; k++) {
+						document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 50%, 0.6)"
+					}
 				}
+				else {
+					for (k = 1; k < 13; k++) {
+						document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 0.3)"
+					}
+				}
+					
 			}
 			else {
 				playLoop()
@@ -2979,7 +2997,7 @@
 
 				options = {}
 				options.text = 'Mouse Escaped, Position : ' + mouseposition[0].toFixed(2) + ', ' + mouseposition[1].toFixed(2)
-				updateText('simulationgraph', 'mousestatus' , options)
+				document.getElementById('mousestatusdisplay').innerHTML = options.text
 			}
 			else {
 				mouseangle = Math.atan2(mouseposition[1], mouseposition[0])*180/Math.PI
@@ -2994,7 +3012,7 @@
 					options.text = 'Mouse Alive, Angle : ' + diffangle.toFixed(2) +', Position : ' + mouseposition[0].toFixed(2) + ', ' + mouseposition[1].toFixed(2)
 				}
 				
-				updateText('simulationgraph', 'mousestatus' , options)
+				document.getElementById('mousestatusdisplay').innerHTML = options.text
 				movedirection = 1
 				if (mouseangle - catangle > 0) {
 					if (Math.abs(mouseangle - catangle) < 180) {
@@ -3650,10 +3668,19 @@
 		function assignkeys() {
 			if (playing) {
 				infodisplay('normal')
-				for (k = 1; k < 13; k++) {
-					document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 100%, 50%, 0)"
-					document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
+				if (darkmode) {
+					for (k = 1; k < 13; k++) {
+						document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 0%, 0%, 1)"
+						document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 50%, 1)"
+					}
 				}
+				else {
+					for (k = 1; k < 13; k++) {
+						document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 100%, 50%, 0)"
+						document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
+					}
+				}
+					
 			}
 			if (map[82] || touchmap['cbtn10'] || mousemap['cbtn10']) {
 				mousedirection ='rotate'
