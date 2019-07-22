@@ -590,8 +590,7 @@
 				options.textcolor = 'hsla(260, 0%, 100%, 1)'
 				document.getElementById('mousestatusdisplay').style.color = options.textcolor
 
-
-				document.getElementById('darkback').style.backgroundColor = 'hsla(190, 0%, 7%, 1)'
+				document.getElementById('darkback').style.backgroundColor = 'hsla(190, 0%, 10%, 1)'
 
 				if (currenttab == 'controltab') {
 					document.getElementById('controltab').style.backgroundColor = "hsla(260, 0%, 20%, 1)"
@@ -3662,6 +3661,7 @@
 									escapepause = 0
 									closeandplayloop()
 									useTactic = false
+									switchto('controltab')
 								}
 
 
