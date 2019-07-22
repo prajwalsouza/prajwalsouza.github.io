@@ -112,16 +112,16 @@
 					<tr>
 						<td id='placeholder' colspan="1" style="width: 2%; ">
 						</td>
-						<td id='mousestatusdisplay' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); background-color: hsla(190, 100%, 0%, 0); width: 60%; cursor: pointer;">
+						<td id='mousestatusdisplay' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); background-color: hsla(190, 100%, 0%, 0); width: 52%; cursor: pointer;">
 						</td>
 						<td id='placeholder2' colspan="1" style="width: 3%; ">
 						</td>
-						<td id='torusmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); background-color: hsla(190, 100%, 0%, 0.2); width: 15%; cursor: pointer; border-radius: 10px;" onclick="setTorusMode()">
+						<td id='torusmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); background-color: hsla(190, 100%, 0%, 0.2); width: 19%; cursor: pointer; border-radius: 10px;" onclick="setTorusMode()">
 							Torus Mode
 						</td>
 						<td id='placeholder3' colspan="1" style="width: 3%;">
 						</td>
-						<td id='darkmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); background-color: hsla(190, 100%, 0%, 0.2); width: 15%; cursor: pointer; border-radius: 10px;" onclick="setDarkMode()">
+						<td id='darkmodeoption' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2.5vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); background-color: hsla(190, 100%, 0%, 0.2); width: 19%; cursor: pointer; border-radius: 10px;" onclick="setDarkMode()">
 							Dark Mode
 						</td>
 						<td id='placeholder4' colspan="1" style="width: 2%;">
@@ -234,7 +234,7 @@
 						</tr>
 						<tr>
 							<td colspan="1" rowspan="2" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); background-color: transparent;"></td>
-							<td colspan="2" rowspan="2" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); background-color: hsla(190, 100%, 50%, 0);">
+							<td colspan="2" id="catspeedtext" rowspan="2" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1); background-color: hsla(190, 100%, 50%, 0);">
 								Cat Speed
 							</td>
 							<td colspan="1" rowspan="2" >
@@ -255,7 +255,7 @@
 						</tr>
 						<tr>
 							<td colspan="1" rowspan="2" style="text-align: center; vertical-align: middle; border: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; background-color: transparent;"></td>
-							<td colspan="2" rowspan="2" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);  background-color: hsla(190, 100%, 50%, 0);" >
+							<td colspan="2" id="mousespeedtext" rowspan="2" style="text-align: left; vertical-align: middle; border: 0px solid hsla(100,0%,0%,0.4); cursor: pointer; font-size: 3.5vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);  background-color: hsla(190, 100%, 50%, 0);" >
 								Mouse Speed (Pool)
 							</td>
 							<td colspan="1" rowspan="2" >
@@ -458,6 +458,7 @@
 			}
 		}
 
+		settingslist = ['oppositePointVisibility', 'mcAngleVisibility', 'trajectoryTrace', 'circlingradiusV', 'dashboundaryV']
 
 		function setDarkMode() {
 			if (darkmode) {
@@ -519,7 +520,36 @@
 				else if (currenttab == 'settingtab') {
 					document.getElementById('settingtab').style.color = "white"
 				}
-				
+
+				for (m = 0; m < strategies.length; m++) {
+					if (statname == strategies[m]) {
+						document.getElementById(strategies[m]).style.color = 'hsla(190, 100%, 50%, 1)'
+						document.getElementById(strategies[m] + '-box').style.color = 'black'
+					}
+					else {
+						document.getElementById(strategies[m]).style.color = 'black'
+						document.getElementById(strategies[m] + '-box').style.color = 'black'
+					}
+				}
+
+
+				document.getElementById('catspeedtext').style.color = "black"
+				document.getElementById('catspeedinput').style.color = "black"
+				document.getElementById('catspeedinput').style.backgroundColor = "transparent"
+				document.getElementById('mousespeedtext').style.color = "black"
+				document.getElementById('mousespeedinput').style.color = "black"
+				document.getElementById('mousespeedinput').style.backgroundColor = "transparent"
+
+				for (st = 0; st < 5; st++) {
+					if (settingstatus[st]) {
+						document.getElementById(settingslist[st]).style.color = "hsla(190, 100%, 50%, 1)"
+						document.getElementById(settingslist[st] + '-box').style.color = "hsla(190, 100%, 0%, 1)"
+					}
+					else {
+						document.getElementById(settingslist[st]).style.color = "hsla(190, 100%, 0%, 1)"
+						document.getElementById(settingslist[st] + '-box').style.color = "hsla(190, 100%, 0%, 1)"
+					}
+				}
 
 			}
 			else {
@@ -593,6 +623,37 @@
 				else {
 					document.getElementById('settingtab').style.backgroundColor = "hsla(260, 0%, 0%, 1)"
 					document.getElementById('settingtab').style.color = "hsla(100, 0%, 55%, 1)"
+				}
+
+				statname = tactic
+
+				for (m = 0; m < strategies.length; m++) {
+					if (statname == strategies[m]) {
+						document.getElementById(strategies[m]).style.color = 'hsla(190, 100%, 50%, 1)'
+						document.getElementById(strategies[m] + '-box').style.color = 'white'
+					}
+					else {
+						document.getElementById(strategies[m]).style.color = 'white'
+						document.getElementById(strategies[m] + '-box').style.color = 'white'
+					}
+				}
+
+				document.getElementById('catspeedtext').style.color = "white"
+				document.getElementById('catspeedinput').style.color = "white"
+				document.getElementById('catspeedinput').style.backgroundColor = "black"
+				document.getElementById('mousespeedtext').style.color = "white"
+				document.getElementById('mousespeedinput').style.color = "white"
+				document.getElementById('mousespeedinput').style.backgroundColor = "black"
+
+				for (st = 0; st < 5; st++) {
+					if (settingstatus[st]) {
+						document.getElementById(settingslist[st]).style.color = "hsla(190, 100%, 50%, 1)"
+						document.getElementById(settingslist[st] + '-box').style.color = "hsla(190, 100%, 100%, 1)"
+					}
+					else {
+						document.getElementById(settingslist[st]).style.color = "hsla(190, 100%, 100%, 1)"
+						document.getElementById(settingslist[st] + '-box').style.color = "hsla(190, 100%, 100%, 1)"
+					}
 				}
 			}
 		}
@@ -2294,6 +2355,7 @@
 		yb = -1.1
 
 		torusMode = false
+
 		worldxmax = 2
 		worldxmin = -2
 		worldymax = 1.4
@@ -2639,7 +2701,6 @@
 		strategies = ['awayTactic', 'oppPointTactic', 'circlingTactic', 'dashTactic', 'circleAndDashTactic']
 
 		function switchstrategyto(statname) {
-
 			lineopts = {}
 			lineopts.x1 = -10
 			lineopts.y1 = -10
@@ -2652,21 +2713,42 @@
 
 			updatePointXY('simulationgraph','oppositePoint', -10, -10)
 
-			for (m = 0; m < strategies.length; m++) {
-				if (statname == strategies[m]) {
-					document.getElementById(strategies[m]).style.color = 'hsla(190, 100%, 50%, 1)'
-					document.getElementById(strategies[m] + '-box').innerHTML = '<i class="fa fa-dot-circle-o" aria-hidden="true"></i>'
-					tactic = statname
-				}
-				else {
-					document.getElementById(strategies[m]).style.color = 'black'
-					document.getElementById(strategies[m] + '-box').innerHTML = '<i class="fa fa-circle-o" aria-hidden="true"></i>'
-				}
+			inTheZone = 'out'
 
-				if (statname == 'circleAndDashTactic') {
-					inTheZone = 'out'
-				}
-			}	
+			if (darkmode) {
+				for (m = 0; m < strategies.length; m++) {
+					if (statname == strategies[m]) {
+						document.getElementById(strategies[m]).style.color = 'hsla(190, 100%, 50%, 1)'
+						document.getElementById(strategies[m] + '-box').innerHTML = '<i class="fa fa-dot-circle-o" aria-hidden="true"></i>'
+						tactic = statname
+					}
+					else {
+						document.getElementById(strategies[m]).style.color = 'white'
+						document.getElementById(strategies[m] + '-box').innerHTML = '<i class="fa fa-circle-o" aria-hidden="true"></i>'
+					}
+
+					if (statname == 'circleAndDashTactic') {
+						inTheZone = 'out'
+					}
+				}	
+			}
+			else {
+				for (m = 0; m < strategies.length; m++) {
+					if (statname == strategies[m]) {
+						document.getElementById(strategies[m]).style.color = 'hsla(190, 100%, 50%, 1)'
+						document.getElementById(strategies[m] + '-box').innerHTML = '<i class="fa fa-dot-circle-o" aria-hidden="true"></i>'
+						tactic = statname
+					}
+					else {
+						document.getElementById(strategies[m]).style.color = 'black'
+						document.getElementById(strategies[m] + '-box').innerHTML = '<i class="fa fa-circle-o" aria-hidden="true"></i>'
+					}
+
+					if (statname == 'circleAndDashTactic') {
+						inTheZone = 'out'
+					}
+				}	
+			}
 		}
 
 		settingstatus = [true, true, false, true, true]
@@ -2779,7 +2861,13 @@
 					options.pointcolor = 'hsla(10, 100%, 50%, 0)'
 					updatePoint('simulationgraph', 'oppositePoint', options)
 					settingstatus[0] = false
-					document.getElementById('oppositePointVisibility').style.color = 'black'
+					if (darkmode) {
+						document.getElementById('oppositePointVisibility').style.color = 'white'
+					}
+					else {
+						document.getElementById('oppositePointVisibility').style.color = 'black'
+					}
+					
 					document.getElementById('oppositePointVisibility-box').innerHTML = '<i class="fa fa-square-o" aria-hidden="true"></i>'
 				}
 				else {
@@ -2798,7 +2886,12 @@
 					updateLine('simulationgraph', 'mouseAngleLine', options)
 					updateLine('simulationgraph', 'catAngleLine', options)
 					settingstatus[1] = false
-					document.getElementById('mcAngleVisibility').style.color = 'black'
+					if (darkmode) {
+						document.getElementById('mcAngleVisibility').style.color = 'white'
+					}
+					else {
+						document.getElementById('mcAngleVisibility').style.color = 'black'
+					}
 					document.getElementById('mcAngleVisibility-box').innerHTML = '<i class="fa fa-square-o" aria-hidden="true"></i>'
 				}
 				else {
@@ -2818,7 +2911,12 @@
 					updatePath('simulationgraph', 'trajectoryTrace', options)
 					settingstatus[2] = false
 					trajectoryMemory = []
-					document.getElementById('trajectoryTrace').style.color = 'black'
+					if (darkmode) {
+						document.getElementById('trajectoryTrace').style.color = 'white'
+					}
+					else {
+						document.getElementById('trajectoryTrace').style.color = 'black'
+					}
 					document.getElementById('trajectoryTrace-box').innerHTML = '<i class="fa fa-square-o" aria-hidden="true"></i>'
 				}
 				else {
@@ -2837,7 +2935,12 @@
 					options.stroke = 'hsla(260, 100%, 50%, 0)'
 					updateCircle('simulationgraph', 'circlingboundary' , options)
 					settingstatus[3] = false
-					document.getElementById('circlingradiusV').style.color = 'black'
+					if (darkmode) {
+						document.getElementById('circlingradiusV').style.color = 'white'
+					}
+					else {
+						document.getElementById('circlingradiusV').style.color = 'black'
+					}
 					document.getElementById('circlingradiusV-box').innerHTML = '<i class="fa fa-square-o" aria-hidden="true"></i>'
 				}
 				else {
@@ -2855,7 +2958,12 @@
 					options.stroke = 'hsla(260, 100%, 50%, 0)'
 					updateCircle('simulationgraph', 'dashboundary' , options)
 					settingstatus[3] = false
-					document.getElementById('dashboundaryV').style.color = 'black'
+					if (darkmode) {
+						document.getElementById('dashboundaryV').style.color = 'white'
+					}
+					else {
+						document.getElementById('dashboundaryV').style.color = 'black'
+					}
 					document.getElementById('dashboundaryV-box').innerHTML = '<i class="fa fa-square-o" aria-hidden="true"></i>'
 				}
 				else {
@@ -2893,6 +3001,24 @@
 		useTactic = false
 		tactic = 'circleAndDashTactic'
 
+		launchenabled = false
+
+		function loadlaunchoption() {
+			launchenabled = true
+			if (darkmode) {
+				document.getElementById('cbtn5').style.fontSize = '4vmin'
+				document.getElementById('cbtn5').style.color = 'white'
+				document.getElementById('cbtn5').style.fontWeight = 'normal'
+				document.getElementById('cbtn5').innerHTML = 'Restart'
+			}
+			else {
+				document.getElementById('cbtn5').style.fontSize = '4vmin'
+				document.getElementById('cbtn5').style.color = 'black'
+				document.getElementById('cbtn5').style.fontWeight = 'normal'
+				document.getElementById('cbtn5').innerHTML = 'Restart'
+			}
+		}
+
 		function playLoop(event) {
 			loopinterval = setInterval(frame, 8);
 			function frame() {
@@ -2908,6 +3034,7 @@
 					document.getElementById('mousestatusdisplay').innerHTML = options.text
 
 					closeandplayloop()
+					loadlaunchoption()
 				}
 				else if (Math.pow((mouseposition[0]*mouseposition[0]) + (mouseposition[1]*mouseposition[1]), 0.5) > 1.2) {
 					// clearInterval(loopinterval);
@@ -2925,35 +3052,87 @@
 				closeandplayloop()
 			}
 		}
+
 		window.addEventListener('keydown', checkpause)
 
 		function closeandplayloop() {
-			if (playing) {
-				infodisplay('playpause')
-				clearInterval(loopinterval);
-				playing = false
-				document.getElementById('cbtn5').innerHTML = '<i class="fa fa-play-circle" aria-hidden="true"></i>'
-				if (darkmode) {
-					for (k = 1; k < 13; k++) {
-						document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 50%, 0.6)"
-					}
-				}
-				else {
-					for (k = 1; k < 13; k++) {
-						document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 0.3)"
-					}
-				}
-					
-			}
-			else {
+			if (launchenabled) {
+				mousex = Math.random()*1.95 - 1
+				mousey = Math.sqrt(1 - Math.pow(mousex, 2)) - 0.05
+				mouseposition = [mousex, Math.random()*2*mousey - mousey]
+				updatePointXY('simulationgraph', 'mouse', mouseposition[0], mouseposition[1])
+
+				textopt = {}
+				textopt.x = mouseposition[0]
+				textopt.y = mouseposition[1] + 0.07
+				updateText('simulationgraph', 'mousetext', textopt)
+
 				playLoop()
 				infodisplay('playpause')
 				playing = true
 				document.getElementById('cbtn5').innerHTML = '<i class="fa fa-pause-circle" aria-hidden="true"></i>'
-				for (k = 1; k < 13; k++) {
-					document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
+				if (darkmode) {
+						for (k = 1; k < 13; k++) {
+							document.getElementById('cbtn' + k).style.color = "hsla(190, 100%,50%, 1)"
+						}
+					}
+					else {
+						for (k = 1; k < 13; k++) {
+							document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
+						}
+					}
+				launchenabled = false
+				if (darkmode) {
+					document.getElementById('cbtn5').style.fontSize = '6vmin'
+					// document.getElementById('cbtn5').style.color = 'white'
+					document.getElementById('cbtn5').style.fontWeight = 'bold'
+					// document.getElementById('cbtn5').innerHTML = 'Restart'
+				}
+				else {
+					document.getElementById('cbtn5').style.fontSize = '6vmin'
+					// document.getElementById('cbtn5').style.color = 'black'
+					document.getElementById('cbtn5').style.fontWeight = 'bold'
+					// document.getElementById('cbtn5').innerHTML = 'Restart'
+				}
+
+			}
+			else {
+				if (playing) {
+					infodisplay('playpause')
+					clearInterval(loopinterval);
+					playing = false
+					document.getElementById('cbtn5').innerHTML = '<i class="fa fa-play-circle" aria-hidden="true"></i>'
+					if (darkmode) {
+						for (k = 1; k < 13; k++) {
+							document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 50%, 0.6)"
+						}
+					}
+					else {
+						for (k = 1; k < 13; k++) {
+							document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 0.3)"
+						}
+					}
+						
+				}
+				else {
+					playLoop()
+					infodisplay('playpause')
+					playing = true
+					document.getElementById('cbtn5').innerHTML = '<i class="fa fa-pause-circle" aria-hidden="true"></i>'
+					if (darkmode) {
+						for (k = 1; k < 13; k++) {
+							document.getElementById('cbtn' + k).style.color = "hsla(190, 100%,50%, 1)"
+						}
+					}
+					else {
+						for (k = 1; k < 13; k++) {
+							document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 0%, 1)"
+						}
+					}
+						
 				}
 			}
+				
 			
 		}
 
@@ -3006,10 +3185,10 @@
 
 				diffangle = Math.abs(mouseangle - catangle) 
 				if (diffangle > 180) {
-					options.text = 'Mouse Alive, Angle : ' + Math.abs(diffangle - 360).toFixed(2) +', Position : ' + mouseposition[0].toFixed(2) + ', ' + mouseposition[1].toFixed(2)
+					options.text = 'Mouse-Cat Angle : ' + Math.abs(diffangle - 360).toFixed(2) +', Position : ' + mouseposition[0].toFixed(2) + ', ' + mouseposition[1].toFixed(2)
 				}
 				else {
-					options.text = 'Mouse Alive, Angle : ' + diffangle.toFixed(2) +', Position : ' + mouseposition[0].toFixed(2) + ', ' + mouseposition[1].toFixed(2)
+					options.text = 'Mouse-Cat Angle : ' + diffangle.toFixed(2) +', Position : ' + mouseposition[0].toFixed(2) + ', ' + mouseposition[1].toFixed(2)
 				}
 				
 				document.getElementById('mousestatusdisplay').innerHTML = options.text
