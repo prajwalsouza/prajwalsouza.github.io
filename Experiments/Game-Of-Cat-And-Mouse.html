@@ -8,6 +8,8 @@
 		<link href="https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic" rel="stylesheet">
 		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
 		<style type="text/css">
 			a {
@@ -85,7 +87,7 @@
 			<div id="darkback" style='margin:0px;width:100%; height: 45%; top:55%; overflow: hidden;position: absolute; z-index: -1; pointer-events: none;'>
 			</div>
 			<div id="titleH" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
-				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
+				<table id="maintitletable" width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
 					<tr>
 						<td colspan="1" id='maintitle' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 4vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 90%;">
 							Game of Cat and Mouse - Numberphile </br><font id="asimulationtext" style="font-size: 4vmin; font-weight: lighter; color: hsla(190, 100%, 60%, 1);">
@@ -97,7 +99,7 @@
 				</table>
 			</div>
 			<div id="descriptionH" style='margin:0px;width:100%; height: 5%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
-				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 1vw;">
+				<table id="infotable" width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 1vw;">
 					<tr>
 						<td id='info' colspan="1" style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; font-weight: lighter;  color: hsla(190, 100%, 0%, 1);" onclick="window.open('https://www.youtube.com/watch?v=vF_-ob9vseM')">
 							A simulation based on a <font style="cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 60%, 1);" onclick="window.open('https://www.youtube.com/watch?v=vF_-ob9vseM')">Numberphile video</font>. Please watch the video to understand the problem simulated here.
@@ -134,7 +136,7 @@
 			
 			
 			<div id="simulationcontrolH" style='margin:0px;width:100%; height: 32%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
-				<table width="100%" height='14%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw; ">
+				<table id="tabstable" width="100%" height='14%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw; ">
 					<tr>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border-bottom: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; color: white; background-color: transparent;"></td>
 						<td colspan="1" id='controltab' style="text-align: center; vertical-align: middle; border-bottom: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 100%; color: white; background-color: hsla(260, 100%, 50%, 0.4); box-shadow: 0px 12px 0px -10px hsla(100,0%,0%,0.8); cursor: pointer;"  onclick="switchto('controltab')">
@@ -657,9 +659,12 @@
 			}
 		}
 
+
+
 		// infodisplay('playpause')
 
 		darkmode = false
+
 
 		if (darkmode) {
 			document.body.style.background = 'black'
@@ -2345,6 +2350,77 @@
 			mode = 'landscape'
 		}
 
+		if (mode == 'landscape') {
+			simdiv = document.createElement("div");
+			simdiv.style.height = '100%'
+			simdiv.style.width = '50%'
+			simdiv.id = 'simdiv'
+			simdiv.style.display = 'inline-block'
+
+			document.getElementById('containAll').appendChild(simdiv)
+			$('#simdiv').insertAfter('#simulationH')
+			$('#simulationcontrolH').insertAfter('#simdiv')
+			// $("#simdiv").prependTo("#containAll")
+			// $("#simdiv").detach().appendTo('#containAll')
+			document.getElementById('simdiv').appendChild(document.getElementById('simulationplaceholder'))
+			document.getElementById('simdiv').appendChild(document.getElementById('extraoptionsHolder'))
+			document.getElementById('simdiv').appendChild(document.getElementById('gapHolder'))
+			document.getElementById('simdiv').appendChild(document.getElementById('titleH'))
+			document.getElementById('simdiv').appendChild(document.getElementById('descriptionH'))
+			// $('#simulationplaceholder').prependTo('#simdiv')
+			
+			document.getElementById('simulationplaceholder').style.height = '70%'
+			document.getElementById('simulationplaceholder').style.width = '100%'
+			document.getElementById('simulationcontrolH').style.height = '100%'
+			document.getElementById('simulationcontrolH').style.width = '50%'
+			document.getElementById('titleH').style.height = '10%'
+			document.getElementById('titleH').style.width = '100%'
+			document.getElementById('descriptionH').style.height = '15%'
+			document.getElementById('descriptionH').style.width = '100%'
+			document.getElementById('extraoptionsHolder').style.height = '5%'
+			document.getElementById('extraoptionsHolder').style.width = '100%'
+			document.getElementById('gapHolder').style.height = '0%'
+			document.getElementById('gapHolder').style.width = '0%'
+
+			document.getElementById('maintitle').style.textAlign = 'left'
+			document.getElementById('info').style.textAlign = 'left'
+
+			document.getElementById('maintitle').style.fontFamily = 'Source Sans Pro'
+			document.getElementById('maintitle').style.fontWeight = 'normal'
+			document.getElementById('asimulationtext').style.fontSize = '3vmin'
+			document.getElementById('websitelink').style.fontSize = '2.7vmin'
+
+			document.getElementById('info').style.fontSize = '2.5vmin'
+
+			document.getElementById('info').style.fontFamily = 'Source Sans Pro'
+			document.getElementById('info').style.fontWeight = 'normal'
+
+			document.getElementById('maintitletable').style.width = '95%'
+			document.getElementById('maintitletable').style.transform = 'translateX(5%)'
+			document.getElementById('infotable').style.width = '95%'
+			document.getElementById('infotable').style.transform = 'translateX(5%)'
+
+			// document.getElementById('extraoptionsHolder').style.height = '5%'
+
+			document.getElementById('mousestatusdisplay').style.fontSize = '2vmin'
+			document.getElementById('torusmodeoption').style.fontSize = '2.1vmin'
+			document.getElementById('darkmodeoption').style.fontSize = '2.1vmin'
+
+			// tabgapdiv = document.createElement("div");
+			// tabgapdiv.style.height = '100%'
+			// tabgapdiv.style.width = '50%'
+			// tabgapdiv.id = 'tabgapdiv'
+			// tabgapdiv.style.display = 'inline-block'
+
+			// document.getElementById('containAll').appendChild(tabgapdiv)
+
+			document.getElementById('tabstable').style.height = '12%'
+			// document.getElementById('controltabcontrols').style.top = '12%'
+			
+			// document.getElementById('titletext').setAttribute('colspan', '2')
+			// document.getElementById('positionphasespacegraphholder').style.width = '100%'
+		}
+
 		// console.log(mode)
 
 		apercent = 0.15
@@ -2375,6 +2451,23 @@
 				worldymin = ((yb - ya)*(1 - apercent)/(bpercent - apercent)) + ya
 			}
 				
+		}
+		else if (mode == 'landscape') {
+			apercentland = 0
+			bpercentland = apercentland + 0.65
+			if ((bpercentland - apercentland)*window.innerHeight < window.innerWidth) {
+				worldymax = ((yb - ya)*(0 - apercentland)/(bpercentland - apercentland)) + ya
+				worldymin = ((yb - ya)*(1 - apercentland)/(bpercentland - apercentland)) + ya
+			}
+			else {
+				bpercentland = apercentland + (window.innerWidth/window.innerHeight)
+				worldymax = ((yb - ya)*(0 - apercentland)/(bpercentland - apercentland)) + ya
+				worldymin = ((yb - ya)*(1 - apercentland)/(bpercentland - apercentland)) + ya
+			}
+			ywidth = worldymax - worldymin
+			xwidth = ywidth/(bpercentland - apercentland)
+			worldxmax = 3.4
+			worldxmin = 0
 		}
 
 		
@@ -2548,8 +2641,8 @@
 			// mouse = addPoint('simulationgraph', 'center' , options)
 
 			options = {}
-			options.x = -2
-			options.y = -2
+			options.x = -10
+			options.y = -10
 			options.pointcolor = 'hsla(260, 10%, 0%, 0.3)'
 			options.pointsize = 1
 			if (darkmode) {
@@ -4077,6 +4170,9 @@
 		}
 
 		// Code from https://stackoverflow.com/questions/5203407/how-to-detect-if-multiple-keys-are-pressed-at-once-using-javascript
+
+		setDarkMode()
+
 			
 
 
