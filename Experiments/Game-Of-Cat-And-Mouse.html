@@ -82,7 +82,7 @@
 	</head>
 	<body style='margin:0px; display: block;'>
 		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'> 
-			<div id="simulationH" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: absolute; z-index: 1; '>
+			<div id="simulationH" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: absolute; z-index: 1; ' >
 			</div>
 			<div id="darkback" style='margin:0px;width:100%; height: 45%; top:55%; overflow: hidden;position: absolute; z-index: -1; pointer-events: none;'>
 			</div>
@@ -109,7 +109,7 @@
 			</div>
 			<div id="gapHolder" style='margin:0px;width:100%; height: 1%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
 			</div>
-			<div id="extraoptionsHolder" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+			<div id="extraoptionsHolder" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 4; display: inline-block;' onmouseover="infodisplay('normal')">
 				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Source Sans Pro; font-size: 1vw;">
 					<tr>
 						<td id='placeholder' colspan="1" style="width: 2%; ">
@@ -135,7 +135,7 @@
 			</div>
 			
 			
-			<div id="simulationcontrolH" style='margin:0px;width:100%; height: 32%;overflow: hidden;position: relative; z-index: 4; display: inline-block;'>
+			<div id="simulationcontrolH" style='margin:0px;width:100%; height: 32%;overflow: hidden;position: relative; z-index: 4; display: inline-block;' onmouseover="infodisplay('normal')">
 				<table id="tabstable" width="100%" height='14%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw; ">
 					<tr>
 						<td colspan="1" style="text-align: center; vertical-align: middle; border-bottom: 0px solid black; font-size: 3vmin; font-weight: bold;  color: hsla(190, 100%, 0%, 1); width: 10%; color: white; background-color: transparent;"></td>
@@ -442,7 +442,6 @@
 			else if (infoobject == 'playpause') {
 				document.getElementById('info').innerHTML = 'Play/Pause the simulation. </br>Keyboard shortcut is the <b> Spacebar </b> key.'
 			}
-			
 		}
 
 		function setTorusMode() {
@@ -551,6 +550,18 @@
 					}
 				}
 
+				options = {}
+				options.circlecolor = 'hsla(190, 100%, 50%, 1)'
+				updateCircle('simulationgraph', 'pond', options)
+
+				options = {}
+				options.pointcolor = 'hsla(200, 100%, 0%, 0.5)'
+				updatePoint('simulationgraph', 'oppositePoint', options)
+
+				for (stg = 0; stg < strategies.length; stg++) {
+					document.getElementById(strategies[stg]).style.backgroundColor = 'hsla(190, 100%, 0%, 0.1)'
+				}
+
 			}
 			else {
 				darkmode = true
@@ -656,10 +667,20 @@
 						document.getElementById(settingslist[st] + '-box').style.color = "hsla(190, 100%, 100%, 1)"
 					}
 				}
+
+				options = {}
+				options.circlecolor = 'hsla(200, 100%, 50%, 1)'
+				updateCircle('simulationgraph', 'pond', options)
+
+				options = {}
+				options.pointcolor = 'hsla(200, 100%, 100%, 0.5)'
+				updatePoint('simulationgraph', 'oppositePoint', options)
+
+				for (stg = 0; stg < strategies.length; stg++) {
+					document.getElementById(strategies[stg]).style.backgroundColor = 'black'
+				}
 			}
 		}
-
-
 
 		// infodisplay('playpause')
 
@@ -767,7 +788,6 @@
 
 			return y
 		}
-
 
 		function graphToSvgX(value, graphxmin, graphxmax) {
 			if (graphxmin == graphxmax) {
@@ -2351,132 +2371,169 @@
 
 		strategies = ['awayTactic', 'oppPointTactic', 'circlingTactic', 'dashTactic', 'circleAndDashTactic']
 
-
-		if (mode == 'landscape' || mode == 'square') {
-			simdiv = document.createElement("div");
-			simdiv.style.height = '100%'
-			if(mode == 'square') {
-				simdiv.style.width = '50%'
-			}
-			else {
-				simdiv.style.width = '60%'
-			}
-			simdiv.id = 'simdiv'
-			simdiv.style.display = 'inline-block'
-
-			document.getElementById('containAll').appendChild(simdiv)
-			$('#simdiv').insertAfter('#simulationH')
-			$('#simulationcontrolH').insertAfter('#simdiv')
-			// $("#simdiv").prependTo("#containAll")
-			// $("#simdiv").detach().appendTo('#containAll')
-			document.getElementById('simdiv').appendChild(document.getElementById('simulationplaceholder'))
-			document.getElementById('simdiv').appendChild(document.getElementById('extraoptionsHolder'))
-			document.getElementById('simdiv').appendChild(document.getElementById('gapHolder'))
-			document.getElementById('simdiv').appendChild(document.getElementById('titleH'))
-			document.getElementById('simdiv').appendChild(document.getElementById('descriptionH'))
-			// $('#simulationplaceholder').prependTo('#simdiv')
-			
-			document.getElementById('simulationplaceholder').style.height = '70%'
-			document.getElementById('simulationplaceholder').style.width = '100%'
-			document.getElementById('simulationcontrolH').style.height = '90%'
-			if(mode == 'square') {
-				document.getElementById('simulationcontrolH').style.width = '50%'
-			}
-			else {
-				document.getElementById('simulationcontrolH').style.width = '40%'
-			}
-			
-			document.getElementById('titleH').style.height = '10%'
-			document.getElementById('titleH').style.width = '100%'
-			document.getElementById('descriptionH').style.height = '15%'
-			document.getElementById('descriptionH').style.width = '100%'
-			document.getElementById('extraoptionsHolder').style.height = '5%'
-			document.getElementById('extraoptionsHolder').style.width = '100%'
-			document.getElementById('gapHolder').style.height = '0%'
-			document.getElementById('gapHolder').style.width = '0%'
-
-			document.getElementById('maintitle').style.textAlign = 'left'
-			document.getElementById('info').style.textAlign = 'left'
-
-			document.getElementById('maintitle').style.fontFamily = 'Source Sans Pro'
-			document.getElementById('maintitle').style.fontWeight = 'normal'
-			document.getElementById('asimulationtext').style.fontSize = '3vmin'
-			document.getElementById('websitelink').style.fontSize = '2.7vmin'
-
-			document.getElementById('info').style.fontSize = '2.5vmin'
-
-			document.getElementById('info').style.fontFamily = 'Source Sans Pro'
-			document.getElementById('info').style.fontWeight = 'normal'
-
-			document.getElementById('maintitletable').style.width = '95%'
-			document.getElementById('maintitletable').style.transform = 'translateX(5%)'
-			document.getElementById('infotable').style.width = '95%'
-			document.getElementById('infotable').style.transform = 'translateX(5%)'
-
-			// document.getElementById('extraoptionsHolder').style.height = '5%'
-
-			document.getElementById('mousestatusdisplay').style.fontSize = '2vmin'
-			document.getElementById('torusmodeoption').style.fontSize = '2.1vmin'
-			document.getElementById('darkmodeoption').style.fontSize = '2.1vmin'
-
-			// tabgapdiv = document.createElement("div");
-			// tabgapdiv.style.height = '100%'
-			// tabgapdiv.style.width = '50%'
-			// tabgapdiv.id = 'tabgapdiv'
-			// tabgapdiv.style.display = 'inline-block'
-
-			// document.getElementById('containAll').appendChild(tabgapdiv)
-
-			document.getElementById('darkback').style.width = '45%'
-			document.getElementById('darkback').style.height = '100%'
-			document.getElementById('darkback').style.top = '0%'
-			if(mode == 'square') {
-				document.getElementById('darkback').style.left = '45%'
-				document.getElementById('darkback').style.width = '55%'
-			}
-			else {
-				document.getElementById('darkback').style.left = '55%'
-			}
-			
-
-
-			document.getElementById('tabstable').style.height = '7%'
-			document.getElementById('controltab').style.fontSize = '2.3vmin'
-			document.getElementById('settingtab').style.fontSize = '2.3vmin'
-			document.getElementById('strategytab').style.fontSize = '2.3vmin'
-			document.getElementById('controltabcontrols').style.top = '12%'
-			document.getElementById('controltabcontrols').style.height = '50%'
-			document.getElementById('controltabcontrols').style.borderSpacing = '15px'
-
-			btnlist = ['','','','','','','','','','','Rotate Anti-Clockwise','Dash Outward','Rotate Clockwise']
-
-			for (btn = 1; btn < 13; btn++) {
-				// document.getElementById('cbtn' + btn).style.height = '70%'
-				document.getElementById('cbtn' + btn).style.fontSize = '3.2vmin'
-				document.getElementById('cbtn' + btn).style.borderRadius= '13px'
-				if (btnlist[btn] != '') {
-					document.getElementById('cbtn' + btn).innerHTML = btnlist[btn]
-					document.getElementById('cbtn' + btn).style.fontSize = '2vmin'
-					document.getElementById('cbtn' + btn).style.fontWeight = 'normal'
-					document.getElementById('cbtn' + btn).style.fontFamily = 'Source Sans Pro'
-
+		function handleLayout() {
+			if (mode == 'landscape' || mode == 'square') {
+				simdiv = document.createElement("div");
+				simdiv.style.height = '100%'
+				if(mode == 'square') {
+					simdiv.style.width = '50%'
 				}
-			}
+				else {
+					simdiv.style.width = '60%'
+				}
+				simdiv.id = 'simdiv'
+				simdiv.style.display = 'inline-block'
 
-			document.getElementById('strategytabcontrols').style.height = '60%'
+				document.getElementById('containAll').appendChild(simdiv)
+				$('#simdiv').insertAfter('#simulationH')
+				$('#simulationcontrolH').insertAfter('#simdiv')
+				// $("#simdiv").prependTo("#containAll")
+				// $("#simdiv").detach().appendTo('#containAll')
+				document.getElementById('simdiv').appendChild(document.getElementById('simulationplaceholder'))
+				document.getElementById('simdiv').appendChild(document.getElementById('extraoptionsHolder'))
+				document.getElementById('simdiv').appendChild(document.getElementById('gapHolder'))
+				document.getElementById('simdiv').appendChild(document.getElementById('titleH'))
+				document.getElementById('simdiv').appendChild(document.getElementById('descriptionH'))
+				// $('#simulationplaceholder').prependTo('#simdiv')
+				
+				document.getElementById('simulationplaceholder').style.height = '70%'
+				document.getElementById('simulationplaceholder').style.width = '100%'
+				document.getElementById('simulationcontrolH').style.height = '90%'
+				if(mode == 'square') {
+					document.getElementById('simulationcontrolH').style.width = '50%'
+				}
+				else {
+					document.getElementById('simulationcontrolH').style.width = '40%'
+				}
+				
+				document.getElementById('titleH').style.height = '10%'
+				document.getElementById('titleH').style.width = '100%'
+				document.getElementById('descriptionH').style.height = '15%'
+				document.getElementById('descriptionH').style.width = '100%'
+				document.getElementById('extraoptionsHolder').style.height = '5%'
+				document.getElementById('extraoptionsHolder').style.width = '100%'
+				document.getElementById('gapHolder').style.height = '0%'
+				document.getElementById('gapHolder').style.width = '0%'
 
-			for (stg = 0; stg < strategies.length; stg++) {
-				document.getElementById(strategies[stg] + '-box').style.visibility = 'hidden'
-				document.getElementById(strategies[stg] + '-box').style.width = '0%'
-				document.getElementById(strategies[stg]).style.fontSize = '2.4vmin'
-				document.getElementById(strategies[stg]).style.backgroundColor = 'black'
-				document.getElementById(strategies[stg]).style.textAlign= 'center'
-				document.getElementById(strategies[stg]).style.borderRadius= '13px'
+				document.getElementById('maintitle').style.textAlign = 'left'
+				document.getElementById('info').style.textAlign = 'left'
+
+				document.getElementById('maintitle').style.fontFamily = 'Source Sans Pro'
+				document.getElementById('maintitle').style.fontWeight = 'normal'
+				document.getElementById('asimulationtext').style.fontSize = '3vmin'
+				document.getElementById('websitelink').style.fontSize = '2.7vmin'
+
+				document.getElementById('info').style.fontSize = '2.5vmin'
+
+				document.getElementById('info').style.fontFamily = 'Source Sans Pro'
+				document.getElementById('info').style.fontWeight = 'normal'
+
+				document.getElementById('maintitletable').style.width = '95%'
+				document.getElementById('maintitletable').style.transform = 'translateX(5%)'
+				document.getElementById('infotable').style.width = '95%'
+				document.getElementById('infotable').style.transform = 'translateX(5%)'
+
+				// document.getElementById('extraoptionsHolder').style.height = '5%'
+
+				document.getElementById('mousestatusdisplay').style.fontSize = '2vmin'
+				document.getElementById('torusmodeoption').style.fontSize = '2.1vmin'
+				document.getElementById('darkmodeoption').style.fontSize = '2.1vmin'
+
+				// tabgapdiv = document.createElement("div");
+				// tabgapdiv.style.height = '100%'
+				// tabgapdiv.style.width = '50%'
+				// tabgapdiv.id = 'tabgapdiv'
+				// tabgapdiv.style.display = 'inline-block'
+
+				// document.getElementById('containAll').appendChild(tabgapdiv)
+
+				document.getElementById('darkback').style.width = '45%'
+				document.getElementById('darkback').style.height = '100%'
+				document.getElementById('darkback').style.top = '0%'
+				if(mode == 'square') {
+					document.getElementById('darkback').style.left = '45%'
+					document.getElementById('darkback').style.width = '55%'
+				}
+				else {
+					document.getElementById('darkback').style.left = '55%'
+				}
+				
+				document.getElementById('tabstable').style.height = '7%'
+				document.getElementById('controltab').style.fontSize = '2.3vmin'
+				document.getElementById('settingtab').style.fontSize = '2.3vmin'
+				document.getElementById('strategytab').style.fontSize = '2.3vmin'
+				document.getElementById('controltabcontrols').style.top = '12%'
+				document.getElementById('controltabcontrols').style.height = '50%'
+				document.getElementById('controltabcontrols').style.borderSpacing = '15px'
+
+				btnlist = ['','','','','','','','','','','Rotate Anti-Clockwise','Dash Outward','Rotate Clockwise']
+
+				for (btn = 1; btn < 13; btn++) {
+					// document.getElementById('cbtn' + btn).style.height = '70%'
+					document.getElementById('cbtn' + btn).style.fontSize = '3.2vmin'
+					document.getElementById('cbtn' + btn).style.borderRadius= '13px'
+					if (btnlist[btn] != '') {
+						document.getElementById('cbtn' + btn).innerHTML = btnlist[btn]
+						document.getElementById('cbtn' + btn).style.fontSize = '2vmin'
+						document.getElementById('cbtn' + btn).style.fontWeight = 'normal'
+						document.getElementById('cbtn' + btn).style.fontFamily = 'Source Sans Pro'
+
+					}
+				}
+
+				document.getElementById('strategytabcontrols').style.height = '80%'
+
+				strategynames = ['Away Tactic', 'Opposite Point Tactic', 'Dash Tactic', 'Circling Tactic', 'Circle and Dash Tactic']
+				strategydescriptions = ['Move away from the cat along the line joining the cat.','Move to the point of the cat on the pond', 'Dash outward to the nearest exit.','Circle around the center of the pool.','Circle in the goldilock zone and then dash outwards to the nearest exit.']
+
+				for (stg = 0; stg < strategies.length; stg++) {
+					document.getElementById(strategies[stg] + '-box').style.visibility = 'hidden'
+					document.getElementById(strategies[stg] + '-box').style.width = '0%'
+					document.getElementById(strategies[stg]).style.fontSize = '2.4vmin'
+					if (darkmode) {
+						document.getElementById(strategies[stg]).style.backgroundColor = 'black'
+					}
+					else {
+						document.getElementById(strategies[stg]).style.backgroundColor = 'hsla(190, 100%, 0%, 0.1)'
+					}
+					document.getElementById(strategies[stg]).style.textAlign = 'left'
+					document.getElementById(strategies[stg]).style.borderRadius = '13px'
+					document.getElementById(strategies[stg]).style.transform = 'translateX(-20%)'
+					document.getElementById(strategies[stg]).innerHTML = '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<font style="font-weight: bold;">' + strategynames[stg] + '</font><br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<font style="font-size: 1.5vmin;">' + strategydescriptions[stg] +'</font>'
+				}
+
+				document.getElementById('settingtabcontrols').style.height = '70%'
+				document.getElementById('catspeedtext').style.fontSize = '2.6vmin'
+				document.getElementById('catspeedinput').style.fontSize = '2.4vmin'
+				document.getElementById('catspeedinput').style.height = '60%'
+				document.getElementById('mousespeedtext').style.fontSize = '2.6vmin'
+				document.getElementById('mousespeedinput').style.fontSize = '2.4vmin'
+				document.getElementById('mousespeedinput').style.height = '60%'
+				document.getElementById('oppositePointVisibility').style.fontSize = '2.9vmin'
+				document.getElementById('oppositePointVisibility-box').style.fontSize = '2.9vmin'
+				document.getElementById('mcAngleVisibility').style.fontSize = '2.9vmin'
+				document.getElementById('mcAngleVisibility-box').style.fontSize = '2.9vmin'
+				document.getElementById('trajectoryTrace').style.fontSize = '2.9vmin'
+				document.getElementById('trajectoryTrace-box').style.fontSize = '2.9vmin'
+				document.getElementById('circlingradiusV').style.fontSize = '2.9vmin'
+				document.getElementById('circlingradiusV-box').style.fontSize = '2.9vmin'
+				document.getElementById('dashboundaryV').style.fontSize = '2.9vmin'
+				document.getElementById('dashboundaryV-box').style.fontSize = '2.9vmin'
+
+
+
+				document.getElementsByClassName('slider')[0].style.height = '10%'
+				document.getElementsByClassName('slider')[1].style.height = '10%'
+
+				// document.getElementsByClassName('slider')[1].style.height = '10%'
+
+				
+				// document.getElementById('titletext').setAttribute('colspan', '2')
+				// document.getElementById('positionphasespacegraphholder').style.width = '100%'
 			}
-			
-			// document.getElementById('titletext').setAttribute('colspan', '2')
-			// document.getElementById('positionphasespacegraphholder').style.width = '100%'
 		}
+
+		handleLayout()
 
 		// console.log(mode)
 
@@ -2509,7 +2566,7 @@
 			}
 				
 		}
-		else if (mode == 'landscape') {
+		else if (mode == 'landscape' || mode == 'square') {
 			apercentland = 0
 			bpercentland = apercentland + 0.65
 			if ((bpercentland - apercentland)*window.innerHeight < window.innerWidth) {
@@ -2523,11 +2580,10 @@
 			}
 			ywidth = worldymax - worldymin
 			xwidth = ywidth/(bpercentland - apercentland)
-			worldxmax = 7.4
-			worldxmin = -3
+			worldxmax = 4.4*window.innerWidth/window.innerHeight
+			worldxmin = -2.5*window.innerWidth/window.innerHeight
 		}
-
-		
+	
 		mousex = Math.random()*1.95 - 1
 		mousey = Math.sqrt(1 - Math.pow(mousex, 2)) - 0.05
 		mouseposition = [mousex, Math.random()*2*mousey - mousey]
@@ -2583,7 +2639,7 @@
 			options.x = 0
 			options.y = 0
 			options.circlecolor = 'hsla(190, 100%, 50%, 1)'
-			options.stroke = 'hsla(190, 100%, 50%, 1)'
+			options.stroke = 'hsla(190, 100%, 50%, 0)'
 			options.strokewidth = 2
 			options.radius = 1
 			if (darkmode) {
@@ -2846,7 +2902,6 @@
 			}
 				
 		}
-
 
 		function switchstrategyto(statname) {
 			lineopts = {}
@@ -3153,20 +3208,19 @@
 		function loadlaunchoption() {
 			launchenabled = true
 			if (darkmode) {
-				if (mode == 'landscape') {
-					document.getElementById('cbtn5').style.fontSize = '3.2vmin'
+				if (mode == 'landscape' || mode == 'square') {
+					document.getElementById('cbtn5').style.fontSize = '3vmin'
 				}
 				else {
 					document.getElementById('cbtn5').style.fontSize = '4vmin'
 				}
-				document.getElementById('cbtn5').style.fontSize = '4vmin'
 				document.getElementById('cbtn5').style.color = 'white'
 				document.getElementById('cbtn5').style.fontWeight = 'normal'
 				document.getElementById('cbtn5').innerHTML = 'Restart'
 			}
 			else {
-				if (mode == 'landscape') {
-					document.getElementById('cbtn5').style.fontSize = '3.2vmin'
+				if (mode == 'landscape' || mode == 'square') {
+					document.getElementById('cbtn5').style.fontSize = '3vmin'
 				}
 				else {
 					document.getElementById('cbtn5').style.fontSize = '4vmin'
@@ -3241,7 +3295,7 @@
 					}
 				launchenabled = false
 				if (darkmode) {
-					if (mode == 'landscape') {
+					if (mode == 'landscape' || mode == 'square') {
 						document.getElementById('cbtn5').style.fontSize = '3.2vmin'
 					}
 					else {
@@ -3252,7 +3306,7 @@
 					// document.getElementById('cbtn5').innerHTML = 'Restart'
 				}
 				else {
-					if (mode == 'landscape') {
+					if (mode == 'landscape' || mode == 'square') {
 						document.getElementById('cbtn5').style.fontSize = '3.2vmin'
 					}
 					else {
@@ -3300,18 +3354,12 @@
 						
 				}
 			}
-				
-			
 		}
-
-		
-
 
 		// graphoptions.xmax = 1.1
 		// graphoptions.xmin = -1.1
 		// graphoptions.ymax = 1.4
 		// graphoptions.ymin = -2.4
-
 
 		function catmove() {
 			headdirection = checkproximity()[1]
@@ -3387,7 +3435,6 @@
 				updateText('simulationgraph', 'cattext', textopt)
 			}
 		}
-
 
 		function directionvec(vec1, vec2) {
 			vec = [vec2[0] - vec1[0], vec2[1] - vec1[1]]
@@ -4011,8 +4058,6 @@
 
 		invsqrt2 = 1/Math.sqrt(2)
 
-
-
 		function assignkeys() {
 			if (playing) {
 				if (darkmode) {
@@ -4135,9 +4180,7 @@
 			if (mousemovement) {
 				useTactic = false
 			}
-
 		}
-
 
 		function buttonclick(name) {
 			// if (playing) {
@@ -4188,7 +4231,6 @@
 
 		}
 
-
 		function buttonclickout() {
 			// for (m = 0; m < possiblekeys.length; m++) {
 			// 	map[possiblekeys[m]] = false
@@ -4201,8 +4243,6 @@
 			// }
 				
 		}
-
-
 
 		mousemovement = false
 		mousedirection = [0, 1]
@@ -4238,9 +4278,6 @@
 				// console.log(e)
 			}
 		}
-			
-
-
 
 		for (m = 0; m < possiblekeys.length; m++) {
 			map[possiblekeys[m]] = false
@@ -4249,9 +4286,6 @@
 		// Code from https://stackoverflow.com/questions/5203407/how-to-detect-if-multiple-keys-are-pressed-at-once-using-javascript
 
 		setDarkMode()
-
-			
-
 
 		</script>
 
