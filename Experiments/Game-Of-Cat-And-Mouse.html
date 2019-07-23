@@ -665,7 +665,6 @@
 
 		darkmode = false
 
-
 		if (darkmode) {
 			document.body.style.background = 'black'
 		}
@@ -2350,10 +2349,18 @@
 			mode = 'landscape'
 		}
 
-		if (mode == 'landscape') {
+		strategies = ['awayTactic', 'oppPointTactic', 'circlingTactic', 'dashTactic', 'circleAndDashTactic']
+
+
+		if (mode == 'landscape' || mode == 'square') {
 			simdiv = document.createElement("div");
 			simdiv.style.height = '100%'
-			simdiv.style.width = '50%'
+			if(mode == 'square') {
+				simdiv.style.width = '50%'
+			}
+			else {
+				simdiv.style.width = '60%'
+			}
 			simdiv.id = 'simdiv'
 			simdiv.style.display = 'inline-block'
 
@@ -2371,8 +2378,14 @@
 			
 			document.getElementById('simulationplaceholder').style.height = '70%'
 			document.getElementById('simulationplaceholder').style.width = '100%'
-			document.getElementById('simulationcontrolH').style.height = '100%'
-			document.getElementById('simulationcontrolH').style.width = '50%'
+			document.getElementById('simulationcontrolH').style.height = '90%'
+			if(mode == 'square') {
+				document.getElementById('simulationcontrolH').style.width = '50%'
+			}
+			else {
+				document.getElementById('simulationcontrolH').style.width = '40%'
+			}
+			
 			document.getElementById('titleH').style.height = '10%'
 			document.getElementById('titleH').style.width = '100%'
 			document.getElementById('descriptionH').style.height = '15%'
@@ -2414,8 +2427,52 @@
 
 			// document.getElementById('containAll').appendChild(tabgapdiv)
 
-			document.getElementById('tabstable').style.height = '12%'
-			// document.getElementById('controltabcontrols').style.top = '12%'
+			document.getElementById('darkback').style.width = '45%'
+			document.getElementById('darkback').style.height = '100%'
+			document.getElementById('darkback').style.top = '0%'
+			if(mode == 'square') {
+				document.getElementById('darkback').style.left = '45%'
+				document.getElementById('darkback').style.width = '55%'
+			}
+			else {
+				document.getElementById('darkback').style.left = '55%'
+			}
+			
+
+
+			document.getElementById('tabstable').style.height = '7%'
+			document.getElementById('controltab').style.fontSize = '2.3vmin'
+			document.getElementById('settingtab').style.fontSize = '2.3vmin'
+			document.getElementById('strategytab').style.fontSize = '2.3vmin'
+			document.getElementById('controltabcontrols').style.top = '12%'
+			document.getElementById('controltabcontrols').style.height = '50%'
+			document.getElementById('controltabcontrols').style.borderSpacing = '15px'
+
+			btnlist = ['','','','','','','','','','','Rotate Anti-Clockwise','Dash Outward','Rotate Clockwise']
+
+			for (btn = 1; btn < 13; btn++) {
+				// document.getElementById('cbtn' + btn).style.height = '70%'
+				document.getElementById('cbtn' + btn).style.fontSize = '3.2vmin'
+				document.getElementById('cbtn' + btn).style.borderRadius= '13px'
+				if (btnlist[btn] != '') {
+					document.getElementById('cbtn' + btn).innerHTML = btnlist[btn]
+					document.getElementById('cbtn' + btn).style.fontSize = '2vmin'
+					document.getElementById('cbtn' + btn).style.fontWeight = 'normal'
+					document.getElementById('cbtn' + btn).style.fontFamily = 'Source Sans Pro'
+
+				}
+			}
+
+			document.getElementById('strategytabcontrols').style.height = '60%'
+
+			for (stg = 0; stg < strategies.length; stg++) {
+				document.getElementById(strategies[stg] + '-box').style.visibility = 'hidden'
+				document.getElementById(strategies[stg] + '-box').style.width = '0%'
+				document.getElementById(strategies[stg]).style.fontSize = '2.4vmin'
+				document.getElementById(strategies[stg]).style.backgroundColor = 'black'
+				document.getElementById(strategies[stg]).style.textAlign= 'center'
+				document.getElementById(strategies[stg]).style.borderRadius= '13px'
+			}
 			
 			// document.getElementById('titletext').setAttribute('colspan', '2')
 			// document.getElementById('positionphasespacegraphholder').style.width = '100%'
@@ -2466,8 +2523,8 @@
 			}
 			ywidth = worldymax - worldymin
 			xwidth = ywidth/(bpercentland - apercentland)
-			worldxmax = 3.4
-			worldxmin = 0
+			worldxmax = 7.4
+			worldxmin = -3
 		}
 
 		
@@ -2790,7 +2847,6 @@
 				
 		}
 
-		strategies = ['awayTactic', 'oppPointTactic', 'circlingTactic', 'dashTactic', 'circleAndDashTactic']
 
 		function switchstrategyto(statname) {
 			lineopts = {}
@@ -3097,13 +3153,24 @@
 		function loadlaunchoption() {
 			launchenabled = true
 			if (darkmode) {
+				if (mode == 'landscape') {
+					document.getElementById('cbtn5').style.fontSize = '3.2vmin'
+				}
+				else {
+					document.getElementById('cbtn5').style.fontSize = '4vmin'
+				}
 				document.getElementById('cbtn5').style.fontSize = '4vmin'
 				document.getElementById('cbtn5').style.color = 'white'
 				document.getElementById('cbtn5').style.fontWeight = 'normal'
 				document.getElementById('cbtn5').innerHTML = 'Restart'
 			}
 			else {
-				document.getElementById('cbtn5').style.fontSize = '4vmin'
+				if (mode == 'landscape') {
+					document.getElementById('cbtn5').style.fontSize = '3.2vmin'
+				}
+				else {
+					document.getElementById('cbtn5').style.fontSize = '4vmin'
+				}
 				document.getElementById('cbtn5').style.color = 'black'
 				document.getElementById('cbtn5').style.fontWeight = 'normal'
 				document.getElementById('cbtn5').innerHTML = 'Restart'
@@ -3174,13 +3241,23 @@
 					}
 				launchenabled = false
 				if (darkmode) {
-					document.getElementById('cbtn5').style.fontSize = '6vmin'
+					if (mode == 'landscape') {
+						document.getElementById('cbtn5').style.fontSize = '3.2vmin'
+					}
+					else {
+						document.getElementById('cbtn5').style.fontSize = '6vmin'
+					}
 					// document.getElementById('cbtn5').style.color = 'white'
 					document.getElementById('cbtn5').style.fontWeight = 'bold'
 					// document.getElementById('cbtn5').innerHTML = 'Restart'
 				}
 				else {
-					document.getElementById('cbtn5').style.fontSize = '6vmin'
+					if (mode == 'landscape') {
+						document.getElementById('cbtn5').style.fontSize = '3.2vmin'
+					}
+					else {
+						document.getElementById('cbtn5').style.fontSize = '6vmin'
+					}
 					// document.getElementById('cbtn5').style.color = 'black'
 					document.getElementById('cbtn5').style.fontWeight = 'bold'
 					// document.getElementById('cbtn5').innerHTML = 'Restart'
