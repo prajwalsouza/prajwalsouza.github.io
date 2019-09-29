@@ -93,9 +93,9 @@
 	</head>
 	<body style='margin:0px; display: block;'>
 		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'> 
-			<div id="dotvisualH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: fixed; z-index: 1; '>
+			<div id="dotvisualH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: absolute; z-index: 1; '>
 			</div>
-			<div id="titleH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: fixed; z-index: 1; background-image: radial-gradient(hsla(1,0%,0%, 1),hsla(1,0%,0%, 0)) ' >
+			<div id="titleH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1; background-image: radial-gradient(hsla(1,0%,0%, 1),hsla(1,0%,0%, 0)) ' >
 				<table id="maintitletable" width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
 					<tr>
 						<td colspan="1" id='maintitle' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 5vmin; font-weight: bold;  color: hsla(190, 100%, 100%, 1); width: 90%;">
@@ -2109,7 +2109,7 @@
 		function setupWorld() {
 			dotvisual = document.getElementById('dotvisualH')
 			graphoptions = {}
-			graphoptions.xmax = 1
+			graphoptions.xmax = 3
 			graphoptions.xmin = -1
 			graphoptions.ymax = 1
 			graphoptions.ymin = -1
@@ -2143,12 +2143,12 @@
 
 			// makeArc(0.3, 0.4, 0.8)
 
-			rings = 40
+			rings = 16
 
 			
 
 			for (ring = 5; ring < rings; ring++) {
-				breaks = parseInt(Math.random()*ring*8 + 3)
+				breaks = parseInt(Math.random()*ring*20 + 3)
 				breakpoints = []
 				for (g = 0; g < breaks; g++) {
 					breakpoints.push(Math.random())
@@ -2159,7 +2159,7 @@
 
 
 				// ringcolor = 'hsla(' + randomChoice(ringcolors) + ', 100%, 50%, 1)'
-				ringcolor = 'hsla(' + (0 + (ring - 5)*10) + ', 100%, 50%, 1)'
+				ringcolor = 'hsla(' + (0 + (ring - 5)*30) + ', 100%, 50%, 1)'
 
 				ringthick = 10*(Math.random() - 0.5)*0.1 + 1.2
 				ringrad = ring/14;
