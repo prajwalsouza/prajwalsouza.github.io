@@ -6,6 +6,9 @@
 		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+
 		<!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
@@ -93,15 +96,17 @@
 	</head>
 	<body style='margin:0px; display: block;'>
 		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'> 
-			<div id="dotvisualH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: absolute; z-index: 1; '>
+			<div id="ringvisualH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: absolute; z-index: 1; '>
+			</div>
+			<div id="timelineH" style='margin:0px;width:5%; height: 100%;overflow: hidden;position: fixed; z-index: 5; '>
 			</div>
 			<div id="titleH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1; background-image: radial-gradient(hsla(1,0%,0%, 1),hsla(1,0%,0%, 0)) ' >
 				<table id="maintitletable" width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
 					<tr>
-						<td colspan="1" id='maintitle' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 5vmin; font-weight: bold;  color: hsla(190, 100%, 100%, 1); width: 90%;">
-							A Course in Theoretical Physics </br><font id="avintontext" style="font-size: 3vmin; font-weight: lighter; color: hsla(190, 0%, 80%, 1);">
-							Vinton Adrian Rebello</font></br><font id="affiliationlink" style="cursor: pointer; font-size: 2vmin; font-weight: lighter; color: hsla(260, 0%, 70%, 1);font-family: Source Sans Pro; z-index: 5;" onclick="window.open('https://prajwalsouza.github.io')">
-								Center for Advanced Learning, Mangalore.
+						<td colspan="1" id='maintitle' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 7vmin; font-weight: bold;  color: hsla(190, 100%, 100%, 1); width: 90%;">
+							A Course in Theoretical Physics </br><font id="avintontext" style="font-size: 4vmin; font-weight: lighter; color: hsla(190, 0%, 100%, 1); font-family: Nunito;">
+							Some Tagline. A lengthy one. Could be quote.</font></br><font id="affiliationlink" style="cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 0%, 100%, 1);font-family: Source Sans Pro; z-index: 5;" onclick="window.open('https://prajwalsouza.github.io')">
+								Example affiliation : Center for Advanced Learning, Mangalore.
 							</font>
 						</td>
 					</tr>
@@ -109,8 +114,7 @@
 			</div>
 			<div id="title2H" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1; ' >
 			</div>
-			<div id="title2H" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1; ' >
-			</div>
+			
 		</div>
 
 		<script type="text/javascript">
@@ -2074,7 +2078,7 @@
 			options.points = arcpoints
 			options.pathcolor = arccolor
 			options.strokewidth = arcthickness
-			addPath('dotvisualgraph', ringname, options)
+			addPath('ringvisualgraph', ringname, options)
 			// console.log(options.points)
 
 			return arcpoints
@@ -2091,7 +2095,7 @@
 			options.points = arcpoints
 			options.pathcolor = arccolor
 			options.strokewidth = arcthickness
-			addPath('dotvisualgraph', ringname, options)
+			addPath('ringvisualgraph', ringname, options)
 			// console.log(options.points)
 		}
 
@@ -2106,8 +2110,8 @@
 
 		ringData = {}
 
-		function setupWorld() {
-			dotvisual = document.getElementById('dotvisualH')
+		function setupRingVisual() {
+			ringvisual = document.getElementById('ringvisualH')
 			graphoptions = {}
 			graphoptions.xmax = 3
 			graphoptions.xmin = -1
@@ -2137,9 +2141,9 @@
 			graphoptions.fixAxis = 'yaxis'
 			graphoptions.fixAxisStretchCentrally = 'yes'
 
-			// graphoptions.isdotvisual = 'yes'
+			// graphoptions.isringvisual = 'yes'
 			
-			addGraph(dotvisual, 'dotvisualgraph', graphoptions)
+			addGraph(ringvisual, 'ringvisualgraph', graphoptions)
 
 			// makeArc(0.3, 0.4, 0.8)
 
@@ -2190,7 +2194,7 @@
 			// if (darkmode) {
 			// 	options.pointcolor = 'hsla(190, 100%, 70%, 0)'
 			// }
-			// addCircle('dotvisualgraph', 'ring 1', options)
+			// addCircle('ringvisualgraph', 'ring 1', options)
 
 
 
@@ -2207,7 +2211,7 @@
 			// if (darkmode) {
 			// 	options.pointcolor = 'hsla(190, 100%, 70%, 0)'
 			// }
-			// addCircle('dotvisualgraph', 'ring 2', options)
+			// addCircle('ringvisualgraph', 'ring 2', options)
 
 
 			// options = {}
@@ -2221,11 +2225,11 @@
 			// if (darkmode) {
 			// 	options.pointcolor = 'hsla(190, 100%, 70%, 0)'
 			// }
-			// addLine('dotvisualgraph', 'line 1', options)
+			// addLine('ringvisualgraph', 'line 1', options)
 
 		}
 
-		setupWorld()
+		setupRingVisual()
 
 
 		function turnRings() {
@@ -2246,8 +2250,8 @@
 					}
 					rdata[rk][6] = rdata[rk][5]
 					ringData[key][rk][4] = rpoints
-					// console.log('dotvisualgraph-path-' + rname)
-					updatePathPoints('dotvisualgraph', rname, rpoints)
+					// console.log('ringvisualgraph-path-' + rname)
+					updatePathPoints('ringvisualgraph', rname, rpoints)
 				}
 			}
 		}
@@ -2299,21 +2303,76 @@
 		playLoop()
 
 		function scrollzoom(event) {
-			// if (currentscroll > window.scrollY) {
-			// 	zoomRings('in')
-			// }
-			// else {
-			// 	zoomRings('out')
-			// }
 			currentscroll = window.scrollY
 			zoomRingsN(1 + (currentscroll/300))
 			
 		}
 
-		currentscroll = 0
+
+		function setupTimeLine() {
+			timeline = document.getElementById('timelineH')
+			graphoptions = {}
+			graphoptions.xmax = 1
+			graphoptions.xmin = -1
+			graphoptions.ymax = 10
+			graphoptions.ymin = -10
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility= 'no'
+			graphoptions.yaxisvisibility = 'no'
+
+			graphoptions.xmajorgridlabelvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'no'
+
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+
+			graphoptions.ymajorgridlinesextension = 'yes'
+			graphoptions.xmajorgridlinesextension = 'yes'
+
+			graphoptions.fontSize = 2
+
+			graphoptions.unitAspectRatio = 'yes'
+			graphoptions.fixAxis = 'yaxis'
+			graphoptions.fixAxisStretchCentrally = 'yes'
+
+			// graphoptions.isringvisual = 'yes'
+			
+			addGraph(timeline, 'timelinegraph', graphoptions)
+
+			options = {}
+			options.x1 = 0
+			options.y1 = -10
+			options.x2 = 0
+			options.y2 = 10
+			options.linecolor = 'hsla(190, 0%, 50%, 1)'
+			addLine('timelinegraph', 'timeline-line', options)
+
+			options = {}
+			options.x = 0
+			options.y = 10
+			options.circlecolor = 'hsla(190, 100%, 100%, 1)'
+			options.stroke = 'hsla(190, 100%, 50%, 0)'
+			options.strokewidth = 1
+			options.radius = 0.2
+			addCircle('timelinegraph', 'timelinestartcircle', options)
+
+			
+
+			
+		
+		}
+
+		setupTimeLine()
+
+		
 
 
-		window.addEventListener('scroll', scrollzoom)
+		// window.addEventListener('scroll', scrollzoom)
 
 		// function playLoop(event) {
 		// 	loopinterval = setInterval(frame, 8);
