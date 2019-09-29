@@ -100,21 +100,62 @@
 			</div>
 			<div id="timelineH" style='margin:0px;width:5%; height: 100%;overflow: hidden;position: fixed; z-index: 5; '>
 			</div>
+			<div id="timeline-optionsH" style='margin:0px;width:5%; height: 100%;overflow: hidden;position: fixed; z-index: 6; '>
+				<table id="timeline-options-table" width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
+					<tr>
+						<td colspan="1" id='blankOption' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin; font-weight: bold;  color: hsla(190, 100%, 100%, 1); width: 90%; transform: rotate(-90deg);">
+							
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" id='aboutOption' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 1.4vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); width: 90%; transform: rotate(-90deg); background: black; cursor: pointer;">
+							ABOUT
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" id='syllabusOption' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 1.4vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); width: 90%; transform: rotate(-90deg);background: black; cursor: pointer;">
+							SYLLABUS
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" id='instructorOption' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 1.4vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); width: 90%; transform: rotate(-90deg);background: black; cursor: pointer;">
+							INSTRUCTOR
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" id='studentsOption' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 1.4vmin; font-weight: lighter;  color: hsla(190, 100%, 100%, 1); width: 90%; transform: rotate(-90deg);background: black; cursor: pointer;">
+							STUDENTS
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" id='blankOption' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin; font-weight: bold;  color: hsla(190, 100%, 100%, 1); width: 90%; transform: rotate(-90deg);background: black;">
+							
+						</td>
+					</tr>
+					
+
+				</table>
+			</div>
 			<div id="titleH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1; background-image: radial-gradient(hsla(1,0%,0%, 1),hsla(1,0%,0%, 0)) ' >
 				<table id="maintitletable" width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
 					<tr>
 						<td colspan="1" id='maintitle' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 7vmin; font-weight: bold;  color: hsla(190, 100%, 100%, 1); width: 90%;">
 							A Course in Theoretical Physics </br><font id="avintontext" style="font-size: 4vmin; font-weight: lighter; color: hsla(190, 0%, 100%, 1); font-family: Nunito;">
-							Some Tagline. A lengthy one. Could be quote.</font></br><font id="affiliationlink" style="cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 0%, 100%, 1);font-family: Source Sans Pro; z-index: 5;" onclick="window.open('https://prajwalsouza.github.io')">
+							Some Tagline. A lengthy one. Could be quote.</font></br><font id="affiliationlink" style="cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 0%, 100%, 1); font-family: Source Sans Pro; z-index: 5;" onclick="window.open('https://prajwalsouza.github.io')">
 								Example affiliation : Center for Advanced Learning, Mangalore.
 							</font>
 						</td>
 					</tr>
 				</table>
 			</div>
-			<div id="title2H" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1; ' >
+			<div id="aboutH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1; ' >
 			</div>
-			
+			<div id="syllabusH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1; ' >
+			</div>
+			<div id="instructorH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1; ' >
+			</div>
+			<div id="studentsH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1; ' >
+			</div>
 		</div>
 
 		<script type="text/javascript">
@@ -2315,7 +2356,7 @@
 			graphoptions.xmax = 1
 			graphoptions.xmin = -1
 			graphoptions.ymax = 10
-			graphoptions.ymin = -10
+			graphoptions.ymin = 0
 			graphoptions.axislocationX = 0
 			graphoptions.axislocationY = 0
 
@@ -2346,11 +2387,21 @@
 
 			options = {}
 			options.x1 = 0
-			options.y1 = -10
+			options.y1 = 10
+			options.x2 = 0
+			options.y2 = 0
+			options.strokewidth = 2
+			options.linecolor = 'hsla(190, 0%, 30%, 1)'
+			addLine('timelinegraph', 'timeline-line', options)
+
+			options = {}
+			options.x1 = 0
+			options.y1 = 10
 			options.x2 = 0
 			options.y2 = 10
-			options.linecolor = 'hsla(190, 0%, 50%, 1)'
-			addLine('timelinegraph', 'timeline-line', options)
+			options.strokewidth = 1
+			options.linecolor = 'hsla(190, 0%, 100%, 1)'
+			addLine('timelinegraph', 'timeline-fill-line', options)
 
 			options = {}
 			options.x = 0
@@ -2358,8 +2409,45 @@
 			options.circlecolor = 'hsla(190, 100%, 100%, 1)'
 			options.stroke = 'hsla(190, 100%, 50%, 0)'
 			options.strokewidth = 1
-			options.radius = 0.2
+			options.radius = 0.1
 			addCircle('timelinegraph', 'timelinestartcircle', options)
+
+
+			// options = {}
+			// options.x = 0
+			// options.y = 8
+			// options.text = 'About'
+			// options.textcolor = 'hsla(190, 100%, 100%, 1)'
+			// options.fontSize = 20
+			// options.textAlign = 'center'
+			// addedText = addText('timelinegraph', 'timeline-AboutText', options)
+
+			// options = {}
+			// options.x = 0
+			// options.y = 6
+			// options.text = 'Syllabus'
+			// options.textcolor = 'hsla(190, 100%, 100%, 1)'
+			// options.fontSize = 20
+			// options.textAlign = 'center'
+			// addedText = addText('timelinegraph', 'timeline-SyllabusText', options)
+
+			// options = {}
+			// options.x = 0
+			// options.y = 4
+			// options.text = 'Instructors'
+			// options.textcolor = 'hsla(190, 100%, 100%, 1)'
+			// options.fontSize = 20
+			// options.textAlign = 'center'
+			// addedText = addText('timelinegraph', 'timeline-InstructorsText', options)
+
+			// options = {}
+			// options.x = 0
+			// options.y = 2
+			// options.text = 'Students'
+			// options.textcolor = 'hsla(190, 100%, 100%, 1)'
+			// options.fontSize = 20
+			// options.textAlign = 'center'
+			// addedText = addText('timelinegraph', 'timeline-StudentsText', options)
 
 			
 
@@ -2369,10 +2457,23 @@
 
 		setupTimeLine()
 
-		
+		scrollLevel = window.scrollY
+
+		function scrolltimeline(event) {
+			linevalue = 10 - (window.scrollY*10/document.body.scrollHeight)
+
+			// console.log(document.body.scrollHeight)
+
+			options = {}
+			options.x1 = 0
+			options.y1 = linevalue
+			options.x2 = 0
+			options.y2 = 10
+			updateLine('timelinegraph', 'timeline-fill-line', options)
+		}
 
 
-		// window.addEventListener('scroll', scrollzoom)
+		window.addEventListener('scroll', scrolltimeline)
 
 		// function playLoop(event) {
 		// 	loopinterval = setInterval(frame, 8);
