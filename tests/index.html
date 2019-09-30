@@ -8,7 +8,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Raleway:900&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans&display=swap" rel="stylesheet">
 
 
@@ -140,15 +140,18 @@
 
 				</table>
 			</div>
-			<div id="titleH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1; background-image: radial-gradient(hsla(1,0%,0%, 1),hsla(1,0%,0%, 0)) ' >
+			<div id="titleH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1;  ' >
+				<!-- background-image: linear-gradient(to right, hsla(1,0%,0%, 0),hsla(1,0%,0%, 1)) -->
 				<table id="maintitletable" width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Raleway; font-size: 1vw;">
 					<tr>
-						<td colspan="1" id='maintitle' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 7vmin; font-weight: bold;  color: hsla(190, 100%, 100%, 1); width: 90%;">
-							A Course in Theoretical Physics </br><font id="avintontext" style="font-size: 4vmin; font-weight: lighter; color: hsla(190, 0%, 100%, 1); font-family: Source Sans Pro;">
+						
+						<td colspan="5" id='maintitle' style="text-align: right; vertical-align: middle; border-right: 0px solid black; font-size: 10vmin; font-weight: bold;  color: hsla(190, 100%, 100%, 1); width: 90%;">
+							COURSE IN </br>THEORETICAL </br>PHYSICS </br><font id="avintontext" style="font-size:4vmin; font-weight: lighter; color: hsla(190, 0%, 100%, 1); font-family: Source Sans Pro;">
 							Some Tagline. A lengthy one. Could be quote.</font></br><font id="affiliationlink" style="cursor: pointer; font-size: 3vmin; font-weight: lighter; color: hsla(260, 0%, 100%, 1); font-family: Alegreya Sans; z-index: 5;" onclick="window.open('https://prajwalsouza.github.io')">
 								Example affiliation : Center for Advanced Learning, Mangalore.
 							</font>
 						</td>
+						<td colspan="1"></td>
 					</tr>
 				</table>
 			</div>
@@ -2185,7 +2188,7 @@
 
 		// ringcolors = [40, 190, 210, 260]
 		// ringcolors = [40, 190, 210, 260, 195, 200, 210, 220, 230, 240, 250, 270, 280, 290]
-		ringcolors = [160, 170, 180, 260]
+		ringcolors = [160, 170, 180, 260, 122, 61]
 
 		ringData = {}
 
@@ -2512,34 +2515,6 @@
 
 
 		window.addEventListener('scroll', scrolltimeline)
-
-		// function playLoop(event) {
-		// 	loopinterval = setInterval(frame, 8);
-		// 	function frame() {
-		// 		looptime = looptime + 1
-		// 		catmove()
-		// 		mousemove()
-		// 		assignkeys()
-		// 		if (checkproximity()[0] < 0.01) {
-		// 			clearInterval(loopinterval);
-		// 			// console.log('Caught')
-		// 			options = {}
-		// 			options.text = 'Mouse Caught'
-		// 			document.getElementById('mousestatusdisplay').innerHTML = options.text
-
-		// 			closeandplayloop()
-		// 			loadlaunchoption()
-		// 		}
-		// 		else if (Math.pow((mouseposition[0]*mouseposition[0]) + (mouseposition[1]*mouseposition[1]), 0.5) > 1.2) {
-		// 			// clearInterval(loopinterval);
-		// 			// console.log('Caught')
-		// 			// options = {}
-		// 			// options.text = 'Mouse manages to escape!'
-		// 			// document.getElementById('mousestatusdisplay').innerHTML = options.text
-		// 			// closeandplayloop()
-		// 		}
-		// 	}
-		// }
 
 		// setDarkMode()
 
