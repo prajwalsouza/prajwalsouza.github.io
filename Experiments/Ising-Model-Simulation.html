@@ -42,7 +42,7 @@
 		
 		</style>
 		
-		<script>
+		<!-- <script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -51,7 +51,10 @@
 		  ga('create', 'UA-103589215-2', 'auto');
 		  ga('send', 'pageview');
 
-		</script>
+		</script> -->
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
 		
 		
@@ -71,8 +74,7 @@
 		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body style='margin:0px; display: block;'>
-		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'> 
-			
+		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'>
 			<div id="materialH" style='margin:0px;width:37%; height: 100%;overflow: hidden;position:absolute; z-index: 1;display: inline-block; background-color: hsla(190, 0%, 12%, 1);'>
 			</div>
 			<div id="textgraphTablesH" style='margin:0px;width:35%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
@@ -198,11 +200,6 @@
 
 			<div id="isingCellsH" style='margin:0px;width:65%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 			</div>
-
-				
-			<!-- <div id="randomplacerH" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; z-index: 1; '>
-				
-			</div> -->
 
 		</div>
 
@@ -2366,6 +2363,16 @@
 			return choicearray[parseInt(Math.random()*choicearray.length)]
 		}
 
+		mode = 'square'
+		if (1.25*window.innerWidth < window.innerHeight && window.innerWidth < window.innerHeight) {
+			mode = 'portrait'
+		}
+		else if (window.innerWidth > 1.3*window.innerHeight && window.innerWidth > window.innerHeight) {
+			mode = 'landscape'
+		}
+
+
+
 		uid = 0
 		graphData = {}
 
@@ -2701,7 +2708,21 @@
 
 		divSlider('heightControl', 'heightDivSlider', 3, 100, 40, 1, 'heightKnob()', '90%', '2px', 'hsla(190, 100%,80%, 1)')
 
+		function handleLayout() {
+			if (mode == 'portrait') {
+				
+				$('#isingCellsH').insertBefore('#textgraphTablesH')
+				
+				document.getElementById('isingCellsH').style.height = '35%'
+				document.getElementById('isingCellsH').style.width = '100%'
 
+				document.getElementById('textgraphTablesH').style.height = '65%'
+				document.getElementById('textgraphTablesH').style.width = '100%'
+				
+			}
+		}
+
+		handleLayout()
 
 		// setDarkMode()
 
