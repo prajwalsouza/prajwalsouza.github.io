@@ -159,28 +159,28 @@
 				</div>
 				<div id="graphTablesH" style='margin:0px;width:40%; height: 37%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 					<table id="graphtable" width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;  font-size: 1vw;">
-						<tr>
+						<tr id="row1">
 							<td colspan="1" width="30%"></td>
 							<td colspan="1" id='graphtitle' style="text-align: right; vertical-align: bottom; border-right: 0px solid black; font-size: 2vmin;  color: hsla(190, 0%, 100%, 1); width: 90%;font-family: Josefin Sans;">
 								Magnetization (M) vs Applied Field (H)
 							</td>
 							<td colspan="1" width="20%"></td>
 						</tr>
-						<tr>
+						<tr id="row2">
 							<td colspan="1" width="30%"></td>
-							<td colspan="1" id='graphtitle' style="text-align: right; vertical-align: top; border-right: 0px solid black; font-size: 1.2vmin;  color: hsla(190, 0%, 70%, 1); width: 90%;font-family: Roboto;">
+							<td colspan="1" id='graphtitle2' style="text-align: right; vertical-align: top; border-right: 0px solid black; font-size: 1.2vmin;  color: hsla(190, 0%, 70%, 1); width: 90%;font-family: Roboto;">
 								You can get the hystersis curve by slowing increasing and decreasing the Magnetic field.
 							</td>
 							<td colspan="1" width="20%"></td>
 						</tr>
-						<tr>
+						<tr id="row3">
 							<td colspan="1" width="30%"></td>
 							<td colspan="1" id='tracetitle' style="text-align: right; vertical-align: top; border-right: 0px solid black; font-size: 1.6vmin;  color: hsla(40, 100%, 50%, 1); width: 90%;font-family: Roboto; cursor: pointer;" onclick="toggleTrace()">
 								Remove Trace
 							</td>
 							<td colspan="1" width="20%"></td>
 						</tr>
-						<tr>
+						<tr  id="row4">
 							<td colspan="1" width="30%"></td>
 							<td colspan="1" id='playpauseSim' style="text-align: right; vertical-align: top; border-right: 0px solid black; font-size: 2.4vmin;  color: hsla(190, 100%, 50%, 1); width: 90%;font-family: Josefin Sans; cursor: pointer;" onclick="togglePlayPause()">
 								Pause Simulation
@@ -2508,8 +2508,13 @@
 			graphoptions = {}
 			graphoptions.xmax = 3
 			graphoptions.xmin = -3
-			graphoptions.ymax = 1
-			graphoptions.ymin = -1
+
+			graphoptions.ymax = 1.5
+			graphoptions.ymin = -1.5
+			if (mode == 'portrait') {
+				graphoptions.ymax = 3
+				graphoptions.ymin = -3	
+			}
 			graphoptions.axislocationX = 0
 			graphoptions.axislocationY = 0
 
@@ -2539,7 +2544,7 @@
 			graphoptions.ymajorgridlabelshift = 2
 
 			graphoptions.unitAspectRatio = 'no'
-			graphoptions.fixAxis = 'xaxis'
+			// graphoptions.fixAxis = 'yaxis'
 			graphoptions.fixAxisStretchCentrally = 'yes'
 
 			graphoptions.position = 'relative'
@@ -2712,12 +2717,32 @@
 			if (mode == 'portrait') {
 				
 				$('#isingCellsH').insertBefore('#textgraphTablesH')
+
+				$('#graphTablesH').insertBefore('#graphholder')
+
+				$('#row4').insertBefore('#row1')
+				// $('#graphtitle2').insertBefore('#graphtitle')
+				// $('#tracetitle').insertBefore('#graphtitle')
+				// $('#graphtitle').insertBefore('#graphtitle2')
 				
-				document.getElementById('isingCellsH').style.height = '35%'
+				document.getElementById('isingCellsH').style.height = '40%'
 				document.getElementById('isingCellsH').style.width = '100%'
 
-				document.getElementById('textgraphTablesH').style.height = '65%'
+				document.getElementById('textTablesH').style.height = '50%'
+
+				document.getElementById('textgraphTablesH').style.height = '100%'
 				document.getElementById('textgraphTablesH').style.width = '100%'
+
+				document.getElementById('graphholder').style.width = '100%'
+				document.getElementById('graphholder').style.height = '30%'
+				document.getElementById('spacer1H').style.height = '2%'
+				document.getElementById('graphTablesH').style.width = '100%'
+				document.getElementById('graphTablesH').style.height = '8%'
+
+
+				document.getElementById('graphspaceholder').style.width = '0%'
+
+				document.getElementById('playpauseSim').style.textAlign = 'left'
 
 				document.getElementById('materialH').style.backgroundColor = 'black'
 				
