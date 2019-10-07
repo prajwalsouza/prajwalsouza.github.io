@@ -39,6 +39,20 @@
 				background: hsla(200, 100%, 50%, 1);
 				cursor: pointer;
 			}
+
+			#textgraphTablesH::-webkit-scrollbar {
+				width: 1%;
+			}
+
+			#textgraphTablesH::-webkit-scrollbar-track {
+				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+			}
+
+			#textgraphTablesH::-webkit-scrollbar-thumb {
+				background-color: hsla(190, 100%, 50%, 1);
+				/*border-radius: 20px;*/
+				/*outline: 1px solid slategrey;*/
+			}
 		
 		</style>
 		
@@ -77,7 +91,7 @@
 		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'>
 			<div id="materialH" style='margin:0px;width:37%; height: 100%;overflow: hidden;position:absolute; z-index: 1;display: inline-block; background-color: hsla(190, 0%, 12%, 1);'>
 			</div>
-			<div id="textgraphTablesH" style='margin:0px;width:35%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			<div id="textgraphTablesH" style='margin:0px;width:35%; height: 100%;overflow: hidden;overflow-y: auto; position: relative; z-index: 1;display: inline-block; '>
 				<div id="textTablesH" style='margin:0px;width:100%; height: 55%;overflow: hidden;position: relative; z-index: 1;'>
 					<table id="maintitletable" width="100%" height='30%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
 						<tr>
@@ -1205,8 +1219,10 @@
 
 			gdata.fontSize = gdata.fontSize || 5
 
-			gdata.gridlinenumber = gdata.gridlinenumber || 10
-			ticks = gdata.gridlinenumber
+			gdata.gridlinenumberX = gdata.gridlinenumberX || 10
+			gdata.gridlinenumberY = gdata.gridlinenumberY || 10
+
+			
 
 			gdata.parentW = parentdiv.offsetWidth
 			gdata.parentH = parentdiv.offsetHeight
@@ -1291,6 +1307,8 @@
 
 			gdata.xmajorgridlinesextension = gdata.xmajorgridlinesextension || 'yes'
 			gdata.ymajorgridlinesextension = gdata.ymajorgridlinesextension || 'yes'
+
+			ticks = gdata.gridlinenumberX
 			
 			if (gdata.xmajorgridlinesvisibility == 'yes') {
 				xmajortickvalues = gridtickvalues(gdata.xmin, gdata.xmax, ticks)
@@ -1325,6 +1343,9 @@
 
 			gdata.ymajorgridcolor = gdata.ymajorgridcolor || 'hsla(190, 0%, 50%, 1)'
 			gdata.ymajorgridthickness = gdata.ymajorgridthickness || 0.3
+
+
+			ticks = gdata.gridlinenumberY
 
 
 			if (gdata.ymajorgridlinesvisibility == 'yes') {
@@ -1435,6 +1456,8 @@
 					
 				}
 			}
+
+			ticks = gdata.gridlinenumberX
 
 
 			if (gdata.xmajorgridlabelvisibility == 'yes') {
@@ -2537,11 +2560,18 @@
 			graphoptions.yaxislabel = 'M'
 
 
-			graphoptions.gridlinenumber = 5
+			graphoptions.gridlinenumberX = 5
+			graphoptions.gridlinenumberY = 5
 
 			graphoptions.fontSize = 4
 			graphoptions.xmajorgridlabelshift = 2
 			graphoptions.ymajorgridlabelshift = 2
+
+			if (mode == 'portrait') {
+				graphoptions.gridlinenumberX = 4
+				graphoptions.gridlinenumberY = 11
+				graphoptions.fontSize = 5
+			}
 
 			graphoptions.unitAspectRatio = 'no'
 			// graphoptions.fixAxis = 'yaxis'
@@ -2728,16 +2758,16 @@
 				document.getElementById('isingCellsH').style.height = '40%'
 				document.getElementById('isingCellsH').style.width = '100%'
 
-				document.getElementById('textTablesH').style.height = '50%'
+				document.getElementById('textTablesH').style.height = '80%'
 
-				document.getElementById('textgraphTablesH').style.height = '100%'
+				document.getElementById('textgraphTablesH').style.height = '60%'
 				document.getElementById('textgraphTablesH').style.width = '100%'
 
 				document.getElementById('graphholder').style.width = '100%'
-				document.getElementById('graphholder').style.height = '30%'
-				document.getElementById('spacer1H').style.height = '1%'
+				document.getElementById('graphholder').style.height = '40%'
+				document.getElementById('spacer1H').style.height = '3%'
 				document.getElementById('graphTablesH').style.width = '100%'
-				document.getElementById('graphTablesH').style.height = '8%'
+				document.getElementById('graphTablesH').style.height = '25%'
 
 				document.getElementById('outputtable').style.height = '10%'
 
