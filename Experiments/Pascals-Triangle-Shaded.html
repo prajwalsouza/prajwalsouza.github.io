@@ -16,6 +16,8 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 
 		<style id='sliderstyles' type="text/css">
@@ -58,6 +60,26 @@
 				/*border-radius: 20px;*/
 				/*outline: 1px solid slategrey;*/
 			}
+
+			.ui-menu .ui-menu-item a{
+				background:white;
+				color: blue;
+			}
+
+			.ui-autocomplete {
+				position: absolute;
+				z-index: 20;
+				color: white;
+				cursor: pointer;
+				background-color: hsla(100, 0%, 50%, 1);
+			}
+
+			.ui-helper-hidden-accessible { display:none; }
+
+			ul.ui-autocomplete {
+				list-style: none;
+			}
+
 		
 		</style>
 		
@@ -71,8 +93,6 @@
 		  ga('send', 'pageview');
 
 		</script>
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.5.0/math.min.js" type="text/javascript"></script>
 
 
 		
@@ -93,16 +113,16 @@
 		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body style='margin:0px; display: block;'>
-		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block;'>
+		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; '>
 			<div id="materialH" style='margin:0px;width:32%; height: 100%;overflow: hidden;position:absolute; z-index: 1;display: inline-block; background-color: hsla(190, 0%, 12%, 1);'>
 			</div>
 			<div id="textgraphTablesH" style='margin:0px;width:28%; height: 100%;overflow: hidden;overflow-y: auto; position: relative; z-index: 1;display: inline-block; '>
-				<div id="textTablesH" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; z-index: 1;'>
-					<table id="maintitletable" width="100%" height='50%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
+				<div id="textTablesH" style='margin:0px;width:100%; height: 90%;overflow: auto; position: relative; z-index: 1;'>
+					<table id="maintitletable" width="100%" height='35%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: Josefin Sans; font-size: 1vw;">
 						<tr>
 							<td colspan="1"></td>
 							<td colspan="5" id='maintitletitle' style="text-align: left; vertical-align: middle; border-right: 0px solid black; font-size: 4vmin; font-weight: bold;  color: hsla(190, 100%, 100%, 1); width: 90%; font-family: Raleway;">
-								Pascal's Triangle </br><font id="asimulationtext" style="font-size: 3vmin; font-weight: lighter; color: hsla(190, 100%, 60%, 1); font-family: Nunito;">
+								<br/>Pascal's Triangle </br><font id="asimulationtext" style="font-size: 3vmin; font-weight: lighter; color: hsla(190, 100%, 60%, 1); font-family: Nunito;">
 								Shaded</font><font id="websitelink" style="cursor: pointer; font-size: 2.5vmin; font-weight: lighter; color: hsla(260, 100%, 80%, 1);font-family: Source Sans Pro; z-index: 5;" onclick="window.open('https://prajwalsouza.github.io')">
 									at prajwalsouza.github.io
 								</font>
@@ -116,7 +136,7 @@
 							</td>
 						</tr>
 					</table>
-					<table id="controltable" width="100%" height='50%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;  font-size: 1vw;">
+					<table id="controltable" width="100%" height='65%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;  font-size: 1vw;">
 						<tr>
 							<td colspan="1"></td>
 							<td colspan="11" id='controltitle' style="text-align: left; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; color: hsla(190, 0%, 100%, 1); width: 90%;font-family: Josefin Sans;">
@@ -143,7 +163,22 @@
 						<tr>
 							<td colspan="1"></td>
 							<td colspan="11" id='condition' style="text-align: left; vertical-align: top; border-right: 0px solid black; font-size: 3vmin; color: hsla(190, 0%, 70%, 1); width: 90%;">
-								<input id='conditiontext' value='k % 2 == 1' style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Calibri; font-size: 2.3vmin; font-weight: lighter; color: white; background-color: black;"></input>
+								<input id='conditiontext' value='k % 2 == 1' list="koptions" style="border: 1px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Calibri; font-size: 2.3vmin; font-weight: lighter; color: white; background-color: black;" class="utocomplete"></input>
+								<datalist id="koptions">
+									<option value="isPrime(k) == true">
+									<option value="k % 2 == 1">
+									<option value="k % 3 == 1">
+									<option value="isPrime(k + 1) == false">
+									<option value="3 + 2 == 5">
+									<option value="log(k) <= 10">
+								</datalist>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1"></td>
+							<td colspan="11" id='explanationText' style="text-align: left; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;  color: hsla(190, 0%, 70%, 1); width: 90%; font-family: Source Sans Pro;">
+								The default expression "k % 2 == 1" means, when we divide k by 2, we get a remainder of 1. <br>
+								k is the number in the pascal's triangle. You may check the value, but clicking/tapping/hovering the mouse over the points in the triangle.
 							</td>
 						</tr>
 						<tr></tr>
@@ -155,8 +190,7 @@
 						</tr>
 						<tr>
 							<td colspan="1"></td>
-							<td colspan="11" id='valuedisplayText' style="text-align: left; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin;  color: hsla(190, 0%, 70%, 1); width: 90%; font-family: Source Sans Pro;">0
-								
+							<td colspan="11" id='valuedisplayText' style="text-align: left; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin; word-wrap: break-word; color: hsla(190, 0%, 70%, 1); width: 90%; font-family: Source Sans Pro;">0
 							</td>
 						</tr>
 					</table>
@@ -2449,6 +2483,7 @@
 		setUpGraph()
 
 		pascalValues = {}
+		pascalColors = {}
 
 		verticalLength = 2*Math.sqrt(3)
 
@@ -2466,8 +2501,11 @@
 				options.pointcolor = 'hsla(190, 0%, 100%, 0.5)'
 				addedp = addPoint('triangleGraph', 'PascalR-' + row + 'C-' + rowPX,options)
 				addedp[0].addEventListener('mouseover', explainPoint)
+				addedp[0].addEventListener('click', explainPoint)
+				addedp[0].addEventListener('touchstart', explainPoint)
 				addedp[0].style.cursor = 'pointer'
 				pascalValues['PascalR-' + row + 'C-' + rowPX] = math.bignumber(math.combinations(math.bignumber(row), math.bignumber(rowPX)))
+				pascalColors['PascalR-' + row + 'C-' + rowPX] = 'hsla(190, 0%, 100%, 0.5)'
 			}
 				
 		}
@@ -2483,9 +2521,9 @@
 		mainCText = document.getElementById('conditiontext').value
 
 		function colourTriangle() {
+			document.getElementById('conditiontext').style.border = "1px solid hsla(10, 0%, 50%,0.2)";
 			for (var pkey in pascalValues) {
 				pval = pascalValues[pkey]
-				// condiText = mainCText.replace('k', pval)
 				try {
 					options = {}
 					evaluated = math.eval(mainCText, {k:pval})
@@ -2497,9 +2535,27 @@
 						options.pointcolor = 'hsla(190, 100%, 100%, 0.5)'
 					}
 					updatePoint('triangleGraph', pkey, options)
+					pascalColors[pkey] = options.pointcolor
 				}
 				catch(err) {
-					break;
+					try {
+						options = {}
+						ctext = mainCText.replace('k', pval.toString())
+						if (ctext) {
+							options.pointcolor = 'hsla(190, 100%, 50%, 1)'
+							
+						}
+						else {
+							options.pointcolor = 'hsla(190, 100%, 100%, 0.5)'
+						}
+						updatePoint('triangleGraph', pkey, options)
+						pascalColors[pkey] = options.pointcolor
+					}
+					catch {
+						document.getElementById('conditiontext').style.border = "1px solid hsla(10, 100%, 50%,1)";
+						break;
+					}
+					
 				}
 				
 			}
@@ -2592,6 +2648,8 @@
 			totalRows = parseFloat(document.getElementById('rowsOfTriangleDivSlider').value)
 			document.getElementById('rowsValue').innerHTML = totalRows
 			removeGraph('triangleGraph')
+			pascalValues = {}
+			pascalColors = {}
 			setUpGraph()
 			fullTriangle()
 			colourTriangle()
@@ -2608,11 +2666,17 @@
 
 		function explainPoint(event) {
 			dispText = pascalValues[event.target.id.replace("triangleGraph-point-",'')].toString()
+			dispColor = pascalColors[event.target.id.replace("triangleGraph-point-",'')]
 			document.getElementById('valuedisplayText').innerHTML = dispText
+			document.getElementById('valuedisplayText').style.color = dispColor
 		}
 
+		function isPrime(num) {
+			for(var i = 2; i < num; i++)
+				if(num % i === 0) return false;
+			return num > 1;
+		}
 
-		
 
 		// setDarkMode()
 
