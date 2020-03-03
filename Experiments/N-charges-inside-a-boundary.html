@@ -10,8 +10,9 @@
 		<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
-
+		<link rel="icon" href="../square.png">
 
 		<style id='sliderstyles' type="text/css">
 
@@ -54,6 +55,21 @@
 				border-radius: 20px;
 				/*outline: 1px solid slategrey;*/
 			}
+
+			#algorithmedit::-webkit-scrollbar {
+				width: 1.1%;
+			}
+
+			#algorithmedit::-webkit-scrollbar-track {
+				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+				border-radius: 20px;
+			}
+
+			#algorithmedit::-webkit-scrollbar-thumb {
+				background-color: hsla(280, 100%, 50%, 1);
+				border-radius: 20px;
+				/*outline: 1px solid slategrey;*/
+			}
 		
 		</style>
 		
@@ -69,8 +85,6 @@
 		</script> -->
 
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-		
-		<link rel="icon" href="../square.png">
 
 
 		
@@ -116,21 +130,51 @@
 						<div id="spacerD4" style='margin:0px;width:100%; height: 2%; display: inline-block;'></div>
 						<div id="spacerD5" style='margin:0px;width:15%; height: 20%; display: inline-block;'></div>
 						<div id="algorithmdescription" style='margin:0px;width:70%; height: 20%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-							<div id="spacerD51" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
-							<div id="spacerD52" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
-							<div id="algorithmnametext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro;'>ELECTROSTATIC PUSH</div>
+							<div id="spacerD51" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
+							<div id="spacerD52" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+							<div id="algorithmnametext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1);'>ELECTROSTATIC PUSH</div>
 							<div id="spacerD53" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 							<div id="spacerD54" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
-							<div id="spacerD55" style='margin:0px;width:5%; height: 55%; display: inline-block;'></div>
-							<div id="gradfill1" style='margin:0px;width:90%; height: 55%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1));'></div>
-							<div id="algorithmdescriptiontext" style='margin:0px;width:90%; height: 55%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; overflow-y: auto;'>Pick n charges and move them a distance of d in the direction of electrostatic force. Code : ElectrostaticForce(n, d) </div>
-							<div id="spacerD56" style='margin:0px;width:5%; height: 55%; display: inline-block;'></div>
+							<div id="spacerD55" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
+							<div id="gradfill1" style='margin:0px;width:90%; height: 50%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1));'></div>
+							<div id="algorithmdescriptiontext" style='margin:0px;width:90%; height: 50%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; overflow-y: auto; color: hsla(0, 0%, 50%, 1);'>Pick n charges and move them a distance of d in the direction of electrostatic force. Code : ElectrostaticForce(n, d) </div>
+							<div id="spacerD56" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
 							<div id="spacerD57" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
 						</div>
 						<div id="spacerD6" style='margin:0px;width:15%; height: 20%; display: inline-block;'></div>
 						<div id="spacerD7" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
 						<div id="spacerD8" style='margin:0px;width:15%; height: 36%; display: inline-block;'></div>
-						<div id="algorithmeditor" style='margin:0px;width:70%; height: 36%; display: inline-block; background: white; border-radius: 10px;'></div>
+						<div id="algorithmeditor" style='margin:0px;width:70%; height: 36%; display: inline-block; background: white; border-radius: 10px; position: relative;'>
+							<div id="spacerD81" style='margin:0px;width:100%; height:10%; display: inline-block;'></div>
+							<div id="spacerD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+							<div id="algorithmeditortext" style='margin:0px;width:60%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>ALGORITHM</div>
+							<div id="algoplaytext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.8vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>Play</div>
+							<div id="algosteptext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.8vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>Step</div>
+							<div id="algoresettext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.8vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>Reset</div>
+							<div id="spacerD83" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+							<div id="spacerD84" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+							<div id="spacerD85" style='margin:0px;width:5%; height:67%; display: inline-block;'></div>
+							<div id="gradfill2" style='margin:0px;width:90%; height:67%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1)); z-index: 2;'></div>
+							<div id="algorithmedit" style='margin:0px;width:90%; height:67%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; overflow-y: auto; color: hsla(0, 0%, 50%, 1); position: relative;'>
+								<div id="codeblock1" style='margin:0px;width:88%; height:30%; display: inline-block; border-radius: 4px; background: grey;'></div>
+								<div id="codeblock1spacer" style='margin:0px;width:10%; height:30%; display: inline-block;'></div>
+								<div id="codeblock1spacer2" style='margin:0px;width:100%; height:7%; display: inline-block;'></div>
+								<div id="codeblock2" style='margin:0px;width:88%; height:30%; display: inline-block;border-radius: 4px; background: grey;'></div>
+								<div id="codeblock2spacer" style='margin:0px;width:10%; height:30%; display: inline-block;'></div>
+								<div id="codeblock2spacer2" style='margin:0px;width:100%; height:7%; display: inline-block;'></div>
+								<div id="codeblock2" style='margin:0px;width:88%; height:30%; display: inline-block;border-radius: 4px; background: grey;'></div>
+								<div id="codeblock2spacer" style='margin:0px;width:10%; height:30%; display: inline-block;'></div>
+								<div id="codeblock2spacer2" style='margin:0px;width:100%; height:7%; display: inline-block;'></div>
+								<div id="codeblock2" style='margin:0px;width:88%; height:30%; display: inline-block;border-radius: 4px; background: grey;'></div>
+								<div id="codeblock2spacer" style='margin:0px;width:10%; height:30%; display: inline-block;'></div>
+								<div id="codeblock2spacer2" style='margin:0px;width:100%; height:7%; display: inline-block;'></div>
+								<div id="codeblock2" style='margin:0px;width:88%; height:30%; display: inline-block;border-radius: 4px; background: grey;'></div>
+								<div id="codeblock2spacer" style='margin:0px;width:10%; height:30%; display: inline-block;'></div>
+								<div id="codeblock2spacer2" style='margin:0px;width:100%; height:7%; display: inline-block;'></div>
+							</div>
+							<div id="spacerD86" style='margin:0px;width:5%; height:67%; display: inline-block;'></div>
+							<div id="spacerD87" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+						</div>
 						<div id="spacerD9" style='margin:0px;width:15%; height: 36%; display: inline-block;'></div>
 						<div id="spacerD10" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
 						<div id="spacerD11" style='margin:0px;width:15%; height: 22%; display: inline-block;'></div>
@@ -149,13 +193,13 @@
 								<td rowspan="3" colspan="2" id='algorithmoption' style="vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1);">
 									Algorithm
 								</td>
-								<td rowspan="3" colspan="2" id='boundaryoption' style="vertical-align: middle; color: grey; border: 1px solid black; cursor: pointer;">
+								<td rowspan="3" colspan="2" id='boundaryoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;">
 									Boundary
 								</td>
-								<td rowspan="3" colspan="2" id='chargesoption' style="vertical-align: middle; color: grey; border: 1px solid black; cursor: pointer;">
+								<td rowspan="3" colspan="2" id='chargesoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;">
 									Charges
 								</td>
-								<td rowspan="3" colspan="2" id='settingsoption' style="vertical-align: middle; color: grey; border: 1px solid black; border-top-right-radius: 20px; border-bottom-right-radius: 20px; cursor: pointer;">
+								<td rowspan="3" colspan="2" id='settingsoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); border-top-right-radius: 20px; border-bottom-right-radius: 20px; cursor: pointer;">
 									Settings
 								</td>
 								<td rowspan="3"></td>
