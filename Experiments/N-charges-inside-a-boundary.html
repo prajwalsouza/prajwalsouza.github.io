@@ -153,10 +153,10 @@
 						</div>
 						<div id="spacerD6" style='margin:0px;width:15%; height: 20%; display: inline-block;'></div>
 						<div id="spacerD7" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-						<div id="spacerD8" style='margin:0px;width:15%; height: 39%; display: inline-block;'></div>
-						<div id="algorithmeditor" style='margin:0px;width:70%; height: 39%; display: inline-block; background: white; border-radius: 10px; position: relative;'>
-							<div id="gradfill2" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 19%, hsla(0, 100%, 100%, 1) 21%, hsla(0, 100%, 100%, 0) 25%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1) 90%,hsla(0, 100%, 100%, 1)); z-index: 2;'></div>
-							<div id="spacerD81" style='margin:0px;width:100%; height:10%; display: inline-block;'></div>
+						<div id="spacerD8" style='margin:0px;width:15%; height: 45%; display: inline-block;'></div>
+						<div id="algorithmeditor" style='margin:0px;width:70%; height: 45%; display: inline-block; background: white; border-radius: 10px; position: relative; overflow: hidden;'>
+							<div id="gradfill2" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 15%, hsla(0, 100%, 100%, 1) 17%, hsla(0, 100%, 100%, 0) 19%, hsla(0, 0%, 0%, 0) 50%,hsla(0, 100%, 100%, 1) 80%,hsla(0, 100%, 100%, 0) 81%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
+							<div id="spacerD81" style='margin:0px;width:100%; height:7%; display: inline-block;'></div>
 							<div id="spacerD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 							<div id="algorithmeditortext" style='margin:0px;width:60%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>ALGORITHM</div>
 							<div onclick="playpauseAlgo()" id="algoplaytext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.75vw; font-family: Source Sans Pro; font-weight: bold; letter-spacing: 1px; text-align: center; color: hsla(0, 0%, 40%, 1); overflow: hidden;cursor: pointer; user-select: none;'>PLAY</div>
@@ -164,9 +164,9 @@
 							<div onclick="resetAlgo()" id="algoresettext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.75vw; font-family: Source Sans Pro; font-weight: bold; letter-spacing: 1px; text-align: center; color: hsla(0, 0%, 40%, 1); overflow: hidden; cursor: pointer; user-select: none;'>RESET</div>
 							<div id="spacerD83" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 							<div id="spacerD84" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-							<div id="spacerD85" style='margin:0px;width:5%; height:67%; display: inline-block;'></div>
+							<div id="spacerD85" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
 							
-							<div id="algorithmedit" style='margin:0px;width:90%; height:67%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; overflow-y: auto; color: hsla(0, 0%, 50%, 1); position: relative;'>
+							<div id="algorithmedit" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; overflow-y: auto; color: hsla(0, 0%, 50%, 1); position: relative;'>
 								
 								<div id="codeblock1" class="codeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
 									<input oninput="changedCodeBlock(event)" id='codeblock1text' value='charge = pickCharge()' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vw; font-weight: lighter; color:  black;" class="codeblockText"></input>
@@ -190,15 +190,21 @@
 								</div>
 								<div id="addcodeblockspacer" style='margin:0px;width:100%; height:13%; display: inline-block;'></div>
 							</div>
-							<div id="spacerD86" style='margin:0px;width:5%; height:67%; display: inline-block;'></div>
-							<div id="spacerD87" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+							<div id="spacerD86" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
+							<div id="spacerD87" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+							<div id="spacerD88" style='margin:0px;width:5%; height: 12%; display: inline-block;'></div>
+							<div id="errordisplay" style='margin:0px;width:90%; height: 12%; display: inline-block; font-size: 0.8vw; color: red; font-family: Source Sans Pro; z-index: 3; overflow: auto; pointer-events: none;'>
+								<font style="color: hsla(0, 0%, 0%, 0.7)">The code is written in Javascript and exact function names have to followed since they are case sensitive.</font>
+							</div>
+							<div id="spacerD89" style='margin:0px;width:5%; height: 12%; display: inline-block;'></div>
+							<div id="spacerD90" style='margin:0px;width:100%; height: 6%; display: inline-block;'></div>
 						</div>
-						<div id="spacerD9" style='margin:0px;width:15%; height: 39%; display: inline-block;'></div>
+						<div id="spacerD9" style='margin:0px;width:15%; height: 45%; display: inline-block;'></div>
 						<div id="spacerD10" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-						<div id="spacerD11" style='margin:0px;width:15%; height: 19%; display: inline-block;'></div>
-						<div id="algorithmchoice" style='margin:0px;width:70%; height: 19%; display: inline-block; background: white; border-radius: 10px;'>
-							<div id="gradfill3" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 33%, hsla(0, 100%, 100%, 1) 35%, hsla(0, 100%, 100%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1) 80%,hsla(0, 100%, 100%, 1));'></div>
-							<div id="spacerD111" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
+						<div id="spacerD11" style='margin:0px;width:15%; height: 13%; display: inline-block;'></div>
+						<div id="algorithmchoice" style='margin:0px;width:70%; height: 13%; display: inline-block; background: white; border-radius: 10px;'>
+							
+							<div id="spacerD111" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
 							<div id="spacerD112" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
 							<div id="algorithmchoosetext" style='margin:0px;width:35%; height: 30%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>CHOOSE ALGORITHM</div>
 							<div id="spacerD113" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
@@ -212,17 +218,17 @@
 								</select>
 							</div>
 							<div id="spacerD114" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
-							<div id="spacerD115" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
-							<div id="spacerD115" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+							<div id="spacerD115" style='margin:0px;width:100%; height: 0%; display: inline-block;'></div>
+							<div id="spacerD115" style='margin:0px;width:5%; height: 20%; display: inline-block;'></div>
 							
-							<div id="algoadditionalinfo" style='margin:0px;width:90%; height: 30%; display: inline-block;font-size: 0.75vw; font-family: Nunito; color: hsla(0, 0%, 50%, 1);'>
+							<div id="algoadditionalinfo" style='margin:0px;width:90%; height: 20%; display: inline-block;font-size: 0.62vw; font-family: Nunito; color: hsla(0, 0%, 50%, 1);'>
 								The goal is to attain minimum energy configurations. Some algorithms should work for certain cases. 
 							</div>
-							<div id="spacerD116" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
-							<div id="spacerD117" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+							<div id="spacerD116" style='margin:0px;width:5%; height: 20%; display: inline-block;'></div>
+							<div id="spacerD117" style='margin:0px;width:100%; height: 20%; display: inline-block;'></div>
 
 						</div>
-						<div id="spacerD12" style='margin:0px;width:15%; height: 19%; display: inline-block;'></div>
+						<div id="spacerD12" style='margin:0px;width:15%; height: 13%; display: inline-block;'></div>
 						<div id="spacerD13" style='margin:0px;width:100%; height: 7%; display: inline-block;'></div>
 
 					</div>
@@ -2747,10 +2753,10 @@
 		}
 
 		useCustomCode = true
-
 		customcodes = ['charge = pickCharge()', 'electrostaticForce(charge, 0.008)']
-
 		customcodePointer = 0
+
+		errordisplayflag = false
 
 		loopcount = 0
 		function playLoop(event) {
@@ -2761,12 +2767,16 @@
 					if (useCustomCode) {
 						theInstructions = customcodes[customcodePointer];
 						// console.log(theInstructions)
+						if (errordisplayflag) {
+							errordisplayflag = false
+							document.getElementById('errordisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">The code is written in Javascript and exact function names have to followed since they are case sensitive.</font>'
+						}
 						try {
 							eval(theInstructions)
-
 						}
 						catch(error) {
-							console.log(error)
+							document.getElementById('errordisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Current Error : </font>' + error
+							errordisplayflag = true
 							document.getElementsByClassName('codeblock')[customcodePointer].style.borderColor = 'red'
 							document.getElementsByClassName('codeblockText')[customcodePointer].style.color = 'red'
 							stopAlgorithm()
@@ -2968,11 +2978,13 @@
 		function resetAlgo(event) {
 			customcodePointer = 0
 			randomizeChargePositions()
+			lowestEnergy = Infinity
+			updateEnergyInfo()
 		}
 
 		algorithmCodes = {}
 		algorithmCodes.electrostaticpushAlgoCode = ['charge = pickCharge()', 'electrostaticForce(charge, 0.008)']
-		algorithmCodes.electrostaticwithRandomnessAlgoCode = ['charge = pickCharge()', 'if (probability() < 20) { randomForce(charge, 0.02) }','charge = pickCharge()', 'if (probability() < 90) { electrostaticForce(charge, 0.008) }']
+		algorithmCodes.electrostaticwithRandomnessAlgoCode = ['charge = pickCharge()', 'if (probability() < 40) { randomForce(charge, 0.02) }','charge = pickCharge()', 'if (probability() < 90) { electrostaticForce(charge, 0.008) }']
 		algorithmCodes.randomPositionAlgoCode  = ['charge = pickCharge()', 'oldps = getPosition(charge)','newps = randomPositionInsideBoundary()', 'oldenergy = computeEnergy()', 'moveChargeToPosition(newps, charge)', 'newenergy = computeEnergy()', 'if (newenergy > oldenergy) {moveChargeToPosition(oldps, charge)}']
 		algorithmCodes.geneticAlgoCode = ['charge = pickCharge()', 'electrostaticForce(charge, 0.008)']
 		algorithmCodes.randomSearchAlgoCode = ['randomizeChargePositions()']
