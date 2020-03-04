@@ -75,7 +75,7 @@
 		
 		</style>
 		
-		<script>
+		<!-- <script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -84,7 +84,7 @@
 		  ga('create', 'UA-103589215-2', 'auto');
 		  ga('send', 'pageview');
 
-		</script>
+		</script> -->
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -124,7 +124,59 @@
 			</div>
 			<div id="middlepanel" style='margin:0px;width:47%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				<div id="labpanel" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-					<div id="optionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+					<div id="boundaryoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
+						<div id="spacerBD1" style='margin:0px;width:100%; height: 35%; display: inline-block;'></div>
+						<div id="spacerBD2" style='margin:0px;width:15%; height: 33%; display: inline-block;'></div>
+						<div id="boundaryChoicePanel" style='margin:0px;width:70%; height: 33%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+							<div id="spacerB1D1" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
+							<div id="spacerB1D2" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
+							<div id="boundaryTypeTile" style='margin:0px;width:25%; height: 15%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+								<input value='BOUNDARY TYPE' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+							</div>
+							<div id="spacerB1D3" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
+							<div id="ellipseoptiontile" style='margin:0px;width:25%; height: 15%; display: inline-block; overflow: hidden;'>
+								<input onclick="" id='ellipseoptiontilebutton' value='Ellipse' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;" readonly></input>
+							</div>
+							<div id="polyoptiontile" style='margin:0px;width:25%; height: 15%; display: inline-block; overflow: hidden;'>
+								<input onclick="" id='polyoptiontilebutton' value='Polygon' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,0); color: hsla(0, 0%, 70%, 1); cursor: pointer; user-select: none;" readonly></input>
+							</div>
+							<div id="spacerB1D4" style='margin:0px;width:15%; height: 15%; display: inline-block;'></div>
+							<div id="spacerB1D5" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+							<div id="spacerB1D6" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
+							<div id="semiMajorTile" style='margin:0px;width:25%; height: 15%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+								<input value='SEMI MAJOR AXIS' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+							</div>
+							<div id="spacerB1D7" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
+							<div id="semiMajorTileInputH" style='margin:0px;width:25%; height: 15%; display: inline-block; overflow: hidden; border-radius: 5px;'>
+								<input type="number" min="0" step="0.01"  onclick="" id='semiMajorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
+							</div>
+							<div id="spacerB1D8" style='margin:0px;width:40%; height: 15%; display: inline-block;'></div>
+							<div id="spacerB1D9" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+							<div id="spacerB1D10" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
+							<div id="semiMinorTile" style='margin:0px;width:25%; height: 15%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+								<input value='SEMI MINOR AXIS' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+							</div>
+							<div id="spacerB1D11" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
+							<div id="semiMinorTileInputH" style='margin:0px;width:25%; height: 15%; display: inline-block; overflow: hidden; border-radius: 5px;'>
+								<input type="number" min="0" step="0.01" onclick="" id='semiMinorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
+							</div>
+							<div id="spacerB1D12" style='margin:0px;width:40%; height: 15%; display: inline-block;'></div>
+						</div>
+						<div id="spacerBD3" style='margin:0px;width:15%; height: 33%; display: inline-block;'></div>
+						<div id="spacerBD4" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+						<div id="spacerBD5" style='margin:0px;width:15%; height: 12%; display: inline-block;'></div>
+						<div id="boundaryInfoPanel" style='margin:0px;width:70%; height: 12%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+						</div>
+						<div id="spacerBD6" style='margin:0px;width:15%; height: 12%; display: inline-block;'></div>
+						<div id="spacerBD7" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
+					</div>
+					<div id="chargesoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
+						
+					</div>
+					<div id="settingsoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
+						
+					</div>
+					<div id="algooptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: visible; pointer-events: auto;'>
 						<div id="spacerD1" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
 						<div id="spacerD5" style='margin:0px;width:15%; height: 25%; display: inline-block;'></div>
 						<div id="algorithmdescription" style='margin:0px;width:70%; height: 25%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
@@ -228,6 +280,7 @@
 						<div id="spacerD13" style='margin:0px;width:100%; height: 7%; display: inline-block;'></div>
 
 					</div>
+
 					<div id="menupanel" style='margin:0px;width:100%; height: 12%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: separate; table-layout: fixed; font-family: Source Sans Pro; text-align: center;font-size: 1.2vw;">
 							<tr>
@@ -235,18 +288,10 @@
 							<tr>
 								<td rowspan="3"></td>
 								<td rowspan="3"></td>
-								<td rowspan="3" colspan="2" id='algorithmoption' style="vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1);">
-									Algorithm
-								</td>
-								<td rowspan="3" colspan="2" id='boundaryoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;">
-									Boundary
-								</td>
-								<td rowspan="3" colspan="2" id='chargesoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;">
-									Charges
-								</td>
-								<td rowspan="3" colspan="2" id='settingsoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); border-top-right-radius: 20px; border-bottom-right-radius: 20px; cursor: pointer;">
-									Settings
-								</td>
+								<td rowspan="3" colspan="2" id='algorithmoption' style="vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1); font-weight: bold; border: 1px solid hsla(0, 0%, 60%, 1);">Algorithm</td>
+								<td rowspan="3" colspan="2" id='boundaryoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;font-weight: bold;" onclick="handlePanel(event)" >Boundary</td>
+								<td rowspan="3" colspan="2" id='chargesoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;font-weight: bold;" onclick="handlePanel(event)">Charges</td>
+								<td rowspan="3" colspan="2" id='settingsoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); border-top-right-radius: 20px; border-bottom-right-radius: 20px; cursor: pointer;font-weight: bold;" onclick="handlePanel(event)">Settings</td>
 								<td rowspan="3"></td>
 								<td rowspan="3"></td>
 							</tr>
@@ -3043,6 +3088,119 @@
 		function randomizeChargePositions() {
 			for (var chg in chargeDetails) {
 				moveChargeToPosition(randomPositionInsideBoundary(), chg)
+			}
+		}
+
+		currentpanel = 'algorithm'
+		function handlePanel(event) {
+			if (event.target.id == 'algorithmoption') {
+				event.target.setAttribute('onclick', '')
+				event.target.style.cursor = 'auto'
+				event.target.style.backgroundColor = 'hsla(280,100%,50%,1)';
+				event.target.style.color = 'hsla(0,0%,0%,1)';
+				document.getElementById('settingsoption').style.cursor = 'pointer';
+				document.getElementById('boundaryoption').style.cursor = 'pointer';
+				document.getElementById('chargesoption').style.cursor = 'pointer';
+				document.getElementById('settingsoption').style.background = 'none';
+				document.getElementById('boundaryoption').style.background = 'none';
+				document.getElementById('chargesoption').style.background = 'none';
+				document.getElementById('settingsoption').style.color = 'grey';
+				document.getElementById('boundaryoption').style.color = 'grey';
+				document.getElementById('chargesoption').style.color = 'grey';
+				document.getElementById('settingsoption').setAttribute('onclick', 'handlePanel(event)')
+				document.getElementById('boundaryoption').setAttribute('onclick', 'handlePanel(event)')
+				document.getElementById('chargesoption').setAttribute('onclick', 'handlePanel(event)')
+
+				document.getElementById('algooptionspanel').style.visibility = 'visible'
+				document.getElementById('algooptionspanel').style.pointerEvents = 'auto'
+				document.getElementById('boundaryoptionspanel').style.visibility = 'hidden'
+				document.getElementById('boundaryoptionspanel').style.pointerEvents = 'none'
+				document.getElementById('chargesoptionspanel').style.visibility = 'hidden'
+				document.getElementById('chargesoptionspanel').style.pointerEvents = 'none'
+				document.getElementById('settingsoptionspanel').style.visibility = 'hidden'
+				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
+
+			}
+			else if (event.target.id == 'settingsoption') {
+				event.target.setAttribute('onclick', '')
+				event.target.style.cursor = 'auto'
+				event.target.style.background = 'hsla(0,0%,60%,1)';
+				event.target.style.color = 'hsla(0,0%,0%,1)';
+				document.getElementById('algorithmoption').style.cursor = 'pointer';
+				document.getElementById('boundaryoption').style.cursor = 'pointer';
+				document.getElementById('chargesoption').style.cursor = 'pointer';
+				document.getElementById('algorithmoption').style.background = 'none';
+				document.getElementById('boundaryoption').style.background = 'none';
+				document.getElementById('chargesoption').style.background = 'none';
+				document.getElementById('algorithmoption').style.color = 'grey';
+				document.getElementById('boundaryoption').style.color = 'grey';
+				document.getElementById('chargesoption').style.color = 'grey';
+				document.getElementById('algorithmoption').setAttribute('onclick', 'handlePanel(event)')
+				document.getElementById('boundaryoption').setAttribute('onclick', 'handlePanel(event)')
+				document.getElementById('chargesoption').setAttribute('onclick', 'handlePanel(event)')
+
+				document.getElementById('algooptionspanel').style.visibility = 'hidden'
+				document.getElementById('algooptionspanel').style.pointerEvents = 'none'
+				document.getElementById('boundaryoptionspanel').style.visibility = 'hidden'
+				document.getElementById('boundaryoptionspanel').style.pointerEvents = 'none'
+				document.getElementById('chargesoptionspanel').style.visibility = 'hidden'
+				document.getElementById('chargesoptionspanel').style.pointerEvents = 'none'
+				document.getElementById('settingsoptionspanel').style.visibility = 'visible'
+				document.getElementById('settingsoptionspanel').style.pointerEvents = 'auto'
+			}
+			else if (event.target.id == 'chargesoption') {
+				event.target.setAttribute('onclick', '')
+				event.target.style.cursor = 'auto'
+				event.target.style.background = 'hsla(190,100%,50%,1)';
+				event.target.style.color = 'hsla(0,0%,0%,1)';
+				document.getElementById('algorithmoption').style.background = 'none';
+				document.getElementById('boundaryoption').style.background = 'none';
+				document.getElementById('settingsoption').style.background = 'none';
+				document.getElementById('algorithmoption').style.cursor = 'pointer';
+				document.getElementById('boundaryoption').style.cursor = 'pointer';
+				document.getElementById('settingsoption').style.cursor = 'pointer';
+				document.getElementById('algorithmoption').style.color = 'grey';
+				document.getElementById('boundaryoption').style.color = 'grey';
+				document.getElementById('settingsoption').style.color = 'grey';
+				document.getElementById('algorithmoption').setAttribute('onclick', 'handlePanel(event)')
+				document.getElementById('boundaryoption').setAttribute('onclick', 'handlePanel(event)')
+				document.getElementById('settingsoption').setAttribute('onclick', 'handlePanel(event)')
+
+				document.getElementById('algooptionspanel').style.visibility = 'hidden'
+				document.getElementById('algooptionspanel').style.pointerEvents = 'none'
+				document.getElementById('boundaryoptionspanel').style.visibility = 'hidden'
+				document.getElementById('boundaryoptionspanel').style.pointerEvents = 'none'
+				document.getElementById('chargesoptionspanel').style.visibility = 'visible'
+				document.getElementById('chargesoptionspanel').style.pointerEvents = 'auto'
+				document.getElementById('settingsoptionspanel').style.visibility = 'hidden'
+				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
+			}
+			else if (event.target.id == 'boundaryoption') {
+				event.target.setAttribute('onclick', '')
+				event.target.style.cursor = 'auto'
+				event.target.style.background = 'hsla(32,100%,50%,1)';
+				event.target.style.color = 'hsla(0,0%,0%,1)';
+				document.getElementById('algorithmoption').style.background = 'none';
+				document.getElementById('chargesoption').style.background = 'none';
+				document.getElementById('settingsoption').style.background = 'none';
+				document.getElementById('algorithmoption').style.cursor = 'pointer';
+				document.getElementById('chargesoption').style.cursor = 'pointer';
+				document.getElementById('settingsoption').style.cursor = 'pointer';
+				document.getElementById('algorithmoption').style.color = 'grey';
+				document.getElementById('chargesoption').style.color = 'grey';
+				document.getElementById('settingsoption').style.color = 'grey';
+				document.getElementById('algorithmoption').setAttribute('onclick', 'handlePanel(event)')
+				document.getElementById('chargesoption').setAttribute('onclick', 'handlePanel(event)')
+				document.getElementById('settingsoption').setAttribute('onclick', 'handlePanel(event)')
+
+				document.getElementById('algooptionspanel').style.visibility = 'hidden'
+				document.getElementById('algooptionspanel').style.pointerEvents = 'none'
+				document.getElementById('boundaryoptionspanel').style.visibility = 'visible'
+				document.getElementById('boundaryoptionspanel').style.pointerEvents = 'auto'
+				document.getElementById('chargesoptionspanel').style.visibility = 'hidden'
+				document.getElementById('chargesoptionspanel').style.pointerEvents = 'none'
+				document.getElementById('settingsoptionspanel').style.visibility = 'hidden'
+				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
 			}
 		}
 
