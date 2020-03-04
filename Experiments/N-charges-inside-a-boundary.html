@@ -75,7 +75,7 @@
 		
 		</style>
 		
-		<script>
+		<!-- <script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -84,7 +84,7 @@
 		  ga('create', 'UA-103589215-2', 'auto');
 		  ga('send', 'pageview');
 
-		</script>
+		</script> -->
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -207,6 +207,7 @@
 									<option value="electrostaticpushAlgo">ELECTROSTATIC PUSH</option>
 									<option value="electrostaticwithRandomnessAlgo">ELECTROSTATIC RANDOMESS</option>
 									<option value="randomPositionAlgo">RANDOM POSITION</option>
+									<option value="randomSearchAlgo">RANDOM SEARCH</option>
 									<option value="geneticAlgo">GENETIC</option>
 								</select>
 							</div>
@@ -2657,6 +2658,7 @@
 		}
 
 		lowestEnergy = Infinity
+		lowestEnergyPositions = {}
 		currentEnergy = Infinity
 
 		algo = {}
@@ -2809,6 +2811,7 @@
 						currentEnergy = computeEnergy()
 						if (currentEnergy < lowestEnergy) {
 							lowestEnergy = currentEnergy
+							lowestEnergyPositions = {...chargeDetails}
 							// console.log(lowestEnergy)
 						}
 					}
@@ -2964,6 +2967,7 @@
 
 		function resetAlgo(event) {
 			customcodePointer = 0
+			randomizeChargePositions()
 		}
 
 		algorithmCodes = {}
@@ -2971,6 +2975,15 @@
 		algorithmCodes.electrostaticwithRandomnessAlgoCode = ['charge = pickCharge()', 'if (probability() < 20) { randomForce(charge, 0.02) }','charge = pickCharge()', 'if (probability() < 90) { electrostaticForce(charge, 0.008) }']
 		algorithmCodes.randomPositionAlgoCode  = ['charge = pickCharge()', 'oldps = getPosition(charge)','newps = randomPositionInsideBoundary()', 'oldenergy = computeEnergy()', 'moveChargeToPosition(newps, charge)', 'newenergy = computeEnergy()', 'if (newenergy > oldenergy) {moveChargeToPosition(oldps, charge)}']
 		algorithmCodes.geneticAlgoCode = ['charge = pickCharge()', 'electrostaticForce(charge, 0.008)']
+		algorithmCodes.randomSearchAlgoCode = ['randomizeChargePositions()']
+
+
+		algorithmCodeDetails = {}
+		algorithmCodes.electrostaticpushAlgoCodedetails = ''
+		algorithmCodes.electrostaticwithRandomnessAlgoCodedetails =''
+		algorithmCodes.randomPositionAlgoCodedetails = ''
+		algorithmCodes.geneticAlgoCodedetails = ''
+		algorithmCodes.randomSearchAlgoCodedetails = ''
 
 
 		function loadAlgoCode(algocode) {
@@ -3009,7 +3022,13 @@
 		}
 
 		function updateEnergyInfo() {
-			document.getElementById('energyinfo').innerHTML =  '<font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Lowest Energy</font>  ' + lowestEnergy.toFixed(2) +  ' <br/> <font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Current Energy</font> ' + currentEnergy.toFixed(2) 
+			document.getElementById('energyinfo').innerHTML =  '<font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Lowest Energy</font>  ' + lowestEnergy.toFixed(5) +  ' <br/> <font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Current Energy</font> ' + currentEnergy.toFixed(5) 
+		}
+
+		function randomizeChargePositions() {
+			for (var chg in chargeDetails) {
+				moveChargeToPosition(randomPositionInsideBoundary(), chg)
+			}
 		}
 
 
