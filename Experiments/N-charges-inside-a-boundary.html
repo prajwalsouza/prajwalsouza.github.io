@@ -75,7 +75,7 @@
 		
 		</style>
 		
-		<!-- <script>
+		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -84,9 +84,9 @@
 		  ga('create', 'UA-103589215-2', 'auto');
 		  ga('send', 'pageview');
 
-		</script> -->
+		</script>
 
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
 		
@@ -151,9 +151,9 @@
 							<div id="spacerD81" style='margin:0px;width:100%; height:10%; display: inline-block;'></div>
 							<div id="spacerD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 							<div id="algorithmeditortext" style='margin:0px;width:60%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>ALGORITHM</div>
-							<div id="algoplaytext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.8vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>Play</div>
-							<div id="algosteptext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.8vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>Step</div>
-							<div id="algoresettext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.8vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>Reset</div>
+							<div onclick="playpauseAlgo()" id="algoplaytext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.75vw; font-family: Source Sans Pro; font-weight: bold; letter-spacing: 1px; text-align: center; color: hsla(0, 0%, 40%, 1); overflow: hidden;cursor: pointer;'>PLAY</div>
+							<div id="algosteptext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.75vw; font-family: Source Sans Pro; font-weight: bold; letter-spacing: 1px; text-align: center; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>STEP</div>
+							<div id="algoresettext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.75vw; font-family: Source Sans Pro; font-weight: bold; letter-spacing: 1px; text-align: center; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>RESET</div>
 							<div id="spacerD83" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 							<div id="spacerD84" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
 							<div id="spacerD85" style='margin:0px;width:5%; height:67%; display: inline-block;'></div>
@@ -161,7 +161,7 @@
 							<div id="algorithmedit" style='margin:0px;width:90%; height:67%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; overflow-y: auto; color: hsla(0, 0%, 50%, 1); position: relative;'>
 								
 								<div id="codeblock1" class="codeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
-									<input id='codeblock1text' value='charge = pickCharge()' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 1vw; font-weight: lighter; color:  black; "></input>
+									<input oninput="changedCodeBlock(event)" id='codeblock1text' value='charge = pickCharge()' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vw; font-weight: lighter; color:  black;" class="codeblockText"></input>
 								</div>
 								<div id="codeblock1tile" style='margin:0px;width:15%; height:23%; display: inline-block;  text-align: center; overflow: hidden;'>
 									<input onclick="removeCodeBlock(event)" id='codeblockremove-1' value='Remove' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vw; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: hsla(280, 100%, 50%, 1); cursor: pointer;" readonly></input>
@@ -169,7 +169,7 @@
 								<div id="codeblock1spacer" style='margin:0px;width:100%; height:4%; display: inline-block;'></div>
 								
 								<div id="codeblock2" class="codeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
-									<input id='codeblock2text' value='electrostaticForce(charge, 0.001)' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 1vw; font-weight: lighter; color:  black; "></input>
+									<input oninput="changedCodeBlock(event)" id='codeblock2text' value='electrostaticForce(charge, 0.001)' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vw; font-weight: lighter; color:  black;"  class="codeblockText"></input>
 								</div>
 								
 								<div id="codeblock2tile" style='margin:0px;width:15%; height:23%; display: inline-block;  text-align: center; overflow: hidden;'>
@@ -177,8 +177,8 @@
 								</div>
 								<div id="codeblock2spacer" style='margin:0px;width:100%; height:4%; display: inline-block;'></div>
 
-								<div id="addcodeblock" class="codeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
-									<input onclick="addNewCodeBlock()" id='addcodeText' value='Add Code Block' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vw; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0.1); color: hsla(280, 100%, 50%, 1); cursor: pointer;" readonly></input>
+								<div id="addcodeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
+									<input onclick="addNewCodeBlock()" id='addcodeText' value='Add Code Block' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vw; font-weight: lighter; color:  black; background: hsla(280, 100%, 50%, 1); color: white; cursor: pointer;" readonly></input>
 								</div>
 								
 								
@@ -2706,7 +2706,8 @@
 
 		useCustomCode = true
 
-		customcodes = ['electrostaticForce(pickCharge(), 0.009)', 'if (probability() > 90) {randomForce(pickCharge(), 0.1) }']
+		customcodes = ['charge = pickCharge()', 'electrostaticForce(charge, 0.01)']
+
 		customcodePointer = 0
 
 		loopcount = 0
@@ -2717,7 +2718,15 @@
 				if (playing) {
 					if (useCustomCode) {
 						theInstructions = customcodes[customcodePointer];
-						eval(theInstructions)
+						// console.log(theInstructions)
+						try {
+							eval(theInstructions)
+						}
+						catch(error) {
+							console.log(error)
+							document.getElementsByClassName('codeblock')[customcodePointer].style.borderColor = 'red'
+							stopAlgorithm()
+						}
 						customcodePointer = (customcodePointer + 1) % customcodes.length
 					}
 					else {
@@ -2778,26 +2787,45 @@
 
 		algorithm = 'Electrostatic'
 
+		function playpauseAlgo(event){
+			if (playing) {
+				stopAlgorithm()
+			}
+			else {
+				runAlgorithm()
+			}
+		}
+
 		function runAlgorithm() {
 			playing = true
 			playLoop()
+			blocks = document.getElementsByClassName('codeblock')
+			for (blk = 0; blk < blocks.length; blk++) {
+				blocks[blk].style.borderColor = 'hsla(0,0%,0%,0.5)'
+			}
+			document.getElementById('algoplaytext').innerHTML = 'PAUSE'
+			
 		}
 
 		function stopAlgorithm() {
 			clearInterval(loopinterval)
 			playing = false
+			document.getElementById('algoplaytext').innerHTML = 'PLAY'
 		}
 
 		runAlgorithm()
 
+		codeblockuid = 2
+
 		function addNewCodeBlock(event) {
 			customcodes.push('')
-			cindex = (customcodes.length) + 1
+			codeblockuid = codeblockuid + 1
+			cindex = codeblockuid
 			newdiv = document.createElement("div");
 			newdiv.id = 'codeblock' + cindex
-			newdiv.class = 'codeblock'
+			newdiv.setAttribute('class','codeblock')
 			newdiv.style = 'margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'
-			newdiv.innerHTML = '<input id="codeblock' + cindex + 'text" value="" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 1vw; font-weight: lighter; color:  black;"></input>'
+			newdiv.innerHTML = '<input oninput="changedCodeBlock(event)" id="codeblock' + cindex + 'text" value="" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vw; font-weight: lighter; color:  black;" class="codeblockText"></input>'
 			ref = document.getElementById('addcodeblock')
 			ref.parentNode.insertBefore(newdiv, ref);
 
@@ -2818,10 +2846,25 @@
 			document.getElementById('codeblock' + blocknum).outerHTML = ''
 			document.getElementById('codeblock' + blocknum + 'spacer').outerHTML = ''
 			document.getElementById('codeblock' + blocknum + 'tile').outerHTML = ''
+			grabCodes()
+		}
+
+		function changedCodeBlock(event) {
+			// divindex = $('#' + event.target.id).parent().index();
+			// console.log(divindex/3)
+			grabCodes()
+		}
+
+		function grabCodes() {
+			blocks = document.getElementsByClassName('codeblockText')
+			customcodes = []
+			for (blk = 0; blk < blocks.length; blk++) {
+				customcodes.push(blocks[blk].value)
+			}
 		}
 
 		// <div id="codeblock2" class="codeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
-		// 							<input id='codeblock2text' value='electrostaticForce(charge, 0.001)' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 1vw; font-weight: lighter; color:  black; "></input>
+		// 							<input id='codeblock2text' value='electrostaticForce(charge, 0.001)' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vw; font-weight: lighter; color:  black; "></input>
 		// 						</div>
 								
 		// 						<div id="codeblock2tile" style='margin:0px;width:15%; height:23%; display: inline-block;  text-align: center; overflow: hidden;'>
