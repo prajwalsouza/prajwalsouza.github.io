@@ -75,7 +75,7 @@
 		
 		</style>
 		
-		<!-- <script>
+		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -84,7 +84,7 @@
 		  ga('create', 'UA-103589215-2', 'auto');
 		  ga('send', 'pageview');
 
-		</script> -->
+		</script>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -132,13 +132,14 @@
 						<div id="spacerD4" style='margin:0px;width:100%; height: 2%; display: inline-block;'></div>
 						<div id="spacerD5" style='margin:0px;width:15%; height: 20%; display: inline-block;'></div>
 						<div id="algorithmdescription" style='margin:0px;width:70%; height: 20%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+							<div id="gradfill1" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 33%, hsla(0, 100%, 100%, 1) 35%, hsla(0, 100%, 100%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1) 80%,hsla(0, 100%, 100%, 1));'></div>
 							<div id="spacerD51" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
 							<div id="spacerD52" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 							<div id="algorithmnametext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1);'>ELECTROSTATIC PUSH</div>
 							<div id="spacerD53" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 							<div id="spacerD54" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
 							<div id="spacerD55" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
-							<div id="gradfill1" style='margin:0px;width:90%; height: 50%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1));'></div>
+							
 							<div id="algorithmdescriptiontext" style='margin:0px;width:90%; height: 50%; display: inline-block;font-size: 0.85vw; font-family: Nunito; overflow-y: auto; color: hsla(0, 0%, 50%, 1);'>
 								Move the <font style="color: hsla(190, 100%, 50%, 1);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force, if the new location is within the <font style="color: hsla(32, 100%, 50%, 1);">boundary</font>. <br/>
 								<font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : electrostaticForce(<font style="color: hsla(190, 100%, 50%, 1);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> 
@@ -154,7 +155,7 @@
 						<div id="spacerD7" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
 						<div id="spacerD8" style='margin:0px;width:15%; height: 39%; display: inline-block;'></div>
 						<div id="algorithmeditor" style='margin:0px;width:70%; height: 39%; display: inline-block; background: white; border-radius: 10px; position: relative;'>
-							<div id="gradfill2" style='margin:0px;width:100%; height:100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1)); z-index: 2;'></div>
+							<div id="gradfill2" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 19%, hsla(0, 100%, 100%, 1) 21%, hsla(0, 100%, 100%, 0) 25%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1) 90%,hsla(0, 100%, 100%, 1)); z-index: 2;'></div>
 							<div id="spacerD81" style='margin:0px;width:100%; height:10%; display: inline-block;'></div>
 							<div id="spacerD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 							<div id="algorithmeditortext" style='margin:0px;width:60%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>ALGORITHM</div>
@@ -187,8 +188,7 @@
 								<div id="addcodeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
 									<input onclick="addNewCodeBlock()" id='addcodeText' value='Add Code Block' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vw; font-weight: lighter; color:  black; background: hsla(280, 100%, 50%, 1); color: white; cursor: pointer;" readonly></input>
 								</div>
-								
-								
+								<div id="addcodeblockspacer" style='margin:0px;width:100%; height:13%; display: inline-block;'></div>
 							</div>
 							<div id="spacerD86" style='margin:0px;width:5%; height:67%; display: inline-block;'></div>
 							<div id="spacerD87" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
@@ -196,7 +196,31 @@
 						<div id="spacerD9" style='margin:0px;width:15%; height: 39%; display: inline-block;'></div>
 						<div id="spacerD10" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
 						<div id="spacerD11" style='margin:0px;width:15%; height: 19%; display: inline-block;'></div>
-						<div id="algorithmchoice" style='margin:0px;width:70%; height: 19%; display: inline-block; background: white; border-radius: 10px;'></div>
+						<div id="algorithmchoice" style='margin:0px;width:70%; height: 19%; display: inline-block; background: white; border-radius: 10px;'>
+							<div id="gradfill3" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 33%, hsla(0, 100%, 100%, 1) 35%, hsla(0, 100%, 100%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1) 80%,hsla(0, 100%, 100%, 1));'></div>
+							<div id="spacerD111" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
+							<div id="spacerD112" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+							<div id="algorithmchoosetext" style='margin:0px;width:35%; height: 30%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>CHOOSE ALGORITHM</div>
+							<div id="spacerD113" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+							<div id="choosealgorithmdrop" style='margin:0px;width:50%; height: 30%; display: inline-block; overflow: hidden;'>
+								<select onchange="chooseAlgo(event)" id="algorithmsToChoose" style="font-family: Roboto; font-size: 0.75vw;">
+									<option value="electrostaticpushAlgo">ELECTROSTATIC PUSH</option>
+									<option value="electrostaticwithRandomnessAlgo">ELECTROSTATIC RANDOMESS</option>
+									<option value="randomPositionAlgo">RANDOM POSITION</option>
+									<option value="geneticAlgo">GENETIC</option>
+								</select>
+							</div>
+							<div id="spacerD114" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+							<div id="spacerD115" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+							<div id="spacerD115" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+							
+							<div id="algoadditionalinfo" style='margin:0px;width:90%; height: 30%; display: inline-block;font-size: 0.75vw; font-family: Nunito; color: hsla(0, 0%, 50%, 1);'>
+								The goal is to attain minimum energy configurations. Some algorithms should work for certain cases. 
+							</div>
+							<div id="spacerD116" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+							<div id="spacerD117" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+
+						</div>
 						<div id="spacerD12" style='margin:0px;width:15%; height: 19%; display: inline-block;'></div>
 						<div id="spacerD13" style='margin:0px;width:100%; height: 7%; display: inline-block;'></div>
 
@@ -2610,18 +2634,18 @@
 		addCharges(16)
 
 		function computeEnergy() {
-			energy = 0
+			enrg = 0
 			for (charge1 = 0; charge1 < chargeDetails.length; charge1++) {
 				for (charge2 = charge1; charge2 < chargeDetails.length; charge2++) {
 					if (charge2 != charge1) {
 						ch1dist = chargeDetails[charge1].loc
 						ch2dist = chargeDetails[charge2].loc
 						chargeDist = distF(ch1dist, ch2dist)
-						energy = energy + (1/chargeDist)
+						enrg = enrg + (1/chargeDist)
 					}
 				}
 			}
-			return energy
+			return enrg
 		}
 
 		lowestEnergy = Infinity
@@ -2733,7 +2757,7 @@
 						catch(error) {
 							console.log(error)
 							document.getElementsByClassName('codeblock')[customcodePointer].style.borderColor = 'red'
-							document.getElementsByClassName('codeblockText')[customcodePointer].style.borderColor = 'red'
+							document.getElementsByClassName('codeblockText')[customcodePointer].style.color = 'red'
 							stopAlgorithm()
 						}
 						customcodePointer = (customcodePointer + 1) % customcodes.length
@@ -2839,15 +2863,16 @@
 
 		codeblockuid = 2
 
-		function addNewCodeBlock(event) {
-			customcodes.push('')
+		function addNewCodeBlock(optionaltext) {
+			optionaltext = optionaltext || ''
+			customcodes.push(optionaltext)
 			codeblockuid = codeblockuid + 1
 			cindex = codeblockuid
 			newdiv = document.createElement("div");
 			newdiv.id = 'codeblock' + cindex
 			newdiv.setAttribute('class','codeblock')
 			newdiv.style = 'margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'
-			newdiv.innerHTML = '<input oninput="changedCodeBlock(event)" id="codeblock' + cindex + 'text" value="" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vw; font-weight: lighter; color:  black;" class="codeblockText"></input>'
+			newdiv.innerHTML = '<input oninput="changedCodeBlock(event)" id="codeblock' + cindex + 'text" value="' + optionaltext + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vw; font-weight: lighter; color:  black;" class="codeblockText"></input>'
 			ref = document.getElementById('addcodeblock')
 			ref.parentNode.insertBefore(newdiv, ref);
 
@@ -2869,6 +2894,22 @@
 			document.getElementById('codeblock' + blocknum + 'spacer').outerHTML = ''
 			document.getElementById('codeblock' + blocknum + 'tile').outerHTML = ''
 			grabCodes()
+		}
+
+		function removeCodeBlockSpecific(blockid) {
+			blocknum = parseInt(blockid.split('codeblock')[1])
+			document.getElementById('codeblock' + blocknum).outerHTML = ''
+			document.getElementById('codeblock' + blocknum + 'spacer').outerHTML = ''
+			document.getElementById('codeblock' + blocknum + 'tile').outerHTML = ''
+			grabCodes()
+		}
+
+		function removeAllCodeBlocks() {
+			blocks = document.getElementsByClassName('codeblock')
+			blockscopy = {...blocks}
+			for (var blk in blockscopy) {
+				removeCodeBlockSpecific(blockscopy[blk].id)
+			}
 		}
 
 		function changedCodeBlock(event) {
@@ -2909,6 +2950,50 @@
 		function resetAlgo(event) {
 			customcodePointer = 0
 		}
+
+		algorithmCodes = {}
+		algorithmCodes.electrostaticpushAlgoCode = ['charge = pickCharge()', 'electrostaticForce(charge, 0.008)']
+		algorithmCodes.electrostaticwithRandomnessAlgoCode = ['charge = pickCharge()', 'if (probability() < 20) { randomForce(charge, 0.02) }','charge = pickCharge()', 'if (probability() < 90) { electrostaticForce(charge, 0.008) }']
+		algorithmCodes.randomPositionAlgoCode  = ['charge = pickCharge()', 'oldps = getPosition(charge)','newps = randomPositionInsideBoundary()', 'oldenergy = computeEnergy()', 'moveChargeToPosition(newps, charge)', 'newenergy = computeEnergy()', 'if (newenergy > oldenergy) {moveChargeToPosition(oldps, charge)}']
+		algorithmCodes.geneticAlgoCode = ['charge = pickCharge()', 'electrostaticForce(charge, 0.008)']
+
+
+		function loadAlgoCode(algocode) {
+			removeAllCodeBlocks()
+			for (codenum = 0; codenum < algocode.length; codenum++) {
+				addNewCodeBlock(algocode[codenum])
+			}
+		}
+
+		// loadAlgoCode(electrostaticwithRandomnessAlgoCode)
+
+		function chooseAlgo(event) {
+			loadAlgoCode(algorithmCodes[event.target.value + 'Code'])
+		}
+
+		function getPosition(chargenumb) {
+			return chargeDetails[chargenumb].loc
+		}
+
+		function randomPositionInsideBoundary() {
+			if (boundaryType == 'circle') {
+				ang = Math.random()*2*Math.PI
+				dis = Math.random()*boundaryoptions.radius	
+				return [dis*Math.cos(ang), dis*Math.sin(ang)]
+			}
+		}
+
+		function moveChargeToPosition(positionToMove, chargenumb) {
+			if (boundaryType == 'circle') {
+				if (distF(positionToMove, [0,0]) < boundaryoptions.radius) {
+					chargeDetails[chargenumb].loc = positionToMove
+					chargeId = chargeDetails[chargenumb].id
+					updatePointXY('labG', chargeId + '-charge', positionToMove[0], positionToMove[1])
+				}
+			}	
+		}
+
+
 
 
 
