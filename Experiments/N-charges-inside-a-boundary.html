@@ -273,6 +273,14 @@
 						</table>
 						
 					</div>
+				</div><br/>
+				<div id="simulationDetailH" style='margin:0px;width:100%; height: 80%;overflow: hidden;position: absolute; z-index: 10;display: inline-block; background: none; border: 0px solid black; pointer-events: none;'>
+					<div id="spacerSD1" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+					<div id="spacerSD2" style='margin:0px;width:7%; height: 7%; display: inline-block;'></div>
+					<div id="energyinfo" style='margin:0px;width:93%; height: 7%; display: inline-block; text-align: left; font-size: 0.8vw; font-family: Source Sans Pro; color: black; font-weight: bold;'>
+						<font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Lowest Energy</font>  25.134 <br/> <font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Current Energy</font> 28.11
+					</div>
+
 				</div>
 				<div id="labH" style='margin:0px;width:100%; height: 80%;overflow: hidden;position: relative; z-index: 1;display: inline-block; background: white; border: 0px solid black; border-radius: 0px; border-top-left-radius: 60px; '>
 
@@ -2649,6 +2657,7 @@
 		}
 
 		lowestEnergy = Infinity
+		currentEnergy = Infinity
 
 		algo = {}
 		algo.randomfluctuations = 0.1
@@ -2761,6 +2770,12 @@
 							stopAlgorithm()
 						}
 						customcodePointer = (customcodePointer + 1) % customcodes.length
+						currentEnergy = computeEnergy()
+						if (currentEnergy < lowestEnergy) {
+							lowestEnergy = currentEnergy
+							// console.log(lowestEnergy)
+						}
+						updateEnergyInfo()
 					}
 					else {
 						if (algorithm == 'Electrostatic') {
@@ -2794,7 +2809,7 @@
 						currentEnergy = computeEnergy()
 						if (currentEnergy < lowestEnergy) {
 							lowestEnergy = currentEnergy
-							console.log(lowestEnergy)
+							// console.log(lowestEnergy)
 						}
 					}
 						
@@ -2991,6 +3006,10 @@
 					updatePointXY('labG', chargeId + '-charge', positionToMove[0], positionToMove[1])
 				}
 			}	
+		}
+
+		function updateEnergyInfo() {
+			document.getElementById('energyinfo').innerHTML =  '<font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Lowest Energy</font>  ' + lowestEnergy.toFixed(2) +  ' <br/> <font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Current Energy</font> ' + currentEnergy.toFixed(2) 
 		}
 
 
