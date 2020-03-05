@@ -87,6 +87,21 @@
 				border-radius: 20px;
 				/*outline: 1px solid slategrey;*/
 			}
+
+			#pointBlocksH::-webkit-scrollbar {
+				width: 1.1%;
+			}
+
+			#pointBlocksH::-webkit-scrollbar-track {
+				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+				border-radius: 20px;
+			}
+
+			#pointBlocksH::-webkit-scrollbar-thumb {
+				background-color: var(--themeorange);
+				border-radius: 20px;
+				/*outline: 1px solid slategrey;*/
+			}
 		
 		</style>
 		
@@ -137,54 +152,134 @@
 					</div>
 				</div>
 			</div>
-			<div id="middlepanel" style='margin:0px;width:47%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				<div id="labpanel" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			<div id="middlepanel" style='margin:0px;width:45%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				<div id="verticalspacer1" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
+				<div id="labpanel" style='margin:0px;width:66%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+					
 					<div id="boundaryoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
-						<div id="spacerBD1" style='margin:0px;width:100%; height: 35%; display: inline-block;'></div>
-						<div id="spacerBD2" style='margin:0px;width:15%; height: 33%; display: inline-block;'></div>
-						<div id="boundaryChoicePanel" style='margin:0px;width:70%; height: 33%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-							<div id="spacerB1D1" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
-							<div id="spacerB1D2" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
-							<div id="boundaryTypeTile" style='margin:0px;width:25%; height: 15%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+						<div id="spacerBD1" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+						<div id="boundaryChoicePanel" style='margin:0px;width:100%; height: 10%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+							<div id="spacerB1D1" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
+							<div id="spacerB1D2" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
+							<div id="boundaryTypeTile" style='margin:0px;width:25%; height: 50%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
 								<input value='BOUNDARY TYPE' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 							</div>
-							<div id="spacerB1D3" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
-							<div id="ellipseoptiontile" style='margin:0px;width:25%; height: 15%; display: inline-block; overflow: hidden;'>
+							<div id="spacerB1D3" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
+							<div id="ellipseoptiontile" style='margin:0px;width:25%; height: 50%; display: inline-block; overflow: hidden;'>
 								<input class="inputButDiv" onclick="" id='ellipseoptiontilebutton' value='Ellipse' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;" readonly></input>
 							</div>
-							<div id="polyoptiontile" style='margin:0px;width:25%; height: 15%; display: inline-block; overflow: hidden;'>
+							<div id="polyoptiontile" style='margin:0px;width:25%; height: 50%; display: inline-block; overflow: hidden;'>
 								<input class="inputButDiv" onclick="" id='polyoptiontilebutton' value='Polygon' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,0); color: hsla(0, 0%, 70%, 1); cursor: pointer; user-select: none;" readonly></input>
 							</div>
-							<div id="spacerB1D4" style='margin:0px;width:15%; height: 15%; display: inline-block;'></div>
-							<div id="spacerB1D5" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
-							<div id="spacerB1D6" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
-							<div id="semiMajorTile" style='margin:0px;width:25%; height: 15%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+							<div id="spacerB1D4" style='margin:0px;width:15%; height: 50%; display: inline-block;'></div>
+							<div id="spacerB1D5" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
+							
+						</div>
+						<div id="spacerBD3" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+						<div id="boundaryTypeOptionsPanelEllipse" style='margin:0px;width:100%; height: 0%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+							<div id="spacerB1D55" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
+							<div id="spacerB1D6" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+							<div id="semiMajorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
 								<input value='SEMI MAJOR AXIS' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 							</div>
-							<div id="spacerB1D7" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
-							<div id="semiMajorTileInputH" style='margin:0px;width:25%; height: 15%; display: inline-block; overflow: hidden; border-radius: 5px;'>
+							<div id="spacerB1D7" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
+							<div id="semiMajorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
 								<input type="number" min="0" step="0.01"  onclick="" id='semiMajorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
 							</div>
-							<div id="spacerB1D8" style='margin:0px;width:40%; height: 15%; display: inline-block;'></div>
+							<div id="spacerB1D8" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
 							<div id="spacerB1D9" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
-							<div id="spacerB1D10" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
-							<div id="semiMinorTile" style='margin:0px;width:25%; height: 15%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+							<div id="spacerB1D10" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
+							<div id="semiMinorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
 								<input value='SEMI MINOR AXIS' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 							</div>
-							<div id="spacerB1D11" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
-							<div id="semiMinorTileInputH" style='margin:0px;width:25%; height: 15%; display: inline-block; overflow: hidden; border-radius: 5px;'>
+							<div id="spacerB1D11" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
+							<div id="semiMinorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
 								<input type="number" min="0" step="0.01" onclick="" id='semiMinorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
 							</div>
-							<div id="spacerB1D1" style='margin:0px;width:40%; height: 15%; display: inline-block;'></div>
+							<div id="spacerB1D1" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
 						</div>
-						<div id="spacerBD3" style='margin:0px;width:15%; height: 33%; display: inline-block;'></div>
-						<div id="spacerBD4" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
-						<div id="spacerBD5" style='margin:0px;width:15%; height: 12%; display: inline-block;'></div>
-						<div id="boundaryInfoPanel" style='margin:0px;width:70%; height: 12%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-							<div id="spacerB2D12" style='margin:0px;width:40%; height: 15%; display: inline-block;'></div>
+						<div id="boundaryTypeOptionsPanelPolygon" style='margin:0px;width:100%; height: 10%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+							<div id="spacerB1D55" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
+							<div id="spacerB1D6" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
+							<div id="sidesTile" style='margin:0px;width:35%; height: 40%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+								<input value='SIDES' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+							</div>
+							<div id="spacerB1D7" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
+							<div id="sidesTileInputH" style='margin:0px;width:25%; height: 40%; display: inline-block; overflow: hidden; border-radius: 5px;'>
+								<input type="number" min="0" step="0.01"  onclick="" id='semiMajorTileInput' value='6' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
+							</div>
+							<div id="spacerB1D8" style='margin:0px;width:30%; height: 40%; display: inline-block;'></div>
+							<div id="spacerB1D9" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
 						</div>
-						<div id="spacerBD6" style='margin:0px;width:15%; height: 12%; display: inline-block;'></div>
-						<div id="spacerBD7" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
+						<div id="spacerBDHidden1" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+						<div id="boundaryPointsPanel" style='margin:0px;width:100%; height: 31%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+							<div id="gradfillbp" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 32%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 38%, hsla(0, 0%, 0%, 0) 80%,hsla(0, 100%, 100%, 1) 90%,hsla(0, 100%, 100%, 0) 91%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
+							<div id="spacerBPD81" style='margin:0px;width:100%; height:9%; display: inline-block;'></div>
+							<div id="spacerBPD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+							<div id="boundarypointseditortext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>BOUNDARY POINTS</div>
+							<div id="spacerBPD83" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+							<div id="spacerBPD84" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
+							<div id="spacerBPD85" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
+							<div id="pointeditNameBlock" style='margin:0px;width:90%; height:10%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; overflow:hidden; color: hsla(0, 0%, 50%, 1); position: relative; '>
+								<input value='Point' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+								<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+								<input value='X co-ordinate' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+								<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+								<input value='Y co-ordinate' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+							</div>
+							<div id="spacerBPD86" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
+							<div id="spacerBPD87" style='margin:0px;width:100%; height:3%; display: inline-block;'></div>
+							<div id="spacerBPD88" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
+							<div id="pointBlocksH" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; color: hsla(0, 0%, 50%, 1); position: relative; overflow-y: scroll; '>
+								<div id="pointBlock1" style='margin:0px;width:100%; height:24%; display: inline-block;'>
+									<input value='Point 1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
+									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+									<input type="number" min="0" step="0.01"  onclick="" value='0.4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
+								</div>
+								<div id="pbVspacer" style='margin:0px;width:100%; height:5%; display: inline-block;'></div>
+								<div id="pointBlock2" style='margin:0px;width:100%; height:24%; display: inline-block;'>
+									<input value='Point 2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
+									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+									<input type="number" min="0" step="0.01"  onclick="" value='0.4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
+								</div>
+								<div id="pbVspacer" style='margin:0px;width:100%; height:5%; display: inline-block;'></div>
+								<div id="pointBlock3" style='margin:0px;width:100%; height:24%; display: inline-block;'>
+									<input value='Point 3' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
+									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+									<input type="number" min="0" step="0.01"  onclick="" value='0.4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
+								</div>
+								<div id="pbVspacer" style='margin:0px;width:100%; height:5%; display: inline-block;'></div>
+								<div id="pointBlock4" style='margin:0px;width:100%; height:24%; display: inline-block;'>
+									<input value='Point 4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
+									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+									<input type="number" min="0" step="0.01"  onclick="" value='0.4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
+								</div>
+								<div id="pbVspacer" style='margin:0px;width:100%; height:5%; display: inline-block;'></div>
+								<div id="pbVfinalspacer" style='margin:0px;width:100%; height:20%; display: inline-block;'></div>
+								
+							</div>
+							<div id="spacerBPD89" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
+							<div id="spacerBPD810" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+							
+						</div>
+						<div id="spacerBD4" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+						<div id="boundaryInfoPanel" style='margin:0px;width:100%; height: 12%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+							<div id="spacerB2D11" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
+							<div id="spacerB2D12" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
+							<div id="boundaryadditionalinfo" style='margin:0px;width:90%; height: 60%; display: inline-block;font-size: 0.8vw; font-family: Nunito; color: hsla(0, 0%, 50%, 1); overflow-y: auto;'>
+								For a circular boundary, set both the axis lengths to same value which is the radius.
+							</div>
+							<div id="spacerB2D13" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
+						</div>
+						<div id="spacerBD7" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
 					</div>
 					<div id="chargesoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
 						
@@ -194,8 +289,7 @@
 					</div>
 					<div id="algooptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: visible; pointer-events: auto;'>
 						<div id="spacerD1" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-						<div id="spacerD5" style='margin:0px;width:15%; height: 25%; display: inline-block;'></div>
-						<div id="algorithmdescription" style='margin:0px;width:70%; height: 25%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+						<div id="algorithmdescription" style='margin:0px;width:100%; height: 25%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
 							<div id="gradfill1" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 30%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1) 80%,hsla(0, 100%, 100%, 1));'></div>
 							<div id="spacerD51" style='margin:0px;width:100%; height: 12%; display: inline-block;'></div>
 							<div id="spacerD52" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
@@ -215,10 +309,8 @@
 							<div id="spacerD56" style='margin:0px;width:5%; height: 53%; display: inline-block;'></div>
 							<div id="spacerD57" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
 						</div>
-						<div id="spacerD6" style='margin:0px;width:15%; height: 25%; display: inline-block;'></div>
 						<div id="spacerD7" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-						<div id="spacerD8" style='margin:0px;width:15%; height: 48%; display: inline-block;'></div>
-						<div id="algorithmeditor" style='margin:0px;width:70%; height: 48%; display: inline-block; background: white; border-radius: 10px; position: relative; overflow: hidden;'>
+						<div id="algorithmeditor" style='margin:0px;width:100%; height: 48%; display: inline-block; background: white; border-radius: 10px; position: relative; overflow: hidden;'>
 							<div id="gradfill2" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 15%, hsla(0, 100%, 100%, 1) 17%, hsla(0, 100%, 100%, 0) 19%, hsla(0, 0%, 0%, 0) 50%,hsla(0, 100%, 100%, 1) 80%,hsla(0, 100%, 100%, 0) 81%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
 							<div id="spacerD81" style='margin:0px;width:100%; height:7%; display: inline-block;'></div>
 							<div id="spacerD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
@@ -263,10 +355,8 @@
 							<div id="spacerD89" style='margin:0px;width:5%; height: 12%; display: inline-block;'></div>
 							<div id="spacerD90" style='margin:0px;width:100%; height: 6%; display: inline-block;'></div>
 						</div>
-						<div id="spacerD9" style='margin:0px;width:15%; height: 48%; display: inline-block;'></div>
 						<div id="spacerD10" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-						<div id="spacerD11" style='margin:0px;width:15%; height: 13%; display: inline-block;'></div>
-						<div id="algorithmchoice" style='margin:0px;width:70%; height: 13%; display: inline-block; background: white; border-radius: 10px;'>
+						<div id="algorithmchoice" style='margin:0px;width:100%; height: 13%; display: inline-block; background: white; border-radius: 10px;'>
 							
 							<div id="spacerD111" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
 							<div id="spacerD112" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
@@ -292,24 +382,18 @@
 							<div id="spacerD117" style='margin:0px;width:100%; height: 20%; display: inline-block;'></div>
 
 						</div>
-						<div id="spacerD12" style='margin:0px;width:15%; height: 13%; display: inline-block;'></div>
 						<div id="spacerD13" style='margin:0px;width:100%; height: 7%; display: inline-block;'></div>
 
 					</div>
-
 					<div id="menupanel" style='margin:0px;width:100%; height: 12%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: separate; table-layout: fixed; font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 0.93vw; letter-spacing: 0.8px;">
 							<tr>
 							</tr>
 							<tr>
-								<td rowspan="3"></td>
-								<td rowspan="3"></td>
-								<td rowspan="3" colspan="2" id='algorithmoption' style="vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1); border: 1px solid hsla(0, 0%, 60%, 1);">ALGORITHM</td>
-								<td rowspan="3" colspan="2" id='boundaryoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;" onclick="handlePanel(event)" >BOUNDARY</td>
-								<td rowspan="3" colspan="2" id='chargesoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;" onclick="handlePanel(event)">CHARGES</td>
-								<td rowspan="3" colspan="2" id='settingsoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); border-top-right-radius: 20px; border-bottom-right-radius: 20px; cursor: pointer;" onclick="handlePanel(event)">SETTINGS</td>
-								<td rowspan="3"></td>
-								<td rowspan="3"></td>
+								<td rowspan="3" colspan="1" id='algorithmoption' style="vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1); border: 1px solid hsla(0, 0%, 60%, 1);">ALGORITHM</td>
+								<td rowspan="3" colspan="1" id='boundaryoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;" onclick="handlePanel(event)" >BOUNDARY</td>
+								<td rowspan="3" colspan="1" id='chargesoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;" onclick="handlePanel(event)">CHARGES</td>
+								<td rowspan="3" colspan="1" id='settingsoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); border-top-right-radius: 20px; border-bottom-right-radius: 20px; cursor: pointer;" onclick="handlePanel(event)">SETTINGS</td>
 							</tr>
 							<tr></tr>
 							<tr></tr>
@@ -321,8 +405,24 @@
 						</table>
 					</div>
 				</div>
+				<div id="verticalspacer2" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
+				<div id="fileoptionspanel" style='margin:0px;width:10%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+					<div id="fileoptionsstrip" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+						<div id="filespacer1" style='margin:0px;width:100%; height: 75%; display: inline-block;'></div>
+						<div id="fileoptionsaveH" style='margin:0px;width:100%; height: 5%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative; font-size: 1vw;'>
+							<input onclick="savehandle(event)" value='SAVE' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: pointer; user-select: none;" class="inputButDiv" readonly></input>
+
+						</div>
+						<div id="filespacer2" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+						<div id="fileoptionopenH" style='margin:0px;width:100%; height: 5%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+							<input onclick="openhandle(event)" value='OPEN' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: pointer; user-select: none;" class="inputButDiv" readonly></input>
+						</div>
+						<div id="filespacer3" style='margin:0px;width:100%; height: 12%; display: inline-block;'></div>
+					</div>
+				</div>
+				<div id="verticalspacer3" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
 			</div>
-			<div id="interactionAndTitle" style='margin:0px;width:50%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			<div id="interactionAndTitle" style='margin:0px;width:52%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				<div id="titleH" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 					<div id="titletext" style='margin:0px;width: 100%; height: 100%;overflow: hidden; position: absolute; z-index: 1; font-size: 3vw; font-family: Raleway; font-weight: normal;'>
 						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
