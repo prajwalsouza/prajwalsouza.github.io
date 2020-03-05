@@ -21,6 +21,21 @@
 		</style>
 
 		<style type="text/css">
+			:root {
+				--themeblue: hsla(196, 100%, 50%,  1);
+				--themeviolet: hsla(280, 100%, 50%,  1);
+				--themeorange: hsla(32, 100%, 50%,  1);
+				--boundaryorange: hsla(32, 100%, 50%, 0.6);
+			}
+
+			.inputButDiv:focus {
+				outline: none !important;
+				border: 0px solid black;
+			}
+
+		</style>
+
+		<style type="text/css">
 			a {
 				cursor: pointer;
 			}
@@ -53,7 +68,7 @@
 			}
 
 			#algorithmdescriptiontext::-webkit-scrollbar-thumb {
-				background-color: hsla(280, 100%, 50%, 1);
+				background-color: var(--themeviolet);
 				border-radius: 20px;
 				/*outline: 1px solid slategrey;*/
 			}
@@ -68,7 +83,7 @@
 			}
 
 			#algorithmedit::-webkit-scrollbar-thumb {
-				background-color: hsla(280, 100%, 50%, 1);
+				background-color: var(--themeviolet);
 				border-radius: 20px;
 				/*outline: 1px solid slategrey;*/
 			}
@@ -135,10 +150,10 @@
 							</div>
 							<div id="spacerB1D3" style='margin:0px;width:5%; height: 15%; display: inline-block;'></div>
 							<div id="ellipseoptiontile" style='margin:0px;width:25%; height: 15%; display: inline-block; overflow: hidden;'>
-								<input onclick="" id='ellipseoptiontilebutton' value='Ellipse' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;" readonly></input>
+								<input class="inputButDiv" onclick="" id='ellipseoptiontilebutton' value='Ellipse' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;" readonly></input>
 							</div>
 							<div id="polyoptiontile" style='margin:0px;width:25%; height: 15%; display: inline-block; overflow: hidden;'>
-								<input onclick="" id='polyoptiontilebutton' value='Polygon' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,0); color: hsla(0, 0%, 70%, 1); cursor: pointer; user-select: none;" readonly></input>
+								<input class="inputButDiv" onclick="" id='polyoptiontilebutton' value='Polygon' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,0); color: hsla(0, 0%, 70%, 1); cursor: pointer; user-select: none;" readonly></input>
 							</div>
 							<div id="spacerB1D4" style='margin:0px;width:15%; height: 15%; display: inline-block;'></div>
 							<div id="spacerB1D5" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
@@ -160,12 +175,13 @@
 							<div id="semiMinorTileInputH" style='margin:0px;width:25%; height: 15%; display: inline-block; overflow: hidden; border-radius: 5px;'>
 								<input type="number" min="0" step="0.01" onclick="" id='semiMinorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
 							</div>
-							<div id="spacerB1D12" style='margin:0px;width:40%; height: 15%; display: inline-block;'></div>
+							<div id="spacerB1D1" style='margin:0px;width:40%; height: 15%; display: inline-block;'></div>
 						</div>
 						<div id="spacerBD3" style='margin:0px;width:15%; height: 33%; display: inline-block;'></div>
 						<div id="spacerBD4" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
 						<div id="spacerBD5" style='margin:0px;width:15%; height: 12%; display: inline-block;'></div>
 						<div id="boundaryInfoPanel" style='margin:0px;width:70%; height: 12%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+							<div id="spacerB2D12" style='margin:0px;width:40%; height: 15%; display: inline-block;'></div>
 						</div>
 						<div id="spacerBD6" style='margin:0px;width:15%; height: 12%; display: inline-block;'></div>
 						<div id="spacerBD7" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
@@ -189,10 +205,10 @@
 							<div id="spacerD55" style='margin:0px;width:5%; height: 53%; display: inline-block;'></div>
 							
 							<div id="algorithmdescriptiontext" style='margin:0px;width:90%; height: 53%; display: inline-block;font-size: 0.85vw; font-family: Nunito; overflow-y: auto; color: hsla(0, 0%, 50%, 1);'>
-								Move the <font style="color: hsla(190, 100%, 50%, 1);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force, if the new location is within the <font style="color: hsla(32, 100%, 50%, 1);">boundary</font>. <br/>
-								<font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : electrostaticForce(<font style="color: hsla(190, 100%, 50%, 1);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> 
+								Move the <font style="color: var(--themeblue);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force, if the new location is within the <font style="color: var(--themeorange);">boundary</font>. <br/>
+								<font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : electrostaticForce(<font style="color: var(--themeblue);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> 
 
-								Pick a random <font style="color: hsla(190, 100%, 50%, 1);">charge</font> <br/> 
+								Pick a random <font style="color: var(--themeblue);">charge</font> <br/> 
 								<font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : pickCharge()</font>
 								<br/><br/> <br/> 
 							</div>
@@ -220,7 +236,7 @@
 									<input oninput="changedCodeBlock(event)" id='codeblock1text' value='charge = pickCharge()' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vw; font-weight: lighter; color:  black; border-radius: 4px;" class="codeblockText"></input>
 								</div>
 								<div id="codeblock1tile" style='margin:0px;width:15%; height:23%; display: inline-block;  text-align: center; overflow: hidden;'>
-									<input onclick="removeCodeBlock(event)" id='codeblockremove-1' value='Remove' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vw; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: hsla(280, 100%, 50%, 1); cursor: pointer; user-select: none;" readonly></input>
+									<input onclick="removeCodeBlock(event)" id='codeblockremove-1' value='Remove' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vw; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: var(--themeviolet); cursor: pointer; user-select: none;" readonly></input>
 								</div>
 								<div id="codeblock1spacer" style='margin:0px;width:100%; height:4%; display: inline-block;'></div>
 								
@@ -229,12 +245,12 @@
 								</div>
 								
 								<div id="codeblock2tile" style='margin:0px;width:15%; height:23%; display: inline-block;  text-align: center; overflow: hidden;'>
-									<input onclick="removeCodeBlock(event)" id='codeblockremove-2' value='Remove' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vw; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: hsla(280, 100%, 50%, 1); cursor: pointer; user-select: none;" readonly></input>
+									<input onclick="removeCodeBlock(event)" id='codeblockremove-2' value='Remove' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vw; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: var(--themeviolet); cursor: pointer; user-select: none;" readonly></input>
 								</div>
 								<div id="codeblock2spacer" style='margin:0px;width:100%; height:4%; display: inline-block;'></div>
 
 								<div id="addcodeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
-									<input onclick="addNewCodeBlock()" id='addcodeText' value='Add Code Block' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vw; font-weight: lighter; color:  black; background: hsla(280, 100%, 50%, 1); color: white; cursor: pointer;" readonly></input>
+									<input onclick="addNewCodeBlock()" id='addcodeText' value='Add Code Block' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vw; font-weight: lighter; color:  black; background: var(--themeviolet); color: white; cursor: pointer;" readonly></input>
 								</div>
 								<div id="addcodeblockspacer" style='margin:0px;width:100%; height:13%; display: inline-block;'></div>
 							</div>
@@ -282,16 +298,16 @@
 					</div>
 
 					<div id="menupanel" style='margin:0px;width:100%; height: 12%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: separate; table-layout: fixed; font-family: Source Sans Pro; text-align: center;font-size: 1.2vw;">
+						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: separate; table-layout: fixed; font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 0.93vw; letter-spacing: 0.8px;">
 							<tr>
 							</tr>
 							<tr>
 								<td rowspan="3"></td>
 								<td rowspan="3"></td>
-								<td rowspan="3" colspan="2" id='algorithmoption' style="vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1); font-weight: bold; border: 1px solid hsla(0, 0%, 60%, 1);">Algorithm</td>
-								<td rowspan="3" colspan="2" id='boundaryoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;font-weight: bold;" onclick="handlePanel(event)" >Boundary</td>
-								<td rowspan="3" colspan="2" id='chargesoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;font-weight: bold;" onclick="handlePanel(event)">Charges</td>
-								<td rowspan="3" colspan="2" id='settingsoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); border-top-right-radius: 20px; border-bottom-right-radius: 20px; cursor: pointer;font-weight: bold;" onclick="handlePanel(event)">Settings</td>
+								<td rowspan="3" colspan="2" id='algorithmoption' style="vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1); border: 1px solid hsla(0, 0%, 60%, 1);">ALGORITHM</td>
+								<td rowspan="3" colspan="2" id='boundaryoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;" onclick="handlePanel(event)" >BOUNDARY</td>
+								<td rowspan="3" colspan="2" id='chargesoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;" onclick="handlePanel(event)">CHARGES</td>
+								<td rowspan="3" colspan="2" id='settingsoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); border-top-right-radius: 20px; border-bottom-right-radius: 20px; cursor: pointer;" onclick="handlePanel(event)">SETTINGS</td>
 								<td rowspan="3"></td>
 								<td rowspan="3"></td>
 							</tr>
@@ -312,7 +328,7 @@
 						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
 							<tr>
 								<td colspan="8" id='maintitle' style="text-align: right; vertical-align: middle; font-size: 4.5vmin; color: hsla(190, 0%, 0%, 1);">
-									N <font style="color: hsla(190, 100%, 50%, 1);">Charges</font> inside a <font style="color: hsla(32, 100%, 50%, 1);">boundary</font> <br/><font style="font-size: 2.3vmin; font-family: Nunito; font-weight: normal; color: hsla(190, 0%, 30%, 1);">
+									N <font style="color: var(--themeblue);">Charges</font> inside a <font style="color: var(--themeorange);">boundary</font> <br/><font style="font-size: 2.3vmin; font-family: Nunito; font-weight: normal; color: hsla(190, 0%, 30%, 1);">
 									Finding Minimum Energy Configurations </font><br/><font style="font-size: 2vmin; font-weight: normal; font-family: Nunito; color: hsla(260, 100%, 30%, 1);">
 									Manas Shetty and Prajwal DSouza </font>
 								</td>
@@ -2632,7 +2648,7 @@
 		setUpGraph()
 
 		boundaryoptions = {}
-		boundaryoptions.color = 'hsla(32, 100%, 50%, 0.6)'
+		boundaryoptions.color = 'var(--boundaryorange)'
 		boundaryoptions.radius = 1
 
 		boundaryType = 'circle'
@@ -2647,7 +2663,7 @@
 			options.x = locX
 			options.y = locY
 			options.pointsize = 1
-			options.pointcolor = 'hsla(190, 100%, 50%, 1)'
+			options.pointcolor = 'var(--themeblue)'
 			chargeId = chargeId + 1
 			addPoint('labG', chargeId + '-charge', options)
 
@@ -2661,7 +2677,7 @@
 					options.x = locX
 					options.y = locY
 					options.pointsize = 1
-					options.pointcolor = 'hsla(190, 100%, 50%, 1)'
+					options.pointcolor = 'var(--themeblue)'
 					chargeId = chargeId + 1
 					addPoint('labG', chargeId + '-charge', options)		
 					chargedetail = {}
@@ -2743,6 +2759,14 @@
 		 	return arsum
 		 }
 
+		function tangentialBoundaryForce(sforcevector) {
+			returnvec1 = [(-1)*sforcevector[1],sforcevector[0]]
+			returnvec2 = [sforcevector[1],(-1)*sforcevector[0]]
+			return [returnvec1, returnvec2]
+		}
+
+		handleTangentialForce = true
+
 		function electrostaticForce(onCharge, moveDistance) {
 		 	charge2 = onCharge
 			ch2dist = chargeDetails[charge2].loc
@@ -2764,6 +2788,15 @@
 					chargeDetails[charge2].loc = newpos
 					chargeId = chargeDetails[charge2].id
 					updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+				}
+				else if (handleTangentialForce) {
+					newtotalforce = randomChoice(tangentialBoundaryForce(totalforce))
+					newpos = [newtotalforce[0] + ch2dist[0], newtotalforce[1] + ch2dist[1]]
+					if (distF(newpos, [0,0]) < boundaryoptions.radius) {
+						chargeDetails[charge2].loc = newpos
+						chargeId = chargeDetails[charge2].id
+						updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+					}
 				}
 			}	
 		}
@@ -2946,7 +2979,7 @@
 			newdiv = document.createElement("div");
 			newdiv.id = 'codeblock' + cindex + 'tile'
 			newdiv.style = 'margin:0px;width:15%; height:23%; display: inline-block;  text-align: center; overflow: hidden;'
-			newdiv.innerHTML = '<input onclick="removeCodeBlock(event)" id="codeblockremove-' + cindex + '" value="Remove" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vw; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: hsla(280, 100%, 50%, 1); cursor: pointer; user-select: none;" readonly></input>'
+			newdiv.innerHTML = '<input onclick="removeCodeBlock(event)" id="codeblockremove-' + cindex + '" value="Remove" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vw; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: var(--themeviolet); cursor: pointer; user-select: none;" readonly></input>'
 			ref.parentNode.insertBefore(newdiv, ref);
 
 			newdiv = document.createElement("div");
@@ -3002,7 +3035,7 @@
 				}
 				try {
 					eval(theInstructions)
-					document.getElementsByClassName('codeblockText')[customcodePointer].style.color = 'hsla(280, 100%, 50%, 1)'
+					document.getElementsByClassName('codeblockText')[customcodePointer].style.color = 'var(--themeviolet)'
 				}
 				catch(error) {
 					document.getElementById('errordisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Current Error : </font>' + error
@@ -3037,11 +3070,11 @@
 
 
 		algorithmCodeDetails = {}
-		algorithmCodes.electrostaticpushAlgoCodeDetails = ['ELECTROSTATIC PUSH','Move the <font style="color: hsla(190, 100%, 50%, 1);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force, if the new location is within the <font style="color: hsla(32, 100%, 50%, 1);">boundary</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : electrostaticForce(<font style="color: hsla(190, 100%, 50%, 1);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> Pick a random <font style="color: hsla(190, 100%, 50%, 1);">charge</font> <br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : pickCharge()</font><br/><br/><br/>']
-		algorithmCodes.electrostaticwithRandomnessAlgoCodeDetails = ['ELECTROSTATIC AND RANDOMNESS','Movement in the direction of the electrostatic force, but with certain randomness. There is a random event which generates a value between 0 to 100, if the probability value is less than certain value, the force is applied. Also, there is new force called the random force. It is equivalent to a statistical fluctuation. It acts in a random direction and makes the picked charged move a distance d in that direction, if the new location is within the <font style="color: hsla(32, 100%, 50%, 1);">boundary</font>.<br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : randomForce(<font style="color: hsla(190, 100%, 50%, 1);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> Pick a value between 0 to 100.<br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : probability()</font><br/><br/>Move the <font style="color: hsla(190, 100%, 50%, 1);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force<font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : electrostaticForce(<font style="color: hsla(190, 100%, 50%, 1);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> Pick a random <font style="color: hsla(190, 100%, 50%, 1);">charge</font> <br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : pickCharge()</font><br/><br/><br/><br/>']
-		algorithmCodes.randomPositionAlgoCodeDetails = ['RANDOM POSITION','Pick a <font style="color: hsla(190, 100%, 50%, 1);">charge</font> and then randomly pick a position within the <font style="color: hsla(32, 100%, 50%, 1);">boundary</font>. Move the <font style="color: hsla(190, 100%, 50%, 1);">charge</font> to that location. If the energy in the new arrangement is greater than the previous arrangment, move the <font style="color: hsla(190, 100%, 50%, 1);">charge</font> back to its original position. <br/><br/> Get the position of the <font style="color: hsla(190, 100%, 50%, 1);">charge</font>.<br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : getPosition(<font style="color: hsla(190, 100%, 50%, 1);">charge</font>)</font><br/><br/> Pick a random position inside the <font style="color: hsla(32, 100%, 50%, 1);">boundary</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : randomPositionInsideBoundary()</font> <br/><br/>Get the energy for the current arrangement of the <font style="color: hsla(190, 100%, 50%, 1);">charges</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : computeEnergy()</font><br/><br/><br/> ']
+		algorithmCodes.electrostaticpushAlgoCodeDetails = ['ELECTROSTATIC PUSH','Move the <font style="color: var(--themeblue);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force, if the new location is within the <font style="color: var(--themeorange);">boundary</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : electrostaticForce(<font style="color: var(--themeblue);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> Pick a random <font style="color: var(--themeblue);">charge</font> <br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : pickCharge()</font><br/><br/><br/>']
+		algorithmCodes.electrostaticwithRandomnessAlgoCodeDetails = ['ELECTROSTATIC AND RANDOMNESS','Movement in the direction of the electrostatic force, but with certain randomness. There is a random event which generates a value between 0 to 100, if the probability value is less than certain value, the force is applied. Also, there is new force called the random force. It is equivalent to a statistical fluctuation. It acts in a random direction and makes the picked charged move a distance d in that direction, if the new location is within the <font style="color: var(--themeorange);">boundary</font>.<br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : randomForce(<font style="color: var(--themeblue);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> Pick a value between 0 to 100.<br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : probability()</font><br/><br/>Move the <font style="color: var(--themeblue);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force<font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : electrostaticForce(<font style="color: var(--themeblue);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> Pick a random <font style="color: var(--themeblue);">charge</font> <br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : pickCharge()</font><br/><br/><br/><br/>']
+		algorithmCodes.randomPositionAlgoCodeDetails = ['RANDOM POSITION','Pick a <font style="color: var(--themeblue);">charge</font> and then randomly pick a position within the <font style="color: var(--themeorange);">boundary</font>. Move the <font style="color: var(--themeblue);">charge</font> to that location. If the energy in the new arrangement is greater than the previous arrangment, move the <font style="color: var(--themeblue);">charge</font> back to its original position. <br/><br/> Get the position of the <font style="color: var(--themeblue);">charge</font>.<br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : getPosition(<font style="color: var(--themeblue);">charge</font>)</font><br/><br/> Pick a random position inside the <font style="color: var(--themeorange);">boundary</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : randomPositionInsideBoundary()</font> <br/><br/>Get the energy for the current arrangement of the <font style="color: var(--themeblue);">charges</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : computeEnergy()</font><br/><br/><br/> ']
 		algorithmCodes.geneticAlgoCodeDetails = ['GENETIC ALGORITHM','We start the charges in a random state and apply a working algorithm, such as ElectroStatic algorithm. Once we reach, the end state, we saved the state. We call this state, the offspring 01 of generation 01. We run the Electrostatic algorithm "p1" times and generate "p1" offsprings which will belong to generation 01. We then pick top "g1" offsprings (states) that leads to the lowest energy states. <br/>We then apply the Electrostatic algorithm (with little changes in parameters) again on these "g1" offsprings picking them randomly and run the algorithm "p2" times to generate "p2" offsprings of generation 02. We pick the top "g2" offsprings of lowest energy. This process continues till we have lowest energy state.<br/><br/><br/>']
-		algorithmCodes.randomSearchAlgoCodeDetails = ['RANDOM SEARCH','Pick a random configuration and compute its energy. <br/><br/> Randomly place all the <font style="color: hsla(190, 100%, 50%, 1);">charges</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : randomizeChargePositions()</font> <br/><br/>']
+		algorithmCodes.randomSearchAlgoCodeDetails = ['RANDOM SEARCH','Pick a random configuration and compute its energy. <br/><br/> Randomly place all the <font style="color: var(--themeblue);">charges</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : randomizeChargePositions()</font> <br/><br/>']
 
 
 		function loadAlgoCode(algocode) {
