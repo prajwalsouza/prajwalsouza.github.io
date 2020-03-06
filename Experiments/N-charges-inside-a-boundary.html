@@ -2729,6 +2729,14 @@
 			// console.log(options.points)
 		}
 
+		function deleteSegments(collection) {
+			if (typeof collection != 'undefined') {
+				for (f = 0; f < collection.length; f++) {
+					collection[f].outerHTML = ''
+				}
+			}
+		}
+
 		function randomChoice(choicearray) {
 			return choicearray[parseInt(Math.random()*choicearray.length)]
 		}
@@ -3000,7 +3008,7 @@
 			updateEllipse(knobGName, 'simpleEllipticBoundary', options)
 
 			boundaryoptions.semiMajorAxis = graphData[knobGName].pointData[knobName][1].x
-
+			document.getElementById('semiMajorTileInput').value = boundaryoptions.semiMajorAxis
 			boundaryTypeCheck()
 		}
 
@@ -3014,6 +3022,7 @@
 			updateEllipse(knobGName, 'simpleEllipticBoundary', options)
 
 			boundaryoptions.semiMinorAxis = graphData[knobGName].pointData[knobName][1].y
+			document.getElementById('semiMinorTileInput').value = boundaryoptions.semiMinorAxis
 
 			boundaryTypeCheck()
 		}
@@ -3625,6 +3634,7 @@
 		currentpanel = 'algorithm'
 
 		function handlePanel(event) {
+			stopAlgorithm()
 			if (event.target.id == 'algorithmoption') {
 				event.target.setAttribute('onclick', '')
 				event.target.style.cursor = 'auto'
@@ -3784,6 +3794,58 @@
 				
 			}
 		}
+
+		function wheelHandle(event) {
+			whlvalue = (event.wheelDeltaY)/Math.abs(event.wheelDeltaY)
+			scalefactorup = 0.1
+			scalefactordown = 0.1
+
+			gdata = graphData['labG']
+
+			scale = gdata.ymax - gdata.ymin
+			expstring = scale.toExponential().toString()
+			ordery = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+			// console.log(ordery)
+
+			scale = gdata.xmax - gdata.xmin
+			expstring = scale.toExponential().toString()
+			orderx = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+			// console.log(orderx)
+			
+			var rect = document.getElementById('labG').getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+
+			posx = posx/rect.width
+			posy = posy/rect.height
+			posy = 1 - posy
+			currentvalues = graphData['labG']
+			if (whlvalue < 0) {
+				newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactorup
+				newscaley = (currentvalues.ymax - currentvalues.ymin)*scalefactorup
+				options = {}
+				options.xmin = currentvalues.xmin - (2*newscalex*(1 - posx))
+				options.xmax = currentvalues.xmax + (2*newscalex*(posx))
+				options.ymin = currentvalues.ymin - (2*newscaley*(1 - posy))
+				options.ymax = currentvalues.ymax + (2*newscaley*(posy))
+				updateGraphZoom('labG', options)
+
+
+			}
+			else if (whlvalue >= 0 && orderx < 14 && ordery < 14) {
+				newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactordown
+				newscaley = (currentvalues.ymax - currentvalues.ymin)*scalefactordown
+				options = {}
+				options.xmin = currentvalues.xmin + (2*newscalex*(posx))
+				options.xmax = currentvalues.xmax - (2*newscalex*(1 - posx))
+				options.ymin = currentvalues.ymin + (2*newscaley*(posy))
+				options.ymax = currentvalues.ymax - (2*newscaley*(1 - posy))
+				updateGraphZoom('labG', options)
+				
+			}
+		}
+
+		document.getElementById('labG').addEventListener('wheel', wheelHandle)
 
 		</script>
 
