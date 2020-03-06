@@ -157,7 +157,7 @@
 				<div id="labpanel" style='margin:0px;width:66%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 					
 					<div id="boundaryoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
-						<div id="spacerBD1" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+						<div id="spacerBD1" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
 						<div id="boundaryChoicePanel" style='margin:0px;width:100%; height: 10%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
 							<div id="spacerB1D1" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
 							<div id="spacerB1D2" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
@@ -176,7 +176,7 @@
 							
 						</div>
 						<div id="spacerBD3" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-						<div id="boundaryTypeOptionsPanelEllipse" style='margin:0px;width:100%; height: 0%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+						<div id="boundaryTypeOptionsPanelEllipse" style='margin:0px;width:100%; height: 20%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
 							<div id="spacerB1D55" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
 							<div id="spacerB1D6" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
 							<div id="semiMajorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
@@ -184,7 +184,7 @@
 							</div>
 							<div id="spacerB1D7" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
 							<div id="semiMajorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
-								<input type="number" min="0" step="0.01"  onclick="" id='semiMajorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
+								<input oninput="updateMajorAxis(event)" type="number" min="0" step="0.01"  onclick="" id='semiMajorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
 							</div>
 							<div id="spacerB1D8" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
 							<div id="spacerB1D9" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
@@ -194,11 +194,11 @@
 							</div>
 							<div id="spacerB1D11" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
 							<div id="semiMinorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
-								<input type="number" min="0" step="0.01" onclick="" id='semiMinorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
+								<input oninput="updateMinorAxis(event)" type="number" min="0" step="0.01" onclick="" id='semiMinorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
 							</div>
 							<div id="spacerB1D1" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
 						</div>
-						<div id="boundaryTypeOptionsPanelPolygon" style='margin:0px;width:100%; height: 10%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+						<div id="boundaryTypeOptionsPanelPolygon" style='margin:0px;width:100%; height: 0%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
 							<div id="spacerB1D55" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
 							<div id="spacerB1D6" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
 							<div id="sidesTile" style='margin:0px;width:35%; height: 40%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
@@ -211,8 +211,8 @@
 							<div id="spacerB1D8" style='margin:0px;width:30%; height: 40%; display: inline-block;'></div>
 							<div id="spacerB1D9" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
 						</div>
-						<div id="spacerBDHidden1" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-						<div id="boundaryPointsPanel" style='margin:0px;width:100%; height: 31%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+						<div id="spacerBDHidden1" style='margin:0px;width:100%; height: 0%; display: inline-block;'></div>
+						<div id="boundaryPointsPanel" style='margin:0px;width:100%; height: 0%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
 							<div id="gradfillbp" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 32%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 38%, hsla(0, 0%, 0%, 0) 80%,hsla(0, 100%, 100%, 1) 90%,hsla(0, 100%, 100%, 0) 91%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
 							<div id="spacerBPD81" style='margin:0px;width:100%; height:9%; display: inline-block;'></div>
 							<div id="spacerBPD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
@@ -231,7 +231,7 @@
 							<div id="spacerBPD87" style='margin:0px;width:100%; height:3%; display: inline-block;'></div>
 							<div id="spacerBPD88" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
 							<div id="pointBlocksH" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; color: hsla(0, 0%, 50%, 1); position: relative; overflow-y: scroll; '>
-								<div id="pointBlock1" style='margin:0px;width:100%; height:24%; display: inline-block;'>
+								<div id="pointBlock1" style='margin:0px;width:100%; height:20%; display: inline-block;'>
 									<input value='Point 1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
 									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
@@ -239,7 +239,7 @@
 									<input type="number" min="0" step="0.01"  onclick="" value='0.4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
 								</div>
 								<div id="pbVspacer" style='margin:0px;width:100%; height:5%; display: inline-block;'></div>
-								<div id="pointBlock2" style='margin:0px;width:100%; height:24%; display: inline-block;'>
+								<div id="pointBlock2" style='margin:0px;width:100%; height:20%; display: inline-block;'>
 									<input value='Point 2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
 									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
@@ -247,7 +247,7 @@
 									<input type="number" min="0" step="0.01"  onclick="" value='0.4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
 								</div>
 								<div id="pbVspacer" style='margin:0px;width:100%; height:5%; display: inline-block;'></div>
-								<div id="pointBlock3" style='margin:0px;width:100%; height:24%; display: inline-block;'>
+								<div id="pointBlock3" style='margin:0px;width:100%; height:20%; display: inline-block;'>
 									<input value='Point 3' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
 									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
@@ -255,7 +255,7 @@
 									<input type="number" min="0" step="0.01"  onclick="" value='0.4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
 								</div>
 								<div id="pbVspacer" style='margin:0px;width:100%; height:5%; display: inline-block;'></div>
-								<div id="pointBlock4" style='margin:0px;width:100%; height:24%; display: inline-block;'>
+								<div id="pointBlock4" style='margin:0px;width:100%; height:20%; display: inline-block;'>
 									<input value='Point 4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
 									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
@@ -1804,6 +1804,9 @@
 				
 			}
 
+			svgPTVariable[name] = svgElement.createSVGPoint(); 
+
+
 			gdata.lineData = {}
 			gdata.circleData = {}
 			gdata.pointData = {}
@@ -2318,6 +2321,65 @@
 			graphData[graphname].ellipseData[ellipsename] = [ellipseElement, ellipseoptions]
 		}
 
+		function updateEllipse(graphname, ellipsename, ellipsenewvalues) {
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			ellipseoptions = gdata.ellipseData[ellipsename][1]
+			ellipseElement = gdata.ellipseData[ellipsename][0]
+
+			if (ellipseoptions.x != 0) {
+				ellipseoptions.x = ellipsenewvalues.x || ellipseoptions.x
+			}
+			else {
+				ellipseoptions.x = 0
+			}
+
+			if (ellipseoptions.y != 0) {
+				ellipseoptions.y = ellipsenewvalues.y || ellipseoptions.y
+			}
+			else {
+				ellipseoptions.y = 0
+			}
+
+			if (ellipseoptions.rx != 0) {
+				ellipseoptions.rx = ellipsenewvalues.rx || ellipseoptions.rx
+			}
+			else {
+				ellipseoptions.rx = 0
+			}
+			if (ellipseoptions.ry != 0) {
+				ellipseoptions.ry = ellipsenewvalues.ry || ellipseoptions.ry
+			}
+			else {
+				ellipseoptions.ry = 0
+			}
+
+			ellipseoptions.name = ellipsename || uid
+
+			ellipseoptions.stroke = ellipsenewvalues.stroke || ellipseoptions.stroke
+			ellipseoptions.strokewidth = ellipsenewvalues.strokewidth || ellipseoptions.strokewidth
+			
+			ellipseoptions.ellipsecolor = ellipsenewvalues.ellipsecolor || ellipseoptions.ellipsecolor
+
+			rx = distanceBTWgraphToSvg([0,0],[ellipseoptions.rx, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, ellipseoptions.ry], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			ellipseElement.setAttribute('cx', graphToScaledX(ellipseoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			ellipseElement.setAttribute('cy', graphToScaledY(ellipseoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			ellipseElement.setAttribute('rx', rx + '%')
+			ellipseElement.setAttribute('ry', ry + '%');
+			ellipseElement.setAttribute('id', graphname + '-ellipse-' + ellipsename)
+			uid = uid + 1
+			ellipseElement.setAttribute('vector-effect','non-scaling-stroke');
+			ellipseElement.style.fill = ellipseoptions.ellipsecolor
+			ellipseElement.style.strokeWidth = ellipseoptions.strokewidth + '%';
+			ellipseElement.style.stroke = ellipseoptions.stroke;
+			gdata.svgElement.appendChild(ellipseElement);
+
+			graphData[graphname].ellipseData[ellipsename] = [ellipseElement, ellipseoptions]
+		}
+
 		function addText(graphname, textname, textoptions) {
 			gdata = graphData[graphname]
 			textoptions = textoptions || {}
@@ -2502,7 +2564,29 @@
 			pointElement.style.fill = pointoptions.pointcolor
 			gdata.svgElement.appendChild(pointElement);
 
+			pointoptions.draggability = pointoptions.draggability || 'no'
+			if (pointoptions.draggability == 'yes') {
+				pointoptions.currentlyDraggable = pointoptions.currentlyDraggable || 'yes'
+			}
+			else {
+				pointoptions.currentlyDraggable = pointoptions.currentlyDraggable || 'no'
+			}
+			pointoptions.runFunctionOnDragEnd = pointoptions.runFunctionOnDragEnd || ''
+			pointoptions.runFunctionDuringDrag = pointoptions.runFunctionDuringDrag || ''
+
+			if (pointoptions.draggability == 'yes') {
+				pointElement.addEventListener('mousedown', pointDrag)
+			}
+			else {
+				pointElement.style.pointerEvents = 'none'
+			}
+
+			pointoptions.runFunctionOnDragEnd = pointoptions.runFunctionDuringDrag || ''
+			pointoptions.dragDirection = pointoptions.dragDirection || 'bothXY'
+			pointoptions.dragIfCondition = pointoptions.dragIfCondition || ''
+
 			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
+			reverseGraphElementMap[pointElement.id] = [graphname, pointname]
 			return [pointElement, pointoptions]
 		}
 
@@ -2533,6 +2617,25 @@
 			pointElement.setAttribute('vector-effect','non-scaling-stroke');
 			pointElement.style.fill = pointoptions.pointcolor
 			gdata.svgElement.appendChild(pointElement);
+
+			pointoptions.draggability = newpointoptions.draggability || 'no'
+			if (pointoptions.draggability == 'yes') {
+				pointoptions.currentlyDraggable = newpointoptions.currentlyDraggable || 'yes'
+			}
+			else {
+				pointoptions.currentlyDraggable = newpointoptions.currentlyDraggable || 'no'
+			}
+			pointoptions.runFunctionOnDragEnd = newpointoptions.runFunctionOnDragEnd || ''
+			pointoptions.runFunctionDuringDrag = newpointoptions.runFunctionDuringDrag || ''
+			pointoptions.dragDirection = newpointoptions.dragDirection || 'bothXY'
+			pointoptions.dragIfCondition = newpointoptions.dragIfCondition || ''
+
+			if (pointoptions.draggability == 'yes') {
+				pointElement.addEventListener('mousedown', pointDrag)
+			}
+			else {
+				pointElement.removeEventListener('mousedown', pointDrag)
+			}
 
 			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
 
@@ -2634,6 +2737,66 @@
 			return yv1 + ((inputvl - xv1)/(xv2 - xv1))*(yv2 - yv1)
 		}
 
+		currentMovingPoint = ''
+		function pointDrag(event) {
+			gphname = reverseGraphElementMap[event.target.id][0]
+			ptname = reverseGraphElementMap[event.target.id][1]
+			if (graphData[gphname].pointData[ptname][1].currentlyDraggable == 'yes') {
+				event.target.removeEventListener('mousedown', pointDrag)
+				window.addEventListener('mousemove', pointMoveEvent)
+				window.addEventListener('mouseup', pointUpEvent)
+				// window.addEventListener('mouseout', pointUpEvent)
+				currentMovingPoint = event.target
+			}
+				
+		}
+
+		svgPTVariable = {}
+		
+		function pointMoveEvent(event) {
+			gphname = reverseGraphElementMap[currentMovingPoint.id][0]
+			ptname = reverseGraphElementMap[currentMovingPoint.id][1]
+			var rect = document.getElementById(gphname).getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+
+			svgPTVariable[gphname].x = event.clientX;
+			svgPTVariable[gphname].y = event.clientY;
+
+			var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+			moveX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
+			moveY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+			if (typeof eval(graphData[gphname].pointData[ptname][1].dragIfCondition) != undefined) {
+				if (eval(graphData[gphname].pointData[ptname][1].dragIfCondition) == true) {
+					if (graphData[gphname].pointData[ptname][1].dragDirection == 'bothXY') {
+						updatePointXY(gphname, ptname, moveX, moveY)
+					}
+					else if (graphData[gphname].pointData[ptname][1].dragDirection == 'onlyY') {
+						updatePointXY(gphname, ptname, graphData[gphname].pointData[ptname][1].x, moveY)
+					}
+					else if (graphData[gphname].pointData[ptname][1].dragDirection == 'onlyX') {
+						updatePointXY(gphname, ptname, moveX, graphData[gphname].pointData[ptname][1].y)
+					}
+				}
+			}
+
+			eval(graphData[gphname].pointData[ptname][1].runFunctionDuringDrag)
+
+		}
+
+		function pointUpEvent(event) {
+			gphname = reverseGraphElementMap[currentMovingPoint.id][0]
+			ptname = reverseGraphElementMap[currentMovingPoint.id][1]
+
+			currentMovingPoint.addEventListener('mousedown', pointDrag)
+			window.removeEventListener('mousemove', pointMoveEvent)
+			window.removeEventListener('mouseup', pointUpEvent)
+			// window.removeEventListener('mouseout', pointUpEvent)
+
+			eval(graphData[gphname].pointData[ptname][1].runFunctionOnDragEnd)
+		}
+
 
 		// mode = 'square'
 		// if (1.25*window.innerWidth < window.innerHeight && window.innerWidth < window.innerHeight) {
@@ -2649,6 +2812,8 @@
 
 		uid = 0
 		graphData = {}
+
+		reverseGraphElementMap = {}
 		
 		function setUpGraph() {
 			graphH = document.getElementById('labH')
@@ -2712,7 +2877,26 @@
 			// options.pathcolor = 'hsla(40, 100%, 50%, 1)'
 			// options.strokewidth = 0.4
 			// addPath('basicGraph', 'graphpointpath', options)
-			
+
+			options = {}
+			options.ellipsecolor = 'hsla(190, 0%, 0%, 0)'
+			options.stroke = 'hsla(0,0%,0%,0)'
+			options.x = 0
+			options.y = 0
+			options.ry = 1
+			options.rx = 1
+			options.strokewidth = 2
+			addEllipse('labG', 'simpleEllipticBoundary', options)
+
+
+			// options = {}
+			// options.circlecolor = 'hsla(190, 0%, 0%, 0)'
+			// options.stroke = boptions.color
+			// options.x = 0
+			// options.y = 0
+			// options.radius = boptions.radius
+			// options.strokewidth = boptions.boundaryThickness || 2
+			// addCircle('labG', 'simpleCircleBoundary', options)
 		}
 
 		function inside(point, vs) {
@@ -2745,15 +2929,140 @@
 			}
 		}
 
+
 		setUpGraph()
 
 		boundaryoptions = {}
 		boundaryoptions.color = 'var(--boundaryorange)'
+
+		options = {}
+		options.stroke = 'var(--boundaryorange)'
+		updateEllipse('labG', 'simpleEllipticBoundary', options)
+
+		function addEllipseKnobs() {
+
+			options = {}
+			options.x = 1
+			options.y = 0
+			options.pointsize = 1
+			options.pointcolor = 'var(--themeorange)'
+			mjknob = addPoint('labG', 'majorknob', options)[0]
+			mjknob.style.visibility = 'hidden'
+			mjknob.style.pointerEvents = 'none'
+
+			options = {}
+			options.x = 1
+			options.y = 0
+			options.pointsize = 2
+			options.pointcolor = 'hsla(32, 100%, 50%, 0.3)'
+			options.draggability = 'yes'
+			options.dragDirection = 'onlyX'
+			options.dragIfCondition = 'moveX > 0'
+			options.runFunctionDuringDrag = 'majorknobDragFunction()'
+			majorknob = addPoint('labG', 'majorknobBack', options)[0]
+			majorknob.style.visibility = 'hidden'
+			majorknob.style.pointerEvents = 'none'
+			majorknob.style.cursor = 'ew-resize'
+
+			options = {}
+			options.x = 0
+			options.y = 1
+			options.pointsize = 1
+			options.pointcolor = 'var(--themeorange)'
+			mnknob =addPoint('labG', 'minorknob', options)[0]
+			mnknob.style.visibility = 'hidden'
+			mnknob.style.pointerEvents = 'none'
+
+			options = {}
+			options.x = 0
+			options.y = 1
+			options.pointsize = 2
+			options.pointcolor = 'hsla(32, 100%, 50%, 0.3)'
+			options.draggability = 'yes'
+			options.dragDirection = 'onlyY'
+			options.dragIfCondition = 'moveY > 0'
+			options.runFunctionDuringDrag = 'minorknobDragFunction()'
+			minorknob = addPoint('labG', 'minorknobBack', options)[0]
+			minorknob.style.visibility = 'hidden'
+			minorknob.style.pointerEvents = 'none'
+			minorknob.style.cursor = 'ns-resize'
+		}
+
+		addEllipseKnobs()
+
+		function majorknobDragFunction() {
+			knobGName = reverseGraphElementMap[currentMovingPoint.id][0]
+			knobName = reverseGraphElementMap[currentMovingPoint.id][1]
+
+			updatePointXY(knobGName, 'majorknob', graphData[knobGName].pointData[knobName][1].x, graphData[knobGName].pointData[knobName][1].y)
+			options = {}
+			options.rx = graphData[knobGName].pointData[knobName][1].x
+			updateEllipse(knobGName, 'simpleEllipticBoundary', options)
+
+			boundaryoptions.semiMajorAxis = graphData[knobGName].pointData[knobName][1].x
+
+			boundaryTypeCheck()
+		}
+
+		function minorknobDragFunction() {
+			knobGName = reverseGraphElementMap[currentMovingPoint.id][0]
+			knobName = reverseGraphElementMap[currentMovingPoint.id][1]
+
+			updatePointXY(knobGName, 'minorknob', graphData[knobGName].pointData[knobName][1].x, graphData[knobGName].pointData[knobName][1].y)
+			options = {}
+			options.ry = graphData[knobGName].pointData[knobName][1].y
+			updateEllipse(knobGName, 'simpleEllipticBoundary', options)
+
+			boundaryoptions.semiMinorAxis = graphData[knobGName].pointData[knobName][1].y
+
+			boundaryTypeCheck()
+		}
+
+		function updateMinorAxis() {
+			boundaryoptions.semiMinorAxis = document.getElementById('semiMinorTileInput').value
+			updatePointXY('labG', 'minorknob', 0, boundaryoptions.semiMinorAxis)
+			options = {}
+			options.ry = boundaryoptions.semiMinorAxis
+			updateEllipse('labG', 'simpleEllipticBoundary', options)
+
+			updatePointXY('labG', 'minorknobBack', 0, boundaryoptions.semiMinorAxis)
+
+			boundaryTypeCheck()
+		}
+
+		function updateMajorAxis() {
+			boundaryoptions.semiMajorAxis = document.getElementById('semiMajorTileInput').value
+			updatePointXY('labG', 'majorknob', boundaryoptions.semiMajorAxis, 0)
+			options = {}
+			options.rx = boundaryoptions.semiMajorAxis
+			updateEllipse('labG', 'simpleEllipticBoundary', options)
+
+			updatePointXY('labG', 'majorknobBack', boundaryoptions.semiMajorAxis, 0)
+
+			boundaryTypeCheck()
+		}
+
+		boundaryoptions.semiMajorAxis = 1
+		boundaryoptions.semiMinorAxis = 1
 		boundaryoptions.radius = 1
 
 		boundaryType = 'circle'
 
-		addBoundary(boundaryType, boundaryoptions)
+		function boundaryTypeCheck() {
+			if (boundaryoptions.semiMajorAxis == boundaryoptions.semiMinorAxis) {
+				boundaryoptions.radius = boundaryoptions.semiMajorAxis
+				boundaryType = 'circle'
+			}
+			else {
+				boundaryType = 'ellipse'
+			}
+		}
+
+		boundaryTypeCheck()
+
+			
+
+		// addBoundary(boundaryType, boundaryoptions)
 
 		chargeDetails = []
 		chargeId = 0
@@ -2778,6 +3087,27 @@
 					options.y = locY
 					options.pointsize = 1
 					options.pointcolor = 'var(--themeblue)'
+					options.draggability = 'yes'
+					options.currentlyDraggable = 'no'
+					chargeId = chargeId + 1
+					addPoint('labG', chargeId + '-charge', options)		
+					chargedetail = {}
+					chargedetail.loc = [locX, locY]
+					chargedetail.weight = weight
+					chargedetail.id = chargeId
+
+					chargeDetails.push(chargedetail)
+				}	
+			}
+			else if (boundaryType == 'ellipse') {
+				if (Math.pow(locX/boundaryoptions.semiMajorAxis, 2) + Math.pow(locY/boundaryoptions.semiMinorAxis, 2) < 1) {
+					options = {}
+					options.x = locX
+					options.y = locY
+					options.pointsize = 1
+					options.pointcolor = 'var(--themeblue)'
+					options.draggability = 'yes'
+					options.currentlyDraggable = 'no'
 					chargeId = chargeId + 1
 					addPoint('labG', chargeId + '-charge', options)		
 					chargedetail = {}
@@ -2796,6 +3126,14 @@
 				for(ch = 0; ch < number; ch++) {
 					ang = Math.random()*2*Math.PI
 					dis = Math.random()*boundaryoptions.radius	
+					addChargeToBoundary(dis*Math.cos(ang), dis*Math.sin(ang), 1)
+				}
+			}	
+			else if (boundaryType == 'ellipse') {
+				for(ch = 0; ch < number; ch++) {
+					ang = Math.random()*2*Math.PI
+					bdpointE = [boundaryoptions.semiMajorAxis*Math.cos(ang), boundaryoptions.semiMinorAxis*Math.sin(ang)]
+					dis = Math.random()*distF([0,0], bdpointE)
 					addChargeToBoundary(dis*Math.cos(ang), dis*Math.sin(ang), 1)
 				}
 			}	
@@ -2898,6 +3236,22 @@
 						updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
 					}
 				}
+			}
+			else if (boundaryType == 'ellipse') {
+				if (Math.pow(newpos[0]/boundaryoptions.semiMajorAxis, 2) + Math.pow(newpos[1]/boundaryoptions.semiMinorAxis, 2) < 1) {
+					chargeDetails[charge2].loc = newpos
+					chargeId = chargeDetails[charge2].id
+					updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+				}
+				else if (handleTangentialForce) {
+					newtotalforce = randomChoice(tangentialBoundaryForce(totalforce))
+					newpos = [newtotalforce[0] + ch2dist[0], newtotalforce[1] + ch2dist[1]]
+					if (Math.pow(newpos[0]/boundaryoptions.semiMajorAxis, 2) + Math.pow(newpos[1]/boundaryoptions.semiMinorAxis, 2) < 1) {
+						chargeDetails[charge2].loc = newpos
+						chargeId = chargeDetails[charge2].id
+						updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+					}
+				}
 			}	
 		}
 
@@ -2908,7 +3262,14 @@
 			totalforce = [moveDistance*Math.cos(forceangle), moveDistance*Math.sin(forceangle)]
 			newpos = [totalforce[0] + ch2dist[0], totalforce[1] + ch2dist[1]]
 			if (boundaryType == 'circle') {
-				if (distF(newpos, [0,0]) < boundaryoptions.radius) {
+				if (Math.pow(newpos[0]/boundaryoptions.semiMajorAxis, 2) + Math.pow(newpos[1]/boundaryoptions.semiMinorAxis, 2) < 1) {
+					chargeDetails[charge2].loc = newpos
+					chargeId = chargeDetails[charge2].id
+					updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+				}
+			}
+			else if (boundaryType == 'ellipse') {
+				if (Math.pow(newpos[0]/boundaryoptions.semiMajorAxis, 2) + Math.pow(newpos[1]/boundaryoptions.semiMinorAxis, 2) < 1) {
 					chargeDetails[charge2].loc = newpos
 					chargeId = chargeDetails[charge2].id
 					updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
@@ -3202,6 +3563,12 @@
 				dis = Math.random()*boundaryoptions.radius	
 				return [dis*Math.cos(ang), dis*Math.sin(ang)]
 			}
+			else if (boundaryType == 'ellipse') {
+				ang = Math.random()*2*Math.PI
+				bdpointE = [boundaryoptions.semiMajorAxis*Math.cos(ang), boundaryoptions.semiMinorAxis*Math.sin(ang)]
+				dis = Math.random()*distF([0,0], bdpointE)
+				return [dis*Math.cos(ang), dis*Math.sin(ang)]
+			}	
 		}
 
 		function moveChargeToPosition(positionToMove, chargenumb) {
@@ -3212,6 +3579,15 @@
 					updatePointXY('labG', chargeId + '-charge', positionToMove[0], positionToMove[1])
 				}
 			}	
+			else if (boundaryType == 'ellipse') {
+				if (Math.pow(positionToMove[0]/boundaryoptions.semiMajorAxis, 2) + Math.pow(positionToMove[1]/boundaryoptions.semiMinorAxis, 2) < 1) {
+					chargeDetails[chargenumb].loc = positionToMove
+					chargeId = chargeDetails[chargenumb].id
+					updatePointXY('labG', chargeId + '-charge', positionToMove[0], positionToMove[1])
+				}
+			}	
+
+			
 		}
 
 		function updateEnergyInfo() {
@@ -3224,7 +3600,30 @@
 			}
 		}
 
+		function showEllipseKnobs() {
+			if (boundaryType == 'circle' || boundaryType == 'ellipse') {
+				minorknob.style.visibility = 'visible'
+				minorknob.style.pointerEvents = 'auto'
+				majorknob.style.visibility = 'visible'
+				majorknob.style.pointerEvents = 'auto'
+				mnknob.style.visibility = 'visible'
+				mjknob.style.visibility = 'visible'
+			}
+		}
+
+		function hideEllipseKnobs() {
+			if (boundaryType == 'circle' || boundaryType == 'ellipse') {
+				minorknob.style.visibility = 'hidden'
+				minorknob.style.pointerEvents = 'none'
+				majorknob.style.visibility = 'hidden'
+				majorknob.style.pointerEvents = 'none'
+				mnknob.style.visibility = 'hidden'
+				mjknob.style.visibility = 'hidden'
+			}
+		}
+
 		currentpanel = 'algorithm'
+
 		function handlePanel(event) {
 			if (event.target.id == 'algorithmoption') {
 				event.target.setAttribute('onclick', '')
@@ -3253,6 +3652,8 @@
 				document.getElementById('settingsoptionspanel').style.visibility = 'hidden'
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
 
+				hideEllipseKnobs()
+
 			}
 			else if (event.target.id == 'settingsoption') {
 				event.target.setAttribute('onclick', '')
@@ -3280,6 +3681,8 @@
 				document.getElementById('chargesoptionspanel').style.pointerEvents = 'none'
 				document.getElementById('settingsoptionspanel').style.visibility = 'visible'
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'auto'
+
+				hideEllipseKnobs()
 			}
 			else if (event.target.id == 'chargesoption') {
 				event.target.setAttribute('onclick', '')
@@ -3307,6 +3710,8 @@
 				document.getElementById('chargesoptionspanel').style.pointerEvents = 'auto'
 				document.getElementById('settingsoptionspanel').style.visibility = 'hidden'
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
+
+				hideEllipseKnobs()
 			}
 			else if (event.target.id == 'boundaryoption') {
 				event.target.setAttribute('onclick', '')
@@ -3334,44 +3739,11 @@
 				document.getElementById('chargesoptionspanel').style.pointerEvents = 'none'
 				document.getElementById('settingsoptionspanel').style.visibility = 'hidden'
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
+
+				showEllipseKnobs()
+					
 			}
 		}
-
-
-
-
-
-		// function temperatureKnob(event) {
-		// 	temperature = parseFloat(document.getElementById('temperatureDivSlider').value)
-		// 	document.getElementById('temperatureControlValue').innerHTML = temperature
-		// }
-
-		// function widthKnob(event) {
-		// 	gridsize[0] = parseFloat(document.getElementById('widthDivSlider').value)
-		// 	document.getElementById('widthControlValue').innerHTML = gridsize[0]
-		// 	updateIsingCells()
-		// }
-
-		// function heightKnob(event) {
-		// 	gridsize[1] = parseFloat(document.getElementById('heightDivSlider').value)
-		// 	document.getElementById('heightControlValue').innerHTML = gridsize[1]
-		// 	updateIsingCells()
-		// }
-
-		// function interactionKnob(event) {
-		// 	Jvalue = parseFloat(document.getElementById('interactionDivSlider').value)
-		// 	document.getElementById('interactionControlValue').innerHTML = Jvalue
-		// }
-
-		// function fieldStrengthKnob(event) {
-		// 	fieldStrength = parseFloat(document.getElementById('fieldStrengthDivSlider').value)
-		// 	document.getElementById('fieldStrengthValue').innerHTML = fieldStrength
-		// }
-
-
-		// divSlider('temperatureControl', 'temperatureDivSlider', 0.01, 6, 1.9, 0.01, 'temperatureKnob()', '90%', '2px', 'hsla(190, 100%,80%, 1)')
-
-		
 
 		function handleLayout() {
 			if (mode == 'portrait') {
@@ -3412,47 +3784,6 @@
 				
 			}
 		}
-
-		// handleLayout()
-
-		// setDarkMode()
-
-		// editmode = 'random'
-
-		// function changeRandomness(event) {
-		// 	if (editmode == 'random') {
-		// 		if (event.deltaY > 0 && randomfactor + 0.01 <= 1) {
-		// 			randomfactor = randomfactor + 0.01
-		// 		}
-		// 		else if (event.deltaY < 0 && randomfactor - 0.01 >= 0) {
-		// 			randomfactor = randomfactor - 0.01
-		// 		}
-		// 		console.log(randomfactor)
-		// 	}
-		// 	else if (editmode == 'randomdist') {
-		// 		if (event.deltaY > 0) {
-		// 			randomdist = randomdist + 10
-		// 		}
-		// 		else if (event.deltaY < 0) {
-		// 			randomdist = randomdist - 10
-		// 		}
-		// 		console.log(randomdist)
-		// 	}
-			
-		// }
-
-		// function changeMode(event) {
-		// 	if (editmode == 'random') {
-		// 		editmode = 'randomdist'
-		// 	}
-		// 	else if (editmode == 'randomdist') {
-		// 		editmode = 'random'
-		// 	}
-		// 	console.log(editmode)
-		// }
-
-		// window.addEventListener("wheel", changeRandomness);
-		// window.addEventListener("click", changeMode);
 
 		</script>
 
