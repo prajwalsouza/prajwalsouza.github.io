@@ -11,8 +11,8 @@
 		<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-
-		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<!-- 
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
 
 		<link rel="icon" href="../square.png">
 
@@ -117,9 +117,8 @@
 		</script>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.1/math.min.js"></script>
 
-
-		
 		
 		<script type="application/ld+json">
 			{
@@ -2555,7 +2554,7 @@
 
 			pointoptions.runFunctionOnDragEnd = pointoptions.runFunctionDuringDrag || ''
 			pointoptions.dragDirection = pointoptions.dragDirection || 'bothXY'
-			pointoptions.dragIfCondition = pointoptions.dragIfCondition || ''
+			pointoptions.dragIfCondition = pointoptions.dragIfCondition || 'true'
 
 			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
 			reverseGraphElementMap[pointElement.id] = [graphname, pointname]
@@ -2747,21 +2746,25 @@
 
 			moveX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
 			moveY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+
 			if (typeof eval(graphData[gphname].pointData[ptname][1].dragIfCondition) != undefined) {
 				if (eval(graphData[gphname].pointData[ptname][1].dragIfCondition) == true) {
 					if (graphData[gphname].pointData[ptname][1].dragDirection == 'bothXY') {
 						updatePointXY(gphname, ptname, moveX, moveY)
+						eval(graphData[gphname].pointData[ptname][1].runFunctionDuringDrag)
 					}
 					else if (graphData[gphname].pointData[ptname][1].dragDirection == 'onlyY') {
 						updatePointXY(gphname, ptname, graphData[gphname].pointData[ptname][1].x, moveY)
+						eval(graphData[gphname].pointData[ptname][1].runFunctionDuringDrag)
 					}
 					else if (graphData[gphname].pointData[ptname][1].dragDirection == 'onlyX') {
 						updatePointXY(gphname, ptname, moveX, graphData[gphname].pointData[ptname][1].y)
+						eval(graphData[gphname].pointData[ptname][1].runFunctionDuringDrag)
 					}
 				}
 			}
 
-			eval(graphData[gphname].pointData[ptname][1].runFunctionDuringDrag)
+			
 
 		}
 
@@ -3974,13 +3977,13 @@
 			randomizeChargePositions()
 		}
 
-		polypointuid = 1
+		// polypointuid = 1
 		polyPoints = []
 
 		function addNewPolyPoint(newpolypoint) {
 			ref = document.getElementById('pbVfinalspacer')
-			polypointuid = polypointuid + 1
-			cindex = polypointuid
+			// polypointuid = polypointuid + 1
+			cindex = (polyPoints.length + 1)
 			newdiv = document.createElement("div");
 			newdiv.id = 'polypointB' + cindex
 			newdiv.setAttribute('class','polypointB')
@@ -4010,15 +4013,14 @@
 			options.pointcolor = 'hsla(32, 100%, 50%, 0.3)'
 			options.draggability = 'yes'
 			options.dragDirection = 'bothXY'
-			// options.dragIfCondition = 'moveX > 0'
-			// options.runFunctionDuringDrag = 'majorknobDragFunction()'
+			options.dragIfCondition = 'checkNewPointIntersectionChange([moveX, moveY])'
+			options.runFunctionDuringDrag = 'adjustPolyBoundary([moveX, moveY])'
 			pptknob = addPoint('labG', 'polypointknobBack@' + (polyPoints.length + 1), options)[0]
 			pptknob.style.visibility = 'hidden'
 			pptknob.style.pointerEvents = 'none'
 			pptknob.style.cursor = 'move'
 
 			polyPoints.push(newpolypoint)
-
 		}
 
 		function addPolygonPoints(sides) {
@@ -4064,6 +4066,97 @@
 			updatePolyPath()
 			showBoundaryKnobs()
 			randomizeChargePositions()
+		}
+
+		function checkIfSegmentsMeet(segment1, segment2) {
+			// This fails when segments meet at their endpoints or when the intersection is another line segment
+
+			saX = segment1[0][0]
+			saY = segment1[0][1]
+			sbX = segment1[1][0]
+			sbY = segment1[1][1]
+			scX = segment2[0][0]
+			scY = segment2[0][1]
+			sdX = segment2[1][0]
+			sdY = segment2[1][1]
+
+			aM = saX - sbX
+			bM = (-1)*(scX - sdX)
+			cM = saY - sbY
+			dM = (-1)*(scY - sdY)
+			eM = sdX - sbX
+			fM = sdY - sbY
+
+			determinant = aM*dM - bM*cM
+
+			if (determinant != 0) {
+				usolved = [(eM*dM - bM*fM)/determinant, (aM*fM - cM*eM)/determinant]
+				if ((usolved[0] <= 0 || usolved[0] >= 1) && (usolved[1] <= 0 || usolved[1] >= 1)) {
+					return false
+				}
+				else {
+					return true
+				}
+			}
+			else {
+				return false
+			}				
+		}
+
+		function findallEdges() {
+			edgesToReturn = {}
+			for (ptindex = 0; ptindex < polyPoints.length; ptindex++) {
+				edgesToReturn[ptindex] = [polyPoints[ptindex], polyPoints[(ptindex + 1) % polyPoints.length]]
+			}
+			return edgesToReturn
+		}
+
+		function allEdgesCombinations() {
+			edgesOfBoundary = findallEdges()
+			edgeCombo = []
+			for (bdedgeindex1 = 0; bdedgeindex1 < polyPoints.length; bdedgeindex1++) {
+				for (bdedgeindex2 = bdedgeindex1 + 1; bdedgeindex2 < polyPoints.length; bdedgeindex2++) {
+					if (bdedgeindex1 != bdedgeindex2) {
+						edgeCombo.push([edgesOfBoundary[bdedgeindex1], edgesOfBoundary[bdedgeindex2]])
+					}
+				}
+			}
+			return edgeCombo
+		}
+
+		function checkIntersections() {
+			edgeCombinations = allEdgesCombinations()
+			foundInteresection = false
+			for (edgeComboIndex = 0; edgeComboIndex < edgeCombinations.length; edgeComboIndex++) {
+				edgeSeg1 = edgeCombinations[edgeComboIndex][0]
+				edgeSeg2 = edgeCombinations[edgeComboIndex][1]
+				if (checkIfSegmentsMeet(edgeSeg1, edgeSeg2)) {
+					foundInteresection = true
+				}
+			}
+			return foundInteresection
+		}
+
+		function checkNewPointIntersectionChange(newlocationV) {
+			newptnumber = currentMovingPoint.id.split('@')[1]
+			temppolyPoints = polyPoints.slice()
+			polyPoints.splice(newptnumber - 1, 1, newlocationV);
+			possibleMove = checkIntersections()
+			if (possibleMove) {
+				possibleMove = false
+			}
+			else {
+				possibleMove = true
+			}
+			polyPoints = temppolyPoints.slice()
+			return possibleMove
+		}
+
+		function adjustPolyBoundary(newlocationV) {
+			newptnumber = currentMovingPoint.id.split('@')[1]
+			polyPoints.splice(newptnumber - 1, 1, newlocationV);
+			updatePolyPath()
+			updatePointXY('labG', 'polypointknob@' + newptnumber, newlocationV[0],newlocationV[1])
 		}
 
 		function handleLayout() {
