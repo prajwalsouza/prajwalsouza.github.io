@@ -147,15 +147,13 @@
 					</div>
 				</div>
 				<div id="aboutH" style='margin:0px;width:100%; height: 65%;overflow: hidden;position: relative; z-index: 1;display: inline-block;'>
-					<div id="aboutmenutext" style='margin:0px;width:400%; height: 100%;overflow: hidden; position: absolute; z-index: 1; top:0; left: 0; transform-origin: 0 0; transform:rotate(-90deg) translate(-130%, 2%) ; color: white; font-size: 1.3vw; font-family: Alegreya Sans; font-weight: lighter; word-wrap: unset;'>
-						What's this about?
+					<div id="aboutmenutext" style='margin:0px;width:400%; height: 100%;overflow: hidden; position: absolute; z-index: 1; top:0; left: 0; transform-origin: 0 0; transform:rotate(-90deg) translate(-130%, 2%) ; color: white; font-size: 1.3vw; font-family: Alegreya Sans; font-weight: lighter; word-wrap: unset;'>What's this about?
 					</div>
 				</div>
 			</div>
 			<div id="middlepanel" style='margin:0px;width:45%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				<div id="verticalspacer1" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
 				<div id="labpanel" style='margin:0px;width:66%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-					
 					<div id="boundaryoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
 						<div id="spacerBD1" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
 						<div id="boundaryChoicePanel" style='margin:0px;width:100%; height: 10%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
@@ -166,111 +164,16 @@
 							</div>
 							<div id="spacerB1D3" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
 							<div id="ellipseoptiontile" style='margin:0px;width:25%; height: 50%; display: inline-block; overflow: hidden;'>
-								<input class="inputButDiv" onclick="" id='ellipseoptiontilebutton' value='Ellipse' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;" readonly></input>
+								<input class="inputButDiv" onclick="toggleBoundaryType(event)" id='ellipseoptiontilebutton' value='Ellipse' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; pointer-events: none; border-color: hsla(0, 0%, 70%, 1);" readonly></input>
 							</div>
 							<div id="polyoptiontile" style='margin:0px;width:25%; height: 50%; display: inline-block; overflow: hidden;'>
-								<input class="inputButDiv" onclick="" id='polyoptiontilebutton' value='Polygon' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,0); color: hsla(0, 0%, 70%, 1); cursor: pointer; user-select: none;" readonly></input>
+								<input class="inputButDiv" onclick="toggleBoundaryType(event)" id='polyoptiontilebutton' value='Polygon' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1); border-color: hsla(0, 0%, 70%, 1); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(32,100%,50%,0); color: hsla(0, 0%, 70%, 1); cursor: pointer; user-select: none;" readonly></input>
 							</div>
 							<div id="spacerB1D4" style='margin:0px;width:15%; height: 50%; display: inline-block;'></div>
 							<div id="spacerB1D5" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
 							
 						</div>
 						<div id="spacerBD3" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-						<div id="boundaryTypeOptionsPanelEllipse" style='margin:0px;width:100%; height: 20%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-							<div id="spacerB1D55" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
-							<div id="spacerB1D6" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
-							<div id="semiMajorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
-								<input value='SEMI MAJOR AXIS' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-							</div>
-							<div id="spacerB1D7" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
-							<div id="semiMajorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
-								<input oninput="updateMajorAxis(event)" type="number" min="0" step="0.01"  onclick="" id='semiMajorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
-							</div>
-							<div id="spacerB1D8" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
-							<div id="spacerB1D9" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
-							<div id="spacerB1D10" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
-							<div id="semiMinorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
-								<input value='SEMI MINOR AXIS' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-							</div>
-							<div id="spacerB1D11" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
-							<div id="semiMinorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
-								<input oninput="updateMinorAxis(event)" type="number" min="0" step="0.01" onclick="" id='semiMinorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
-							</div>
-							<div id="spacerB1D1" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
-						</div>
-						<div id="boundaryTypeOptionsPanelPolygon" style='margin:0px;width:100%; height: 0%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-							<div id="spacerB1D55" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
-							<div id="spacerB1D6" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
-							<div id="sidesTile" style='margin:0px;width:35%; height: 40%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
-								<input value='SIDES' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-							</div>
-							<div id="spacerB1D7" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
-							<div id="sidesTileInputH" style='margin:0px;width:25%; height: 40%; display: inline-block; overflow: hidden; border-radius: 5px;'>
-								<input type="number" min="0" step="0.01"  onclick="" id='semiMajorTileInput' value='6' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
-							</div>
-							<div id="spacerB1D8" style='margin:0px;width:30%; height: 40%; display: inline-block;'></div>
-							<div id="spacerB1D9" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
-						</div>
-						<div id="spacerBDHidden1" style='margin:0px;width:100%; height: 0%; display: inline-block;'></div>
-						<div id="boundaryPointsPanel" style='margin:0px;width:100%; height: 0%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-							<div id="gradfillbp" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 32%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 38%, hsla(0, 0%, 0%, 0) 80%,hsla(0, 100%, 100%, 1) 90%,hsla(0, 100%, 100%, 0) 91%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
-							<div id="spacerBPD81" style='margin:0px;width:100%; height:9%; display: inline-block;'></div>
-							<div id="spacerBPD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-							<div id="boundarypointseditortext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>BOUNDARY POINTS</div>
-							<div id="spacerBPD83" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-							<div id="spacerBPD84" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
-							<div id="spacerBPD85" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
-							<div id="pointeditNameBlock" style='margin:0px;width:90%; height:10%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; overflow:hidden; color: hsla(0, 0%, 50%, 1); position: relative; '>
-								<input value='Point' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-								<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-								<input value='X co-ordinate' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-								<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-								<input value='Y co-ordinate' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-							</div>
-							<div id="spacerBPD86" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
-							<div id="spacerBPD87" style='margin:0px;width:100%; height:3%; display: inline-block;'></div>
-							<div id="spacerBPD88" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
-							<div id="pointBlocksH" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; color: hsla(0, 0%, 50%, 1); position: relative; overflow-y: scroll; '>
-								<div id="pointBlock1" style='margin:0px;width:100%; height:20%; display: inline-block;'>
-									<input value='Point 1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
-									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-									<input type="number" min="0" step="0.01"  onclick="" value='0.4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
-								</div>
-								<div id="pbVspacer" style='margin:0px;width:100%; height:5%; display: inline-block;'></div>
-								<div id="pointBlock2" style='margin:0px;width:100%; height:20%; display: inline-block;'>
-									<input value='Point 2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
-									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-									<input type="number" min="0" step="0.01"  onclick="" value='0.4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
-								</div>
-								<div id="pbVspacer" style='margin:0px;width:100%; height:5%; display: inline-block;'></div>
-								<div id="pointBlock3" style='margin:0px;width:100%; height:20%; display: inline-block;'>
-									<input value='Point 3' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
-									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-									<input type="number" min="0" step="0.01"  onclick="" value='0.4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
-								</div>
-								<div id="pbVspacer" style='margin:0px;width:100%; height:5%; display: inline-block;'></div>
-								<div id="pointBlock4" style='margin:0px;width:100%; height:20%; display: inline-block;'>
-									<input value='Point 4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-									<input type="number" min="0" step="0.01"  onclick="" value='0.2' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
-									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-									<input type="number" min="0" step="0.01"  onclick="" value='0.4' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"></input>
-								</div>
-								<div id="pbVspacer" style='margin:0px;width:100%; height:5%; display: inline-block;'></div>
-								<div id="pbVfinalspacer" style='margin:0px;width:100%; height:20%; display: inline-block;'></div>
-								
-							</div>
-							<div id="spacerBPD89" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
-							<div id="spacerBPD810" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
-							
-						</div>
-						<div id="spacerBD4" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
 						<div id="boundaryInfoPanel" style='margin:0px;width:100%; height: 12%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
 							<div id="spacerB2D11" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
 							<div id="spacerB2D12" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
@@ -279,7 +182,74 @@
 							</div>
 							<div id="spacerB2D13" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
 						</div>
-						<div id="spacerBD7" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+						<div id="spacerBD7" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div><br/>
+						<div id="polyPanel" style='margin:0px;width:100%; height: 70%; display: inline-block; position: absolute; visibility: hidden; pointer-events: none;'>
+							<div id="boundaryTypeOptionsPanelPolygon" style='margin:0px;width:100%; height: 15%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+								<div id="spacerB1D55" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
+								<div id="spacerB1D6" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
+								<div id="sidesTile" style='margin:0px;width:35%; height: 40%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+									<input value='SIDES' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+								</div>
+								<div id="spacerB1D7" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
+								<div id="sidesTileInputH" style='margin:0px;width:25%; height: 40%; display: inline-block; overflow: hidden; border-radius: 5px;'>
+									<input type="number" min="3" step="1"  oninput="polysidesChange()" id='sidesTileInput' value='6' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
+								</div>
+								<div id="spacerB1D8" style='margin:0px;width:30%; height: 40%; display: inline-block;'></div>
+								<div id="spacerB1D9" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
+							</div>
+							<div id="spacerBDHidden1" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+							<div id="boundaryPointsPanel" style='margin:0px;width:100%; height: 50%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+								<div id="gradfillbp" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 32%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 38%, hsla(0, 0%, 0%, 0) 80%,hsla(0, 100%, 100%, 1) 90%,hsla(0, 100%, 100%, 0) 91%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
+								<div id="spacerBPD81" style='margin:0px;width:100%; height:9%; display: inline-block;'></div>
+								<div id="spacerBPD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+								<div id="boundarypointseditortext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>BOUNDARY POINTS</div>
+								<div id="spacerBPD83" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+								<div id="spacerBPD84" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
+								<div id="spacerBPD85" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
+								<div id="pointeditNameBlock" style='margin:0px;width:90%; height:10%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; overflow:hidden; color: hsla(0, 0%, 50%, 1); position: relative; '>
+									<input value='Point' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+									<input value='X co-ordinate' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+									<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+									<input value='Y co-ordinate' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+								</div>
+								<div id="spacerBPD86" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
+								<div id="spacerBPD87" style='margin:0px;width:100%; height:3%; display: inline-block;'></div>
+								<div id="spacerBPD88" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
+								<div id="pointBlocksH" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; color: hsla(0, 0%, 50%, 1); position: relative; overflow-y: scroll; '>
+									<div id="pbVfinalspacer" style='margin:0px;width:100%; height:20%; display: inline-block;'></div>
+								</div>
+								<div id="spacerBPD89" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
+								<div id="spacerBPD810" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+							</div>
+							<div id="spacerBD4" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+						</div>
+						<div id="ellipsePanel" style='margin:0px;width:100%; height: 45%; display: inline-block;'>
+							<div id="boundaryTypeOptionsPanelEllipse" style='margin:0px;width:100%; height: 40%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+								<div id="spacerB1D55" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
+								<div id="spacerB1D6" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+								<div id="semiMajorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+									<input value='SEMI MAJOR AXIS' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+								</div>
+								<div id="spacerB1D7" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
+								<div id="semiMajorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
+									<input oninput="updateMajorAxis(event)" type="number" min="0" step="0.01"  onclick="" id='semiMajorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
+								</div>
+								<div id="spacerB1D8" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
+								<div id="spacerB1D9" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+								<div id="spacerB1D10" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
+								<div id="semiMinorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+									<input value='SEMI MINOR AXIS' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+								</div>
+								<div id="spacerB1D11" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
+								<div id="semiMinorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
+									<input oninput="updateMinorAxis(event)" type="number" min="0" step="0.01" onclick="" id='semiMinorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
+								</div>
+								<div id="spacerB1D1" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
+							</div>
+							<div id="spacerBD4" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+						</div>
+
 					</div>
 					<div id="chargesoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
 						
@@ -2227,6 +2197,7 @@
 			gdata.svgElement.appendChild(circleElement);
 
 			graphData[graphname].circleData[circlename] = [circleElement, circleoptions]
+			return [circleElement, circleoptions]
 		}
 
 		function updateCircle(graphname, circlename, circlenewvalues) {
@@ -2319,6 +2290,7 @@
 			gdata.svgElement.appendChild(ellipseElement);
 
 			graphData[graphname].ellipseData[ellipsename] = [ellipseElement, ellipseoptions]
+			return [ellipseElement, ellipseoptions]
 		}
 
 		function updateEllipse(graphname, ellipsename, ellipsenewvalues) {
@@ -2894,7 +2866,15 @@
 			options.ry = 1
 			options.rx = 1
 			options.strokewidth = 2
-			addEllipse('labG', 'simpleEllipticBoundary', options)
+			addedellipseboundary = addEllipse('labG', 'simpleEllipticBoundary', options)[0]
+			addedellipseboundary.style.pointerEvents = 'none'
+
+			options = {}
+			options.pathcolor = 'hsla(0, 0%, 0%, 0)'
+			options.points = [[1,0], [0,1], [-1,0], [0,-1],[1,0]]
+			options.strokewidth = 0.3
+			addedpolyboundary = addPath('labG', 'simplePolygonBoundary', options)[0]
+			addedpolyboundary.style.pointerEvents = 'none'
 
 
 			// options = {}
@@ -2924,18 +2904,18 @@
 			return inside;
 		};
 
-		function addBoundary(btype, boptions) {
-			if (btype == 'circle') {
-				options = {}
-				options.circlecolor = 'hsla(190, 0%, 0%, 0)'
-				options.stroke = boptions.color
-				options.x = 0
-				options.y = 0
-				options.radius = boptions.radius
-				options.strokewidth = boptions.boundaryThickness || 2
-				addCircle('labG', 'simpleCircleBoundary', options)
-			}
-		}
+		// function addBoundary(btype, boptions) {
+		// 	if (btype == 'circle') {
+		// 		options = {}
+		// 		options.circlecolor = 'hsla(190, 0%, 0%, 0)'
+		// 		options.stroke = boptions.color
+		// 		options.x = 0
+		// 		options.y = 0
+		// 		options.radius = boptions.radius
+		// 		options.strokewidth = boptions.boundaryThickness || 2
+		// 		addCircle('labG', 'simpleCircleBoundary', options)
+		// 	}
+		// }
 
 
 		setUpGraph()
@@ -2948,7 +2928,6 @@
 		updateEllipse('labG', 'simpleEllipticBoundary', options)
 
 		function addEllipseKnobs() {
-
 			options = {}
 			options.x = 1
 			options.y = 0
@@ -2977,7 +2956,7 @@
 			options.y = 1
 			options.pointsize = 1
 			options.pointcolor = 'var(--themeorange)'
-			mnknob =addPoint('labG', 'minorknob', options)[0]
+			mnknob = addPoint('labG', 'minorknob', options)[0]
 			mnknob.style.visibility = 'hidden'
 			mnknob.style.pointerEvents = 'none'
 
@@ -3002,10 +2981,12 @@
 			knobGName = reverseGraphElementMap[currentMovingPoint.id][0]
 			knobName = reverseGraphElementMap[currentMovingPoint.id][1]
 
-			updatePointXY(knobGName, 'majorknob', graphData[knobGName].pointData[knobName][1].x, graphData[knobGName].pointData[knobName][1].y)
 			options = {}
 			options.rx = graphData[knobGName].pointData[knobName][1].x
 			updateEllipse(knobGName, 'simpleEllipticBoundary', options)
+
+			updatePointXY(knobGName, 'majorknob', graphData[knobGName].pointData[knobName][1].x, graphData[knobGName].pointData[knobName][1].y)
+			
 
 			boundaryoptions.semiMajorAxis = graphData[knobGName].pointData[knobName][1].x
 			document.getElementById('semiMajorTileInput').value = boundaryoptions.semiMajorAxis
@@ -3069,8 +3050,6 @@
 
 		boundaryTypeCheck()
 
-			
-
 		// addBoundary(boundaryType, boundaryoptions)
 
 		chargeDetails = []
@@ -3127,6 +3106,26 @@
 					chargeDetails.push(chargedetail)
 				}	
 			}
+			else if (boundaryType == 'polygon') {
+				if (inside([locX, locY], polyPoints)) {
+					options = {}
+					options.x = locX
+					options.y = locY
+					options.pointsize = 1
+					options.pointcolor = 'var(--themeblue)'
+					options.draggability = 'yes'
+					options.currentlyDraggable = 'no'
+					chargeId = chargeId + 1
+					addPoint('labG', chargeId + '-charge', options)		
+					chargedetail = {}
+					chargedetail.loc = [locX, locY]
+					chargedetail.weight = weight
+					chargedetail.id = chargeId
+
+					chargeDetails.push(chargedetail)
+				}	
+			}
+
 				
 		}
 
@@ -3145,7 +3144,32 @@
 					dis = Math.random()*distF([0,0], bdpointE)
 					addChargeToBoundary(dis*Math.cos(ang), dis*Math.sin(ang), 1)
 				}
-			}	
+			}
+			else if (boundaryType == 'polygon') {
+				for(ch = 0; ch < number; ch++) {
+					polypointXV = []
+					polypointYV = []
+					for (polypointindex = 0; polypointindex < polyPoints.length; polypointindex++) {
+						polypointXV.push(polyPoints[polypointindex][0])
+						polypointYV.push(polyPoints[polypointindex][1])
+					}
+
+					ppxmin = Math.min.apply(Math, polypointXV)
+					ppxmax = Math.max.apply(Math, polypointXV)
+					ppymin = Math.min.apply(Math, polypointYV)
+					ppymax = Math.max.apply(Math, polypointYV)
+
+					while(true) {
+						canditatepointX = ppxmin + Math.random()*(ppxmax - ppxmin)
+						canditatepointY = ppymin + Math.random()*(ppymax - ppymin)
+						if (inside([canditatepointX, canditatepointY], polyPoints)) {
+							addChargeToBoundary(canditatepointX, canditatepointY, 1)
+							break
+						}
+					}
+					
+				}
+			}
 		}
 
 		addCharges(16)
@@ -3262,6 +3286,22 @@
 					}
 				}
 			}	
+			else if (boundaryType == 'polygon') {
+				if (inside(newpos, polyPoints)) {
+					chargeDetails[charge2].loc = newpos
+					chargeId = chargeDetails[charge2].id
+					updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+				}
+				else if (handleTangentialForce) {
+					newtotalforce = randomChoice(tangentialBoundaryForce(totalforce))
+					newpos = [newtotalforce[0] + ch2dist[0], newtotalforce[1] + ch2dist[1]]
+					if (inside(newpos, polyPoints)) {
+						chargeDetails[charge2].loc = newpos
+						chargeId = chargeDetails[charge2].id
+						updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+					}
+				}
+			}	
 		}
 
 		function randomForce(onCharge, moveDistance) {
@@ -3271,10 +3311,19 @@
 			totalforce = [moveDistance*Math.cos(forceangle), moveDistance*Math.sin(forceangle)]
 			newpos = [totalforce[0] + ch2dist[0], totalforce[1] + ch2dist[1]]
 			if (boundaryType == 'circle') {
-				if (Math.pow(newpos[0]/boundaryoptions.semiMajorAxis, 2) + Math.pow(newpos[1]/boundaryoptions.semiMinorAxis, 2) < 1) {
+				if (distF(newpos, [0,0]) < boundaryoptions.radius) {
 					chargeDetails[charge2].loc = newpos
 					chargeId = chargeDetails[charge2].id
 					updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+				}
+				else if (handleTangentialForce) {
+					newtotalforce = randomChoice(tangentialBoundaryForce(totalforce))
+					newpos = [newtotalforce[0] + ch2dist[0], newtotalforce[1] + ch2dist[1]]
+					if (distF(newpos, [0,0]) < boundaryoptions.radius) {
+						chargeDetails[charge2].loc = newpos
+						chargeId = chargeDetails[charge2].id
+						updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+					}
 				}
 			}
 			else if (boundaryType == 'ellipse') {
@@ -3283,7 +3332,32 @@
 					chargeId = chargeDetails[charge2].id
 					updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
 				}
-			}
+				else if (handleTangentialForce) {
+					newtotalforce = randomChoice(tangentialBoundaryForce(totalforce))
+					newpos = [newtotalforce[0] + ch2dist[0], newtotalforce[1] + ch2dist[1]]
+					if (Math.pow(newpos[0]/boundaryoptions.semiMajorAxis, 2) + Math.pow(newpos[1]/boundaryoptions.semiMinorAxis, 2) < 1) {
+						chargeDetails[charge2].loc = newpos
+						chargeId = chargeDetails[charge2].id
+						updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+					}
+				}
+			}	
+			else if (boundaryType == 'polygon') {
+				if (inside(newpos, polyPoints)) {
+					chargeDetails[charge2].loc = newpos
+					chargeId = chargeDetails[charge2].id
+					updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+				}
+				else if (handleTangentialForce) {
+					newtotalforce = randomChoice(tangentialBoundaryForce(totalforce))
+					newpos = [newtotalforce[0] + ch2dist[0], newtotalforce[1] + ch2dist[1]]
+					if (inside(newpos, polyPoints)) {
+						chargeDetails[charge2].loc = newpos
+						chargeId = chargeDetails[charge2].id
+						updatePointXY('labG', chargeId + '-charge', newpos[0], newpos[1])
+					}
+				}
+			}	
 		}
 
 		function probability() {
@@ -3577,7 +3651,31 @@
 				bdpointE = [boundaryoptions.semiMajorAxis*Math.cos(ang), boundaryoptions.semiMinorAxis*Math.sin(ang)]
 				dis = Math.random()*distF([0,0], bdpointE)
 				return [dis*Math.cos(ang), dis*Math.sin(ang)]
-			}	
+			}
+			else if (boundaryType == 'polygon') {
+				polypointXV = []
+				polypointYV = []
+				for (polypointindex = 0; polypointindex < polyPoints.length; polypointindex++) {
+					polypointXV.push(polyPoints[polypointindex][0])
+					polypointYV.push(polyPoints[polypointindex][1])
+				}
+				ppxmin = Math.min.apply(Math, polypointXV)
+				ppxmax = Math.max.apply(Math, polypointXV)
+				ppymin = Math.min.apply(Math, polypointYV)
+				ppymax = Math.max.apply(Math, polypointYV)
+
+				toreturnpoint = []
+				while(true) {
+					canditatepointX = ppxmin + Math.random()*(ppxmax - ppxmin)
+					canditatepointY = ppymin + Math.random()*(ppymax - ppymin)
+					if (inside([canditatepointX, canditatepointY], polyPoints)) {
+						toreturnpoint = [canditatepointX, canditatepointY]
+						break
+					}
+				}
+				return toreturnpoint
+			}
+
 		}
 
 		function moveChargeToPosition(positionToMove, chargenumb) {
@@ -3595,6 +3693,14 @@
 					updatePointXY('labG', chargeId + '-charge', positionToMove[0], positionToMove[1])
 				}
 			}	
+			else if (boundaryType == 'polygon') {
+				if (inside(positionToMove, polyPoints)) {
+					chargeDetails[chargenumb].loc = positionToMove
+					chargeId = chargeDetails[chargenumb].id
+					updatePointXY('labG', chargeId + '-charge', positionToMove[0], positionToMove[1])
+				}
+			}
+			
 
 			
 		}
@@ -3609,7 +3715,7 @@
 			}
 		}
 
-		function showEllipseKnobs() {
+		function showBoundaryKnobs() {
 			if (boundaryType == 'circle' || boundaryType == 'ellipse') {
 				minorknob.style.visibility = 'visible'
 				minorknob.style.pointerEvents = 'auto'
@@ -3617,17 +3723,51 @@
 				majorknob.style.pointerEvents = 'auto'
 				mnknob.style.visibility = 'visible'
 				mjknob.style.visibility = 'visible'
+				for (pptIndex = 1; pptIndex <= polyPoints.length; pptIndex++) {
+					document.getElementById('labG-point-polypointknob@' + pptIndex).style.visibility = 'hidden'
+					document.getElementById('labG-point-polypointknobBack@' + pptIndex).style.visibility = 'hidden'
+					document.getElementById('labG-point-polypointknobBack@' + pptIndex).style.pointerEvents = 'none'
+				}
+				options = {}
+				options.stroke = 'var(--boundaryorange)'
+				updateEllipse('labG', 'simpleEllipticBoundary', options)
+				options = {}
+				options.pathcolor = 'hsla(0, 0%, 0%, 0)'
+				updatePath('labG', 'simplePolygonBoundary', options)
 			}
-		}
-
-		function hideEllipseKnobs() {
-			if (boundaryType == 'circle' || boundaryType == 'ellipse') {
+			else if (boundaryType == 'polygon') {
+				for (pptIndex = 1; pptIndex <= polyPoints.length; pptIndex++) {
+					document.getElementById('labG-point-polypointknob@' + pptIndex).style.visibility = 'visible'
+					document.getElementById('labG-point-polypointknobBack@' + pptIndex).style.visibility = 'visible'
+					document.getElementById('labG-point-polypointknobBack@' + pptIndex).style.pointerEvents = 'auto'
+				}
 				minorknob.style.visibility = 'hidden'
 				minorknob.style.pointerEvents = 'none'
 				majorknob.style.visibility = 'hidden'
 				majorknob.style.pointerEvents = 'none'
 				mnknob.style.visibility = 'hidden'
 				mjknob.style.visibility = 'hidden'
+
+				options = {}
+				options.stroke = 'hsla(0, 0%, 0%, 0)'
+				updateEllipse('labG', 'simpleEllipticBoundary', options)
+				options = {}
+				options.pathcolor = 'var(--boundaryorange)'
+				updatePath('labG', 'simplePolygonBoundary', options)
+			}
+		}
+
+		function hideBoundaryKnobs() {
+			minorknob.style.visibility = 'hidden'
+			minorknob.style.pointerEvents = 'none'
+			majorknob.style.visibility = 'hidden'
+			majorknob.style.pointerEvents = 'none'
+			mnknob.style.visibility = 'hidden'
+			mjknob.style.visibility = 'hidden'
+			for (pptIndex = 1; pptIndex <= polyPoints.length; pptIndex++) {
+				document.getElementById('labG-point-polypointknob@' + pptIndex).style.visibility = 'hidden'
+				document.getElementById('labG-point-polypointknobBack@' + pptIndex).style.visibility = 'hidden'
+				document.getElementById('labG-point-polypointknobBack@' + pptIndex).style.pointerEvents = 'none'
 			}
 		}
 
@@ -3657,12 +3797,18 @@
 				document.getElementById('algooptionspanel').style.pointerEvents = 'auto'
 				document.getElementById('boundaryoptionspanel').style.visibility = 'hidden'
 				document.getElementById('boundaryoptionspanel').style.pointerEvents = 'none'
+
+				document.getElementById('ellipsePanel').style.visibility = 'hidden'
+				document.getElementById('polyPanel').style.visibility = 'hidden'
+				document.getElementById('ellipsePanel').style.pointerEvents = 'none'
+				document.getElementById('polyPanel').style.pointerEvents = 'none'
+
 				document.getElementById('chargesoptionspanel').style.visibility = 'hidden'
 				document.getElementById('chargesoptionspanel').style.pointerEvents = 'none'
 				document.getElementById('settingsoptionspanel').style.visibility = 'hidden'
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
 
-				hideEllipseKnobs()
+				hideBoundaryKnobs()
 
 			}
 			else if (event.target.id == 'settingsoption') {
@@ -3687,12 +3833,18 @@
 				document.getElementById('algooptionspanel').style.pointerEvents = 'none'
 				document.getElementById('boundaryoptionspanel').style.visibility = 'hidden'
 				document.getElementById('boundaryoptionspanel').style.pointerEvents = 'none'
+
+				document.getElementById('ellipsePanel').style.visibility = 'hidden'
+				document.getElementById('polyPanel').style.visibility = 'hidden'
+				document.getElementById('ellipsePanel').style.pointerEvents = 'none'
+				document.getElementById('polyPanel').style.pointerEvents = 'none'
+
 				document.getElementById('chargesoptionspanel').style.visibility = 'hidden'
 				document.getElementById('chargesoptionspanel').style.pointerEvents = 'none'
 				document.getElementById('settingsoptionspanel').style.visibility = 'visible'
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'auto'
 
-				hideEllipseKnobs()
+				hideBoundaryKnobs()
 			}
 			else if (event.target.id == 'chargesoption') {
 				event.target.setAttribute('onclick', '')
@@ -3716,12 +3868,18 @@
 				document.getElementById('algooptionspanel').style.pointerEvents = 'none'
 				document.getElementById('boundaryoptionspanel').style.visibility = 'hidden'
 				document.getElementById('boundaryoptionspanel').style.pointerEvents = 'none'
+
+				document.getElementById('ellipsePanel').style.visibility = 'hidden'
+				document.getElementById('polyPanel').style.visibility = 'hidden'
+				document.getElementById('ellipsePanel').style.pointerEvents = 'none'
+				document.getElementById('polyPanel').style.pointerEvents = 'none'
+
 				document.getElementById('chargesoptionspanel').style.visibility = 'visible'
 				document.getElementById('chargesoptionspanel').style.pointerEvents = 'auto'
 				document.getElementById('settingsoptionspanel').style.visibility = 'hidden'
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
 
-				hideEllipseKnobs()
+				hideBoundaryKnobs()
 			}
 			else if (event.target.id == 'boundaryoption') {
 				event.target.setAttribute('onclick', '')
@@ -3745,14 +3903,167 @@
 				document.getElementById('algooptionspanel').style.pointerEvents = 'none'
 				document.getElementById('boundaryoptionspanel').style.visibility = 'visible'
 				document.getElementById('boundaryoptionspanel').style.pointerEvents = 'auto'
+
+				if (boundaryType == 'polygon') {
+					document.getElementById('polyPanel').style.visibility = 'visible'
+					document.getElementById('polyPanel').style.pointerEvents = 'auto'
+				}
+				else {
+					document.getElementById('ellipsePanel').style.visibility = 'visible'
+					document.getElementById('ellipsePanel').style.pointerEvents = 'auto'
+				}
+
 				document.getElementById('chargesoptionspanel').style.visibility = 'hidden'
 				document.getElementById('chargesoptionspanel').style.pointerEvents = 'none'
 				document.getElementById('settingsoptionspanel').style.visibility = 'hidden'
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
 
-				showEllipseKnobs()
+				showBoundaryKnobs()
 					
 			}
+		}
+
+		function toggleBoundaryType(event) {
+			ellipseTile = document.getElementById('ellipseoptiontilebutton')
+			polyTile = document.getElementById('polyoptiontilebutton')
+			if (boundaryType == 'circle' || boundaryType == 'ellipse') {
+				ellipseTile.style.cursor = 'pointer'
+				polyTile.style.cursor = 'auto'
+				ellipseTile.style.pointerEvents = 'auto'
+				polyTile.style.pointerEvents = 'none'
+				ellipseTile.style.background = 'none'
+				polyTile.style.background = 'var(--themeorange)'
+				ellipseTile.style.color = 'hsla(0, 0%, 70%, 1)'
+				polyTile.style.color = 'hsla(0, 100%, 100%, 1)'
+				ellipseTile.style.borderWidth = '1px'
+				polyTile.style.borderWidth = '0px'
+
+				document.getElementById('spacerBD1').style.height = '10%'
+
+				document.getElementById('polyPanel').style.visibility = 'visible'
+				document.getElementById('ellipsePanel').style.visibility = 'hidden'
+				document.getElementById('polyPanel').style.pointerEvents = 'auto'
+				document.getElementById('ellipsePanel').style.pointerEvents = 'none'
+
+
+				boundaryType = 'polygon'
+			}
+			else if (boundaryType == 'polygon') {
+				polyTile.style.cursor = 'pointer'
+				ellipseTile.style.cursor = 'auto'
+				polyTile.style.pointerEvents = 'auto'
+				ellipseTile.style.pointerEvents = 'none'
+				polyTile.style.background = 'none'
+				ellipseTile.style.background = 'var(--themeorange)'
+				polyTile.style.color = 'hsla(0, 0%, 70%, 1)'
+				ellipseTile.style.color = 'hsla(0, 100%, 100%, 1)'
+				polyTile.style.borderWidth = '1px'
+				ellipseTile.style.borderWidth = '0px'
+
+				document.getElementById('spacerBD1').style.height = '30%'
+
+				document.getElementById('ellipsePanel').style.visibility = 'visible'
+				document.getElementById('polyPanel').style.visibility = 'hidden'
+				document.getElementById('ellipsePanel').style.pointerEvents = 'auto'
+				document.getElementById('polyPanel').style.pointerEvents = 'none'
+
+				boundaryType = 'circle'
+			}
+
+			showBoundaryKnobs()
+			randomizeChargePositions()
+		}
+
+		polypointuid = 1
+		polyPoints = []
+
+		function addNewPolyPoint(newpolypoint) {
+			ref = document.getElementById('pbVfinalspacer')
+			polypointuid = polypointuid + 1
+			cindex = polypointuid
+			newdiv = document.createElement("div");
+			newdiv.id = 'polypointB' + cindex
+			newdiv.setAttribute('class','polypointB')
+			newdiv.style = 'margin:0px;width:100%; height:20%; display: inline-block;'
+			newdiv.innerHTML = '<input value="Point ' + (polyPoints.length + 1) + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly=""><div id="pbspacer" style="margin:0px;width:5%; height:100%; display: inline-block;"></div><input type="number" min="0" step="0.01" onclick="" value="' + newpolypoint[0] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="pbspacer" style="margin:0px;width:5%; height:100%; display: inline-block;"></div><input type="number" min="0" step="0.01" onclick="" value="' + newpolypoint[1] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;">'
+			ref.parentNode.insertBefore(newdiv, ref);
+
+			newdiv = document.createElement("div");
+			newdiv.id = 'pbVspacerOf' + (polyPoints.length + 1)
+			newdiv.setAttribute('class', 'pbVspacer')
+			newdiv.style = 'margin:0px;width:100%; height:5%; display: inline-block;'
+			ref.parentNode.insertBefore(newdiv, ref);
+
+			options = {}
+			options.x = newpolypoint[0]
+			options.y = newpolypoint[1]
+			options.pointsize = 1
+			options.pointcolor = 'var(--themeorange)'
+			ptknob = addPoint('labG', 'polypointknob@' + (polyPoints.length + 1), options)[0]
+			ptknob.style.visibility = 'hidden'
+			ptknob.style.pointerEvents = 'none'
+
+			options = {}
+			options.x = newpolypoint[0]
+			options.y = newpolypoint[1]
+			options.pointsize = 2
+			options.pointcolor = 'hsla(32, 100%, 50%, 0.3)'
+			options.draggability = 'yes'
+			options.dragDirection = 'bothXY'
+			// options.dragIfCondition = 'moveX > 0'
+			// options.runFunctionDuringDrag = 'majorknobDragFunction()'
+			pptknob = addPoint('labG', 'polypointknobBack@' + (polyPoints.length + 1), options)[0]
+			pptknob.style.visibility = 'hidden'
+			pptknob.style.pointerEvents = 'none'
+			pptknob.style.cursor = 'move'
+
+			polyPoints.push(newpolypoint)
+
+		}
+
+		function addPolygonPoints(sides) {
+			for (ppIndex = 0; ppIndex < sides; ppIndex++) {
+				ang = (2*Math.PI/sides)*ppIndex
+				ppPointToAdd = [Math.cos(ang), Math.sin(ang)]
+				addNewPolyPoint(ppPointToAdd)
+			}
+		}
+
+		addPolygonPoints(6)
+
+		function updatePolyPath() {
+			polyPathPoints = polyPoints.slice()
+			polyPathPoints.push(polyPoints[0])
+			updatePathPoints('labG', 'simplePolygonBoundary', polyPathPoints)
+		}
+
+		updatePolyPath()
+
+		function removePolyPoints() {
+			for (pptIndex = 1; pptIndex <= polyPoints.length; pptIndex++) {
+				removePoint('labG', 'polypointknob@' + pptIndex)
+				removePoint('labG', 'polypointknobBack@' + pptIndex)
+			}
+		}
+
+		function polysidesChange() {
+			removePolyPoints()
+			polyPoints = []
+			toDeleteBoxes = document.getElementsByClassName('polypointB')
+			toDeleteBoxesC = {...toDeleteBoxes}
+			for (var blk in toDeleteBoxesC) {
+				toDeleteBoxesC[blk].outerHTML = ''
+			}
+			toDeleteBoxes = document.getElementsByClassName('pbVspacer')
+			toDeleteBoxesC = {...toDeleteBoxes}
+			for (var blk in toDeleteBoxesC) {
+				toDeleteBoxesC[blk].outerHTML = ''
+			}
+			
+			addPolygonPoints(document.getElementById('sidesTileInput').value)
+			updatePolyPath()
+			showBoundaryKnobs()
+			randomizeChargePositions()
 		}
 
 		function handleLayout() {
