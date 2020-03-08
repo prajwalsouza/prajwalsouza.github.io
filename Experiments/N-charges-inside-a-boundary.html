@@ -306,9 +306,27 @@
 							</div>
 						</div>
 						<div id="spacerCH2" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-						<div id="energyFuncPanel" style='margin:0px;width:100%; height: 20%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+						<div id="energyFuncPanel" style='margin:0px;width:100%; height: 27%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+							<div id="spacerE1sub1" style='margin:0px;width:100%; height:10%; display: inline-block;'></div>
+							<div id="spacerE1sub2" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+							<div id="energyfunctext" style='margin:0px;width:88%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>
+								<input value='ENERGY FUNCTION' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+							</div>
+							<div id="spacerE1sub3" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+							<div id="spacerE1sub4" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+							<div id="efspacer" style='margin:0px;width:5%; height:25%; display: inline-block;'></div>
+							<input  oninput="handleEnergyFInput(event)" id='energyFInput' value='p*q/d' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 88%; height: 25%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.2vw; background: hsla(0,0%,80%,1); color: hsla(0, 0%, 0%, 1); cursor: auto; user-select: none;"></input>
+							<div id="efspacer" style='margin:0px;width:5%; height:25%; display: inline-block;'></div>
+							<div id="energyFuncInfoPanel" style='margin:0px;width:100%; height: 30%; display: inline-block; overflow: hidden; position: relative;'>
+								<div id="spacerfunc1" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
+								<div id="spacerfunc2" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
+								<div id="energyinfodata" style='margin:0px;width:90%; height: 60%; display: inline-block;font-size: 0.8vw; font-family: Nunito; color: hsla(0, 0%, 50%, 1); '>
+									The energy between two charges of p and q units, separated by a distance d. Please stick to using p, q and d while modifying this function.
+								</div>
+								<div id="spacerfunc3" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
+							</div>
 						</div>
-						<div id="spacerCH3" style='margin:0px;width:100%; height: 17%; display: inline-block;'></div>
+						<div id="spacerCH3" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
 					</div>
 					<div id="settingsoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
 						
@@ -3352,6 +3370,10 @@
 				// console.log(lowestEnergy)
 			}
 			updateEnergyInfo()
+		}
+
+		function handleEnergyFInput(event) {
+			energyFunc = event.target.value
 		}
 
 		energyFunc = 'p*q/d'
