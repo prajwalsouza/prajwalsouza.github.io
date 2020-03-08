@@ -317,7 +317,7 @@
 							<div id="gradfill1" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 30%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1) 80%,hsla(0, 100%, 100%, 1));'></div>
 							<div id="spacerD51" style='margin:0px;width:100%; height: 12%; display: inline-block;'></div>
 							<div id="spacerD52" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-							<div id="algorithmnametext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1);'>ELECTROSTATIC PUSH</div>
+							<div id="algorithmnametext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1);'>ELECTROSTATIC WALK</div>
 							<div id="spacerD53" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 							<div id="spacerD54" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
 							<div id="spacerD55" style='margin:0px;width:5%; height: 53%; display: inline-block;'></div>
@@ -388,7 +388,7 @@
 							<div id="spacerD113" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
 							<div id="choosealgorithmdrop" style='margin:0px;width:50%; height: 30%; display: inline-block; overflow: hidden;'>
 								<select onchange="chooseAlgo(event)" id="algorithmsToChoose" style="font-family: Roboto; font-size: 0.75vw;">
-									<option value="electrostaticpushAlgo">ELECTROSTATIC PUSH</option>
+									<option value="electrostaticpushAlgo">ELECTROSTATIC WALK</option>
 									<option value="electrostaticwithRandomnessAlgo">ELECTROSTATIC AND  RANDOMNESS</option>
 									<option value="randomPositionAlgo">RANDOM POSITION</option>
 									<option value="randomSearchAlgo">RANDOM SEARCH</option>
@@ -3137,10 +3137,26 @@
 					options.currentlyDraggable = 'no'
 					chargeId = chargeId + 1
 					addPoint('labG', chargeId + '-charge', options)
+
+					options = {}
+					options.x = locX
+					options.y = locY
+					options.pointsize = 2
+					options.pointcolor = 'hsla(198, 100%, 50%, 0.4)'
+					options.draggability = 'yes'
+					options.currentlyDraggable = 'yes'
+					options.dragIfCondition = 'chargeMovePossible([moveX, moveY])'
+					options.runFunctionDuringDrag = 'chargeMove([moveX, moveY])'
+					addedChBack = addPoint('labG', chargeId + '-chargeBack', options)[0]
+					addedChBack.style.cursor = 'move'
+					addedChBack.style.pointerEvents = 'none'
+					addedChBack.style.visibility = 'hidden'
+
 					chargeDetails[chnumber] = {}
 					chargeDetails[chnumber].loc = [locX, locY]
 					chargeDetails[chnumber].weight = weight
 					chargeDetails[chnumber].id = chargeId
+					chargeuidMap[chargeId] = chnumber
 				}	
 			}
 			else if (boundaryType == 'ellipse') {
@@ -3154,10 +3170,24 @@
 					options.currentlyDraggable = 'no'
 					chargeId = chargeId + 1
 					addPoint('labG', chargeId + '-charge', options)
+
+					options = {}
+					options.x = locX
+					options.y = locY
+					options.pointsize = 2
+					options.pointcolor = 'hsla(198, 100%, 50%, 0.4)'
+					options.draggability = 'yes'
+					options.currentlyDraggable = 'yes'
+					addedChBack = addPoint('labG', chargeId + '-chargeBack', options)[0]
+					addedChBack.style.cursor = 'move'
+					addedChBack.style.pointerEvents = 'none'
+					addedChBack.style.visibility = 'hidden'
+
 					chargeDetails[chnumber] = {}		
 					chargeDetails[chnumber].loc = [locX, locY]
 					chargeDetails[chnumber].weight = weight
 					chargeDetails[chnumber].id = chargeId
+					chargeuidMap[chargeId] = chnumber
 				}	
 			}
 			else if (boundaryType == 'polygon') {
@@ -3170,13 +3200,72 @@
 					options.draggability = 'yes'
 					options.currentlyDraggable = 'no'
 					chargeId = chargeId + 1
-					addPoint('labG', chargeId + '-charge', options)		
+					addPoint('labG', chargeId + '-charge', options)	
+
+					options = {}
+					options.x = locX
+					options.y = locY
+					options.pointsize = 2
+					options.pointcolor = 'hsla(198, 100%, 50%, 0.4)'
+					options.draggability = 'yes'
+					options.currentlyDraggable = 'yes'
+					addedChBack = addPoint('labG', chargeId + '-chargeBack', options)[0]
+					addedChBack.style.cursor = 'move'
+					addedChBack.style.pointerEvents = 'none'
+					addedChBack.style.visibility = 'hidden'
+
 					chargeDetails[chnumber] = {}
 					chargeDetails[chnumber].loc = [locX, locY]
 					chargeDetails[chnumber].weight = weight
 					chargeDetails[chnumber].id = chargeId
+					chargeuidMap[chargeId] = chnumber
 				}	
 			}			
+		}
+
+		chargeuidMap = {}
+
+		function chargeMove(chlocation) {
+			chargeids = currentMovingPoint.id.split('-')[2]
+			chargenum = chargeuidMap[chargeids]
+			chargeDetails[chargenum].loc = chlocation
+			updatePointXY('labG', chargeids + '-charge', chlocation[0], chlocation[1])
+			document.getElementById('chpointBXv@' + chargenum).value = chlocation[0]
+			document.getElementById('chpointBYv@' + chargenum).value = chlocation[1]
+
+			currentEnergy = computeEnergy()
+			if (currentEnergy < lowestEnergy) {
+				lowestEnergy = currentEnergy
+				// console.log(lowestEnergy)
+			}
+			updateEnergyInfo()
+		}
+
+		function chargeMovePossible(chlocation) {
+			if (boundaryType == 'circle') {
+				if (distF([0,0],chlocation) < boundaryoptions.radius) {
+					return true
+				}
+				else {
+					return false
+				}
+			}
+			else if (boundaryType == 'ellipse') {
+				if (Math.pow(chlocation[0]/boundaryoptions.semiMajorAxis, 2) + Math.pow(chlocation[1]/boundaryoptions.semiMinorAxis, 2) < 1) {
+					return true
+				}
+				else {
+					return false
+				}
+			}
+			else if (boundaryType == 'polygon') {
+				if (inside(chlocation, polyPoints)) {
+					return true
+				}
+				else {
+					return false
+				}
+			}
 		}
 
 		// function addCharges(number) {
@@ -3290,6 +3379,35 @@
 
 			addChargeToBoundary(newchpoint[0], newchpoint[1], newchpoint[2], cindex)
 			$("#chargePropsBlocksH").scrollTop($("#chargePropsBlocksH")[0].scrollHeight);
+
+			showChargeKnobs()
+
+			lowestEnergy = Infinity
+
+			currentEnergy = computeEnergy()
+			if (currentEnergy < lowestEnergy) {
+				lowestEnergy = currentEnergy
+				// console.log(lowestEnergy)
+			}
+			updateEnergyInfo()
+		}
+
+		function chpointInput(event) {
+			chargenum = event.target.id.split('@')[1]
+			chargeids = chargeDetails[chargenum].id
+			chlocation = [parseFloat(document.getElementById('chpointBXv@' + chargenum).value), parseFloat(document.getElementById('chpointBYv@' + chargenum).value)]
+			if (chargeMovePossible(chlocation)) {
+				chargeDetails[chargenum].loc = chlocation
+				chargeDetails[chargenum].weight = parseFloat(document.getElementById('chpointBCv@' + chargenum).value)
+				updatePointXY('labG', chargeids + '-charge', chlocation[0], chlocation[1])
+				updatePointXY('labG', chargeids + '-chargeBack', chlocation[0], chlocation[1])
+			}
+			currentEnergy = computeEnergy()
+			if (currentEnergy < lowestEnergy) {
+				lowestEnergy = currentEnergy
+				// console.log(lowestEnergy)
+			}
+			updateEnergyInfo()
 		}
 
 		energyFunc = 'p*q/d'
@@ -3301,6 +3419,7 @@
 		function computeEnergy() {
 			enrg = 0
 			completedCombination = {}
+			// console.log('s')
 			for (var charge1 in chargeDetails) {
 				for (var charge2 in chargeDetails) {
 					if (charge2 != charge1 && completedCombination[charge2 + '-' + charge1] == undefined && completedCombination[charge1 + '-' + charge2] == undefined) {
@@ -3310,6 +3429,8 @@
 						d = chargeDist
 						p = chargeDetails[charge1].weight
 						q = chargeDetails[charge2].weight
+						// console.log(p, q)
+						// console.log(energyMeasure())
 						enrg = enrg + energyMeasure()
 						completedCombination[charge2 + '-' + charge1] = true
 						completedCombination[charge1 + '-' + charge2] = true
@@ -3732,7 +3853,7 @@
 
 
 		algorithmCodeDetails = {}
-		algorithmCodes.electrostaticpushAlgoCodeDetails = ['ELECTROSTATIC PUSH','Move the <font style="color: var(--themeblue);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force, if the new location is within the <font style="color: var(--themeorange);">boundary</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : electrostaticForce(<font style="color: var(--themeblue);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> Pick a random <font style="color: var(--themeblue);">charge</font> <br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : pickCharge()</font><br/><br/><br/>']
+		algorithmCodes.electrostaticpushAlgoCodeDetails = ['ELECTROSTATIC WALK','Move the <font style="color: var(--themeblue);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force, if the new location is within the <font style="color: var(--themeorange);">boundary</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : electrostaticForce(<font style="color: var(--themeblue);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> Pick a random <font style="color: var(--themeblue);">charge</font> <br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : pickCharge()</font><br/><br/><br/>']
 		algorithmCodes.electrostaticwithRandomnessAlgoCodeDetails = ['ELECTROSTATIC AND RANDOMNESS','Movement in the direction of the electrostatic force, but with certain randomness. There is a random event which generates a value between 0 to 100, if the probability value is less than certain value, the force is applied. Also, there is new force called the random force. It is equivalent to a statistical fluctuation. It acts in a random direction and makes the picked charged move a distance d in that direction, if the new location is within the <font style="color: var(--themeorange);">boundary</font>.<br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : randomForce(<font style="color: var(--themeblue);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> Pick a value between 0 to 100.<br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : probability()</font><br/><br/>Move the <font style="color: var(--themeblue);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force<font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : electrostaticForce(<font style="color: var(--themeblue);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> Pick a random <font style="color: var(--themeblue);">charge</font> <br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : pickCharge()</font><br/><br/><br/><br/>']
 		algorithmCodes.randomPositionAlgoCodeDetails = ['RANDOM POSITION','Pick a <font style="color: var(--themeblue);">charge</font> and then randomly pick a position within the <font style="color: var(--themeorange);">boundary</font>. Move the <font style="color: var(--themeblue);">charge</font> to that location. If the energy in the new arrangement is greater than the previous arrangment, move the <font style="color: var(--themeblue);">charge</font> back to its original position. <br/><br/> Get the position of the <font style="color: var(--themeblue);">charge</font>.<br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : getPosition(<font style="color: var(--themeblue);">charge</font>)</font><br/><br/> Pick a random position inside the <font style="color: var(--themeorange);">boundary</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : randomPositionInsideBoundary()</font> <br/><br/>Get the energy for the current arrangement of the <font style="color: var(--themeblue);">charges</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : computeEnergy()</font><br/><br/><br/> ']
 		algorithmCodes.geneticAlgoCodeDetails = ['GENETIC ALGORITHM','We start the charges in a random state and apply a working algorithm, such as ElectroStatic algorithm. Once we reach, the end state, we saved the state. We call this state, the offspring 01 of generation 01. We run the Electrostatic algorithm "p1" times and generate "p1" offsprings which will belong to generation 01. We then pick top "g1" offsprings (states) that leads to the lowest energy states. <br/>We then apply the Electrostatic algorithm (with little changes in parameters) again on these "g1" offsprings picking them randomly and run the algorithm "p2" times to generate "p2" offsprings of generation 02. We pick the top "g2" offsprings of lowest energy. This process continues till we have lowest energy state.<br/><br/><br/>']
@@ -3830,6 +3951,30 @@
 			}
 		}
 
+		function showChargeKnobs() {
+			for (var charge1 in chargeDetails) {
+				document.getElementById('labG-point-' + chargeDetails[charge1].id + '-chargeBack').style.visibility = 'visible'
+				document.getElementById('labG-point-' + chargeDetails[charge1].id + '-chargeBack').style.pointerEvents = 'auto'
+			}
+			updateChargeKnobs()
+		}
+
+		function hideChargeKnobs() {
+			for (var charge1 in chargeDetails) {
+				document.getElementById('labG-point-' + chargeDetails[charge1].id + '-chargeBack').style.visibility = 'hidden'
+				document.getElementById('labG-point-' + chargeDetails[charge1].id + '-chargeBack').style.pointerEvents = 'none'
+			}
+		}
+
+		function updateChargeKnobs() {
+			for (var charge1 in chargeDetails) {
+				updatePointXY('labG', chargeDetails[charge1].id + '-chargeBack', chargeDetails[charge1].loc[0],chargeDetails[charge1].loc[1])
+				document.getElementById('chpointBXv@' + charge1).value = chargeDetails[charge1].loc[0]
+				document.getElementById('chpointBYv@' + charge1).value = chargeDetails[charge1].loc[1]
+			}
+				
+		}
+
 		function showBoundaryKnobs() {
 			if (boundaryType == 'circle' || boundaryType == 'ellipse') {
 				minorknob.style.visibility = 'visible'
@@ -3924,6 +4069,7 @@
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
 
 				hideBoundaryKnobs()
+				hideChargeKnobs()
 
 			}
 			else if (event.target.id == 'settingsoption') {
@@ -3960,6 +4106,7 @@
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'auto'
 
 				hideBoundaryKnobs()
+				hideChargeKnobs()
 			}
 			else if (event.target.id == 'chargesoption') {
 				event.target.setAttribute('onclick', '')
@@ -3995,6 +4142,7 @@
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
 
 				hideBoundaryKnobs()
+				showChargeKnobs()
 				$("#chargePropsBlocksH").scrollTop(0);
 			}
 			else if (event.target.id == 'boundaryoption') {
@@ -4035,6 +4183,7 @@
 				document.getElementById('settingsoptionspanel').style.pointerEvents = 'none'
 
 				showBoundaryKnobs()
+				hideChargeKnobs()
 
 			}
 		}
@@ -4093,6 +4242,15 @@
 			// boundaryTypeCheck()
 			showBoundaryKnobs()
 			randomizeChargePositions()
+			lowestEnergy = Infinity
+
+			currentEnergy = computeEnergy()
+			if (currentEnergy < lowestEnergy) {
+				lowestEnergy = currentEnergy
+				// console.log(lowestEnergy)
+			}
+			updateEnergyInfo()
+
 		}
 
 		// polypointuid = 1
@@ -4185,6 +4343,14 @@
 			updatePolyPath()
 			showBoundaryKnobs()
 			randomizeChargePositions()
+
+			lowestEnergy = Infinity
+			currentEnergy = computeEnergy()
+			if (currentEnergy < lowestEnergy) {
+				lowestEnergy = currentEnergy
+				// console.log(lowestEnergy)
+			}
+			updateEnergyInfo()
 		}
 
 		function checkIfSegmentsMeet(segment1, segment2) {
@@ -4311,12 +4477,16 @@
 			}
 		}
 
-		addCharges(12)
+		addCharges(3)
 
 		$("#chargePropsBlocksH").scrollTop(0);
 
-		randompsn = randomPositionInsideBoundary()
-		addNewChargePoint([randompsn[0],randompsn[1], -1])
+		hideChargeKnobs()
+
+		
+
+		// randompsn = randomPositionInsideBoundary()
+		// addNewChargePoint([randompsn[0],randompsn[1], -1])
 
 		function handleLayout() {
 			if (mode == 'portrait') {
