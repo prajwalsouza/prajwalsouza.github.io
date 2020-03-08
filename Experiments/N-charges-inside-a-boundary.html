@@ -274,8 +274,14 @@
 								<div id="gradfillchp" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 32%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 38%, hsla(0, 0%, 0%, 0) 80%,hsla(0, 100%, 100%, 1) 90%,hsla(0, 100%, 100%, 0) 91%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
 								<div id="spacerCH1sub1" style='margin:0px;width:100%; height:9%; display: inline-block;'></div>
 								<div id="spacerCH1sub2" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-								<div id="chargepropertiestext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>CHARGE PROPERTIES</div>
+								<div id="chargepropertiestext" style='margin:0px;width:40%; height: 10%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>
+									<input value='CHARGE PROPERTIES' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+								</div>
 								<div id="spacerCH1sub3" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+								<div id="addchargeblock" style='margin:0px;width:35%; height:10%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: hidden;'>
+									<input onclick="addchargeblock()" id='addchargeText' value='Add Charge' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vw; font-weight: lighter; color:  black; background: var(--themeblue); color: white; cursor: pointer;" readonly></input>
+								</div>
+								<div id="addchargeblockspacer" style='margin:0px;width:10%; height:10%; display: inline-block;'></div>
 								<div id="spacerCH1sub4" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
 								<div id="spacerCH1sub5" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
 								<div id="chargeeditNameBlock" style='margin:0px;width:90%; height:10%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro;  color: hsla(0, 0%, 50%, 1); position: relative; '>
@@ -292,11 +298,7 @@
 								<div id="spacerCH1sub7" style='margin:0px;width:100%; height:3%; display: inline-block;'></div>
 								<div id="spacerCH1sub8" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
 								<div id="chargePropsBlocksH" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vw; font-family: Source Sans Pro; color: hsla(0, 0%, 50%, 1); position: relative; overflow-y: scroll; '>
-									<div id="addchargeblockspacer" style='margin:0px;width:100%; height:6%; display: inline-block;'></div>
-									<div id="addchargeblock" style='margin:0px;width:97%; height:20%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
-										<input onclick="addchargeblock()" id='addchargeText' value='Add Charge' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vw; font-weight: lighter; color:  black; background: var(--themeblue); color: white; cursor: pointer;" readonly></input>
-									</div>
-									<div id="addchargeblockspacer" style='margin:0px;width:100%; height:3%; display: inline-block;'></div>
+									<div id="topspacer" style='margin:0px;width:100%; height:6%; display: inline-block;'></div>
 									<div id="chfinalspacer" style='margin:0px;width:100%; height:20%; display: inline-block;'></div>
 								</div>
 								<div id="spacerCH1sub9" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
