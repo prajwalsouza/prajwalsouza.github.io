@@ -315,7 +315,7 @@
 							<div id="spacerE1sub3" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 							<div id="spacerE1sub4" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
 							<div id="efspacer" style='margin:0px;width:5%; height:25%; display: inline-block;'></div>
-							<input  oninput="handleEnergyFInput(event)" id='energyFInput' value='p*q/d' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 88%; height: 25%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.2vw; background: hsla(0,0%,80%,1); color: hsla(0, 0%, 0%, 1); cursor: auto; user-select: none;"></input>
+							<input  oninput="handleEnergyFInput(event)" id='energyFInput' value='p*q/d' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 88%; height: 25%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.2vw; background: hsla(0,0%,80%,1); color: hsla(0, 0%, 0%, 1); cursor: auto; user-select: none; border-radius: 5px;"></input>
 							<div id="efspacer" style='margin:0px;width:5%; height:25%; display: inline-block;'></div>
 							<div id="energyFuncInfoPanel" style='margin:0px;width:100%; height: 30%; display: inline-block; overflow: hidden; position: relative;'>
 								<div id="spacerfunc1" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
@@ -393,7 +393,7 @@
 							<div id="spacerD86" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
 							<div id="spacerD87" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
 							<div id="spacerD88" style='margin:0px;width:5%; height: 12%; display: inline-block;'></div>
-							<div id="errordisplay" style='margin:0px;width:90%; height: 12%; display: inline-block; font-size: 0.8vw; color: red; font-family: Source Sans Pro; z-index: 3; overflow: auto; pointer-events: none;'>
+							<div id="errorAndInfodisplay" style='margin:0px;width:90%; height: 12%; display: inline-block; font-size: 0.8vw; color: red; font-family: Source Sans Pro; z-index: 3; overflow: auto; pointer-events: none;'>
 								<font style="color: hsla(0, 0%, 0%, 0.7)">The code is written in Javascript and exact function names have to followed since they are case sensitive.</font>
 							</div>
 							<div id="spacerD89" style='margin:0px;width:5%; height: 12%; display: inline-block;'></div>
@@ -3330,7 +3330,7 @@
 			newdiv.id = 'chpointB' + cindex
 			newdiv.setAttribute('class','chpointB')
 			newdiv.style = 'margin:0px;width:100%; height:20%; display: inline-block;'
-			newdiv.innerHTML = '<input value="' + (chlength) + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 5%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: auto; pointer-events: none; user-select: none;" readonly=""><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBXv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[0] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBYv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[1] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBCv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[2] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 14%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input value="REMOVE" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 13%; height: 100%; text-align: center;font-size: 0.6vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: pointer;  user-select: none;" id="chpointRemove@' + (chlength) + '" readonly=""></div>'
+			newdiv.innerHTML = '<input value="' + (chlength) + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 5%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: auto; pointer-events: none; user-select: none;" readonly=""><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBXv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[0] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBYv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[1] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBCv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[2] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 14%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input onclick="removeChargePoint(event)" value="REMOVE" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 13%; height: 100%; text-align: center;font-size: 0.6vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: pointer;  user-select: none;" id="chpointRemove@' + (chlength) + '" readonly=""></div>'
 			ref.parentNode.insertBefore(newdiv, ref);
 
 			newdiv = document.createElement("div");
@@ -3370,6 +3370,27 @@
 				// console.log(lowestEnergy)
 			}
 			updateEnergyInfo()
+		}
+
+		function removeChargePoint(event) {
+			newChargeDetails = {...chargeDetails}
+			removedCharge = event.target.id.split('@')[1]
+
+			for (var chargeIndex in chargeDetails) {
+				removePoint('labG', chargeDetails[chargeIndex].id +  '-charge')
+				removePoint('labG',  chargeDetails[chargeIndex].id + '-chargeBack')
+			}
+
+			chargeDetails = {}
+			document.getElementById('chargePropsBlocksH').innerHTML = "<div id='topspacer' style='margin:0px;width:100%; height:6%; display: inline-block;'></div><div id='chfinalspacer' style='margin:0px;width:100%; height:20%; display: inline-block;'></div>"
+
+			for (var chargekey in newChargeDetails) {
+				if (removedCharge != chargekey) {
+					removedLoc = newChargeDetails[chargekey].loc
+					removedW = newChargeDetails[chargekey].weight
+					addNewChargePoint([removedLoc[0], removedLoc[1], removedW])
+				}
+			}
 		}
 
 		function handleEnergyFInput(event) {
@@ -3464,6 +3485,9 @@
 					chargeDetails[charge2].loc = newpos
 					chargeIds = chargeDetails[charge2].id
 					updatePointXY('labG', chargeIds + '-charge', newpos[0], newpos[1])
+					if (usingStepAlgo) {
+						document.getElementById('errorAndInfodisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Moved the charge <font style="color: var(--themeblue)">' + charge2 + '</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">' + moveDistance + '</font>, resulting in displacement of (' + totalforce[0] + ',' +totalforce[1] + ').</font>'
+					}
 				}
 				else if (handleTangentialForce) {
 					newtotalforce = randomChoice(tangentialBoundaryForce(totalforce))
@@ -3472,6 +3496,9 @@
 						chargeDetails[charge2].loc = newpos
 						chargeIds = chargeDetails[charge2].id
 						updatePointXY('labG', chargeIds + '-charge', newpos[0], newpos[1])
+						if (usingStepAlgo) {
+							document.getElementById('errorAndInfodisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Moved the charge <font style="color: var(--themeblue)">' + charge2 + '</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">' + moveDistance + '</font>, resulting in displacement of (' + newtotalforce[0] + ',' + newtotalforce[1] + ').</font>'
+						}
 					}
 				}
 			}
@@ -3480,6 +3507,9 @@
 					chargeDetails[charge2].loc = newpos
 					chargeIds = chargeDetails[charge2].id
 					updatePointXY('labG', chargeIds + '-charge', newpos[0], newpos[1])
+					if (usingStepAlgo) {
+						document.getElementById('errorAndInfodisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Moved the charge <font style="color: var(--themeblue)">' + charge2 + '</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">' + moveDistance + '</font>, resulting in displacement of (' + newtotalforce[0] + ',' + newtotalforce[1] + ').</font>'
+					}
 				}
 				else if (handleTangentialForce) {
 					newtotalforce = randomChoice(tangentialBoundaryForce(totalforce))
@@ -3488,6 +3518,9 @@
 						chargeDetails[charge2].loc = newpos
 						chargeIds = chargeDetails[charge2].id
 						updatePointXY('labG', chargeIds + '-charge', newpos[0], newpos[1])
+						if (usingStepAlgo) {
+							document.getElementById('errorAndInfodisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Moved the charge <font style="color: var(--themeblue)">' + charge2 + '</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">' + moveDistance + '</font>, resulting in displacement of (' + newtotalforce[0] + ',' + newtotalforce[1] + ').</font>'
+						}
 					}
 				}
 			}	
@@ -3496,6 +3529,9 @@
 					chargeDetails[charge2].loc = newpos
 					chargeIds = chargeDetails[charge2].id
 					updatePointXY('labG', chargeIds + '-charge', newpos[0], newpos[1])
+					if (usingStepAlgo) {
+						document.getElementById('errorAndInfodisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Moved the charge <font style="color: var(--themeblue)">' + charge2 + '</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">' + moveDistance + '</font>, resulting in displacement of (' + newtotalforce[0] + ',' + newtotalforce[1] + ').</font>'
+					}
 				}
 				else if (handleTangentialForce) {
 					newtotalforce = randomChoice(tangentialBoundaryForce(totalforce))
@@ -3504,6 +3540,9 @@
 						chargeDetails[charge2].loc = newpos
 						chargeIds = chargeDetails[charge2].id
 						updatePointXY('labG', chargeIds + '-charge', newpos[0], newpos[1])
+						if (usingStepAlgo) {
+							document.getElementById('errorAndInfodisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Moved the charge <font style="color: var(--themeblue)">' + charge2 + '</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">' + moveDistance + '</font>, resulting in displacement of (' + newtotalforce[0] + ',' + newtotalforce[1] + ').</font>'
+						}
 					}
 				}
 			}	
@@ -3638,7 +3677,11 @@
 		}
 
 		function pickCharge() {
-			return parseInt(Math.random()*(Object.keys(chargeDetails).length)) + 1
+			chpicked = parseInt(Math.random()*(Object.keys(chargeDetails).length)) + 1
+			if (usingStepAlgo) {
+				document.getElementById('errorAndInfodisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Picked the charge <font style="color: var(--themeblue)">' + chpicked + '</font>. </font>'
+			}
+			return chpicked
 		}
 
 		useCustomCode = true
@@ -3658,13 +3701,13 @@
 						// console.log(theInstructions)
 						if (errordisplayflag) {
 							errordisplayflag = false
-							document.getElementById('errordisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">The code is written in Javascript and exact function names have to followed since they are case sensitive.</font>'
+							document.getElementById('errorAndInfodisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">The code is written in Javascript and exact function names have to followed since they are case sensitive.</font>'
 						}
 						try {
 							eval(theInstructions)
 						}
 						catch(error) {
-							document.getElementById('errordisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Current Error : </font>' + error
+							document.getElementById('errorAndInfodisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Current Error : </font>' + error
 							errordisplayflag = true
 							document.getElementsByClassName('codeblock')[customcodePointer].style.borderColor = 'red'
 							document.getElementsByClassName('codeblockText')[customcodePointer].style.color = 'red'
@@ -3843,6 +3886,8 @@
 			}
 		}
 
+		usingStepAlgo = false
+
 		function stepAlgo(event) {
 			if (useCustomCode) {
 				theInstructions = customcodes[customcodePointer];
@@ -3851,11 +3896,14 @@
 					blocks[blk].style.color = 'hsla(0,0%,0%,1)'
 				}
 				try {
+					usingStepAlgo = true
+					errordisplayflag = true
 					eval(theInstructions)
+					usingStepAlgo = false
 					document.getElementsByClassName('codeblockText')[customcodePointer].style.color = 'var(--themeviolet)'
 				}
 				catch(error) {
-					document.getElementById('errordisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Current Error : </font>' + error
+					document.getElementById('errorAndInfodisplay').innerHTML = '<font style="color: hsla(0, 0%, 0%, 0.7)">Current Error : </font>' + error
 					errordisplayflag = true
 					document.getElementsByClassName('codeblock')[customcodePointer].style.borderColor = 'red'
 					document.getElementsByClassName('codeblockText')[customcodePointer].style.color = 'red'
@@ -3880,8 +3928,8 @@
 
 		algorithmCodes = {}
 		algorithmCodes.electrostaticwalkAlgoCode = ['charge = pickCharge()', 'electrostaticWalk(charge, 0.008)']
-		algorithmCodes.electrostaticwithRandomnessAlgoCode = ['charge = pickCharge()', 'if (probability() < 40) { randomForce(charge, 0.02) }','charge = pickCharge()', 'if (probability() < 90) { electrostaticForce(charge, 0.008) }']
-		algorithmCodes.electrostaticForceAlgoCode = ['charge = pickCharge()', 'electrostaticForce(charge, 0.008)']
+		algorithmCodes.electrostaticwithRandomnessAlgoCode = ['charge = pickCharge()', 'if (probability() < 40) { randomForce(charge, 0.02) }','charge = pickCharge()', 'if (probability() < 90) { electrostaticWalk(charge, 0.008) }']
+		algorithmCodes.electrostaticForceAlgoCode = ['charge = pickCharge()', 'electrostaticForce(charge, 0.003)']
 		algorithmCodes.randomPositionAlgoCode  = ['charge = pickCharge()', 'oldps = getPosition(charge)','newps = randomPositionInsideBoundary()', 'oldenergy = computeEnergy()', 'moveChargeToPosition(newps, charge)', 'newenergy = computeEnergy()', 'if (newenergy > oldenergy) {moveChargeToPosition(oldps, charge)}']
 		algorithmCodes.geneticAlgoCode = ['charge = pickCharge()', 'electrostaticForce(charge, 0.008)']
 		algorithmCodes.randomSearchAlgoCode = ['randomizeChargePositions()']
@@ -4518,8 +4566,6 @@
 		$("#chargePropsBlocksH").scrollTop(0);
 
 		hideChargeKnobs()
-
-		
 
 		// randompsn = randomPositionInsideBoundary()
 		// addNewChargePoint([randompsn[0],randompsn[1], -1])
