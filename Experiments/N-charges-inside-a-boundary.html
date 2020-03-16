@@ -487,19 +487,19 @@
 						</div>
 					</div><br/>
 					<div id="simulationDetailAndButtonsH" style='margin:0px;width:100%; height: 80%;overflow: hidden;position: absolute; z-index: 10;display: inline-block; background: none; box-shadow: inset 0px 0px 50px 50px hsla(32, 100%,100%, 1); border: 0px solid black; border-radius: 0px; border-top-left-radius: 60px; pointer-events: none;'>
-						<div id="spacerSD1" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+						<div id="spacerSD1" style='margin:0px;width:100%; height: 6%; display: inline-block;'></div>
 						<div id="spacerSD2" style='margin:0px;width:7%; height: 20%; display: inline-block;'></div>
 						<div id="energyinfo" style='margin:0px;width:65%; height: 20%; display: inline-block; text-align: left; font-size: 0.8vmax; font-family: Source Sans Pro; color: black; font-weight: bold; overflow: hidden;'>
 							<font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Lowest Energy</font>  25.134 <br/> <font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Current Energy</font> 28.11
 						</div>
-						<div id="spacerSD3" style='margin:0px;width:28%; height: 20%; display: inline-block;'></div>
-						<div id="spacerSD6" style='margin:0px;width:88%; height: 7%; display: inline-block;'></div>
+						<div id="spacerSD4" style='margin:0px;width:28%; height: 20%; display: inline-block;'></div>
+						<div id="spacerSD5" style='margin:0px;width:88%; height: 7%; display: inline-block;'></div>
 						<div id="saveButtonH" style='margin:0px;width:8%; height: 7%; display: inline-block; overflow: hidden; user-select: none;'>
 							<input onclick="handleSave(event)" id='savebutton' class="sidebuttons" value='SAVE' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vmax; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; user-select: none; pointer-events: auto; overflow: hidden; outline: none;" readonly></input>
 						</div>
-						<div id="spacerSD5" style='margin:0px;width:4%; height: 7%; display: inline-block;'></div>
+						<div id="spacerSD6" style='margin:0px;width:4%; height: 7%; display: inline-block;'></div>
 						<div id="spacerbuttonGap1" style='margin:0px;width:100%; height: 2%; display: inline-block;'></div>
-						<div id="spacerSD6" style='margin:0px;width:88%; height: 7%; display: inline-block;'></div>
+						<div id="spacerSD7" style='margin:0px;width:88%; height: 7%; display: inline-block;'></div>
 						<div id="loadButtonH" style='margin:0px;width:8%; height: 7%; display: inline-block; overflow: hidden; position: relative; cursor: pointer;'>
 							<input id='loadbutton' value='OPEN' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vmax; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); position: absolute; cursor: pointer; user-select: none; pointer-events:none; outline: none;" readonly></input>
 							<input id="fileinputBack" accept='text/plain' onchange="handleOpen(event)" type="file" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vmax; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; pointer-events: auto; outline: none;"></input>
@@ -2909,12 +2909,39 @@
 				document.getElementById('interactionAndTitle').style.height = '55%'
 				document.getElementById('interactionAndTitle').style.width = '100%'
 
+				document.getElementById('maintitle').innerHTML = 'N <font style="color: var(--themeblue);">Charges</font> inside a <font style="color: var(--themeorange);">boundary</font> <br/><font style="font-size: 1.3vmax; font-family: Nunito; font-weight: normal; color: hsla(190, 0%, 30%, 1);">Finding Minimum Energy Configurations </font><br/><font style="font-size: 1.2vmax; font-weight: normal; font-family: Nunito; color: hsla(260, 100%, 30%, 1);">Vinton Adrian Rebello, Manas Shetty and Prajwal DSouza </font>'
+				document.getElementById('maintitle').style.fontSize = '2.7vmax'
+
+				document.getElementById('energyinfo').style.fontSize = '1.2vmax'
+
+				document.getElementById('simulationDetailAndButtonsH').style.boxShadow = 'inset 0px 0px 30px 30px hsla(32, 100%,100%, 1)'
+
+				document.getElementById('spacerSD5').style.width = '80%'
+				document.getElementById('saveButtonH').style.width = '16%'
+				document.getElementById('savebutton').style.fontSize = '1.2vmax'
+				document.getElementById('spacerSD7').style.width = '80%'
+				document.getElementById('loadButtonH').style.width = '16%'
+				document.getElementById('loadbutton').style.fontSize = '1.2vmax'
+				document.getElementById('spacerSD9').style.width = '80%'
+				document.getElementById('homeButtonH').style.width = '16%'
+				document.getElementById('homebutton').style.fontSize = '1.2vmax'
+				
+
 				document.getElementById('labH').style.borderRadius = '0px'
 
 				document.getElementById('middlepanel').style.height = '60%'
 				document.getElementById('middlepanel').style.width = '100%'
-				document.getElementById('middlepanel').style.overflow = 'auto'
+				document.getElementById('middlepanel').style.overflow = 'scroll'
+				document.getElementById('labpanel').style.overflow = 'scroll'
 
+				document.getElementById('topspacerMenu').style.height = '40%'
+
+				document.getElementById('algorithmoption').style.fontSize = '1.2vmax'
+				document.getElementById('boundaryoption').style.fontSize = '1.2vmax'
+				document.getElementById('chargesoption').style.fontSize = '1.2vmax'
+				document.getElementById('settingsoption').style.fontSize = '1.2vmax'
+
+				$('#menupanel').insertBefore('#boundaryoptionspanel')
 				$('#interactionAndTitle').insertBefore('#middlepanel')
 
 				// document.getElementById('textTablesH').style.height = '80%'
