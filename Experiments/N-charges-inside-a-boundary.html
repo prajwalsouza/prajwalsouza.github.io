@@ -4770,7 +4770,6 @@
 					updateMinorAxis()
 
 					hideBoundaryKnobs()
-
 					algoconfigStart = bdconfigStart + 5
 				}
 				else if (configblocks[bdconfigStart][21] == 'o') {
@@ -4824,6 +4823,8 @@
 					toaddCh = [parseFloat(ptconfig.split(',')[0]), parseFloat(ptconfig.split(',')[1]), configWt]
 					addNewChargePoint(toaddCh)
 				}
+
+				hideChargeKnobs()
 
 			};
 			reader.readAsText(event.target.files[0]);
