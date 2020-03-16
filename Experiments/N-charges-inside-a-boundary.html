@@ -73,6 +73,11 @@
 				/*outline: 1px solid slategrey;*/
 			}
 
+			#algorithmdescriptiontext {
+				scrollbar-color: hsla(0, 100%, 100%, 1);
+				scrollbar-width: 1.1%;
+			}
+
 			#algorithmedit::-webkit-scrollbar {
 				width: 1.1%;
 			}
@@ -118,8 +123,20 @@
 				/*outline: 1px solid slategrey;*/
 			}
 
-			#fileinputBack ::before {
-				cursor: pointer;
+			#fileinputBack::focus {
+				outline: none;
+			}
+
+			#savebutton::focus {
+				outline: none;
+			}
+
+			#savebuttonH::focus {
+				outline: none;
+			}
+
+			input:invalid {
+				box-shadow:0 0 0px hsla(0,0%,0%,0);
 			}
 
 		
@@ -139,7 +156,7 @@
 		</script>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.1/math.min.js"></script>
+<!-- 		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.1/math.min.js"></script> -->
 
 		
 		<script type="application/ld+json">
@@ -436,23 +453,20 @@
 
 					</div>
 					<div id="menupanel" style='margin:0px;width:100%; height: 12%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: separate; table-layout: fixed; font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 0.93vw; letter-spacing: 0.8px;">
-							<tr>
-							</tr>
-							<tr>
-								<td rowspan="3" colspan="1" id='algorithmoption' style="vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1); border: 1px solid hsla(0, 0%, 60%, 1);">ALGORITHM</td>
-								<td rowspan="3" colspan="1" id='boundaryoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;" onclick="handlePanel(event)" >BOUNDARY</td>
-								<td rowspan="3" colspan="1" id='chargesoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); cursor: pointer;" onclick="handlePanel(event)">CHARGES</td>
-								<td rowspan="3" colspan="1" id='settingsoption' style="vertical-align: middle; color: grey; border: 1px solid hsla(0, 0%, 60%, 1); border-top-right-radius: 20px; border-bottom-right-radius: 20px; cursor: pointer;" onclick="handlePanel(event)">SETTINGS</td>
-							</tr>
-							<tr></tr>
-							<tr></tr>
-							<tr></tr>
-							<tr></tr>
-							<tr></tr>
-							<tr></tr>
-							<tr></tr>
-						</table>
+						<div id="topspacerMenu" style='margin:0px;width:100%; height: 10%; display: inline-block; overflow: hidden;'></div>
+						<div id="algorithmoptionH" style='margin:0px;width:25%; height: 45%; display: inline-block; overflow: hidden;'>
+							<input onclick="handlePanel(event)" id='algorithmoption' value='ALGORITHM' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 0.93vw; letter-spacing: 0.8px; color: hsla(0, 100%, 0%, 1); cursor: auto; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1); border: 1px solid hsla(0, 0%, 60%, 1);" readonly></input>
+						</div>
+						<div id="boundaryoptionH" style='margin:0px;width:25%; height: 45%; display: inline-block; overflow: hidden;'>
+							<input onclick="handlePanel(event)" id='boundaryoption' value='BOUNDARY' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 0.93vw; letter-spacing: 0.8px; color: grey; cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle;  background: hsla(280,100%,50%,0); border: 1px solid hsla(0, 0%, 60%, 1);" readonly></input>
+						</div>
+						<div id="chargesoptionH" style='margin:0px;width:25%; height: 45%; display: inline-block; overflow: hidden;'>
+							<input onclick="handlePanel(event)" id='chargesoption' value='CHARGE' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 0.93vw; letter-spacing: 0.8px; color: grey; cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle; background: hsla(280,100%,50%,0); border: 1px solid hsla(0, 0%, 60%, 1);" readonly></input>
+						</div>
+						<div id="settingsoptionH" style='margin:0px;width:25%; height: 45%; display: inline-block; overflow: hidden;'>
+							<input onclick="handlePanel(event)" id='settingsoption' value='SETTINGS' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 0.93vw; letter-spacing: 0.8px; color: grey; cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle; border-top-right-radius: 20px; border-bottom-right-radius: 20px; background: hsla(280,100%,50%,0); border: 1px solid hsla(0, 0%, 60%, 1);" readonly></input>
+						</div>
+						
 					</div>
 				</div>
 				<div id="verticalspacer2" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
@@ -482,21 +496,21 @@
 					<div id="spacerSD3" style='margin:0px;width:28%; height: 10%; display: inline-block;'></div>
 					<div id="spacerSD6" style='margin:0px;width:88%; height: 7%; display: inline-block;'></div>
 					<div id="saveButtonH" style='margin:0px;width:8%; height: 7%; display: inline-block; overflow: hidden; user-select: none;'>
-						<input onclick="handleSave(event)" id='savebutton' class="sidebuttons" value='SAVE' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; user-select: none; pointer-events: auto; overflow: hidden;" readonly></input>
+						<input onclick="handleSave(event)" id='savebutton' class="sidebuttons" value='SAVE' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; user-select: none; pointer-events: auto; overflow: hidden; outline: none;" readonly></input>
 					</div>
 					<div id="spacerSD5" style='margin:0px;width:4%; height: 7%; display: inline-block;'></div>
 					<div id="spacerbuttonGap1" style='margin:0px;width:100%; height: 2%; display: inline-block;'></div>
 					<div id="spacerSD6" style='margin:0px;width:88%; height: 7%; display: inline-block;'></div>
 					<div id="loadButtonH" style='margin:0px;width:8%; height: 7%; display: inline-block; overflow: hidden; position: relative; cursor: pointer;'>
-						<input id='loadbutton' value='OPEN' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); position: absolute; cursor: pointer; user-select: none; pointer-events:none;" readonly></input>
-						<input id="fileinputBack" accept='text/plain' onchange="handleOpen(event)" type="file" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; pointer-events: auto;"></input>
+						<input id='loadbutton' value='OPEN' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); position: absolute; cursor: pointer; user-select: none; pointer-events:none; outline: none;" readonly></input>
+						<input id="fileinputBack" accept='text/plain' onchange="handleOpen(event)" type="file" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; pointer-events: auto; outline: none;"></input>
 
 					</div>
 					<div id="spacerSD8" style='margin:0px;width:4%; height: 7%; display: inline-block;'></div>
 					<div id="spacerbuttonGap2" style='margin:0px;width:100%; height: 2%; display: inline-block;'></div>
 					<div id="spacerSD9" style='margin:0px;width:88%; height: 7%; display: inline-block;'></div>
 					<div id="homeButtonH" style='margin:0px;width:8%; height: 7%; display: inline-block; overflow: hidden;'>
-						<input onclick="handleHome(event)" id='homebutton' value='HOME' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; user-select: none; pointer-events: auto; " readonly></input>
+						<input onclick="handleHome(event)" id='homebutton' value='HOME' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; user-select: none; pointer-events: auto; outline: none;" readonly></input>
 					</div>
 					<div id="spacerSD11" style='margin:0px;width:4%; height: 7%; display: inline-block;'></div>
 
@@ -2837,8 +2851,6 @@
 			moveX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
 			moveY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
 
-
-
 			if (typeof eval(graphData[gphname].pointData[ptname][1].dragIfCondition) != undefined) {
 				if (eval(graphData[gphname].pointData[ptname][1].dragIfCondition) == true) {
 					if (graphData[gphname].pointData[ptname][1].dragDirection == 'bothXY') {
@@ -3357,7 +3369,7 @@
 			newdiv.id = 'chpointB' + cindex
 			newdiv.setAttribute('class','chpointB')
 			newdiv.style = 'margin:0px;width:100%; height:20%; display: inline-block;'
-			newdiv.innerHTML = '<input value="' + (chlength) + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 5%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: auto; pointer-events: none; user-select: none;" readonly=""><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBXv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[0] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBYv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[1] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBCv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[2] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 14%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input onclick="removeChargePoint(event)" value="REMOVE" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 13%; height: 100%; text-align: center;font-size: 0.6vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: pointer;  user-select: none;" id="chpointRemove@' + (chlength) + '" readonly=""></div>'
+			newdiv.innerHTML = '<input value="' + (chlength) + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 5%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: auto; pointer-events: none; user-select: none;" readonly=""><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBXv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[0] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px; outline: none;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBYv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[1] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBCv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[2] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 14%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vw; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input onclick="removeChargePoint(event)" value="REMOVE" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 13%; height: 100%; text-align: center;font-size: 0.6vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: pointer;  user-select: none;" id="chpointRemove@' + (chlength) + '" readonly=""></div>'
 			ref.parentNode.insertBefore(newdiv, ref);
 
 			newdiv = document.createElement("div");
@@ -4649,7 +4661,12 @@
 		}
 
 		function wheelHandle(event) {
+			event.preventDefault();
 			whlvalue = (event.wheelDeltaY)/Math.abs(event.wheelDeltaY)
+			if (event.wheelDeltaY == undefined) {
+				whlvalue = (event.deltaY)/Math.abs(event.deltaY)
+				// For FireFox
+			}
 			scalefactorup = 0.1
 			scalefactordown = 0.1
 
@@ -4879,6 +4896,29 @@
 
 		}
 
+		function handleHome() {
+			minMaxXYs = getXYMinMaxOfElements()
+			xMinMax = minMaxXYs[0][0] - minMaxXYs[1][0]
+			yMinMax = minMaxXYs[0][1] - minMaxXYs[1][1]
+			if (xMinMax < yMinMax) {
+				options = {}
+				options.xmin = minMaxXYs[1][0] - (yMinMax - xMinMax)/2
+				options.xmax = minMaxXYs[0][0] + (yMinMax - xMinMax)/2
+				options.ymin = minMaxXYs[1][1]
+				options.ymax = minMaxXYs[0][1]
+				updateGraphZoom('labG', options)
+			}
+			else {
+				options = {}
+				options.xmin = minMaxXYs[1][0]
+				options.xmax = minMaxXYs[0][0]
+				options.ymin = minMaxXYs[1][1] - (xMinMax - yMinMax)/2
+				options.ymax = minMaxXYs[0][1] + (xMinMax - yMinMax)/2
+				updateGraphZoom('labG', options)
+			}
+			
+		}
+
 		function downloadConfig(filename, text) {
 			var pom = document.createElement('a');
 			pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -4894,6 +4934,66 @@
 		}
 
 		// downloadConfig('test.txt', 'Hello world!');
+
+		function getXYMinMaxOfElements() {
+			returnXmax = -Infinity
+			returnYmax = -Infinity
+			returnXmin = Infinity
+			returnYmin = Infinity
+			if (boundaryType == 'ellipse' || boundaryType == 'circle') {
+				elppoints = [[boundaryoptions.semiMajorAxis, 0], [0, boundaryoptions.semiMinorAxis], [(-1)*boundaryoptions.semiMajorAxis, 0], [0, (-1)*boundaryoptions.semiMinorAxis]]
+				for (bindex = 0; bindex < elppoints.length;bindex++) {
+					if (elppoints[bindex][0] > returnXmax) {
+						returnXmax = elppoints[bindex][0]
+					}
+					if (elppoints[bindex][0] < returnXmin) {
+						returnXmin = elppoints[bindex][0]
+					}
+					if (elppoints[bindex][1] > returnYmax) {
+						returnYmax = elppoints[bindex][1]
+					}
+					if (elppoints[bindex][1] < returnYmin) {
+						returnYmin = elppoints[bindex][1]
+					}
+				}
+					
+			}
+			else if (boundaryType == 'polygon'){
+				for (bindex = 0; bindex < polyPoints.length;bindex++) {
+					if (polyPoints[bindex][0] > returnXmax) {
+						returnXmax = polyPoints[bindex][0]
+					}
+					if (polyPoints[bindex][0] < returnXmin) {
+						returnXmin = polyPoints[bindex][0]
+					}
+					if (polyPoints[bindex][1] > returnYmax) {
+						returnYmax = polyPoints[bindex][1]
+					}
+					if (polyPoints[bindex][1] < returnYmin) {
+						returnYmin = polyPoints[bindex][1]
+					}
+				}
+			}
+
+			for (var chargep in chargeDetails) {
+				if (chargeDetails[chargep].loc[0] > returnXmax) {
+					returnXmax = chargeDetails[chargep].loc[0]
+				}
+				if (chargeDetails[chargep].loc[0] < returnXmin) {
+					returnXmin = chargeDetails[chargep].loc[0]
+				}
+				if (chargeDetails[chargep].loc[1] > returnYmax) {
+					returnYmax = chargeDetails[chargep].loc[1]
+				}
+				if (chargeDetails[chargep].loc[1] < returnYmin) {
+					returnYmin = chargeDetails[chargep].loc[1]
+				}
+			}
+
+			return [[returnXmax, returnYmax], [returnXmin, returnYmin]]
+		}
+
+
 
 		function testfunc(testPoints) {
 			edgesToReturn = {}
