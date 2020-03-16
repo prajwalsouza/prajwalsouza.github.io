@@ -3111,7 +3111,7 @@
 		}
 
 		function updateMinorAxis() {
-			boundaryoptions.semiMinorAxis = document.getElementById('semiMinorTileInput').value
+			boundaryoptions.semiMinorAxis = parseFloat(document.getElementById('semiMinorTileInput').value)
 			updatePointXY('labG', 'minorknob', 0, boundaryoptions.semiMinorAxis)
 			options = {}
 			options.ry = boundaryoptions.semiMinorAxis
@@ -3123,7 +3123,7 @@
 		}
 
 		function updateMajorAxis() {
-			boundaryoptions.semiMajorAxis = document.getElementById('semiMajorTileInput').value
+			boundaryoptions.semiMajorAxis = parseFloat(document.getElementById('semiMajorTileInput').value)
 			updatePointXY('labG', 'majorknob', boundaryoptions.semiMajorAxis, 0)
 			options = {}
 			options.rx = boundaryoptions.semiMajorAxis
@@ -4796,7 +4796,7 @@
 				stopAlgorithm()
 				configInfo = reader.result
 				configblocks = configInfo.split('\n')
-				console.log(configblocks)
+				// console.log(configblocks)
 
 				removeAllCharges()
 				configChnum = parseInt(configblocks[5].split('There were ')[1].split(' charges in the simulation.')[0])
@@ -4812,6 +4812,9 @@
 
 					updateMajorAxis()
 					updateMinorAxis()
+
+					boundaryoptions.semiMajorAxis = parseFloat(configblocks[bdconfigStart + 1].split('with semi major axis length of ')[1])
+					boundaryoptions.semiMinorAxis = parseFloat(configblocks[bdconfigStart + 2].split('with semi minor axis length of ')[1])
 
 					hideBoundaryKnobs()
 					algoconfigStart = bdconfigStart + 5
@@ -4920,6 +4923,7 @@
 
 		function handleHome() {
 			minMaxXYs = getXYMinMaxOfElements()
+			// console.log(minMaxXYs)
 			xMinMax = minMaxXYs[0][0] - minMaxXYs[1][0]
 			yMinMax = minMaxXYs[0][1] - minMaxXYs[1][1]
 			if (xMinMax < yMinMax) {
@@ -4964,6 +4968,7 @@
 			returnYmin = Infinity
 			if (boundaryType == 'ellipse' || boundaryType == 'circle') {
 				elppoints = [[boundaryoptions.semiMajorAxis, 0], [0, boundaryoptions.semiMinorAxis], [(-1)*boundaryoptions.semiMajorAxis, 0], [0, (-1)*boundaryoptions.semiMinorAxis]]
+				// console.log(elppoints)
 				for (bindex = 0; bindex < elppoints.length;bindex++) {
 					if (elppoints[bindex][0] > returnXmax) {
 						returnXmax = elppoints[bindex][0]
