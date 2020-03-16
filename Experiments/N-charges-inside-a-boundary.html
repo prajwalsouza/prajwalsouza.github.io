@@ -118,6 +118,11 @@
 				/*outline: 1px solid slategrey;*/
 			}
 
+			#fileinputBack ::before {
+				cursor: pointer;
+			}
+
+		
 			
 		
 		</style>
@@ -167,9 +172,9 @@
 					</div>
 				</div>
 			</div>
-			<div id="middlepanel" style='margin:0px;width:45%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			<div id="middlepanel" style='margin:0px;width:37%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				<div id="verticalspacer1" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
-				<div id="labpanel" style='margin:0px;width:66%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				<div id="labpanel" style='margin:0px;width:84%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 					<div id="boundaryoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
 						<div id="spacerBD1" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
 						<div id="boundaryChoicePanel" style='margin:0px;width:100%; height: 10%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
@@ -451,23 +456,8 @@
 					</div>
 				</div>
 				<div id="verticalspacer2" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
-				<div id="fileoptionspanel" style='margin:0px;width:10%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-					<div id="fileoptionsstrip" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-						<div id="filespacer1" style='margin:0px;width:100%; height: 75%; display: inline-block;'></div>
-						<div id="fileoptionsaveH" style='margin:0px;width:100%; height: 5%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative; font-size: 1vw;'>
-							<input onclick="savehandle(event)" value='SAVE' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: pointer; user-select: none;" class="inputButDiv" readonly></input>
-
-						</div>
-						<div id="filespacer2" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-						<div id="fileoptionopenH" style='margin:0px;width:100%; height: 5%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-							<input onclick="openhandle(event)" value='OPEN' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center;font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: pointer; user-select: none;" class="inputButDiv" readonly></input>
-						</div>
-						<div id="filespacer3" style='margin:0px;width:100%; height: 12%; display: inline-block;'></div>
-					</div>
-				</div>
-				<div id="verticalspacer3" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
 			</div>
-			<div id="interactionAndTitle" style='margin:0px;width:52%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			<div id="interactionAndTitle" style='margin:0px;width:60%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				<div id="titleH" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 					<div id="titletext" style='margin:0px;width: 100%; height: 100%;overflow: hidden; position: absolute; z-index: 1; font-size: 3vw; font-family: Raleway; font-weight: normal;'>
 						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
@@ -483,12 +473,33 @@
 						
 					</div>
 				</div><br/>
-				<div id="simulationDetailH" style='margin:0px;width:100%; height: 80%;overflow: hidden;position: absolute; z-index: 10;display: inline-block; background: none; border: 0px solid black; pointer-events: none;'>
+				<div id="simulationDetailAndButtonsH" style='margin:0px;width:100%; height: 80%;overflow: hidden;position: absolute; z-index: 10;display: inline-block; background: none; box-shadow: inset 0px 0px 50px 50px hsla(32, 100%,100%, 1); border: 0px solid black; border-radius: 0px; border-top-left-radius: 60px; pointer-events: none;'>
 					<div id="spacerSD1" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-					<div id="spacerSD2" style='margin:0px;width:7%; height: 7%; display: inline-block;'></div>
-					<div id="energyinfo" style='margin:0px;width:93%; height: 7%; display: inline-block; text-align: left; font-size: 0.8vw; font-family: Source Sans Pro; color: black; font-weight: bold;'>
+					<div id="spacerSD2" style='margin:0px;width:7%; height: 10%; display: inline-block;'></div>
+					<div id="energyinfo" style='margin:0px;width:65%; height: 10%; display: inline-block; text-align: left; font-size: 0.8vw; font-family: Source Sans Pro; color: black; font-weight: bold; overflow: hidden;'>
 						<font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Lowest Energy</font>  25.134 <br/> <font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Current Energy</font> 28.11
 					</div>
+					<div id="spacerSD3" style='margin:0px;width:28%; height: 10%; display: inline-block;'></div>
+					<div id="spacerSD6" style='margin:0px;width:88%; height: 7%; display: inline-block;'></div>
+					<div id="saveButtonH" style='margin:0px;width:8%; height: 7%; display: inline-block; overflow: hidden; user-select: none;'>
+						<input onclick="handleSave(event)" id='savebutton' class="sidebuttons" value='SAVE' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; user-select: none; pointer-events: auto; overflow: hidden;" readonly></input>
+					</div>
+					<div id="spacerSD5" style='margin:0px;width:4%; height: 7%; display: inline-block;'></div>
+					<div id="spacerbuttonGap1" style='margin:0px;width:100%; height: 2%; display: inline-block;'></div>
+					<div id="spacerSD6" style='margin:0px;width:88%; height: 7%; display: inline-block;'></div>
+					<div id="loadButtonH" style='margin:0px;width:8%; height: 7%; display: inline-block; overflow: hidden; position: relative; cursor: pointer;'>
+						<input id='loadbutton' value='OPEN' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); position: absolute; cursor: pointer; user-select: none; pointer-events:none;" readonly></input>
+						<input id="fileinputBack" accept='text/plain' onchange="handleOpen(event)" type="file" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; pointer-events: auto;"></input>
+
+					</div>
+					<div id="spacerSD8" style='margin:0px;width:4%; height: 7%; display: inline-block;'></div>
+					<div id="spacerbuttonGap2" style='margin:0px;width:100%; height: 2%; display: inline-block;'></div>
+					<div id="spacerSD9" style='margin:0px;width:88%; height: 7%; display: inline-block;'></div>
+					<div id="homeButtonH" style='margin:0px;width:8%; height: 7%; display: inline-block; overflow: hidden;'>
+						<input onclick="handleHome(event)" id='homebutton' value='HOME' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; user-select: none; pointer-events: auto; " readonly></input>
+					</div>
+					<div id="spacerSD11" style='margin:0px;width:4%; height: 7%; display: inline-block;'></div>
+
 
 				</div>
 				<div id="labH" style='margin:0px;width:100%; height: 80%;overflow: hidden;position: relative; z-index: 1;display: inline-block; background: white; border: 0px solid black; border-radius: 0px; border-top-left-radius: 60px; '>
@@ -1252,6 +1263,7 @@
 					textElement.setAttribute('id',name + '-yticklabel-' + m)
 					textElement.style.fontSize = gdata.fontSize
 					textElement.style.fontFamily = 'Source Sans Pro'
+					textElement.style.userSelect = 'none'
 					// textElement.setAttribute('text-anchor', 'middle')
 					textElement.style.fill = gdata.ymajorgridlabelcolor
 					if (darkmode == false) {
@@ -1318,6 +1330,7 @@
 					textElement.setAttribute('y', transformedYval + '%');
 					textElement.setAttribute('id',name + '-xticklabel-' + m)
 					textElement.style.fontSize = gdata.fontSize
+					textElement.style.userSelect = 'none'
 					textElement.setAttribute('text-anchor', 'middle')
 					if (parseFloat(order) >= 2) {
 						textElement.setAttribute('transform', 'rotate(90, ' + transformedXval + ', ' + transformedYval + ')')	
@@ -1738,6 +1751,7 @@
 					textElement.setAttribute('y',graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + 0.5 + '%');
 					textElement.setAttribute('id',name + '-yticklabel-' + m)
 					textElement.style.fontSize = gdata.fontSize
+					textElement.style.userSelect = 'none'
 					textElement.style.fontFamily = 'Source Sans Pro'
 					textElement.style.fill = gdata.ymajorgridlabelcolor
 					svgElement.appendChild(textElement);
@@ -1792,6 +1806,7 @@
 					textElement.setAttribute('id',name + '-xticklabel-' + m)
 					textElement.style.fontSize = gdata.fontSize
 					textElement.style.fontFamily = 'Source Sans Pro'
+					textElement.style.userSelect = 'none'
 					textElement.style.fill = gdata.ymajorgridlabelcolor
 					svgElement.appendChild(textElement);
 					
@@ -3393,6 +3408,18 @@
 			}
 		}
 
+		function removeAllCharges() {
+			for (var chargeIndex in chargeDetails) {
+				removePoint('labG', chargeDetails[chargeIndex].id +  '-charge')
+				removePoint('labG',  chargeDetails[chargeIndex].id + '-chargeBack')
+			}
+
+			chargeDetails = {}
+			document.getElementById('chargePropsBlocksH').innerHTML = "<div id='topspacer' style='margin:0px;width:100%; height:6%; display: inline-block;'></div><div id='chfinalspacer' style='margin:0px;width:100%; height:20%; display: inline-block;'></div>"
+
+			
+		}
+
 		function handleEnergyFInput(event) {
 			energyFunc = event.target.value
 		}
@@ -4026,7 +4053,7 @@
 		}
 
 		function updateEnergyInfo() {
-			document.getElementById('energyinfo').innerHTML =  '<font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Lowest Energy</font>  ' + lowestEnergy.toFixed(5) +  ' <br/> <font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Current Energy</font> ' + currentEnergy.toFixed(5) 
+			document.getElementById('energyinfo').innerHTML =  '<font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Lowest Energy</font>  ' + lowestEnergy.toFixed(5) +  ' <br/> <font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Current Energy</font> ' + currentEnergy.toFixed(5) +' <br/> <font style="color: hsla(0, 0%, 0%, 0.5); font-weight: normal;">Charges : </font><font style="color: var(--themeblue); font-weight: normal;">' + Object.keys(chargeDetails).length + '</font> '
 		}
 
 		function randomizeChargePositions() {
@@ -4644,8 +4671,6 @@
 				options.ymin = currentvalues.ymin - (2*newscaley*(1 - posy))
 				options.ymax = currentvalues.ymax + (2*newscaley*(posy))
 				updateGraphZoom('labG', options)
-
-
 			}
 			else if (whlvalue >= 0 && orderx < 14 && ordery < 14) {
 				newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactordown
@@ -4656,11 +4681,205 @@
 				options.ymin = currentvalues.ymin + (2*newscaley*(posy))
 				options.ymax = currentvalues.ymax - (2*newscaley*(1 - posy))
 				updateGraphZoom('labG', options)
-				
 			}
 		}
 
 		document.getElementById('labG').addEventListener('wheel', wheelHandle)
+
+		function startConfig(configdata) {
+			if (configdata == undefined || configdata == 'default') {
+				uid = 0
+				graphData = {}
+
+				reverseGraphElementMap = {}
+				setUpGraph()
+
+				boundaryoptions = {}
+				boundaryoptions.color = 'var(--boundaryorange)'
+
+				options = {}
+				options.stroke = 'var(--boundaryorange)'
+				updateEllipse('labG', 'simpleEllipticBoundary', options)
+				addEllipseKnobs()
+				boundaryoptions.semiMajorAxis = 1
+				boundaryoptions.semiMinorAxis = 1
+				boundaryoptions.radius = 1
+
+				boundaryType = 'circle'
+				boundaryTypeCheck()
+
+				chargeDetails = {}
+				chargeId = 0
+				chargeuidMap = {}
+				energyFunc = 'p*q/d'
+				lowestEnergy = Infinity
+				lowestEnergyPositions = {}
+				currentEnergy = Infinity
+
+				handleTangentialForce = true
+				useCustomCode = true
+				customcodes = ['charge = pickCharge()', 'electrostaticWalk(charge, 0.008)']
+				customcodePointer = 0
+
+				errordisplayflag = false
+
+				loopcount = 0
+				algorithm = 'Electrostatic'
+				runAlgorithm()
+				codeblockuid = 2
+
+				usingStepAlgo = false
+				currentpanel = 'algorithm'
+
+				polyPoints = []
+				addPolygonPoints(6)
+				updatePolyPath()
+
+				addCharges(3)
+				$("#chargePropsBlocksH").scrollTop(0);
+
+				hideChargeKnobs()
+			}
+		}
+
+		function loadConfig() {
+			// body...
+		}
+
+		function handleOpen(event) {
+			var reader = new FileReader()
+			reader.onload = function(){
+				stopAlgorithm()
+				configInfo = reader.result
+				configblocks = configInfo.split('\n')
+				// console.log(configblocks)
+
+				removeAllCharges()
+				configChnum = parseInt(configblocks[5].split('There were ')[1].split(' charges in the simulation.')[0])
+				for (configIndex = 0; configIndex < configChnum; configIndex++) {
+					ptconfig = configblocks[6 + configIndex].split('located at [')[1].split(']')[0]
+					configWt = parseFloat(configblocks[6 + configIndex].split('located at [')[1].split(']')[1].split('charge of ')[1])
+					toaddCh = [parseFloat(ptconfig.split(',')[0]), parseFloat(ptconfig.split(',')[1]), configWt]
+					addNewChargePoint(toaddCh)
+				}
+
+				bdconfigStart = 7 + configChnum
+				algoconfigStart = bdconfigStart
+				if (configblocks[bdconfigStart][21] == 'e') {
+					boundaryType = 'polygon'
+					toggleBoundaryType(event)
+					document.getElementById('semiMajorTileInput').value = parseFloat(configblocks[bdconfigStart + 1].split('with semi major axis length of ')[1])
+					document.getElementById('semiMinorTileInput').value = parseFloat(configblocks[bdconfigStart + 2].split('with semi minor axis length of ')[1])
+
+					updateMajorAxis()
+					updateMinorAxis()
+
+					hideBoundaryKnobs()
+
+					algoconfigStart = bdconfigStart + 5
+				}
+				else if (configblocks[bdconfigStart][21] == 'o') {
+					boundaryType = 'ellipse'
+					toggleBoundaryType(event)
+					polysidesconfig = parseInt(configblocks[bdconfigStart].split('with ')[1].split(' sides.')[0])
+					
+					removePolyPoints()
+					polyPoints = []
+
+					toDeleteBoxes = document.getElementsByClassName('polypointB')
+					toDeleteBoxesC = {...toDeleteBoxes}
+					for (var blk in toDeleteBoxesC) {
+						toDeleteBoxesC[blk].outerHTML = ''
+					}
+					toDeleteBoxes = document.getElementsByClassName('pbVspacer')
+					toDeleteBoxesC = {...toDeleteBoxes}
+					for (var blk in toDeleteBoxesC) {
+						toDeleteBoxesC[blk].outerHTML = ''
+					}
+					bdconfigStart = bdconfigStart + 2
+					for (configIndex = 0; configIndex < polysidesconfig; configIndex++) {
+						ptconfig = configblocks[bdconfigStart + configIndex].split('[')[1].split(']')[0]
+						addNewPolyPoint([parseFloat(ptconfig.split(',')[0]), parseFloat(ptconfig.split(',')[1])])
+					}
+					updatePolyPath()
+					hideBoundaryKnobs()
+
+					document.getElementById('sidesTileInput').value = polysidesconfig
+
+					bdconfigStart = bdconfigStart - 2
+					algoconfigStart = bdconfigStart + polysidesconfig + 4
+				}
+
+				codeblocksNumConfig = parseInt(configblocks[algoconfigStart - 1].split('the following ')[1].split(' code block')[0])
+
+				removeAllCodeBlocks()
+				for (configIndex = 0; configIndex < codeblocksNumConfig; configIndex++) {
+					codeconfigStr = configblocks[algoconfigStart + configIndex]
+					addNewCodeBlock(codeconfigStr)
+				}
+				document.getElementById('fileinputBack').value = ''
+
+				event = {}
+				event.target = document.getElementById('algorithmoption')
+				handlePanel(event)
+
+			};
+			reader.readAsText(event.target.files[0]);
+		};
+
+		function handleSave(event) {
+			var d = new Date();
+			dateStr = d.toLocaleString()
+			dateStr = dateStr.replace(' ','-').replace(' ','-').replace('/','-').replace('/','-').replace(',','-').replace(':','-').replace(':','-')
+
+			chargeDetailsString = 'There were ' + Object.keys(chargeDetails).length + ' charges in the simulation. \n'
+			for (var chargedet in chargeDetails) {
+				chargeDetailsString = chargeDetailsString + 'Particle ' + chargedet + ' located at [' + chargeDetails[chargedet].loc[0] + ',' + chargeDetails[chargedet].loc[1] + '] with charge of ' + chargeDetails[chargedet].weight + '\n'
+			}
+
+			boundaryDetailsString = ''
+			if (boundaryType == 'ellipse' || boundaryType == 'circle') {
+				boundaryDetailsString = boundaryDetailsString + 'Boundary Type was an ellipse\n'
+				boundaryDetailsString = boundaryDetailsString + 'with semi major axis length of ' + boundaryoptions.semiMajorAxis + '\n'
+				boundaryDetailsString = boundaryDetailsString + 'with semi minor axis length of ' + boundaryoptions.semiMinorAxis + '\n'
+			}
+			else {
+				boundaryDetailsString = boundaryDetailsString + 'Boundary Type was a polygon '
+				boundaryDetailsString = boundaryDetailsString + 'with ' + document.getElementById('sidesTileInput').value + ' sides.\n'
+				boundaryDetailsString = boundaryDetailsString + 'The polygon boundary is formed by the following points. \n'
+				for (polypointind = 0; polypointind < polyPoints.length; polypointind++) {
+					boundaryDetailsString = boundaryDetailsString + '[' + polyPoints[polypointind][0] + ',' + polyPoints[polypointind][1] + ']\n'
+				}
+			}
+
+			algoDetailsString = 'The algorithm loaded then had the following ' + customcodes.length + ' code blocks. \n'
+			for (codeblockids = 0; codeblockids < customcodes.length; codeblockids++) {
+				algoDetailsString = algoDetailsString + customcodes[codeblockids] + '\n'
+			}
+
+			configdataToSave = 'N charges inside a boundary. \nThis is a configuration file for the simulation at https://prajwalsouza.github.io/Experiments/N-charges-inside-a-boundary.html\nIt was recorded on ' + d.toLocaleString() + '.\nYou can open this file as it is, in the simulator.\n\n' + chargeDetailsString + '\n' + boundaryDetailsString + '\n' + algoDetailsString + '\n' + 'The configuration had an energy of ' + currentEnergy + '.'
+
+			fileName = Object.keys(chargeDetails).length + '-charges-configuration-' + dateStr +'.txt'
+
+			downloadConfig(fileName, configdataToSave);
+
+		}
+
+		function downloadConfig(filename, text) {
+			var pom = document.createElement('a');
+			pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+			pom.setAttribute('download', filename);
+			if (document.createEvent) {
+				var event = document.createEvent('MouseEvents');
+				event.initEvent('click', true, true);
+				pom.dispatchEvent(event);
+			}
+			else {
+				pom.click();
+			}
+		}
+
+		// downloadConfig('test.txt', 'Hello world!');
 
 		function testfunc(testPoints) {
 			edgesToReturn = {}
