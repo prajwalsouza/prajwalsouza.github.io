@@ -139,6 +139,16 @@
 				box-shadow:0 0 0px hsla(0,0%,0%,0);
 			}
 
+			/*input[type="number"] {
+			  -webkit-appearance: textfield;
+			     -moz-appearance: textfield;
+			          appearance: textfield;
+			}
+			input[type=number]::-webkit-inner-spin-button, 
+			input[type=number]::-webkit-outer-spin-button { 
+			  -webkit-appearance: none;
+			}*/
+
 		
 			
 		
@@ -423,7 +433,6 @@
 						</div>
 						<div id="spacerD10" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
 						<div id="algorithmchoice" style='margin:0px;width:100%; height: 13%; display: inline-block; background: white; border-radius: 10px;'>
-							
 							<div id="spacerD111" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
 							<div id="spacerD112" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
 							<div id="algorithmchoosetext" style='margin:0px;width:35%; height: 30%; display: inline-block; font-size: 0.9vw; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>CHOOSE ALGORITHM</div>
@@ -431,6 +440,7 @@
 							<div id="choosealgorithmdrop" style='margin:0px;width:50%; height: 30%; display: inline-block; overflow: hidden;'>
 								<select onchange="chooseAlgo(event)" id="algorithmsToChoose" style="font-family: Roboto; font-size: 0.75vw;">
 									<option value="electrostaticwalkAlgo">ELECTROSTATIC WALK</option>
+									<option value="moveIfMinimumAlgo">MOVE IF MINIMUM</option>
 									<option value="electrostaticwithRandomnessAlgo">ELECTROSTATIC AND  RANDOMNESS</option>
 									<option value="electrostaticForceAlgo">ELECTROSTATIC FORCE</option>
 									<option value="randomPositionAlgo">RANDOM POSITION</option>
@@ -513,8 +523,6 @@
 						<input onclick="handleHome(event)" id='homebutton' value='HOME' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vw; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; user-select: none; pointer-events: auto; outline: none;" readonly></input>
 					</div>
 					<div id="spacerSD11" style='margin:0px;width:4%; height: 7%; display: inline-block;'></div>
-
-
 				</div>
 				<div id="labH" style='margin:0px;width:100%; height: 80%;overflow: hidden;position: relative; z-index: 1;display: inline-block; background: white; border: 0px solid black; border-radius: 0px; border-top-left-radius: 60px; '>
 
@@ -3984,6 +3992,7 @@
 		algorithmCodes.randomPositionAlgoCode  = ['charge = pickCharge()', 'oldps = getPosition(charge)','newps = randomPositionInsideBoundary()', 'oldenergy = computeEnergy()', 'moveChargeToPosition(newps, charge)', 'newenergy = computeEnergy()', 'if (newenergy > oldenergy) {moveChargeToPosition(oldps, charge)}']
 		algorithmCodes.geneticAlgoCode = ['charge = pickCharge()', 'electrostaticForce(charge, 0.008)']
 		algorithmCodes.randomSearchAlgoCode = ['randomizeChargePositions()']
+		algorithmCodes.moveIfMinimumAlgoCode = ['charge = pickCharge()', 'oldps = getPosition(charge)', 'oldenergy = computeEnergy()', 'dsp = randomDisplacementOfLength(0.01)', 'newps = addPositions(oldps, dsp)',  'moveChargeToPosition(newps, charge)', 'newenergy = computeEnergy()', 'if (newenergy > oldenergy) {moveChargeToPosition(oldps, charge)}']
 
 
 		algorithmCodeDetails = {}
@@ -3993,6 +4002,7 @@
 		algorithmCodes.randomPositionAlgoCodeDetails = ['RANDOM POSITION','Pick a <font style="color: var(--themeblue);">charge</font> and then randomly pick a position within the <font style="color: var(--themeorange);">boundary</font>. Move the <font style="color: var(--themeblue);">charge</font> to that location. If the energy in the new arrangement is greater than the previous arrangment, move the <font style="color: var(--themeblue);">charge</font> back to its original position. <br/><br/> Get the position of the <font style="color: var(--themeblue);">charge</font>.<br/> <font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : getPosition(<font style="color: var(--themeblue);">charge</font>)</font><br/><br/> Pick a random position inside the <font style="color: var(--themeorange);">boundary</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : randomPositionInsideBoundary()</font> <br/><br/>Get the energy for the current arrangement of the <font style="color: var(--themeblue);">charges</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : computeEnergy()</font><br/><br/><br/> ']
 		algorithmCodes.geneticAlgoCodeDetails = ['GENETIC ALGORITHM','We start the charges in a random state and apply a working algorithm, such as ElectroStatic algorithm. Once we reach, the end state, we saved the state. We call this state, the offspring 01 of generation 01. We run the Electrostatic algorithm "p1" times and generate "p1" offsprings which will belong to generation 01. We then pick top "g1" offsprings (states) that leads to the lowest energy states. <br/>We then apply the Electrostatic algorithm (with little changes in parameters) again on these "g1" offsprings picking them randomly and run the algorithm "p2" times to generate "p2" offsprings of generation 02. We pick the top "g2" offsprings of lowest energy. This process continues till we have lowest energy state.<br/><br/><br/>']
 		algorithmCodes.randomSearchAlgoCodeDetails = ['RANDOM SEARCH','Pick a random configuration and compute its energy. <br/><br/> Randomly place all the <font style="color: var(--themeblue);">charges</font>. <br/><font style="font-family: Roboto; color: black; font-size: 0.75vw;"> Code : randomizeChargePositions()</font> <br/><br/>']
+		algorithmCodes.moveIfMinimumAlgoCodeDetails = ['MOVE IF MINIMUM','Moves the charge a distance d, in a random direction. If the energy is not minimized, the charge is moved back.']
 
 
 		function loadAlgoCode(algocode) {
@@ -4012,6 +4022,15 @@
 
 		function getPosition(chargenumb) {
 			return chargeDetails[chargenumb].loc
+		}
+
+		function randomDisplacementOfLength(dispLength) {
+			ang = Math.random()*2*Math.PI
+			return [dispLength*Math.cos(ang), dispLength*Math.sin(ang)]
+		}
+
+		function addPositions(positionToAdd1, positionToAdd2) {
+			return [positionToAdd1[0] + positionToAdd2[0], positionToAdd1[1] + positionToAdd2[1]]
 		}
 
 		function randomPositionInsideBoundary() {
@@ -4611,7 +4630,7 @@
 			}
 		}
 
-		addCharges(3)
+		addCharges(7)
 
 		$("#chargePropsBlocksH").scrollTop(0);
 
@@ -4770,9 +4789,6 @@
 			}
 		}
 
-		function loadConfig() {
-			// body...
-		}
 
 		function handleOpen(event) {
 			var reader = new FileReader()
@@ -4780,7 +4796,7 @@
 				stopAlgorithm()
 				configInfo = reader.result
 				configblocks = configInfo.split('\n')
-				// console.log(configblocks)
+				console.log(configblocks)
 
 				removeAllCharges()
 				configChnum = parseInt(configblocks[5].split('There were ')[1].split(' charges in the simulation.')[0])
@@ -4839,6 +4855,10 @@
 					codeconfigStr = configblocks[algoconfigStart + configIndex]
 					addNewCodeBlock(codeconfigStr)
 				}
+
+				energyFunc = configblocks[algoconfigStart + codeblocksNumConfig + 2]
+				document.getElementById('energyFInput').value = energyFunc
+
 				document.getElementById('fileinputBack').value = ''
 
 				event = {}
@@ -4888,7 +4908,9 @@
 				algoDetailsString = algoDetailsString + customcodes[codeblockids] + '\n'
 			}
 
-			configdataToSave = 'N charges inside a boundary. \nThis is a configuration file for the simulation at https://prajwalsouza.github.io/Experiments/N-charges-inside-a-boundary.html\nIt was recorded on ' + d.toLocaleString() + '.\nYou can open this file as it is, in the simulator.\n\n' + chargeDetailsString + '\n' + boundaryDetailsString + '\n' + algoDetailsString + '\n' + 'The configuration had an energy of ' + currentEnergy + '.'
+			energyFDetailsString = 'Energy Function (energy between charges p and q separated by distance d) was \n' + energyFunc
+
+			configdataToSave = 'N charges inside a boundary. \nThis is a configuration file for the simulation at https://prajwalsouza.github.io/Experiments/N-charges-inside-a-boundary.html\nIt was recorded on ' + d.toLocaleString() + '.\nYou can open this file as it is, in the simulator.\n\n' + chargeDetailsString + '\n' + boundaryDetailsString + '\n' + algoDetailsString + '\n' + energyFDetailsString + '\n\n' + 'The configuration had an energy of ' + currentEnergy + '.'
 
 			fileName = Object.keys(chargeDetails).length + '-charges-configuration-' + dateStr +'.txt'
 
