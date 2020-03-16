@@ -2837,6 +2837,8 @@
 			moveX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
 			moveY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
 
+
+
 			if (typeof eval(graphData[gphname].pointData[ptname][1].dragIfCondition) != undefined) {
 				if (eval(graphData[gphname].pointData[ptname][1].dragIfCondition) == true) {
 					if (graphData[gphname].pointData[ptname][1].dragDirection == 'bothXY') {
@@ -3167,6 +3169,7 @@
 					options.currentlyDraggable = 'yes'
 					options.dragIfCondition = 'chargeMovePossible([moveX, moveY])'
 					options.runFunctionDuringDrag = 'chargeMove([moveX, moveY])'
+					options.runFunctionOnDragEnd = 'chargeMoveEnd()'
 					addedChBack = addPoint('labG', chargeId + '-chargeBack', options)[0]
 					addedChBack.style.cursor = 'move'
 					addedChBack.style.pointerEvents = 'none'
@@ -3198,6 +3201,9 @@
 					options.pointcolor = 'hsla(198, 100%, 50%, 0.4)'
 					options.draggability = 'yes'
 					options.currentlyDraggable = 'yes'
+					options.dragIfCondition = 'chargeMovePossible([moveX, moveY])'
+					options.runFunctionDuringDrag = 'chargeMove([moveX, moveY])'
+					options.runFunctionOnDragEnd = 'chargeMoveEnd()'
 					addedChBack = addPoint('labG', chargeId + '-chargeBack', options)[0]
 					addedChBack.style.cursor = 'move'
 					addedChBack.style.pointerEvents = 'none'
@@ -3229,6 +3235,9 @@
 					options.pointcolor = 'hsla(198, 100%, 50%, 0.4)'
 					options.draggability = 'yes'
 					options.currentlyDraggable = 'yes'
+					options.dragIfCondition = 'chargeMovePossible([moveX, moveY])'
+					options.runFunctionDuringDrag = 'chargeMove([moveX, moveY])'
+					options.runFunctionOnDragEnd = 'chargeMoveEnd()'
 					addedChBack = addPoint('labG', chargeId + '-chargeBack', options)[0]
 					addedChBack.style.cursor = 'move'
 					addedChBack.style.pointerEvents = 'none'
@@ -3252,7 +3261,9 @@
 			updatePointXY('labG', chargeids + '-charge', chlocation[0], chlocation[1])
 			document.getElementById('chpointBXv@' + chargenum).value = chlocation[0]
 			document.getElementById('chpointBYv@' + chargenum).value = chlocation[1]
+		}
 
+		function chargeMoveEnd() {
 			currentEnergy = computeEnergy()
 			if (currentEnergy < lowestEnergy) {
 				lowestEnergy = currentEnergy
@@ -3271,6 +3282,7 @@
 				}
 			}
 			else if (boundaryType == 'ellipse') {
+
 				if (Math.pow(chlocation[0]/boundaryoptions.semiMajorAxis, 2) + Math.pow(chlocation[1]/boundaryoptions.semiMinorAxis, 2) < 1) {
 					return true
 				}
@@ -3999,8 +4011,7 @@
 			else if (boundaryType == 'ellipse') {
 				ang = Math.random()*2*Math.PI
 				bdpointE = [boundaryoptions.semiMajorAxis*Math.cos(ang), boundaryoptions.semiMinorAxis*Math.sin(ang)]
-				dis = Math.random()*distF([0,0], bdpointE)
-				return [dis*Math.cos(ang), dis*Math.sin(ang)]
+				return [Math.random()*bdpointE[0], Math.random()*bdpointE[1]]
 			}
 			else if (boundaryType == 'polygon') {
 				polypointXV = []
