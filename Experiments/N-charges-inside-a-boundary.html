@@ -4756,12 +4756,7 @@
 
 				removeAllCharges()
 				configChnum = parseInt(configblocks[5].split('There were ')[1].split(' charges in the simulation.')[0])
-				for (configIndex = 0; configIndex < configChnum; configIndex++) {
-					ptconfig = configblocks[6 + configIndex].split('located at [')[1].split(']')[0]
-					configWt = parseFloat(configblocks[6 + configIndex].split('located at [')[1].split(']')[1].split('charge of ')[1])
-					toaddCh = [parseFloat(ptconfig.split(',')[0]), parseFloat(ptconfig.split(',')[1]), configWt]
-					addNewChargePoint(toaddCh)
-				}
+				
 
 				bdconfigStart = 7 + configChnum
 				algoconfigStart = bdconfigStart
@@ -4822,6 +4817,13 @@
 				event = {}
 				event.target = document.getElementById('algorithmoption')
 				handlePanel(event)
+
+				for (configIndex = 0; configIndex < configChnum; configIndex++) {
+					ptconfig = configblocks[6 + configIndex].split('located at [')[1].split(']')[0]
+					configWt = parseFloat(configblocks[6 + configIndex].split('located at [')[1].split(']')[1].split('charge of ')[1])
+					toaddCh = [parseFloat(ptconfig.split(',')[0]), parseFloat(ptconfig.split(',')[1]), configWt]
+					addNewChargePoint(toaddCh)
+				}
 
 			};
 			reader.readAsText(event.target.files[0]);
