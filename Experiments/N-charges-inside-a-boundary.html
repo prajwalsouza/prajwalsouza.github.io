@@ -479,7 +479,7 @@
 										N <font style="color: var(--themeblue);">Charges</font> inside a <font style="color: var(--themeorange);">boundary</font> <br/><font style="font-size: 1.1vmax; font-family: Nunito; font-weight: normal; color: hsla(190, 0%, 30%, 1);">
 										Finding Minimum Energy Configurations </font><br/><font style="font-size: 1vmax; font-weight: normal; font-family: Nunito; color: hsla(260, 100%, 30%, 1);">
 										Vinton Adrian Rebello, Manas Shetty and Prajwal DSouza </font><br/>
-										<font style="font-size: 1vmax;">inspired by the <a href="https://iopscience.iop.org/article/10.1088/0305-4470/31/3/014/meta" style="text-decoration: none;"><font style="color: hsla(190, 40%, 40%, 1);">work</font></a> of Kari J Nurmela</font>
+										<font style="font-size: 1vmax;">inspired by the <a href="https://iopscience.iop.org/article/10.1088/0305-4470/31/3/014/meta" style="text-decoration: none;" target="_blank"><font style="color: hsla(190, 40%, 40%, 1);">work</font></a> of Kari J Nurmela</font>
 									</td>
 									<td colspan="1"></td>
 								</tr>
@@ -2892,9 +2892,18 @@
 			dmode = 'landscape'
 		}
 
+		function setFont(divCollection, fontval) {
+			for (divN = 0; divN < divCollection.length; divN++) {
+				document.getElementById(divCollection[divN]).style.fontSize = fontval
+			}
+		}
+
 		function handleLayout() {
 			if (dmode == 'portrait') {
 				document.getElementById('containAll').style.position = 'relative'
+				document.getElementById('containAll').style.overflow = 'scroll'
+				document.getElementById('containAll').style.height = '55%'
+
 				document.getElementById('space1Div').style.height = '0%'
 				document.getElementById('space2Div').style.height = '0%'
 				document.getElementById('space3Div').style.height = '0%'
@@ -2904,14 +2913,28 @@
 				document.getElementById('scroller').style.width = '0%'
 				document.getElementById('noscroller').style.width = '100%'
 
+				document.getElementById('middlepanel').style.fontSize = '0'
+				document.getElementById('menupanel').style.fontSize = '0'
 
-				$('#interactionAndTitle').insertBefore('#middlepanel')
+				// $('#interactionAndTitle').insertBefore('#middlepanel')
+				$('#menupanel').insertBefore('#boundaryoptionspanel')
+				// $('#algooptionspanel').insertAfter('#menupanel')
+				// $('#interactionAndTitle').insertBefore('#middlepanel')
+				$('#middlepanel').insertBefore('#containAll')
+				$('#containAll').insertBefore('#middlepanel')
 
-				document.getElementById('interactionAndTitle').style.height = '55%'
+
+				document.getElementById('interactionAndTitle').style.height = '100%'
 				document.getElementById('interactionAndTitle').style.width = '100%'
+				// document.getElementById('interactionAndTitle').style.position = 'fixed'
 
-				document.getElementById('maintitle').innerHTML = 'N <font style="color: var(--themeblue);">Charges</font> inside a <font style="color: var(--themeorange);">boundary</font> <br/><font style="font-size: 1.3vmax; font-family: Nunito; font-weight: normal; color: hsla(190, 0%, 30%, 1);">Finding Minimum Energy Configurations </font><br/><font style="font-size: 1.2vmax; font-weight: normal; font-family: Nunito; color: hsla(260, 100%, 30%, 1);">Vinton Adrian Rebello, Manas Shetty and Prajwal DSouza </font>'
+				document.getElementById('maintitle').innerHTML = 'N <font style="color: var(--themeblue);">Charges</font> inside a <font style="color: var(--themeorange);">boundary</font> <br/><font style="font-size: 1.6vmax; font-family: Nunito; font-weight: normal; color: hsla(190, 0%, 30%, 1);">Finding Minimum Energy Configurations </font><br/><font style="font-size: 1.3vmax; font-weight: normal; font-family: Nunito; color: hsla(260, 100%, 30%, 1);">Vinton Adrian Rebello, Manas Shetty and Prajwal DSouza </font><br/><font style="font-size: 1.3vmax;">inspired by the <a href="https://iopscience.iop.org/article/10.1088/0305-4470/31/3/014/meta" style="text-decoration: none;" target="_blank"><font style="color: hsla(190, 40%, 40%, 1);">work</font></a> of Kari J Nurmela</font>'
+
 				document.getElementById('maintitle').style.fontSize = '2.7vmax'
+
+				document.getElementById('titleH').style.height = '25%'
+				document.getElementById('simulationDetailAndButtonsH').style.height = '75%'
+				document.getElementById('labH').style.height = '75%'
 
 				document.getElementById('energyinfo').style.fontSize = '1.2vmax'
 
@@ -2929,9 +2952,12 @@
 
 				document.getElementById('labH').style.borderRadius = '0px'
 
-				document.getElementById('middlepanel').style.height = '45%'
+				// document.getElementById('labpanel').style.width = '82%'
+
+				document.getElementById('middlepanel').style.height = '70%'
 				document.getElementById('middlepanel').style.width = '100%'
-				// document.getElementById('middlepanel').style.overflow = 'scroll'
+				document.getElementById('middlepanel').style.overflow = 'auto'
+				document.getElementById('middlepanel').style.position = 'relative'
 				// document.getElementById('labpanel').style.overflow = 'scroll'
 
 				document.getElementById('topspacerMenu').style.height = '40%'
@@ -2940,15 +2966,18 @@
 				document.getElementById('boundaryoption').style.fontSize = '1.2vmax'
 				document.getElementById('chargesoption').style.fontSize = '1.2vmax'
 				document.getElementById('settingsoption').style.fontSize = '1.2vmax'
+
 				// document.getElementById('boundaryoptionspanel').style.position = 'relative'
 				// document.getElementById('algooptionspanel').style.position = 'absolute'
 				// document.getElementById('chargesoptionspanel').style.position = 'absolute'
 				// document.getElementById('settingsoptionspanel').style.position = 'absolute'
 
-				$('#menupanel').insertBefore('#boundaryoptionspanel')
-				// $('#algooptionspanel').insertAfter('#menupanel')
-				$('#interactionAndTitle').insertBefore('#middlepanel')
+				setFont(['algorithmnametext','algorithmeditortext'], '1.2vmax')
+				setFont(['algorithmdescriptiontext','errorAndInfodisplay'], '1.1vmax')
+				setFont(['algoplaytext', 'algosteptext', 'algoresettext'], '1vmax')
 
+
+				
 				// document.getElementById('textTablesH').style.height = '80%'
 
 				// document.getElementById('textgraphTablesH').style.height = '60%'
@@ -2978,6 +3007,7 @@
 
 		window.onscroll = function (e) {
 			document.getElementById('scrollerH').style.height = linearValue(0,document.body.offsetHeight - document.body.clientHeight, 35, 100, document.body.scrollTop) + '%'
+			console.log(linearValue(0,document.body.offsetHeight - document.body.clientHeight, 0, 100, document.body.scrollTop))
 		} 
 
 		uid = 0
@@ -5078,7 +5108,7 @@
 			return [[returnXmax, returnYmax], [returnXmin, returnYmin]]
 		}
 
-		handleLayout()
+		// handleLayout()
 
 		function spacebarPlayPause(event) {
 			event.preventDefault()
@@ -5089,6 +5119,8 @@
 		}
 
 		window.addEventListener("keypress", spacebarPlayPause);
+
+		stopAlgorithm()
 
 
 
