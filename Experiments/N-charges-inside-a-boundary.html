@@ -197,7 +197,7 @@
 								<div id="spacerB1D1" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
 								<div id="spacerB1D2" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
 								<div id="boundaryTypeTile" style='margin:0px;width:25%; height: 50%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
-									<input value='BOUNDARY TYPE' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+									<input value='BOUNDARY TYPE' id="bdtypename" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 								</div>
 								<div id="spacerB1D3" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
 								<div id="ellipseoptiontile" style='margin:0px;width:25%; height: 50%; display: inline-block; overflow: hidden;'>
@@ -225,7 +225,7 @@
 									<div id="spacerB1D55" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
 									<div id="spacerB1D6" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
 									<div id="sidesTile" style='margin:0px;width:35%; height: 40%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
-										<input value='SIDES' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										<input value='SIDES' id="sidesname" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 									</div>
 									<div id="spacerB1D7" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
 									<div id="sidesTileInputH" style='margin:0px;width:25%; height: 40%; display: inline-block; overflow: hidden; border-radius: 5px;'>
@@ -244,11 +244,11 @@
 									<div id="spacerBPD84" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
 									<div id="spacerBPD85" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
 									<div id="pointeditNameBlock" style='margin:0px;width:90%; height:10%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro; overflow:hidden; color: hsla(0, 0%, 50%, 1); position: relative; '>
-										<input value='Point' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										<input value='Point' id="bdptNameID" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 										<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-										<input value='X co-ordinate' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										<input value='X co-ordinate' id="XcorBDName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 										<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-										<input value='Y co-ordinate' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										<input value='Y co-ordinate' id="YcorBDName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 									</div>
 									<div id="spacerBPD86" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
 									<div id="spacerBPD87" style='margin:0px;width:100%; height:3%; display: inline-block;'></div>
@@ -266,7 +266,7 @@
 									<div id="spacerB1D55" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
 									<div id="spacerB1D6" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
 									<div id="semiMajorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
-										<input value='SEMI MAJOR AXIS' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										<input value='SEMI MAJOR AXIS' id="semiMajorAxName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 									</div>
 									<div id="spacerB1D7" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
 									<div id="semiMajorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
@@ -276,7 +276,7 @@
 									<div id="spacerB1D9" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
 									<div id="spacerB1D10" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
 									<div id="semiMinorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
-										<input value='SEMI MINOR AXIS' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										<input value='SEMI MINOR AXIS' id="semiMinorAxName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 									</div>
 									<div id="spacerB1D11" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
 									<div id="semiMinorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
@@ -296,7 +296,7 @@
 									<div id="spacerCH1sub1" style='margin:0px;width:100%; height:9%; display: inline-block;'></div>
 									<div id="spacerCH1sub2" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 									<div id="chargepropertiestext" style='margin:0px;width:40%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>
-										<input value='CHARGE PROPERTIES' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										<input value='CHARGE PROPERTIES' id="chargepropName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 									</div>
 									<div id="spacerCH1sub3" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 									<div id="addchargeblock" style='margin:0px;width:35%; height:10%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: hidden;'>
@@ -306,13 +306,13 @@
 									<div id="spacerCH1sub4" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
 									<div id="spacerCH1sub5" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
 									<div id="chargeeditNameBlock" style='margin:0px;width:90%; height:10%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro;  color: hsla(0, 0%, 50%, 1); position: relative; '>
-										<input value='No' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 5%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										<input value='No' id="chNumberTopHead" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 5%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 										<div id="pbspacer" style='margin:0px;width:4%; height:100%; display: inline-block;'></div>
-										<input value='X' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										<input value='X' id="chargeXLabelN" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 										<div id="pbspacer" style='margin:0px;width:4%; height:100%; display: inline-block;'></div>
-										<input value='Y' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										<input value='Y' id="chargeYLabelN" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 										<div id="pbspacer" style='margin:0px;width:4%; height:100%; display: inline-block;'></div>
-										<input value='Charge' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 13%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										<input value='Charge' id="chargeWLabelN" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 13%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 
 									</div>
 									<div id="spacerCH1sub6" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
@@ -331,7 +331,7 @@
 								<div id="spacerE1sub1" style='margin:0px;width:100%; height:10%; display: inline-block;'></div>
 								<div id="spacerE1sub2" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 								<div id="energyfunctext" style='margin:0px;width:88%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>
-									<input value='ENERGY FUNCTION' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+									<input value='ENERGY FUNCTION' id="egfuncTextID" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
 								</div>
 								<div id="spacerE1sub3" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
 								<div id="spacerE1sub4" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
@@ -2652,6 +2652,8 @@
 
 			if (pointoptions.draggability == 'yes') {
 				pointElement.addEventListener('mousedown', pointDrag)
+				pointElement.addEventListener('touchstart', pointDrag)
+				gdata.svgElement.addEventListener('touchmove', graphTouchDisable)
 			}
 			else {
 				pointElement.style.pointerEvents = 'none'
@@ -2707,9 +2709,11 @@
 
 			if (pointoptions.draggability == 'yes') {
 				pointElement.addEventListener('mousedown', pointDrag)
+				pointElement.addEventListener('touchstart', pointDrag)
 			}
 			else {
 				pointElement.removeEventListener('mousedown', pointDrag)
+				pointElement.removeEventListener('touchstart', pointDrag)
 			}
 
 			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
@@ -2826,8 +2830,12 @@
 			ptname = reverseGraphElementMap[event.target.id][1]
 			if (graphData[gphname].pointData[ptname][1].currentlyDraggable == 'yes') {
 				event.target.removeEventListener('mousedown', pointDrag)
+				event.target.removeEventListener('touchstart', pointDrag)
 				window.addEventListener('mousemove', pointMoveEvent)
 				window.addEventListener('mouseup', pointUpEvent)
+				event.preventDefault()
+				window.addEventListener('touchmove', pointMoveEvent, { passive: false })
+				window.addEventListener('touchend', pointUpEvent)
 				// window.addEventListener('mouseout', pointUpEvent)
 				currentMovingPoint = event.target
 			}
@@ -2837,14 +2845,21 @@
 		svgPTVariable = {}
 		
 		function pointMoveEvent(event) {
+			event.preventDefault()
 			gphname = reverseGraphElementMap[currentMovingPoint.id][0]
 			ptname = reverseGraphElementMap[currentMovingPoint.id][1]
 			var rect = document.getElementById(gphname).getBoundingClientRect();
 			posx = event.clientX - rect.left;
 			posy = event.clientY - rect.top;
-
 			svgPTVariable[gphname].x = event.clientX;
 			svgPTVariable[gphname].y = event.clientY;
+
+			if (event.clientX == undefined) {
+				posx = event.changedTouches[0].clientX - rect.left;
+				posy = event.changedTouches[0].clientY - rect.top;
+				svgPTVariable[gphname].x = event.changedTouches[0].clientX;
+				svgPTVariable[gphname].y = event.changedTouches[0].clientY;
+			}
 
 			var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
 
@@ -2877,10 +2892,18 @@
 			ptname = reverseGraphElementMap[currentMovingPoint.id][1]
 
 			currentMovingPoint.addEventListener('mousedown', pointDrag)
+			currentMovingPoint.addEventListener('touchstart', pointDrag)
 			window.removeEventListener('mousemove', pointMoveEvent)
 			window.removeEventListener('mouseup', pointUpEvent)
+			window.removeEventListener('touchmove', pointMoveEvent)
+			window.removeEventListener('touchend', pointUpEvent)
+
 			// window.removeEventListener('mouseout', pointUpEvent)
 			eval(graphData[gphname].pointData[ptname][1].runFunctionOnDragEnd)
+		}
+
+		function graphTouchDisable(event) {
+			event.preventDefault()
 		}
 
 
@@ -2903,9 +2926,12 @@
 				document.getElementById('containAll').style.position = 'relative'
 				document.getElementById('containAll').style.overflow = 'scroll'
 				document.getElementById('containAll').style.height = '55%'
+				// document.getElementById('containAll').style.position = 'fixed'
+				// document.getElementById('containAll').style.zIndex = '300'
 
 				document.getElementById('space1Div').style.height = '0%'
-				document.getElementById('space2Div').style.height = '0%'
+				document.getElementById('space2Div').style.height = '80%'
+				document.getElementById('space2Div').style.pointerEvents = 'auto'
 				document.getElementById('space3Div').style.height = '0%'
 				document.getElementById('space4Div').style.height = '0%'
 				document.getElementById('space5Div').style.height = '0%'
@@ -2916,12 +2942,20 @@
 				document.getElementById('middlepanel').style.fontSize = '0'
 				document.getElementById('menupanel').style.fontSize = '0'
 
-				// $('#interactionAndTitle').insertBefore('#middlepanel')
 				$('#menupanel').insertBefore('#boundaryoptionspanel')
+				$("#middlepanel").appendTo("#space2Div");
+
+				$('<br/>').insertBefore('#boundaryoptionspanel')
+
+				document.getElementById('menupanel').style.height = '8%'
+
+
+				// $('#interactionAndTitle').insertBefore('#middlepanel')
+				
 				// $('#algooptionspanel').insertAfter('#menupanel')
 				// $('#interactionAndTitle').insertBefore('#middlepanel')
-				$('#middlepanel').insertBefore('#containAll')
-				$('#containAll').insertBefore('#middlepanel')
+				// $('#middlepanel').insertBefore('#containAll')
+				// $('#containAll').insertBefore('#middlepanel')
 
 
 				document.getElementById('interactionAndTitle').style.height = '100%'
@@ -2950,31 +2984,66 @@
 				document.getElementById('homeButtonH').style.width = '16%'
 				document.getElementById('homebutton').style.fontSize = '1.2vmax'
 
-				document.getElementById('labH').style.borderRadius = '0px'
-
+				document.getElementById('simulationDetailAndButtonsH').style.borderRadius = '20px 20px 20px 20px'
+				document.getElementById('labH').style.borderRadius = '20px 20px 20px 20px'
+				document.getElementById('simulationDetailAndButtonsH').style.left = '4%'
+				document.getElementById('labH').style.left = '4%'
+				document.getElementById('simulationDetailAndButtonsH').style.width = '92%'
+				document.getElementById('labH').style.width = '92%'
 				// document.getElementById('labpanel').style.width = '82%'
 
-				document.getElementById('middlepanel').style.height = '70%'
+				document.getElementById('middlepanel').style.height = '100%'
 				document.getElementById('middlepanel').style.width = '100%'
 				document.getElementById('middlepanel').style.overflow = 'auto'
 				document.getElementById('middlepanel').style.position = 'relative'
 				// document.getElementById('labpanel').style.overflow = 'scroll'
 
-				document.getElementById('topspacerMenu').style.height = '40%'
+				document.getElementById('topspacerMenu').style.height = '30%'
 
 				document.getElementById('algorithmoption').style.fontSize = '1.2vmax'
 				document.getElementById('boundaryoption').style.fontSize = '1.2vmax'
 				document.getElementById('chargesoption').style.fontSize = '1.2vmax'
 				document.getElementById('settingsoption').style.fontSize = '1.2vmax'
 
-				// document.getElementById('boundaryoptionspanel').style.position = 'relative'
-				// document.getElementById('algooptionspanel').style.position = 'absolute'
-				// document.getElementById('chargesoptionspanel').style.position = 'absolute'
-				// document.getElementById('settingsoptionspanel').style.position = 'absolute'
+				document.getElementById('algorithmoptionH').style.height = '60%'
+				document.getElementById('boundaryoptionH').style.height = '60%'
+				document.getElementById('chargesoptionH').style.height = '60%'
+				document.getElementById('settingsoptionH').style.height = '60%'
 
-				setFont(['algorithmnametext','algorithmeditortext'], '1.2vmax')
-				setFont(['algorithmdescriptiontext','errorAndInfodisplay'], '1.1vmax')
-				setFont(['algoplaytext', 'algosteptext', 'algoresettext'], '1vmax')
+				document.getElementById('algorithmoption').style.border = '0.5px solid rgb(153, 153, 153)'
+				document.getElementById('boundaryoption').style.border = '0.5px solid rgb(153, 153, 153)'
+				document.getElementById('chargesoption').style.border = '0.5px solid rgb(153, 153, 153)'
+				document.getElementById('settingsoption').style.border = '0.5px solid rgb(153, 153, 153)'
+
+				document.getElementById('savebutton').style.borderRadius = '6px'
+				document.getElementById('loadbutton').style.borderRadius = '6px'
+				document.getElementById('homebutton').style.borderRadius = '6px'
+
+
+				document.getElementById('boundaryoptionspanel').style.position = 'absolute'
+				document.getElementById('algooptionspanel').style.position = 'absolute'
+				document.getElementById('chargesoptionspanel').style.position = 'absolute'
+				document.getElementById('settingsoptionspanel').style.position = 'absolute'
+
+				document.getElementById('boundaryoptionspanel').style.height = '92%'
+				document.getElementById('algooptionspanel').style.height = '92%'
+				document.getElementById('chargesoptionspanel').style.height = '92%'
+				document.getElementById('settingsoptionspanel').style.height = '92%'
+
+				setFont(['algorithmnametext','algorithmeditortext','algorithmchoosetext','addchargeText'], '1.2vmax')
+				setFont(['algorithmdescriptiontext','errorAndInfodisplay','boundaryadditionalinfo'], '1.1vmax')
+				setFont(['algoplaytext', 'algosteptext', 'algoresettext','algorithmsToChoose','algoadditionalinfo','energyinfodata'], '1vmax')
+
+				setFont(['bdtypename', 'ellipseoptiontilebutton', 'polyoptiontilebutton', 'sidesname', 'sidesTileInput', 'boundarypointseditortext', 'semiMajorAxName', 'semiMajorTileInput', 'semiMinorAxName', 'semiMinorTileInput','chargepropName','chNumberTopHead','chargeXLabelN','chargeYLabelN','chargeWLabelN','egfuncTextID'], '1.2vmax')
+				setFont(['bdptNameID', 'XcorBDName', 'YcorBDName'], '1.3vmax')
+
+				setFont(['energyFInput'], '1.8vmax')
+
+				document.getElementById('spacerBD1').style.height = '3%'
+				document.getElementById('spacerCH1').style.height = '3%'
+
+				
+				
 
 
 				
@@ -2999,6 +3068,14 @@
 				// document.getElementById('playpauseSim').style.fontSize = '3.3vmin'
 
 				// document.getElementById('materialH').style.backgroundColor = 'black'
+
+				// $(window).bind('scroll', function () {
+				// 	if ($(window).scrollTop() > 50) {
+				// 		$('.menu').addClass('fixed');
+				// 	} else {
+				// 		$('.menu').removeClass('fixed');
+				// 	}
+				// });
 				
 			}
 		}
@@ -3007,8 +3084,10 @@
 
 		window.onscroll = function (e) {
 			document.getElementById('scrollerH').style.height = linearValue(0,document.body.offsetHeight - document.body.clientHeight, 35, 100, document.body.scrollTop) + '%'
-			console.log(linearValue(0,document.body.offsetHeight - document.body.clientHeight, 0, 100, document.body.scrollTop))
+			// console.log(linearValue(0,document.body.offsetHeight - document.body.clientHeight, 0, 100, document.body.scrollTop))
 		} 
+
+
 
 		uid = 0
 		graphData = {}
@@ -3483,7 +3562,14 @@
 			newdiv.id = 'chpointB' + cindex
 			newdiv.setAttribute('class','chpointB')
 			newdiv.style = 'margin:0px;width:100%; height:20%; display: inline-block;'
-			newdiv.innerHTML = '<input value="' + (chlength) + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 5%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: auto; pointer-events: none; user-select: none;" readonly=""><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBXv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[0] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px; outline: none;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBYv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[1] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBCv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[2] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 14%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input onclick="removeChargePoint(event)" value="REMOVE" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 13%; height: 100%; text-align: center;font-size: 0.6vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: pointer;  user-select: none;" id="chpointRemove@' + (chlength) + '" readonly=""></div>'
+
+			portraitfont1 = '0.9vmax'
+			portraitfont2 = '0.6vmax'
+			if (dmode == 'portrait') {
+				portraitfont1 = '1.2vmax'
+				portraitfont2 = '0.9vmax'
+			}
+			newdiv.innerHTML = '<input value="' + (chlength) + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 5%; height: 100%; text-align: center;font-size:' + portraitfont1 + '; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: auto; pointer-events: none; user-select: none;" readonly=""><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBXv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[0] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size:' + portraitfont1 + '; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px; outline: none;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBYv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[1] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 25%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size:' + portraitfont1 + '; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="chpointBCv@' + (chlength) + '" oninput="chpointInput(event)" value="' + newchpoint[2] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 14%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size:' + portraitfont1 + '; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="chspacer" style="margin:0px;width:4%; height:100%; display: inline-block;"></div><input onclick="removeChargePoint(event)" value="REMOVE" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 13%; height: 100%; text-align: center;font-size: ' + portraitfont2 + '; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: pointer;  user-select: none;" id="chpointRemove@' + (chlength) + '" readonly=""></div>'
 			ref.parentNode.insertBefore(newdiv, ref);
 
 			newdiv = document.createElement("div");
@@ -4008,14 +4094,22 @@
 			newdiv.id = 'codeblock' + cindex
 			newdiv.setAttribute('class','codeblock')
 			newdiv.style = 'margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'
-			newdiv.innerHTML = '<input oninput="changedCodeBlock(event)" id="codeblock' + cindex + 'text" value="' + optionaltext + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vmax; font-weight: lighter; color:  black; border-radius: 4px;" class="codeblockText"></input>'
+			portraitfont = '0.9vmax'
+			if (dmode == 'portrait') {
+				portraitfont = '1.2vmax'
+			}
+			newdiv.innerHTML = '<input oninput="changedCodeBlock(event)" id="codeblock' + cindex + 'text" value="' + optionaltext + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: ' + portraitfont + '; font-weight: lighter; color:  black; border-radius: 4px;" class="codeblockText"></input>'
 			ref = document.getElementById('addcodeblock')
 			ref.parentNode.insertBefore(newdiv, ref);
 
+			portraitfont = '0.8vmax'
+			if (dmode == 'portrait') {
+				portraitfont = '1vmax'
+			}
 			newdiv = document.createElement("div");
 			newdiv.id = 'codeblock' + cindex + 'tile'
 			newdiv.style = 'margin:0px;width:15%; height:23%; display: inline-block;  text-align: center; overflow: hidden;'
-			newdiv.innerHTML = '<input onclick="removeCodeBlock(event)" id="codeblockremove-' + cindex + '" value="Remove" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vmax; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: var(--themeviolet); cursor: pointer; user-select: none;" readonly></input>'
+			newdiv.innerHTML = '<input onclick="removeCodeBlock(event)" id="codeblockremove-' + cindex + '" value="Remove" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: ' + portraitfont + ';  font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: var(--themeviolet); cursor: pointer; user-select: none;" readonly></input>'
 			ref.parentNode.insertBefore(newdiv, ref);
 
 			newdiv = document.createElement("div");
@@ -4128,9 +4222,20 @@
 
 		function chooseAlgo(event) {
 			loadAlgoCode(algorithmCodes[event.target.value + 'Code'])
-			document.getElementById('algorithmnametext').innerHTML = algorithmCodes[event.target.value + 'CodeDetails'][0]
-			document.getElementById('algorithmdescriptiontext').innerHTML = algorithmCodes[event.target.value + 'CodeDetails'][1]
+			if (dmode == 'portrait') {
+				document.getElementById('algorithmnametext').innerHTML = algorithmCodes[event.target.value + 'CodeDetails'][0]
+				document.getElementById('algorithmdescriptiontext').innerHTML = algorithmCodes[event.target.value + 'CodeDetails'][1].split('0.75vmax').join('1vmax')
+			}
+			else {
+				document.getElementById('algorithmnametext').innerHTML = algorithmCodes[event.target.value + 'CodeDetails'][0]
+				document.getElementById('algorithmdescriptiontext').innerHTML = algorithmCodes[event.target.value + 'CodeDetails'][1]
+			}		
 		}
+
+		dummyEvent = {}
+		dummyEvent['target'] = {}
+		dummyEvent.target['value'] = 'electrostaticwalkAlgo'
+		chooseAlgo(dummyEvent)
 
 		function getPosition(chargenumb) {
 			return chargeDetails[chargenumb].loc
@@ -4475,7 +4580,12 @@
 				ellipseTile.style.borderWidth = '1px'
 				polyTile.style.borderWidth = '0px'
 
-				document.getElementById('spacerBD1').style.height = '10%'
+				if (dmode == 'portrait') {
+					document.getElementById('spacerBD1').style.height = '3%'
+				}
+				else {
+					document.getElementById('spacerBD1').style.height = '10%'
+				}
 
 				document.getElementById('polyPanel').style.visibility = 'visible'
 				document.getElementById('ellipsePanel').style.visibility = 'hidden'
@@ -4499,7 +4609,12 @@
 				polyTile.style.borderWidth = '1px'
 				ellipseTile.style.borderWidth = '0px'
 
-				document.getElementById('spacerBD1').style.height = '30%'
+				if (dmode == 'portrait') {
+					document.getElementById('spacerBD1').style.height = '3%'
+				}
+				else {
+					document.getElementById('spacerBD1').style.height = '30%'
+				}
 
 				document.getElementById('ellipsePanel').style.visibility = 'visible'
 				document.getElementById('polyPanel').style.visibility = 'hidden'
@@ -4531,7 +4646,11 @@
 			newdiv.id = 'polypointB' + cindex
 			newdiv.setAttribute('class','polypointB')
 			newdiv.style = 'margin:0px;width:100%; height:20%; display: inline-block;'
-			newdiv.innerHTML = '<input value="Point ' + (polyPoints.length + 1) + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly=""><div id="pbspacer" style="margin:0px;width:5%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="polypointBXv@' + (polyPoints.length + 1) + '" oninput="polypointInput(event)" value="' + newpolypoint[0] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="pbspacer" style="margin:0px;width:5%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="polypointBYv@' + (polyPoints.length + 1) + '" oninput="polypointInput(event)" value="' + newpolypoint[1] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;">'
+			portraitfont = '0.9vmax'
+			if (dmode == 'portrait') {
+				portraitfont = '1.2vmax'
+			}
+			newdiv.innerHTML = '<input value="Point ' + (polyPoints.length + 1) + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: ' + portraitfont + '; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly=""><div id="pbspacer" style="margin:0px;width:5%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="polypointBXv@' + (polyPoints.length + 1) + '" oninput="polypointInput(event)" value="' + newpolypoint[0] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: ' + portraitfont + '; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;"><div id="pbspacer" style="margin:0px;width:5%; height:100%; display: inline-block;"></div><input type="number" step="0.01" id="polypointBYv@' + (polyPoints.length + 1) + '" oninput="polypointInput(event)" value="' + newpolypoint[1] + '" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: ' + portraitfont + '; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; border-radius: 6px;">'
 			ref.parentNode.insertBefore(newdiv, ref);
 
 			newdiv = document.createElement("div");
