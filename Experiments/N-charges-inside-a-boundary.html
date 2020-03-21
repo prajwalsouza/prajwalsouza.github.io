@@ -502,7 +502,7 @@
 						<div id="spacerSD7" style='margin:0px;width:88%; height: 7%; display: inline-block;'></div>
 						<div id="loadButtonH" style='margin:0px;width:8%; height: 7%; display: inline-block; overflow: hidden; position: relative; cursor: pointer;'>
 							<input id='loadbutton' value='OPEN' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vmax; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); position: absolute; cursor: pointer; user-select: none; pointer-events:none; outline: none;" readonly></input>
-							<input id="fileinputBack" accept='text/plain' onchange="handleOpen(event)" type="file" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vmax; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; pointer-events: auto; outline: none;"></input>
+							<input id="fileinputBack" accept='text/plain' onchange="handleOpen(event)" onclick="stopAlgorithm()" type="file" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: normal; font-size: 0.9vmax; background: hsla(32,100%,100%,1); color: hsla(0, 0%, 0%, 1); cursor: pointer; pointer-events: auto; outline: none;"></input>
 
 						</div>
 						<div id="spacerSD8" style='margin:0px;width:4%; height: 7%; display: inline-block;'></div>
@@ -2925,14 +2925,13 @@
 				document.getElementById('spacerSD9').style.width = '80%'
 				document.getElementById('homeButtonH').style.width = '16%'
 				document.getElementById('homebutton').style.fontSize = '1.2vmax'
-				
 
 				document.getElementById('labH').style.borderRadius = '0px'
 
-				document.getElementById('middlepanel').style.height = '60%'
+				document.getElementById('middlepanel').style.height = '45%'
 				document.getElementById('middlepanel').style.width = '100%'
-				document.getElementById('middlepanel').style.overflow = 'scroll'
-				document.getElementById('labpanel').style.overflow = 'scroll'
+				// document.getElementById('middlepanel').style.overflow = 'scroll'
+				// document.getElementById('labpanel').style.overflow = 'scroll'
 
 				document.getElementById('topspacerMenu').style.height = '40%'
 
@@ -2940,8 +2939,13 @@
 				document.getElementById('boundaryoption').style.fontSize = '1.2vmax'
 				document.getElementById('chargesoption').style.fontSize = '1.2vmax'
 				document.getElementById('settingsoption').style.fontSize = '1.2vmax'
+				// document.getElementById('boundaryoptionspanel').style.position = 'relative'
+				// document.getElementById('algooptionspanel').style.position = 'absolute'
+				// document.getElementById('chargesoptionspanel').style.position = 'absolute'
+				// document.getElementById('settingsoptionspanel').style.position = 'absolute'
 
 				$('#menupanel').insertBefore('#boundaryoptionspanel')
+				// $('#algooptionspanel').insertAfter('#menupanel')
 				$('#interactionAndTitle').insertBefore('#middlepanel')
 
 				// document.getElementById('textTablesH').style.height = '80%'
@@ -3464,12 +3468,14 @@
 
 			lowestEnergy = Infinity
 
-			currentEnergy = computeEnergy()
-			if (currentEnergy < lowestEnergy) {
-				lowestEnergy = currentEnergy
-				// console.log(lowestEnergy)
+			if (doEnergyComputation) {
+				currentEnergy = computeEnergy()
+				if (currentEnergy < lowestEnergy) {
+					lowestEnergy = currentEnergy
+					// console.log(lowestEnergy)
+				}
+				updateEnergyInfo()
 			}
-			updateEnergyInfo()
 		}
 
 		function chpointInput(event) {
@@ -3557,6 +3563,17 @@
 			return enrg
 		}
 
+		function checkEnergy() {
+			currentEnergy = computeEnergy()
+			if (currentEnergy < lowestEnergy) {
+				lowestEnergy = currentEnergy
+				// console.log(lowestEnergy)
+			}
+			updateEnergyInfo()
+			return currentEnergy
+		}
+
+		doEnergyComputation = true
 		lowestEnergy = Infinity
 		lowestEnergyPositions = {}
 		currentEnergy = Infinity
@@ -3844,12 +3861,10 @@
 							stopAlgorithm()
 						}
 						customcodePointer = (customcodePointer + 1) % customcodes.length
-						currentEnergy = computeEnergy()
-						if (currentEnergy < lowestEnergy) {
-							lowestEnergy = currentEnergy
-							// console.log(lowestEnergy)
+						if (doEnergyComputation) {
+							checkEnergy()
 						}
-						updateEnergyInfo()
+							
 					}
 					else {
 						if (algorithm == 'Electrostatic') {
@@ -4040,12 +4055,7 @@
 					stopAlgorithm()
 				}
 				customcodePointer = (customcodePointer + 1) % customcodes.length
-				currentEnergy = computeEnergy()
-				if (currentEnergy < lowestEnergy) {
-					lowestEnergy = currentEnergy
-					// console.log(lowestEnergy)
-				}
-				updateEnergyInfo()
+				checkEnergy()
 			}
 		}
 
@@ -4468,12 +4478,7 @@
 			randomizeChargePositions()
 			lowestEnergy = Infinity
 
-			currentEnergy = computeEnergy()
-			if (currentEnergy < lowestEnergy) {
-				lowestEnergy = currentEnergy
-				// console.log(lowestEnergy)
-			}
-			updateEnergyInfo()
+			checkEnergy()
 
 		}
 
@@ -4569,12 +4574,7 @@
 			randomizeChargePositions()
 
 			lowestEnergy = Infinity
-			currentEnergy = computeEnergy()
-			if (currentEnergy < lowestEnergy) {
-				lowestEnergy = currentEnergy
-				// console.log(lowestEnergy)
-			}
-			updateEnergyInfo()
+			checkEnergy()
 		}
 
 		function checkIfSegmentsMeet(segment1, segment2) {
@@ -4701,7 +4701,7 @@
 			}
 		}
 
-		addCharges(7)
+		addCharges(12)
 
 		$("#chargePropsBlocksH").scrollTop(0);
 
@@ -4824,12 +4824,13 @@
 
 
 		function handleOpen(event) {
+			stopAlgorithm()
 			var reader = new FileReader()
 			reader.onload = function(){
-				stopAlgorithm()
+				// stopAlgorithm()
 				configInfo = reader.result
 				configblocks = configInfo.split('\n')
-				// console.log(configblocks)
+				
 
 				removeAllCharges()
 				configChnum = parseInt(configblocks[5].split('There were ')[1].split(' charges in the simulation.')[0])
@@ -4884,6 +4885,7 @@
 					algoconfigStart = bdconfigStart + polysidesconfig + 4
 				}
 
+
 				codeblocksNumConfig = parseInt(configblocks[algoconfigStart - 1].split('the following ')[1].split(' code block')[0])
 
 				removeAllCodeBlocks()
@@ -4892,14 +4894,22 @@
 					addNewCodeBlock(codeconfigStr)
 				}
 
-				energyFunc = configblocks[algoconfigStart + codeblocksNumConfig + 2]
-				document.getElementById('energyFInput').value = energyFunc
+				if (configblocks[algoconfigStart + codeblocksNumConfig + 2] == undefined) {
+
+				}
+				else {
+					energyFunc = configblocks[algoconfigStart + codeblocksNumConfig + 2]
+					document.getElementById('energyFInput').value = energyFunc
+				}
+					
 
 				document.getElementById('fileinputBack').value = ''
 
 				event = {}
 				event.target = document.getElementById('algorithmoption')
 				handlePanel(event)
+
+				doEnergyComputation = false
 
 				for (configIndex = 0; configIndex < configChnum; configIndex++) {
 					ptconfig = configblocks[6 + configIndex].split('located at [')[1].split(']')[0]
@@ -4908,6 +4918,11 @@
 					addNewChargePoint(toaddCh)
 				}
 
+				doEnergyComputation = true
+
+				lowestEnergy = Infinity
+				checkEnergy()
+
 				hideChargeKnobs()
 
 			};
@@ -4915,6 +4930,8 @@
 		};
 
 		function handleSave(event) {
+			stopAlgorithm()
+
 			var d = new Date();
 			dateStr = d.toLocaleString()
 			dateStr = dateStr.replace(' ','-').replace(' ','-').replace('/','-').replace('/','-').replace(',','-').replace(':','-').replace(':','-')
