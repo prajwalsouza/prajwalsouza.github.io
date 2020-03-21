@@ -478,7 +478,8 @@
 									<td colspan="8" id='maintitle' style="text-align: right; vertical-align: middle; font-size: 2.2vmax; color: hsla(190, 0%, 0%, 1);">
 										N <font style="color: var(--themeblue);">Charges</font> inside a <font style="color: var(--themeorange);">boundary</font> <br/><font style="font-size: 1.1vmax; font-family: Nunito; font-weight: normal; color: hsla(190, 0%, 30%, 1);">
 										Finding Minimum Energy Configurations </font><br/><font style="font-size: 1vmax; font-weight: normal; font-family: Nunito; color: hsla(260, 100%, 30%, 1);">
-										Vinton Adrian Rebello, Manas Shetty and Prajwal DSouza </font>
+										Vinton Adrian Rebello, Manas Shetty and Prajwal DSouza </font><br/>
+										<font style="font-size: 1vmax;">inspired by the <a href="https://iopscience.iop.org/article/10.1088/0305-4470/31/3/014/meta" style="text-decoration: none;"><font style="color: hsla(190, 40%, 40%, 1);">work</font></a> of Kari J Nurmela</font>
 									</td>
 									<td colspan="1"></td>
 								</tr>
@@ -4305,6 +4306,8 @@
 				hideBoundaryKnobs()
 				hideChargeKnobs()
 
+				currentpanel = 'algorithm'
+
 			}
 			else if (event.target.id == 'settingsoption') {
 				event.target.setAttribute('onclick', '')
@@ -4341,6 +4344,8 @@
 
 				hideBoundaryKnobs()
 				hideChargeKnobs()
+
+				currentpanel = 'settings'
 			}
 			else if (event.target.id == 'chargesoption') {
 				event.target.setAttribute('onclick', '')
@@ -4378,6 +4383,7 @@
 				hideBoundaryKnobs()
 				showChargeKnobs()
 				$("#chargePropsBlocksH").scrollTop(0);
+				currentpanel = 'charges'
 			}
 			else if (event.target.id == 'boundaryoption') {
 				event.target.setAttribute('onclick', '')
@@ -4418,6 +4424,8 @@
 
 				showBoundaryKnobs()
 				hideChargeKnobs()
+
+				currentpanel = 'boundary'
 
 			}
 		}
@@ -5071,6 +5079,16 @@
 		}
 
 		handleLayout()
+
+		function spacebarPlayPause(event) {
+			event.preventDefault()
+			if (currentpanel == 'algorithm' && event.keyCode == 32) {
+				dummyE = {}
+				playpauseAlgo(dummyE)
+			}
+		}
+
+		window.addEventListener("keypress", spacebarPlayPause);
 
 
 
