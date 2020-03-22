@@ -26,6 +26,7 @@
 				--themeviolet: hsla(280, 100%, 50%,  1);
 				--themeorange: hsla(32, 100%, 50%,  1);
 				--boundaryorange: hsla(32, 100%, 50%, 0.6);
+				--themegrey: hsla(32, 0%, 70%, 0.6);
 			}
 
 			.inputButDiv:focus {
@@ -123,6 +124,36 @@
 				/*outline: 1px solid slategrey;*/
 			}
 
+			#optionsDisplayPanel::-webkit-scrollbar {
+				width: 1.1%;
+			}
+
+			#optionsDisplayPanel::-webkit-scrollbar-track {
+				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+				border-radius: 30px;
+			}
+
+			#optionsDisplayPanel::-webkit-scrollbar-thumb {
+				background-color: var(--themegrey);
+				border-radius: 50px;
+				/*outline: 1px solid slategrey;*/
+			}
+
+			body::-webkit-scrollbar {
+				width: 5px;
+			}
+
+			body::-webkit-scrollbar-track {
+				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+				border-radius: 30px;
+			}
+
+			body::-webkit-scrollbar-thumb {
+				background-color: black;
+				border-radius: 50px;
+				/*outline: 1px solid slategrey;*/
+			}
+
 			#fileinputBack::focus {
 				outline: none;
 			}
@@ -173,7 +204,7 @@
 		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body style='margin:0px; display: block; background: hsla(0, 0%, 92%, 1);'>
-		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; position: fixed;'>
+		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; position: fixed; background: hsla(0, 0%, 92%, 1);'>
 			<div id="scroller" style='margin:0px;width:3%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; background: grey; '>
 				<div id="scrollerH" style='margin:0px;width:100%; height: 35%;overflow: hidden;position: absolute; z-index: 1;display: inline-block; background: black; border: 0px solid black; border-radius: 20px; border-top-left-radius: 0px;border-top-right-radius: 0px;'>
 				</div>
@@ -188,270 +219,278 @@
 				</div>
 			</div>
 			<div id="noscroller" style='margin:0px;width:97%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block;'>
-				<div id="middlepanel" style='margin:0px;width:37%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-					<div id="verticalspacer1" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
-					<div id="labpanel" style='margin:0px;width:84%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-						<div id="boundaryoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
-							<div id="spacerBD1" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
-							<div id="boundaryChoicePanel" style='margin:0px;width:100%; height: 10%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-								<div id="spacerB1D1" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
-								<div id="spacerB1D2" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
-								<div id="boundaryTypeTile" style='margin:0px;width:25%; height: 50%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
-									<input value='BOUNDARY TYPE' id="bdtypename" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+				<div id="verticalspacerA" style='margin:0px;width:0%; height: 100%; display: inline-block;'></div>
+				<div id="middlepanel" style='margin:0px;width:39%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+					<div id="optionsDisplayPanel" style='margin:0px;width:100%; height: 90%;position: relative; z-index: 1;display: inline-block; overflow-y:auto; '>
+						<div id="verticalspacer1" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
+						<div id="labpanel" style='margin:0px;width:84%; height: 100%;position: relative; z-index: 1;display: inline-block; '>
+							<div id="boundaryoptionspanel" style='margin:0px;width:100%; height: 88%;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
+								<div id="spacerBD1" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
+								<div id="boundaryChoicePanel" style='margin:0px;width:100%; height: 10%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+									<div id="spacerB1D1" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
+									<div id="spacerB1D2" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
+									<div id="boundaryTypeTile" style='margin:0px;width:25%; height: 50%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+										<input value='BOUNDARY TYPE' id="bdtypename" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+									</div>
+									<div id="spacerB1D3" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
+									<div id="ellipseoptiontile" style='margin:0px;width:25%; height: 50%; display: inline-block; overflow: hidden;'>
+										<input class="inputButDiv" onclick="toggleBoundaryType(event)" id='ellipseoptiontilebutton' value='Ellipse' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(32,100%,50%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; pointer-events: none; border-color: hsla(0, 0%, 70%, 1);" readonly></input>
+									</div>
+									<div id="polyoptiontile" style='margin:0px;width:25%; height: 50%; display: inline-block; overflow: hidden;'>
+										<input class="inputButDiv" onclick="toggleBoundaryType(event)" id='polyoptiontilebutton' value='Polygon' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1); border-color: hsla(0, 0%, 70%, 1); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(32,100%,50%,0); color: hsla(0, 0%, 70%, 1); cursor: pointer; user-select: none;" readonly></input>
+									</div>
+									<div id="spacerB1D4" style='margin:0px;width:15%; height: 50%; display: inline-block;'></div>
+									<div id="spacerB1D5" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
+									
 								</div>
-								<div id="spacerB1D3" style='margin:0px;width:5%; height: 50%; display: inline-block;'></div>
-								<div id="ellipseoptiontile" style='margin:0px;width:25%; height: 50%; display: inline-block; overflow: hidden;'>
-									<input class="inputButDiv" onclick="toggleBoundaryType(event)" id='ellipseoptiontilebutton' value='Ellipse' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(32,100%,50%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none; pointer-events: none; border-color: hsla(0, 0%, 70%, 1);" readonly></input>
+								<div id="spacerBD3" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+								<div id="boundaryInfoPanel" style='margin:0px;width:100%; height: 12%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+									<div id="spacerB2D11" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
+									<div id="spacerB2D12" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
+									<div id="boundaryadditionalinfo" style='margin:0px;width:90%; height: 60%; display: inline-block;font-size: 0.8vmax; font-family: Nunito; color: hsla(0, 0%, 50%, 1); overflow-y: auto;'>
+										For a circular boundary, set both the axis lengths to same value which is the radius.
+									</div>
+									<div id="spacerB2D13" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
 								</div>
-								<div id="polyoptiontile" style='margin:0px;width:25%; height: 50%; display: inline-block; overflow: hidden;'>
-									<input class="inputButDiv" onclick="toggleBoundaryType(event)" id='polyoptiontilebutton' value='Polygon' list="brow" style="border: 1px solid hsla(0, 0%, 70%, 1); border-color: hsla(0, 0%, 70%, 1); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(32,100%,50%,0); color: hsla(0, 0%, 70%, 1); cursor: pointer; user-select: none;" readonly></input>
+								<div id="spacerBD7" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div><br/>
+								<div id="polyPanel" style='margin:0px;width:100%; height: 70%; display: inline-block; position: absolute; visibility: hidden; pointer-events: none;'>
+									<div id="boundaryTypeOptionsPanelPolygon" style='margin:0px;width:100%; height: 15%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+										<div id="spacerB1D55" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
+										<div id="spacerB1D6" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
+										<div id="sidesTile" style='margin:0px;width:35%; height: 40%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+											<input value='SIDES' id="sidesname" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										</div>
+										<div id="spacerB1D7" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
+										<div id="sidesTileInputH" style='margin:0px;width:25%; height: 40%; display: inline-block; overflow: hidden; border-radius: 5px;'>
+											<input type="number" min="3" step="1"  oninput="polysidesChange()" id='sidesTileInput' value='6' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
+										</div>
+										<div id="spacerB1D8" style='margin:0px;width:30%; height: 40%; display: inline-block;'></div>
+										<div id="spacerB1D9" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
+									</div>
+									<div id="spacerBDHidden1" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+									<div id="boundaryPointsPanel" style='margin:0px;width:100%; height: 50%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+										<div id="gradfillbp" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 32%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 38%, hsla(0, 0%, 0%, 0) 80%,hsla(0, 100%, 100%, 1) 90%,hsla(0, 100%, 100%, 0) 91%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
+										<div id="spacerBPD81" style='margin:0px;width:100%; height:9%; display: inline-block;'></div>
+										<div id="spacerBPD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+										<div id="boundarypointseditortext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>BOUNDARY POINTS</div>
+										<div id="spacerBPD83" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+										<div id="spacerBPD84" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
+										<div id="spacerBPD85" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
+										<div id="pointeditNameBlock" style='margin:0px;width:90%; height:10%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro; overflow:hidden; color: hsla(0, 0%, 50%, 1); position: relative; '>
+											<input value='Point' id="bdptNameID" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+											<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+											<input value='X co-ordinate' id="XcorBDName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+											<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
+											<input value='Y co-ordinate' id="YcorBDName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										</div>
+										<div id="spacerBPD86" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
+										<div id="spacerBPD87" style='margin:0px;width:100%; height:3%; display: inline-block;'></div>
+										<div id="spacerBPD88" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
+										<div id="pointBlocksH" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro; color: hsla(0, 0%, 50%, 1); position: relative; overflow-y: scroll; '>
+											<div id="pbVfinalspacer" style='margin:0px;width:100%; height:20%; display: inline-block;'></div>
+										</div>
+										<div id="spacerBPD89" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
+										<div id="spacerBPD810" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+									</div>
+									<div id="spacerBD4" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
 								</div>
-								<div id="spacerB1D4" style='margin:0px;width:15%; height: 50%; display: inline-block;'></div>
-								<div id="spacerB1D5" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
+								<div id="ellipsePanel" style='margin:0px;width:100%; height: 45%; display: inline-block;'>
+									<div id="boundaryTypeOptionsPanelEllipse" style='margin:0px;width:100%; height: 40%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+										<div id="spacerB1D55" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
+										<div id="spacerB1D6" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+										<div id="semiMajorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+											<input value='SEMI MAJOR AXIS' id="semiMajorAxName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										</div>
+										<div id="spacerB1D7" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
+										<div id="semiMajorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
+											<input oninput="updateMajorAxis(event)" type="number" min="0" step="0.01"  onclick="" id='semiMajorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
+										</div>
+										<div id="spacerB1D8" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
+										<div id="spacerB1D9" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+										<div id="spacerB1D10" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
+										<div id="semiMinorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
+											<input value='SEMI MINOR AXIS' id="semiMinorAxName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										</div>
+										<div id="spacerB1D11" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
+										<div id="semiMinorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
+											<input oninput="updateMinorAxis(event)" type="number" min="0" step="0.01" onclick="" id='semiMinorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
+										</div>
+										<div id="spacerB1D1" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
+									</div>
+									<div id="spacerBD4" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+								</div>
+
+							</div>
+							<div id="chargesoptionspanel" style='margin:0px;width:100%; height: 88%;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
+								<div id="spacerCH1" style='margin:0px;width:100%; height: 20%; display: inline-block;'></div>
+								<div id="chargePropsPanelH" style='margin:0px;width:100%; height: 40%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+									<div id="chargePropsPanel" style='margin:0px;width:100%; height: 100%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+										<div id="gradfillchp" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 32%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 38%, hsla(0, 0%, 0%, 0) 80%,hsla(0, 100%, 100%, 1) 90%,hsla(0, 100%, 100%, 0) 91%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
+										<div id="spacerCH1sub1" style='margin:0px;width:100%; height:9%; display: inline-block;'></div>
+										<div id="spacerCH1sub2" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+										<div id="chargepropertiestext" style='margin:0px;width:40%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>
+											<input value='CHARGE PROPERTIES' id="chargepropName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										</div>
+										<div id="spacerCH1sub3" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+										<div id="addchargeblock" style='margin:0px;width:35%; height:10%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: hidden;'>
+											<input onclick="addchargeblock()" id='addchargeText' value='Add Charge' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vmax; font-weight: lighter; color:  black; background: var(--themeblue); color: white; cursor: pointer;" readonly></input>
+										</div>
+										<div id="addchargeblockspacer" style='margin:0px;width:10%; height:10%; display: inline-block;'></div>
+										<div id="spacerCH1sub4" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
+										<div id="spacerCH1sub5" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
+										<div id="chargeeditNameBlock" style='margin:0px;width:90%; height:10%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro;  color: hsla(0, 0%, 50%, 1); position: relative; '>
+											<input value='No' id="chNumberTopHead" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 5%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+											<div id="pbspacer" style='margin:0px;width:4%; height:100%; display: inline-block;'></div>
+											<input value='X' id="chargeXLabelN" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+											<div id="pbspacer" style='margin:0px;width:4%; height:100%; display: inline-block;'></div>
+											<input value='Y' id="chargeYLabelN" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+											<div id="pbspacer" style='margin:0px;width:4%; height:100%; display: inline-block;'></div>
+											<input value='Charge' id="chargeWLabelN" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 13%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+
+										</div>
+										<div id="spacerCH1sub6" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
+										<div id="spacerCH1sub7" style='margin:0px;width:100%; height:3%; display: inline-block;'></div>
+										<div id="spacerCH1sub8" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
+										<div id="chargePropsBlocksH" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro; color: hsla(0, 0%, 50%, 1); position: relative; overflow-y: scroll; '>
+											<div id="topspacer" style='margin:0px;width:100%; height:6%; display: inline-block;'></div>
+											<div id="chfinalspacer" style='margin:0px;width:100%; height:20%; display: inline-block;'></div>
+										</div>
+										<div id="spacerCH1sub9" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
+										<div id="spacerCH1sub10" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+									</div>
+								</div>
+								<div id="spacerCH2" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+								<div id="energyFuncPanel" style='margin:0px;width:100%; height: 27%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+									<div id="spacerE1sub1" style='margin:0px;width:100%; height:10%; display: inline-block;'></div>
+									<div id="spacerE1sub2" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+									<div id="energyfunctext" style='margin:0px;width:88%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>
+										<input value='ENERGY FUNCTION' id="egfuncTextID" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+									</div>
+									<div id="spacerE1sub3" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+									<div id="spacerE1sub4" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+									<div id="efspacer" style='margin:0px;width:5%; height:25%; display: inline-block;'></div>
+									<input  oninput="handleEnergyFInput(event)" id='energyFInput' value='p*q/d' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 88%; height: 25%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.2vmax; background: hsla(0,0%,80%,1); color: hsla(0, 0%, 0%, 1); cursor: auto; user-select: none; border-radius: 5px;"></input>
+									<div id="efspacer" style='margin:0px;width:5%; height:25%; display: inline-block;'></div>
+									<div id="energyFuncInfoPanel" style='margin:0px;width:100%; height: 30%; display: inline-block; overflow: hidden; position: relative;'>
+										<div id="spacerfunc1" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
+										<div id="spacerfunc2" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
+										<div id="energyinfodata" style='margin:0px;width:90%; height: 60%; display: inline-block;font-size: 0.8vmax; font-family: Nunito; color: hsla(0, 0%, 50%, 1); '>
+											The energy between two charges of p and q units, separated by a distance d. Please stick to using p, q and d while modifying this function.
+										</div>
+										<div id="spacerfunc3" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
+									</div>
+								</div>
+								<div id="spacerCH3" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+							</div>
+							<div id="settingsoptionspanel" style='margin:0px;width:100%; height: 88%;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
 								
 							</div>
-							<div id="spacerBD3" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-							<div id="boundaryInfoPanel" style='margin:0px;width:100%; height: 12%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-								<div id="spacerB2D11" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
-								<div id="spacerB2D12" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
-								<div id="boundaryadditionalinfo" style='margin:0px;width:90%; height: 60%; display: inline-block;font-size: 0.8vmax; font-family: Nunito; color: hsla(0, 0%, 50%, 1); overflow-y: auto;'>
-									For a circular boundary, set both the axis lengths to same value which is the radius.
-								</div>
-								<div id="spacerB2D13" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
-							</div>
-							<div id="spacerBD7" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div><br/>
-							<div id="polyPanel" style='margin:0px;width:100%; height: 70%; display: inline-block; position: absolute; visibility: hidden; pointer-events: none;'>
-								<div id="boundaryTypeOptionsPanelPolygon" style='margin:0px;width:100%; height: 15%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-									<div id="spacerB1D55" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
-									<div id="spacerB1D6" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
-									<div id="sidesTile" style='margin:0px;width:35%; height: 40%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
-										<input value='SIDES' id="sidesname" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-									</div>
-									<div id="spacerB1D7" style='margin:0px;width:5%; height: 40%; display: inline-block;'></div>
-									<div id="sidesTileInputH" style='margin:0px;width:25%; height: 40%; display: inline-block; overflow: hidden; border-radius: 5px;'>
-										<input type="number" min="3" step="1"  oninput="polysidesChange()" id='sidesTileInput' value='6' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
-									</div>
-									<div id="spacerB1D8" style='margin:0px;width:30%; height: 40%; display: inline-block;'></div>
-									<div id="spacerB1D9" style='margin:0px;width:100%; height: 30%; display: inline-block;'></div>
-								</div>
-								<div id="spacerBDHidden1" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
-								<div id="boundaryPointsPanel" style='margin:0px;width:100%; height: 50%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-									<div id="gradfillbp" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 32%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 38%, hsla(0, 0%, 0%, 0) 80%,hsla(0, 100%, 100%, 1) 90%,hsla(0, 100%, 100%, 0) 91%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
-									<div id="spacerBPD81" style='margin:0px;width:100%; height:9%; display: inline-block;'></div>
-									<div id="spacerBPD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-									<div id="boundarypointseditortext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>BOUNDARY POINTS</div>
-									<div id="spacerBPD83" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-									<div id="spacerBPD84" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
-									<div id="spacerBPD85" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
-									<div id="pointeditNameBlock" style='margin:0px;width:90%; height:10%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro; overflow:hidden; color: hsla(0, 0%, 50%, 1); position: relative; '>
-										<input value='Point' id="bdptNameID" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeorange); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-										<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-										<input value='X co-ordinate' id="XcorBDName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-										<div id="pbspacer" style='margin:0px;width:5%; height:100%; display: inline-block;'></div>
-										<input value='Y co-ordinate' id="YcorBDName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 30%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-									</div>
-									<div id="spacerBPD86" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
-									<div id="spacerBPD87" style='margin:0px;width:100%; height:3%; display: inline-block;'></div>
-									<div id="spacerBPD88" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
-									<div id="pointBlocksH" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro; color: hsla(0, 0%, 50%, 1); position: relative; overflow-y: scroll; '>
-										<div id="pbVfinalspacer" style='margin:0px;width:100%; height:20%; display: inline-block;'></div>
-									</div>
-									<div id="spacerBPD89" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
-									<div id="spacerBPD810" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
-								</div>
-								<div id="spacerBD4" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
-							</div>
-							<div id="ellipsePanel" style='margin:0px;width:100%; height: 45%; display: inline-block;'>
-								<div id="boundaryTypeOptionsPanelEllipse" style='margin:0px;width:100%; height: 40%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-									<div id="spacerB1D55" style='margin:0px;width:100%; height: 15%; display: inline-block;'></div>
-									<div id="spacerB1D6" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
-									<div id="semiMajorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
-										<input value='SEMI MAJOR AXIS' id="semiMajorAxName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-									</div>
-									<div id="spacerB1D7" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
-									<div id="semiMajorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
-										<input oninput="updateMajorAxis(event)" type="number" min="0" step="0.01"  onclick="" id='semiMajorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
-									</div>
-									<div id="spacerB1D8" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
-									<div id="spacerB1D9" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
-									<div id="spacerB1D10" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
-									<div id="semiMinorTile" style='margin:0px;width:35%; height: 25%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none; '>
-										<input value='SEMI MINOR AXIS' id="semiMinorAxName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: right;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-									</div>
-									<div id="spacerB1D11" style='margin:0px;width:5%; height: 25%; display: inline-block;'></div>
-									<div id="semiMinorTileInputH" style='margin:0px;width:25%; height: 25%; display: inline-block; overflow: hidden; border-radius: 5px;'>
-										<input oninput="updateMinorAxis(event)" type="number" min="0" step="0.01" onclick="" id='semiMinorTileInput' value='1' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-weight: bold; font-size: 0.9vmax; background: hsla(0,0%,78%,1); color: hsla(0, 100%, 100%, 1); cursor: auto; user-select: none;"></input>
-									</div>
-									<div id="spacerB1D1" style='margin:0px;width:30%; height: 25%; display: inline-block;'></div>
-								</div>
-								<div id="spacerBD4" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
-							</div>
+							<div id="algooptionspanel" style='margin:0px;width:100%; height: 88%; position: relative; z-index: 1;display: inline-block; visibility: visible; pointer-events: auto;'>
+								<div id="spacerD1" style='margin:0px;width:100%; height: 8%; display: inline-block;'></div>
+								<div id="algorithmdescription" style='margin:0px;width:100%; height: 25%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
+									<div id="gradfill1" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 30%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1) 80%,hsla(0, 100%, 100%, 1));'></div>
+									<div id="spacerD51" style='margin:0px;width:100%; height: 12%; display: inline-block;'></div>
+									<div id="spacerD52" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+									<div id="algorithmnametext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1);'>ELECTROSTATIC WALK</div>
+									<div id="spacerD53" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+									<div id="spacerD54" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+									<div id="spacerD55" style='margin:0px;width:5%; height: 53%; display: inline-block;'></div>
+									
+									<div id="algorithmdescriptiontext" style='margin:0px;width:90%; height: 53%; display: inline-block;font-size: 0.85vmax; font-family: Nunito; overflow-y: auto; color: hsla(0, 0%, 50%, 1);'>
+										Move the <font style="color: var(--themeblue);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force, if the new location is within the <font style="color: var(--themeorange);">boundary</font>. <br/>
+										<font style="font-family: Roboto; color: black; font-size: 0.75vmax;"> Code : electrostaticForce(<font style="color: var(--themeblue);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> 
 
-						</div>
-						<div id="chargesoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
-							<div id="spacerCH1" style='margin:0px;width:100%; height: 20%; display: inline-block;'></div>
-							<div id="chargePropsPanelH" style='margin:0px;width:100%; height: 40%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-								<div id="chargePropsPanel" style='margin:0px;width:100%; height: 100%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-									<div id="gradfillchp" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 32%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 38%, hsla(0, 0%, 0%, 0) 80%,hsla(0, 100%, 100%, 1) 90%,hsla(0, 100%, 100%, 0) 91%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
-									<div id="spacerCH1sub1" style='margin:0px;width:100%; height:9%; display: inline-block;'></div>
-									<div id="spacerCH1sub2" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-									<div id="chargepropertiestext" style='margin:0px;width:40%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>
-										<input value='CHARGE PROPERTIES' id="chargepropName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+										Pick a random <font style="color: var(--themeblue);">charge</font> <br/> 
+										<font style="font-family: Roboto; color: black; font-size: 0.75vmax;"> Code : pickCharge()</font>
+										<br/><br/> <br/> 
 									</div>
-									<div id="spacerCH1sub3" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-									<div id="addchargeblock" style='margin:0px;width:35%; height:10%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: hidden;'>
-										<input onclick="addchargeblock()" id='addchargeText' value='Add Charge' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vmax; font-weight: lighter; color:  black; background: var(--themeblue); color: white; cursor: pointer;" readonly></input>
-									</div>
-									<div id="addchargeblockspacer" style='margin:0px;width:10%; height:10%; display: inline-block;'></div>
-									<div id="spacerCH1sub4" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
-									<div id="spacerCH1sub5" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
-									<div id="chargeeditNameBlock" style='margin:0px;width:90%; height:10%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro;  color: hsla(0, 0%, 50%, 1); position: relative; '>
-										<input value='No' id="chNumberTopHead" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 5%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: var(--themeblue); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-										<div id="pbspacer" style='margin:0px;width:4%; height:100%; display: inline-block;'></div>
-										<input value='X' id="chargeXLabelN" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-										<div id="pbspacer" style='margin:0px;width:4%; height:100%; display: inline-block;'></div>
-										<input value='Y' id="chargeYLabelN" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 22%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-										<div id="pbspacer" style='margin:0px;width:4%; height:100%; display: inline-block;'></div>
-										<input value='Charge' id="chargeWLabelN" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 13%; height: 100%; text-align: center;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0,0%,50%,1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+									<div id="spacerD56" style='margin:0px;width:5%; height: 53%; display: inline-block;'></div>
+									<div id="spacerD57" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
+								</div>
+								<div id="spacerD7" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+								<div id="algorithmeditor" style='margin:0px;width:100%; height: 48%; display: inline-block; background: white; border-radius: 10px; position: relative; overflow: hidden;'>
+									<div id="gradfill2" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 15%, hsla(0, 100%, 100%, 1) 17%, hsla(0, 100%, 100%, 0) 19%, hsla(0, 0%, 0%, 0) 50%,hsla(0, 100%, 100%, 1) 80%,hsla(0, 100%, 100%, 0) 81%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
+									<div id="spacerD81" style='margin:0px;width:100%; height:7%; display: inline-block;'></div>
+									<div id="spacerD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+									<div id="algorithmeditortext" style='margin:0px;width:60%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>ALGORITHM</div>
+									<div onclick="playpauseAlgo()" id="algoplaytext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.75vmax; font-family: Source Sans Pro; font-weight: bold; letter-spacing: 1px; text-align: center; color: hsla(0, 0%, 40%, 1); overflow: hidden;cursor: pointer; user-select: none;'>PLAY</div>
+									<div onclick="stepAlgo()" id="algosteptext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.75vmax; font-family: Source Sans Pro; font-weight: bold; letter-spacing: 1px; text-align: center; color: hsla(0, 0%, 40%, 1); overflow: hidden; cursor: pointer; user-select: none;'>STEP</div>
+									<div onclick="resetAlgo()" id="algoresettext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.75vmax; font-family: Source Sans Pro; font-weight: bold; letter-spacing: 1px; text-align: center; color: hsla(0, 0%, 40%, 1); overflow: hidden; cursor: pointer; user-select: none;'>RESET</div>
+									<div id="spacerD83" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
+									<div id="spacerD84" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+									<div id="spacerD85" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
+									
+									<div id="algorithmedit" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro; overflow-y: auto; color: hsla(0, 0%, 50%, 1); position: relative; '>
+										
+										<div id="codeblock1" class="codeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
+											<input oninput="changedCodeBlock(event)" id='codeblock1text' value='charge = pickCharge()' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vmax; font-weight: lighter; color:  black; border-radius: 4px;" class="codeblockText"></input>
+										</div>
+										<div id="codeblock1tile" style='margin:0px;width:15%; height:23%; display: inline-block;  text-align: center; overflow: hidden;'>
+											<input onclick="removeCodeBlock(event)" id='codeblockremove-1' value='Remove' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vmax; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: var(--themeviolet); cursor: pointer; user-select: none;" readonly></input>
+										</div>
+										<div id="codeblock1spacer" style='margin:0px;width:100%; height:4%; display: inline-block;'></div>
+										
+										<div id="codeblock2" class="codeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
+											<input oninput="changedCodeBlock(event)" id='codeblock2text' value='electrostaticWalk(charge, 0.008)' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vmax; font-weight: lighter; color:  black;"  class="codeblockText"></input>
+										</div>
+										
+										<div id="codeblock2tile" style='margin:0px;width:15%; height:23%; display: inline-block;  text-align: center; overflow: hidden;'>
+											<input onclick="removeCodeBlock(event)" id='codeblockremove-2' value='Remove' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vmax; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: var(--themeviolet); cursor: pointer; user-select: none;" readonly></input>
+										</div>
+										<div id="codeblock2spacer" style='margin:0px;width:100%; height:4%; display: inline-block;'></div>
 
+										<div id="addcodeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
+											<input onclick="addNewCodeBlock()" id='addcodeText' value='Add Code Block' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vmax; font-weight: lighter; color:  black; background: var(--themeviolet); color: white; cursor: pointer;" readonly></input>
+										</div>
+										<div id="addcodeblockspacer" style='margin:0px;width:100%; height:13%; display: inline-block;'></div>
 									</div>
-									<div id="spacerCH1sub6" style='margin:0px;width:5%; height:10%; display: inline-block;'></div>
-									<div id="spacerCH1sub7" style='margin:0px;width:100%; height:3%; display: inline-block;'></div>
-									<div id="spacerCH1sub8" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
-									<div id="chargePropsBlocksH" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro; color: hsla(0, 0%, 50%, 1); position: relative; overflow-y: scroll; '>
-										<div id="topspacer" style='margin:0px;width:100%; height:6%; display: inline-block;'></div>
-										<div id="chfinalspacer" style='margin:0px;width:100%; height:20%; display: inline-block;'></div>
+									<div id="spacerD86" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
+									<div id="spacerD87" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+									<div id="spacerD88" style='margin:0px;width:5%; height: 12%; display: inline-block;'></div>
+									<div id="errorAndInfodisplay" style='margin:0px;width:90%; height: 12%; display: inline-block; font-size: 0.8vmax; color: red; font-family: Source Sans Pro; z-index: 3; overflow: auto; pointer-events: none;'>
+										<font style="color: hsla(0, 0%, 0%, 0.7)">The code is written in Javascript and exact function names have to followed since they are case sensitive.</font>
 									</div>
-									<div id="spacerCH1sub9" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
-									<div id="spacerCH1sub10" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+									<div id="spacerD89" style='margin:0px;width:5%; height: 12%; display: inline-block;'></div>
+									<div id="spacerD90" style='margin:0px;width:100%; height: 6%; display: inline-block;'></div>
 								</div>
+								<div id="spacerD10" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
+								<div id="algorithmchoice" style='margin:0px;width:100%; height: 19%; display: inline-block; background: white; border-radius: 10px;'>
+									<div id="spacerD111" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
+									<div id="spacerD112" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+									<div id="algorithmchoosetext" style='margin:0px;width:35%; height: 30%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>CHOOSE ALGORITHM</div>
+									<div id="spacerD113" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+									<div id="choosealgorithmdrop" style='margin:0px;width:50%; height: 30%; display: inline-block; overflow: hidden;'>
+										<select onchange="chooseAlgo(event)" id="algorithmsToChoose" style="font-family: Roboto; font-size: 0.75vmax;">
+											<option value="electrostaticwalkAlgo">ELECTROSTATIC WALK</option>
+											<option value="moveIfMinimumAlgo">MOVE IF MINIMUM</option>
+											<option value="electrostaticwithRandomnessAlgo">ELECTROSTATIC AND  RANDOMNESS</option>
+											<option value="electrostaticForceAlgo">ELECTROSTATIC FORCE</option>
+											<option value="randomPositionAlgo">RANDOM POSITION</option>
+											<option value="randomSearchAlgo">RANDOM SEARCH</option>
+											<option value="geneticAlgo">GENETIC</option>
+										</select>
+									</div>
+									<div id="spacerD114" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
+									<div id="spacerD115" style='margin:0px;width:100%; height: 0%; display: inline-block;'></div>
+									<div id="spacerD115" style='margin:0px;width:5%; height: 20%; display: inline-block;'></div>
+									
+									<div id="algoadditionalinfo" style='margin:0px;width:90%; height: 20%; display: inline-block;font-size: 0.62vmax; font-family: Nunito; color: hsla(0, 0%, 50%, 1);'>
+										The goal is to attain minimum energy configurations. Some algorithms should work for certain cases. 
+									</div>
+									<div id="spacerD116" style='margin:0px;width:5%; height: 20%; display: inline-block;'></div>
+									<div id="spacerD117" style='margin:0px;width:100%; height: 20%; display: inline-block;'></div>
+
+								</div>
+								<div id="spacerD13" style='margin:0px;width:100%; height: 19%; display: inline-block;'></div>
+
 							</div>
-							<div id="spacerCH2" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-							<div id="energyFuncPanel" style='margin:0px;width:100%; height: 27%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-								<div id="spacerE1sub1" style='margin:0px;width:100%; height:10%; display: inline-block;'></div>
-								<div id="spacerE1sub2" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-								<div id="energyfunctext" style='margin:0px;width:88%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>
-									<input value='ENERGY FUNCTION' id="egfuncTextID" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-								</div>
-								<div id="spacerE1sub3" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-								<div id="spacerE1sub4" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-								<div id="efspacer" style='margin:0px;width:5%; height:25%; display: inline-block;'></div>
-								<input  oninput="handleEnergyFInput(event)" id='energyFInput' value='p*q/d' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 88%; height: 25%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.2vmax; background: hsla(0,0%,80%,1); color: hsla(0, 0%, 0%, 1); cursor: auto; user-select: none; border-radius: 5px;"></input>
-								<div id="efspacer" style='margin:0px;width:5%; height:25%; display: inline-block;'></div>
-								<div id="energyFuncInfoPanel" style='margin:0px;width:100%; height: 30%; display: inline-block; overflow: hidden; position: relative;'>
-									<div id="spacerfunc1" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
-									<div id="spacerfunc2" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
-									<div id="energyinfodata" style='margin:0px;width:90%; height: 60%; display: inline-block;font-size: 0.8vmax; font-family: Nunito; color: hsla(0, 0%, 50%, 1); '>
-										The energy between two charges of p and q units, separated by a distance d. Please stick to using p, q and d while modifying this function.
-									</div>
-									<div id="spacerfunc3" style='margin:0px;width:5%; height: 60%; display: inline-block;'></div>
-								</div>
-							</div>
-							<div id="spacerCH3" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
-						</div>
-						<div id="settingsoptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: hidden; pointer-events: none; position: absolute;'>
 							
 						</div>
-						<div id="algooptionspanel" style='margin:0px;width:100%; height: 88%;overflow: hidden;position: relative; z-index: 1;display: inline-block; visibility: visible; pointer-events: auto;'>
-							<div id="spacerD1" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-							<div id="algorithmdescription" style='margin:0px;width:100%; height: 25%; display: inline-block; background: white; border-radius: 10px; overflow: hidden; position: relative;'>
-								<div id="gradfill1" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 30%, hsla(0, 100%, 100%, 1) 33%, hsla(0, 100%, 100%, 0) 40%, hsla(0, 0%, 0%, 0) 60%,hsla(0, 100%, 100%, 1) 80%,hsla(0, 100%, 100%, 1));'></div>
-								<div id="spacerD51" style='margin:0px;width:100%; height: 12%; display: inline-block;'></div>
-								<div id="spacerD52" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-								<div id="algorithmnametext" style='margin:0px;width:90%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1);'>ELECTROSTATIC WALK</div>
-								<div id="spacerD53" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-								<div id="spacerD54" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
-								<div id="spacerD55" style='margin:0px;width:5%; height: 53%; display: inline-block;'></div>
-								
-								<div id="algorithmdescriptiontext" style='margin:0px;width:90%; height: 53%; display: inline-block;font-size: 0.85vmax; font-family: Nunito; overflow-y: auto; color: hsla(0, 0%, 50%, 1);'>
-									Move the <font style="color: var(--themeblue);">nth charge</font>, a distance of <font style="color: hsla(210, 100%, 50%, 1);">d</font> in the direction of electrostatic force, if the new location is within the <font style="color: var(--themeorange);">boundary</font>. <br/>
-									<font style="font-family: Roboto; color: black; font-size: 0.75vmax;"> Code : electrostaticForce(<font style="color: var(--themeblue);">n</font>, <font style="color: hsla(210, 100%, 50%, 1);">d</font>)</font> <br/><br/> 
-
-									Pick a random <font style="color: var(--themeblue);">charge</font> <br/> 
-									<font style="font-family: Roboto; color: black; font-size: 0.75vmax;"> Code : pickCharge()</font>
-									<br/><br/> <br/> 
-								</div>
-								<div id="spacerD56" style='margin:0px;width:5%; height: 53%; display: inline-block;'></div>
-								<div id="spacerD57" style='margin:0px;width:100%; height: 10%; display: inline-block;'></div>
-							</div>
-							<div id="spacerD7" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-							<div id="algorithmeditor" style='margin:0px;width:100%; height: 48%; display: inline-block; background: white; border-radius: 10px; position: relative; overflow: hidden;'>
-								<div id="gradfill2" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 15%, hsla(0, 100%, 100%, 1) 17%, hsla(0, 100%, 100%, 0) 19%, hsla(0, 0%, 0%, 0) 50%,hsla(0, 100%, 100%, 1) 80%,hsla(0, 100%, 100%, 0) 81%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
-								<div id="spacerD81" style='margin:0px;width:100%; height:7%; display: inline-block;'></div>
-								<div id="spacerD82" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-								<div id="algorithmeditortext" style='margin:0px;width:60%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>ALGORITHM</div>
-								<div onclick="playpauseAlgo()" id="algoplaytext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.75vmax; font-family: Source Sans Pro; font-weight: bold; letter-spacing: 1px; text-align: center; color: hsla(0, 0%, 40%, 1); overflow: hidden;cursor: pointer; user-select: none;'>PLAY</div>
-								<div onclick="stepAlgo()" id="algosteptext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.75vmax; font-family: Source Sans Pro; font-weight: bold; letter-spacing: 1px; text-align: center; color: hsla(0, 0%, 40%, 1); overflow: hidden; cursor: pointer; user-select: none;'>STEP</div>
-								<div onclick="resetAlgo()" id="algoresettext" style='margin:0px;width:10%; height: 10%; display: inline-block; font-size: 0.75vmax; font-family: Source Sans Pro; font-weight: bold; letter-spacing: 1px; text-align: center; color: hsla(0, 0%, 40%, 1); overflow: hidden; cursor: pointer; user-select: none;'>RESET</div>
-								<div id="spacerD83" style='margin:0px;width:5%; height: 10%; display: inline-block;'></div>
-								<div id="spacerD84" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-								<div id="spacerD85" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
-								
-								<div id="algorithmedit" style='margin:0px;width:90%; height:57%; display: inline-block;font-size: 0.85vmax; font-family: Source Sans Pro; overflow-y: auto; color: hsla(0, 0%, 50%, 1); position: relative; '>
-									
-									<div id="codeblock1" class="codeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
-										<input oninput="changedCodeBlock(event)" id='codeblock1text' value='charge = pickCharge()' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vmax; font-weight: lighter; color:  black; border-radius: 4px;" class="codeblockText"></input>
-									</div>
-									<div id="codeblock1tile" style='margin:0px;width:15%; height:23%; display: inline-block;  text-align: center; overflow: hidden;'>
-										<input onclick="removeCodeBlock(event)" id='codeblockremove-1' value='Remove' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vmax; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: var(--themeviolet); cursor: pointer; user-select: none;" readonly></input>
-									</div>
-									<div id="codeblock1spacer" style='margin:0px;width:100%; height:4%; display: inline-block;'></div>
-									
-									<div id="codeblock2" class="codeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 1px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
-										<input oninput="changedCodeBlock(event)" id='codeblock2text' value='electrostaticWalk(charge, 0.008)' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Nunito; font-size: 0.9vmax; font-weight: lighter; color:  black;"  class="codeblockText"></input>
-									</div>
-									
-									<div id="codeblock2tile" style='margin:0px;width:15%; height:23%; display: inline-block;  text-align: center; overflow: hidden;'>
-										<input onclick="removeCodeBlock(event)" id='codeblockremove-2' value='Remove' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: center; font-family: Nunito; font-size: 0.8vmax; font-weight: lighter; color:  black; background: hsla(0,0%,0%,0); color: var(--themeviolet); cursor: pointer; user-select: none;" readonly></input>
-									</div>
-									<div id="codeblock2spacer" style='margin:0px;width:100%; height:4%; display: inline-block;'></div>
-
-									<div id="addcodeblock" style='margin:0px;width:80%; height:23%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: auto;'>
-										<input onclick="addNewCodeBlock()" id='addcodeText' value='Add Code Block' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vmax; font-weight: lighter; color:  black; background: var(--themeviolet); color: white; cursor: pointer;" readonly></input>
-									</div>
-									<div id="addcodeblockspacer" style='margin:0px;width:100%; height:13%; display: inline-block;'></div>
-								</div>
-								<div id="spacerD86" style='margin:0px;width:5%; height:57%; display: inline-block;'></div>
-								<div id="spacerD87" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
-								<div id="spacerD88" style='margin:0px;width:5%; height: 12%; display: inline-block;'></div>
-								<div id="errorAndInfodisplay" style='margin:0px;width:90%; height: 12%; display: inline-block; font-size: 0.8vmax; color: red; font-family: Source Sans Pro; z-index: 3; overflow: auto; pointer-events: none;'>
-									<font style="color: hsla(0, 0%, 0%, 0.7)">The code is written in Javascript and exact function names have to followed since they are case sensitive.</font>
-								</div>
-								<div id="spacerD89" style='margin:0px;width:5%; height: 12%; display: inline-block;'></div>
-								<div id="spacerD90" style='margin:0px;width:100%; height: 6%; display: inline-block;'></div>
-							</div>
-							<div id="spacerD10" style='margin:0px;width:100%; height: 3%; display: inline-block;'></div>
-							<div id="algorithmchoice" style='margin:0px;width:100%; height: 13%; display: inline-block; background: white; border-radius: 10px;'>
-								<div id="spacerD111" style='margin:0px;width:100%; height: 25%; display: inline-block;'></div>
-								<div id="spacerD112" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
-								<div id="algorithmchoosetext" style='margin:0px;width:35%; height: 30%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden;'>CHOOSE ALGORITHM</div>
-								<div id="spacerD113" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
-								<div id="choosealgorithmdrop" style='margin:0px;width:50%; height: 30%; display: inline-block; overflow: hidden;'>
-									<select onchange="chooseAlgo(event)" id="algorithmsToChoose" style="font-family: Roboto; font-size: 0.75vmax;">
-										<option value="electrostaticwalkAlgo">ELECTROSTATIC WALK</option>
-										<option value="moveIfMinimumAlgo">MOVE IF MINIMUM</option>
-										<option value="electrostaticwithRandomnessAlgo">ELECTROSTATIC AND  RANDOMNESS</option>
-										<option value="electrostaticForceAlgo">ELECTROSTATIC FORCE</option>
-										<option value="randomPositionAlgo">RANDOM POSITION</option>
-										<option value="randomSearchAlgo">RANDOM SEARCH</option>
-										<option value="geneticAlgo">GENETIC</option>
-									</select>
-								</div>
-								<div id="spacerD114" style='margin:0px;width:5%; height: 30%; display: inline-block;'></div>
-								<div id="spacerD115" style='margin:0px;width:100%; height: 0%; display: inline-block;'></div>
-								<div id="spacerD115" style='margin:0px;width:5%; height: 20%; display: inline-block;'></div>
-								
-								<div id="algoadditionalinfo" style='margin:0px;width:90%; height: 20%; display: inline-block;font-size: 0.62vmax; font-family: Nunito; color: hsla(0, 0%, 50%, 1);'>
-									The goal is to attain minimum energy configurations. Some algorithms should work for certain cases. 
-								</div>
-								<div id="spacerD116" style='margin:0px;width:5%; height: 20%; display: inline-block;'></div>
-								<div id="spacerD117" style='margin:0px;width:100%; height: 20%; display: inline-block;'></div>
-
-							</div>
-							<div id="spacerD13" style='margin:0px;width:100%; height: 7%; display: inline-block;'></div>
-
-						</div>
-						<div id="menupanel" style='margin:0px;width:100%; height: 12%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+						<div id="verticalspacer2" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
+					</div>
+					<div id="menuDisplayPanel" style='margin:0px;width:100%; height: 10%;position: relative; z-index: 1;display: inline-block; '>
+						<div id="verticalspacer1" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
+						<div id="menupanel" style='margin:0px;width:84%; height: 100%; overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 							<div id="topspacerMenu" style='margin:0px;width:100%; height: 10%; display: inline-block; overflow: hidden;'></div>
 							<div id="algorithmoptionH" style='margin:0px;width:25%; height: 45%; display: inline-block; overflow: hidden;'>
 								<input onclick="handlePanel(event)" id='algorithmoption' value='ALGORITHM' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 0.93vmax; letter-spacing: 0.8px; color: hsla(0, 100%, 0%, 1); cursor: auto; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1); border: 1px solid hsla(0, 0%, 60%, 1);" readonly></input>
@@ -465,12 +504,12 @@
 							<div id="settingsoptionH" style='margin:0px;width:25%; height: 45%; display: inline-block; overflow: hidden;'>
 								<input onclick="handlePanel(event)" id='settingsoption' value='SETTINGS' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 0.93vmax; letter-spacing: 0.8px; color: grey; cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle; border-top-right-radius: 20px; border-bottom-right-radius: 20px; background: hsla(280,100%,50%,0); border: 1px solid hsla(0, 0%, 60%, 1);" readonly></input>
 							</div>
-							
 						</div>
+						<div id="verticalspacer2" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
 					</div>
-					<div id="verticalspacer2" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
 				</div>
-				<div id="interactionAndTitle" style='margin:0px;width:63%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				<div id="verticalspacerB" style='margin:0px;width:2%; height: 100%; display: inline-block;'></div>
+				<div id="interactionAndTitle" style='margin:0px;width:59%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 					<div id="titleH" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 						<div id="titletext" style='margin:0px;width: 100%; height: 100%;overflow: hidden; position: absolute; z-index: 1; font-size: 3vmax; font-family: Raleway; font-weight: normal;'>
 							<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
@@ -523,7 +562,7 @@
 		</div>
 		<div id="space1Div" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; position: relative; pointer-events: none;'>
 		</div>
-		<div id="space2Div" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; position: relative; pointer-events: none;'>
+		<div id="space2Div" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; position: relative; pointer-events: none; '>
 		</div>
 		<div id="space3Div" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; position: relative; pointer-events: none;'>
 		</div>
@@ -3282,16 +3321,25 @@
 		function handleLayout() {
 			if (dmode == 'portrait') {
 				document.getElementById('containAll').style.position = 'relative'
-				document.getElementById('containAll').style.overflow = 'scroll'
+				// document.getElementById('containAll').style.overflow = 'scroll'
+				// document.body.style.overflow = 'hidden'
 				document.getElementById('containAll').style.height = '55%'
-				// document.getElementById('containAll').style.position = 'fixed'
-				// document.getElementById('containAll').style.zIndex = '300'
+				document.getElementById('containAll').style.position = 'fixed'
+				document.getElementById('containAll').style.zIndex = '300'
 
-				document.getElementById('space1Div').style.height = '0%'
-				document.getElementById('space2Div').style.height = '80%'
+				document.getElementById('space1Div').style.height = '55%'
+				document.getElementById('space2Div').style.height = '8%'
+				document.getElementById('space2Div').style.position = 'fixed'
+				document.getElementById('space2Div').style.zIndex = '200'
 				document.getElementById('space2Div').style.pointerEvents = 'auto'
-				document.getElementById('space3Div').style.height = '0%'
-				document.getElementById('space4Div').style.height = '0%'
+				document.getElementById('space2Div').style.background = 'hsla(0, 0%, 92%, 1)';
+				document.getElementById('space3Div').style.height = '8%'
+				// document.getElementById('space3Div').style.overflow = 'hidden'
+
+				document.getElementById('space4Div').style.height = '39%'
+
+				$("<div id='gradFillOverMenu' style='margin:0px;width:100%; height: 100%; z-index: 20; display: inline-block; position: fixed; pointer-events: none; background: linear-gradient(to bottom, hsla(0, 0%, 92%, 1) 0%, hsla(0, 100%, 100%, 0) 3%);'></div>").insertBefore("#space4Div")
+
 				document.getElementById('space5Div').style.height = '0%'
 
 				document.getElementById('scroller').style.width = '0%'
@@ -3300,12 +3348,26 @@
 				document.getElementById('middlepanel').style.fontSize = '0'
 				document.getElementById('menupanel').style.fontSize = '0'
 
-				$('#menupanel').insertBefore('#boundaryoptionspanel')
-				$("#middlepanel").appendTo("#space2Div");
+				// $('#menupanel').insertBefore('#boundaryoptionspanel')
+				$("#menuDisplayPanel").appendTo("#space2Div");
+				$("#optionsDisplayPanel").appendTo("#space4Div");
 
-				$('<br/>').insertBefore('#boundaryoptionspanel')
+				document.getElementById('menuDisplayPanel').style.height = '100%'
+				document.getElementById('optionsDisplayPanel').style.height = '200%'
+				document.getElementById('optionsDisplayPanel').style.overflowY = 'hidden'
+				document.getElementById('middlepanel').style.width = '0%'
+				document.getElementById('verticalspacerA').style.width = '0%'
+				document.getElementById('verticalspacerB').style.width = '0%'
 
-				document.getElementById('menupanel').style.height = '8%'
+				document.getElementById('spacerD13').style.height = '55%'
+				
+
+				// $('<br/>').insertBefore('#boundaryoptionspanel')
+
+				
+				// document.getElementById('middlepanel').style.height = '155%'
+
+				// document.getElementById('space2Div').style.overflow = 'scroll'
 
 
 				// $('#interactionAndTitle').insertBefore('#middlepanel')
@@ -3348,25 +3410,27 @@
 				document.getElementById('labH').style.left = '4%'
 				document.getElementById('simulationDetailAndButtonsH').style.width = '92%'
 				document.getElementById('labH').style.width = '92%'
+
+
 				// document.getElementById('labpanel').style.width = '82%'
 
-				document.getElementById('middlepanel').style.height = '100%'
-				document.getElementById('middlepanel').style.width = '100%'
-				document.getElementById('middlepanel').style.overflow = 'auto'
-				document.getElementById('middlepanel').style.position = 'relative'
+				// document.getElementById('middlepanel').style.height = '100%'
+				// document.getElementById('middlepanel').style.width = '100%'
+				// document.getElementById('middlepanel').style.overflow = 'auto'
+				// document.getElementById('middlepanel').style.position = 'relative'
 				// document.getElementById('labpanel').style.overflow = 'scroll'
 
-				document.getElementById('topspacerMenu').style.height = '30%'
+				document.getElementById('topspacerMenu').style.height = '40%'
 
 				document.getElementById('algorithmoption').style.fontSize = '1.2vmax'
 				document.getElementById('boundaryoption').style.fontSize = '1.2vmax'
 				document.getElementById('chargesoption').style.fontSize = '1.2vmax'
 				document.getElementById('settingsoption').style.fontSize = '1.2vmax'
 
-				document.getElementById('algorithmoptionH').style.height = '60%'
-				document.getElementById('boundaryoptionH').style.height = '60%'
-				document.getElementById('chargesoptionH').style.height = '60%'
-				document.getElementById('settingsoptionH').style.height = '60%'
+				document.getElementById('algorithmoptionH').style.height = '50%'
+				document.getElementById('boundaryoptionH').style.height = '50%'
+				document.getElementById('chargesoptionH').style.height = '50%'
+				document.getElementById('settingsoptionH').style.height = '50%'
 
 				document.getElementById('algorithmoption').style.border = '0.5px solid rgb(153, 153, 153)'
 				document.getElementById('boundaryoption').style.border = '0.5px solid rgb(153, 153, 153)'
@@ -3378,15 +3442,15 @@
 				document.getElementById('homebutton').style.borderRadius = '6px'
 
 
-				document.getElementById('boundaryoptionspanel').style.position = 'absolute'
-				document.getElementById('algooptionspanel').style.position = 'absolute'
-				document.getElementById('chargesoptionspanel').style.position = 'absolute'
-				document.getElementById('settingsoptionspanel').style.position = 'absolute'
+				// document.getElementById('boundaryoptionspanel').style.position = 'absolute'
+				// document.getElementById('algooptionspanel').style.position = 'absolute'
+				// document.getElementById('chargesoptionspanel').style.position = 'absolute'
+				// document.getElementById('settingsoptionspanel').style.position = 'absolute'
 
-				document.getElementById('boundaryoptionspanel').style.height = '92%'
-				document.getElementById('algooptionspanel').style.height = '92%'
-				document.getElementById('chargesoptionspanel').style.height = '92%'
-				document.getElementById('settingsoptionspanel').style.height = '92%'
+				// document.getElementById('boundaryoptionspanel').style.height = '92%'
+				// document.getElementById('algooptionspanel').style.height = '92%'
+				// document.getElementById('chargesoptionspanel').style.height = '92%'
+				// document.getElementById('settingsoptionspanel').style.height = '92%'
 
 				setFont(['algorithmnametext','algorithmeditortext','algorithmchoosetext','addchargeText'], '1.2vmax')
 				setFont(['algorithmdescriptiontext','errorAndInfodisplay','boundaryadditionalinfo'], '1.1vmax')
@@ -3399,6 +3463,7 @@
 
 				document.getElementById('spacerBD1').style.height = '3%'
 				document.getElementById('spacerCH1').style.height = '3%'
+				document.getElementById('spacerD1').style.height = '3%'
 
 				
 				
@@ -3563,6 +3628,32 @@
 
 		window.onscroll = function (e) {
 			document.getElementById('scrollerH').style.height = linearValue(0,document.body.offsetHeight - document.body.clientHeight, 35, 100, document.body.scrollTop) + '%'
+			if (dmode == 'portrait') {
+				if (linearValue(0,document.body.offsetHeight - document.body.clientHeight, 0, 100, document.body.scrollTop) > 25) {
+					document.getElementById('verticalspacerA').style.height = '0%'
+					document.getElementById('verticalspacerB').style.height = '0%'
+					document.getElementById('middlepanel').style.height = '0%'
+					document.getElementById('titleH').style.height = '15%'
+					document.getElementById('simulationDetailAndButtonsH').style.height = '85%'
+					document.getElementById('labH').style.height = '85%'
+					document.getElementById('containAll').style.height = '50%'
+					document.getElementById('space1Div').style.height = '50%'
+					document.getElementById('maintitle').innerHTML = 'N <font style="color: var(--themeblue);">Charges</font> inside a <font style="color: var(--themeorange);">boundary</font> <br/>'
+					
+				}
+				else {
+					document.getElementById('titleH').style.height = '25%'
+					document.getElementById('simulationDetailAndButtonsH').style.height = '75%'
+					document.getElementById('labH').style.height = '75%'
+					document.getElementById('containAll').style.height = '55%'
+					document.getElementById('space1Div').style.height = '55%'
+					document.getElementById('maintitle').innerHTML = 'N <font style="color: var(--themeblue);">Charges</font> inside a <font style="color: var(--themeorange);">boundary</font> <br/><font style="font-size: 1.6vmax; font-family: Nunito; font-weight: normal; color: hsla(190, 0%, 30%, 1);">Finding Minimum Energy Configurations </font><br/><font style="font-size: 1.3vmax; font-weight: normal; font-family: Nunito; color: hsla(260, 100%, 30%, 1);">Vinton Adrian Rebello, Manas Shetty and Prajwal DSouza </font><br/><font style="font-size: 1.3vmax;">inspired by the <a href="https://iopscience.iop.org/article/10.1088/0305-4470/31/3/014/meta" style="text-decoration: none;" target="_blank"><font style="color: hsla(190, 40%, 40%, 1);">work</font></a> of Kari J Nurmela</font>'
+
+				}
+			}
+				
+
+				
 			// console.log(linearValue(0,document.body.offsetHeight - document.body.clientHeight, 0, 100, document.body.scrollTop))
 		} 
 
