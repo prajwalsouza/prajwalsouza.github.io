@@ -125,7 +125,7 @@
 			}
 
 			#optionsDisplayPanel::-webkit-scrollbar {
-				width: 1.1%;
+				width: 0%;
 			}
 
 			#optionsDisplayPanel::-webkit-scrollbar-track {
@@ -220,7 +220,7 @@
 			</div>
 			<div id="noscroller" style='margin:0px;width:97%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block;'>
 				<div id="verticalspacerA" style='margin:0px;width:0%; height: 100%; display: inline-block;'></div>
-				<div id="middlepanel" style='margin:0px;width:39%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				<div id="middlepanel" style='margin:0px;width:36%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 					<div id="optionsDisplayPanel" style='margin:0px;width:100%; height: 90%;position: relative; z-index: 1;display: inline-block; overflow-y:auto; '>
 						<div id="verticalspacer1" style='margin:0px;width:8%; height: 100%; display: inline-block;'></div>
 						<div id="labpanel" style='margin:0px;width:84%; height: 100%;position: relative; z-index: 1;display: inline-block; '>
@@ -509,7 +509,7 @@
 					</div>
 				</div>
 				<div id="verticalspacerB" style='margin:0px;width:2%; height: 100%; display: inline-block;'></div>
-				<div id="interactionAndTitle" style='margin:0px;width:59%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				<div id="interactionAndTitle" style='margin:0px;width:62%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 					<div id="titleH" style='margin:0px;width:100%; height: 20%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 						<div id="titletext" style='margin:0px;width: 100%; height: 100%;overflow: hidden; position: absolute; z-index: 1; font-size: 3vmax; font-family: Raleway; font-weight: normal;'>
 							<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
@@ -3073,7 +3073,6 @@
 		currentMovingGraph = ''
 		currentMovingGraphStartLocation = []
 		
-
 		function graphDragHandle(event) {
 			event.preventDefault();
 			gphname = event.target.id.split('-')[0]
@@ -3112,20 +3111,7 @@
 
 				currentMovingGraph.style.cursor = 'move'
 
-				// window.addEventListener('touchstart', secondTouchEvent)
 			}
-		}
-
-		function secondTouchEvent(event) {
-			// oldtouch1 = [event.changedTouches[0].clientX, event.changedTouches[0].clientY]
-			// oldtouch2 = [event.changedTouches[1].clientX, event.changedTouches[1].clientY]
-			// pinchStartData = [oldtouch1, oldtouch2]
-			// console.log(event.targetTouches)
-			// dummyEve = {}
-			// pinchZoom = true
-			// graphDragUpEvent(dummyEve)
-			// window.addEventListener('touchmove', graphPinchMoveEvent)
-			// window.addEventListener('touchend', graphPinchEndEvent)
 		}
 
 		function clientToGraph(clientValues, graphNameInput) {
@@ -3217,6 +3203,8 @@
 			svgPTVariable[gphname].x = event.clientX;
 			svgPTVariable[gphname].y = event.clientY;
 
+			touchEventDetect = 0
+
 			if (event.clientX == undefined) {
 				posx = event.changedTouches[0].clientX - rect.left;
 				posy = event.changedTouches[0].clientY - rect.top;
@@ -3233,10 +3221,12 @@
 					window.addEventListener('touchmove', graphPinchMoveEvent)
 					window.addEventListener('touchend', graphPinchEndEvent)
 				}
+
+				touchEventDetect = event.changedTouches[0].identifier
 				
 			}
 
-			if (pinchZoom == false && event.changedTouches[0].identifier == 0) {
+			if (pinchZoom == false && touchEventDetect == 0) {
 				var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
 
 				moveX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
@@ -5636,7 +5626,7 @@
 
 		window.addEventListener("keypress", spacebarPlayPause);
 
-		// stopAlgorithm()
+// 		stopAlgorithm()
 
 
 
