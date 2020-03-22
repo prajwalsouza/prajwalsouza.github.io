@@ -1175,7 +1175,8 @@
 					}
 					else {
 						lineElement.style.stroke = 'hsla(0, 0%, 100%, 1)'
-					}	
+					}
+					lineElement.setAttribute('id', gdata.name + '-xmajorgridline-' + m)	
 					lineElement.style.strokeWidth = gdata.xmajorgridthickness + '%';
 					gdata.xmajorgridElements.push(lineElement)
 					svgElement.appendChild(lineElement);
@@ -1212,7 +1213,8 @@
 					}
 					else {
 						lineElement.style.stroke = 'hsla(0, 0%, 100%, 1)'
-					}	
+					}
+					lineElement.setAttribute('id', gdata.name + '-ymajorgridline-' + m)
 					lineElement.style.strokeWidth = gdata.ymajorgridthickness + '%';
 					gdata.ymajorgridElements.push(lineElement)
 					svgElement.appendChild(lineElement);
@@ -1274,7 +1276,7 @@
 
 					textElement.setAttribute('x', graphToScaledX(labelylocationX, gdata.xmin, gdata.xmax, aratio) + 0.5 + gdata.ymajorgridlabelshift + '%');
 					textElement.setAttribute('y',graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + 0.5 + '%');
-					textElement.setAttribute('id',name + '-yticklabel-' + m)
+					textElement.setAttribute('id',gdata.name + '-yticklabel-' + m)
 					textElement.style.fontSize = gdata.fontSize
 					textElement.style.fontFamily = 'Source Sans Pro'
 					textElement.style.userSelect = 'none'
@@ -1342,7 +1344,7 @@
 					textElement.setAttribute('x', transformedXval + '%');
 					transformedYval = graphToScaledY(labelxlocationY, gdata.ymin, gdata.ymax, aratio) + 2 + gdata.xmajorgridlabelshift
 					textElement.setAttribute('y', transformedYval + '%');
-					textElement.setAttribute('id',name + '-xticklabel-' + m)
+					textElement.setAttribute('id',gdata.name + '-xticklabel-' + m)
 					textElement.style.fontSize = gdata.fontSize
 					textElement.style.userSelect = 'none'
 					textElement.setAttribute('text-anchor', 'middle')
@@ -1650,6 +1652,7 @@
 						lineElement.setAttribute('y2', graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) + '%');
 						lineElement.setAttribute('id', gdata.name + '-xmajorgridline-' + m)
 					}
+					lineElement.setAttribute('id', gdata.name + '-xmajorgridline-' + m)
 					lineElement.style.stroke = gdata.xmajorgridcolor
 					lineElement.style.strokeWidth = gdata.xmajorgridthickness + '%';
 					gdata.xmajorgridElements.push(lineElement)
@@ -1763,7 +1766,7 @@
 
 					textElement.setAttribute('x', graphToScaledX(labelylocationX, gdata.xmin, gdata.xmax, aratio) + 0.5 + gdata.ymajorgridlabelshift + '%');
 					textElement.setAttribute('y',graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + 0.5 + '%');
-					textElement.setAttribute('id',name + '-yticklabel-' + m)
+					textElement.setAttribute('id', gdata.name + '-yticklabel-' + m)
 					textElement.style.fontSize = gdata.fontSize
 					textElement.style.userSelect = 'none'
 					textElement.style.fontFamily = 'Source Sans Pro'
@@ -1817,7 +1820,7 @@
 
 					textElement.setAttribute('x', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) - 1 + '%');
 					textElement.setAttribute('y',graphToScaledY(labelxlocationY, gdata.ymin, gdata.ymax, aratio) + 2 + gdata.xmajorgridlabelshift + '%');
-					textElement.setAttribute('id',name + '-xticklabel-' + m)
+					textElement.setAttribute('id', gdata.name + '-xticklabel-' + m)
 					textElement.style.fontSize = gdata.fontSize
 					textElement.style.fontFamily = 'Source Sans Pro'
 					textElement.style.userSelect = 'none'
@@ -1852,7 +1855,7 @@
 				textElement.innerHTML = gdata.xaxislabel 
 				textElement.setAttribute('x', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + gdata.xaxislabelshift + '%');
 				textElement.setAttribute('y',graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + 1 + '%');
-				textElement.setAttribute('id',name + '-xaxislabel')
+				textElement.setAttribute('id', name + '-xaxislabel')
 				textElement.style.fontSize = gdata.fontSize
 				textElement.style.color = gdata.xaxislabelcolor
 				textElement.style.fontFamily = 'Source Sans Pro'
@@ -1878,7 +1881,35 @@
 				
 			}
 
-			svgPTVariable[name] = svgElement.createSVGPoint(); 
+			gdata.scrollZoom = gdata.scrollZoom || 'yes'
+
+			if (gdata.scrollZoom == 'yes') {
+				svgElement.addEventListener('wheel', wheelHandle)
+			}
+
+			svgPTVariable[name] = svgElement.createSVGPoint()
+
+			gdata.draggability = gdata.draggability || 'no'
+			if (gdata.draggability == 'yes') {
+				gdata.currentlyDraggableGraph = gdata.currentlyDraggableGraph || 'yes'
+			}
+			else {
+				gdata.currentlyDraggableGraph = gdata.currentlyDraggableGraph || 'no'
+			}
+			gdata.runFunctionOnDragEnd = gdata.runFunctionOnDragEnd || ''
+			gdata.runFunctionDuringDrag = gdata.runFunctionDuringDrag || ''
+
+			if (gdata.draggability == 'yes') {
+				svgElement.addEventListener('mousedown', graphDragHandle)
+				svgElement.addEventListener('touchstart', graphDragHandle)
+			}
+			else {
+				svgElement.style.pointerEvents = 'none'
+				svgElement.addEventListener('touchmove', graphTouchDisable)
+			}
+
+			gdata.dragDirection = gdata.dragDirection || 'bothXY'
+			gdata.dragIfCondition = gdata.dragIfCondition || 'true'
 
 
 			gdata.lineData = {}
@@ -1891,8 +1922,6 @@
 			gdata.sliderData = {}
 
 			gdata.aspectratio = aratio
-
-
 
 			graphData[name] = gdata
 			return JSON.parse(JSON.stringify(gdata));
@@ -2882,9 +2911,6 @@
 					}
 				}
 			}
-
-			
-
 		}
 
 		function pointUpEvent(event) {
@@ -2900,6 +2926,223 @@
 
 			// window.removeEventListener('mouseout', pointUpEvent)
 			eval(graphData[gphname].pointData[ptname][1].runFunctionOnDragEnd)
+		}
+
+		function wheelHandle(event) {
+			event.preventDefault();
+			whlvalue = (event.wheelDeltaY)/Math.abs(event.wheelDeltaY)
+			if (event.wheelDeltaY == undefined) {
+				whlvalue = (event.deltaY)/Math.abs(event.deltaY)
+				// For FireFox
+			}
+			scalefactorup = 1.1
+			scalefactordown = 0.9
+
+			if(graphData[event.target.id.split('-')[0]] == undefined) {
+
+			}
+			else {
+				gdata = graphData[event.target.id.split('-')[0]]
+
+				scale = gdata.ymax - gdata.ymin
+				expstring = scale.toExponential().toString()
+				ordery = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				// console.log(ordery)
+
+				scale = gdata.xmax - gdata.xmin
+				expstring = scale.toExponential().toString()
+				orderx = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				// console.log(orderx)
+
+				gphname = gdata.name
+
+				var rect = document.getElementById(gphname).getBoundingClientRect();
+				posx = event.clientX - rect.left;
+				posy = event.clientY - rect.top;
+				svgPTVariable[gphname].x = event.clientX;
+				svgPTVariable[gphname].y = event.clientY;
+
+				if (event.clientX == undefined) {
+					posx = event.changedTouches[0].clientX - rect.left;
+					posy = event.changedTouches[0].clientY - rect.top;
+					svgPTVariable[gphname].x = event.changedTouches[0].clientX;
+					svgPTVariable[gphname].y = event.changedTouches[0].clientY;
+				}
+
+				var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+				zoomlocationX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
+				zoomlocationY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+
+				currentvalues = graphData[gphname]
+
+				posx = posx/rect.width
+				posy = posy/rect.height
+
+				if (posx > 0.11 && posx < 0.89 && posy > 0.11 && posy < 0.89) {
+					if (whlvalue < 0) {
+						scaleupdownFactor = scalefactorup
+						leftX = (zoomlocationX - currentvalues.xmin)*scaleupdownFactor
+						newZXmin = zoomlocationX - leftX
+						rightX = (currentvalues.xmax - zoomlocationX)*scaleupdownFactor
+						newZXmax = zoomlocationX + rightX
+						leftY = (zoomlocationY - currentvalues.ymin)*scaleupdownFactor
+						newZYmin = zoomlocationY - leftY
+						rightY = (currentvalues.ymax - zoomlocationY)*scaleupdownFactor
+						newZYmax = zoomlocationY + rightY
+
+						options = {}
+						options.xmin = newZXmin
+						options.xmax = newZXmax
+						options.ymin = newZYmin
+						options.ymax = newZYmax
+						
+						updateGraphZoom(gphname, options)
+					}
+					else if (whlvalue >= 0 && orderx < 14 && ordery < 14) {
+
+						scaleupdownFactor = scalefactordown
+						leftX = (zoomlocationX - currentvalues.xmin)*scaleupdownFactor
+						newZXmin = zoomlocationX - leftX
+						rightX = (currentvalues.xmax - zoomlocationX)*scaleupdownFactor
+						newZXmax = zoomlocationX + rightX
+						leftY = (zoomlocationY - currentvalues.ymin)*scaleupdownFactor
+						newZYmin = zoomlocationY - leftY
+						rightY = (currentvalues.ymax - zoomlocationY)*scaleupdownFactor
+						newZYmax = zoomlocationY + rightY
+
+						options = {}
+						options.xmin = newZXmin
+						options.xmax = newZXmax
+						options.ymin = newZYmin
+						options.ymax = newZYmax
+						updateGraphZoom(gphname, options)
+					}
+				}
+
+					
+			}
+		}
+
+		currentMovingGraph = ''
+		currentMovingGraphStartLocation = []
+
+		function graphDragHandle(event) {
+			event.preventDefault();
+			gphname = event.target.id.split('-')[0]
+			if (graphData[gphname].currentlyDraggableGraph == 'yes') {
+				event.target.removeEventListener('mousedown', graphDragHandle)
+				event.target.removeEventListener('touchstart', graphDragHandle)
+				window.addEventListener('mousemove', graphDragMoveEvent)
+				window.addEventListener('mouseup', graphDragUpEvent)
+				event.preventDefault()
+				window.addEventListener('touchmove', graphDragMoveEvent, { passive: false })
+				window.addEventListener('touchend', graphDragUpEvent)
+				// window.addEventListener('mouseout', pointUpEvent)
+				currentMovingGraph = event.target
+
+				var rect = document.getElementById(gphname).getBoundingClientRect();
+				posx = event.clientX - rect.left;
+				posy = event.clientY - rect.top;
+				svgPTVariable[gphname].x = event.clientX;
+				svgPTVariable[gphname].y = event.clientY;
+
+				if (event.clientX == undefined) {
+					posx = event.changedTouches[0].clientX - rect.left;
+					posy = event.changedTouches[0].clientY - rect.top;
+					svgPTVariable[gphname].x = event.changedTouches[0].clientX;
+					svgPTVariable[gphname].y = event.changedTouches[0].clientY;
+				}
+
+				var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+				tapX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
+				tapY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+
+				currentMovingGraphStartLocation = [tapX, tapY]
+				currentMovingGraphOriginalBounds = [graphData[gphname].xmin, graphData[gphname].xmax, graphData[gphname].ymin, graphData[gphname].ymax]
+
+				currentMovingGraph.style.cursor = 'move'
+			}
+		}
+
+		function graphDragMoveEvent(event) {
+			event.preventDefault()
+			gphname = currentMovingGraph.id
+			var rect = document.getElementById(gphname).getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			svgPTVariable[gphname].x = event.clientX;
+			svgPTVariable[gphname].y = event.clientY;
+
+			if (event.clientX == undefined) {
+				posx = event.changedTouches[0].clientX - rect.left;
+				posy = event.changedTouches[0].clientY - rect.top;
+				svgPTVariable[gphname].x = event.changedTouches[0].clientX;
+				svgPTVariable[gphname].y = event.changedTouches[0].clientY;
+			}
+
+			var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+			moveX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
+			moveY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+
+			deltaVecX = moveX - currentMovingGraphStartLocation[0]
+			deltaVecY = moveY - currentMovingGraphStartLocation[1]
+			currentvalues = graphData[gphname]
+
+			newZXmin = currentvalues.xmin - deltaVecX
+			newZXmax =currentvalues.xmax - deltaVecX
+			newZYmin = currentvalues.ymin - deltaVecY
+			newZYmax = currentvalues.ymax - deltaVecY
+
+
+			
+
+			
+			if (typeof eval(graphData[gphname].dragIfCondition) != undefined) {
+				if (eval(graphData[gphname].dragIfCondition) == true) {
+					if (graphData[gphname].dragDirection == 'bothXY') {
+						options = {}
+						options.xmin = newZXmin
+						options.xmax = newZXmax
+						options.ymin = newZYmin
+						options.ymax = newZYmax
+						updateGraphZoom(gphname, options)
+						eval(graphData[gphname].runFunctionDuringDrag)
+					}
+					else if (graphData[gphname].dragDirection == 'onlyY') {
+						options = {}
+						options.ymin = newZYmin
+						options.ymax = newZYmax
+						updateGraphZoom(gphname, options)
+						eval(graphData[gphname].runFunctionDuringDrag)
+					}
+					else if (graphData[gphname].dragDirection == 'onlyX') {
+						options = {}
+						options.xmin = newZXmin
+						options.xmax = newZXmax
+						updateGraphZoom(gphname, options)
+						eval(graphData[gphname].runFunctionDuringDrag)
+					}
+				}
+			}
+		}
+
+		function graphDragUpEvent(event) {
+			gphname = currentMovingGraph.id
+
+			currentMovingGraph.addEventListener('mousedown', graphDragHandle)
+			currentMovingGraph.addEventListener('touchstart', graphDragHandle)
+			window.removeEventListener('mousemove', graphDragMoveEvent)
+			window.removeEventListener('mouseup', graphDragUpEvent)
+			window.removeEventListener('touchmove', graphDragMoveEvent)
+			window.removeEventListener('touchend', graphDragUpEvent)
+
+			// window.removeEventListener('mouseout', pointUpEvent)
+			eval(graphData[gphname].runFunctionOnDragEnd)
+
+			currentMovingGraph.style.cursor = 'auto'
 		}
 
 		function graphTouchDisable(event) {
@@ -3146,6 +3389,10 @@
 			graphoptions.fixAxisStretchCentrally = 'yes'
 
 			graphoptions.position = 'relative'
+			graphoptions.scrollZoom = 'yes'
+
+			graphoptions.draggability = 'yes'
+
 
 			// graphoptions.isgraphH = 'yes'
 			
@@ -4867,62 +5114,6 @@
 		// randompsn = randomPositionInsideBoundary()
 		// addNewChargePoint([randompsn[0],randompsn[1], -1])
 
-		
-
-		function wheelHandle(event) {
-			event.preventDefault();
-			whlvalue = (event.wheelDeltaY)/Math.abs(event.wheelDeltaY)
-			if (event.wheelDeltaY == undefined) {
-				whlvalue = (event.deltaY)/Math.abs(event.deltaY)
-				// For FireFox
-			}
-			scalefactorup = 0.1
-			scalefactordown = 0.1
-
-			gdata = graphData['labG']
-
-			scale = gdata.ymax - gdata.ymin
-			expstring = scale.toExponential().toString()
-			ordery = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
-			// console.log(ordery)
-
-			scale = gdata.xmax - gdata.xmin
-			expstring = scale.toExponential().toString()
-			orderx = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
-			// console.log(orderx)
-			
-			var rect = document.getElementById('labG').getBoundingClientRect();
-			posx = event.clientX - rect.left;
-			posy = event.clientY - rect.top;
-
-			posx = posx/rect.width
-			posy = posy/rect.height
-			posy = 1 - posy
-			currentvalues = graphData['labG']
-			if (whlvalue < 0) {
-				newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactorup
-				newscaley = (currentvalues.ymax - currentvalues.ymin)*scalefactorup
-				options = {}
-				options.xmin = currentvalues.xmin - (2*newscalex*(1 - posx))
-				options.xmax = currentvalues.xmax + (2*newscalex*(posx))
-				options.ymin = currentvalues.ymin - (2*newscaley*(1 - posy))
-				options.ymax = currentvalues.ymax + (2*newscaley*(posy))
-				updateGraphZoom('labG', options)
-			}
-			else if (whlvalue >= 0 && orderx < 14 && ordery < 14) {
-				newscalex = (currentvalues.xmax - currentvalues.xmin)*scalefactordown
-				newscaley = (currentvalues.ymax - currentvalues.ymin)*scalefactordown
-				options = {}
-				options.xmin = currentvalues.xmin + (2*newscalex*(posx))
-				options.xmax = currentvalues.xmax - (2*newscalex*(1 - posx))
-				options.ymin = currentvalues.ymin + (2*newscaley*(posy))
-				options.ymax = currentvalues.ymax - (2*newscaley*(1 - posy))
-				updateGraphZoom('labG', options)
-			}
-		}
-
-		document.getElementById('labG').addEventListener('wheel', wheelHandle)
-
 		function startConfig(configdata) {
 			if (configdata == undefined || configdata == 'default') {
 				uid = 0
@@ -5239,7 +5430,7 @@
 
 		window.addEventListener("keypress", spacebarPlayPause);
 
-		stopAlgorithm()
+// 		stopAlgorithm()
 
 
 
