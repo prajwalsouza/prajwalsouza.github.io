@@ -5421,8 +5421,8 @@
 		// handleLayout()
 
 		function spacebarPlayPause(event) {
-			event.preventDefault()
-			if (currentpanel == 'algorithm' && event.keyCode == 32) {
+			if (currentpanel == 'algorithm' && event.keyCode == 32 && playing) {
+				event.preventDefault()
 				dummyE = {}
 				playpauseAlgo(dummyE)
 			}
