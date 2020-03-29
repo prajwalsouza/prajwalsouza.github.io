@@ -224,7 +224,7 @@
 				<div id="mainB2HSpacer1" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				</div>
 				<div id="aboutText" style='margin:0px;width:100%; height:8%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 0.8vmax; font-family: Source Sans Pro; text-align: right;'>
-					<a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer;" target="_blank">This data plot was inspired by the work of Aatish Bhatia. This plot shows how much each state in india is following the trendline during the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it is the plot of total confirmed cases verses new confirmed cases in the past week.</a>
+					<a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer; color: black;" target="_blank">This data plot was inspired by the work of Aatish Bhatia. This plot shows how much each state in india is following the trendline during the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it is the plot of total confirmed cases verses new confirmed cases in the past week.</a>
 				</div>
 				<div id="mainB2HSpacer2" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				</div>
@@ -3023,27 +3023,53 @@
 			if (dmode == 'portrait') {
 				document.getElementById('containAll').style.position = 'relative'
 				// document.body.style.overflow = 'hidden'
-				document.getElementById('MainBlock1').style.width = '96%'
-				document.getElementById('MainBlock1').style.height = '80%'
+				document.getElementById('MainBlock1').style.width = '90%'
+				document.getElementById('MainBlock1').style.height = '70%'
 
-				document.getElementById('mainVSpacer1').style.height = '80%'
-				document.getElementById('mainVSpacer2').style.height = '80%'
-				document.getElementById('mainVSpacer3').style.height = '80%'
+				document.getElementById('mainVSpacer1').style.height = '70%'
+				document.getElementById('mainVSpacer2').style.height = '70%'
+				document.getElementById('mainVSpacer3').style.height = '90%'
 
-				document.getElementById('MainBlock2').style.width = '96%'
-				document.getElementById('MainBlock2').style.height = '80%'
+				document.getElementById('mainVSpacer1').style.width = '5%'
+				document.getElementById('mainVSpacer2').style.width = '5%'
+				document.getElementById('mainVSpacer3').style.width = '5%'
+
+				document.getElementById('MainBlock2').style.width = '90%'
+				document.getElementById('MainBlock2').style.height = '90%'
 
 				document.getElementById('maintitle').style.textAlign = 'center'
-				document.getElementById('titleH').style.height = '13%'
+				document.getElementById('titleH').style.height = '15%'
 				document.getElementById('maintitle').style.fontSize = '4vmax'
 				document.getElementById('maintitle').innerHTML = 'covid19 Trends <font style="font-weight: bold;">India</font><br/><font style="font-family: Source Sans Pro; font-size: 1.6vmax; vertical-align: bottom;">Inspired by <a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(334, 100%, 50%, 1);">Covid Trends</a></font> by <a href="https://aatishb.com/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Aatish Bhatia</font></a>, which was in collaboration with <a href="https://www.youtube.com/watch?v=54XLXg4fYsc" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(280, 100%, 50%, 1);">MinutePhysics</font></a></font>'
 
 				// document.getElementById('mainB1HSpacer2').style.height = '1%'
 
-				document.getElementById('visualChartH').style.height = '55%'
-				document.getElementById('onTopControlsH').style.height = '55%'
+				document.getElementById('visualChartH').style.height = '66%'
+				document.getElementById('onTopControlsH').style.height = '66%'
 				document.getElementById('playpauseH').style.fontSize = '4vmax'
+
+				$('#mainB2HSpacer1').insertBefore('#mainB2HSpacer4')
+				$('#aboutText').insertBefore('#mainB2HSpacer4')
+
+				$('<div id="mainVSpacerPortrait" style="margin: 0px; width: 5%; height: 90%; overflow: hidden; position: relative; z-index: 1; display: inline-block;"></div>').insertBefore('#MainBlock2')
+
+				document.getElementById('controlsH').style.textAlign = 'center'
+				document.getElementById('controlsH').style.fontSize = '1.3vmax'
+				document.getElementById('controlsH').innerHTML = '<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.5vmax;">Y AXIS</font><br/><font style=" font-size: 1.5vmax;">New Cases Confirmed in the last <span> </span></font><select  id="pastDaysToChoose" onchange="daysChosen(event)" style="font-family: Source Sans Pro; font-size: 1.5vmax; color: grey; width: 20%;"><option value="daysoption@8">8 Days</option></select><br/><font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.5vmax;">SCALE</font><br/><select  id="scalesToChoose" onchange="scaleChosen(event)" style="font-family: Source Sans Pro; font-size: 1.5vmax; width: 50%; color: grey;"><option value="logscaleoption">Logarithmic Scale</option><option value="linearscaleoption">Linear Scale</option></select>'
 				
+				document.getElementById('statesTopName').style.fontSize = '1.4vmax'
+				document.getElementById('selectAllText').style.fontSize = '1.3vmax'
+				document.getElementById('deselectAllText').style.fontSize = '1.3vmax'
+				document.getElementById('statesListH').style.fontSize = '1.4vmax'
+
+				document.getElementById('aboutText').style.fontSize = '1.17vmax'
+				document.getElementById('aboutText').style.textAlign = 'center'
+				document.getElementById('aboutText').style.color = 'black'
+
+				document.getElementById('onDataSouce').style.fontSize = '1.3vmax'
+				document.getElementById('onDataSouce').style.textAlign = 'center'
+				
+				// $('aboutText').insertAfter('#mainB2HSpacer1')
 				// document.getElementById('space3Div').style.overflow = 'hidden'
 
 				// document.getElementById('space4Div').style.height = '39%'
@@ -3244,6 +3270,7 @@
 
 
 		function mouseOverState(event) {
+			event.preventDefault()
 			gphname = 'chartG'
 			var rect = document.getElementById(gphname).getBoundingClientRect();
 			posx = event.clientX - rect.left;
