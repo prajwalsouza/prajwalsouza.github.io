@@ -3676,7 +3676,7 @@
 					addText('chartG', 'chartYLabel#' + labelyN, options)
 					axisAllLabels.push('chartYLabel#' + labelyN)
 				}
-				for (labelxN = 0; labelxN < xDivisions; labelxN++) {
+				for (labelxN = 0; labelxN <= xDivisions; labelxN++) {
 					valueToGo = minMaxBounds[0] + (labelxN*xaxisdelta)
 					valueToG = linearValue(minMaxBounds[0], minMaxBounds[1], 0, 100, valueToGo)
 				
@@ -3708,7 +3708,7 @@
 					addText('chartG', 'chartYLabel#' + labelyN, options)
 					axisAllLabels.push('chartYLabel#' + labelyN)
 				}
-				for (labelxN = 0; labelxN < xDivisions; labelxN++) {
+				for (labelxN = 0; labelxN <= xDivisions; labelxN++) {
 					valueToGo = Math.log10(minMaxBounds[0]) + (labelxN*xaxisdelta)
 					valueToG = linearValue(Math.log10(minMaxBounds[0]), Math.log10(minMaxBounds[1]), 0, 100, valueToGo)
 					valueToGo = Math.pow(10, valueToGo)
