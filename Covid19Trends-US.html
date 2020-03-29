@@ -78,6 +78,15 @@
 				cursor: pointer;
 			}
 
+			.timesliderClass::-moz-slider-thumb {
+				appearance: none;
+				width: 22px;
+				height: 22px;
+				border-radius: 50%; 
+				background: hsla(200, 100%, 50%, 1);
+				cursor: pointer;
+			}
+
 
 			#statesListH::-webkit-scrollbar {
 				width: 1.4%;
@@ -137,7 +146,7 @@
 		  ga('create', 'UA-103589215-2', 'auto');
 		  ga('send', 'pageview');
 
-		</script> 
+		</script>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.1/math.min.js"></script> -->
@@ -146,15 +155,15 @@
 		<script type="application/ld+json">
 			{
 			  "@type": "covid19TrendsPlot",
-			  "name": "Covid19 Trends -US",
+			  "name": "Covid19 Trends - US",
 			  "author": "Prajwal DSouza",
-			  "description": "A data plot inspired by the work of Aatish Bhatia. This plot involves the plot of how each state in US is doing with the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it's the plot of total confimed cases verses new confirmed cases in the past week."
+			  "description": "A data plot inspired by the work of Aatish Bhatia. This plot involves the plot of how each state in US is handling the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it's the plot of total confimed cases verses new confirmed cases in the past week."
 			  }
 		</script>
 
 		  <meta charset="UTF-8">
 		  <meta name="description" content="A data plot inspired by the work of Aatish Bhatia. This plot involves the plot of how each state in US is handling the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it's the plot of total confimed cases verses new confirmed cases in the past week.">
-		  <meta name="keywords" content="covid US, covid US statewise, covid19US, covid US statewise, Aatish Bhatia, prajwalsouza, prajwal dsouza, pandemic, covid karnataka, covid kerala, covid Maharashtra, covid Andhra Pradesh">
+		  <meta name="keywords" content="covid US, covid US statewise, covid19US, covid US statewise, covid USA, covid USA statewise, covid19USA, covid USA statewise, Aatish Bhatia, prajwalsouza, prajwal dsouza, pandemic, covid California, covid New York">
 		  <meta name="author" content="Prajwal DSouza">
 		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
@@ -172,7 +181,6 @@
 								<td colspan="8" id='maintitle' style="text-align: left; vertical-align: bottom; font-size: 2.4vmax;">
 									covid19 Trends <font style="font-weight: bold;">US</font><br/><font style="font-family: Source Sans Pro; font-size: 1.3vmax; vertical-align: bottom;">Inspired by <a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(334, 100%, 50%, 1);">Covid Trends</a></font> by <a href="https://aatishb.com/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Aatish Bhatia</font></a>, which was in collaboration with <a href="https://www.youtube.com/watch?v=54XLXg4fYsc" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(280, 100%, 50%, 1);">MinutePhysics</font></a></font>
 								</td>
-								<td colspan="1"></td>
 							</tr>
 						</table>
 						
@@ -225,7 +233,7 @@
 				<div id="mainB2HSpacer1" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				</div>
 				<div id="aboutText" style='margin:0px;width:100%; height:8%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 0.8vmax; font-family: Source Sans Pro; text-align: right;'>
-					<a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer;" target="_blank">This data plot was inspired by the work of Aatish Bhatia. This plot shows how much each state in US is following the trendline during the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it is the plot of total confirmed cases verses new confirmed cases in the past week.</a>
+					<a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer; color: black;" target="_blank">This data plot was inspired by the work of Aatish Bhatia. This plot shows how much each state in US is following the trendline during the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it is the plot of total confirmed cases verses new confirmed cases in the past week.</a>
 				</div>
 				<div id="mainB2HSpacer2" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				</div>
@@ -276,7 +284,7 @@
 				</div>
 				<div id="onDataSouce" style='margin:0px;width:100%; height:11%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 1vmax; font-family: Source Sans Pro; text-align: right; font-weight: bold; '>
 					<br/>Data collected from <a href="https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data/United_States_medical_cases" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Wikipedia</font></a><br/> 
-					 <font style="color: hsla(190, 0%, 50%, 1); font-weight: normal;">Last updated at 10:31 AM 29/03/2020 GMT</font>  
+					 <font style="color: hsla(190, 0%, 50%, 1); font-weight: normal;">Last updated at 2:00 PM 29/03/2020 IST</font>  
 				</div>
 			</div>
 			<div id="mainVSpacer3" style='margin:0px;width:2%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
@@ -284,45 +292,13 @@
 		</div>
 		<script type="text/javascript">
 
-		function infodisplay(infoobject) {
-			if (infoobject == 'normal') {
-				document.getElementById('info').innerHTML = 'A simulation based on a <font style="cursor: pointer;font-weight: lighter; color: hsla(210, 100%, 60%, 1);z-index: 5;" onclick="window.open("https://www.youtube.com/watch?v=vF_-ob9vseM")">Numberphile video</font>. Please watch the video to understand the problem simulated here.'
-			}
-			else if (infoobject == 'up') {
-				document.getElementById('info').innerHTML = 'Moves the mouse upward. Keyboard shortcut is the <b> up </b> key.'
-			}
-			else if (infoobject == 'down') {
-				document.getElementById('info').innerHTML = 'Moves the mouse downward. Keyboard shortcut is the <b> down </b> key.'
-			}
-			else if (infoobject == 'left') {
-				document.getElementById('info').innerHTML = 'Moves the mouse left. Keyboard shortcut is the <b> left </b> key.'
-			}
-			else if (infoobject == 'right') {
-				document.getElementById('info').innerHTML = 'Moves the mouse right. Keyboard shortcut is the <b> right </b> key.'
-			}
-			else if (infoobject == 'northeast') {
-				document.getElementById('info').innerHTML = 'Moves the mouse north-east. Keyboard shortcut involves </br>holding <b> right </b> and <b> up </b> keys together.'
-			}
-			else if (infoobject == 'southeast') {
-				document.getElementById('info').innerHTML = 'Moves the mouse south-east. Keyboard shortcut involves </br>holding <b> right </b> and <b> down </b> keys together.'
-			}
-			else if (infoobject == 'northwest') {
-				document.getElementById('info').innerHTML = 'Moves the mouse north-west. Keyboard shortcut involves </br>holding <b> left </b> and <b> up </b> keys together.'
-			}
-			else if (infoobject == 'southwest') {
-				document.getElementById('info').innerHTML = 'Moves the mouse south-west. Keyboard shortcut involves </br>holding <b> left </b> and <b> down </b> keys together.'
-			}
-			else if (infoobject == 'rotate') {
-				document.getElementById('info').innerHTML = 'Mouse rotates about the center anti-clockwise. </br>Keyboard shortcut is the <b> R </b> key.'
-			}
-			else if (infoobject == 'rotateclockwise') {
-				document.getElementById('info').innerHTML = 'Mouse rotates about the center clockwise. </br>Keyboard shortcut is the <b> E </b> key.'
-			}
-			else if (infoobject == 'outward') {
-				document.getElementById('info').innerHTML = 'Mouse moves outward away from the center. </br>Keyboard shortcut is the <b> O </b> key.'
-			}
-			else if (infoobject == 'playpause') {
-				document.getElementById('info').innerHTML = 'Play/Pause the simulation. </br>Keyboard shortcut is the <b> Spacebar </b> key.'
+		function infodisplay(infoobject, infolocation, infodata) {
+			if (infoobject == 'state') {
+				options = {}
+				options.text = infodata
+				options.x = infolocation[0]
+				options.y = infolocation[1]
+				updateText('chartG', 'InfoDisplayText', options)
 			}
 		}
 
@@ -2307,11 +2283,13 @@
 			textoptions.x = textvalues.x || textoptions.x
 			textoptions.y = textvalues.y || textoptions.y
 			textoptions.textcolor = textvalues.textcolor || textoptions.textcolor
+			textoptions.fontSize = textvalues.fontSize || textoptions.fontSize
 
 			textElement.innerHTML = textoptions.text
 			textElement.setAttribute('x', graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
 			textElement.setAttribute('y', graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
 			textElement.style.fill = textoptions.textcolor
+			textElement.style.fontSize = textoptions.fontSize;
 			
 			graphData[graphname].textData[textname] = [textElement, textoptions]
 			return [textElement, textoptions]
@@ -3050,195 +3028,92 @@
 			}
 		}
 
-		function handleLayout() {
+		function handleLayout1() {
 			if (dmode == 'portrait') {
 				document.getElementById('containAll').style.position = 'relative'
-				// document.getElementById('containAll').style.overflow = 'scroll'
 				// document.body.style.overflow = 'hidden'
-				document.getElementById('containAll').style.height = '55%'
-				document.getElementById('containAll').style.position = 'fixed'
-				document.getElementById('containAll').style.zIndex = '300'
+				document.getElementById('MainBlock1').style.width = '90%'
+				document.getElementById('MainBlock1').style.height = '70%'
 
-				document.getElementById('space1Div').style.height = '55%'
-				document.getElementById('space2Div').style.height = '8%'
-				document.getElementById('space2Div').style.position = 'fixed'
-				document.getElementById('space2Div').style.zIndex = '200'
-				document.getElementById('space2Div').style.pointerEvents = 'auto'
-				document.getElementById('space2Div').style.background = 'hsla(0, 0%, 92%, 1)';
-				document.getElementById('space3Div').style.height = '8%'
+				document.getElementById('mainVSpacer1').style.height = '70%'
+				document.getElementById('mainVSpacer2').style.height = '70%'
+				document.getElementById('mainVSpacer3').style.height = '90%'
+
+				document.getElementById('mainVSpacer1').style.width = '5%'
+				document.getElementById('mainVSpacer2').style.width = '5%'
+				document.getElementById('mainVSpacer3').style.width = '5%'
+
+				document.getElementById('MainBlock2').style.width = '90%'
+				document.getElementById('MainBlock2').style.height = '90%'
+
+				document.getElementById('maintitle').style.textAlign = 'center'
+				document.getElementById('titleH').style.height = '15%'
+				document.getElementById('maintitle').style.fontSize = '4vmax'
+				document.getElementById('maintitle').innerHTML = 'covid19 Trends <font style="font-weight: bold;">US</font><br/><font style="font-family: Source Sans Pro; font-size: 1.6vmax; vertical-align: bottom;">Inspired by <a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(334, 100%, 50%, 1);">Covid Trends</a></font> by <a href="https://aatishb.com/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Aatish Bhatia</font></a>, which was in collaboration with <a href="https://www.youtube.com/watch?v=54XLXg4fYsc" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(280, 100%, 50%, 1);">MinutePhysics</font></a></font>'
+
+				// document.getElementById('mainB1HSpacer2').style.height = '1%'
+
+				document.getElementById('visualChartH').style.height = '66%'
+				document.getElementById('onTopControlsH').style.height = '66%'
+				document.getElementById('playpauseH').style.fontSize = '4vmax'
+
+				$('#mainB2HSpacer1').insertBefore('#mainB2HSpacer4')
+				$('#aboutText').insertBefore('#mainB2HSpacer4')
+
+				$('<div id="mainVSpacerPortrait" style="margin: 0px; width: 5%; height: 90%; overflow: hidden; position: relative; z-index: 1; display: inline-block;"></div>').insertBefore('#MainBlock2')
+
+				document.getElementById('controlsH').style.textAlign = 'center'
+				document.getElementById('controlsH').style.fontSize = '1.3vmax'
+				document.getElementById('controlsH').innerHTML = '<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.5vmax;">Y AXIS</font><br/><font style=" font-size: 1.5vmax;">New Cases Confirmed in the last <span> </span></font><select  id="pastDaysToChoose" onchange="daysChosen(event)" style="font-family: Source Sans Pro; font-size: 1.5vmax; color: grey; width: 20%;"><option value="daysoption@8">8 Days</option></select><br/><font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.5vmax;">SCALE</font><br/><select  id="scalesToChoose" onchange="scaleChosen(event)" style="font-family: Source Sans Pro; font-size: 1.5vmax; width: 50%; color: grey;"><option value="logscaleoption">Logarithmic Scale</option><option value="linearscaleoption">Linear Scale</option></select>'
+				
+				document.getElementById('statesTopName').style.fontSize = '1.4vmax'
+				document.getElementById('selectAllText').style.fontSize = '1.3vmax'
+				document.getElementById('deselectAllText').style.fontSize = '1.3vmax'
+				document.getElementById('statesListH').style.fontSize = '1.4vmax'
+
+				document.getElementById('aboutText').style.fontSize = '1.17vmax'
+				document.getElementById('aboutText').style.textAlign = 'center'
+				document.getElementById('aboutText').style.color = 'black'
+
+				document.getElementById('onDataSouce').style.fontSize = '1.3vmax'
+				document.getElementById('onDataSouce').style.textAlign = 'center'
+				
+				// $('aboutText').insertAfter('#mainB2HSpacer1')
 				// document.getElementById('space3Div').style.overflow = 'hidden'
 
-				document.getElementById('space4Div').style.height = '39%'
+				// document.getElementById('space4Div').style.height = '39%'
 
-				$("<div id='gradFillOverMenu' style='margin:0px;width:100%; height: 100%; z-index: 20; display: inline-block; position: fixed; pointer-events: none; background: linear-gradient(to bottom, hsla(0, 0%, 92%, 1) 0%, hsla(0, 100%, 100%, 0) 3%);'></div>").insertBefore("#space4Div")
+				
 
-				document.getElementById('space5Div').style.height = '0%'
+				// document.getElementById('space5Div').style.height = '0%'
 
-				document.getElementById('scroller').style.width = '0%'
-				document.getElementById('noscroller').style.width = '100%'
+				// document.getElementById('scroller').style.width = '0%'
+				// document.getElementById('noscroller').style.width = '100%'
 
-				document.getElementById('middlepanel').style.fontSize = '0'
-				document.getElementById('menupanel').style.fontSize = '0'
+				// document.getElementById('middlepanel').style.fontSize = '0'
+				// document.getElementById('menupanel').style.fontSize = '0'
 
 				// $('#menupanel').insertBefore('#boundaryoptionspanel')
-				$("#menuDisplayPanel").appendTo("#space2Div");
-				$("#optionsDisplayPanel").appendTo("#space4Div");
+				// $("#menuDisplayPanel").appendTo("#space2Div");
+				// $("#optionsDisplayPanel").appendTo("#space4Div");
 
-				document.getElementById('menuDisplayPanel').style.height = '100%'
-				document.getElementById('optionsDisplayPanel').style.height = '200%'
-				document.getElementById('optionsDisplayPanel').style.overflowY = 'hidden'
-				document.getElementById('middlepanel').style.width = '0%'
-				document.getElementById('verticalspacerA').style.width = '0%'
-				document.getElementById('verticalspacerB').style.width = '0%'
-
-				document.getElementById('spacerD13').style.height = '55%'
-				
-
-				// $('<br/>').insertBefore('#boundaryoptionspanel')
+				// document.getElementById('menuDisplayPanel').style.height = '100%'
+				// document.getElementById('optionsDisplayPanel').style.height = '200%'
+				// document.getElementById('optionsDisplayPanel').style.overflowY = 'hidden'
+				// document.getElementById('middlepanel').style.width = '0%'
+				// document.getElementById('verticalspacerA').style.width = '0%'
+				// document.getElementById('verticalspacerB').style.width = '0%'
 
 				
-				// document.getElementById('middlepanel').style.height = '155%'
 
-				// document.getElementById('space2Div').style.overflow = 'scroll'
-
-
-				// $('#interactionAndTitle').insertBefore('#middlepanel')
-				
-				// $('#algooptionspanel').insertAfter('#menupanel')
-				// $('#interactionAndTitle').insertBefore('#middlepanel')
-				// $('#middlepanel').insertBefore('#containAll')
-				// $('#containAll').insertBefore('#middlepanel')
-
-
-				document.getElementById('interactionAndTitle').style.height = '100%'
-				document.getElementById('interactionAndTitle').style.width = '100%'
-				// document.getElementById('interactionAndTitle').style.position = 'fixed'
-
-				document.getElementById('maintitle').innerHTML = 'N <font style="color: var(--themeblue);">Charges</font> inside a <font style="color: var(--themeorange);">boundary</font> <br/><font style="font-size: 1.6vmax; font-family: Nunito; font-weight: normal; color: hsla(190, 0%, 30%, 1);">Finding Minimum Energy Configurations </font><br/><font style="font-size: 1.3vmax; font-weight: normal; font-family: Nunito; color: hsla(260, 100%, 30%, 1);">Vinton Adrian Rebello, Manas Shetty and Prajwal DSouza </font><br/><font style="font-size: 1.3vmax;">inspired by the <a href="https://iopscience.iop.org/article/10.1088/0305-4470/31/3/014/meta" style="text-decoration: none;" target="_blank"><font style="color: hsla(190, 40%, 40%, 1);">work</font></a> of Kari J Nurmela</font>'
-
-				document.getElementById('maintitle').style.fontSize = '2.7vmax'
-
-				document.getElementById('titleH').style.height = '25%'
-				document.getElementById('simulationDetailAndButtonsH').style.height = '75%'
-				document.getElementById('labH').style.height = '75%'
-
-				document.getElementById('energyinfo').style.fontSize = '1.2vmax'
-
-				document.getElementById('simulationDetailAndButtonsH').style.boxShadow = 'inset 0px 0px 30px 30px hsla(32, 100%,100%, 1)'
-
-				document.getElementById('spacerSD5').style.width = '80%'
-				document.getElementById('saveButtonH').style.width = '16%'
-				document.getElementById('savebutton').style.fontSize = '1.2vmax'
-				document.getElementById('spacerSD7').style.width = '80%'
-				document.getElementById('loadButtonH').style.width = '16%'
-				document.getElementById('loadbutton').style.fontSize = '1.2vmax'
-				document.getElementById('spacerSD9').style.width = '80%'
-				document.getElementById('homeButtonH').style.width = '16%'
-				document.getElementById('homebutton').style.fontSize = '1.2vmax'
-
-				document.getElementById('simulationDetailAndButtonsH').style.borderRadius = '20px 20px 20px 20px'
-				document.getElementById('labH').style.borderRadius = '20px 20px 20px 20px'
-				document.getElementById('simulationDetailAndButtonsH').style.left = '4%'
-				document.getElementById('labH').style.left = '4%'
-				document.getElementById('simulationDetailAndButtonsH').style.width = '92%'
-				document.getElementById('labH').style.width = '92%'
-
-
-				// document.getElementById('labpanel').style.width = '82%'
-
-				// document.getElementById('middlepanel').style.height = '100%'
-				// document.getElementById('middlepanel').style.width = '100%'
-				// document.getElementById('middlepanel').style.overflow = 'auto'
-				// document.getElementById('middlepanel').style.position = 'relative'
-				// document.getElementById('labpanel').style.overflow = 'scroll'
-
-				document.getElementById('topspacerMenu').style.height = '40%'
-
-				document.getElementById('algorithmoption').style.fontSize = '1.2vmax'
-				document.getElementById('boundaryoption').style.fontSize = '1.2vmax'
-				document.getElementById('chargesoption').style.fontSize = '1.2vmax'
-				document.getElementById('settingsoption').style.fontSize = '1.2vmax'
-
-				document.getElementById('algorithmoptionH').style.height = '50%'
-				document.getElementById('boundaryoptionH').style.height = '50%'
-				document.getElementById('chargesoptionH').style.height = '50%'
-				document.getElementById('settingsoptionH').style.height = '50%'
-
-				document.getElementById('algorithmoption').style.border = '0.5px solid rgb(153, 153, 153)'
-				document.getElementById('boundaryoption').style.border = '0.5px solid rgb(153, 153, 153)'
-				document.getElementById('chargesoption').style.border = '0.5px solid rgb(153, 153, 153)'
-				document.getElementById('settingsoption').style.border = '0.5px solid rgb(153, 153, 153)'
-
-				document.getElementById('savebutton').style.borderRadius = '6px'
-				document.getElementById('loadbutton').style.borderRadius = '6px'
-				document.getElementById('homebutton').style.borderRadius = '6px'
-
-
-				// document.getElementById('boundaryoptionspanel').style.position = 'absolute'
-				// document.getElementById('algooptionspanel').style.position = 'absolute'
-				// document.getElementById('chargesoptionspanel').style.position = 'absolute'
-				// document.getElementById('settingsoptionspanel').style.position = 'absolute'
-
-				// document.getElementById('boundaryoptionspanel').style.height = '92%'
-				// document.getElementById('algooptionspanel').style.height = '92%'
-				// document.getElementById('chargesoptionspanel').style.height = '92%'
-				// document.getElementById('settingsoptionspanel').style.height = '92%'
-
-				setFont(['algorithmnametext','algorithmeditortext','algorithmchoosetext','addchargeText'], '1.2vmax')
-				setFont(['algorithmdescriptiontext','errorAndInfodisplay','boundaryadditionalinfo'], '1.1vmax')
-				setFont(['algoplaytext', 'algosteptext', 'algoresettext','algorithmsToChoose','algoadditionalinfo','energyinfodata'], '1vmax')
-
-				setFont(['bdtypename', 'ellipseoptiontilebutton', 'polyoptiontilebutton', 'sidesname', 'sidesTileInput', 'boundarypointseditortext', 'semiMajorAxName', 'semiMajorTileInput', 'semiMinorAxName', 'semiMinorTileInput','chargepropName','chNumberTopHead','chargeXLabelN','chargeYLabelN','chargeWLabelN','egfuncTextID'], '1.2vmax')
-				setFont(['bdptNameID', 'XcorBDName', 'YcorBDName'], '1.3vmax')
-
-				setFont(['energyFInput'], '1.8vmax')
-
-				document.getElementById('spacerBD1').style.height = '3%'
-				document.getElementById('spacerCH1').style.height = '3%'
-				document.getElementById('spacerD1').style.height = '3%'
-
-				
-				
-
-
-				
-				// document.getElementById('textTablesH').style.height = '80%'
-
-				// document.getElementById('textgraphTablesH').style.height = '60%'
-				// document.getElementById('textgraphTablesH').style.width = '100%'
-
-				// document.getElementById('graphholder').style.width = '100%'
-				// document.getElementById('graphholder').style.height = '40%'
-				// document.getElementById('spacer1H').style.height = '3%'
-				// document.getElementById('graphTablesH').style.width = '100%'
-				// document.getElementById('graphTablesH').style.height = '25%'
-
-				// document.getElementById('outputtable').style.height = '10%'
-
-
-				// document.getElementById('graphspaceholder').style.width = '0%'
-				// document.getElementById('pausePrevTD').style.width = '13%'
-
-				// document.getElementById('playpauseSim').style.textAlign = 'left'
-				// document.getElementById('playpauseSim').style.fontSize = '3.3vmin'
-
-				// document.getElementById('materialH').style.backgroundColor = 'black'
-
-				// $(window).bind('scroll', function () {
-				// 	if ($(window).scrollTop() > 50) {
-				// 		$('.menu').addClass('fixed');
-				// 	} else {
-				// 		$('.menu').removeClass('fixed');
-				// 	}
-				// });
 				
 			}
 			if (dmode == 'landscape') {
-				$("<div id='gradFillOverMenu' style='margin:0px;width:100%; height: 100%; z-index: 20; display: inline-block; position: fixed; pointer-events: none; background: linear-gradient(to bottom, hsla(0, 0%, 92%, 1) 2%, hsla(0, 100%, 100%, 0) 8%, hsla(0, 100%, 100%, 0) 92%, hsla(0, 0%, 92%, 1) 100%);'></div>").insertBefore("#verticalspacer1")
+				
 			}
 		}
 
-		// handleLayout()
+		handleLayout1()
 
 		
 		uid = 0
@@ -3351,8 +3226,7 @@
 
 		// console.log(linearToGraphLinear(1, 100, 50))
 
-		datesAvailable = ['2020-01-21','2020-01-22','2020-01-23','2020-01-24','2020-01-25','2020-01-26','2020-01-27','2020-01-28','2020-01-29','2020-01-30','2020-01-31','2020-02-01','2020-02-02','2020-02-03','2020-02-04','2020-02-05','2020-02-06','2020-02-07','2020-02-08','2020-02-09','2020-02-10','2020-02-11','2020-02-12','2020-02-13','2020-02-14','2020-02-15','2020-02-16','2020-02-17','2020-02-18','2020-02-19','2020-02-20','2020-02-21','2020-02-22','2020-02-23','2020-02-24','2020-02-25','2020-02-26','2020-02-27','2020-02-28','2020-02-29','2020-03-01','2020-03-02','2020-03-03','2020-03-04','2020-03-05','2020-03-06','2020-03-07','2020-03-08','2020-03-09','2020-03-10','2020-03-11','2020-03-12','2020-03-13','2020-03-14','2020-03-15','2020-03-16','2020-03-17','2020-03-18','2020-03-19','2020-03-20','2020-03-21','2020-03-22','2020-03-23','2020-03-24','2020-03-25','2020-03-26','2020-03-27','2020-03-28']
-
+		datesAvailable = ['21 January 2020','22 January 2020','23 January 2020','24 January 2020','25 January 2020','26 January 2020','27 January 2020','28 January 2020','29 January 2020','30 January 2020','31 January 2020','01 February 2020','02 February 2020','03 February 2020','04 February 2020','05 February 2020','06 February 2020','07 February 2020','08 February 2020','09 February 2020','10 February 2020','11 February 2020','12 February 2020','13 February 2020','14 February 2020','15 February 2020','16 February 2020','17 February 2020','18 February 2020','19 February 2020','20 February 2020','21 February 2020','22 February 2020','23 February 2020','24 February 2020','25 February 2020','26 February 2020','27 February 2020','28 February 2020','29 February 2020','01 March 2020','02 March 2020','03 March 2020','04 March 2020','05 March 2020','06 March 2020','07 March 2020','08 March 2020','09 March 2020','10 March 2020','11 March 2020','12 March 2020','13 March 2020','14 March 2020','15 March 2020','16 March 2020','17 March 2020','18 March 2020','19 March 2020','20 March 2020','21 March 2020','22 March 2020','23 March 2020','24 March 2020','25 March 2020','26 March 2020','27 March 2020','28 March 2020']
 
 
 		fullData = {Alaska: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2,3,0,3,3,2,8,14,6,17,10,16,17], Arizona: [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,2,0,0,1,3,0,0,3,0,6,2,7,17,19,41,48,82,92,75,107,157,108], California: [0,0,0,0,1,1,0,0,0,0,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1,0,1,1,5,5,12,4,8,11,8,26,19,24,20,21,49,39,49,57,80,126,77,331,218,268,265,369,433,471,795,842], Colorado: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,6,0,0,4,5,17,15,28,24,30,29,23,33,61,86,112,116,129,192,174,344,304,327], Hawaii: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,2,3,3,4,2,10,11,11,8,21,13,5,11,14,31], Idaho: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,4,0,0,3,3,12,8,12,4,3,23,50,62,45,31], Montana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3,2,1,0,2,3,4,5,6,7,11,6,2,18,50,26], New_Mexico: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,2,4,3,4,4,2,5,7,8,14,8,18,17,12,24,55,17], Nevada: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,2,0,1,0,0,6,8,0,26,0,0,50,14,45,36,55,33,43,99,115,86], Oregon: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,4,7,0,1,4,5,6,6,3,8,18,10,13,26,31,16,30,18,57,50,98,65], Utah: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,2,1,4,15,4,11,12,12,15,34,24,45,76,41,48,56,78,122], Washington: [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,7,5,10,11,31,10,22,34,26,105,99,91,111,74,127,135,108,175,189,148,269,203,225,248,111,627,493,610], Wyoming: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,7,5,2,1,4,2,2,2,9,7,12,17,11], Iowa: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,5,5,1,2,1,1,4,1,6,9,6,1,23,22,15,19,21,34,56,63], Illinois: [0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,1,0,1,4,8,6,7,14,18,29,12,55,128,134,163,174,296,230,250,330,673,488,465], Indiana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,4,2,0,3,4,5,6,9,17,23,47,0,75,58,106,112,168,336,251], Kansas: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,4,1,2,1,2,5,5,13,10,11,9,15,19,28,42,34,59], Michigan: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,10,13,8,20,1,11,15,254,215,238,248,293,463,501,564,801,993], Minnesota: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,2,4,5,7,14,19,6,17,12,26,23,31,66,27,25,59,52,43], Missouri: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,2,1,0,2,8,7,6,19,26,33,77,72,101,146,168,168], North_Dakota: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2,4,12,7,2,2,2,4,3,13,16,26], Nebraska: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,2,0,5,4,3,1,0,3,6,5,6,10,2,2,9,3,9,8,27], Ohio: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,0,1,8,13,11,13,17,21,31,50,78,104,91,122,140,163,270,269], Oklahoma: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,0,6,2,7,12,15,5,4,12,14,25,58,84,74,55], South_Dakota: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,3,0,1,0,0,1,1,0,3,0,0,7,7,2,11,5,12,10], Wisconsin: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,2,11,8,6,14,25,34,49,51,75,100,35,41,128,122,135,147], Alabama: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,10,7,7,15,27,3,43,33,39,19,68,197,87,129], Arkansas: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,5,6,0,4,6,0,11,29,34,22,47,32,21,62,55,51,23], Florida: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,0,3,2,4,2,9,3,18,33,39,33,11,56,112,104,131,95,172,397,185,565,506,843,712], Georgia: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1,4,4,6,5,9,11,0,24,33,22,25,51,90,133,87,93,172,254,221,278,476,445], Kentucky: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3,2,2,0,3,3,2,4,2,4,9,5,7,7,45,25,33,41,50,54,92], Louisiana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,10,6,17,41,26,33,60,84,112,87,106,252,335,216,407,510,441,569], Mississippi: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5,0,4,2,9,13,16,90,0,61,48,71,57,108,94,84], North_Carolina: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,5,0,1,7,0,8,9,1,7,34,23,40,47,71,42,101,106,132,127,172], South_Carolina: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4,1,2,1,2,1,6,9,5,14,13,21,44,48,22,103,44,82,32,83,121], Tennessee: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2,1,3,2,9,8,6,7,13,21,25,56,74,143,134,110,52,117,173,246,170], Texas: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,4,3,0,4,1,4,4,2,16,12,5,1,7,19,60,51,110,30,18,58,564,422,335,321], Virginia: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,4,0,8,13,11,4,6,16,10,17,20,38,67,35,36,101,69,144,135], West_Virginia: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,3,3,5,4,19,12,25,20,17], Connecticut: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,3,5,9,6,15,27,28,63,35,29,104,88,203,257,137,279,233], District_of_Columbia: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,0,5,0,0,6,1,5,9,8,32,6,21,18,21,46,48,30,43,38], Delaware: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,0,2,1,1,8,10,4,8,7,11,31,17,15,11,35,49], Massachusetts: [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,5,5,15,13,51,3,13,15,15,26,33,21,38,72,85,112,121,131,382,679,579,823,1017], Maryland: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,2,0,1,3,3,5,9,5,6,20,28,22,42,41,54,44,61,74,157,194,218], Maine: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,14,15,10,10,4,17,16,18,11,24,13,13,43], New_Hampshire: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,2,0,1,0,1,1,0,6,4,9,13,5,11,10,13,23,7,29,21,29,27], New_Jersey: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,0,2,5,4,8,6,21,19,29,80,87,162,315,148,437,587,930,831,727,2474,1949,2299], New_York: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,9,11,22,45,17,36,31,43,112,93,192,116,221,424,1008,1770,2950,3254,4812,5707,4790,5146,6447,7377,7683], Pennsylvania: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,4,2,4,6,19,6,16,13,20,37,52,83,103,108,165,207,276,560,531,533], Rhode_Island: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1,0,0,0,2,0,0,15,0,0,1,0,12,11,10,12,17,23,18,8,33,38,36], Vermont: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,2,0,8,5,2,3,7,20,3,23,20,28,35,26,27], Guam: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,5,0,6,1,12,0,0,10,8,6,0], Puerto_Rico: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,0,0,0,0,9,7,2,8,8,12,13,0,36], Virgin_Islands: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,0,3,0,11,0,0,0,0,2,4]}
@@ -3405,7 +3279,51 @@
 
 
 		function mouseOverState(event) {
+			event.preventDefault()
+			gphname = 'chartG'
+			var rect = document.getElementById(gphname).getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			svgPTVariable[gphname].x = event.clientX;
+			svgPTVariable[gphname].y = event.clientY;
+
+			if (event.clientX == undefined) {
+				posx = event.changedTouches[0].clientX - rect.left;
+				posy = event.changedTouches[0].clientY - rect.top;
+				svgPTVariable[gphname].x = event.changedTouches[0].clientX;
+				svgPTVariable[gphname].y = event.changedTouches[0].clientY;
+			}
+
+			var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+			actionLocationX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
+			actionLocationY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+
 			stkey = event.target.id.split('@')[1]
+
+			if (plotType == 'linear') {
+				displayData = "<tspan dx='0' dy='1.2em'>New Cases in last " + nDays + " days : " + linearValue(0, 100, minMaxBounds[2], minMaxBounds[3], actionLocationY).toFixed(1) + "</tspan><tspan dx='-13em' dy='1.2em'>Total Cases Confirmed : " + linearValue(0, 100, minMaxBounds[0], minMaxBounds[1], actionLocationX).toFixed(1) + "</tspan>"
+			}
+			else if (plotType == 'log') {
+				displayData = "<tspan dx='0' dy='1.2em'>New Cases in last " + nDays + " days : " + Math.pow(10, linearValue(0, 100, Math.log10(minMaxBounds[2]), Math.log10(minMaxBounds[3]), actionLocationY)).toFixed(1) + "</tspan><tspan dx='-13em' dy='1.2em'>Total Cases Confirmed : " + Math.pow(10, linearValue(0, 100, Math.log10(minMaxBounds[0]), Math.log10(minMaxBounds[1]), actionLocationX)).toFixed(1) + "</tspan>"
+
+			}
+
+			if (actionLocationX > 85) {
+				actionLocationX = 85
+			}
+			if (actionLocationX < 15) {
+				actionLocationX = 15
+			}
+			if (actionLocationY > 85) {
+				actionLocationY = 85
+			}
+			if (actionLocationY < 15) {
+				actionLocationY = 15
+			}
+
+			infodisplay('state', [actionLocationX + 2, actionLocationY - 2], displayData)
+
 			for (var stakey in fullData) {
 				options = {}
 				options.pathcolor = 'hsla(' + stateHue[stakey] + ', 0%, 50%, 0.1)'
@@ -3434,6 +3352,7 @@
 		}
 
 		function mouseOutState(event) {
+			infodisplay('state', [-100, -100], '')
 			stkey = event.target.id.split('@')[1]
 			for (var stakey in fullData) {
 				options = {}
@@ -3467,10 +3386,12 @@
 				options.strokewidth = 0.4
 				curveE = addPath('chartG', 'stateCurveOf@' + key, options)[0]
 				partsOfState[key].push(curveE)
-				curveE.addEventListener('mouseover', mouseOverState)
+				curveE.addEventListener('mousemove', mouseOverState)
 				curveE.addEventListener('mouseout', mouseOutState)
 				curveE.style.pointerEvents = 'auto'
-				curveE.style.cursor = 'pointer'
+				curveE.style.cursor = 'crosshair'
+				curveE.addEventListener('touchmove', mouseOverState)
+				curveE.addEventListener('touchend', mouseOutState)
 
 				for (datapointIndex = 0; datapointIndex < datesAvailable.length; datapointIndex++) {
 					options = {}
@@ -3479,6 +3400,10 @@
 					options.pointsize = 0.7
 					options.pointcolor = 'hsla(' + hueNum + ', 100%, 50%, 0.2)'
 					curvePT = addPoint('chartG', 'stateCurveOf@' + key + '@' + datapointIndex, options)[0]
+					curvePT.addEventListener('mousemove', mouseOverState)
+					curvePT.addEventListener('mouseout', mouseOutState)
+					curvePT.addEventListener('touchmove', mouseOverState)
+					curvePT.addEventListener('touchend', mouseOutState)
 					partsOfState[key].push(curvePT)
 					pointsOfState[key].push('stateCurveOf@' + key + '@' + datapointIndex)
 
@@ -3490,10 +3415,12 @@
 				options.pointsize = 1
 				options.pointcolor = 'hsla(' + hueNum + ', 100%, 50%, 1)'
 				curvePTMain = addPoint('chartG', 'stateCurveOf@' + key + '@mainPoint', options)[0]
-				curvePTMain.addEventListener('mouseover', mouseOverState)
+				curvePTMain.addEventListener('mousemove', mouseOverState)
 				curvePTMain.addEventListener('mouseout', mouseOutState)
 				curvePTMain.style.pointerEvents = 'auto'
-				curvePTMain.style.cursor = 'pointer'
+				curvePTMain.style.cursor = 'crosshair'
+				curvePTMain.addEventListener('touchmove', mouseOverState)
+				curvePTMain.addEventListener('touchend', mouseOutState)
 				partsOfState[key].push(curvePTMain)
 
 				options = {}
@@ -3504,10 +3431,12 @@
 				options.text = keyText.replace(/_/g, ' ')
 				options.fontSize = '0.2vmax'
 				stateTxt = addText('chartG', 'stateTextOf@' + key, options)[0]
-				stateTxt.addEventListener('mouseover', mouseOverState)
+				stateTxt.addEventListener('mousemove', mouseOverState)
 				stateTxt.addEventListener('mouseout', mouseOutState)
+				stateTxt.addEventListener('touchmove', mouseOverState)
+				stateTxt.addEventListener('touchend', mouseOutState)
 				stateTxt.style.pointerEvents = 'auto'
-				stateTxt.style.cursor = 'pointer'
+				stateTxt.style.cursor = 'crosshair'
 				partsOfState[key].push(stateTxt)
 				visibilitySet(partsOfState[key], 'hidden')
 
@@ -3640,7 +3569,17 @@
 		}
 
 		
-			
+		function addInfoDisplay() {
+			options = {}
+			options.x = -100
+			options.y = -100
+			options.textcolor = 'hsla(0, 0%, 0%, 0.7)'
+			options.text = ''
+			options.fontSize = '0.15vmax'
+			addText('chartG', 'InfoDisplayText', options)
+		}
+
+		addInfoDisplay()
 		
 
 		function visibilitySet(setOfELEMENTS, setvalue) {
@@ -3832,7 +3771,7 @@
 			chartXL = addText('chartG', 'chartXAxLabel', options)
 
 			options = {}
-			options.x = 30
+			options.x = 50
 			options.y = 115
 			options.textAlign = 'center'
 			options.textcolor = 'hsla(0, 0%, 0%, 1)'
@@ -4064,6 +4003,47 @@
 		function mod(ofVector) {
 			return distF(ofVector, [0,0])
 		}
+
+		function handleLayout2() {
+			if (dmode == 'portrait') {
+				allTXTs = graphData['chartG'].textData
+				for (var textD in allTXTs) {
+					if (allTXTs[textD][1].fontSize == '0.15vmax') {
+						options = {}
+						options.fontSize = '0.4vmax'
+						updateText('chartG', textD, options)
+					}
+					if (allTXTs[textD][1].fontSize == '0.2vmax') {
+						options = {}
+						options.fontSize = '0.4vmax'
+						updateText('chartG', textD, options)
+					}
+					if (allTXTs[textD][1].fontSize == '0.27vmax') {
+						options = {}
+						options.fontSize = '0.5vmax'
+						updateText('chartG', textD, options)
+					}			
+				}
+
+
+				chartYL = graphData['chartG'].textData['chartYAxLabel'][0]
+
+				gtempData = graphData['chartG']
+				yAxisTransformX = graphToScaledX(-13, gtempData.xmin, gtempData.xmax, gdata.aspectratio)
+				yAxisTransformY = graphToScaledY(60, gtempData.ymin, gtempData.ymax, gdata.aspectratio)
+				chartYL.setAttribute('transform', "translate(" + yAxisTransformX + ", " + yAxisTransformY + ") rotate(-90)")
+				chartYL.setAttribute('x', "0")
+				chartYL.setAttribute('y', "0")
+				chartYL.style.textAnchor = 'middle'
+			}
+			if (dmode == 'landscape') {
+				
+			}
+		}
+
+		handleLayout2()
+
+		// handleLayout()
 
 		</script>
 
