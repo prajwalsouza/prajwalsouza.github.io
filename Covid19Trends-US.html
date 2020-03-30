@@ -3236,7 +3236,30 @@
 
 		totalCaseCount = {}
 
-		
+		function nToLabel(valueToLabel) {
+			if (Math.abs(valueToLabel) != 0) {
+				valueOrder = Math.log10(Math.abs(valueToLabel))
+				if (valueOrder >= 3 && valueOrder < 6) {
+					return (valueToLabel/Math.pow(10, 3)).toFixed(1) + 'k'
+				}
+				else if (valueOrder >= 6 && valueOrder < 9) {
+					return (valueToLabel/Math.pow(10, 6)).toFixed(1) + 'M'
+				}
+				else if (valueOrder >= 9) {
+					return (valueToLabel/Math.pow(10, 9)).toFixed(1) + 'B'
+				}
+				else if (valueToLabel % 1 == 0) {
+					return valueToLabel
+				}
+				else {
+					return valueToLabel.toFixed(1).toString()
+				}
+			}
+			else {
+				return valueToLabel.toString()
+			}
+			
+		}
 
 		function curveDataFor(stateName) {
 			timelineData = fullData[stateName]
@@ -3449,7 +3472,7 @@
 			fullOptionsString = ''
 			for (stateIndex = 0; stateIndex < orderedStates.length; stateIndex++) {
 				stateK = orderedStates[stateIndex]
-				fullOptionsString = fullOptionsString + '<input onchange = "checkEvent(event)" type="checkbox" id="state@' + stateK + '" name="state@' + stateK + '" value="' + stateK + '"><label for="state@' + stateK + '" style="text-indent: 1%; color: hsla(' + stateHue[stateK] + ', 100%, 40%, 1);"> ' + stateK.replace('_',' ') + '</label><br>'
+				fullOptionsString = fullOptionsString + '<font style="text-indent: 1%; color: hsla(' + stateHue[stateK] + ', 100%, 40%, 1);">' + nToLabel(totalCaseCount[stateK]) + '</font>&nbsp;&nbsp;&nbsp;&nbsp;<input onchange = "checkEvent(event)" type="checkbox" id="state@' + stateK + '" name="state@' + stateK + '" value="' + stateK + '"><label for="state@' + stateK + '" style="text-indent: 1%; color: hsla(' + stateHue[stateK] + ', 100%, 40%, 1);"> ' + stateK.replace(/_/g, ' ') + '</label><br>'
 			}
 			document.getElementById('statesListH').innerHTML = fullOptionsString
 		}
@@ -3690,7 +3713,7 @@
 					addText('chartG', 'chartYLabel#' + labelyN, options)
 					axisAllLabels.push('chartYLabel#' + labelyN)
 				}
-				for (labelxN = 0; labelxN <= xDivisions; labelxN++) {
+				for (labelxN = 0; labelxN < xDivisions; labelxN++) {
 					valueToGo = minMaxBounds[0] + (labelxN*xaxisdelta)
 					valueToG = linearValue(minMaxBounds[0], minMaxBounds[1], 0, 100, valueToGo)
 				
@@ -3732,7 +3755,7 @@
 					addText('chartG', 'chartYLabel#' + labelyN, options)
 					axisAllLabels.push('chartYLabel#' + labelyN)
 				}
-				for (labelxN = 0; labelxN <= xDivisions; labelxN++) {
+				for (labelxN = 0; labelxN < xDivisions; labelxN++) {
 					valueToGo = Math.log10(minMaxBounds[0]) + (labelxN*xaxisdelta)
 					valueToG = linearValue(Math.log10(minMaxBounds[0]), Math.log10(minMaxBounds[1]), 0, 100, valueToGo)
 					valueToGo = Math.pow(10, valueToGo)
@@ -3800,27 +3823,7 @@
 			chartXL = addText('chartG', 'chartTitle', options)
 		}
 
-		function nToLabel(valueToLabel) {
-			if (Math.abs(valueToLabel) != 0) {
-				valueOrder = Math.log10(Math.abs(valueToLabel))
-				if (valueOrder >= 3 && valueOrder < 6) {
-					return (valueToLabel/Math.pow(10, 3)).toFixed(1) + 'k'
-				}
-				else if (valueOrder >= 6 && valueOrder < 9) {
-					return (valueToLabel/Math.pow(10, 6)).toFixed(1) + 'M'
-				}
-				else if (valueOrder >= 9) {
-					return (valueToLabel/Math.pow(10, 9)).toFixed(1) + 'B'
-				}
-				else {
-					return valueToLabel.toFixed(1).toString()
-				}
-			}
-			else {
-				return valueToLabel.toString()
-			}
-			
-		}
+		
 
 		function deleteAllLabels() {
 			for (labelC = 0; labelC < axisAllLabels.length; labelC++) {
