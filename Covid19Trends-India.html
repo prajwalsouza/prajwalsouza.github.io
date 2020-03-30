@@ -283,8 +283,8 @@
 				<div id="mainB2HSpacer4" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				</div>
 				<div id="onDataSouce" style='margin:0px;width:100%; height:11%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 1vmax; font-family: Source Sans Pro; text-align: right; font-weight: bold; '>
-					<br/>Data collected from <a href="https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_India#Statistics" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Wikipedia</font></a><br/> 
-					 <font style="color: hsla(190, 0%, 50%, 1); font-weight: normal;">Last updated at 7:14 AM 30/03/2020 IST</font>  
+					<br/>Data collected from <a href="https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data/India_medical_cases" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Wikipedia</font></a><br/> 
+					 <font style="color: hsla(190, 0%, 50%, 1); font-weight: normal;">Last updated at 1:01 AM 31/03/2020 IST</font>  
 				</div>
 			</div>
 			<div id="mainVSpacer3" style='margin:0px;width:2%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
@@ -2249,6 +2249,7 @@
 
 			textoptions.textAlign = textoptions.textAlign || 'left'
 			textoptions.fontSize = textoptions.fontSize || 12
+			textoptions.fontFamily = textoptions.fontFamily || 'Source Sans Pro'
 			
 			textoptions.textcolor = textoptions.textcolor || 'hsla(190, 100%, 0%, 1)'
 			
@@ -2260,7 +2261,7 @@
 			textElement.setAttribute('vector-effect','non-scaling-stroke');
 			textElement.style.fill = textoptions.textcolor
 			textElement.innerHTML = textoptions.text
-			textElement.style.fontFamily = 'Source Sans Pro'
+			textElement.style.fontFamily = textoptions.fontFamily
 			textElement.style.fontSize = textoptions.fontSize;
 			if (textoptions.textAlign == 'center') {
 				textElement.setAttribute('text-anchor','middle')
@@ -3226,13 +3227,13 @@
 
 		// console.log(linearToGraphLinear(1, 100, 50))
 
-		datesAvailable = ['30 January 2020','31 January 2020','01 February 2020','02 February 2020','03 February 2020','04 February 2020','05 February 2020','06 February 2020','07 February 2020','08 February 2020','09 February 2020','10 February 2020','11 February 2020','12 February 2020','13 February 2020','14 February 2020','15 February 2020','16 February 2020','17 February 2020','18 February 2020','19 February 2020','20 February 2020','21 February 2020','22 February 2020','23 February 2020','24 February 2020','25 February 2020','26 February 2020','27 February 2020','28 February 2020','29 February 2020','01 March 2020','02 March 2020','03 March 2020','04 March 2020','05 March 2020','06 March 2020','07 March 2020','08 March 2020','09 March 2020','10 March 2020','11 March 2020','12 March 2020','13 March 2020','14 March 2020','15 March 2020','16 March 2020','17 March 2020','18 March 2020','19 March 2020','20 March 2020','21 March 2020','22 March 2020','23 March 2020','24 March 2020','25 March 2020','26 March 2020','27 March 2020','28 March 2020']
+		datesAvailable = ['30 January 2020','31 January 2020','01 February 2020','02 February 2020','03 February 2020','04 February 2020','05 February 2020','06 February 2020','07 February 2020','08 February 2020','09 February 2020','10 February 2020','11 February 2020','12 February 2020','13 February 2020','14 February 2020','15 February 2020','16 February 2020','17 February 2020','18 February 2020','19 February 2020','20 February 2020','21 February 2020','22 February 2020','23 February 2020','24 February 2020','25 February 2020','26 February 2020','27 February 2020','28 February 2020','29 February 2020','01 March 2020','02 March 2020','03 March 2020','04 March 2020','05 March 2020','06 March 2020','07 March 2020','08 March 2020','09 March 2020','10 March 2020','11 March 2020','12 March 2020','13 March 2020','14 March 2020','15 March 2020','16 March 2020','17 March 2020','18 March 2020','19 March 2020','20 March 2020','21 March 2020','22 March 2020','23 March 2020','24 March 2020','25 March 2020','26 March 2020','27 March 2020','28 March 2020','29 March 2020']
 
 
-		fullData = {Andaman_and_Nicobar_Islands: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,4], Andhra_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2,0,2,2,1,1,2,3,0], Bihar: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,3,3,0], Chandigarh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4,1,1,0,0,0,1], Chhattisgarh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,4,0,0], Delhi: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,1,0,1,2,0,1,0,0,1,2,2,5,8,3,0,0,1,5,3,0], Goa: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0], Gujarat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,2,11,11,4,5,5,2,0], Haryana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,4,5,2,0,2,3,0], Himachal_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,0,0,0,0], Jammu_and_Kashmir: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,3,6,5,2], Karnataka: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,2,0,0,1,3,1,3,1,0,11,7,8,4,14,0,9], Kerala: [1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,0,8,0,2,0,3,1,3,1,0,1,12,12,15,28,14,9,43,15], Ladakh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1,0,0,0,1,2,0,0,2,3,0,0,0,0,0,0,0], Madhya_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,2,1,7,6,10,0], Maharashtra: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,6,3,12,5,4,7,3,3,5,11,4,7,15,35,0,29,27], Manipur: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0], Mizoram: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0], Odisha: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0], Puducherry: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0], Punjab: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,11,7,2,6,4,0,5,0], Rajasthan: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,1,0,0,0,1,3,10,0,7,4,4,4,5,7,6], Tamil_Nadu: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3,3,6,3,10,12,2], Telangana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,1,11,4,1,10,3,0,9,4,8], Uttarakhand: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,1,0,1,0,0], Uttar_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,1,0,0,0,1,0,0,2,0,1,0,0,2,1,3,4,1,3,4,2,4,4,4,10], West_Bengal: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,3,2,0,1,5,0]}
+		fullData = {Andaman_and_Nicobar_Islands: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,4,3], Andhra_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2,0,2,2,1,1,2,3,0,5], Bihar: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,3,3,0,2], Chandigarh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4,1,1,0,0,0,1,0], Chhattisgarh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,4,0,0,1], Delhi: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,1,0,1,2,0,1,0,0,1,2,2,5,8,3,0,0,1,5,3,0,10], Goa: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,2], Gujarat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,2,11,11,4,5,5,2,0,12], Haryana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,4,5,2,0,2,3,0,0], Himachal_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,0,0,0,0,0], Jammu_and_Kashmir: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,3,6,5,2,11], Karnataka: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,2,0,0,1,3,1,3,1,0,11,5,7,4,14,0,9,13], Kerala: [1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,0,8,0,2,0,3,1,3,1,0,1,12,12,15,28,14,9,43,15,6], Ladakh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1,0,0,0,1,4,0,0,2,3,0,0,0,0,0,0,0,0], Madhya_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,2,1,7,6,10,0,0], Maharashtra: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,6,3,12,5,6,3,3,3,5,11,8,7,15,35,0,29,27,6], Manipur: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0], Mizoram: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0], Odisha: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0], Puducherry: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0], Punjab: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,11,7,2,6,4,0,5,0,0], Rajasthan: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,1,0,0,0,1,3,10,0,5,4,4,4,5,7,6,1], Tamil_Nadu: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3,3,6,3,8,12,2,9], Telangana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,1,11,4,1,10,3,0,9,4,8,10], Uttarakhand: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,1,0,1,0,0,2], Uttar_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,1,0,0,0,1,0,0,2,1,1,0,0,2,2,4,4,0,3,4,2,4,4,4,10,10], West_Bengal: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,3,2,0,1,5,0,3]}
 
 		
-		nDays = 10
+		nDays = 6
 
 		totalCaseCount = {}
 
@@ -3323,30 +3324,99 @@
 			actionLocationX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
 			actionLocationY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
 
+			if (actionLocationX < 100 && actionLocationX > 0 && actionLocationY < 100 && actionLocationY > 0) {
+				stkey = event.target.id.split('@')[1]
+
+				if (plotType == 'linear') {
+					displayData = "<tspan dx='0' dy='1.2em'>New Cases in last " + nDays + " days : " + linearValue(0, 100, minMaxBounds[2], minMaxBounds[3], actionLocationY).toFixed(1) + "</tspan><tspan dx='-13em' dy='1.2em'>Total Cases Confirmed : " + linearValue(0, 100, minMaxBounds[0], minMaxBounds[1], actionLocationX).toFixed(1) + "</tspan>"
+				}
+				else if (plotType == 'log') {
+					displayData = "<tspan dx='0' dy='1.2em'>New Cases in last " + nDays + " days : " + Math.pow(10, linearValue(0, 100, Math.log10(minMaxBounds[2]), Math.log10(minMaxBounds[3]), actionLocationY)).toFixed(1) + "</tspan><tspan dx='-13em' dy='1.2em'>Total Cases Confirmed : " + Math.pow(10, linearValue(0, 100, Math.log10(minMaxBounds[0]), Math.log10(minMaxBounds[1]), actionLocationX)).toFixed(1) + "</tspan>"
+
+				}
+
+				if (actionLocationX > 85) {
+					actionLocationX = 85
+				}
+				if (actionLocationX < 0) {
+					actionLocationX = 0
+				}
+				if (actionLocationY > 100) {
+					actionLocationY = 100
+				}
+				if (actionLocationY < 15) {
+					actionLocationY = 15
+				}
+
+				infodisplay('state', [actionLocationX + 2, actionLocationY - 2], displayData)
+			}
+
+		}
+
+		function mouseOutState(event) {
+			infodisplay('state', [-100, -100], '')
+		}
+
+		partsOfState = {}
+		pointsOfState = {}
+		stateHue = {}
+
+		function mouseOverStateInfo(event) {
+			gEleType = event.target.id.split('-')[1]
+
+			ptStateKey = event.target.id.split('@')[1]
+			displayData0 = ptStateKey.replace(/_/g, ' ')
+
+			if (gEleType == 'point') {
+				if (event.target.id.split('@')[2] == 'mainPoint') {
+					ptStateKey = event.target.id.split('@')[1]
+					togoPointX = graphData['chartG'].pointData[event.target.id.split('-point-')[1]][1].x
+					togoPointY = graphData['chartG'].pointData[event.target.id.split('-point-')[1]][1].y
+
+					updatePointXY('chartG', 'stateHoverOf@' + ptStateKey, togoPointX,togoPointY)
+
+					displayData3 = totalCaseCount[ptStateKey] + ' total confirmed cases'
+					displayData1 = datesAvailable[datesAvailable.length - 1]
+					if (nDays > 1) {
+						displayData2 = curveDataForState[ptStateKey][curveDataForState[ptStateKey].length - 1][1] + ' confirmed cases in the last ' + nDays + ' days'
+					}
+					else {
+						displayData2 = curveDataForState[ptStateKey][curveDataForState[ptStateKey].length - 1][1] + ' confirmed cases in the last ' + nDays + ' day'
+					}
+					
+				}
+				else {
+					ptNumber = event.target.id.split('@')[2]
+					ptStateKey = event.target.id.split('@')[1]
+					togoPointX = graphData['chartG'].pointData[event.target.id.split('-point-')[1]][1].x
+					togoPointY = graphData['chartG'].pointData[event.target.id.split('-point-')[1]][1].y
+
+					updatePointXY('chartG', 'stateHoverOf@' + ptStateKey, togoPointX,togoPointY)
+
+					displayData3 = curveDataForState[ptStateKey][ptNumber][0] + ' total confirmed cases'
+					displayData1 = datesAvailable[parseInt(ptNumber) + nDays]
+					if (nDays > 1) {
+						displayData2 = curveDataForState[ptStateKey][ptNumber][1] + ' confirmed cases in the last ' + nDays + ' days'
+					}
+					else {
+						displayData2 = curveDataForState[ptStateKey][ptNumber][1] + ' confirmed cases in the last ' + nDays + ' day'
+					}
+
+					
+				}
+			}
+			else {
+				displayData3 = totalCaseCount[ptStateKey] + ' total confirmed cases'
+				displayData1 = datesAvailable[datesAvailable.length - 1]
+				if (nDays > 1) {
+					displayData2 = curveDataForState[ptStateKey][curveDataForState[ptStateKey].length - 1][1] + ' confirmed cases in the last ' + nDays + ' days'
+				}
+				else {
+					displayData2 = curveDataForState[ptStateKey][curveDataForState[ptStateKey].length - 1][1] + ' confirmed cases in the last ' + nDays + ' day'
+				}
+			}
+
 			stkey = event.target.id.split('@')[1]
-
-			if (plotType == 'linear') {
-				displayData = "<tspan dx='0' dy='1.2em'>New Cases in last " + nDays + " days : " + linearValue(0, 100, minMaxBounds[2], minMaxBounds[3], actionLocationY).toFixed(1) + "</tspan><tspan dx='-13em' dy='1.2em'>Total Cases Confirmed : " + linearValue(0, 100, minMaxBounds[0], minMaxBounds[1], actionLocationX).toFixed(1) + "</tspan>"
-			}
-			else if (plotType == 'log') {
-				displayData = "<tspan dx='0' dy='1.2em'>New Cases in last " + nDays + " days : " + Math.pow(10, linearValue(0, 100, Math.log10(minMaxBounds[2]), Math.log10(minMaxBounds[3]), actionLocationY)).toFixed(1) + "</tspan><tspan dx='-13em' dy='1.2em'>Total Cases Confirmed : " + Math.pow(10, linearValue(0, 100, Math.log10(minMaxBounds[0]), Math.log10(minMaxBounds[1]), actionLocationX)).toFixed(1) + "</tspan>"
-
-			}
-
-			if (actionLocationX > 85) {
-				actionLocationX = 85
-			}
-			if (actionLocationX < 15) {
-				actionLocationX = 15
-			}
-			if (actionLocationY > 85) {
-				actionLocationY = 85
-			}
-			if (actionLocationY < 15) {
-				actionLocationY = 15
-			}
-
-			infodisplay('state', [actionLocationX + 2, actionLocationY - 2], displayData)
 
 			for (var stakey in fullData) {
 				options = {}
@@ -3372,11 +3442,45 @@
 			options = {}
 			options.textcolor = 'hsla(' + stateHue[stkey] + ', 100%, 30%, 1)'
 			updateText('chartG', 'stateTextOf@' + stkey, options)
-				
+
+			options = {}
+			options.x = 5
+			options.y = 80
+			options.text = displayData0
+			updateText('chartG', 'boldInfo', options)
+
+			options = {}
+			options.x = 5
+			options.y = 71
+			options.text = displayData1
+			updateText('chartG', 'boldInfo1', options)
+			options = {}
+			options.x = 5
+			options.y = 64
+			options.text = displayData2
+			updateText('chartG', 'boldInfo2', options)
+
+			options.x = 5
+			options.y = 57
+			options.text = displayData3
+			updateText('chartG', 'boldInfo3', options)
+
+		
 		}
 
-		function mouseOutState(event) {
-			infodisplay('state', [-100, -100], '')
+		function mouseOutStateInfo(event) {
+			gEleType = event.target.id.split('-')[1]
+			if (gEleType == 'point') {
+				if (event.target.id.split('@')[2] == 'mainPoint') {
+					ptStateKey = event.target.id.split('@')[1]
+					updatePointXY('chartG', 'stateHoverOf@' + ptStateKey, -100, -100)
+				}
+				else {
+					ptStateKey = event.target.id.split('@')[1]
+					updatePointXY('chartG', 'stateHoverOf@' + ptStateKey, -100, -100)
+				}
+			}
+
 			stkey = event.target.id.split('@')[1]
 			for (var stakey in fullData) {
 				options = {}
@@ -3389,12 +3493,88 @@
 				options = {}
 				options.textcolor = 'hsla(' + stateHue[stakey] + ', 100%, 30%, 1)'
 				updateText('chartG', 'stateTextOf@' + stakey, options)
-			}		
+			}
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			updateText('chartG', 'boldInfo', options)
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			updateText('chartG', 'boldInfo1', options)
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			updateText('chartG', 'boldInfo2', options)
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			updateText('chartG', 'boldInfo3', options)
+
+			
 		}
 
-		partsOfState = {}
-		pointsOfState = {}
-		stateHue = {}
+			
+
+		function infoBoldDisplayAndActivateGraph() {
+			graphData['chartG'].svgElement.style.pointerEvents = 'auto'
+			graphData['chartG'].svgElement.style.cursor = 'crosshair'
+			graphData['chartG'].svgElement.addEventListener('mousemove', mouseOverState)
+			graphData['chartG'].svgElement.addEventListener('mouseout', mouseOutState)
+			graphData['chartG'].svgElement.addEventListener('touchmove', mouseOverState)
+			graphData['chartG'].svgElement.addEventListener('touchend', mouseOutState)
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			options.textcolor = 'hsla(190, 100%, 0%, 0.3)'
+			options.fontSize = '0.4vmax'
+			options.fontFamily = 'Raleway'
+			if (dmode == 'portrait') {
+				options.fontSize = '0.5vmax'
+			}
+			boldInfoT = addText('chartG', 'boldInfo', options)[0]
+			boldInfoT.style.fontWeight = 'bold'
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			options.textcolor = 'hsla(190, 100%, 0%, 0.3)'
+			options.fontSize = '0.25vmax'
+			if (dmode == 'portrait') {
+				options.fontSize = '0.4vmax'
+			}
+			boldInfoT = addText('chartG', 'boldInfo1', options)[0]
+			boldInfoT.style.fontWeight = 'bold'
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			options.textcolor = 'hsla(190, 100%, 0%, 0.3)'
+			options.fontSize = '0.25vmax'
+			if (dmode == 'portrait') {
+				options.fontSize = '0.4vmax'
+			}
+			boldInfoT = addText('chartG', 'boldInfo2', options)[0]
+			boldInfoT.style.fontWeight = 'bold'
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			options.textcolor = 'hsla(190, 100%, 0%, 0.3)'
+			options.fontSize = '0.25vmax'
+			if (dmode == 'portrait') {
+				options.fontSize = '0.4vmax'
+			}
+			boldInfoT = addText('chartG', 'boldInfo3', options)[0]
+			boldInfoT.style.fontWeight = 'bold'
+		}
+
+		infoBoldDisplayAndActivateGraph()
 
 		function addCurves() {
 			for (statenum = 0; statenum < orderedStates.length; statenum++) {
@@ -3410,12 +3590,12 @@
 				options.strokewidth = 0.4
 				curveE = addPath('chartG', 'stateCurveOf@' + key, options)[0]
 				partsOfState[key].push(curveE)
-				curveE.addEventListener('mousemove', mouseOverState)
-				curveE.addEventListener('mouseout', mouseOutState)
+				curveE.addEventListener('mousemove', mouseOverStateInfo)
+				curveE.addEventListener('mouseout', mouseOutStateInfo)
 				curveE.style.pointerEvents = 'auto'
 				curveE.style.cursor = 'crosshair'
-				curveE.addEventListener('touchmove', mouseOverState)
-				curveE.addEventListener('touchend', mouseOutState)
+				curveE.addEventListener('touchmove', mouseOverStateInfo)
+				curveE.addEventListener('touchend', mouseOutStateInfo)
 
 				for (datapointIndex = 0; datapointIndex < datesAvailable.length; datapointIndex++) {
 					options = {}
@@ -3424,10 +3604,12 @@
 					options.pointsize = 0.7
 					options.pointcolor = 'hsla(' + hueNum + ', 100%, 50%, 0.2)'
 					curvePT = addPoint('chartG', 'stateCurveOf@' + key + '@' + datapointIndex, options)[0]
-					curvePT.addEventListener('mousemove', mouseOverState)
-					curvePT.addEventListener('mouseout', mouseOutState)
-					curvePT.addEventListener('touchmove', mouseOverState)
-					curvePT.addEventListener('touchend', mouseOutState)
+					curvePT.addEventListener('mousemove', mouseOverStateInfo)
+					curvePT.addEventListener('mouseout', mouseOutStateInfo)
+					curvePT.addEventListener('touchmove', mouseOverStateInfo)
+					curvePT.addEventListener('touchend', mouseOutStateInfo)
+					curvePT.style.pointerEvents = 'auto'
+					curvePT.style.cursor = 'crosshair'
 					partsOfState[key].push(curvePT)
 					pointsOfState[key].push('stateCurveOf@' + key + '@' + datapointIndex)
 
@@ -3436,15 +3618,22 @@
 				options = {}
 				options.x = -100
 				options.y = -100
+				options.pointsize = 2
+				options.pointcolor = 'hsla(' + hueNum + ', 100%, 50%, 0.7)'
+				addPoint('chartG', 'stateHoverOf@' + key, options)[0]
+
+				options = {}
+				options.x = -100
+				options.y = -100
 				options.pointsize = 1
 				options.pointcolor = 'hsla(' + hueNum + ', 100%, 50%, 1)'
 				curvePTMain = addPoint('chartG', 'stateCurveOf@' + key + '@mainPoint', options)[0]
-				curvePTMain.addEventListener('mousemove', mouseOverState)
-				curvePTMain.addEventListener('mouseout', mouseOutState)
+				curvePTMain.addEventListener('mousemove', mouseOverStateInfo)
+				curvePTMain.addEventListener('mouseout', mouseOutStateInfo)
 				curvePTMain.style.pointerEvents = 'auto'
 				curvePTMain.style.cursor = 'crosshair'
-				curvePTMain.addEventListener('touchmove', mouseOverState)
-				curvePTMain.addEventListener('touchend', mouseOutState)
+				curvePTMain.addEventListener('touchmove', mouseOverStateInfo)
+				curvePTMain.addEventListener('touchend', mouseOutStateInfo)
 				partsOfState[key].push(curvePTMain)
 
 				options = {}
@@ -3455,10 +3644,10 @@
 				options.text = keyText.replace(/_/g, ' ')
 				options.fontSize = '0.2vmax'
 				stateTxt = addText('chartG', 'stateTextOf@' + key, options)[0]
-				stateTxt.addEventListener('mousemove', mouseOverState)
-				stateTxt.addEventListener('mouseout', mouseOutState)
-				stateTxt.addEventListener('touchmove', mouseOverState)
-				stateTxt.addEventListener('touchend', mouseOutState)
+				stateTxt.addEventListener('mousemove', mouseOverStateInfo)
+				stateTxt.addEventListener('mouseout', mouseOutStateInfo)
+				stateTxt.addEventListener('touchmove', mouseOverStateInfo)
+				stateTxt.addEventListener('touchend', mouseOutStateInfo)
 				stateTxt.style.pointerEvents = 'auto'
 				stateTxt.style.cursor = 'crosshair'
 				partsOfState[key].push(stateTxt)
@@ -3473,7 +3662,7 @@
 			fullOptionsString = ''
 			for (stateIndex = 0; stateIndex < orderedStates.length; stateIndex++) {
 				stateK = orderedStates[stateIndex]
-				fullOptionsString = fullOptionsString + '<font style="text-indent: 1%; color: hsla(' + stateHue[stateK] + ', 100%, 40%, 1);">' + nToLabel(totalCaseCount[stateK]) + '</font>&nbsp;&nbsp;&nbsp;&nbsp;<input onchange = "checkEvent(event)" type="checkbox" id="state@' + stateK + '" name="state@' + stateK + '" value="' + stateK + '"><label for="state@' + stateK + '" style="text-indent: 1%; color: hsla(' + stateHue[stateK] + ', 100%, 40%, 1);"> ' + stateK.replace(/_/g, ' ') + '</label><br>'
+				fullOptionsString = fullOptionsString + '<span style="float: right;"><font style="text-indent: 1%; color: hsla(' + stateHue[stateK] + ', 100%, 40%, 1);">' + nToLabel(totalCaseCount[stateK]) + '</font>&nbsp&nbsp&nbsp&nbsp</span><input onchange = "checkEvent(event)" type="checkbox" id="state@' + stateK + '" name="state@' + stateK + '" value="' + stateK + '"><label for="state@' + stateK + '" style="text-indent: 1%; color: hsla(' + stateHue[stateK] + ', 100%, 40%, 1);"> ' + stateK.replace(/_/g, ' ') + '</label><br>'
 			}
 			document.getElementById('statesListH').innerHTML = fullOptionsString
 		}
@@ -3492,8 +3681,8 @@
 			}
 		}
 
-		
 
+		
 		function checkEvent(event) {
 
 			for (stateIndex = 0; stateIndex < orderedStates.length; stateIndex++) {
@@ -3895,6 +4084,10 @@
 					if (infoPointI == rawpoints.length - 1) {
 						updatePointXY('chartG', 'stateCurveOf@' + stateName + '@mainPoint', gX, gY)
 						options = {}
+
+						if (gX > 85) {
+							gX = 85
+						}
 						options.x = gX + 1
 						options.y = gY + 1
 						updateText ('chartG', 'stateTextOf@' + stateName, options)
@@ -3914,6 +4107,9 @@
 						if (infoPointI == rawpoints.length - 1) {
 							updatePointXY('chartG', 'stateCurveOf@' + stateName + '@mainPoint', gX, gY)
 							options = {}
+							if (gX > 85) {
+								gX = 85
+							}
 							options.x = gX + 1
 							options.y = gY + 1
 							updateText ('chartG', 'stateTextOf@' + stateName, options)
