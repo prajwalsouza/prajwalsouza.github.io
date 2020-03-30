@@ -3831,22 +3831,22 @@
 			
 			for (var key in fullData) {
 				if (plotStateState[key]) {
-					curveStatePoints = curveDataForState[key]
-					for (bindex = 0; bindex < curveStatePoints.length;bindex++) {
-						if (curveStatePoints[bindex][0] > returnXmax) {
-							returnXmax = curveStatePoints[bindex][0]
-						}
-						if (curveStatePoints[bindex][0] < returnXmin) {
-							returnXmin = curveStatePoints[bindex][0]
-						}
-						if (curveStatePoints[bindex][1] > returnYmax) {
-							returnYmax = curveStatePoints[bindex][1]
-						}
-						if (curveStatePoints[bindex][1] < returnYmin) {
-							returnYmin = curveStatePoints[bindex][1]
-						}
-					}
 					keyflag = false
+				}
+				curveStatePoints = curveDataForState[key]
+				for (bindex = 0; bindex < curveStatePoints.length;bindex++) {
+					if (curveStatePoints[bindex][0] > returnXmax) {
+						returnXmax = curveStatePoints[bindex][0]
+					}
+					if (curveStatePoints[bindex][0] < returnXmin) {
+						returnXmin = curveStatePoints[bindex][0]
+					}
+					if (curveStatePoints[bindex][1] > returnYmax) {
+						returnYmax = curveStatePoints[bindex][1]
+					}
+					if (curveStatePoints[bindex][1] < returnYmin) {
+						returnYmin = curveStatePoints[bindex][1]
+					}
 				}
 			}
 
