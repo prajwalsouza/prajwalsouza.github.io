@@ -3672,7 +3672,12 @@
 					options.y = valueToG
 					options.textcolor = 'hsla(0, 0%, 0%, 0.7)'
 					options.text = nToLabel(valueToGo)
-					options.fontSize = '0.2vmax'
+					if (dmode == 'portrait') {
+						options.fontSize = '0.4vmax'
+					}
+					else {
+						options.fontSize = '0.2vmax'
+					}
 					addText('chartG', 'chartYLabel#' + labelyN, options)
 					axisAllLabels.push('chartYLabel#' + labelyN)
 				}
@@ -3685,7 +3690,12 @@
 					options.y = -6
 					options.textcolor = 'hsla(0, 0%, 0%, 0.7)'
 					options.text = nToLabel(valueToGo)
-					options.fontSize = '0.2vmax'
+					if (dmode == 'portrait') {
+						options.fontSize = '0.4vmax'
+					}
+					else {
+						options.fontSize = '0.2vmax'
+					}
 					options.textAlign = 'center'
 					addText('chartG', 'chartXLabel#' + labelxN, options)
 					axisAllLabels.push('chartXLabel#' + labelxN)
@@ -3704,7 +3714,12 @@
 					options.y = valueToG
 					options.textcolor = 'hsla(0, 0%, 0%, 0.7)'
 					options.text = nToLabel(valueToGo)
-					options.fontSize = '0.2vmax'
+					if (dmode == 'portrait') {
+						options.fontSize = '0.4vmax'
+					}
+					else {
+						options.fontSize = '0.2vmax'
+					}
 					addText('chartG', 'chartYLabel#' + labelyN, options)
 					axisAllLabels.push('chartYLabel#' + labelyN)
 				}
@@ -3718,7 +3733,12 @@
 					options.y = -6
 					options.textcolor = 'hsla(0, 0%, 0%, 0.7)'
 					options.text = nToLabel(valueToGo)
-					options.fontSize = '0.2vmax'
+					if (dmode == 'portrait') {
+						options.fontSize = '0.4vmax'
+					}
+					else {
+						options.fontSize = '0.2vmax'
+					}
 					options.textAlign = 'center'
 					labelC = addText('chartG', 'chartXLabel#' + labelxN, options)[0]
 					axisAllLabels.push('chartXLabel#' + labelxN)
