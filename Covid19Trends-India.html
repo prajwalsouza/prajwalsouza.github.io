@@ -174,8 +174,8 @@
 			<div id="MainBlock1" style='margin:0px;width:65%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				<div id="mainB1HSpacer1" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				</div>
-				<div id="titleH" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-					<div id="title" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 2.4vmax; color: hsla(190, 0%, 0%, 1);font-family: Raleway;'>
+				<div id="titleH" style='margin:0px;width:100%; height: 10%; position: relative; z-index: 1;display: inline-block; '>
+					<div id="title" style='margin:0px;width:100%; height: 100%; position: relative; z-index: 1;display: inline-block; font-size: 2.4vmax; color: hsla(190, 0%, 0%, 1);font-family: Raleway;'>
 						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
 							<tr>
 								<td colspan="8" id='maintitle' style="text-align: left; vertical-align: bottom; font-size: 2.4vmax;">
@@ -232,20 +232,20 @@
 			<div id="MainBlock2" style='margin:0px;width:29%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				<div id="mainB2HSpacer1" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				</div>
-				<div id="aboutText" style='margin:0px;width:100%; height:8%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 0.8vmax; font-family: Source Sans Pro; text-align: right;'>
+				<div id="aboutText" style='margin:0px;width:100%; height:8%; position: relative; z-index: 1;display: inline-block; font-size: 0.8vmax; font-family: Source Sans Pro; text-align: right;'>
 					<a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer; color: black;" target="_blank">This data plot was inspired by the work of Aatish Bhatia. This plot shows how much each state in india is following the trendline during the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it is the plot of new confirmed cases verses total confirmed cases in the past week.</a>
 				</div>
 				<div id="mainB2HSpacer2" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				</div>
-				<div id="controlsH" style='margin:0px;width:100%; height:18%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; text-align: right; line-height: 250%;'>
-					<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.2vmax;">Y AXIS</font><br/>
-					<font style=" font-size: 1.2vmax;">New Cases Confirmed in the last <span> </span></font>
+				<div id="controlsH" style='margin:0px;width:100%; height:18%; position: relative; z-index: 1;display: inline-block; font-size: 0.4vmax; font-family: Source Sans Pro; text-align: right;'>
+					<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.2vmax;">Y AXIS</font><br/><br/>
+					<font style=" font-size: 1.2vmax;">New Cases Confirmed in the last &nbsp&nbsp</font>
 					<!-- onchange="chooseAlgo(event)" -->
 					<select  id="pastDaysToChoose" onchange="daysChosen(event)" style="font-family: Source Sans Pro; font-size: 1.2vmax; color: grey; width: 20%;">
 						<option value="daysoption@8">8 Days</option>
 					</select>
-					<br/>					
-					<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.2vmax;">SCALE</font><br/>
+					<br/><br/>				
+					<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.2vmax;">SCALE</font><br/><br/>
 					<select  id="scalesToChoose" onchange="scaleChosen(event)" style="font-family: Source Sans Pro; font-size: 1.2vmax; width: 50%; color: grey;">
 						<option value="logscaleoption">Logarithmic Scale</option>
 						<option value="linearscaleoption">Linear Scale</option>
@@ -3064,7 +3064,9 @@
 				$('<div id="mainVSpacerPortrait" style="margin: 0px; width: 5%; height: 90%; overflow: hidden; position: relative; z-index: 1; display: inline-block;"></div>').insertBefore('#MainBlock2')
 
 				document.getElementById('controlsH').style.textAlign = 'center'
-				document.getElementById('controlsH').style.fontSize = '1.3vmax'
+				document.getElementById('controlsH').style.fontSize = '1.5vmax'
+				document.getElementById('controlsH').style.lineHeight = '250%'
+
 				document.getElementById('controlsH').innerHTML = '<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.5vmax;">Y AXIS</font><br/><font style=" font-size: 1.5vmax;">New Cases Confirmed in the last <span> </span></font><select  id="pastDaysToChoose" onchange="daysChosen(event)" style="font-family: Source Sans Pro; font-size: 1.5vmax; color: grey; width: 20%;"><option value="daysoption@8">8 Days</option></select><br/><font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.5vmax;">SCALE</font><br/><select  id="scalesToChoose" onchange="scaleChosen(event)" style="font-family: Source Sans Pro; font-size: 1.5vmax; width: 50%; color: grey;"><option value="logscaleoption">Logarithmic Scale</option><option value="linearscaleoption">Linear Scale</option></select>'
 				
 				document.getElementById('statesTopName').style.fontSize = '1.4vmax'
