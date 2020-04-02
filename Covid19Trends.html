@@ -1,0 +1,4353 @@
+<html>
+	<head>
+		<title>Covid19Trends</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+		<link rel="icon" href="square.png">
+
+		<style id='sliderstyles' type="text/css">
+
+		</style>
+
+		<style type="text/css">
+			:root {
+				--themeblue: hsla(196, 100%, 50%,  1);
+				--themeviolet: hsla(280, 100%, 50%,  1);
+				--themeorange: hsla(32, 100%, 50%,  1);
+				--boundaryorange: hsla(32, 100%, 50%, 0.6);
+				--themegrey: hsla(32, 0%, 70%, 0.6);
+			}
+
+			.inputButDiv:focus {
+				outline: none !important;
+				border: 0px solid black;
+			}
+
+		</style>
+
+		<style type="text/css">
+			a {
+				cursor: pointer;
+			}
+
+			.standardSlider {
+				-webkit-appearance: none;
+				border-radius: 5px;
+				outline: none;
+				opacity: 0.7;
+				-webkit-transition: .2s;
+				transition: opacity .2s;
+			}
+			.standardSlider::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				appearance: none;
+				width: 10px;
+				height: 10px;
+				border-radius: 50%; 
+				background: hsla(200, 100%, 50%, 1);
+				cursor: pointer;
+			}
+
+			.timesliderClass {
+				-webkit-appearance: none;
+				border-radius: 5px;
+				outline: none;
+				opacity: 0.7;
+				-webkit-transition: .2s;
+				transition: opacity .2s;
+				cursor: pointer;
+			}
+			.timesliderClass::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				appearance: none;
+				width: 22px;
+				height: 22px;
+				border-radius: 50%; 
+				background: hsla(200, 100%, 50%, 1);
+				cursor: pointer;
+			}
+
+			.timesliderClass::-moz-slider-thumb {
+				appearance: none;
+				width: 22px;
+				height: 22px;
+				border-radius: 50%; 
+				background: hsla(200, 100%, 50%, 1);
+				cursor: pointer;
+			}
+
+
+			#statesListH::-webkit-scrollbar {
+				width: 1.4%;
+			}
+
+			#statesListH::-webkit-scrollbar-track {
+				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+				border-radius: 30px;
+			}
+
+			#statesListH::-webkit-scrollbar-thumb {
+				background-color: hsla(190, 100%, 50%, 1);
+				border-radius: 50px;
+				/*outline: 1px solid slategrey;*/
+			}
+
+			body::-webkit-scrollbar {
+				width: 5px;
+			}
+
+			body::-webkit-scrollbar-track {
+				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+				border-radius: 30px;
+			}
+
+			body::-webkit-scrollbar-thumb {
+				background-color: black;
+				border-radius: 50px;
+				/*outline: 1px solid slategrey;*/
+			}
+
+			#fileinputBack::focus {
+				outline: none;
+			}
+
+			#savebutton::focus {
+				outline: none;
+			}
+
+			#savebuttonH::focus {
+				outline: none;
+			}
+
+			input:invalid {
+				box-shadow:0 0 0px hsla(0,0%,0%,0);
+			}
+
+		
+		</style>
+		
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.1/math.min.js"></script> -->
+
+		
+		<script type="application/ld+json">
+			{
+			  "@type": "covid19TrendsPlot",
+			  "name": "Covid19 Trends",
+			  "author": "Prajwal DSouza",
+			  "description": "A data plot inspired by the work of Aatish Bhatia. This plot involves the plot of how each state in a given country is doing handling the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it's the plot of total confimed cases verses new confirmed cases in the past week."
+			  }
+		</script>
+
+		  <meta charset="UTF-8">
+		  <meta name="description" content="A data plot inspired by the work of Aatish Bhatia. This plot involves the plot of how each state in a given country is doing handling the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it's the plot of total confimed cases verses new confirmed cases in the past week.">
+		  <meta name="keywords" content="covid india, covid india statewise, covid19india, covid india statewise, Aatish Bhatia, prajwalsouza, prajwal dsouza, pandemic, covid karnataka, covid kerala, covid Maharashtra, covid Andhra Pradesh, covid US, covid US statewise, covid19US, covid US statewise, covid USA, covid USA statewise, covid19USA, covid USA statewise, Aatish Bhatia, prajwalsouza, prajwal dsouza, pandemic, covid California, covid New York">
+		  <meta name="author" content="Prajwal DSouza">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body style='margin:0px; display: block; background: hsla(0, 0%, 92%, 1);'>
+		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; position: relative; background: hsla(0, 0%, 92%, 1);'>
+			<div id="mainVSpacer1" style='margin:0px;width:2%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			</div>
+			<div id="MainBlock1" style='margin:0px;width:65%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				<div id="mainB1HSpacer1" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				</div>
+				<div id="titleH" style='margin:0px;width:100%; height: 10%; position: relative; z-index: 1;display: inline-block; '>
+					<div id="title" style='margin:0px;width:100%; height: 100%; position: relative; z-index: 1;display: inline-block; font-size: 2.4vmax; color: hsla(190, 0%, 0%, 1);font-family: Raleway;'>
+						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
+							<tr>
+								<td colspan="8" id='maintitle' style="text-align: left; vertical-align: bottom; font-size: 2.4vmax;">
+									covid19 Trends <font style="font-weight: bold;">
+									<select  id="countryToChoose" onchange="switchCountryEvent(event)" style="font-family: Raleway; font-size: 2.4vmax; font-weight: bold; border: 0px solid black; border-radius: 10px;">
+										<option value="US">US</option>
+										<option value="India">India</option>	
+									</select>
+									</font><br/><font style="font-family: Source Sans Pro; font-size: 1.3vmax; vertical-align: bottom;">Inspired by <a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(334, 100%, 50%, 1);">Covid Trends</a></font> by <a href="https://aatishb.com/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Aatish Bhatia</font></a>, which was in collaboration with <a href="https://www.youtube.com/watch?v=54XLXg4fYsc" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(280, 100%, 50%, 1);">MinutePhysics</font></a></font>
+								</td>
+							</tr>
+						</table>
+						
+					</div>
+				</div>
+				<div id="mainB1HSpacer2" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				</div>
+				<div id="onTopControlsH" style='margin:0px;width:100%; height: 69%;overflow: hidden;position: absolute; z-index: 10;display: inline-block; background: none; box-shadow: inset 0px 0px 50px 50px hsla(32, 100%,100%, 1); border: 0px solid black; border-radius: 30px; pointer-events: none;'>
+				</div>
+				<div id="visualChartH" style='margin:0px;width:100%; height: 67%;overflow: hidden;position: relative; z-index: 1;display: inline-block; background: white; border: 0px solid black; border-radius: 30px; '>
+				</div>
+				<div id="mainB1HSpacer3" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				</div>
+				<div id="timeControlH" style='margin:0px;width:100%; height:8%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+					<div id="timebuttonH" style='margin:0px;width:10%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 2vmax; '>
+						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
+							<tr>
+								<td id='playpauseH' style="text-align: center; vertical-align: middle; font-size: 3vmax; color: hsla(200, 100%, 50%, 1); cursor: pointer;" onclick="togglePlay(event)">
+									<i class="fa fa-pause-circle" aria-hidden="true"></i>
+								</td>
+							</tr>
+						</table>
+						
+					</div>
+					<div id="timesliderTH" style='margin:0px;width:70%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
+							<tr>
+								<td id='timesliderH' style="text-align: middle; vertical-align: middle; font-size: 2.4vmax;">
+									
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div id="timedisplayH" style='margin:0px;width:20%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
+							<tr>
+								<td id='timedisplay' style="text-align: center; vertical-align: middle; font-size: 1.2vmax; color: hsla(200, 100%, 0%, 1); font-family: Nunito;">
+									28/04/2020
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="mainB1HSpacer3" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				</div>
+			</div>
+			<div id="mainVSpacer2" style='margin:0px;width:2%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			</div>
+			<div id="MainBlock2" style='margin:0px;width:29%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				<div id="mainB2HSpacer1" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				</div>
+				<div id="aboutText" style='margin:0px;width:100%; height:8%; position: relative; z-index: 1;display: inline-block; font-size: 0.8vmax; font-family: Source Sans Pro; text-align: right;'>
+					<a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer; color: black;" target="_blank">This data plot was inspired by the work of Aatish Bhatia. This plot shows how much each state in a given country is following the trendline during the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it is the plot of new confirmed cases verses total confirmed cases in the past week.</a>
+				</div>
+				<div id="mainB2HSpacer2" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				</div>
+				<div id="controlsH" style='margin:0px;width:100%; height:18%; position: relative; z-index: 1;display: inline-block; font-size: 0.4vmax; font-family: Source Sans Pro; text-align: right;'>
+					<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.2vmax;">Y AXIS</font><br/><br/>
+					<font style=" font-size: 1.2vmax;">New Cases Confirmed in the last &nbsp&nbsp</font>
+					<!-- onchange="chooseAlgo(event)" -->
+					<select  id="pastDaysToChoose" onchange="daysChosen(event)" style="font-family: Source Sans Pro; font-size: 1.2vmax; color: grey; width: 20%;">
+						<option value="daysoption@8">8 Days</option>
+					</select>
+					<br/><br/>				
+					<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.2vmax;">SCALE</font><br/><br/>
+					<select  id="scalesToChoose" onchange="scaleChosen(event)" style="font-family: Source Sans Pro; font-size: 1.2vmax; width: 50%; color: grey;">
+						<option value="logscaleoption">Logarithmic Scale</option>
+						<option value="linearscaleoption">Linear Scale</option>
+					</select>
+
+				</div>
+
+				<div id="mainB2HSpacer3" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				</div>
+				<div id="statesSelectH" style='margin:0px;width:100%; height: 51%;overflow: hidden;position: relative; z-index: 1;display: inline-block; background: white; border: 0px solid black; border-radius: 30px; '>
+					<div id="gradfillstates" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 24%, hsla(0, 100%, 100%, 1) 25%, hsla(0, 100%, 100%, 0) 31%, hsla(0, 0%, 0%, 0) 85%,hsla(0, 100%, 100%, 1) 92%,hsla(0, 100%, 100%, 0) 99%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
+					<div id="statessub1" style='margin:0px;width:100%; height:4%; display: inline-block;'></div>
+					<div id="statessub2" style='margin:0px;width:9%; height: 10%; display: inline-block;'></div>
+					<div id="statesUtext" style='margin:0px;width:91%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>
+						<input value='STATES AND TERRITORIES' id="statesTopName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 1.1vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+					</div>
+					<div id="statessub3" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
+					<div id="statessub4" style='margin:0px;width:46%; height: 6%; display: inline-block;'></div>
+					<div id="selectAllblock" onclick="selectAllEvent(event)"  style='margin:0px;width:20%; height:6%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: hidden;'>
+						<input id='selectAllText' value='Select All' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vmax; font-weight: lighter; color:  black; background: hsla(190, 100%, 50%, 1); color: white; cursor: pointer; border-radius: 6px;" readonly></input>
+					</div>
+					<div id="statessub5" style='margin:0px;width:5%; height: 6%; display: inline-block;'></div>
+					<div id="selectAllblock" onclick="deSelectAllEvent(event)" style='margin:0px;width:20%; height:6%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: hidden;'>
+						<input id='deselectAllText' value='Deselect All' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vmax; font-weight: lighter; color:  black; background: hsla(190, 100%, 50%, 1); color: white; cursor: pointer; border-radius: 6px;" readonly></input>
+					</div>
+					<div id="statessub6" style='margin:0px;width:9%; height: 6%; display: inline-block;'></div>
+					<div id="statessub7" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+					<div id="statessub8" style='margin:0px;width:9%; height: 65%; display: inline-block;'></div>
+					<div id="statesListH" style='margin:0px;width:82%; height: 65%; display: inline-block; font-size: 1.2vmax; font-family: Source Sans Pro; overflow-y: scroll; line-height: 160%;'>
+						 
+						  
+					</div>
+					<div id="statessub9" style='margin:0px;width:9%; height: 65%; display: inline-block;'></div>
+				</div>
+				<div id="mainB2HSpacer4" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				</div>
+				<div id="onDataSouce" style='margin:0px;width:100%; height:11%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 1vmax; font-family: Source Sans Pro; text-align: right; font-weight: bold; '>
+					<br/>Data collected from <a href="https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data/India_medical_cases" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Wikipedia</font></a><br/> 
+					 <font style="color: hsla(190, 0%, 50%, 1); font-weight: normal;">Last updated at 11:16 AM 02/04/2020 IST</font>  
+				</div>
+			</div>
+			<div id="mainVSpacer3" style='margin:0px;width:2%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			</div>
+		</div>
+		<script type="text/javascript">
+
+		function infodisplay(infoobject, infolocation, infodata) {
+			if (infoobject == 'state') {
+				options = {}
+				options.text = infodata
+				options.x = infolocation[0]
+				options.y = infolocation[1]
+				updateText('chartG', 'InfoDisplayText', options)
+			}
+		}
+
+		function setDarkMode() {
+			if (darkmode) {
+				darkmode = false
+				document.getElementById('darkmodeoption').style.backgroundColor = 'hsla(190, 100%, 0%, 0.2)'
+				document.getElementById('darkmodeoption').style.color = 'hsla(190, 100%, 100%, 1)'
+				document.getElementById('darkmodeoption').style.fontWeight = 'normal'
+
+				document.body.style.background = 'white'
+
+				document.getElementById('maintitle').style.color = 'hsla(190, 100%, 0%, 1)'
+				document.getElementById('websitelink').style.color = 'hsla(260, 100%, 60%, 1)'
+				document.getElementById('asimulationtext').style.color = 'hsla(190, 100%, 60%, 1)'
+
+				document.getElementById('info').style.color = 'hsla(190, 100%, 0%, 1)'
+
+				options = {}
+				options.pointcolor = 'hsla(260, 100%, 50%, 1)'
+				updatePoint('simulationgraph', 'cat', options)
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 0%, 1)'
+				updateText('simulationgraph', 'cattext', options)
+
+				options = {}
+				options.pointcolor = 'hsla(260, 0%, 0%, 1)'
+				updatePoint('simulationgraph', 'mouse', options)
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 0%, 1)'
+				updateText('simulationgraph', 'mousetext', options)
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 0%, 1)'
+				document.getElementById('mousestatusdisplay').style.color = options.textcolor
+				
+				document.getElementById('darkback').style.backgroundColor = 'transparent'
+
+				document.getElementById('controltab').style.backgroundColor = "hsla(260, 100%, 50%, 0.4)"
+				document.getElementById('strategytab').style.backgroundColor = "hsla(260, 100%, 50%, 0.4)"
+				document.getElementById('settingtab').style.backgroundColor = "hsla(260, 100%, 50%, 0.4)"
+
+				document.getElementById('controltab').style.color = "black"
+				document.getElementById('strategytab').style.color = "black"
+				document.getElementById('settingtab').style.color = "black"
+
+				if (currenttab == 'controltab') {
+					document.getElementById('controltab').style.color = "white"
+					for (bn = 1; bn < 13; bn++) {
+						document.getElementById('cbtn' + bn).style.color = "black"
+						document.getElementById('cbtn' + bn).style.backgroundColor = "transparent"
+					}
+				}
+				else if (currenttab == 'strategytab') {
+					document.getElementById('strategytab').style.color = "white"
+				}
+				else if (currenttab == 'settingtab') {
+					document.getElementById('settingtab').style.color = "white"
+				}
+
+				for (m = 0; m < strategies.length; m++) {
+					if (statname == strategies[m]) {
+						document.getElementById(strategies[m]).style.color = 'hsla(190, 100%, 50%, 1)'
+						document.getElementById(strategies[m] + '-box').style.color = 'black'
+					}
+					else {
+						document.getElementById(strategies[m]).style.color = 'black'
+						document.getElementById(strategies[m] + '-box').style.color = 'black'
+					}
+				}
+
+
+				document.getElementById('catspeedtext').style.color = "black"
+				document.getElementById('catspeedinput').style.color = "black"
+				document.getElementById('catspeedinput').style.backgroundColor = "transparent"
+				document.getElementById('mousespeedtext').style.color = "black"
+				document.getElementById('mousespeedinput').style.color = "black"
+				document.getElementById('mousespeedinput').style.backgroundColor = "transparent"
+
+				for (st = 0; st < 5; st++) {
+					if (settingstatus[st]) {
+						document.getElementById(settingslist[st]).style.color = "hsla(190, 100%, 50%, 1)"
+						document.getElementById(settingslist[st] + '-box').style.color = "hsla(190, 100%, 0%, 1)"
+					}
+					else {
+						document.getElementById(settingslist[st]).style.color = "hsla(190, 100%, 0%, 1)"
+						document.getElementById(settingslist[st] + '-box').style.color = "hsla(190, 100%, 0%, 1)"
+					}
+				}
+
+				options = {}
+				options.circlecolor = 'hsla(190, 100%, 50%, 1)'
+				updateCircle('simulationgraph', 'pond', options)
+
+				options = {}
+				options.pointcolor = 'hsla(200, 100%, 0%, 0.5)'
+				updatePoint('simulationgraph', 'oppositePoint', options)
+
+				if (mode != 'portrait') {
+					for (stg = 0; stg < strategies.length; stg++) {
+						document.getElementById(strategies[stg]).style.backgroundColor = 'hsla(190, 100%, 0%, 0.1)'
+					}
+				}
+					
+
+			}
+			else {
+				darkmode = true
+				document.getElementById('darkmodeoption').style.backgroundColor = 'hsla(190, 100%, 50%, 1)'
+				document.getElementById('darkmodeoption').style.color = 'hsla(190, 100%, 100%, 1)'
+				document.getElementById('darkmodeoption').style.fontWeight = 'bold'
+
+				document.body.style.background = 'black'
+
+				document.getElementById('maintitle').style.color = 'hsla(190, 100%, 100%, 1)'
+
+				document.getElementById('maintitle').style.color = 'hsla(190, 100%, 100%, 1)'
+				document.getElementById('websitelink').style.color = 'hsla(260, 100%, 80%, 1)'
+				document.getElementById('asimulationtext').style.color = 'hsla(190, 100%, 80%, 1)'
+
+				document.getElementById('info').style.color = 'hsla(190, 0%, 90%, 1)'
+
+				
+
+
+				options = {}
+				options.pointcolor = 'hsla(260, 100%, 100%, 1)'
+				updatePoint('simulationgraph', 'cat', options)
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 100%, 1)'
+				updateText('simulationgraph', 'cattext', options)
+
+				options = {}
+				options.pointcolor = 'hsla(260, 0%, 100%, 1)'
+				updatePoint('simulationgraph', 'mouse', options)
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 100%, 1)'
+				updateText('simulationgraph', 'mousetext', options)
+
+
+				options = {}
+				options.textcolor = 'hsla(260, 0%, 100%, 1)'
+				document.getElementById('mousestatusdisplay').style.color = options.textcolor
+
+				document.getElementById('darkback').style.backgroundColor = 'hsla(190, 0%, 10%, 1)'
+
+				if (currenttab == 'controltab') {
+					document.getElementById('controltab').style.backgroundColor = "hsla(260, 0%, 20%, 1)"
+					document.getElementById('controltab').style.color = "white"
+					for (k = 1; k < 13; k++) {
+						document.getElementById('cbtn' + k).style.backgroundColor = "hsla(190, 100%, 0%, 1)"
+						document.getElementById('cbtn' + k).style.color = "hsla(190, 100%, 50%, 1)"
+					}
+
+				}
+				else {
+					document.getElementById('controltab').style.backgroundColor = "hsla(260, 0%, 0%, 1)"
+					document.getElementById('controltab').style.color = "hsla(100, 0%, 55%, 1)"
+				}
+
+				if (currenttab == 'strategytab') {
+					document.getElementById('strategytab').style.backgroundColor = "hsla(260, 0%, 20%, 1)"
+					document.getElementById('strategytab').style.color = "white"
+				}
+				else {
+					document.getElementById('strategytab').style.backgroundColor = "hsla(260, 0%, 0%, 1)"
+					document.getElementById('strategytab').style.color = "hsla(100, 0%, 55%, 1)"
+				}
+
+				if (currenttab == 'settingtab') {
+					document.getElementById('settingtab').style.backgroundColor = "hsla(260, 0%, 20%, 1)"
+					document.getElementById('settingtab').style.color = "white"
+				}
+				else {
+					document.getElementById('settingtab').style.backgroundColor = "hsla(260, 0%, 0%, 1)"
+					document.getElementById('settingtab').style.color = "hsla(100, 0%, 55%, 1)"
+				}
+
+				statname = tactic
+
+				for (m = 0; m < strategies.length; m++) {
+					if (statname == strategies[m]) {
+						document.getElementById(strategies[m]).style.color = 'hsla(190, 100%, 50%, 1)'
+						document.getElementById(strategies[m] + '-box').style.color = 'white'
+					}
+					else {
+						document.getElementById(strategies[m]).style.color = 'white'
+						document.getElementById(strategies[m] + '-box').style.color = 'white'
+					}
+				}
+
+				document.getElementById('catspeedtext').style.color = "white"
+				document.getElementById('catspeedinput').style.color = "white"
+				document.getElementById('catspeedinput').style.backgroundColor = "black"
+				document.getElementById('mousespeedtext').style.color = "white"
+				document.getElementById('mousespeedinput').style.color = "white"
+				document.getElementById('mousespeedinput').style.backgroundColor = "black"
+
+				for (st = 0; st < 5; st++) {
+					if (settingstatus[st]) {
+						document.getElementById(settingslist[st]).style.color = "hsla(190, 100%, 50%, 1)"
+						document.getElementById(settingslist[st] + '-box').style.color = "hsla(190, 100%, 100%, 1)"
+					}
+					else {
+						document.getElementById(settingslist[st]).style.color = "hsla(190, 100%, 100%, 1)"
+						document.getElementById(settingslist[st] + '-box').style.color = "hsla(190, 100%, 100%, 1)"
+					}
+				}
+
+				options = {}
+				options.circlecolor = 'hsla(200, 100%, 50%, 1)'
+				updateCircle('simulationgraph', 'pond', options)
+
+				options = {}
+				options.pointcolor = 'hsla(200, 100%, 100%, 0.5)'
+				updatePoint('simulationgraph', 'oppositePoint', options)
+
+				if (mode != 'portrait') {
+					for (stg = 0; stg < strategies.length; stg++) {
+						document.getElementById(strategies[stg]).style.backgroundColor = 'black'
+					}
+				}
+			}
+		}
+
+		darkmode = false
+
+		if (darkmode) {
+			document.body.style.background = 'black'
+		}
+
+		function graphToSvgY(value, graphymin, graphymax) {
+			if (graphymin == graphymax) {
+				graphymin = graphymin - 1
+				graphymax = graphymax + 1
+				console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+			}
+			if (graphymin > graphymax) {
+				temp = graphymin
+				graphymin = graphymax
+				graphymax = temp
+				console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+			}
+			y = ((-80)/(graphymax - graphymin))*(value - graphymin) + 90
+			return y
+		}
+
+		function graphToScaledY(value, graphymin, graphymax, aspectratio) {
+			if(aspectratio > 1) {
+				if (graphymin == graphymax) {
+					graphymin = graphymin - 1
+					graphymax = graphymax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				if (graphymin > graphymax) {
+					temp = graphymin
+					graphymin = graphymax
+					graphymax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				y = ((-80)/(graphymax - graphymin))*(value - graphymin) + 90
+				
+			}
+			else {
+				if (graphymin == graphymax) {
+					graphymin = graphymin - 1
+					graphymax = graphymax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				if (graphymin > graphymax) {
+					temp = graphymin
+					graphymin = graphymax
+					graphymax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				aspectratio = 1/aspectratio
+				vl = (100*(1 - aspectratio)/2) + (10*aspectratio)
+				vh = (100*(aspectratio + 1)/2) - (10*aspectratio)
+				y = ((vl - vh)/(graphymax - graphymin))*(value - graphymin) + vh
+				// console.log(x)
+				// console.log(v1, v2)
+				// y = (((v2 - v1)/(100))*(y)) + v1
+			}
+
+			return y
+		}
+
+		function svgToGraphY(percentvalue, graphymin, graphymax, aspectratio) {
+			if(aspectratio > 1) {
+				if (graphymin == graphymax) {
+					graphymin = graphymin - 1
+					graphymax = graphymax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				if (graphymin > graphymax) {
+					temp = graphymin
+					graphymin = graphymax
+					graphymax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+
+				y = ((percentvalue - 90)*(graphymax - graphymin)/((-1)*80)) + graphymin
+				
+			}
+			else {
+				if (graphymin == graphymax) {
+					graphymin = graphymin - 1
+					graphymax = graphymax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				if (graphymin > graphymax) {
+					temp = graphymin
+					graphymin = graphymax
+					graphymax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				aspectratio = 1/aspectratio
+				vl = (100*(1 - aspectratio)/2) + (10*aspectratio)
+				vh = (100*(aspectratio + 1)/2) - (10*aspectratio)
+
+				// y = ((vl - vh)/(graphymax - graphymin))*(value - graphymin) + vh
+				y = (((percentvalue - vh)*(graphymax - graphymin))/(vl - vh)) + graphymin
+				// console.log(x)
+				// console.log(v1, v2)
+				// y = (((v2 - v1)/(100))*(y)) + v1
+			}
+
+			return y
+		}
+
+		function graphToSvgX(value, graphxmin, graphxmax) {
+			if (graphxmin == graphxmax) {
+				graphxmin = graphxmin - 1
+				graphxmax = graphxmax + 1
+				console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+			}
+			if (graphxmin > graphxmax) {
+				temp = graphxmin
+				graphxmin = graphxmax
+				graphxmax = temp
+				console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+			}
+			x = ((80)/(graphxmax - graphxmin))*(value - graphxmin) + 10
+			return x
+		}
+
+		function graphToScaledX(value, graphxmin, graphxmax, aspectratio) {
+			if (aspectratio <= 1) {
+				if (graphxmin == graphxmax) {
+					graphxmin = graphxmin - 1
+					graphxmax = graphxmax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				if (graphxmin > graphxmax) {
+					temp = graphxmin
+					graphxmin = graphxmax
+					graphxmax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				x = ((80)/(graphxmax - graphxmin))*(value - graphxmin) + 10
+			}
+			else {
+				if (graphxmin == graphxmax) {
+					graphxmin = graphxmin - 1
+					graphxmax = graphxmax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				if (graphxmin > graphxmax) {
+					temp = graphxmin
+					graphxmin = graphxmax
+					graphxmax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				vl = (100*(1 - aspectratio)/2) + (10*aspectratio)
+				vh = (100*(aspectratio + 1)/2) - (10*aspectratio)
+				x = ((vh - vl)/(graphxmax - graphxmin))*(value - graphxmin) + vl
+				// console.log(x)
+				// console.log(v1, v2)
+				// y - y1 = (y2 - y1)/(x2 - x1) * (x - x1)
+				// x = (((v2 - v1)/(90))*(x - 10)) + v1
+				// console.log(x)
+				// console.log('_') 
+			}
+			return x
+		}
+
+		function svgToGraphX(percentvalue, graphxmin, graphxmax, aspectratio) {
+			if (aspectratio <= 1) {
+				if (graphxmin == graphxmax) {
+					graphxmin = graphxmin - 1
+					graphxmax = graphxmax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				if (graphxmin > graphxmax) {
+					temp = graphxmin
+					graphxmin = graphxmax
+					graphxmax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+
+				x = ((percentvalue - 10)*(graphxmax - graphxmin)/80) + graphxmin
+			}
+			else {
+				if (graphxmin == graphxmax) {
+					graphxmin = graphxmin - 1
+					graphxmax = graphxmax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				if (graphxmin > graphxmax) {
+					temp = graphxmin
+					graphxmin = graphxmax
+					graphxmax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				vl = (100*(1 - aspectratio)/2) + (10*aspectratio)
+				vh = (100*(aspectratio + 1)/2) - (10*aspectratio)
+
+				// x = ((vh - vl)/(graphxmax - graphxmin))*(value - graphxmin) + vl
+
+				x = ((percentvalue - vl)*(graphxmax - graphxmin)/(vh - vl)) + graphxmin
+
+				// y - y1 = (y2 - y1)/(x2 - x1) * (x - x1)
+				// x = (((v2 - v1)/(90))*(x - 10)) + v1
+				 
+			}
+			return x
+		}
+
+		function isInt(n){
+			return Number(n) === n && n % 1 === 0;
+		}
+
+		function isFloat(n){
+			return Number(n) === n && n % 1 !== 0;
+		}
+
+		function gridtickvalues(valmin, valmax, ticksexpected) {
+			expstring = ((valmax - valmin)/ticksexpected).toExponential()
+			majorgridorder = parseFloat(Math.pow(10 , expstring.slice(expstring.indexOf('e') + 1)))
+			
+			if (expstring.indexOf('.') != -1) {
+				majorgriddivision = parseFloat(expstring.slice(0, expstring.indexOf('.'))*majorgridorder)	
+			}
+			else {
+				majorgriddivision = parseFloat(expstring.slice(0, expstring.indexOf('e'))*majorgridorder)
+			}
+			
+
+			integerchoices = [1,2,5,10]
+			for(choice = 0; choice < integerchoices.length - 1; choice++) {
+				if (majorgriddivision < integerchoices[choice + 1]*majorgridorder) {
+					majorgriddivisionchoice = majorgridorder*integerchoices[choice]
+					break
+				}
+			}
+
+			if(valmin > 0) {
+				majorgridstart = Math.ceil(valmin/majorgriddivisionchoice)*majorgriddivisionchoice;
+				majorgridstart = majorgridstart - majorgriddivisionchoice
+			}
+			else if(valmin < 0) {
+				majorgridstart = Math.floor(valmin/majorgriddivisionchoice)*majorgriddivisionchoice;
+			}
+			else{
+				majorgridstart = majorgriddivisionchoice;
+			}
+
+			// majorgridstart = majorgridstart - majorgriddivisionchoice
+			// console.log(majorgridstart, (valmax + majorgriddivisionchoice), majorgriddivisionchoice)
+
+			majortickvalues = []
+			for(majoraxispoint = majorgridstart; majoraxispoint < (valmax + majorgriddivisionchoice); majoraxispoint = majoraxispoint + majorgriddivisionchoice) {
+				majortickvalues.push(majoraxispoint)
+			}
+
+			return majortickvalues
+		}
+
+		function updateGraphZoom(graphname, newMinMax) {
+			gdata = graphData[graphname]
+
+			svgElement = gdata.svgElement
+
+			if (newMinMax.xmin != 0) {
+				gdata.xmin = newMinMax.xmin || gdata.xmin
+			}
+			else {
+				gdata.xmin = 0
+			}
+
+			if (newMinMax.xmax != 0) {
+				gdata.xmax = newMinMax.xmax || gdata.xmax
+			}
+			else {
+				gdata.xmax = 0
+			}
+
+			if (newMinMax.ymin != 0) {
+				gdata.ymin = newMinMax.ymin || gdata.ymin
+			}
+			else {
+				gdata.ymin = 0
+			}
+
+			if (newMinMax.ymax != 0) {
+				gdata.ymax = newMinMax.ymax || gdata.ymax
+			}
+			else {
+				gdata.ymax = 0
+			}
+
+			aratio = gdata.aspectratio
+
+			if (gdata.unitAspectRatio == 'yes') {
+				if (gdata.fixAxis == 'yaxis') {
+					if (gdata.fixAxisStretchCentrally == 'yes') {
+						centre = (gdata.xmax + gdata.xmin)/2
+						gdata.xmin = centre - ((gdata.ymax - gdata.ymin)*aratio/2)
+						gdata.xmax = centre + ((gdata.ymax - gdata.ymin)*aratio/2)
+					}
+					else {
+						gdata.xmax = gdata.xmin + (gdata.ymax - gdata.ymin)*aratio
+					}
+					
+				}
+				else {
+					if (gdata.fixAxisStretchCentrally == 'yes') {
+						centre = (gdata.ymax + gdata.ymin)/2
+						gdata.ymin = centre - ((gdata.xmax - gdata.xmin)*aratio/2)
+						gdata.ymax = centre + ((gdata.xmax - gdata.xmin)*aratio/2)
+					}
+					else {
+						gdata.ymax = gdata.ymin + (gdata.xmax - gdata.xmin)*aratio	
+					}
+					
+				}
+			}
+
+			if (gdata.yaxisvisibility == 'yes') {
+				var lineElement = gdata.yaxisElement
+				lineElement.setAttribute('x1', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('x2', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(gdata.ymin, gdata.ymin, gdata.ymax, aratio) + '%');
+				if (darkmode == false) {
+					lineElement.style.stroke = gdata.yaxiscolor
+				}
+				else {
+					lineElement.style.stroke = 'hsla(0, 0%, 100%, 1)'
+				}
+				gdata.yaxisElement = lineElement
+			}
+
+			if (gdata.xaxisvisibility == 'yes') {
+				var lineElement = gdata.xaxisElement
+				lineElement.setAttribute('x1', graphToScaledX(gdata.xmin, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('x2', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + '%');
+				if (darkmode == false) {
+					lineElement.style.stroke = gdata.xaxiscolor
+				}
+				else {
+					lineElement.style.stroke = 'hsla(0, 0%, 100%, 1)'
+				}
+				gdata.xaxisElement = lineElement
+			}
+
+			deleteSegments(gdata.xmajorgridElements)
+
+			if (gdata.xmajorgridlinesvisibility == 'yes') {
+				xmajortickvalues = gridtickvalues(gdata.xmin, gdata.xmax, ticks)
+				gdata.xmajorgridElements = []
+				for (m = 0; m < xmajortickvalues.length; m++) {
+					ticklocation = xmajortickvalues[m]
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					ylength = (gdata.ymax - gdata.ymin)
+					if (gdata.xmajorgridlinesextension == 'yes') {
+						lineElement.setAttribute('x1', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(gdata.ymin - (ylength)/2, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(gdata.ymax + (ylength)/2, gdata.ymin, gdata.ymax, aratio) + '%');
+						
+					}
+					else {
+						lineElement.setAttribute('x1', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(gdata.ymin, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('id', gdata.name + '-xmajorgridline-' + m)
+					}
+					if (darkmode == false) {
+						lineElement.style.stroke = gdata.xmajorgridcolor
+					}
+					else {
+						lineElement.style.stroke = 'hsla(0, 0%, 100%, 1)'
+					}
+					lineElement.setAttribute('id', gdata.name + '-xmajorgridline-' + m)	
+					lineElement.style.strokeWidth = gdata.xmajorgridthickness + '%';
+					gdata.xmajorgridElements.push(lineElement)
+					svgElement.appendChild(lineElement);
+				}
+				gdata.xmajorgridticks = xmajortickvalues
+			}
+
+			deleteSegments(gdata.ymajorgridElements)
+
+			if (gdata.ymajorgridlinesvisibility == 'yes') {
+				ymajortickvalues = gridtickvalues(gdata.ymin, gdata.ymax, ticks)
+				gdata.ymajorgridElements = []
+				for (m = 0; m < ymajortickvalues.length; m++) {
+					ticklocation = ymajortickvalues[m]
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					xlength = (gdata.xmax - gdata.xmin)
+					if (gdata.ymajorgridlinesextension == 'yes') {
+						lineElement.setAttribute('x1', graphToScaledX((gdata.xmin) - xlength/2, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(gdata.xmax + (xlength/2), gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+					}
+					else {
+						lineElement.setAttribute('x1', graphToScaledX(gdata.xmin, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+					}
+					lineElement.setAttribute('id', gdata.name + '-ymajorgridline-' + m)
+					if (darkmode == false) {
+						lineElement.style.stroke = gdata.ymajorgridcolor
+					}
+					else {
+						lineElement.style.stroke = 'hsla(0, 0%, 100%, 1)'
+					}
+					lineElement.setAttribute('id', gdata.name + '-ymajorgridline-' + m)
+					lineElement.style.strokeWidth = gdata.ymajorgridthickness + '%';
+					gdata.ymajorgridElements.push(lineElement)
+					svgElement.appendChild(lineElement);
+				}
+				gdata.ymajorgridticks = ymajortickvalues
+			}
+
+			deleteSegments(gdata.ymajorlabelsElements)
+
+			if (gdata.ymajorgridlabelvisibility == 'yes') {
+				gdata.ymajorlabelsElements = []
+				ymajortickvalues = gridtickvalues(gdata.ymin, gdata.ymax, ticks)
+				scale = gdata.ymax - gdata.ymin
+				expstring = scale.toExponential().toString()
+				order = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				labelylocationX = gdata.axislocationX
+				if (graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) < 0) {
+					labelylocationX = gdata.xmin
+				}
+				if (graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) > 100) {
+					labelylocationX = gdata.xmax
+				}
+				for (m = gdata.ylabelexclusionsstart; m < ymajortickvalues.length - gdata.ylabelexclusionsend; m++) {
+					ticklocation = ymajortickvalues[m]
+
+					
+					var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+					
+
+					if(isInt(ticklocation)) {
+						if (gdata.isComplexPlane == 'yes') {
+							textElement.innerHTML = ticklocation + 'i'
+						}
+						else {
+							textElement.innerHTML = ticklocation
+						}
+					}
+					else {
+						
+						if (Math.abs(ticklocation) < 0.01 && order > 2) {
+							ticklocation = ticklocation.toExponential(order)
+								
+						}
+						else {
+							ticklocation = ticklocation.toFixed(order + 1)
+						}
+						if (gdata.isComplexPlane == 'yes') {
+							textElement.innerHTML = ticklocation + 'i'
+						}
+						else {
+							textElement.innerHTML = ticklocation	
+						}
+						if(ticklocation == 0) {
+							textElement.innerHTML = 0
+						}
+
+					}
+
+
+					textElement.setAttribute('x', graphToScaledX(labelylocationX, gdata.xmin, gdata.xmax, aratio) + 0.5 + gdata.ymajorgridlabelshift + '%');
+					textElement.setAttribute('y',graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + 0.5 + '%');
+					textElement.setAttribute('id',gdata.name + '-yticklabel-' + m)
+					textElement.style.fontSize = gdata.fontSize
+					textElement.style.fontFamily = 'Source Sans Pro'
+					textElement.style.userSelect = 'none'
+					// textElement.setAttribute('text-anchor', 'middle')
+					textElement.style.fill = gdata.ymajorgridlabelcolor
+					if (darkmode == false) {
+						textElement.style.fill = gdata.ymajorgridlabelcolor
+					}
+					else {
+						textElement.style.fill = 'hsla(0, 0%, 100%, 1)'
+					}	
+					svgElement.appendChild(textElement);
+
+					gdata.ymajorlabelsElements.push(textElement)
+					
+				}
+			}
+
+
+			deleteSegments(gdata.xmajorlabelsElements)
+
+			if (gdata.xmajorgridlabelvisibility == 'yes') {
+				gdata.xmajorlabelsElements = []
+				xmajortickvalues = gridtickvalues(gdata.xmin, gdata.xmax, ticks)
+				scale = gdata.xmax - gdata.xmin
+				expstring = scale.toExponential().toString()
+				order = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				
+				labelxlocationY = gdata.axislocationY
+				if (graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) < 0) {
+					labelxlocationY = gdata.ymax
+				}
+				if (graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) > 100) {
+					labelxlocationY = gdata.ymin
+				}
+
+
+				for (m = gdata.xlabelexclusionsstart; m < xmajortickvalues.length - gdata.xlabelexclusionsend; m++) {
+					ticklocation = xmajortickvalues[m]
+
+					var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+
+					if(isInt(ticklocation)) {
+						textElement.innerHTML = ticklocation
+					}
+					else {
+						
+						if (Math.abs(ticklocation) < 0.01 && order > 2) {
+							ticklocation = ticklocation.toExponential(order)
+							
+							
+						}
+						else {
+							ticklocation = ticklocation.toFixed(order + 1)
+						}
+						textElement.innerHTML = ticklocation	
+						
+						if(ticklocation == 0) {
+							textElement.innerHTML = 0
+						}
+
+					}
+
+					transformedXval = graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) - 1
+					textElement.setAttribute('x', transformedXval + '%');
+					transformedYval = graphToScaledY(labelxlocationY, gdata.ymin, gdata.ymax, aratio) + 2 + gdata.xmajorgridlabelshift
+					textElement.setAttribute('y', transformedYval + '%');
+					textElement.setAttribute('id',gdata.name + '-xticklabel-' + m)
+					textElement.style.fontSize = gdata.fontSize
+					textElement.style.userSelect = 'none'
+					textElement.setAttribute('text-anchor', 'middle')
+					if (parseFloat(order) >= 2) {
+						textElement.setAttribute('transform', 'rotate(90, ' + transformedXval + ', ' + transformedYval + ')')	
+					}
+					textElement.style.fontFamily = 'Source Sans Pro'
+					if (darkmode == false) {
+						textElement.style.fill = gdata.xmajorgridlabelcolor
+					}
+					else {
+						textElement.style.fill = 'hsla(0, 0%, 100%, 1)'
+					}
+					svgElement.appendChild(textElement);
+					
+					gdata.xmajorlabelsElements.push(textElement)
+					
+				}
+			}
+
+
+			if (gdata.xaxislabelvisibility == 'yes') {
+				var textElement = gdata.xaxislabelElement 
+				textElement.setAttribute('x', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + gdata.xaxislabelshift + '%');
+				textElement.setAttribute('y',graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + 1 + '%');
+				gdata.xaxislabelElement = textElement
+			}
+
+
+			if (gdata.yaxislabelvisibility == 'yes') {
+				var textElement = gdata.yaxislabelElement
+				textElement.setAttribute('x', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + 0 + '%');
+				textElement.setAttribute('y',graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) - gdata.yaxislabelshift + '%');
+				gdata.yaxislabelElement = textElement
+				
+			}
+
+
+			for (var key in gdata.lineData) {
+				lineElement = gdata.lineData[key][0]
+				lineoptions = gdata.lineData[key][1]
+
+				lineElement.setAttribute('x1', graphToScaledX(lineoptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(lineoptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('x2', graphToScaledX(lineoptions.x2, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(lineoptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
+			}
+
+			for (var key in gdata.circleData) {
+				circleElement = gdata.circleData[key][0]
+				circleoptions = gdata.circleData[key][1]
+				rx = distanceBTWgraphToSvg([0,0],[circleoptions.radius, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				ry = distanceBTWgraphToSvg([0,0],[0,circleoptions.radius], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				circleElement.setAttribute('cx', graphToScaledX(circleoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+				circleElement.setAttribute('cy', graphToScaledY(circleoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+				circleElement.setAttribute('rx', rx + '%')
+				circleElement.setAttribute('ry', ry + '%');
+				
+			}
+
+			for (var key in gdata.pathData) {
+				pathElement = gdata.pathData[key][0]
+				pathoptions = gdata.pathData[key][1]
+				pathstring = 'M'
+				for (pth = 0; pth < pathoptions.points.length; pth++) {
+					if (pth == 0) {
+						pathstring = pathstring + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+					}
+					else {
+						pathstring = pathstring + 'L' + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+					}
+				}
+				pathElement.setAttribute('d', pathstring);
+
+			}
+
+			for (var key in gdata.ellipseData) {
+				ellipseElement = gdata.ellipseData[key][0]
+				ellipseoptions = gdata.ellipseData[key][1]
+				rx = distanceBTWgraphToSvg([0,0],[ellipseoptions.rx, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				ry = distanceBTWgraphToSvg([0,0],[0, ellipseoptions.ry], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				ellipseElement.setAttribute('cx', graphToScaledX(ellipseoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+				ellipseElement.setAttribute('cy', graphToScaledY(ellipseoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+				ellipseElement.setAttribute('rx', rx + '%')
+				ellipseElement.setAttribute('ry', ry + '%');
+				
+			}
+
+			for (var key in gdata.textData) {
+				textElement = gdata.textData[key][0]
+				textoptions = gdata.textData[key][1]
+				textElement.setAttribute('x', graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+				textElement.setAttribute('y', graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			
+			}
+
+			for (var key in gdata.rectData) {
+				rectElement = gdata.rectData[key][0]
+				rectoptions = gdata.rectData[key][1]
+				
+				
+				rx = distanceBTWgraphToSvg([0,0],[rectoptions.w, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				ry = distanceBTWgraphToSvg([0,0],[0, rectoptions.h], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+				
+				rectElement.setAttribute('x', graphToScaledX(rectoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+				rectElement.setAttribute('y', graphToScaledY(rectoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+				rectElement.setAttribute('width', rx + '%')
+				rectElement.setAttribute('height', ry + '%');
+			}			
+
+			for (var key in gdata.pointData) {
+				pointElement = gdata.pointData[key][0]
+				pointoptions = gdata.pointData[key][1]
+				
+				
+				pointElement.setAttribute('cx', graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+				pointElement.setAttribute('cy', graphToScaledY(pointoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			}			
+		}
+
+		function addGraph(parentdiv, name, gdata) {
+			gdata = gdata || {}
+
+			gdata.name = name || 'graph' + Math.random().toString()
+
+			if (gdata.axislocationX != 0) {
+				gdata.axislocationX = gdata.axislocationX || 0
+			}
+			else {
+				gdata.axislocationX = 0
+			}
+			if (gdata.axislocationY != 0) {
+				gdata.axislocationY = gdata.axislocationY || 0
+			}
+			else {
+				gdata.axislocationY = 0
+			}
+			if (gdata.xmin != 0) {
+				gdata.xmin = gdata.xmin || -1
+			}
+			else {
+				gdata.xmin = 0
+			}
+			if (gdata.xmax != 0) {
+				gdata.xmax = gdata.xmax || -1
+			}
+			else {
+				gdata.xmax = 0
+			}
+			if (gdata.ymin != 0) {
+				gdata.ymin = gdata.ymin || -1
+			}
+			else {
+				gdata.ymin = 0
+			}
+			if (gdata.ymax != 0) {
+				gdata.ymax = gdata.ymax || -1
+			}
+			else {
+				gdata.ymax = 0
+			}
+
+			gdata.unitAspectRatio = gdata.unitAspectRatio || 'no'
+			gdata.fixAxis = gdata.fixAxis || 'yaxis'
+			gdata.fixAxisStretchCentrally = gdata.fixAxisStretchCentrally || 'no'
+
+
+			gdata.xaxisvisibility = gdata.xaxisvisibility || 'yes'
+			gdata.yaxisvisibility = gdata.yaxisvisibility || 'yes'
+
+			gdata.xaxislabelvisibility = gdata.xaxislabelvisibility || 'yes' 
+			gdata.yaxislabelvisibility = gdata.yaxislabelvisibility || 'yes'
+			
+			gdata.xmajorgridlinesvisibility = gdata.xmajorgridlinesvisibility || 'yes'
+			gdata.ymajorgridlinesvisibility = gdata.ymajorgridlinesvisibility || 'yes'
+
+			gdata.position = gdata.position || 'absolute'
+
+			var svgElement = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+			svgElement.setAttribute('height',"100%");
+			svgElement.setAttribute('width', '100%');
+			svgElement.setAttribute('viewBox',"0 0 100 100")
+			// svgElement.setAttribute('preserveAspectRatio',"none")
+			svgElement.setAttribute('id', name)
+			svgElement.style.position = gdata.position
+			svgElement.style.left = '0%'
+			svgElement.style.top = '0%'
+			parentdiv.appendChild(svgElement)
+			gdata.svgElement = svgElement
+			gdata.parentElement = parentdiv
+
+			gdata.fontSize = gdata.fontSize || 5
+
+			gdata.gridlinenumberX = gdata.gridlinenumberX || 10
+			gdata.gridlinenumberY = gdata.gridlinenumberY || 10
+
+			
+
+			gdata.parentW = parentdiv.offsetWidth
+			gdata.parentH = parentdiv.offsetHeight
+
+			aratio = parentdiv.offsetWidth/parentdiv.offsetHeight
+
+			if (gdata.unitAspectRatio == 'yes') {
+				if (gdata.fixAxis == 'yaxis') {
+					if (gdata.fixAxisStretchCentrally == 'yes') {
+						centre = (gdata.xmax + gdata.xmin)/2
+						gdata.xmin = centre - ((gdata.ymax - gdata.ymin)*aratio/2)
+						gdata.xmax = centre + ((gdata.ymax - gdata.ymin)*aratio/2)
+					}
+					else {
+						gdata.xmax = gdata.xmin + (gdata.ymax - gdata.ymin)*aratio
+					}
+					
+				}
+				else {
+					if (gdata.fixAxisStretchCentrally == 'yes') {
+						centre = (gdata.ymax + gdata.ymin)/2
+						gdata.ymin = centre - ((gdata.xmax - gdata.xmin)*aratio/2)
+						gdata.ymax = centre + ((gdata.xmax - gdata.xmin)*aratio/2)
+					}
+					else {
+						gdata.ymax = gdata.ymin + (gdata.xmax - gdata.xmin)*aratio	
+					}
+					
+				}
+			}
+
+
+
+			if (darkmode) {
+				gdata.yaxiscolor = gdata.yaxiscolor || 'hsla(0, 100%, 100%, 1)'			
+				gdata.xaxiscolor = gdata.xaxiscolor || 'hsla(0, 100%, 100%, 1)'			
+				gdata.xmajorgridlabelcolor = gdata.xmajorgridlabelcolor || 'hsla(0, 100%, 100%, 1)'
+				gdata.ymajorgridlabelcolor = gdata.ymajorgridlabelcolor || 'hsla(0, 100%, 100%, 1)'
+				gdata.xmajorgridcolor = gdata.xmajorgridcolor || 'hsla(0, 100%, 100%, 1)'
+				gdata.ymajorgridcolor = gdata.ymajorgridcolor || 'hsla(0, 100%, 100%, 1)'
+			}
+
+			gdata.yaxisthickness = gdata.yaxisthickness || 0.5
+			gdata.yaxiscolor = gdata.yaxiscolor || 'hsla(0, 50%, 0%, 1)'
+
+
+			if (gdata.yaxisvisibility == 'yes') {
+				var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+				lineElement.setAttribute('x1', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('vector-effect','non-scaling-stroke');
+				lineElement.setAttribute('x2', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(gdata.ymin, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('id', gdata.name + '-yaxis')
+				lineElement.style.stroke = gdata.yaxiscolor
+				lineElement.style.strokeWidth = gdata.yaxisthickness + '%';
+				gdata.yaxisElement = lineElement
+				svgElement.appendChild(lineElement);
+			}
+
+			gdata.xaxisthickness = gdata.xaxisthickness || 0.5
+			gdata.xaxiscolor = gdata.xaxiscolor || 'hsla(0, 50%, 0%, 1)'
+
+			
+			if (gdata.xaxisvisibility == 'yes') {
+				var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+				lineElement.setAttribute('x1', graphToScaledX(gdata.xmin, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('vector-effect','non-scaling-stroke');
+				lineElement.setAttribute('x2', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('id', gdata.name + '-xaxis')
+				lineElement.style.stroke = gdata.xaxiscolor
+				lineElement.style.strokeWidth = gdata.xaxisthickness + '%';
+				gdata.xaxisElement = lineElement
+				svgElement.appendChild(lineElement);
+			}
+
+
+			gdata.xmajorgridcolor = gdata.xmajorgridcolor || 'hsla(190, 0%, 50%, 1)'
+			gdata.xmajorgridthickness = gdata.xmajorgridthickness || 0.3
+
+			gdata.xmajorgridlinesextension = gdata.xmajorgridlinesextension || 'yes'
+			gdata.ymajorgridlinesextension = gdata.ymajorgridlinesextension || 'yes'
+
+			ticks = gdata.gridlinenumberX
+			
+			if (gdata.xmajorgridlinesvisibility == 'yes') {
+				xmajortickvalues = gridtickvalues(gdata.xmin, gdata.xmax, ticks)
+				gdata.xmajorgridElements = []
+				for (m = 0; m < xmajortickvalues.length; m++) {
+					ticklocation = xmajortickvalues[m]
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					ylength = (gdata.ymax - gdata.ymin)
+					if (gdata.xmajorgridlinesextension == 'yes') {
+						lineElement.setAttribute('x1', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(gdata.ymin - (ylength)/2, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(gdata.ymax + (ylength)/2, gdata.ymin, gdata.ymax, aratio) + '%');
+						
+					}
+					else {
+						lineElement.setAttribute('x1', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(gdata.ymin, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('id', gdata.name + '-xmajorgridline-' + m)
+					}
+					lineElement.setAttribute('id', gdata.name + '-xmajorgridline-' + m)
+					lineElement.style.stroke = gdata.xmajorgridcolor
+					lineElement.style.strokeWidth = gdata.xmajorgridthickness + '%';
+					gdata.xmajorgridElements.push(lineElement)
+					svgElement.appendChild(lineElement);
+				}
+				gdata.xmajorgridticks = xmajortickvalues
+			}
+
+			gdata.ymajorgridcolor = gdata.ymajorgridcolor || 'hsla(190, 0%, 50%, 1)'
+			gdata.ymajorgridthickness = gdata.ymajorgridthickness || 0.3
+
+
+			ticks = gdata.gridlinenumberY
+
+
+			if (gdata.ymajorgridlinesvisibility == 'yes') {
+				ymajortickvalues = gridtickvalues(gdata.ymin, gdata.ymax, ticks)
+				gdata.ymajorgridElements = []
+				for (m = 0; m < ymajortickvalues.length; m++) {
+					ticklocation = ymajortickvalues[m]
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					xlength = (gdata.xmax - gdata.xmin)
+					if (gdata.ymajorgridlinesextension == 'yes') {
+						lineElement.setAttribute('x1', graphToScaledX((gdata.xmin) - xlength/2, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(gdata.xmax + (xlength/2), gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+					}
+					else {
+						lineElement.setAttribute('x1', graphToScaledX(gdata.xmin, gdata.xmin, gdata.xmax, aratio) + '%');
+						lineElement.setAttribute('y1', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+						lineElement.setAttribute('vector-effect','non-scaling-stroke');
+						lineElement.setAttribute('x2', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + '%')
+						lineElement.setAttribute('y2', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+					}
+					lineElement.setAttribute('id', gdata.name + '-ymajorgridline-' + m)
+					lineElement.style.stroke = gdata.ymajorgridcolor
+					lineElement.style.strokeWidth = gdata.ymajorgridthickness + '%';
+					gdata.ymajorgridElements.push(lineElement)
+					svgElement.appendChild(lineElement);
+				}
+				gdata.ymajorgridticks = ymajortickvalues
+			}
+
+			
+
+			gdata.ymajorgridlabelvisibility = gdata.ymajorgridlabelvisibility || 'yes'
+			gdata.ymajorgridlabelcolor = gdata.ymajorgridlabelcolor || 'hsla(190, 0%, 50%, 1)'
+
+
+			gdata.ymajorgridlabelshift = gdata.ymajorgridlabelshift || 0.1
+			gdata.xmajorgridlabelshift = gdata.xmajorgridlabelshift || 0.1
+
+			gdata.xmajorgridlabelvisibility = gdata.xmajorgridlabelvisibility || 'yes'
+			gdata.xmajorgridlabelcolor = gdata.xmajorgridlabelcolor || 'hsla(190, 0%, 50%, 1)'
+
+
+
+			gdata.xlabelexclusionsstart = gdata.xlabelexclusionsstart || 0
+			gdata.xlabelexclusionsend = gdata.xlabelexclusionsend || 0
+
+			gdata.ylabelexclusionsstart = gdata.ylabelexclusionsstart || 0
+			gdata.ylabelexclusionsend = gdata.ylabelexclusionsend || 0
+
+
+			gdata.isComplexPlane = gdata.isComplexPlane || 'no'
+
+
+			if (gdata.ymajorgridlabelvisibility == 'yes') {
+				gdata.ymajorlabelsElements = []
+				ymajortickvalues = gridtickvalues(gdata.ymin, gdata.ymax, ticks)
+				labelylocationX = gdata.axislocationX
+				if (graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) < 0) {
+					labelylocationX = gdata.xmin
+				}
+				if (graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) > 100) {
+					labelylocationX = gdata.xmax
+				}
+				for (m = gdata.ylabelexclusionsstart; m < ymajortickvalues.length - gdata.ylabelexclusionsend; m++) {
+					ticklocation = ymajortickvalues[m]
+
+					var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+					
+
+					if(isInt(ticklocation)) {
+						if (gdata.isComplexPlane == 'yes') {
+							textElement.innerHTML = ticklocation + 'i'
+						}
+					}
+					else {
+						expstring = ticklocation.toExponential().toString()
+						order = (expstring.slice(expstring
+							.indexOf('e') + 1)*(-1))
+						if (parseFloat(order) < -1) {
+							ticklocation = ticklocation.toExponential(0)	
+						}
+						else {
+							ticklocation = ticklocation.toFixed(2)
+						}
+						textElement.innerHTML = ticklocation
+						if(ticklocation == 0) {
+							textElement.innerHTML = 0
+						}
+						if (gdata.isComplexPlane == 'yes') {
+							textElement.innerHTML = ticklocation + 'i'
+						}
+
+					}
+
+
+					textElement.setAttribute('x', graphToScaledX(labelylocationX, gdata.xmin, gdata.xmax, aratio) + 0.5 + gdata.ymajorgridlabelshift + '%');
+					textElement.setAttribute('y',graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + 0.5 + '%');
+					textElement.setAttribute('id', gdata.name + '-yticklabel-' + m)
+					textElement.style.fontSize = gdata.fontSize
+					textElement.style.userSelect = 'none'
+					textElement.style.fontFamily = 'Source Sans Pro'
+					textElement.style.fill = gdata.ymajorgridlabelcolor
+					svgElement.appendChild(textElement);
+
+					gdata.ymajorlabelsElements.push(textElement)
+					
+				}
+			}
+
+			ticks = gdata.gridlinenumberX
+
+
+			if (gdata.xmajorgridlabelvisibility == 'yes') {
+				gdata.xmajorlabelsElements = []
+				xmajortickvalues = gridtickvalues(gdata.xmin, gdata.xmax, ticks)
+				labelxlocationY = gdata.axislocationY
+				if (graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) < 0) {
+					labelxlocationY = gdata.ymin
+				}
+				if (graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) > 100) {
+					labelxlocationY = gdata.ymax
+				}
+
+
+				for (m = gdata.xlabelexclusionsstart; m < xmajortickvalues.length - gdata.xlabelexclusionsend; m++) {
+					ticklocation = xmajortickvalues[m]
+
+					var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+
+					if(isInt(ticklocation)) {
+						textElement.innerHTML = ticklocation
+					}
+					else {
+
+						expstring = ticklocation.toExponential().toString()
+						order = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+						if (parseFloat(order) < -1) {
+							ticklocation = ticklocation.toExponential(0)	
+						}
+						else {
+							ticklocation = ticklocation.toFixed(2)
+						}
+						textElement.innerHTML = ticklocation
+						if(ticklocation == 0) {
+							textElement.innerHTML = 0
+						}
+
+					}
+
+					textElement.setAttribute('x', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) - 1 + '%');
+					textElement.setAttribute('y',graphToScaledY(labelxlocationY, gdata.ymin, gdata.ymax, aratio) + 2 + gdata.xmajorgridlabelshift + '%');
+					textElement.setAttribute('id', gdata.name + '-xticklabel-' + m)
+					textElement.style.fontSize = gdata.fontSize
+					textElement.style.fontFamily = 'Source Sans Pro'
+					textElement.style.userSelect = 'none'
+					textElement.style.fill = gdata.ymajorgridlabelcolor
+					svgElement.appendChild(textElement);
+					
+					gdata.xmajorlabelsElements.push(textElement)
+					
+				}
+			}
+
+
+			gdata.xaxislabel = gdata.xaxislabel || 'x axis'
+			gdata.yaxislabel = gdata.yaxislabel || 'y axis'
+
+			gdata.xaxislabelshift = gdata.xaxislabelshift || 2
+			gdata.yaxislabelshift = gdata.yaxislabelshift || 2
+
+			if (darkmode) {
+				gdata.yaxislabelcolor = gdata.yaxislabelcolor || 'hsla(190, 100%, 100%, 1)'
+				gdata.xaxislabelcolor = gdata.xaxislabelcolor || 'hsla(190, 100%, 100%, 1)'
+			}
+			else {
+				gdata.yaxislabelcolor = gdata.yaxislabelcolor || 'hsla(190, 0%, 0%, 1)'
+				gdata.xaxislabelcolor = gdata.xaxislabelcolor || 'hsla(190, 0%, 0%, 1)'
+			}
+			
+
+
+			if (gdata.xaxislabelvisibility == 'yes') {
+				var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+				textElement.innerHTML = gdata.xaxislabel 
+				textElement.setAttribute('x', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + gdata.xaxislabelshift + '%');
+				textElement.setAttribute('y',graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + 1 + '%');
+				textElement.setAttribute('id', name + '-xaxislabel')
+				textElement.style.fontSize = gdata.fontSize
+				textElement.style.color = gdata.xaxislabelcolor
+				textElement.style.fontFamily = 'Source Sans Pro'
+				
+				svgElement.appendChild(textElement);
+				gdata.xaxislabelElement = textElement
+				
+			}
+
+
+			if (gdata.yaxislabelvisibility == 'yes') {
+				var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+				textElement.innerHTML = gdata.yaxislabel 
+				textElement.setAttribute('x', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + 0 + '%');
+				textElement.setAttribute('y',graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) - gdata.yaxislabelshift + '%');
+				textElement.setAttribute('id',name + '-yaxislabel')
+				textElement.style.fontSize = gdata.fontSize
+				textElement.style.color = gdata.yaxislabelcolor
+				textElement.style.fontFamily = 'Source Sans Pro'
+				
+				svgElement.appendChild(textElement);
+				gdata.yaxislabelElement = textElement
+				
+			}
+
+			gdata.scrollZoom = gdata.scrollZoom || 'yes'
+
+			if (gdata.scrollZoom == 'yes') {
+				svgElement.addEventListener('wheel', wheelHandle)
+			}
+
+			svgPTVariable[name] = svgElement.createSVGPoint()
+
+			gdata.draggability = gdata.draggability || 'no'
+			if (gdata.draggability == 'yes') {
+				gdata.currentlyDraggableGraph = gdata.currentlyDraggableGraph || 'yes'
+			}
+			else {
+				gdata.currentlyDraggableGraph = gdata.currentlyDraggableGraph || 'no'
+			}
+			gdata.runFunctionOnDragEnd = gdata.runFunctionOnDragEnd || ''
+			gdata.runFunctionDuringDrag = gdata.runFunctionDuringDrag || ''
+
+			if (gdata.draggability == 'yes') {
+				svgElement.addEventListener('mousedown', graphDragHandle)
+				svgElement.addEventListener('touchstart', graphDragHandle)
+			}
+			else {
+				svgElement.addEventListener('touchmove', graphTouchDisable)
+			}
+
+			if (gdata.draggability != 'yes' && gdata.scrollZoom != 'yes') {
+				svgElement.style.pointerEvents = 'none'
+			}
+
+			gdata.dragDirection = gdata.dragDirection || 'bothXY'
+			gdata.dragIfCondition = gdata.dragIfCondition || 'true'
+
+
+			gdata.lineData = {}
+			gdata.circleData = {}
+			gdata.pointData = {}
+			gdata.ellipseData = {}
+			gdata.rectData = {}
+			gdata.textData = {}
+			gdata.pathData = {}
+			gdata.sliderData = {}
+
+			gdata.aspectratio = aratio
+
+
+			graphData[name] = gdata
+			return JSON.parse(JSON.stringify(gdata));
+		}
+
+		function getGraphCursorLocation(cursorpercent, graphname) {
+			gdata = graphData[graphname]
+
+			graphEl = document.getElementById(gdata.name)
+
+			valx = svgToGraphX(cursorpercent[0], gdata.xmin, gdata.xmax, gdata.aspectratio)
+			valy = svgToGraphY(cursorpercent[1], gdata.ymin, gdata.ymax, gdata.aspectratio)
+
+			return [valx, valy]
+		}
+
+		function addLine(graphname, linename, lineoptions) {
+			gdata = graphData[graphname]
+			lineoptions = lineoptions || {}
+
+			aratio = gdata.aspectratio
+
+			lineoptions.x1 = parseFloat(lineoptions.x1.toString() || 0)
+			lineoptions.y1 = parseFloat(lineoptions.y1.toString() || 0)
+			lineoptions.x2 = parseFloat(lineoptions.x2.toString() || 0.5)
+			lineoptions.y2 = parseFloat(lineoptions.y2.toString() || 0.5)
+			lineoptions.name = linename || uid
+
+			lineoptions.strokedasharray = lineoptions.strokedasharray || ""
+			lineoptions.strokewidth = lineoptions.strokewidth || 1
+			lineoptions.linecolor = lineoptions.linecolor || 'hsla(190, 100%, 50%, 1)'
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', graphToScaledX(lineoptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
+			lineElement.setAttribute('y1', graphToScaledY(lineoptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
+			lineElement.setAttribute('x2', graphToScaledX(lineoptions.x2, gdata.xmin, gdata.xmax, aratio) + '%')
+			lineElement.setAttribute('y2', graphToScaledY(lineoptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
+			lineElement.setAttribute('stroke-dasharray', lineoptions.strokedasharray);
+			
+			lineElement.setAttribute('id', graphname + '-line-' + linename)
+			uid = uid + 1
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.style.stroke = lineoptions.linecolor
+			lineElement.style.strokeWidth = lineoptions.strokewidth + '%';
+			gdata.svgElement.appendChild(lineElement);
+
+			graphData[graphname].lineData[linename] = [lineElement, lineoptions]
+			return [lineElement, lineoptions]
+		}
+
+		function addSlider(graphname, slidername, slideroptions) {
+			gdata = graphData[graphname]
+			slideroptions = slideroptions || {}
+
+			aratio = gdata.aspectratio
+
+			slideroptions.x1 = parseFloat(slideroptions.x1.toString() || 0)
+			slideroptions.y1 = parseFloat(slideroptions.y1.toString() || 0)
+			slideroptions.x2 = parseFloat(slideroptions.x2.toString() || 0.5)
+			slideroptions.y2 = parseFloat(slideroptions.y2.toString() || 0.5)
+			slideroptions.name = slidername || uid
+
+			slideroptions.automaticallySetKnobRadius
+
+			slideroptions.currentvalue = parseFloat(slideroptions.currentvalue.toString() || 0.5)
+			slideroptions.maxvalue = parseFloat(slideroptions.maxvalue.toString() || 0.5)
+			slideroptions.minvalue = parseFloat(slideroptions.minvalue.toString() || 0.5)
+
+			slideroptions.strokewidth = slideroptions.strokewidth || 1
+			slideroptions.sliderfillcolor = slideroptions.sliderfillcolor || 'hsla(190, 100%, 50%, 1)'
+			slideroptions.sliderbasecolor = slideroptions.sliderbasecolor || 'hsla(190, 0%, 70%, 1)'
+			slideroptions.sliderknobcolor = slideroptions.sliderknobcolor || 'hsla(190, 100%, 50%, 1)'
+
+			slideroptions.knobradius = parseFloat(slideroptions.knobradius || 0.5)
+
+			kfactor = (slideroptions.currentvalue - slideroptions.minvalue)/(slideroptions.maxvalue - slideroptions.minvalue)
+
+			slideroptions.cx = ((slideroptions.x2*kfactor) + slideroptions.x1)/(kfactor + 1)
+			slideroptions.cy = ((slideroptions.y2*kfactor) + slideroptions.y1)/(kfactor + 1)
+
+			slideroptions.cx = parseFloat(slideroptions.cx.toString() || 0)
+			slideroptions.cy = parseFloat(slideroptions.cy.toString() || 0)
+
+			var sliderbaseElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			sliderbaseElement.setAttribute('x1', graphToScaledX(slideroptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
+			sliderbaseElement.setAttribute('y1', graphToScaledY(slideroptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
+			sliderbaseElement.setAttribute('x2', graphToScaledX(slideroptions.x2, gdata.xmin, gdata.xmax, aratio) + '%')
+			sliderbaseElement.setAttribute('y2', graphToScaledY(slideroptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
+			
+			sliderbaseElement.setAttribute('id', graphname + '-slider-base-' + slidername)
+			sliderbaseElement.setAttribute('vector-effect','non-scaling-stroke');
+			sliderbaseElement.style.stroke = slideroptions.sliderbasecolor
+			sliderbaseElement.style.strokeWidth = slideroptions.strokewidth + '%';
+			gdata.svgElement.appendChild(sliderbaseElement);
+
+			var sliderfillElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			sliderfillElement.setAttribute('x1', graphToScaledX(slideroptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
+			sliderfillElement.setAttribute('y1', graphToScaledY(slideroptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
+			sliderfillElement.setAttribute('x2', graphToScaledX(slideroptions.cx, gdata.xmin, gdata.xmax, aratio) + '%')
+			sliderfillElement.setAttribute('y2', graphToScaledY(slideroptions.cy, gdata.ymin, gdata.ymax, aratio) + '%');
+			
+			sliderfillElement.setAttribute('id', graphname + '-slider-fill-' + slidername)
+			sliderfillElement.setAttribute('vector-effect','non-scaling-stroke');
+			sliderfillElement.style.stroke = slideroptions.sliderfillcolor
+			sliderfillElement.style.strokeWidth = slideroptions.strokewidth + '%';
+			gdata.svgElement.appendChild(sliderfillElement);
+
+			rx = distanceBTWgraphToSvg([0,0],[slideroptions.knobradius, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, slideroptions.knobradius], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+
+			slideroptions.automaticallySetKnobRadius = slideroptions.automaticallySetKnobRadius || 'yes'
+
+			if (slideroptions.automaticallySetKnobRadius == 'yes') {
+				// Adjusted based on certain calculations at https://www.desmos.com/calculator/wocvdzcn1p 
+				aRegress = -1.2979*Math.pow(10, -9);
+				bRegress = -9.8036
+				cRegress = -0.0337978
+				fRegress = 10.1808
+
+				strokeW = options.strokewidth
+				if (strokeW < 25) {
+					rx = ((aRegress*strokeW) + bRegress)*(Math.exp(cRegress*strokeW)) + fRegress
+					ry = rx
+				}
+				else {
+					rx = 0.2217*strokeW + 0.736503
+					ry = rx
+				}
+			}
+
+				
+			
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+			circleElement.setAttribute('cx', graphToScaledX(slideroptions.cx, gdata.xmin, gdata.xmax, aratio) + '%');
+			circleElement.setAttribute('cy', graphToScaledY(slideroptions.cy, gdata.ymin, gdata.ymax, aratio) + '%');
+			circleElement.setAttribute('rx', rx + '%')
+			circleElement.setAttribute('ry', ry + '%');
+			circleElement.setAttribute('id', graphname + '-slider-knob-' + slidername)
+			uid = uid + 1
+			circleElement.setAttribute('vector-effect','non-scaling-stroke');
+			circleElement.style.fill = slideroptions.sliderknobcolor
+			circleElement.style.strokeWidth = '0%';
+			gdata.svgElement.appendChild(circleElement);
+
+			graphData[graphname].sliderData[slidername] = [sliderbaseElement,sliderfillElement, circleElement, slideroptions]
+			return [sliderbaseElement,sliderfillElement, circleElement, slideroptions]
+		}
+
+		sliderDivData = {}
+
+		function addSliderToDiv(holderName, slidername, slideroptions) {
+			slideroptions = slideroptions || {}
+
+			slideroptions.classname = slideroptions.classname || 'standardSlider'
+
+			var sliderinputElement = document.createElement("input");
+			sliderinputElement.type = 'range';
+			sliderinputElement.setAttribute('min', slideroptions.min);
+			sliderinputElement.setAttribute('max', slideroptions.max);
+			sliderinputElement.setAttribute('step', slideroptions.step);
+			sliderinputElement.setAttribute('value', slideroptions.value);
+			sliderinputElement.setAttribute('id', slidername);
+			sliderinputElement.setAttribute('class', slideroptions.classname);
+			sliderinputElement.setAttribute('oninput', slideroptions.eventFunction);
+
+			holderDiv = document.getElementById(holderName)
+
+			holderDiv.appendChild(sliderinputElement);
+
+			sliderinputElement.style.width = slideroptions.w;
+			sliderinputElement.style.height = slideroptions.h;
+			sliderinputElement.style.backgroundColor = slideroptions.sliderbasecolor
+
+			sliderDivData[slidername] = [holderDiv, slidername, slideroptions]
+			return [slidername, holderDiv]
+		}
+
+		function divSlider(holder, divslidername, minval, maxval, currvalue, stepval, eventfunc, widthval, heightval, colorval, sliderClass) {
+			options = {}
+			options.min = minval
+			options.max = maxval
+			options.value = currvalue
+			options.step = stepval
+			options.eventFunction = eventfunc
+			options.w = widthval
+			options.h = heightval
+			options.sliderbasecolor = colorval
+			options.classname = sliderClass
+
+			addSliderToDiv(holder, divslidername, options)
+		}
+
+		function addPath(graphname, pathname, pathoptions) {
+			gdata = graphData[graphname]
+			pathoptions = pathoptions || {}
+
+			aratio = gdata.aspectratio
+
+			pathoptions.points = pathoptions.points || [[0, 1], [1, 0]]
+
+			pathstring = 'M'
+
+			for (pth = 0; pth < pathoptions.points.length; pth++) {
+				if (pth == 0) {
+					pathstring = pathstring + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+				}
+				else {
+					pathstring = pathstring + 'L' + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+				}
+				
+			}
+
+			
+
+			pathoptions.name = pathname || uid
+			// console.log((0).toString() || 0.5)
+
+			pathoptions.strokewidth = pathoptions.strokewidth || 1
+			pathoptions.pathcolor = pathoptions.pathcolor || 'hsla(190, 100%, 50%, 1)'
+
+			var pathElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+			try {
+				pathElement.setAttribute('d', pathstring);
+				pathElement.setAttribute('id', graphname + '-path-' + pathname)
+				uid = uid + 1
+				pathElement.style.stroke = pathoptions.pathcolor
+				pathElement.style.fill = 'none'
+				pathElement.style.strokeWidth = pathoptions.strokewidth + '%';
+				gdata.svgElement.appendChild(pathElement);
+
+				graphData[graphname].pathData[pathname] = [pathElement, pathoptions]
+				return [pathElement, pathoptions]
+			}
+			catch (err){
+				console.log(pathoptions.points)
+			}
+				
+		}
+
+		function updatePath(graphname, pathname, newpathoptions) {
+
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			pathoptions = gdata.pathData[pathname][1]
+			pathElement = gdata.pathData[pathname][0]
+
+
+
+			pathoptions.points = newpathoptions.points || pathoptions.points
+
+			pathstring = 'M'
+
+			for (pth = 0; pth < pathoptions.points.length; pth++) {
+				if (pth == 0) {
+					pathstring = pathstring + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+				}
+				else {
+					pathstring = pathstring + 'L' + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+				}
+				
+			}
+
+
+			try {
+				pathElement.setAttribute('d', pathstring);
+				pathoptions.strokewidth = newpathoptions.strokewidth || pathoptions.strokewidth
+				pathoptions.pathcolor = newpathoptions.pathcolor || pathoptions.pathcolor
+
+				pathElement.style.stroke = pathoptions.pathcolor
+				pathElement.style.fill = 'none'
+				pathElement.style.strokeWidth = pathoptions.strokewidth + '%';
+				
+				graphData[graphname].pathData[pathname] = [pathElement, pathoptions]
+			}
+
+			catch (err){
+				console.log(newpathoptions.points)
+			}
+				
+		}
+
+		function updatePathPoints(graphname, pathname, npathpoints) {
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			pathoptions = gdata.pathData[pathname][1]
+			pathElement = gdata.pathData[pathname][0]
+
+			pathoptions.points = npathpoints || pathoptions.points
+
+			if (pathoptions.points.length > 0) {
+				pathstring = 'M'
+
+				for (pth = 0; pth < pathoptions.points.length; pth++) {
+					if (pth == 0) {
+						pathstring = pathstring + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+					}
+					else {
+						pathstring = pathstring + 'L' + graphToScaledX(pathoptions.points[pth][0], gdata.xmin, gdata.xmax, aratio) + ' ' + graphToScaledY(pathoptions.points[pth][1], gdata.ymin, gdata.ymax, aratio) + ' '
+					}
+					
+				}
+
+				try {
+					pathElement.setAttribute('d', pathstring);
+					graphData[graphname].pathData[pathname] = [pathElement, pathoptions]
+					return [pathElement, pathoptions]
+				}
+				catch (err){
+					console.log(npathpoints)
+				}
+			}
+			
+		}
+
+		function updateLine(graphname, linename, linevalues) {
+
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			lineoptions = gdata.lineData[linename][1]
+			lineElement = gdata.lineData[linename][0]
+			
+			if (linevalues.x1 != 0) {
+				lineoptions.x1 = linevalues.x1 || lineoptions.x1	
+			}
+			else {
+				lineoptions.x1 = linevalues.x1
+			}
+
+
+			if (linevalues.y1 != 0) {
+				lineoptions.y1 = linevalues.y1 || lineoptions.y1	
+			}
+			else {
+				lineoptions.y1 = linevalues.y1
+			}
+
+
+			if (linevalues.x2 != 0) {
+				lineoptions.x2 = linevalues.x2 || lineoptions.x2	
+			}
+			else {
+				lineoptions.x2 = linevalues.x2
+			}
+
+
+			if (linevalues.y2 != 0) {
+				lineoptions.y2 = linevalues.y2 || lineoptions.y2	
+			}
+			else {
+				lineoptions.y2 = linevalues.y2
+			}
+
+			lineoptions.strokedasharray = linevalues.strokedasharray || lineoptions.strokedasharray
+			lineoptions.strokewidth = linevalues.strokewidth || lineoptions.strokewidth
+			lineoptions.linecolor = linevalues.linecolor || lineoptions.linecolor
+
+			lineElement.setAttribute('x1', graphToScaledX(lineoptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
+			lineElement.setAttribute('y1', graphToScaledY(lineoptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
+			lineElement.setAttribute('x2', graphToScaledX(lineoptions.x2, gdata.xmin, gdata.xmax, aratio) + '%')
+			lineElement.setAttribute('y2', graphToScaledY(lineoptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
+
+			lineElement.setAttribute('stroke-dasharray', lineoptions.strokedasharray);
+			lineElement.style.stroke = lineoptions.linecolor
+			lineElement.style.strokeWidth = lineoptions.strokewidth + '%';
+			
+			graphData[graphname].lineData[linename] = [lineElement, lineoptions]
+		}
+
+		function distanceBTWgraphToSvg(p1, p2, xmin, xmax, ymin, ymax, aspectratio) {
+			pt1 = [graphToScaledX(p1[0], xmin, xmax, aspectratio), graphToScaledY(p1[1], ymin, ymax, aspectratio)]
+			pt2 = [graphToScaledX(p2[0], xmin, xmax, aspectratio), graphToScaledY(p2[1], ymin, ymax, aspectratio)]
+
+			return Math.pow(Math.pow(pt1[0] - pt2[0], 2) + Math.pow(pt1[1] - pt2[1], 2), 0.5)
+		}
+
+		function addCircle(graphname, circlename, circleoptions) {
+			gdata = graphData[graphname]
+			circleoptions = circleoptions || {}
+			aratio = gdata.aspectratio
+
+			if (circleoptions.x != 0) {
+				circleoptions.x = circleoptions.x || 0.3
+			}
+			else {
+				circleoptions.x = 0
+			}
+
+			if (circleoptions.y != 0) {
+				circleoptions.y = circleoptions.y || 0.3
+			}
+			else {
+				circleoptions.y = 0
+			}
+
+			if (circleoptions.radius != 0) {
+				circleoptions.radius = circleoptions.radius || 0.3
+			}
+			else {
+				circleoptions.radius = 0
+			}
+
+			circleoptions.name = circlename || uid
+
+			circleoptions.stroke = circleoptions.stroke || 'hsla(190, 100%, 50%, 0.5)'
+			circleoptions.strokewidth = circleoptions.strokewidth || 0.1
+			
+			circleoptions.circlecolor = circleoptions.circlecolor || 'hsla(190, 100%, 50%, 1)'
+
+			rx = distanceBTWgraphToSvg([0,0],[circleoptions.radius, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, circleoptions.radius], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+			circleElement.setAttribute('cx', graphToScaledX(circleoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			circleElement.setAttribute('cy', graphToScaledY(circleoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			circleElement.setAttribute('rx', rx + '%')
+			circleElement.setAttribute('ry', ry + '%');
+			circleElement.setAttribute('id', graphname + '-circle-' + circlename)
+			uid = uid + 1
+			circleElement.setAttribute('vector-effect','non-scaling-stroke');
+			circleElement.style.fill = circleoptions.circlecolor
+			circleElement.style.strokeWidth = circleoptions.strokewidth + '%';
+			circleElement.style.stroke = circleoptions.stroke;
+			circleElement.setAttribute('stroke-dasharray', circleoptions.strokedasharray);
+			gdata.svgElement.appendChild(circleElement);
+
+			graphData[graphname].circleData[circlename] = [circleElement, circleoptions]
+			return [circleElement, circleoptions]
+		}
+
+		function updateCircle(graphname, circlename, circlenewvalues) {
+
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			circleoptions = gdata.circleData[circlename][1]
+			circleElement = gdata.circleData[circlename][0]
+
+
+			if (circleoptions.x != 0) {
+				circleoptions.x = circlenewvalues.x || circleoptions.x
+			}
+			else {
+				circleoptions.x = 0
+			}
+
+			if (circleoptions.y != 0) {
+				circleoptions.y = circlenewvalues.y || circleoptions.y
+			}
+			else {
+				circleoptions.y = 0
+			}
+
+			if (circleoptions.radius != 0) {
+				circleoptions.radius = circlenewvalues.radius || circleoptions.radius
+			}
+			else {
+				circleoptions.radius = 0
+			}
+
+			circleoptions.name = circlename || uid
+
+			circleoptions.stroke = circlenewvalues.stroke || circleoptions.stroke
+			circleoptions.strokewidth = circlenewvalues.strokewidth || circleoptions.strokewidth
+			
+			circleoptions.circlecolor = circlenewvalues.circlecolor || circleoptions.circlecolor
+
+			rx = distanceBTWgraphToSvg([0,0],[circleoptions.radius, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, circleoptions.radius], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			circleElement.setAttribute('cx', graphToScaledX(circleoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			circleElement.setAttribute('cy', graphToScaledY(circleoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			circleElement.setAttribute('rx', rx + '%')
+			circleElement.setAttribute('ry', ry + '%');
+			circleElement.setAttribute('id', graphname + '-circle-' + circlename)
+			uid = uid + 1
+			circleElement.setAttribute('vector-effect','non-scaling-stroke');
+			circleElement.style.fill = circleoptions.circlecolor
+			circleElement.style.strokeWidth = circleoptions.strokewidth + '%';
+			circleElement.style.stroke = circleoptions.stroke;
+			circleElement.setAttribute('stroke-dasharray', circleoptions.strokedasharray);
+			
+			graphData[graphname].circleData[circlename] = [circleElement, circleoptions]
+		}
+
+		function addEllipse(graphname, ellipsename, ellipseoptions) {
+			gdata = graphData[graphname]
+
+			aratio = gdata.aspectratio
+
+			ellipseoptions = ellipseoptions || {}
+
+			ellipseoptions.x = parseFloat(ellipseoptions.x.toString() || 0)
+			ellipseoptions.y = parseFloat(ellipseoptions.y.toString() || 0)
+			ellipseoptions.rx = parseFloat(ellipseoptions.rx.toString() || 0.3)
+			ellipseoptions.ry = parseFloat(ellipseoptions.ry.toString() || 8)
+			ellipseoptions.name = ellipsename || uid
+
+			ellipseoptions.stroke = ellipseoptions.stroke || 'hsla(190, 100%, 50%, 0.5)'
+			ellipseoptions.strokewidth = ellipseoptions.strokewidth || 0.1
+			
+			ellipseoptions.ellipsecolor = ellipseoptions.ellipsecolor || 'hsla(190, 100%, 50%, 1)'
+
+			rx = distanceBTWgraphToSvg([0,0],[ellipseoptions.rx, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, ellipseoptions.ry], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			var ellipseElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+			ellipseElement.setAttribute('cx', graphToScaledX(ellipseoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			ellipseElement.setAttribute('cy', graphToScaledY(ellipseoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			ellipseElement.setAttribute('rx', rx + '%')
+			ellipseElement.setAttribute('ry', ry + '%');
+			ellipseElement.setAttribute('id', graphname + '-ellipse-' + ellipsename)
+			uid = uid + 1
+			ellipseElement.setAttribute('vector-effect','non-scaling-stroke');
+			ellipseElement.style.fill = ellipseoptions.ellipsecolor
+			ellipseElement.style.strokeWidth = ellipseoptions.strokewidth + '%';
+			ellipseElement.style.stroke = ellipseoptions.stroke;
+			gdata.svgElement.appendChild(ellipseElement);
+
+			graphData[graphname].ellipseData[ellipsename] = [ellipseElement, ellipseoptions]
+			return [ellipseElement, ellipseoptions]
+		}
+
+		function updateEllipse(graphname, ellipsename, ellipsenewvalues) {
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			ellipseoptions = gdata.ellipseData[ellipsename][1]
+			ellipseElement = gdata.ellipseData[ellipsename][0]
+
+			if (ellipseoptions.x != 0) {
+				ellipseoptions.x = ellipsenewvalues.x || ellipseoptions.x
+			}
+			else {
+				ellipseoptions.x = 0
+			}
+
+			if (ellipseoptions.y != 0) {
+				ellipseoptions.y = ellipsenewvalues.y || ellipseoptions.y
+			}
+			else {
+				ellipseoptions.y = 0
+			}
+
+			if (ellipseoptions.rx != 0) {
+				ellipseoptions.rx = ellipsenewvalues.rx || ellipseoptions.rx
+			}
+			else {
+				ellipseoptions.rx = 0
+			}
+			if (ellipseoptions.ry != 0) {
+				ellipseoptions.ry = ellipsenewvalues.ry || ellipseoptions.ry
+			}
+			else {
+				ellipseoptions.ry = 0
+			}
+
+			ellipseoptions.name = ellipsename || uid
+
+			ellipseoptions.stroke = ellipsenewvalues.stroke || ellipseoptions.stroke
+			ellipseoptions.strokewidth = ellipsenewvalues.strokewidth || ellipseoptions.strokewidth
+			
+			ellipseoptions.ellipsecolor = ellipsenewvalues.ellipsecolor || ellipseoptions.ellipsecolor
+
+			rx = distanceBTWgraphToSvg([0,0],[ellipseoptions.rx, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, ellipseoptions.ry], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			ellipseElement.setAttribute('cx', graphToScaledX(ellipseoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			ellipseElement.setAttribute('cy', graphToScaledY(ellipseoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			ellipseElement.setAttribute('rx', rx + '%')
+			ellipseElement.setAttribute('ry', ry + '%');
+			ellipseElement.setAttribute('id', graphname + '-ellipse-' + ellipsename)
+			uid = uid + 1
+			ellipseElement.setAttribute('vector-effect','non-scaling-stroke');
+			ellipseElement.style.fill = ellipseoptions.ellipsecolor
+			ellipseElement.style.strokeWidth = ellipseoptions.strokewidth + '%';
+			ellipseElement.style.stroke = ellipseoptions.stroke;
+			gdata.svgElement.appendChild(ellipseElement);
+
+			graphData[graphname].ellipseData[ellipsename] = [ellipseElement, ellipseoptions]
+		}
+
+		function addText(graphname, textname, textoptions) {
+			gdata = graphData[graphname]
+			textoptions = textoptions || {}
+
+			aratio = gdata.aspectratio
+
+			textoptions.x = parseFloat(textoptions.x.toString() || 0)
+			textoptions.y = parseFloat(textoptions.y.toString() || 0)
+			textoptions.text = textoptions.text || ''
+			textoptions.name = textname || uid
+
+			textoptions.textAlign = textoptions.textAlign || 'left'
+			textoptions.fontSize = textoptions.fontSize || 12
+			textoptions.fontFamily = textoptions.fontFamily || 'Source Sans Pro'
+			
+			textoptions.textcolor = textoptions.textcolor || 'hsla(190, 100%, 0%, 1)'
+			
+			var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+			textElement.setAttribute('x', graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			textElement.setAttribute('y', graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			textElement.setAttribute('id', graphname + '-text-' + textname)
+			uid = uid + 1
+			textElement.setAttribute('vector-effect','non-scaling-stroke');
+			textElement.style.fill = textoptions.textcolor
+			textElement.innerHTML = textoptions.text
+			textElement.style.fontFamily = textoptions.fontFamily
+			textElement.style.fontSize = textoptions.fontSize;
+			if (textoptions.textAlign == 'center') {
+				textElement.setAttribute('text-anchor','middle')
+			}
+			gdata.svgElement.appendChild(textElement);
+
+			graphData[graphname].textData[textname] = [textElement, textoptions]
+			return [textElement, textoptions]
+		}
+
+		function updateText(graphname, textname, textvalues) {
+			gdata = graphData[graphname]
+
+			aratio = gdata.aspectratio
+
+			textoptions = gdata.textData[textname][1]
+			textElement = gdata.textData[textname][0]
+
+			textoptions.text = textvalues.text || textoptions.text
+			textoptions.x = textvalues.x || textoptions.x
+			textoptions.y = textvalues.y || textoptions.y
+			textoptions.textcolor = textvalues.textcolor || textoptions.textcolor
+			textoptions.fontSize = textvalues.fontSize || textoptions.fontSize
+
+			textElement.innerHTML = textoptions.text
+			textElement.setAttribute('x', graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			textElement.setAttribute('y', graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			textElement.style.fill = textoptions.textcolor
+			textElement.style.fontSize = textoptions.fontSize;
+			
+			graphData[graphname].textData[textname] = [textElement, textoptions]
+			return [textElement, textoptions]
+		}
+
+		function addRectangle(graphname, rectname, rectoptions) {
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+			rectoptions = rectoptions || {}
+
+			rectoptions.x = parseFloat(rectoptions.x.toString() || 0)
+			rectoptions.y = parseFloat(rectoptions.y.toString() || 0)
+			rectoptions.w = parseFloat(rectoptions.w.toString() || 1)
+			rectoptions.h = parseFloat(rectoptions.h.toString() || 1)
+			rectoptions.name = rectname || uid
+
+			rectoptions.stroke = rectoptions.stroke || 'hsla(190, 100%, 50%, 0.5)'
+			rectoptions.strokewidth = rectoptions.strokewidth || 0.1
+			rectoptions.strokedasharray = rectoptions.strokedasharray || ""
+
+			
+			rectoptions.rectcolor = rectoptions.rectcolor || 'hsla(190, 100%, 50%, 1)'
+
+			rx = distanceBTWgraphToSvg([0,0],[rectoptions.w, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, rectoptions.h], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('x', graphToScaledX(rectoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			rectElement.setAttribute('y', graphToScaledY(rectoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			rectElement.setAttribute('width', rx + '%')
+			rectElement.setAttribute('height', ry + '%');
+			rectElement.setAttribute('id', graphname + '-rect-' + rectname)
+			uid = uid + 1
+			rectElement.setAttribute('vector-effect','non-scaling-stroke');
+			rectElement.style.fill = rectoptions.rectcolor
+			rectElement.style.strokeWidth = rectoptions.strokewidth + '%';
+			rectElement.style.stroke = rectoptions.stroke;
+			rectElement.setAttribute('stroke-dasharray', rectoptions.strokedasharray);
+
+			gdata.svgElement.appendChild(rectElement);
+
+			graphData[graphname].rectData[rectname] = [rectElement, rectoptions]
+
+			return [rectElement, rectoptions]
+		}
+
+		function updateRectangle(graphname, rectname, rectvalueupdate) {
+			gdata = graphData[graphname]
+			rectoptions = gdata.rectData[rectname][1]
+			rectElement = gdata.rectData[rectname][0]
+			aratio = gdata.aspectratio
+
+			if (rectvalueupdate.x != 0) {
+				rectoptions.x = rectvalueupdate.x || rectoptions.x	
+			}
+			else {
+				rectoptions.x = rectvalueupdate.x
+			}
+
+
+			if (rectvalueupdate.y != 0) {
+				rectoptions.y = rectvalueupdate.y || rectoptions.y	
+			}
+			else {
+				rectoptions.y = rectvalueupdate.y
+			}
+
+
+			if (rectvalueupdate.w != 0) {
+				rectoptions.w = rectvalueupdate.w || rectoptions.w	
+			}
+			else {
+				rectoptions.w = rectvalueupdate.w
+			}
+
+
+			if (rectvalueupdate.h != 0) {
+				rectoptions.h = rectvalueupdate.h || rectoptions.h	
+			}
+			else {
+				rectoptions.h = rectvalueupdate.h
+			}
+			
+			rectoptions.stroke = rectvalueupdate.stroke || rectoptions.stroke
+			rectoptions.strokewidth = rectvalueupdate.strokewidth || rectoptions.strokewidth
+			
+			rectoptions.rectcolor = rectvalueupdate.rectcolor || rectoptions.rectcolor
+
+			rx = distanceBTWgraphToSvg([0,0],[rectoptions.w, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, rectoptions.h], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			rectElement.setAttribute('x', graphToScaledX(rectoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			rectElement.setAttribute('y', graphToScaledY(rectoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			rectElement.setAttribute('width', rx + '%')
+			rectElement.setAttribute('height', ry + '%');
+			rectElement.style.fill = rectoptions.rectcolor
+			rectElement.style.strokeWidth = rectoptions.strokewidth + '%';
+			rectElement.style.stroke = rectoptions.stroke;
+
+			
+			graphData[graphname].rectData[rectname] = [rectElement, rectoptions]
+		}
+
+		function addPoint(graphname, pointname, pointoptions) {
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			pointoptions = pointoptions || {}
+
+			if (pointoptions.x != 0) {
+				pointoptions.x = pointoptions.x || 0.3	
+			}
+			if (pointoptions.y != 0) {
+				pointoptions.y = pointoptions.y || 0.3	
+			}
+			// pointoptions.y = pointoptions.y || 0.3
+			pointoptions.pointsize = pointoptions.pointsize || 0.7
+			pointoptions.name = pointname || uid
+
+			pointoptions.pointcolor = pointoptions.pointcolor || 'hsla(190, 100%, 50%, 1)'
+			
+			var pointElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+			pointElement.setAttribute('cx', graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			pointElement.setAttribute('cy', graphToScaledY(pointoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			pointElement.setAttribute('rx', pointoptions.pointsize + '%')
+			pointElement.setAttribute('ry', pointoptions.pointsize + '%');
+			pointElement.setAttribute('id', graphname + '-point-' + pointname)
+			uid = uid + 1
+			pointElement.setAttribute('vector-effect','non-scaling-stroke');
+			pointElement.style.fill = pointoptions.pointcolor
+			gdata.svgElement.appendChild(pointElement);
+
+			pointoptions.draggability = pointoptions.draggability || 'no'
+			if (pointoptions.draggability == 'yes') {
+				pointoptions.currentlyDraggable = pointoptions.currentlyDraggable || 'yes'
+			}
+			else {
+				pointoptions.currentlyDraggable = pointoptions.currentlyDraggable || 'no'
+			}
+			pointoptions.runFunctionOnDragEnd = pointoptions.runFunctionOnDragEnd || ''
+			pointoptions.runFunctionDuringDrag = pointoptions.runFunctionDuringDrag || ''
+
+			if (pointoptions.draggability == 'yes') {
+				pointElement.addEventListener('mousedown', pointDrag)
+				pointElement.addEventListener('touchstart', pointDrag)
+				gdata.svgElement.addEventListener('touchmove', graphTouchDisable)
+			}
+			else {
+				pointElement.style.pointerEvents = 'none'
+			}
+
+			pointoptions.dragDirection = pointoptions.dragDirection || 'bothXY'
+			pointoptions.dragIfCondition = pointoptions.dragIfCondition || 'true'
+
+			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
+			reverseGraphElementMap[pointElement.id] = [graphname, pointname]
+			return [pointElement, pointoptions]
+		}
+
+		function updatePoint(graphname, pointname, newpointoptions) {
+			gdata = graphData[graphname]
+			pointoptions = gdata.pointData[pointname][1]
+			pointElement = gdata.pointData[pointname][0]
+			aratio = gdata.aspectratio
+
+			if (pointoptions.x != 0) {
+				pointoptions.x = newpointoptions.x || pointoptions.x
+			}
+			if (pointoptions.y != 0) {
+				pointoptions.y = newpointoptions.x || pointoptions.y
+			}
+			// pointoptions.y = pointoptions.y || 0.3
+			pointoptions.pointsize = newpointoptions.pointsize || pointoptions.pointsize
+			pointoptions.name = pointname || uid
+
+			pointoptions.pointcolor = newpointoptions.pointcolor || pointoptions.pointcolor
+			
+			pointElement.setAttribute('cx', graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			pointElement.setAttribute('cy', graphToScaledY(pointoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			pointElement.setAttribute('rx', pointoptions.pointsize + '%')
+			pointElement.setAttribute('ry', pointoptions.pointsize + '%');
+			pointElement.setAttribute('id', graphname + '-point-' + pointname)
+			uid = uid + 1
+			pointElement.setAttribute('vector-effect','non-scaling-stroke');
+			pointElement.style.fill = pointoptions.pointcolor
+			gdata.svgElement.appendChild(pointElement);
+
+			pointoptions.draggability = newpointoptions.draggability || 'no'
+			if (pointoptions.draggability == 'yes') {
+				pointoptions.currentlyDraggable = newpointoptions.currentlyDraggable || 'yes'
+			}
+			else {
+				pointoptions.currentlyDraggable = newpointoptions.currentlyDraggable || 'no'
+			}
+			pointoptions.runFunctionOnDragEnd = newpointoptions.runFunctionOnDragEnd || ''
+			pointoptions.runFunctionDuringDrag = newpointoptions.runFunctionDuringDrag || ''
+			pointoptions.dragDirection = newpointoptions.dragDirection || 'bothXY'
+			pointoptions.dragIfCondition = newpointoptions.dragIfCondition || ''
+
+			if (pointoptions.draggability == 'yes') {
+				pointElement.addEventListener('mousedown', pointDrag)
+				pointElement.addEventListener('touchstart', pointDrag)
+			}
+			else {
+				pointElement.removeEventListener('mousedown', pointDrag)
+				pointElement.removeEventListener('touchstart', pointDrag)
+			}
+
+			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
+
+		}
+
+		function updatePointXY(graphname, pointname, xvalue, yvalue) {
+			pointElement = document.getElementById(graphname + '-point-' + pointname)
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			pointoptions = graphData[graphname].pointData[pointname][1]
+
+			pointoptions.x = xvalue
+			pointoptions.y = yvalue
+			
+			
+			pointElement.setAttribute('cx', graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			pointElement.setAttribute('cy', graphToScaledY(pointoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+
+			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
+		}
+
+		function removePoint(graphname, pointname) {
+			pointElement = document.getElementById(graphname + '-point-' + pointname)
+			
+			pointElement.outerHTML = "";
+			delete graphData[graphname].pointData[pointname]
+		}
+
+		function removeLine(graphname, linename) {
+			lineElement = document.getElementById(graphname + '-line-' + linename)
+			lineElement.outerHTML = "";
+			delete graphData[graphname].lineData[linename]
+		}
+
+		function removeText(graphname, textname) {
+			textElement = document.getElementById(graphname + '-text-' + textname)
+			textElement.outerHTML = "";
+			delete graphData[graphname].textData[textname]
+		}
+
+		function removePath(graphname, pathname) {
+			pathElement = document.getElementById(graphname + '-path-' + pathname)
+			pathElement.outerHTML = "";
+			delete graphData[graphname].pathData[pathname]
+		}
+
+		function removeGraph(graphname) {
+			graphElement = document.getElementById(graphname)
+			graphElement.outerHTML = "";
+			delete graphData[graphname]
+		}
+
+		function basicSlider(graphname2, slidernamebasic, maxv, minv, currentv, thickness, coordinates) {
+			options = {}
+			options.maxvalue = maxv
+			options.minvalue = minv
+			options.currentvalue = currentv
+			options.x1 = coordinates[0][0]
+			options.y1 = coordinates[0][1]
+			options.x2 = coordinates[1][0]
+			options.y2 = coordinates[1][1]
+			options.strokewidth = thickness
+			options.automaticallySetKnobRadius = 'yes'
+			addSlider(graphname2, slidernamebasic, options)
+		}
+
+		function makeArc(arcradius, arcthickness, arccolor, startanglepercent, endanglepercent, ringname) {
+			resolution = 100
+			arcpoints = []
+			for (p = startanglepercent*resolution; p < endanglepercent*(resolution + 1); p++) {
+				quanta = 2*Math.PI/resolution
+				arcpoints.push([arcradius*Math.cos(quanta*p), arcradius*Math.sin(quanta*p)])
+			}
+			options = {}
+			options.points = arcpoints
+			options.pathcolor = arccolor
+			options.strokewidth = arcthickness
+			addPath('ringvisualgraph', ringname, options)
+			// console.log(options.points)
+
+			return arcpoints
+		}
+
+		function makeArcS(ringarcnum, arcradius, arcthickness, arccolor, startanglepercent, endanglepercent, ringname) {
+			resolution = 20
+			arcpoints = []
+			for (p = startanglepercent*resolution; p < endanglepercent*(resolution + 1); p++) {
+				quanta = 2*Math.PI/resolution
+				arcpoints.push([arcradius*Math.cos(quanta*p), arcradius*Math.sin(quanta*p)])
+			}
+			options = {}
+			options.points = arcpoints
+			options.pathcolor = arccolor
+			options.strokewidth = arcthickness
+			addPath('ringvisualgraph', ringname, options)
+			// console.log(options.points)
+		}
+
+		function deleteSegments(collection) {
+			if (typeof collection != 'undefined') {
+				for (f = 0; f < collection.length; f++) {
+					collection[f].outerHTML = ''
+				}
+			}
+		}
+
+		function randomChoice(choicearray) {
+			return choicearray[parseInt(Math.random()*choicearray.length)]
+		}
+
+		function linearValue(xv1, xv2, yv1, yv2, inputvl) {
+			return yv1 + ((inputvl - xv1)/(xv2 - xv1))*(yv2 - yv1)
+		}
+
+		currentMovingPoint = ''
+		function pointDrag(event) {
+			gphname = reverseGraphElementMap[event.target.id][0]
+			ptname = reverseGraphElementMap[event.target.id][1]
+			if (graphData[gphname].pointData[ptname][1].currentlyDraggable == 'yes') {
+				if (graphData[gphname].currentlyDraggableGraph == 'yes') {
+					document.getElementById(gphname).removeEventListener('mousedown', graphDragHandle)
+					document.getElementById(gphname).removeEventListener('touchstart', graphDragHandle)
+				}
+				event.target.removeEventListener('mousedown', pointDrag)
+				event.target.removeEventListener('touchstart', pointDrag)
+				window.addEventListener('mousemove', pointMoveEvent)
+				window.addEventListener('mouseup', pointUpEvent)
+				event.preventDefault()
+				window.addEventListener('touchmove', pointMoveEvent, { passive: false })
+				window.addEventListener('touchend', pointUpEvent)
+				// window.addEventListener('mouseout', pointUpEvent)
+				currentMovingPoint = event.target
+			}
+				
+		}
+
+		svgPTVariable = {}
+		
+		function pointMoveEvent(event) {
+			event.preventDefault()
+			gphname = reverseGraphElementMap[currentMovingPoint.id][0]
+			ptname = reverseGraphElementMap[currentMovingPoint.id][1]
+			var rect = document.getElementById(gphname).getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			svgPTVariable[gphname].x = event.clientX;
+			svgPTVariable[gphname].y = event.clientY;
+
+			if (event.clientX == undefined) {
+				posx = event.changedTouches[0].clientX - rect.left;
+				posy = event.changedTouches[0].clientY - rect.top;
+				svgPTVariable[gphname].x = event.changedTouches[0].clientX;
+				svgPTVariable[gphname].y = event.changedTouches[0].clientY;
+			}
+
+			var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+			moveX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
+			moveY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+
+			if (typeof eval(graphData[gphname].pointData[ptname][1].dragIfCondition) != undefined) {
+				if (eval(graphData[gphname].pointData[ptname][1].dragIfCondition) == true) {
+					if (graphData[gphname].pointData[ptname][1].dragDirection == 'bothXY') {
+						updatePointXY(gphname, ptname, moveX, moveY)
+						eval(graphData[gphname].pointData[ptname][1].runFunctionDuringDrag)
+					}
+					else if (graphData[gphname].pointData[ptname][1].dragDirection == 'onlyY') {
+						updatePointXY(gphname, ptname, graphData[gphname].pointData[ptname][1].x, moveY)
+						eval(graphData[gphname].pointData[ptname][1].runFunctionDuringDrag)
+					}
+					else if (graphData[gphname].pointData[ptname][1].dragDirection == 'onlyX') {
+						updatePointXY(gphname, ptname, moveX, graphData[gphname].pointData[ptname][1].y)
+						eval(graphData[gphname].pointData[ptname][1].runFunctionDuringDrag)
+					}
+				}
+			}
+		}
+
+		function pointUpEvent(event) {
+			gphname = reverseGraphElementMap[currentMovingPoint.id][0]
+			ptname = reverseGraphElementMap[currentMovingPoint.id][1]
+			if (graphData[gphname].currentlyDraggableGraph == 'yes') {
+				document.getElementById(gphname).addEventListener('mousedown', graphDragHandle)
+				document.getElementById(gphname).addEventListener('touchstart', graphDragHandle)
+			}
+			currentMovingPoint.addEventListener('mousedown', pointDrag)
+			currentMovingPoint.addEventListener('touchstart', pointDrag)
+			window.removeEventListener('mousemove', pointMoveEvent)
+			window.removeEventListener('mouseup', pointUpEvent)
+			window.removeEventListener('touchmove', pointMoveEvent)
+			window.removeEventListener('touchend', pointUpEvent)
+
+			// window.removeEventListener('mouseout', pointUpEvent)
+			eval(graphData[gphname].pointData[ptname][1].runFunctionOnDragEnd)
+		}
+
+		function wheelHandle(event) {
+			event.preventDefault();
+			whlvalue = (event.wheelDeltaY)/Math.abs(event.wheelDeltaY)
+			if (event.wheelDeltaY == undefined) {
+				whlvalue = (event.deltaY)/Math.abs(event.deltaY)
+				// For FireFox
+			}
+			scalefactorup = 1.1
+			scalefactordown = 0.9
+
+			if(graphData[event.target.id.split('-')[0]] == undefined) {
+
+			}
+			else {
+				gdata = graphData[event.target.id.split('-')[0]]
+
+				scale = gdata.ymax - gdata.ymin
+				expstring = scale.toExponential().toString()
+				ordery = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				// console.log(ordery)
+
+				scale = gdata.xmax - gdata.xmin
+				expstring = scale.toExponential().toString()
+				orderx = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				// console.log(orderx)
+
+				gphname = gdata.name
+
+				var rect = document.getElementById(gphname).getBoundingClientRect();
+				posx = event.clientX - rect.left;
+				posy = event.clientY - rect.top;
+				svgPTVariable[gphname].x = event.clientX;
+				svgPTVariable[gphname].y = event.clientY;
+
+				if (event.clientX == undefined) {
+					posx = event.changedTouches[0].clientX - rect.left;
+					posy = event.changedTouches[0].clientY - rect.top;
+					svgPTVariable[gphname].x = event.changedTouches[0].clientX;
+					svgPTVariable[gphname].y = event.changedTouches[0].clientY;
+				}
+
+				var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+				zoomlocationX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
+				zoomlocationY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+
+				currentvalues = graphData[gphname]
+
+				posx = posx/rect.width
+				posy = posy/rect.height
+
+				if (posx > 0.11 && posx < 0.89 && posy > 0.11 && posy < 0.89) {
+					if (whlvalue < 0) {
+						scaleupdownFactor = scalefactorup
+						leftX = (zoomlocationX - currentvalues.xmin)*scaleupdownFactor
+						newZXmin = zoomlocationX - leftX
+						rightX = (currentvalues.xmax - zoomlocationX)*scaleupdownFactor
+						newZXmax = zoomlocationX + rightX
+						leftY = (zoomlocationY - currentvalues.ymin)*scaleupdownFactor
+						newZYmin = zoomlocationY - leftY
+						rightY = (currentvalues.ymax - zoomlocationY)*scaleupdownFactor
+						newZYmax = zoomlocationY + rightY
+
+						options = {}
+						options.xmin = newZXmin
+						options.xmax = newZXmax
+						options.ymin = newZYmin
+						options.ymax = newZYmax
+						
+						updateGraphZoom(gphname, options)
+					}
+					else if (whlvalue >= 0 && orderx < 14 && ordery < 14) {
+
+						scaleupdownFactor = scalefactordown
+						leftX = (zoomlocationX - currentvalues.xmin)*scaleupdownFactor
+						newZXmin = zoomlocationX - leftX
+						rightX = (currentvalues.xmax - zoomlocationX)*scaleupdownFactor
+						newZXmax = zoomlocationX + rightX
+						leftY = (zoomlocationY - currentvalues.ymin)*scaleupdownFactor
+						newZYmin = zoomlocationY - leftY
+						rightY = (currentvalues.ymax - zoomlocationY)*scaleupdownFactor
+						newZYmax = zoomlocationY + rightY
+
+						options = {}
+						options.xmin = newZXmin
+						options.xmax = newZXmax
+						options.ymin = newZYmin
+						options.ymax = newZYmax
+						updateGraphZoom(gphname, options)
+					}
+				}
+
+					
+			}
+		}
+
+		currentMovingGraph = ''
+		currentMovingGraphStartLocation = []
+		
+		function graphDragHandle(event) {
+			event.preventDefault();
+			gphname = event.target.id.split('-')[0]
+			if (graphData[gphname].currentlyDraggableGraph == 'yes') {
+				graphData[gphname].svgElement.removeEventListener('mousedown', graphDragHandle)
+				graphData[gphname].svgElement.removeEventListener('touchstart', graphDragHandle)
+				window.addEventListener('mousemove', graphDragMoveEvent)
+				window.addEventListener('mouseup', graphDragUpEvent)
+				event.preventDefault()
+				window.addEventListener('touchmove', graphDragMoveEvent, { passive: false })
+				window.addEventListener('touchend', graphDragUpEvent)
+				// window.addEventListener('mouseout', pointUpEvent)
+				currentMovingGraph = graphData[gphname].svgElement
+
+				var rect = document.getElementById(gphname).getBoundingClientRect();
+				posx = event.clientX - rect.left;
+				posy = event.clientY - rect.top;
+				svgPTVariable[gphname].x = event.clientX;
+				svgPTVariable[gphname].y = event.clientY;
+
+				if (event.clientX == undefined) {
+					posx = event.changedTouches[0].clientX - rect.left;
+					posy = event.changedTouches[0].clientY - rect.top;
+					svgPTVariable[gphname].x = event.changedTouches[0].clientX;
+					svgPTVariable[gphname].y = event.changedTouches[0].clientY;
+
+				}
+
+				var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+				tapX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
+				tapY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+
+				currentMovingGraphStartLocation = [tapX, tapY]
+				currentMovingGraphOriginalBounds = [graphData[gphname].xmin, graphData[gphname].xmax, graphData[gphname].ymin, graphData[gphname].ymax]
+
+				currentMovingGraph.style.cursor = 'move'
+
+			}
+		}
+
+		function clientToGraph(clientValues, graphNameInput) {
+			svgPTVariable[graphNameInput].x = clientValues[0];
+			svgPTVariable[graphNameInput].y = clientValues[1];
+
+			var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+			return [svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio), svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)]
+
+		}
+
+		function graphPinchMoveEvent(event) {
+			if (event.changedTouches.length == 2) {
+				gphname = event.target.id.split('-')[0]
+				touch1 = [event.changedTouches[0].clientX, event.changedTouches[0].clientY]
+				touch2 = [event.changedTouches[1].clientX, event.changedTouches[1].clientY]
+
+				touch1 = clientToGraph(touch1, gphname)
+				touch2 = clientToGraph(touch2, gphname)
+
+				oldtouch1 = clientToGraph(pinchStartData[0], gphname)
+				oldtouch2 = clientToGraph(pinchStartData[1], gphname)
+
+				pinchScale = distF(oldtouch1, oldtouch2)/distF(touch1, touch2)
+				pinchStartMidpoint = [(oldtouch1[0] + oldtouch2[0])/2, (oldtouch1[1] + oldtouch2[1])/2]
+
+				zoomlocationX = pinchStartMidpoint[0]
+				zoomlocationY = pinchStartMidpoint[1]
+
+				gdata = graphData[gphname]
+
+				scale = gdata.ymax - gdata.ymin
+				expstring = scale.toExponential().toString()
+				ordery = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				// console.log(ordery)
+
+				scale = gdata.xmax - gdata.xmin
+				expstring = scale.toExponential().toString()
+				orderx = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+				// console.log(orderx)
+
+				currentvalues = graphData[gphname]
+
+				scaleFactorForTouch = 1
+				if (pinchScale <= 1) {
+					scaleFactorForTouch = linearValue(0, 1, 0.9, 1, pinchScale)
+				}
+				else {
+					scaleFactorForTouch = linearValue(1, 5, 1, 1.1, pinchScale)
+				}
+
+				leftX = (zoomlocationX - currentvalues.xmin)*scaleFactorForTouch
+				newZXmin = zoomlocationX - leftX
+				rightX = (currentvalues.xmax - zoomlocationX)*scaleFactorForTouch
+				newZXmax = zoomlocationX + rightX
+				leftY = (zoomlocationY - currentvalues.ymin)*scaleFactorForTouch
+				newZYmin = zoomlocationY - leftY
+				rightY = (currentvalues.ymax - zoomlocationY)*scaleFactorForTouch
+				newZYmax = zoomlocationY + rightY
+
+				options = {}
+				options.xmin = newZXmin
+				options.xmax = newZXmax
+				options.ymin = newZYmin
+				options.ymax = newZYmax
+				
+				updateGraphZoom(gphname, options)
+				
+				// console.log(pinchStartMidpoint)
+			}
+		}
+
+		function graphPinchEndEvent(event) {
+			pinchZoom = false
+			window.removeEventListener('touchmove', graphPinchMoveEvent)
+			window.removeEventListener('touchend', graphPinchEndEvent)
+		}
+
+		pinchZoom = false
+		pinchStartData = []
+
+		function graphDragMoveEvent(event) {
+			event.preventDefault()
+			gphname = currentMovingGraph.id
+			var rect = document.getElementById(gphname).getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			svgPTVariable[gphname].x = event.clientX;
+			svgPTVariable[gphname].y = event.clientY;
+
+			touchEventDetect = 0
+
+			if (event.clientX == undefined) {
+				posx = event.changedTouches[0].clientX - rect.left;
+				posy = event.changedTouches[0].clientY - rect.top;
+				svgPTVariable[gphname].x = event.changedTouches[0].clientX;
+				svgPTVariable[gphname].y = event.changedTouches[0].clientY;
+				
+				if (event.changedTouches.length == 2) {
+					oldtouch1 = [event.changedTouches[0].clientX, event.changedTouches[0].clientY]
+					oldtouch2 = [event.changedTouches[1].clientX, event.changedTouches[1].clientY]
+					pinchStartData = [oldtouch1, oldtouch2]
+					dummyEve = {}
+					pinchZoom = true
+					graphDragUpEvent(dummyEve)
+					window.addEventListener('touchmove', graphPinchMoveEvent)
+					window.addEventListener('touchend', graphPinchEndEvent)
+				}
+
+				touchEventDetect = event.changedTouches[0].identifier
+				
+			}
+
+			if (pinchZoom == false && touchEventDetect == 0) {
+				var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+				moveX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
+				moveY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+
+				deltaVecX = moveX - currentMovingGraphStartLocation[0]
+				deltaVecY = moveY - currentMovingGraphStartLocation[1]
+				currentvalues = graphData[gphname]
+
+				newZXmin = currentvalues.xmin - deltaVecX
+				newZXmax =currentvalues.xmax - deltaVecX
+				newZYmin = currentvalues.ymin - deltaVecY
+				newZYmax = currentvalues.ymax - deltaVecY
+				
+				if (typeof eval(graphData[gphname].dragIfCondition) != undefined) {
+					if (eval(graphData[gphname].dragIfCondition) == true) {
+						if (graphData[gphname].dragDirection == 'bothXY') {
+							options = {}
+							options.xmin = newZXmin
+							options.xmax = newZXmax
+							options.ymin = newZYmin
+							options.ymax = newZYmax
+							updateGraphZoom(gphname, options)
+							eval(graphData[gphname].runFunctionDuringDrag)
+						}
+						else if (graphData[gphname].dragDirection == 'onlyY') {
+							options = {}
+							options.ymin = newZYmin
+							options.ymax = newZYmax
+							updateGraphZoom(gphname, options)
+							eval(graphData[gphname].runFunctionDuringDrag)
+						}
+						else if (graphData[gphname].dragDirection == 'onlyX') {
+							options = {}
+							options.xmin = newZXmin
+							options.xmax = newZXmax
+							updateGraphZoom(gphname, options)
+							eval(graphData[gphname].runFunctionDuringDrag)
+						}
+					}
+				}
+			}
+
+				
+		}
+
+		function graphDragUpEvent(event) {
+			gphname = currentMovingGraph.id
+
+			currentMovingGraph.addEventListener('mousedown', graphDragHandle)
+			currentMovingGraph.addEventListener('touchstart', graphDragHandle)
+			window.removeEventListener('mousemove', graphDragMoveEvent)
+			window.removeEventListener('mouseup', graphDragUpEvent)
+			window.removeEventListener('touchmove', graphDragMoveEvent)
+			window.removeEventListener('touchend', graphDragUpEvent)
+
+			// window.removeEventListener('mouseout', pointUpEvent)
+			eval(graphData[gphname].runFunctionOnDragEnd)
+
+			currentMovingGraph.style.cursor = 'auto'
+		}
+
+		function graphTouchDisable(event) {
+			event.preventDefault()
+		}
+
+
+		dmode = 'square'
+		if (1.25*window.innerWidth < window.innerHeight && window.innerWidth < window.innerHeight) {
+			dmode = 'portrait'
+		}
+		else if (window.innerWidth > 1.3*window.innerHeight && window.innerWidth > window.innerHeight) {
+			dmode = 'landscape'
+		}
+
+		function setFont(divCollection, fontval) {
+			for (divN = 0; divN < divCollection.length; divN++) {
+				document.getElementById(divCollection[divN]).style.fontSize = fontval
+			}
+		}
+
+		function handleLayout1() {
+			if (dmode == 'portrait') {
+				document.getElementById('containAll').style.position = 'relative'
+				// document.body.style.overflow = 'hidden'
+				document.getElementById('MainBlock1').style.width = '90%'
+				document.getElementById('MainBlock1').style.height = '70%'
+
+				document.getElementById('mainVSpacer1').style.height = '70%'
+				document.getElementById('mainVSpacer2').style.height = '70%'
+				document.getElementById('mainVSpacer3').style.height = '90%'
+
+				document.getElementById('mainVSpacer1').style.width = '5%'
+				document.getElementById('mainVSpacer2').style.width = '5%'
+				document.getElementById('mainVSpacer3').style.width = '5%'
+
+				document.getElementById('MainBlock2').style.width = '90%'
+				document.getElementById('MainBlock2').style.height = '90%'
+
+				document.getElementById('maintitle').style.textAlign = 'center'
+				document.getElementById('titleH').style.height = '15%'
+				document.getElementById('maintitle').style.fontSize = '4vmax'
+				document.getElementById('maintitle').innerHTML = 'covid19 Trends <font style="font-weight: bold;"><select  id="countryToChoose" onchange="switchCountryEvent(event)" style="font-family: Raleway; font-size: 4vmax; font-weight: bold; border: 0px solid black; border-radius: 10px;"><option value="US">US</option><option value="India">India</option>	</select></font><br/><font style="font-family: Source Sans Pro; font-size: 1.6vmax; vertical-align: bottom;">Inspired by <a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(334, 100%, 50%, 1);">Covid Trends</a></font> by <a href="https://aatishb.com/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Aatish Bhatia</font></a>, which was in collaboration with <a href="https://www.youtube.com/watch?v=54XLXg4fYsc" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(280, 100%, 50%, 1);">MinutePhysics</font></a></font>'
+
+				// document.getElementById('mainB1HSpacer2').style.height = '1%'
+
+				document.getElementById('visualChartH').style.height = '66%'
+				document.getElementById('onTopControlsH').style.height = '66%'
+				document.getElementById('playpauseH').style.fontSize = '4vmax'
+
+				$('#mainB2HSpacer1').insertBefore('#mainB2HSpacer4')
+				$('#aboutText').insertBefore('#mainB2HSpacer4')
+
+				$('<div id="mainVSpacerPortrait" style="margin: 0px; width: 5%; height: 90%; overflow: hidden; position: relative; z-index: 1; display: inline-block;"></div>').insertBefore('#MainBlock2')
+
+				document.getElementById('controlsH').style.textAlign = 'center'
+				document.getElementById('controlsH').style.fontSize = '1.5vmax'
+				document.getElementById('controlsH').style.lineHeight = '250%'
+
+				document.getElementById('controlsH').innerHTML = '<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.5vmax;">Y AXIS</font><br/><font style=" font-size: 1.5vmax;">New Cases Confirmed in the last <span> </span></font><select  id="pastDaysToChoose" onchange="daysChosen(event)" style="font-family: Source Sans Pro; font-size: 1.5vmax; color: grey; width: 20%;"><option value="daysoption@8">8 Days</option></select><br/><font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.5vmax;">SCALE</font><br/><select  id="scalesToChoose" onchange="scaleChosen(event)" style="font-family: Source Sans Pro; font-size: 1.5vmax; width: 50%; color: grey;"><option value="logscaleoption">Logarithmic Scale</option><option value="linearscaleoption">Linear Scale</option></select>'
+				
+				document.getElementById('statesTopName').style.fontSize = '1.4vmax'
+				document.getElementById('selectAllText').style.fontSize = '1.3vmax'
+				document.getElementById('deselectAllText').style.fontSize = '1.3vmax'
+				document.getElementById('statesListH').style.fontSize = '1.4vmax'
+
+				document.getElementById('aboutText').style.fontSize = '1.17vmax'
+				document.getElementById('aboutText').style.textAlign = 'center'
+				document.getElementById('aboutText').style.color = 'black'
+
+				document.getElementById('onDataSouce').style.fontSize = '1.3vmax'
+				document.getElementById('onDataSouce').style.textAlign = 'center'
+				
+				// $('aboutText').insertAfter('#mainB2HSpacer1')
+				// document.getElementById('space3Div').style.overflow = 'hidden'
+
+				// document.getElementById('space4Div').style.height = '39%'
+
+				
+
+				// document.getElementById('space5Div').style.height = '0%'
+
+				// document.getElementById('scroller').style.width = '0%'
+				// document.getElementById('noscroller').style.width = '100%'
+
+				// document.getElementById('middlepanel').style.fontSize = '0'
+				// document.getElementById('menupanel').style.fontSize = '0'
+
+				// $('#menupanel').insertBefore('#boundaryoptionspanel')
+				// $("#menuDisplayPanel").appendTo("#space2Div");
+				// $("#optionsDisplayPanel").appendTo("#space4Div");
+
+				// document.getElementById('menuDisplayPanel').style.height = '100%'
+				// document.getElementById('optionsDisplayPanel').style.height = '200%'
+				// document.getElementById('optionsDisplayPanel').style.overflowY = 'hidden'
+				// document.getElementById('middlepanel').style.width = '0%'
+				// document.getElementById('verticalspacerA').style.width = '0%'
+				// document.getElementById('verticalspacerB').style.width = '0%'
+
+				
+
+				
+			}
+			if (dmode == 'landscape') {
+				
+			}
+		}
+
+		handleLayout1()
+
+		
+		uid = 0
+		graphData = {}
+
+		reverseGraphElementMap = {}
+		
+		function setUpGraph() {
+			graphH = document.getElementById('visualChartH')
+			graphoptions = {}
+			graphoptions.xmax = 100
+			graphoptions.xmin = -10
+
+			graphoptions.ymax = 115
+			graphoptions.ymin = -15
+			// if (mode == 'portrait') {
+			// 	graphoptions.ymax = 3
+			// 	graphoptions.ymin = -3	
+			// }
+
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility= 'no'
+			graphoptions.yaxisvisibility = 'no'
+
+			graphoptions.xmajorgridlabelvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'no'
+
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+
+			// graphoptions.ymajorgridlinesextension = 'yes'
+			// graphoptions.xmajorgridlinesextension = 'yes'
+
+			// graphoptions.xaxislabel = 'H'
+			// graphoptions.yaxislabel = 'M'
+
+			// graphoptions.gridlinenumberX = 5
+			// graphoptions.gridlinenumberY = 5
+
+			graphoptions.fontSize = 1.6
+			// graphoptions.xmajorgridlabelshift = 2
+			// graphoptions.ymajorgridlabelshift = 2
+
+			// if (mode == 'portrait') {
+			// 	graphoptions.gridlinenumberX = 4
+			// 	graphoptions.gridlinenumberY = 11
+			// 	graphoptions.fontSize = 5
+			// }
+
+			// graphoptions.unitAspectRatio = 'yes'
+			graphoptions.fixAxis = 'xaxis'
+			graphoptions.fixAxisStretchCentrally = 'yes'
+
+			// graphoptions.position = 'relative'
+			graphoptions.scrollZoom = 'no'
+
+			graphoptions.draggability = 'no'
+
+
+			// graphoptions.isgraphH = 'yes'
+			
+			addGraph(graphH, 'chartG', graphoptions)
+
+			// options = {}
+			// options.points = [[-10, -10], [-10, -10]]
+			// options.pathcolor = 'hsla(40, 100%, 50%, 1)'
+			// options.strokewidth = 0.4
+			// addPath('basicGraph', 'graphpointpath', options)
+
+			// options = {}
+			// options.ellipsecolor = 'hsla(190, 0%, 0%, 0)'
+			// options.stroke = 'hsla(0,0%,0%,0)'
+			// options.x = 0
+			// options.y = 0
+			// options.ry = 1
+			// options.rx = 1
+			// options.strokewidth = 2
+			// addedellipseboundary = addEllipse('labG', 'simpleEllipticBoundary', options)[0]
+			// addedellipseboundary.style.pointerEvents = 'none'
+
+			// options = {}
+			// options.pathcolor = 'hsla(0, 0%, 0%, 0)'
+			// options.points = [[1,0], [0,1], [-1,0], [0,-1],[1,0]]
+			// options.strokewidth = 0.3
+			// addedpolyboundary = addPath('labG', 'simplePolygonBoundary', options)[0]
+			// addedpolyboundary.style.pointerEvents = 'none'
+
+
+			// options = {}
+			// options.circlecolor = 'hsla(190, 0%, 0%, 0)'
+			// options.stroke = boptions.color
+			// options.x = 0
+			// options.y = 0
+			// options.radius = boptions.radius
+			// options.strokewidth = boptions.boundaryThickness || 2
+			// addCircle('labG', 'simpleCircleBoundary', options)
+		}
+
+		setUpGraph()
+		//linearToLogToGraphLinear >>> linearToGraphLinear
+		function linearToGraphLinear(lowerLinear, upperLinear, linearInputValue) {
+			return linearValue(Math.log10(lowerLinear), Math.log10(upperLinear), 0, 100, Math.log10(linearInputValue))
+		}
+
+
+		// console.log(linearToGraphLinear(1, 100, 50))
+
+		fullDataAll = {}
+		datesAvailableAll = {}
+
+		datesAvailableAll['India'] = ['30 January 2020','31 January 2020','01 February 2020','02 February 2020','03 February 2020','04 February 2020','05 February 2020','06 February 2020','07 February 2020','08 February 2020','09 February 2020','10 February 2020','11 February 2020','12 February 2020','13 February 2020','14 February 2020','15 February 2020','16 February 2020','17 February 2020','18 February 2020','19 February 2020','20 February 2020','21 February 2020','22 February 2020','23 February 2020','24 February 2020','25 February 2020','26 February 2020','27 February 2020','28 February 2020','29 February 2020','01 March 2020','02 March 2020','03 March 2020','04 March 2020','05 March 2020','06 March 2020','07 March 2020','08 March 2020','09 March 2020','10 March 2020','11 March 2020','12 March 2020','13 March 2020','14 March 2020','15 March 2020','16 March 2020','17 March 2020','18 March 2020','19 March 2020','20 March 2020','21 March 2020','22 March 2020','23 March 2020','24 March 2020','25 March 2020','26 March 2020','27 March 2020','28 March 2020','29 March 2020','30 March 2020','31 March 2020','01 April 2020']
+
+
+		fullDataAll['India'] = {Andaman_and_Nicobar_Islands: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,4,3,0,1,0], Andhra_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2,0,2,2,1,1,2,3,0,5,4,17,43], Assam: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1], Bihar: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,3,3,0,2,4,0,8], Chandigarh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4,1,1,0,0,0,1,0,0,5,3], Chhattisgarh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,4,0,0,1,0,1,1], Delhi: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,1,0,1,2,0,1,0,0,1,2,2,5,8,3,0,0,1,5,3,0,10,48,0,55], Goa: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,2,0,0,0], Gujarat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,2,11,11,4,5,5,2,0,13,11,4,9], Haryana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,4,5,2,0,2,3,0,0,3,4,3], Himachal_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,0,0,0,0,0,0,0,0], Jammu_and_Kashmir: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,3,6,5,2,11,17,6,8], Jharkhand: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1], Karnataka: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,2,0,0,1,3,1,3,1,0,11,4,7,4,14,0,9,12,7,0,18], Kerala: [1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,0,8,0,2,0,3,1,3,1,0,1,12,12,15,28,14,9,43,15,6,37,15,7], Ladakh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1,0,0,0,1,4,0,0,2,3,0,0,0,0,0,0,0,0,0,0,0], Madhya_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,2,1,7,6,10,0,0,17,0,19], Maharashtra: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,6,3,12,5,6,3,3,3,5,11,8,7,15,35,0,29,27,6,21,47,48], Manipur: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0], Mizoram: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0], Odisha: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1], Puducherry: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2], Punjab: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,11,7,2,6,4,0,5,0,0,0,3,1], Rajasthan: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,1,0,0,0,1,3,10,0,5,4,4,4,5,7,6,1,4,15,19], Tamil_Nadu: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3,3,6,3,8,12,2,9,18,7,160], Telangana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,1,11,4,1,10,3,0,9,4,8,10,5,8,17], Uttarakhand: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,1,0,1,0,0,2,0,0,0], Uttar_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,1,0,0,0,1,0,0,2,1,1,0,0,2,2,4,4,0,3,4,2,4,4,4,10,10,27,9,2], West_Bengal: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,3,2,0,1,5,0,3,4,4,11]}
+
+		datesAvailableAll['US'] = ['21 January 2020','22 January 2020','23 January 2020','24 January 2020','25 January 2020','26 January 2020','27 January 2020','28 January 2020','29 January 2020','30 January 2020','31 January 2020','01 February 2020','02 February 2020','03 February 2020','04 February 2020','05 February 2020','06 February 2020','07 February 2020','08 February 2020','09 February 2020','10 February 2020','11 February 2020','12 February 2020','13 February 2020','14 February 2020','15 February 2020','16 February 2020','17 February 2020','18 February 2020','19 February 2020','20 February 2020','21 February 2020','22 February 2020','23 February 2020','24 February 2020','25 February 2020','26 February 2020','27 February 2020','28 February 2020','29 February 2020','01 March 2020','02 March 2020','03 March 2020','04 March 2020','05 March 2020','06 March 2020','07 March 2020','08 March 2020','09 March 2020','10 March 2020','11 March 2020','12 March 2020','13 March 2020','14 March 2020','15 March 2020','16 March 2020','17 March 2020','18 March 2020','19 March 2020','20 March 2020','21 March 2020','22 March 2020','23 March 2020','24 March 2020','25 March 2020','26 March 2020','27 March 2020','28 March 2020','29 March 2020','30 March 2020','31 March 2020','01 April 2020']
+
+
+		fullDataAll['US'] = {Alaska: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2,3,0,3,3,2,8,14,6,17,10,16,17,12,5,14,10], Arizona: [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,2,0,0,1,3,0,0,3,0,6,2,7,17,19,41,48,82,92,75,107,157,108,146,238,132,124], California: [0,0,0,0,1,1,0,0,0,0,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1,0,1,1,5,5,12,4,8,11,8,26,19,24,20,21,49,39,49,57,80,126,77,331,218,268,265,369,433,471,795,842,0,1120,1169,1223], Colorado: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,6,0,0,4,5,17,15,28,24,30,29,23,33,61,86,112,116,129,192,174,344,304,327,246,320,339,376], Hawaii: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,2,3,3,4,2,10,11,11,8,21,13,5,11,14,31,24,29,20,34], Idaho: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,4,0,0,3,3,12,8,12,4,3,23,50,62,45,31,49,105,110,148], Montana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3,2,1,0,2,3,4,5,6,7,11,6,2,18,50,26,14,16,7,33], New_Mexico: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,2,4,3,4,4,2,5,7,8,14,8,18,17,12,24,55,17,29,44,34,48], Nevada: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,2,0,1,0,0,6,8,0,26,0,0,50,14,45,36,55,33,43,99,115,86,299,88,105,166], Oregon: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,4,7,0,1,4,5,6,6,3,8,18,10,13,26,31,16,30,18,57,50,98,65,69,58,84,46], Utah: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,2,1,4,15,4,11,12,12,15,34,24,45,76,41,48,56,78,122,117,87,81,125], Washington: [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,7,5,10,11,31,10,22,34,26,105,99,91,111,74,127,135,108,175,189,148,269,203,225,248,111,627,493,610,586,166,453,469], Wyoming: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,7,5,2,1,4,2,2,2,9,7,12,17,11,3,8,14,21], Iowa: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,5,5,1,2,1,1,4,1,6,9,6,1,23,22,15,19,21,34,56,63,38,88,73,52], Illinois: [0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,1,0,1,4,8,6,7,14,18,29,12,55,128,134,163,174,296,230,250,330,673,488,465,1105,461,937,986], Indiana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,4,2,0,3,4,5,6,9,17,23,47,0,75,58,106,112,168,336,251,282,272,373,406], Kansas: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,4,1,2,1,2,5,5,13,10,11,9,15,19,28,42,34,59,58,49,60,54], Michigan: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,10,13,8,20,1,11,15,254,215,238,248,293,463,501,564,801,993,836,1012,1117,1719], Minnesota: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,2,4,5,7,14,19,6,17,12,26,23,31,66,27,25,59,52,43,62,73,53,60], Missouri: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,2,1,0,2,8,7,6,19,26,33,77,72,101,146,168,168,65,128,296,254], North_Dakota: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2,4,12,7,2,2,2,4,3,13,16,26,4,11,13,25], Nebraska: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,2,0,5,4,3,1,0,3,6,5,6,10,2,2,9,3,9,8,27,12,25,27,38], Ohio: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,0,1,8,13,11,13,17,21,31,50,78,104,91,122,140,163,270,269,247,280,266,348], Oklahoma: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,0,6,2,7,12,15,5,4,12,14,25,58,84,74,55,52,52,84,154], South_Dakota: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,3,0,1,0,0,1,1,0,3,0,0,7,7,2,11,5,12,10,22,11,7,21], Wisconsin: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,2,11,8,6,14,25,34,49,51,75,100,35,41,128,122,135,147,123,109,130,199], Alabama: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,10,7,7,15,27,3,43,33,39,19,68,197,87,129,131,96,29,153], Arkansas: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,5,6,0,4,6,0,11,29,34,22,47,32,21,62,55,51,23,17,82,15,61], Florida: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,0,3,2,4,2,9,3,18,33,39,33,11,56,112,104,131,95,172,397,185,565,506,843,712,912,754,1037,1032], Georgia: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1,4,4,6,5,9,11,0,24,33,22,25,51,90,133,87,93,172,254,221,278,476,445,237,126,1308,521], Kentucky: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3,2,2,0,3,3,2,4,2,4,9,5,7,7,45,25,33,41,50,54,92,45,41,111,89], Louisiana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,10,6,17,41,26,33,60,84,112,87,106,252,335,216,407,510,441,569,225,485,1212,1187], Mississippi: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5,0,4,2,9,13,16,90,0,61,48,71,57,108,94,84,95,89,90,136], North_Carolina: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,5,0,1,7,0,8,9,1,7,34,23,40,47,71,42,101,106,132,127,172,232,140,191,86], South_Carolina: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,4,1,2,1,2,1,6,9,5,14,13,21,44,48,22,103,44,82,32,83,121,114,151,158,210], Tennessee: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2,1,3,2,9,8,6,7,13,21,25,56,74,143,134,110,52,117,173,246,170,164,297,405,444], Texas: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,4,3,0,4,1,4,4,2,16,12,5,1,7,19,60,51,110,30,18,58,564,422,335,321,500,325,389,731], Virginia: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,4,0,8,13,11,4,6,16,10,17,20,38,67,35,36,101,69,144,135,151,130,230,234], West_Virginia: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,3,3,5,4,19,12,25,20,17,11,21,17,29], Connecticut: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,3,5,9,6,15,27,28,63,35,29,104,88,203,257,137,279,233,469,578,557,429], District_of_Columbia: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,0,5,0,0,6,1,5,9,8,32,6,21,18,21,46,48,30,43,38,59,94,91,0], Delaware: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,0,2,1,1,8,10,4,8,7,11,31,17,15,11,35,49,18,32,55,49], Massachusetts: [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,5,5,15,13,51,3,13,15,15,26,33,21,38,72,85,112,121,131,382,679,579,823,1017,698,797,868,1118], Maryland: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,2,0,1,3,3,5,9,5,6,20,28,22,42,41,54,44,61,74,157,194,218,247,174,247,325], Maine: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,14,15,10,10,4,17,16,18,11,24,13,13,43,42,22,28,41], New_Hampshire: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,2,0,1,0,1,1,0,6,4,9,13,5,11,10,13,23,7,29,21,29,27,44,56,53,48], New_Jersey: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,0,2,5,4,8,6,21,19,29,80,87,162,315,148,437,587,930,831,727,2474,1949,2299,2262,3250,2060,3559], New_York: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,9,11,22,45,17,36,31,43,112,93,192,116,221,424,1008,1770,2950,3254,4812,5707,4790,5146,6447,7377,7683,7195,6984,9298,7917], Pennsylvania: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,4,2,4,6,19,6,16,13,20,37,52,83,103,108,165,207,276,560,531,533,643,693,756,962], Rhode_Island: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1,0,0,0,2,0,0,15,0,0,1,0,12,11,10,12,17,23,18,8,33,38,36,55,114,80,78], Vermont: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,2,0,8,5,2,3,7,20,3,23,20,28,35,26,27,24,21,37,28], Guam: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,2,3,4,2,1,12,2,3,5,10,4,4,1,2,11,8], Northern_Mariana_Islands: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,4], Puerto_Rico: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,0,0,0,0,9,7,2,8,8,12,13,15,21,27,47,65,47], Virgin_Islands: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,0,3,0,11,0,0,0,0,2,4,0,7,0,0]}
+
+		datesAvailable = datesAvailableAll['India']
+		fullData = fullDataAll['India']
+
+		currentCountry = 'India'
+		
+		nDays = 6
+
+		totalCaseCount = {}
+
+		function nToLabel(valueToLabel) {
+			if (Math.abs(valueToLabel) != 0) {
+				valueOrder = Math.log10(Math.abs(valueToLabel))
+				if (valueOrder >= 3 && valueOrder < 6) {
+					return (valueToLabel/Math.pow(10, 3)).toFixed(1) + 'k'
+				}
+				else if (valueOrder >= 6 && valueOrder < 9) {
+					return (valueToLabel/Math.pow(10, 6)).toFixed(1) + 'M'
+				}
+				else if (valueOrder >= 9) {
+					return (valueToLabel/Math.pow(10, 9)).toFixed(1) + 'B'
+				}
+				else if (valueToLabel % 1 == 0) {
+					return valueToLabel
+				}
+				else {
+					return valueToLabel.toFixed(1).toString()
+				}
+			}
+			else {
+				return valueToLabel.toString()
+			}
+			
+		}
+
+		function curveDataFor(stateName) {
+			timelineData = fullData[stateName]
+			totalDays = timelineData.length
+			totalCvsCinNDays = []
+
+			for (dayX = nDays; dayX < totalDays; dayX++) {
+				casesInLastNDays = 0
+				totalcasesC = 0
+				for (lastD = dayX; lastD >= 0; lastD--) {
+					totalcasesC = totalcasesC + timelineData[lastD]
+					if (lastD > dayX - nDays) {
+						casesInLastNDays = casesInLastNDays + timelineData[lastD]
+					}
+				}
+				totalCvsCinNDays.push([totalcasesC, casesInLastNDays])
+				
+			}
+			totalCaseCount[stateName] = totalCvsCinNDays[totalCvsCinNDays.length - 1][0]
+			return totalCvsCinNDays
+		}
+
+		curveDataForState = {}
+		plotStateState = {}
+
+		function getCurveDataForStates() {
+			for (var key in fullData) {
+				curveDataForState[key] = curveDataFor(key)
+				plotStateState[key] = false
+			}
+		}
+
+		getCurveDataForStates()
+
+		// plotStateState['Karnataka'] = true
+		// plotStateState['Kerala'] = true
+		// plotStateState['Maharashtra'] = true
+
+		plotType = 'log'
+
+		function mouseOverState(event) {
+			event.preventDefault()
+			gphname = 'chartG'
+			var rect = document.getElementById(gphname).getBoundingClientRect();
+			posx = event.clientX - rect.left;
+			posy = event.clientY - rect.top;
+			svgPTVariable[gphname].x = event.clientX;
+			svgPTVariable[gphname].y = event.clientY;
+
+			if (event.clientX == undefined) {
+				posx = event.changedTouches[0].clientX - rect.left;
+				posy = event.changedTouches[0].clientY - rect.top;
+				svgPTVariable[gphname].x = event.changedTouches[0].clientX;
+				svgPTVariable[gphname].y = event.changedTouches[0].clientY;
+			}
+
+			var cursorpt =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+			actionLocationX = svgToGraphX(cursorpt.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
+			actionLocationY = svgToGraphY(cursorpt.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+
+			if (actionLocationX < 100 && actionLocationX > 0 && actionLocationY < 100 && actionLocationY > 0) {
+				stkey = event.target.id.split('@')[1]
+
+				if (plotType == 'linear') {
+					displayData = "<tspan dx='0' dy='1.2em'>New Cases in last " + nDays + " days : " + linearValue(0, 100, minMaxBounds[2], minMaxBounds[3], actionLocationY).toFixed(1) + "</tspan><tspan dx='-13em' dy='1.2em'>Total Cases Confirmed : " + linearValue(0, 100, minMaxBounds[0], minMaxBounds[1], actionLocationX).toFixed(1) + "</tspan>"
+				}
+				else if (plotType == 'log') {
+					displayData = "<tspan dx='0' dy='1.2em'>New Cases in last " + nDays + " days : " + Math.pow(10, linearValue(0, 100, Math.log10(minMaxBounds[2]), Math.log10(minMaxBounds[3]), actionLocationY)).toFixed(1) + "</tspan><tspan dx='-13em' dy='1.2em'>Total Cases Confirmed : " + Math.pow(10, linearValue(0, 100, Math.log10(minMaxBounds[0]), Math.log10(minMaxBounds[1]), actionLocationX)).toFixed(1) + "</tspan>"
+
+				}
+
+				if (actionLocationX > 85) {
+					actionLocationX = 85
+				}
+				if (actionLocationX < 0) {
+					actionLocationX = 0
+				}
+				if (actionLocationY > 100) {
+					actionLocationY = 100
+				}
+				if (actionLocationY < 15) {
+					actionLocationY = 15
+				}
+
+				infodisplay('state', [actionLocationX + 2, actionLocationY - 2], displayData)
+			}
+
+		}
+
+		function mouseOutState(event) {
+			infodisplay('state', [-100, -100], '')
+		}
+
+		partsOfState = {}
+		pointsOfState = {}
+		stateHue = {}
+
+		function mouseOverStateInfo(event) {
+			gEleType = event.target.id.split('-')[1]
+
+			ptStateKey = event.target.id.split('@')[1]
+			displayData0 = ptStateKey.replace(/_/g, ' ')
+
+			if (gEleType == 'point') {
+				if (event.target.id.split('@')[2] == 'mainPoint') {
+					ptStateKey = event.target.id.split('@')[1]
+					togoPointX = graphData['chartG'].pointData[event.target.id.split('-point-')[1]][1].x
+					togoPointY = graphData['chartG'].pointData[event.target.id.split('-point-')[1]][1].y
+
+					updatePointXY('chartG', 'stateHoverOf@' + ptStateKey, togoPointX,togoPointY)
+
+					displayData3 = totalCaseCount[ptStateKey] + ' total confirmed cases'
+					displayData1 = datesAvailable[datesAvailable.length - 1]
+					if (nDays > 1) {
+						displayData2 = curveDataForState[ptStateKey][curveDataForState[ptStateKey].length - 1][1] + ' confirmed cases in the last ' + nDays + ' days'
+					}
+					else {
+						displayData2 = curveDataForState[ptStateKey][curveDataForState[ptStateKey].length - 1][1] + ' confirmed cases in the last ' + nDays + ' day'
+					}
+					
+				}
+				else {
+					ptNumber = event.target.id.split('@')[2]
+					ptStateKey = event.target.id.split('@')[1]
+					togoPointX = graphData['chartG'].pointData[event.target.id.split('-point-')[1]][1].x
+					togoPointY = graphData['chartG'].pointData[event.target.id.split('-point-')[1]][1].y
+
+					updatePointXY('chartG', 'stateHoverOf@' + ptStateKey, togoPointX,togoPointY)
+
+					displayData3 = curveDataForState[ptStateKey][ptNumber][0] + ' total confirmed cases'
+					displayData1 = datesAvailable[parseInt(ptNumber) + nDays]
+					if (nDays > 1) {
+						displayData2 = curveDataForState[ptStateKey][ptNumber][1] + ' confirmed cases in the last ' + nDays + ' days'
+					}
+					else {
+						displayData2 = curveDataForState[ptStateKey][ptNumber][1] + ' confirmed cases in the last ' + nDays + ' day'
+					}
+
+					
+				}
+			}
+			else {
+				displayData3 = totalCaseCount[ptStateKey] + ' total confirmed cases'
+				displayData1 = datesAvailable[datesAvailable.length - 1]
+				if (nDays > 1) {
+					displayData2 = curveDataForState[ptStateKey][curveDataForState[ptStateKey].length - 1][1] + ' confirmed cases in the last ' + nDays + ' days'
+				}
+				else {
+					displayData2 = curveDataForState[ptStateKey][curveDataForState[ptStateKey].length - 1][1] + ' confirmed cases in the last ' + nDays + ' day'
+				}
+			}
+
+			stkey = event.target.id.split('@')[1]
+
+			for (var stakey in fullData) {
+				options = {}
+				options.pathcolor = 'hsla(' + stateHue[stakey] + ', 0%, 50%, 0.1)'
+				updatePath('chartG', 'stateCurveOf@' + stakey, options)
+				colorSetPoints(pointsOfState[stakey], 'hsla(' + stateHue[stakey] + ', 0%, 50%, 0)')
+				options = {}
+				options.pointcolor = 'hsla(' + stateHue[stakey] + ', 0%, 50%, 0)'
+				updatePoint('chartG', 'stateCurveOf@' + stakey + '@mainPoint', options)
+				options = {}
+				options.textcolor = 'hsla(' + stateHue[stakey] + ', 0%, 50%, 0.2)'
+				updateText('chartG', 'stateTextOf@' + stakey, options)
+			}
+			colorSetPoints(pointsOfState[stkey], 'hsla(' + stateHue[stkey] + ', 100%, 50%, 0.95)')
+			options = {}
+			options.pointcolor = 'hsla(' + stateHue[stkey] + ', 100%, 50%, 1)'
+			updatePoint('chartG', 'stateCurveOf@' + stkey + '@mainPoint', options)
+			
+			options = {}
+			options.pathcolor = 'hsla(' + stateHue[stkey] + ', 100%, 50%, 1)'
+			updatePath('chartG', 'stateCurveOf@' + stkey, options)
+
+			options = {}
+			options.textcolor = 'hsla(' + stateHue[stkey] + ', 100%, 30%, 1)'
+			updateText('chartG', 'stateTextOf@' + stkey, options)
+
+			options = {}
+			options.x = 5
+			options.y = 80
+			options.text = displayData0
+			updateText('chartG', 'boldInfo', options)
+
+			options = {}
+			options.x = 5
+			options.y = 71
+			options.text = displayData1
+			updateText('chartG', 'boldInfo1', options)
+			options = {}
+			options.x = 5
+			options.y = 64
+			options.text = displayData2
+			updateText('chartG', 'boldInfo2', options)
+
+			options.x = 5
+			options.y = 57
+			options.text = displayData3
+			updateText('chartG', 'boldInfo3', options)
+
+		
+		}
+
+		function mouseOutStateInfo(event) {
+			gEleType = event.target.id.split('-')[1]
+			if (gEleType == 'point') {
+				if (event.target.id.split('@')[2] == 'mainPoint') {
+					ptStateKey = event.target.id.split('@')[1]
+					updatePointXY('chartG', 'stateHoverOf@' + ptStateKey, -100, -100)
+				}
+				else {
+					ptStateKey = event.target.id.split('@')[1]
+					updatePointXY('chartG', 'stateHoverOf@' + ptStateKey, -100, -100)
+				}
+			}
+
+			stkey = event.target.id.split('@')[1]
+			for (var stakey in fullData) {
+				options = {}
+				options.pathcolor = 'hsla(' + stateHue[stakey] + ', 100%, 50%, 0.2)'
+				updatePath('chartG', 'stateCurveOf@' + stakey, options)
+				colorSetPoints(pointsOfState[stakey], 'hsla(' + stateHue[stakey] + ', 100%, 50%, 0.2)')
+				options = {}
+				options.pointcolor = 'hsla(' + stateHue[stakey] + ', 100%, 50%, 1)'
+				updatePoint('chartG', 'stateCurveOf@' + stakey + '@mainPoint', options)
+				options = {}
+				options.textcolor = 'hsla(' + stateHue[stakey] + ', 100%, 30%, 1)'
+				updateText('chartG', 'stateTextOf@' + stakey, options)
+			}
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			updateText('chartG', 'boldInfo', options)
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			updateText('chartG', 'boldInfo1', options)
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			updateText('chartG', 'boldInfo2', options)
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			updateText('chartG', 'boldInfo3', options)
+
+			
+		}
+
+			
+
+		function infoBoldDisplayAndActivateGraph() {
+			graphData['chartG'].svgElement.style.pointerEvents = 'auto'
+			graphData['chartG'].svgElement.style.cursor = 'crosshair'
+			graphData['chartG'].svgElement.addEventListener('mousemove', mouseOverState)
+			graphData['chartG'].svgElement.addEventListener('mouseout', mouseOutState)
+			graphData['chartG'].svgElement.addEventListener('touchmove', mouseOverState)
+			graphData['chartG'].svgElement.addEventListener('touchend', mouseOutState)
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			options.textcolor = 'hsla(190, 100%, 0%, 0.3)'
+			options.fontSize = '0.4vmax'
+			options.fontFamily = 'Raleway'
+			if (dmode == 'portrait') {
+				options.fontSize = '0.5vmax'
+			}
+			boldInfoT = addText('chartG', 'boldInfo', options)[0]
+			boldInfoT.style.fontWeight = 'bold'
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			options.textcolor = 'hsla(190, 100%, 0%, 0.3)'
+			options.fontSize = '0.25vmax'
+			if (dmode == 'portrait') {
+				options.fontSize = '0.4vmax'
+			}
+			boldInfoT = addText('chartG', 'boldInfo1', options)[0]
+			boldInfoT.style.fontWeight = 'bold'
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			options.textcolor = 'hsla(190, 100%, 0%, 0.3)'
+			options.fontSize = '0.25vmax'
+			if (dmode == 'portrait') {
+				options.fontSize = '0.4vmax'
+			}
+			boldInfoT = addText('chartG', 'boldInfo2', options)[0]
+			boldInfoT.style.fontWeight = 'bold'
+
+			options = {}
+			options.x = -100
+			options.y = -100
+			options.textcolor = 'hsla(190, 100%, 0%, 0.3)'
+			options.fontSize = '0.25vmax'
+			if (dmode == 'portrait') {
+				options.fontSize = '0.4vmax'
+			}
+			boldInfoT = addText('chartG', 'boldInfo3', options)[0]
+			boldInfoT.style.fontWeight = 'bold'
+		}
+
+		infoBoldDisplayAndActivateGraph()
+
+		function addCurves() {
+			for (statenum = 0; statenum < orderedStates.length; statenum++) {
+				key = orderedStates[statenum]
+				partsOfState[key] = []
+				pointsOfState[key] = []
+
+				hueNum = linearValue(0, orderedStates.length, 10, 260, statenum)
+				stateHue[key] = hueNum
+				options = {}
+				options.points = [[-10, -10], [-10, -10]]
+				options.pathcolor = 'hsla(' + hueNum + ', 100%, 50%, 0.2)'
+				options.strokewidth = 0.4
+				curveE = addPath('chartG', 'stateCurveOf@' + key, options)[0]
+				partsOfState[key].push(curveE)
+				curveE.addEventListener('mousemove', mouseOverStateInfo)
+				curveE.addEventListener('mouseout', mouseOutStateInfo)
+				curveE.style.pointerEvents = 'auto'
+				curveE.style.cursor = 'crosshair'
+				curveE.addEventListener('touchmove', mouseOverStateInfo)
+				curveE.addEventListener('touchend', mouseOutStateInfo)
+
+				for (datapointIndex = 0; datapointIndex < datesAvailable.length; datapointIndex++) {
+					options = {}
+					options.x = -100
+					options.y = -100
+					options.pointsize = 0.7
+					options.pointcolor = 'hsla(' + hueNum + ', 100%, 50%, 0.2)'
+					curvePT = addPoint('chartG', 'stateCurveOf@' + key + '@' + datapointIndex, options)[0]
+					curvePT.addEventListener('mousemove', mouseOverStateInfo)
+					curvePT.addEventListener('mouseout', mouseOutStateInfo)
+					curvePT.addEventListener('touchmove', mouseOverStateInfo)
+					curvePT.addEventListener('touchend', mouseOutStateInfo)
+					curvePT.style.pointerEvents = 'auto'
+					curvePT.style.cursor = 'crosshair'
+					partsOfState[key].push(curvePT)
+					pointsOfState[key].push('stateCurveOf@' + key + '@' + datapointIndex)
+
+				}
+
+				options = {}
+				options.x = -100
+				options.y = -100
+				options.pointsize = 2
+				options.pointcolor = 'hsla(' + hueNum + ', 100%, 50%, 0.7)'
+				addPoint('chartG', 'stateHoverOf@' + key, options)[0]
+
+				options = {}
+				options.x = -100
+				options.y = -100
+				options.pointsize = 1
+				options.pointcolor = 'hsla(' + hueNum + ', 100%, 50%, 1)'
+				curvePTMain = addPoint('chartG', 'stateCurveOf@' + key + '@mainPoint', options)[0]
+				curvePTMain.addEventListener('mousemove', mouseOverStateInfo)
+				curvePTMain.addEventListener('mouseout', mouseOutStateInfo)
+				curvePTMain.style.pointerEvents = 'auto'
+				curvePTMain.style.cursor = 'crosshair'
+				curvePTMain.addEventListener('touchmove', mouseOverStateInfo)
+				curvePTMain.addEventListener('touchend', mouseOutStateInfo)
+				partsOfState[key].push(curvePTMain)
+
+				options = {}
+				options.x = -100
+				options.y = -100
+				options.textcolor = 'hsla(' + hueNum + ', 100%, 30%, 1)'
+				keyText = key
+				options.text = keyText.replace(/_/g, ' ')
+				options.fontSize = '0.2vmax'
+				stateTxt = addText('chartG', 'stateTextOf@' + key, options)[0]
+				stateTxt.addEventListener('mousemove', mouseOverStateInfo)
+				stateTxt.addEventListener('mouseout', mouseOutStateInfo)
+				stateTxt.addEventListener('touchmove', mouseOverStateInfo)
+				stateTxt.addEventListener('touchend', mouseOutStateInfo)
+				stateTxt.style.pointerEvents = 'auto'
+				stateTxt.style.cursor = 'crosshair'
+				partsOfState[key].push(stateTxt)
+				visibilitySet(partsOfState[key], 'hidden')
+
+			}
+		}
+
+		orderedStates = Object.keys(totalCaseCount).sort(function(a,b){ return totalCaseCount[b] - totalCaseCount[a]})
+
+		function addStateChecks() {
+			fullOptionsString = ''
+			for (stateIndex = 0; stateIndex < orderedStates.length; stateIndex++) {
+				stateK = orderedStates[stateIndex]
+				fullOptionsString = fullOptionsString + '<span style="float: right;"><font style="text-indent: 1%; color: hsla(' + stateHue[stateK] + ', 100%, 40%, 1);">' + nToLabel(totalCaseCount[stateK]) + '</font>&nbsp&nbsp&nbsp&nbsp</span><input onchange = "checkEvent(event)" type="checkbox" id="state@' + stateK + '" name="state@' + stateK + '" value="' + stateK + '"><label for="state@' + stateK + '" style="text-indent: 1%; color: hsla(' + stateHue[stateK] + ', 100%, 40%, 1);"> ' + stateK.replace(/_/g, ' ') + '</label><br>'
+			}
+			document.getElementById('statesListH').innerHTML = fullOptionsString
+		}
+
+		function makeAllPlotStateTrue() {
+			for (var skey in fullData) {
+				plotStateState[skey] = true
+				document.getElementById('state@' + skey).checked = true
+			}
+		}
+
+		function makeFollowingPlotState(stateSet, truth) {
+			for (ssindex = 0; ssindex < stateSet.length; ssindex++) {
+				plotStateState[stateSet[ssindex]] = truth
+				document.getElementById('state@' + stateSet[ssindex]).checked = truth
+			}
+		}
+
+
+		
+		function checkEvent(event) {
+
+			for (stateIndex = 0; stateIndex < orderedStates.length; stateIndex++) {
+				stateK = orderedStates[stateIndex]
+				if (document.getElementById('state@' + stateK).checked) {
+					plotStateState[stateK] = true
+				}
+				else {
+					plotStateState[stateK] = false
+				}
+			}
+
+			
+
+			drawStateCurves()
+		}
+
+		function selectAllEvent(event) {
+			for (stateIndex = 0; stateIndex < orderedStates.length; stateIndex++) {
+				stateK = orderedStates[stateIndex]
+				document.getElementById('state@' + stateK).checked = true
+				plotStateState[stateK] = true
+			}
+			drawStateCurves()
+		}
+
+
+		function deSelectAllEvent(event) {
+			for (stateIndex = 0; stateIndex < orderedStates.length; stateIndex++) {
+				stateK = orderedStates[stateIndex]
+				document.getElementById('state@' + stateK).checked = false
+				plotStateState[stateK] = false
+			}
+			drawStateCurves()
+		}
+
+		function setLastDayOptions() {
+			setoptionsListString = ''
+			for (daysIndex = 1; daysIndex < datesAvailable.length; daysIndex++) {
+				if (daysIndex == 1) {
+					setoptionsListString = setoptionsListString + '<option value="' + daysIndex + '">' + daysIndex + ' Day</option>'		
+				}
+				else {
+					setoptionsListString = setoptionsListString + '<option value="' + daysIndex + '">' + daysIndex + ' Days</option>'		
+				}
+				
+			}
+			document.getElementById('pastDaysToChoose').innerHTML = setoptionsListString
+		}
+
+		setLastDayOptions()
+
+		function daysChosen(event) {
+			nDays = parseInt(event.target.value)
+			options = {}
+			options.text = 'New Confirmed Cases (in the last ' + nDays + ' days)'
+			chartYL = updateText('chartG', 'chartYAxLabel', options)[0]
+
+			gtempData = graphData['chartG']
+			yAxisTransformX = graphToScaledX(-13, gtempData.xmin, gtempData.xmax, gdata.aspectratio)
+			yAxisTransformY = graphToScaledY(60, gtempData.ymin, gtempData.ymax, gdata.aspectratio)
+			chartYL.setAttribute('transform', "translate(" + yAxisTransformX + ", " + yAxisTransformY + ") rotate(-90)")
+			chartYL.setAttribute('x', "0")
+			chartYL.setAttribute('y', "0")
+			chartYL.style.textAnchor = 'middle'
+
+			curveDataForState = {}
+			getCurveDataForStates()
+
+			checkEvent(event)
+
+			setBounds()
+			deleteAllLabels()
+			drawBoundLabels()
+
+			
+			
+			document.getElementById('timeSlider').setAttribute('max', datesAvailable.length - nDays - 1)
+			document.getElementById('timeSlider').setAttribute('value', datesAvailable.length - nDays - 1)
+
+			$("#timeSlider").val(parseInt($("#timeSlider").max));
+			$("#timeSlider").trigger('change');
+
+			drawDateIndex = 0
+			drawStateCurves()
+
+		}
+
+		function scaleChosen(event) {
+			if (event.target.value == 'logscaleoption') {
+				plotType = 'log'
+			}
+			else if (event.target.value == 'linearscaleoption') {
+				plotType = 'linear'
+			}
+			deleteAllLabels()
+			drawBoundLabels()
+			drawStateCurves()
+		}
+
+		
+		function addInfoDisplay() {
+			options = {}
+			options.x = -100
+			options.y = -100
+			options.textcolor = 'hsla(0, 0%, 0%, 0.7)'
+			options.text = ''
+			options.fontSize = '0.15vmax'
+			addText('chartG', 'InfoDisplayText', options)
+		}
+
+		addInfoDisplay()
+		
+
+		function visibilitySet(setOfELEMENTS, setvalue) {
+			for (eleN = 0; eleN < setOfELEMENTS.length; eleN++) {
+				setOfELEMENTS[eleN].style.visibility = setvalue
+			}
+		}
+
+		function colorSetPoints(setOfELEMENTSID, setvalue) {
+			for (eleN = 0; eleN < setOfELEMENTSID.length; eleN++) {
+				document.getElementById('chartG-point-' + setOfELEMENTSID[eleN]).style.fill = setvalue
+			}
+		}
+
+
+
+		function positionPointsSet(setOfPoints, setvalue) {
+			for (eleN = 0; eleN < setOfPoints.length; eleN++) {
+				updatePointXY('chartG', setOfPoints[eleN], setvalue[0], setvalue[1])
+			}
+		}
+
+		addCurves()
+
+		addStateChecks()
+
+		makeFollowingPlotState(orderedStates.slice(0,4), true)
+
+		// makeAllPlotStateTrue()
+
+		function getXYMinMax() {
+			returnXmax = -Infinity
+			returnYmax = -Infinity
+			returnXmin = Infinity
+			returnYmin = Infinity
+
+			keyflag = true
+			
+			for (var key in fullData) {
+				if (plotStateState[key]) {
+					keyflag = false
+				}
+				curveStatePoints = curveDataForState[key]
+				for (bindex = 0; bindex < curveStatePoints.length;bindex++) {
+					if (curveStatePoints[bindex][0] > returnXmax) {
+						returnXmax = curveStatePoints[bindex][0]
+					}
+					if (curveStatePoints[bindex][0] < returnXmin) {
+						returnXmin = curveStatePoints[bindex][0]
+					}
+					if (curveStatePoints[bindex][1] > returnYmax) {
+						returnYmax = curveStatePoints[bindex][1]
+					}
+					if (curveStatePoints[bindex][1] < returnYmin) {
+						returnYmin = curveStatePoints[bindex][1]
+					}
+				}
+			}
+
+			if (keyflag) {
+				return [0, 100, 0, 100]
+			}
+			else {
+				return [returnXmin, returnXmax, returnYmin, returnYmax]
+			}
+		}
+
+		minMaxBounds = [1, 100, 1, 100]
+
+		function setBounds() {
+			minMaxBounds = getXYMinMax()
+			if (plotType == 'log') {
+				if (minMaxBounds.includes(0)) {
+					for (indx = 0; indx < minMaxBounds.length; indx++) {
+						if (minMaxBounds[indx] < 1) {
+							minMaxBounds[indx] = 1
+						}
+					}
+				}
+			}
+		}
+		setBounds()
+
+
+
+		function drawBoundLabels() {
+			xDivisions = 8
+			yDivisions = 6
+			
+			if (plotType == 'linear') {
+				xaxisdelta = (minMaxBounds[1] - minMaxBounds[0])/xDivisions
+				yaxisdelta = (minMaxBounds[3] - minMaxBounds[2])/yDivisions
+				for (labelyN = 1; labelyN <= yDivisions; labelyN++) {
+					valueToGo = minMaxBounds[2] + (labelyN*yaxisdelta)
+					valueToG = linearValue(minMaxBounds[2], minMaxBounds[3], 0, 100, valueToGo)
+
+					options = {}
+					options.x = -8
+					options.y = valueToG
+					options.textcolor = 'hsla(0, 0%, 0%, 0.7)'
+					options.text = nToLabel(valueToGo)
+					if (dmode == 'portrait') {
+						options.fontSize = '0.4vmax'
+					}
+					else {
+						options.fontSize = '0.2vmax'
+					}
+					addText('chartG', 'chartYLabel#' + labelyN, options)
+					axisAllLabels.push('chartYLabel#' + labelyN)
+				}
+				for (labelxN = 0; labelxN <= xDivisions; labelxN++) {
+					valueToGo = minMaxBounds[0] + (labelxN*xaxisdelta)
+					valueToG = linearValue(minMaxBounds[0], minMaxBounds[1], 0, 100, valueToGo)
+				
+					options = {}
+					options.x = valueToG
+					options.y = -6
+					options.textcolor = 'hsla(0, 0%, 0%, 0.7)'
+					options.text = nToLabel(valueToGo)
+					if (dmode == 'portrait') {
+						options.fontSize = '0.4vmax'
+					}
+					else {
+						options.fontSize = '0.2vmax'
+					}
+					options.textAlign = 'center'
+					addText('chartG', 'chartXLabel#' + labelxN, options)
+					axisAllLabels.push('chartXLabel#' + labelxN)
+				}
+			}
+			else if (plotType == 'log') {
+				xaxisdelta = (Math.log10(minMaxBounds[1]) - Math.log10(minMaxBounds[0]))/xDivisions
+				yaxisdelta = (Math.log10(minMaxBounds[3]) - Math.log10(minMaxBounds[2]))/yDivisions
+				for (labelyN = 1; labelyN <= yDivisions; labelyN++) {
+					valueToGo = Math.log10(minMaxBounds[2]) + (labelyN*yaxisdelta)
+					valueToG = linearValue(Math.log10(minMaxBounds[2]), Math.log10(minMaxBounds[3]), 0, 100, valueToGo)
+					valueToGo = Math.pow(10, valueToGo)
+
+					options = {}
+					options.x = -8
+					options.y = valueToG
+					options.textcolor = 'hsla(0, 0%, 0%, 0.7)'
+					options.text = nToLabel(valueToGo)
+					if (dmode == 'portrait') {
+						options.fontSize = '0.4vmax'
+					}
+					else {
+						options.fontSize = '0.2vmax'
+					}
+					addText('chartG', 'chartYLabel#' + labelyN, options)
+					axisAllLabels.push('chartYLabel#' + labelyN)
+				}
+				for (labelxN = 0; labelxN <= xDivisions; labelxN++) {
+					valueToGo = Math.log10(minMaxBounds[0]) + (labelxN*xaxisdelta)
+					valueToG = linearValue(Math.log10(minMaxBounds[0]), Math.log10(minMaxBounds[1]), 0, 100, valueToGo)
+					valueToGo = Math.pow(10, valueToGo)
+
+					options = {}
+					options.x = valueToG
+					options.y = -6
+					options.textcolor = 'hsla(0, 0%, 0%, 0.7)'
+					options.text = nToLabel(valueToGo)
+					if (dmode == 'portrait') {
+						options.fontSize = '0.4vmax'
+					}
+					else {
+						options.fontSize = '0.2vmax'
+					}
+					options.textAlign = 'center'
+					labelC = addText('chartG', 'chartXLabel#' + labelxN, options)[0]
+					axisAllLabels.push('chartXLabel#' + labelxN)
+				}
+			}
+		}
+
+		function drawBoundAxes() {
+			options = {}
+			options.x1 = 0
+			options.y1 = 0
+			options.x2 = 100
+			options.y2 = 0
+			options.strokewidth = 2.3
+			options.linecolor = 'hsla(0, 0%, 0%, 0.3)'
+			addLine('chartG', 'chartXAxis', options)
+
+			options = {}
+			options.x = 0
+			options.y = 0
+			options.textcolor = 'hsla(0, 0%, 0%, 0.8)'
+			options.text = 'New Confirmed Cases (in the last ' + nDays + ' days)'
+			options.fontSize = '0.2vmax'
+			chartYL = addText('chartG', 'chartYAxLabel', options)[0]
+
+			gtempData = graphData['chartG']
+			yAxisTransformX = graphToScaledX(-13, gtempData.xmin, gtempData.xmax, gdata.aspectratio)
+			yAxisTransformY = graphToScaledY(60, gtempData.ymin, gtempData.ymax, gdata.aspectratio)
+			chartYL.setAttribute('transform', "translate(" + yAxisTransformX + ", " + yAxisTransformY + ") rotate(-90)")
+			chartYL.setAttribute('x', "0")
+			chartYL.setAttribute('y', "0")
+			chartYL.style.textAnchor = 'middle'
+
+			options = {}
+			options.x = 50
+			options.y = -20
+			options.textAlign = 'center'
+			options.textcolor = 'hsla(0, 0%, 0%, 0.8)'
+			options.text = 'Total Confirmed Cases'
+			options.fontSize = '0.2vmax'
+			chartXL = addText('chartG', 'chartXAxLabel', options)
+
+			options = {}
+			options.x = 50
+			options.y = 115
+			options.textAlign = 'center'
+			options.textcolor = 'hsla(0, 0%, 0%, 1)'
+			options.text = 'Covid19 Confirmed Cases Trajectory - ' + currentCountry
+			options.fontSize = '0.27vmax'
+			chartXL = addText('chartG', 'chartTitle', options)
+		}
+
+		
+
+		function deleteAllLabels() {
+			for (labelC = 0; labelC < axisAllLabels.length; labelC++) {
+				removeText('chartG', axisAllLabels[labelC])
+			}
+			axisAllLabels = []
+		}
+
+		axisAllLabels = []
+
+		function divideAxes() {
+			xDivisions = 8
+			yDivisions = 6
+			
+			if (plotType == 'linear') {
+				xaxisdelta = (minMaxBounds[1] - minMaxBounds[0])/xDivisions
+				yaxisdelta = (minMaxBounds[3] - minMaxBounds[2])/yDivisions
+				for (labelyN = 1; labelyN <= yDivisions; labelyN++) {
+					valueToGo = minMaxBounds[2] + (labelyN*yaxisdelta)
+					valueToG = linearValue(minMaxBounds[2], minMaxBounds[3], 0, 100, valueToGo)
+					options = {}
+					options.y1 = valueToG
+					options.x1 = 0
+					options.y2 = valueToG
+					options.x2 = 100
+					options.strokewidth = 1
+					options.linecolor = 'hsla(0, 0%, 0%, 0.2)'
+					addLine('chartG', 'chartYHorizontalLine#' + labelyN, options)
+
+				}
+			}
+			else if (plotType == 'log') {
+				xaxisdelta = (Math.log10(minMaxBounds[1]) - Math.log10(minMaxBounds[0]))/xDivisions
+				yaxisdelta = (Math.log10(minMaxBounds[3]) - Math.log10(minMaxBounds[2]))/yDivisions
+				for (labelyN = 1; labelyN <= yDivisions; labelyN++) {
+					valueToGo = Math.log10(minMaxBounds[2]) + (labelyN*yaxisdelta)
+					valueToG = linearValue(Math.log10(minMaxBounds[2]), Math.log10(minMaxBounds[3]), 0, 100, valueToGo)
+					valueToGo = Math.pow(10, valueToGo)
+
+					options = {}
+					options.y1 = valueToG
+					options.x1 = 0
+					options.y2 = valueToG
+					options.x2 = 100
+					options.strokewidth = 1
+					options.linecolor = 'hsla(0, 0%, 0%, 0.2)'
+					addLine('chartG', 'chartYHorizontalLine#' + labelyN, options)
+
+				}
+				
+			}
+		}
+
+		drawBoundAxes()
+		drawBoundLabels()
+		divideAxes()
+
+		function drawCurveFor(stateName) {
+			pointsForCurve = []
+			rawpoints = curveDataForState[stateName]
+			rawpoints = rawpoints.slice(0, rawpoints.length - drawDateIndex)
+			for (infoPointI = 0; infoPointI < rawpoints.length; infoPointI++) {
+				if (plotType == 'linear') {
+					bds = minMaxBounds
+					gX = linearValue(bds[0], bds[1], 0, 100, rawpoints[infoPointI][0])
+					gY = linearValue(bds[2], bds[3], 0, 100, rawpoints[infoPointI][1])
+					pointsForCurve.push([gX, gY])
+					if (infoPointI == rawpoints.length - 1) {
+						updatePointXY('chartG', 'stateCurveOf@' + stateName + '@mainPoint', gX, gY)
+						options = {}
+
+						if (gX > 85) {
+							gX = 85
+						}
+						options.x = gX + 1
+						options.y = gY + 1
+						updateText ('chartG', 'stateTextOf@' + stateName, options)
+					}
+					else {
+						updatePointXY('chartG', 'stateCurveOf@' + stateName + '@' + infoPointI, gX, gY)
+					}
+					
+				}
+				else if (plotType == 'log') {
+					bds = minMaxBounds
+					
+					if (rawpoints[infoPointI][0] > 0 && rawpoints[infoPointI][1] > 0) {
+						gX = linearValue(Math.log10(bds[0]), Math.log10(bds[1]), 0, 100, Math.log10(rawpoints[infoPointI][0]))
+						gY = linearValue(Math.log10(bds[2]), Math.log10(bds[3]), 0, 100, Math.log10(rawpoints[infoPointI][1]))
+						pointsForCurve.push([gX, gY])
+						if (infoPointI == rawpoints.length - 1) {
+							updatePointXY('chartG', 'stateCurveOf@' + stateName + '@mainPoint', gX, gY)
+							options = {}
+							if (gX > 85) {
+								gX = 85
+							}
+							options.x = gX + 1
+							options.y = gY + 1
+							updateText ('chartG', 'stateTextOf@' + stateName, options)
+						}
+						else {
+							updatePointXY('chartG', 'stateCurveOf@' + stateName + '@' + infoPointI, gX, gY)
+						}
+					}
+						
+					
+				}
+			}
+			updatePathPoints('chartG', 'stateCurveOf@' + stateName, pointsForCurve)
+		}
+
+		function stateVisibility(stateN, vValue) {
+			if (plotStateState[stateN] && vValue == 'hidden') {
+				visibilitySet(partsOfState[stateN], vValue)
+			}
+			else if (plotStateState[stateN] == false && vValue == 'visible') {
+				visibilitySet(partsOfState[stateN], vValue)
+			}
+			
+		}
+
+		drawDateIndex = datesAvailable.length - nDays - 1
+		// drawDateIndex = 0
+
+		function drawStateCurves() {
+			for (var statekey in fullData) {
+				if (plotStateState[statekey]) {
+					positionPointsSet(pointsOfState[statekey], [-100, -100])
+					updatePathPoints('chartG', 'stateCurveOf@' + statekey, [[-100, -100], [-120, -120]])
+					updateText('chartG', 'stateTextOf@' + statekey, {x : -100, y: -100})
+					updatePointXY('chartG', 'stateCurveOf@' + statekey + '@mainPoint', -100,-100)
+					visibilitySet(partsOfState[statekey], 'visible')
+					drawCurveFor(statekey)
+				}
+				else {
+					visibilitySet(partsOfState[statekey], 'hidden')
+				}
+			}
+		}
+
+		drawStateCurves()
+
+		function timeSlide(event) {
+			drawDateIndex = datesAvailable.length - nDays - 1 - parseInt(document.getElementById('timeSlider').value)
+			drawStateCurves()
+			document.getElementById('timedisplay').innerHTML = datesAvailable[parseInt(document.getElementById('timeSlider').value) + nDays]
+			playing = false
+			document.getElementById('playpauseH').innerHTML = '<i class="fa fa-play-circle" aria-hidden="true"></i>'
+		}
+
+		function timeSlidePlay(event) {
+			drawDateIndex = datesAvailable.length - nDays - 1 - parseInt(document.getElementById('timeSlider').value)
+			drawStateCurves()
+			document.getElementById('timedisplay').innerHTML = datesAvailable[parseInt(document.getElementById('timeSlider').value) + nDays]
+			if (datesAvailable[parseInt(document.getElementById('timeSlider').value) + nDays] == datesAvailable[datesAvailable.length - 1]) {
+				playing = false
+				drawDateIndex = datesAvailable.length - nDays - 1
+				document.getElementById('timeSlider').value = 0
+				document.getElementById('playpauseH').innerHTML = '<i class="fa fa-play-circle" aria-hidden="true"></i>'
+			}
+		}
+
+		divSlider('timesliderH', 'timeSlider', 0, datesAvailable.length - nDays - 1, 0, 1, 'timeSlide()', '90%', '7px', 'hsla(190, 100%, 100%, 1)', 'timesliderClass')
+
+		loopcount = 0
+		playing = true
+
+		function playLoop(event) {
+			loopinterval = setInterval(frame, 200);
+			function frame() {
+				loopcount = loopcount + 1
+				if (playing) {
+					$("#timeSlider").val(parseInt($("#timeSlider").val()) + 1);
+					$("#timeSlider").trigger('change');
+					timeSlidePlay()	
+				}
+			}
+		}
+
+		playLoop()
+
+		document.getElementById('pastDaysToChoose').value = nDays;
+
+		
+
+		function switchCountryEvent(event) {
+			switchCountries(event.target.value)
+		}
+
+		function switchCountries(countryName) {
+			fullData = fullDataAll[countryName]
+			datesAvailable = datesAvailableAll[countryName]
+
+			currentCountry = countryName
+
+			removeGraph('chartG')
+			setUpGraph()
+
+			nDays = parseInt(document.getElementById('pastDaysToChoose').value)
+			totalCaseCount = {}
+			curveDataForState = {}
+			plotStateState = {}
+
+			getCurveDataForStates()
+
+			partsOfState = {}
+			pointsOfState = {}
+			stateHue = {}
+
+			infoBoldDisplayAndActivateGraph()
+
+			orderedStates = Object.keys(totalCaseCount).sort(function(a,b){ return totalCaseCount[b] - totalCaseCount[a]})
+
+			addInfoDisplay()
+
+			curveDataForState = {}
+			getCurveDataForStates()
+
+			addCurves()
+			addStateChecks()
+
+			makeFollowingPlotState(orderedStates.slice(0,4), true)
+
+			setBounds()
+
+			checkEvent(event)
+
+			setBounds()
+			axisAllLabels = []
+			drawBoundAxes()
+			drawBoundLabels()
+			divideAxes()
+
+			document.getElementById('timeSlider').setAttribute('max', datesAvailable.length - nDays - 1)
+			document.getElementById('timeSlider').setAttribute('value', datesAvailable.length - nDays - 1)
+
+			$("#timeSlider").val(parseInt($("#timeSlider").max));
+			$("#timeSlider").trigger('change');
+
+			drawDateIndex = 0
+			drawStateCurves()
+		}
+
+		function togglePlay() {
+			if (playing == false) {
+				playing = true
+				document.getElementById('playpauseH').innerHTML = '<i class="fa fa-pause-circle" aria-hidden="true"></i>'
+
+			}
+			else {
+				playing = false
+				document.getElementById('playpauseH').innerHTML = '<i class="fa fa-play-circle" aria-hidden="true"></i>'
+			}
+		}
+
+		function distF(pt1, pt2) {
+			return Math.pow(Math.pow(pt1[0] - pt2[0], 2) + Math.pow(pt1[1] - pt2[1], 2), 0.5)
+		}
+
+		function directionvec(pt1, pt2) {
+			diff = [pt2[0] - pt1[0], pt2[1] - pt1[1]]
+			difflen = distF(diff, [0,0])
+			return [diff[0]/difflen, diff[1]/difflen]
+		}
+
+		function mod(ofVector) {
+			return distF(ofVector, [0,0])
+		}
+
+		function handleLayout2() {
+			if (dmode == 'portrait') {
+				allTXTs = graphData['chartG'].textData
+				for (var textD in allTXTs) {
+					if (allTXTs[textD][1].fontSize == '0.15vmax') {
+						options = {}
+						options.fontSize = '0.4vmax'
+						updateText('chartG', textD, options)
+					}
+					if (allTXTs[textD][1].fontSize == '0.2vmax') {
+						options = {}
+						options.fontSize = '0.4vmax'
+						updateText('chartG', textD, options)
+					}
+					if (allTXTs[textD][1].fontSize == '0.27vmax') {
+						options = {}
+						options.fontSize = '0.5vmax'
+						updateText('chartG', textD, options)
+					}			
+				}
+
+
+				chartYL = graphData['chartG'].textData['chartYAxLabel'][0]
+
+				gtempData = graphData['chartG']
+				yAxisTransformX = graphToScaledX(-13, gtempData.xmin, gtempData.xmax, gdata.aspectratio)
+				yAxisTransformY = graphToScaledY(60, gtempData.ymin, gtempData.ymax, gdata.aspectratio)
+				chartYL.setAttribute('transform', "translate(" + yAxisTransformX + ", " + yAxisTransformY + ") rotate(-90)")
+				chartYL.setAttribute('x', "0")
+				chartYL.setAttribute('y', "0")
+				chartYL.style.textAnchor = 'middle'
+			}
+			if (dmode == 'landscape') {
+				
+			}
+		}
+
+		handleLayout2()
+
+		switchCountries('US')
+
+		// handleLayout()
+
+		</script>
+
+
+	</body>
+<html>
+
