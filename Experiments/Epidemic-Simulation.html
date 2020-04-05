@@ -3145,34 +3145,9 @@
 				document.getElementById('mainB2HSpacer6').style.height = '5%'
 
 				$('#infoH').insertAfter('#mainB2HSpacer6')
-				
 
-				
-				// document.getElementById('containAll').style.position = 'relative'
-				// // document.body.style.overflow = 'hidden'
-				// document.getElementById('MainBlock1').style.width = '90%'
-				// document.getElementById('MainBlock1').style.height = '70%'
-
-				// document.getElementById('mainVSpacer1').style.height = '70%'
-				// document.getElementById('mainVSpacer2').style.height = '70%'
-				// document.getElementById('mainVSpacer3').style.height = '90%'
-
-				// document.getElementById('mainVSpacer1').style.width = '5%'
-				// document.getElementById('mainVSpacer2').style.width = '5%'
-				// document.getElementById('mainVSpacer3').style.width = '5%'
-
-				// document.getElementById('MainBlock2').style.width = '90%'
-				// document.getElementById('MainBlock2').style.height = '90%'
-
-				// document.getElementById('maintitle').style.textAlign = 'center'
-				// document.getElementById('titleH').style.height = '15%'
-				// document.getElementById('maintitle').style.fontSize = '4vmax'
-				// document.getElementById('maintitle').innerHTML = 'covid19 Trends <font style="font-weight: bold;">India</font><br/><font style="font-family: Source Sans Pro; font-size: 1.6vmax; vertical-align: bottom;">Inspired by <a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(334, 100%, 50%, 1);">Covid Trends</a></font> by <a href="https://aatishb.com/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Aatish Bhatia</font></a>, which was in collaboration with <a href="https://www.youtube.com/watch?v=54XLXg4fYsc" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(280, 100%, 50%, 1);">MinutePhysics</font></a></font>'
-
-				// // document.getElementById('mainB1HSpacer2').style.height = '1%'
-
-
-				
+				document.getElementById('gradfillParameters').style.background = 'linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 8%, hsla(0, 100%, 0%, 1) 10%, hsla(0, 100%, 100%, 0) 14%, hsla(0, 0%, 0%, 0) 88%,hsla(0, 100%, 0%, 1) 100%,hsla(0, 100%, 100%, 0) 100%,hsla(0, 100%, 100%, 0))'
+	
 			}
 		}
 
@@ -3194,15 +3169,17 @@
 		parameterData[3] = {name: 'infectionTime', div: 'Infection duration is @@@ days',initValue: 25, max: 100, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
 		parameterData[4] = {name: 'socialDistancingFactorA', div: 'Social Distancing Factor &nbsp&nbsp @@@',initValue: 0, max: 1, min: 0, step: 0.01, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: false, runFAtEnd: ''}
 		parameterData[5] = {name: 'socialDistanceObedientPop', div: '@@@% of the population obeys Social Distancing',initValue: 100, max: 100, min: 0, step: 0.1, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: 'handleSDObedience()'}
-		parameterData[6] = {name: 'numberOfParticles', div: 'Number of Particles &nbsp&nbsp @@@' ,initValue: 200, max: 2000, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
-		parameterData[7] = {name: 'particleSize', div: 'Particle Size &nbsp&nbsp @@@',initValue: 0.7, max: 1, min: 0.1, step: 0.001, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: true, runFAtEnd: ''}
-		parameterData[8] = {name: 'frameRate', div: 'Frame Rate &nbsp&nbsp @@@',initValue: 40, max: 100, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
+		parameterData[6] = {name: 'quarantineAfter', div: 'Quarantine after @@@ days of Infection',initValue: 10, max: 100, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
+		parameterData[7] = {name: 'probabilityOfNoSymptoms', div: "@@@% of the infected, don't show symptoms, hence, won't be quarantined.", initValue: 2, max: 100, min: 0, step: 0.1, color: '76, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
+		parameterData[8] = {name: 'numberOfParticles', div: 'Number of Particles &nbsp&nbsp @@@' ,initValue: 200, max: 2000, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
+		parameterData[9] = {name: 'particleSize', div: 'Particle Size &nbsp&nbsp @@@',initValue: 0.7, max: 1, min: 0.1, step: 0.001, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: true, runFAtEnd: ''}
+		parameterData[10] = {name: 'frameRate', div: 'Frame Rate &nbsp&nbsp @@@',initValue: 40, max: 100, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
 
 		divAdjust = '@@@ days simulated every second <br/><font style="color:grey; font-size: 1.2vmax;"> (Might vary depending on your device clock speed.)</font>'
 		if (dmode == 'landscape') {
 			divAdjust = '@@@ days simulated every second <br/><font style="color:grey; font-size: 0.8vmax;"> (Might vary depending on your device clock speed.)</font>'
 		}
-		parameterData[9] = {name: 'daysEverySecond', div: divAdjust,initValue: 3, max: 20, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
+		parameterData[11] = {name: 'daysEverySecond', div: divAdjust,initValue: 3, max: 20, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
 		
 
 		parameterSliderRMap = {}
@@ -3303,7 +3280,7 @@
 		addVariousParameters()
 
 		infectionStates = ['infected', 'susceptible', 'removed']
-		stateColors = {'infected':'10, 100%,70%','susceptible': '195, 100%, 50%', 'removed':'190, 0%, 40%'}
+		stateColors = {'infected':'10, 100%,70%','susceptible': '195, 100%, 50%', 'removed':'190, 0%, 40%', 'noSymptoms' : '76, 100%, 50%'}
 
 		loopcount = 0
 		timecount = 0
@@ -3464,8 +3441,7 @@
 			// addCircle('labG', 'simpleCircleBoundary', options)
 		}
 
-		fractionInfectedInitially = 0.02
-		infectionRadius = 0.1
+
 		particleVicinityDB = {}
 		allParticleVicinityDB = {}
 		vicinityDelta = 0.1
@@ -3734,6 +3710,7 @@
 				particleData[boundaryN][particleID].daysSinceInfection = 0
 
 				particleData[boundaryN][particleID].quarantined = false
+				particleData[boundaryN][particleID].showsSymptoms = true
 
 				particleData[boundaryN][particleID].color = stateColors[particleData[boundaryN][particleID].state]
 
@@ -4021,7 +3998,13 @@
 					partDB[particleIndex].x = partDB[particleIndex].x + (partDB[particleIndex].vx*timeStep)
 					partDB[particleIndex].y = partDB[particleIndex].y + (partDB[particleIndex].vy*timeStep)
 
-					boundaryRForce = boundaryRepulsiveForce([partDB[particleIndex].x, partDB[particleIndex].y], ofBoundary, boundaryForceC, 0.1)
+					if (ofBoundary == 'simpleQuarantineB') {
+						boundaryRForce = boundaryRepulsiveForce([partDB[particleIndex].x, partDB[particleIndex].y], ofBoundary, boundaryForceC*3, 0.07)
+					}
+					else {
+						boundaryRForce = boundaryRepulsiveForce([partDB[particleIndex].x, partDB[particleIndex].y], ofBoundary, boundaryForceC, 0.1)
+					}
+					
 
 					// A SocialDistancingRepulsiveForce
 
@@ -4033,7 +4016,7 @@
 						totalForce = [0, 0]
 						for (vPIndex = 0; vPIndex < particlesClose.length; vPIndex++) {
 							vicinityParticle = particlesClose[vPIndex]
-							if (vicinityParticle != particleIndex) {
+							if (vicinityParticle != particleIndex && particleData[ofBoundary][vicinityParticle] != undefined) {
 								vicinityParticlePos = [particleData[ofBoundary][vicinityParticle].x, particleData[ofBoundary][vicinityParticle].y]
 								distanceR = distF(mainParticlePos, vicinityParticlePos)
 								unitVec = directionvec(vicinityParticlePos,mainParticlePos)
@@ -4131,8 +4114,6 @@
 
 		interactionAnimation = true
 
-		infectionTime = 14 // In Days
-
 		function interactions(ofBoundary) {
 			partDB = particleData[ofBoundary]
 			for (var particleIndex in partDB) {
@@ -4170,6 +4151,11 @@
 								particleVicinityDB[ofBoundary][vicinityN[0] + '&' + vicinityN[1]].splice(zoneP.indexOf(vicinityParticle), 1)
 
 								options.pointcolor = 'hsla(' + particleData[ofBoundary][vicinityParticle].color + ',1)'
+								if (Math.random() < simulationParameters.probabilityOfNoSymptoms) {
+									particleData[ofBoundary][vicinityParticle].showsSymptoms = false
+									particleData[ofBoundary][vicinityParticle].color = stateColors['noSymptoms']
+									options.pointcolor = 'hsla(' + particleData[ofBoundary][vicinityParticle].color + ',1)'
+								}
 								updatePoint(boundaryData[ofBoundary]['graph'], 'particle@' + vicinityParticle, options)
 							}
 						}
@@ -4196,7 +4182,7 @@
 						updateCircle(boundaryData[ofBoundary]['graph'], 'particleCircle@' + mainParticle, options)
 					}
 
-					if (currentSim == 'simpleCase&Q' && particleData[ofBoundary][mainParticle].daysSinceInfection > 10 && particleData[ofBoundary][mainParticle].moveAnimation == false && particleData[ofBoundary][mainParticle].quarantined == false) {
+					if (currentSim == 'simpleCase&Q' && particleData[ofBoundary][mainParticle].daysSinceInfection > simulationParameters.quarantineAfter && particleData[ofBoundary][mainParticle].moveAnimation == false && particleData[ofBoundary][mainParticle].quarantined == false && particleData[ofBoundary][mainParticle].showsSymptoms) {
 						particleData[ofBoundary][mainParticle].quarantined = true
 						moveToBoundary('simpleQuarantineB', 'simpleCaseGraph&QB', mainParticle)
 
@@ -4215,6 +4201,7 @@
 			particleData[toBoundary][particleIndexDetail].moveAnimationTo = boundaryData[toBoundary]['center']
 			particleData[toBoundary][particleIndexDetail].moveAnimationFrame = 0
 			particleData[toBoundary][particleIndexDetail].moveAnimationTime = timeStepsPerDay/2
+
 		}
 
 		function updatePlotGraph() {
