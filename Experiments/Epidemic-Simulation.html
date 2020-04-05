@@ -208,11 +208,11 @@
 				</div>
 				<br/>
 				<div id="simpleCaseGraphH" style="width: 100%; height: 35%; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
-				<div id="centralLocationCaseGraphH" style="width: 100%; height: 35%; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
-				<div id="communitiesCaseGraphH" style="width: 100%; height: 35%; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
-				<div id="simpleQuarantineCaseGraphH" style="width: 100%; height: 35%; overflow: hidden;position: absolute; z-index: 1; display: inline-block;"></div>
-				<div id="centralLocationQuarantineCaseGraphH" style="width: 100%; height: 35%; overflow: hidden;position: absolute; z-index: 1; display: inline-block;"></div>
-				<div id="communitiesQuarantineCaseGraphH" style="width: 100%; height: 35%; overflow: hidden;position: relative; z-index: 1; display: inline-block;"></div>
+				<div id="centralLocationCaseGraphH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
+				<div id="communitiesCaseGraphH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
+				<div id="simpleCaseGraph&QH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: absolute; z-index: 1; display: inline-block;"></div>
+				<div id="centralLocationQuarantineCaseGraphH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: absolute; z-index: 1; display: inline-block;"></div>
+				<div id="communitiesQuarantineCaseGraphH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: relative; z-index: 1; display: inline-block;"></div>
 				<div id="play-Info-QuarantineH" style='margin:0px;width:100%; height:3.5%; position: relative; z-index: 1;display: inline-block; color: hsla(190, 0%, 70%, 1); font-family: Source Sans Pro;'>
 					<div id="playButtonH" style="width: 15%; height: 100%; position: relative; z-index: 1;display: inline-block; overflow: hidden;">
 						<input id='playbutton' onclick="playpauseSim(event)" value='PAUSE' list="brow" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.5vmax; background: hsla(198,100%,50%,1); color: hsla(0, 0%, 100%, 1); cursor: pointer; user-select: none; pointer-events: auto; overflow: hidden; outline: none;" readonly></input>
@@ -225,7 +225,7 @@
 					<div id="infoH" style="width: 32%; height: 100%; position: relative; z-index: 1;display: inline-block; color: white; font-size: 0.9vmax; font-family: Source Sans Pro; overflow: hidden;"><div style="display: table-cell; vertical-align: middle; text-align: center; height: 100%; width: 100%;">Please watch the 3b1b video to understand what is presented here.</div></div>
 					<div id="play-Info-QuarantineHSpacer2" style='margin:0px;width:2%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '></div>
 					<div id="quarantineH" style="width: 30%; height: 100%; position: relative; z-index: 1;display: inline-block; overflow: hidden; text-align: center;">
-						<input type="checkbox" id="quarantinecheck" name="quarantinecheck" value="quarantinecheck"  ><label id="quarantinecheckLabel" for="quarantinecheck" style="color: var(--themeinfected); font-size: 1.5vmax; font-weight: bold;">QUARANTINE</label>
+						<input onchange="handleQClick(event)" type="checkbox" id="quarantinecheck" name="quarantinecheck" value="quarantinecheck"  ><label id="quarantinecheckLabel" for="quarantinecheck" style="color: var(--themeinfected); font-size: 1.5vmax; font-weight: bold;">QUARANTINE</label>
 					</div>
 				</div>
 				<div id="mainB2HSpacer3" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
@@ -3091,7 +3091,7 @@
 				document.getElementById('simpleCaseGraphH').style.height = '65%'
 				document.getElementById('centralLocationCaseGraphH').style.height = '65%'
 				document.getElementById('communitiesCaseGraphH').style.height = '65%'
-				document.getElementById('simpleQuarantineCaseGraphH').style.height = '65%'
+				document.getElementById('simpleCaseGraph&QH').style.height = '65%'
 				document.getElementById('centralLocationQuarantineCaseGraphH').style.height = '65%'
 				document.getElementById('communitiesQuarantineCaseGraphH').style.height = '65%'
 
@@ -3197,7 +3197,12 @@
 		parameterData[6] = {name: 'numberOfParticles', div: 'Number of Particles &nbsp&nbsp @@@' ,initValue: 200, max: 2000, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
 		parameterData[7] = {name: 'particleSize', div: 'Particle Size &nbsp&nbsp @@@',initValue: 0.7, max: 1, min: 0.1, step: 0.001, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: true, runFAtEnd: ''}
 		parameterData[8] = {name: 'frameRate', div: 'Frame Rate &nbsp&nbsp @@@',initValue: 40, max: 100, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
-		parameterData[9] = {name: 'daysEverySecond', div: '@@@ days simulated every second',initValue: 3, max: 20, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
+
+		divAdjust = '@@@ days simulated every second <br/><font style="color:grey; font-size: 1.2vmax;"> (Might vary depending on your device clock speed.)</font>'
+		if (dmode == 'landscape') {
+			divAdjust = '@@@ days simulated every second <br/><font style="color:grey; font-size: 0.8vmax;"> (Might vary depending on your device clock speed.)</font>'
+		}
+		parameterData[9] = {name: 'daysEverySecond', div: divAdjust,initValue: 3, max: 20, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
 		
 
 		parameterSliderRMap = {}
@@ -3205,7 +3210,7 @@
 		function addVariousParameters() {
 			if (dmode == 'landscape') {
 				for (var parameterIndex in parameterData) {
-					pName = parameterData[parameterIndex].div.replace(/@@@/g, '').replace(/&nbsp/g, '').replace(/ /g, '').replace(/%/g, '')
+					pName = parameterData[parameterIndex].name + 'div'
 					parameterSliderRMap[pName + 'Slider'] = parameterIndex
 					parameterDivData = '<div id="parameter' + pName + 'Box" style="margin:0px;width:100%; position: relative; z-index: 1;display: flex;"><div id="parameter' + pName + 'Text" style="margin:0px;width:45%; position: relative; z-index: 1;display: inline-block; text-align: left;">' + parameterData[parameterIndex].div.replace(/@@@/g, '<font style="font-weight:bold; color:hsla(' + parameterData[parameterIndex].color + ', 1);">' + parameterData[parameterIndex].initValue + '</font>') + '</div><div id="parameter' + pName + 'SliderH" style="margin:0px;width:55%; position: relative; z-index: 1; display: flex; align-items: center;"></div></div><div style="width: 100%; height: 7%"></div>'
 					$(parameterDivData).appendTo('#parametersListH')
@@ -3218,7 +3223,7 @@
 			}
 			else {
 				for (var parameterIndex in parameterData) {
-					pName = parameterData[parameterIndex].div.replace(/@@@/g, '').replace(/&nbsp/g, '').replace(/ /g, '').replace(/%/g, '')
+					pName = parameterData[parameterIndex].name + 'div'
 					parameterSliderRMap[pName + 'Slider'] = parameterIndex
 					parameterDivData = '<div id="parameter' + pName + 'Box" style="margin:0px;width:100%; position: relative; z-index: 1;display: inline-block"><div id="parameter' + pName + 'Text" style="margin:0px;width:92%; position: relative; z-index: 1;display: inline-block; text-align: left;">' + parameterData[parameterIndex].div.replace(/@@@/g, '<font style="color:hsla(' + parameterData[parameterIndex].color + ', 1);">' + parameterData[parameterIndex].initValue + '</font>') + '</div><div style="width: 100%; height: 8%"></div><div id="parameter' + pName + 'SliderH" style="margin:0px;width:100%; position: relative; z-index: 1;display: inline-block;"></div><div style="width: 100%; height: 15%"></div></div>'
 					$(parameterDivData).appendTo('#parametersListH')
@@ -3259,6 +3264,24 @@
 		 			playAnimationLoop()
 					playing = true
 				}
+				else if (currentSim == 'simpleCase&Q') {
+					playing = false
+					clearInterval(loopinterval);
+		 			clearInterval(loopinterval2);
+					removeParticlesFromBoundary('simpleCaseGraph&QG', 'simpleCaseGraph&QB')
+					removeParticlesFromBoundary('simpleCaseGraph&QG', 'simpleQuarantineB')
+					removeGraph('simpleCaseGraph&QG')
+					removeGraph('plotG')
+					dayCount = 0
+					timecount = 0
+					loopcount = 0
+					setUpSimpleQuarantineCaseGraph()
+					setUpPlotGraph()
+					handleSDObedience()
+					playCalculationLoop()
+		 			playAnimationLoop()
+					playing = true
+				}
 			}
 
 			
@@ -3282,6 +3305,15 @@
 		infectionStates = ['infected', 'susceptible', 'removed']
 		stateColors = {'infected':'10, 100%,70%','susceptible': '195, 100%, 50%', 'removed':'190, 0%, 40%'}
 
+		loopcount = 0
+		timecount = 0
+		playing = true
+
+		frameInterval = 0
+		calculationFrameInterval = 0
+
+		timeStepsPerDay = 24
+		timeStep = 1/timeStepsPerDay
 
 		function setUpGraph() {
 			graphH = document.getElementById('testGH')
@@ -3608,16 +3640,20 @@
 
 		setUpPlotGraph()
 
-		simpleCaseBoundary = [-1, 1, -1, 1]
+		simpleCaseBoundaryRanges = [-1, 1, -1, 1]
 		boundaryData = {}
 
-		function drawBoundary(graphN, boundaryN, boundaryRanges) {
+		function drawBoundary(graphN, boundaryN, boundaryRanges, boundaryProp) {
 			boundaryData[boundaryN] = {}
 			boundaryData[boundaryN]['range'] = boundaryRanges
+			boundaryData[boundaryN]['center'] = [(boundaryRanges[0] + boundaryRanges[1])/2, (boundaryRanges[2] + boundaryRanges[3])/2]
 			boundaryData[boundaryN]['graph'] = graphN
+
+			particleData[boundaryN] = {}
+
 			options = {}
 			options.points = [[boundaryRanges[1], boundaryRanges[3]], [boundaryRanges[0], boundaryRanges[3]], [boundaryRanges[0], boundaryRanges[2]], [boundaryRanges[1], boundaryRanges[2]], [boundaryRanges[1], boundaryRanges[3]]]
-			options.pathcolor = 'hsla(40, 100%, 100%, 1)'
+			options.pathcolor = boundaryProp.color
 			options.strokewidth = 0.4
 			addPath(graphN, boundaryN, options)
 
@@ -3657,9 +3693,17 @@
 		function addParticlesToBoundary(graphN ,boundaryN, particleN) {
 			boundaryData[boundaryN]['particleNumber'] = particleN
 			totalparticles = boundaryData[boundaryN]['particleNumber']
-			particleData[boundaryN] = {}
 			initiallyInfectedN = boundaryData[boundaryN]['fractionInfectedInitially']
 
+			bdrange = boundaryData[boundaryN]['range']
+			bdexclusionWX = (bdrange[1] - bdrange[0])/20
+			bdexclusionRX = (bdrange[1] - bdrange[0]) - (2*bdexclusionWX)
+			bdexclusionSX = bdrange[0] + bdexclusionWX
+
+			bdexclusionWY = (bdrange[1] - bdrange[0])/20
+			bdexclusionRY = (bdrange[1] - bdrange[0]) - (2*bdexclusionWY)
+			bdexclusionSY = bdrange[0] + bdexclusionWY
+			
 			for (particleIndex = 0; particleIndex < totalparticles; particleIndex++) {
 				options = {}
 				options.pointsize = simulationParameters.particleSize
@@ -3674,8 +3718,8 @@
 				particleData[boundaryN][particleID].ax = 0
 				particleData[boundaryN][particleID].ay = 0
 
-				particleData[boundaryN][particleID].x = (Math.random()*1.8) - 0.9
-				particleData[boundaryN][particleID].y = (Math.random()*1.8) - 0.9
+				particleData[boundaryN][particleID].x = bdexclusionSX + (Math.random()*bdexclusionRX)
+				particleData[boundaryN][particleID].y = bdexclusionSY + (Math.random()*bdexclusionRY)
 				if (particleIndex < parseInt(totalparticles*initiallyInfectedN)) {
 					particleData[boundaryN][particleID].state = 'infected'
 					particleCounts[graphN]['infected'] = particleCounts[graphN]['infected'] + 1
@@ -3689,7 +3733,15 @@
 				particleData[boundaryN][particleID].infectionAnimationFrame = 0
 				particleData[boundaryN][particleID].daysSinceInfection = 0
 
+				particleData[boundaryN][particleID].quarantined = false
+
 				particleData[boundaryN][particleID].color = stateColors[particleData[boundaryN][particleID].state]
+
+				particleData[boundaryN][particleID].moveAnimation = false
+				particleData[boundaryN][particleID].moveAnimationFrom = [particleData[boundaryN][particleID].x, particleData[boundaryN][particleID].y]
+				particleData[boundaryN][particleID].moveAnimationTo = boundaryData[boundaryN]['center']
+				particleData[boundaryN][particleID].moveAnimationFrame = 0
+				particleData[boundaryN][particleID].moveAnimationTime = timeStepsPerDay/2
 				
 
 				options.x = particleData[boundaryN][particleID].x
@@ -3756,7 +3808,9 @@
 			
 			addGraph(graphH, 'simpleCaseGraphG', graphoptions)
 
-			drawBoundary('simpleCaseGraphG', 'simpleCaseGraphB', simpleCaseBoundary)
+			boundaryProperties = {}
+			boundaryProperties.color = 'white'
+			drawBoundary('simpleCaseGraphG', 'simpleCaseGraphB', simpleCaseBoundaryRanges, boundaryProperties)
 
 			boundaryData['simpleCaseGraphB']['fractionInfectedInitially'] = simulationParameters.fractionInfectedInitially
 
@@ -3778,10 +3832,73 @@
 			
 		}
 
+		function setUpSimpleQuarantineCaseGraph() {
+			graphH = document.getElementById('simpleCaseGraph&QH')
+			graphoptions = {}
+			graphoptions.xmax = 1
+			graphoptions.xmin = -1.7
+
+			graphoptions.ymax = 1.7
+			graphoptions.ymin = -1.7
+
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility= 'no'
+			graphoptions.yaxisvisibility = 'no'
+
+			graphoptions.xmajorgridlabelvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'no'
+
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+
+			graphoptions.fontSize = 1.6
+			
+			graphoptions.unitAspectRatio = 'yes'
+			// graphoptions.fixAxis = 'yaxis'
+			graphoptions.fixAxisStretchCentrally = 'yes'
+
+			graphoptions.scrollZoom = 'yes'
+			graphoptions.draggability = 'yes'
+			
+			addGraph(graphH, 'simpleCaseGraph&QG', graphoptions)
+
+			boundaryProperties = {}
+			boundaryProperties.color = 'white'
+			drawBoundary('simpleCaseGraph&QG', 'simpleCaseGraph&QB', [-1, 1, -1, 1], boundaryProperties)
+			boundaryProperties.color = 'hsla(2, 100%, 50%, 1)'
+			drawBoundary('simpleCaseGraph&QG', 'simpleQuarantineB', [-1.7, -1.2, -1, -0.5], boundaryProperties)
+
+			boundaryData['simpleCaseGraph&QB']['fractionInfectedInitially'] = simulationParameters.fractionInfectedInitially
+
+			particleCounts['simpleCaseGraph&QG'] = {}
+			particleCounts['simpleCaseGraph&QG']['infected'] = 0
+			particleCounts['simpleCaseGraph&QG']['susceptible'] = 0
+			particleCounts['simpleCaseGraph&QG']['removed'] = 0
+
+			particleCountTimeLine['simpleCaseGraph&QG'] = {}
+			particleCountTimeLine['simpleCaseGraph&QG']['infected'] = []
+			particleCountTimeLine['simpleCaseGraph&QG']['susceptible'] = []
+			particleCountTimeLine['simpleCaseGraph&QG']['removed'] = []
+
+			addParticlesToBoundary('simpleCaseGraph&QG', 'simpleCaseGraph&QB', simulationParameters.numberOfParticles)
+
+			createVicinityDB('simpleCaseGraph&QB')
+
+			prepInteractionData('simpleCaseGraph&QB')
+			
+		}
+
 		setUpSimpleCaseGraph()
 
+		setUpSimpleQuarantineCaseGraph()
+
 		currentSim = 'simpleCase'
-		currentSimG = 'simpleCaseGraphB'
+		currentSimG = 'simpleCaseGraphG'
 
 		function handleSDObedience() {
 			if (currentSim == 'simpleCase') {
@@ -3794,6 +3911,19 @@
 					}
 					else {
 						particleData['simpleCaseGraphB'][allParts[partIndex]].socialDistancingObedience = 0
+					}
+				}
+			}
+			else if (currentSim == 'simpleCase&Q') {
+				allParts = Object.keys(particleData['simpleCaseGraph&QB'])
+				allParts = shuffle(allParts)
+				toObeyP = simulationParameters.socialDistanceObedientPop*allParts.length
+				for (partIndex = 0; partIndex < allParts.length; partIndex++) {
+					if (partIndex < toObeyP) {
+						particleData['simpleCaseGraph&QB'][allParts[partIndex]].socialDistancingObedience = 1
+					}
+					else {
+						particleData['simpleCaseGraph&QB'][allParts[partIndex]].socialDistancingObedience = 0
 					}
 				}
 			}
@@ -3874,70 +4004,86 @@
 		function moveParticles(ofBoundary) {
 			partDB = particleData[ofBoundary]
 			for (var particleIndex in partDB) {
-				partDB[particleIndex].x = partDB[particleIndex].x + (partDB[particleIndex].vx*timeStep)
-				partDB[particleIndex].y = partDB[particleIndex].y + (partDB[particleIndex].vy*timeStep)
+				if (partDB[particleIndex].moveAnimation) {
+					moveFrom = partDB[particleIndex].moveAnimationFrom
+					moveTo = partDB[particleIndex].moveAnimationTo
+					moveTime = partDB[particleIndex].moveAnimationTime
+					particleData[ofBoundary][particleIndex].moveAnimationFrame = particleData[ofBoundary][particleIndex].moveAnimationFrame + 1
+					partDB[particleIndex].x = linearValue(0, moveTime, moveFrom[0], moveTo[0], particleData[ofBoundary][particleIndex].moveAnimationFrame)
+					partDB[particleIndex].y = linearValue(0, moveTime, moveFrom[1], moveTo[1], particleData[ofBoundary][particleIndex].moveAnimationFrame)
 
-				boundaryRForce = boundaryRepulsiveForce([partDB[particleIndex].x, partDB[particleIndex].y], ofBoundary, boundaryForceC, 0.1)
-
-				// A SocialDistancingRepulsiveForce
-
-				if (simulationParameters.socialDistancingFactorA > 0 && particleData[ofBoundary][particleIndex].socialDistancingObedience != 0) {
-					mainParticlePos = [particleData[ofBoundary][particleIndex].x, particleData[ofBoundary][particleIndex].y]
-					vicinityN = getParticleVicinityN(mainParticlePos, ofBoundary)
-					particlesClose = getSurroundingRepulsives(vicinityN, ofBoundary)
-
-					totalForce = [0, 0]
-					for (vPIndex = 0; vPIndex < particlesClose.length; vPIndex++) {
-						vicinityParticle = particlesClose[vPIndex]
-						if (vicinityParticle != particleIndex) {
-							vicinityParticlePos = [particleData[ofBoundary][vicinityParticle].x, particleData[ofBoundary][vicinityParticle].y]
-							distanceR = distF(mainParticlePos, vicinityParticlePos)
-							unitVec = directionvec(vicinityParticlePos,mainParticlePos)
-							distanceInverse = 1/Math.pow(distanceR, 6)
-
-							obedience = particleData[ofBoundary][particleIndex].socialDistancingObedience
-							socialDistancingForceFactor = simulationParameters.socialDistancingFactorA*0.0001
-							smallF = [unitVec[0]*distanceInverse*socialDistancingForceFactor*obedience, unitVec[1]*distanceInverse*socialDistancingForceFactor*obedience]
-							totalForce = addVec(totalForce, smallF)
-						}
-							
+					if (particleData[ofBoundary][particleIndex].moveAnimationFrame >= moveTime) {
+						particleData[ofBoundary][particleIndex].moveAnimation = false
+						particleData[ofBoundary][particleIndex].moveAnimationFrame = 0
 					}
-					partDB[particleIndex].ax = partDB[particleIndex].ax + totalForce[0]
-					partDB[particleIndex].ay = partDB[particleIndex].ay + totalForce[1]
-
-					speedLimitForSD = linearValue(0,1, 0.05, 0.008,simulationParameters.socialDistancingFactorA)
-
-					pspeed = mod([partDB[particleIndex].vx, partDB[particleIndex].vy])
-					if (pspeed > speedLimitForSD) {
-						partDB[particleIndex].vx = partDB[particleIndex].vx*speedLimitForSD/pspeed
-						partDB[particleIndex].vy = partDB[particleIndex].vy*speedLimitForSD/pspeed
-					}
-					modAcc = mod([partDB[particleIndex].ax, partDB[particleIndex].ay])
-					if (modAcc > accLimit) {
-						partDB[particleIndex].ax = partDB[particleIndex].ax*accLimit/modAcc
-						partDB[particleIndex].ay = partDB[particleIndex].ay*accLimit/modAcc
-					}
-
-				}
+				} 
 				else {
-					partDB[particleIndex].ax = partDB[particleIndex].ax + 2*(Math.random() - 0.5)*randomSmallJerk
-					partDB[particleIndex].ay = partDB[particleIndex].ay + 2*(Math.random() - 0.5)*randomSmallJerk
+					partDB[particleIndex].x = partDB[particleIndex].x + (partDB[particleIndex].vx*timeStep)
+					partDB[particleIndex].y = partDB[particleIndex].y + (partDB[particleIndex].vy*timeStep)
 
-					pspeed = mod([partDB[particleIndex].vx, partDB[particleIndex].vy])
-					if (pspeed > speedLimit) {
-						partDB[particleIndex].vx = partDB[particleIndex].vx*speedLimit/pspeed
-						partDB[particleIndex].vy = partDB[particleIndex].vy*speedLimit/pspeed
+					boundaryRForce = boundaryRepulsiveForce([partDB[particleIndex].x, partDB[particleIndex].y], ofBoundary, boundaryForceC, 0.1)
+
+					// A SocialDistancingRepulsiveForce
+
+					if (simulationParameters.socialDistancingFactorA > 0 && particleData[ofBoundary][particleIndex].socialDistancingObedience != 0) {
+						mainParticlePos = [particleData[ofBoundary][particleIndex].x, particleData[ofBoundary][particleIndex].y]
+						vicinityN = getParticleVicinityN(mainParticlePos, ofBoundary)
+						particlesClose = getSurroundingRepulsives(vicinityN, ofBoundary)
+
+						totalForce = [0, 0]
+						for (vPIndex = 0; vPIndex < particlesClose.length; vPIndex++) {
+							vicinityParticle = particlesClose[vPIndex]
+							if (vicinityParticle != particleIndex) {
+								vicinityParticlePos = [particleData[ofBoundary][vicinityParticle].x, particleData[ofBoundary][vicinityParticle].y]
+								distanceR = distF(mainParticlePos, vicinityParticlePos)
+								unitVec = directionvec(vicinityParticlePos,mainParticlePos)
+								distanceInverse = 1/Math.pow(distanceR, 6)
+
+								obedience = particleData[ofBoundary][particleIndex].socialDistancingObedience
+								socialDistancingForceFactor = simulationParameters.socialDistancingFactorA*0.0001
+								smallF = [unitVec[0]*distanceInverse*socialDistancingForceFactor*obedience, unitVec[1]*distanceInverse*socialDistancingForceFactor*obedience]
+								totalForce = addVec(totalForce, smallF)
+							}
+								
+						}
+						partDB[particleIndex].ax = partDB[particleIndex].ax + totalForce[0]
+						partDB[particleIndex].ay = partDB[particleIndex].ay + totalForce[1]
+
+						speedLimitForSD = linearValue(0,1, 0.05, 0.008,simulationParameters.socialDistancingFactorA)
+
+						pspeed = mod([partDB[particleIndex].vx, partDB[particleIndex].vy])
+						if (pspeed > speedLimitForSD) {
+							partDB[particleIndex].vx = partDB[particleIndex].vx*speedLimitForSD/pspeed
+							partDB[particleIndex].vy = partDB[particleIndex].vy*speedLimitForSD/pspeed
+						}
+						modAcc = mod([partDB[particleIndex].ax, partDB[particleIndex].ay])
+						if (modAcc > accLimit) {
+							partDB[particleIndex].ax = partDB[particleIndex].ax*accLimit/modAcc
+							partDB[particleIndex].ay = partDB[particleIndex].ay*accLimit/modAcc
+						}
+
+					}
+					else {
+						partDB[particleIndex].ax = partDB[particleIndex].ax + 2*(Math.random() - 0.5)*randomSmallJerk
+						partDB[particleIndex].ay = partDB[particleIndex].ay + 2*(Math.random() - 0.5)*randomSmallJerk
+
+						pspeed = mod([partDB[particleIndex].vx, partDB[particleIndex].vy])
+						if (pspeed > speedLimit) {
+							partDB[particleIndex].vx = partDB[particleIndex].vx*speedLimit/pspeed
+							partDB[particleIndex].vy = partDB[particleIndex].vy*speedLimit/pspeed
+						}
+
+						modAcc = mod([partDB[particleIndex].ax, partDB[particleIndex].ay])
+						if (modAcc > accLimit) {
+							partDB[particleIndex].ax = partDB[particleIndex].ax*accLimit/modAcc
+							partDB[particleIndex].ay = partDB[particleIndex].ay*accLimit/modAcc
+						}
 					}
 
-					modAcc = mod([partDB[particleIndex].ax, partDB[particleIndex].ay])
-					if (modAcc > accLimit) {
-						partDB[particleIndex].ax = partDB[particleIndex].ax*accLimit/modAcc
-						partDB[particleIndex].ay = partDB[particleIndex].ay*accLimit/modAcc
-					}
+					partDB[particleIndex].vx = partDB[particleIndex].vx + (partDB[particleIndex].ax*timeStep) + (boundaryRForce[0]*timeStep)
+					partDB[particleIndex].vy = partDB[particleIndex].vy + (partDB[particleIndex].ay*timeStep) + (boundaryRForce[1]*timeStep)
 				}
-
-				partDB[particleIndex].vx = partDB[particleIndex].vx + (partDB[particleIndex].ax*timeStep) + (boundaryRForce[0]*timeStep)
-				partDB[particleIndex].vy = partDB[particleIndex].vy + (partDB[particleIndex].ay*timeStep) + (boundaryRForce[1]*timeStep)
+					
 			}	
 		}
 
@@ -3972,7 +4118,7 @@
 			createVicinityDB(ofBoundary)
 			partDB = particleData[ofBoundary]
 			for (var particleIndex in partDB) {
-				if (particleData[ofBoundary][particleIndex].state == 'susceptible') {
+				if (particleData[ofBoundary][particleIndex].state == 'susceptible' && particleData[ofBoundary][particleIndex].moveAnimation == false) {
 					vicinityN = getParticleVicinityN([particleData[ofBoundary][particleIndex].x, particleData[ofBoundary][particleIndex].y], ofBoundary)
 
 					particleVicinityDB[ofBoundary][vicinityN[0] + '&' + vicinityN[1]].push(particleIndex)
@@ -3991,7 +4137,7 @@
 			partDB = particleData[ofBoundary]
 			for (var particleIndex in partDB) {
 				mainParticle = particleIndex
-				if (particleData[ofBoundary][mainParticle].state == 'infected') {
+				if (particleData[ofBoundary][mainParticle].state == 'infected' && particleData[ofBoundary][mainParticle].moveAnimation == false) {
 					vicinityN = getParticleVicinityN([particleData[ofBoundary][mainParticle].x, particleData[ofBoundary][mainParticle].y], ofBoundary)
 					particlesSusceptible = getSurrounding(vicinityN, ofBoundary)
 
@@ -4028,7 +4174,9 @@
 							}
 						}
 					}
+
 					particleData[ofBoundary][mainParticle].daysSinceInfection = particleData[ofBoundary][mainParticle].daysSinceInfection + 1
+					
 					if (particleData[ofBoundary][mainParticle].daysSinceInfection > simulationParameters.infectionTime) {
 						particleData[ofBoundary][mainParticle].state = 'removed'
 						particleData[ofBoundary][mainParticle].color = stateColors['removed']
@@ -4047,88 +4195,101 @@
 						options.stroke = 'hsla(0, 0%, 0%, 0)'
 						updateCircle(boundaryData[ofBoundary]['graph'], 'particleCircle@' + mainParticle, options)
 					}
+
+					if (currentSim == 'simpleCase&Q' && particleData[ofBoundary][mainParticle].daysSinceInfection > 10 && particleData[ofBoundary][mainParticle].moveAnimation == false && particleData[ofBoundary][mainParticle].quarantined == false) {
+						particleData[ofBoundary][mainParticle].quarantined = true
+						moveToBoundary('simpleQuarantineB', 'simpleCaseGraph&QB', mainParticle)
+
+					}
 				}
 			}
 		}
 
+		function moveToBoundary(toBoundary, fromBoundary, particleIndexDetail) {
+			particleData[toBoundary][particleIndexDetail] = JSON.parse(JSON.stringify(particleData[fromBoundary][particleIndexDetail]))
+
+			delete particleData[fromBoundary][particleIndexDetail]
+
+			particleData[toBoundary][particleIndexDetail].moveAnimation = true
+			particleData[toBoundary][particleIndexDetail].moveAnimationFrom = [particleData[toBoundary][particleIndexDetail].x, particleData[toBoundary][particleIndexDetail].y]
+			particleData[toBoundary][particleIndexDetail].moveAnimationTo = boundaryData[toBoundary]['center']
+			particleData[toBoundary][particleIndexDetail].moveAnimationFrame = 0
+			particleData[toBoundary][particleIndexDetail].moveAnimationTime = timeStepsPerDay/2
+		}
+
 		function updatePlotGraph() {
-			if (currentSim == 'simpleCase') {
-				graphForParticle = 'simpleCaseGraphG'
-				totalP = particleCounts[graphForParticle]['infected'] + particleCounts[graphForParticle]['susceptible'] + particleCounts[graphForParticle]['removed']
-				
-				removedV = particleCounts[graphForParticle]['removed']*100/totalP
-				infectedV = particleCounts[graphForParticle]['infected']*100/totalP
-				susceptibleV = particleCounts[graphForParticle]['susceptible']*100/totalP
+			graphForParticle = currentSimG
+			totalP = particleCounts[graphForParticle]['infected'] + particleCounts[graphForParticle]['susceptible'] + particleCounts[graphForParticle]['removed']
+			
+			removedV = particleCounts[graphForParticle]['removed']*100/totalP
+			infectedV = particleCounts[graphForParticle]['infected']*100/totalP
+			susceptibleV = particleCounts[graphForParticle]['susceptible']*100/totalP
 
-				if (particleCountTimeLine[graphForParticle]['removed'].length > 0) {
-					particleCountTimeLine[graphForParticle]['removed'].pop()
-					particleCountTimeLine[graphForParticle]['infected'].pop()
-					particleCountTimeLine[graphForParticle]['susceptible'].pop()
+			if (particleCountTimeLine[graphForParticle]['removed'].length > 0) {
+				particleCountTimeLine[graphForParticle]['removed'].pop()
+				particleCountTimeLine[graphForParticle]['infected'].pop()
+				particleCountTimeLine[graphForParticle]['susceptible'].pop()
 
-					particleCountTimeLine[graphForParticle]['removed'].pop()
-					particleCountTimeLine[graphForParticle]['infected'].pop()
-					particleCountTimeLine[graphForParticle]['susceptible'].pop()
-				}
-				particleCountTimeLine[graphForParticle]['removed'].push([dayCount, 100])
-				particleCountTimeLine[graphForParticle]['susceptible'].push([dayCount, susceptibleV + infectedV])
-				particleCountTimeLine[graphForParticle]['infected'].push([dayCount, infectedV])
-
-				if (dayCount > 10) {
-					graphData['plotG'].xmajorgridlabelOnlyIf = 'value >= 0 && value <= ' + dayCount
-					updateGraphZoom('plotG', {xmax: dayCount + (dayCount*0.3)})
-				}
-				
-
-				particleCountTimeLine[graphForParticle]['removed'].push([dayCount, 0])
-				particleCountTimeLine[graphForParticle]['infected'].push([dayCount, 0])
-				particleCountTimeLine[graphForParticle]['susceptible'].push([dayCount, 0])
-
-				particleCountTimeLine[graphForParticle]['removed'].push([0, 0])
-				particleCountTimeLine[graphForParticle]['infected'].push([0, 0])
-				particleCountTimeLine[graphForParticle]['susceptible'].push([0, 0])
-
-				updatePathPoints('plotG', 'removedLine', particleCountTimeLine[graphForParticle]['removed'])
-				updatePathPoints('plotG', 'infectedLine', particleCountTimeLine[graphForParticle]['infected'])
-				updatePathPoints('plotG', 'susceptibleLine', particleCountTimeLine[graphForParticle]['susceptible'])
-
-				
-				options = {}
-				options.text = removedV.toFixed(1) + '% removed'
-				options.y = (100 + infectedV + susceptibleV)/2
-				yremovedTextLoc = (100 + infectedV + susceptibleV)/2
-				if (dayCount >= 10) {
-					options.x = dayCount*1.03
-				}
-				updateText('plotG', 'removedText', options)
-
-				options = {}
-				options.text = susceptibleV.toFixed(1) + '% susceptible'
-				options.y = (susceptibleV + infectedV + infectedV)/2
-				ysusceptibleTextLoc = (susceptibleV + infectedV + infectedV)/2
-				if ((100 - infectedV)/2 < 15) {
-					options.y = (100 + infectedV + susceptibleV)/2 - 15
-					ysusceptibleTextLoc = (100 + infectedV + susceptibleV)/2 - 15
-				}
-				if (dayCount >= 10) {
-					options.x = dayCount*1.03
-				}
-				updateText('plotG', 'susceptibleText', options)
-
-				options = {}
-				options.text = infectedV.toFixed(1) + '% infected'
-				options.y = (infectedV)/2
-				if (ysusceptibleTextLoc - (infectedV)/2 < 15) {
-					options.y = ysusceptibleTextLoc - 15
-				}
-				if (dayCount >= 10) {
-					options.x = dayCount*1.03
-				}
-				updateText('plotG', 'infectedText', options)
-
-					
-
-
+				particleCountTimeLine[graphForParticle]['removed'].pop()
+				particleCountTimeLine[graphForParticle]['infected'].pop()
+				particleCountTimeLine[graphForParticle]['susceptible'].pop()
 			}
+			particleCountTimeLine[graphForParticle]['removed'].push([dayCount, 100])
+			particleCountTimeLine[graphForParticle]['susceptible'].push([dayCount, susceptibleV + infectedV])
+			particleCountTimeLine[graphForParticle]['infected'].push([dayCount, infectedV])
+
+			if (dayCount > 10) {
+				graphData['plotG'].xmajorgridlabelOnlyIf = 'value >= 0 && value <= ' + dayCount
+				updateGraphZoom('plotG', {xmax: dayCount + (dayCount*0.3)})
+			}
+			
+
+			particleCountTimeLine[graphForParticle]['removed'].push([dayCount, 0])
+			particleCountTimeLine[graphForParticle]['infected'].push([dayCount, 0])
+			particleCountTimeLine[graphForParticle]['susceptible'].push([dayCount, 0])
+
+			particleCountTimeLine[graphForParticle]['removed'].push([0, 0])
+			particleCountTimeLine[graphForParticle]['infected'].push([0, 0])
+			particleCountTimeLine[graphForParticle]['susceptible'].push([0, 0])
+
+			updatePathPoints('plotG', 'removedLine', particleCountTimeLine[graphForParticle]['removed'])
+			updatePathPoints('plotG', 'infectedLine', particleCountTimeLine[graphForParticle]['infected'])
+			updatePathPoints('plotG', 'susceptibleLine', particleCountTimeLine[graphForParticle]['susceptible'])
+
+			
+			options = {}
+			options.text = removedV.toFixed(1) + '% removed'
+			options.y = (100 + infectedV + susceptibleV)/2
+			yremovedTextLoc = (100 + infectedV + susceptibleV)/2
+			if (dayCount >= 10) {
+				options.x = dayCount*1.03
+			}
+			updateText('plotG', 'removedText', options)
+
+			options = {}
+			options.text = susceptibleV.toFixed(1) + '% susceptible'
+			options.y = (susceptibleV + infectedV + infectedV)/2
+			ysusceptibleTextLoc = (susceptibleV + infectedV + infectedV)/2
+			if ((100 - infectedV)/2 < 15) {
+				options.y = (100 + infectedV + susceptibleV)/2 - 15
+				ysusceptibleTextLoc = (100 + infectedV + susceptibleV)/2 - 15
+			}
+			if (dayCount >= 10) {
+				options.x = dayCount*1.03
+			}
+			updateText('plotG', 'susceptibleText', options)
+
+			options = {}
+			options.text = infectedV.toFixed(1) + '% infected'
+			options.y = (infectedV)/2
+			if (ysusceptibleTextLoc - (infectedV)/2 < 15) {
+				options.y = ysusceptibleTextLoc - 15
+			}
+			if (dayCount >= 10) {
+				options.x = dayCount*1.03
+			}
+			updateText('plotG', 'infectedText', options)
+
 		}
 
 		function handleCalculationPlaying() {
@@ -4143,25 +4304,31 @@
 					dayCount = dayCount + 1
 				}
 			}
+			else if (currentSim == 'simpleCase&Q') {
+				moveParticles('simpleCaseGraph&QB')
+				moveParticles('simpleQuarantineB')
+				if (timecount % timeStepsPerDay == 0) {
+					prepInteractionData('simpleCaseGraph&QB')
+					prepInteractionData('simpleQuarantineB')
+				}
+				if (timecount % timeStepsPerDay == 1) {
+					updatePlotGraph()
+					interactions('simpleCaseGraph&QB')
+					interactions('simpleQuarantineB')
+					dayCount = dayCount + 1
+				}
+			}
 		}
 
 		function handleAnimationPlaying() {
 			if (currentSim == 'simpleCase') {
 				animateParticles('simpleCaseGraphB')
 			}
+			else if (currentSim == 'simpleCase&Q') {
+				animateParticles('simpleCaseGraph&QB')
+				animateParticles('simpleQuarantineB')
+			}
 		}
-
-		loopcount = 0
-		timecount = 0
-		playing = true
-
-		// infectionAnimationTimeInDays = 3
-
-		frameInterval = 0
-		calculationFrameInterval = 0
-
-		timeStepsPerDay = 24
-		timeStep = 1/timeStepsPerDay
 
 
 		function setAnimationDetails() {
@@ -4199,14 +4366,10 @@
 
 		function playpauseSim(event) {
 			if (playing) {
-		 		clearInterval(loopinterval);
-		 		clearInterval(loopinterval2);
 		 		playing = false
 		 		document.getElementById('playbutton').value = 'PLAY'
 		 	}
 		 	else {
-		 		playCalculationLoop()
-		 		playAnimationLoop()
 		 		playing = true
 		 		document.getElementById('playbutton').value = 'PAUSE'
 		 	}
@@ -4214,7 +4377,7 @@
 
 		function resetSim(event) {
 			if (currentSim == 'simpleCase') {
-				playing = false
+				// playing = false
 				clearInterval(loopinterval);
 		 		clearInterval(loopinterval2);
 		 		timecount = 0
@@ -4226,9 +4389,53 @@
 				setUpSimpleCaseGraph()
 				setUpPlotGraph()
 				handleSDObedience()
+				setAnimationDetails()
 				playCalculationLoop()
 		 		playAnimationLoop()
-				playing = true
+				// playing = true
+			}
+			else if (currentSim == 'simpleCase&Q') {
+				// playing = false
+				clearInterval(loopinterval);
+		 		clearInterval(loopinterval2);
+		 		timecount = 0
+		 		loopcount = 0
+				removeParticlesFromBoundary('simpleCaseGraph&QG', 'simpleCaseGraph&QB')
+				removeGraph('simpleCaseGraph&QG')
+				removeGraph('plotG')
+				dayCount = 0
+				setUpSimpleQuarantineCaseGraph()
+				setUpPlotGraph()
+				handleSDObedience()
+				setAnimationDetails()
+				playCalculationLoop()
+		 		playAnimationLoop()
+				// playing = true
+			}
+		}
+
+		graphToQMap = {}
+		graphToQMap['simpleCase'] = ['simpleCase&Q', 'simpleCaseGraph&QG', 'simpleCaseGraph&QH', 'simpleCaseGraphH'] 
+		graphToQMap['simpleCase&Q'] = ['simpleCase', 'simpleCaseGraphG', 'simpleCaseGraphH', 'simpleCaseGraph&QH'] 
+
+		function handleQClick(event) {
+			if (currentSim.split('&').length <= 1 && event.target.checked) {
+				document.getElementById(graphToQMap['simpleCase'][3]).style.visibility = 'hidden'
+				document.getElementById(graphToQMap['simpleCase'][2]).style.visibility = 'visible'
+				document.getElementById(graphToQMap['simpleCase'][2]).style.zIndex = 100
+				currentSim = graphToQMap['simpleCase'][0]
+				currentSimG = graphToQMap['simpleCase'][1]
+				dummye = {}
+				resetSim(dummye)
+			}
+			else if (currentSim.split('&').length > 1 && event.target.checked == false) {
+				document.getElementById(graphToQMap['simpleCase&Q'][3]).style.visibility = 'hidden'
+				document.getElementById(graphToQMap['simpleCase&Q'][2]).style.visibility = 'visible'
+				document.getElementById(graphToQMap['simpleCase&Q'][2]).style.zIndex = 100
+				currentSim = graphToQMap['simpleCase&Q'][0]
+				currentSimG = graphToQMap['simpleCase&Q'][1]
+				dummye = {}
+				resetSim(dummye)
 			}
 		}
 
