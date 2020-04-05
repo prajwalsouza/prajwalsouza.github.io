@@ -3217,7 +3217,7 @@
 				}
 			}
 			else {
-				for (parameterIndex = 0; parameterIndex < parameterDiv.length; parameterIndex++) {
+				for (var parameterIndex in parameterData) {
 					pName = parameterData[parameterIndex].div.replace(/@@@/g, '').replace(/&nbsp/g, '').replace(/ /g, '').replace(/%/g, '')
 					parameterSliderRMap[pName + 'Slider'] = parameterIndex
 					parameterDivData = '<div id="parameter' + pName + 'Box" style="margin:0px;width:100%; position: relative; z-index: 1;display: inline-block"><div id="parameter' + pName + 'Text" style="margin:0px;width:92%; position: relative; z-index: 1;display: inline-block; text-align: left;">' + parameterData[parameterIndex].div.replace(/@@@/g, '<font style="color:hsla(' + parameterData[parameterIndex].color + ', 1);">' + parameterData[parameterIndex].initValue + '</font>') + '</div><div style="width: 100%; height: 8%"></div><div id="parameter' + pName + 'SliderH" style="margin:0px;width:100%; position: relative; z-index: 1;display: inline-block;"></div><div style="width: 100%; height: 15%"></div></div>'
