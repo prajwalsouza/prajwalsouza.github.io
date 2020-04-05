@@ -231,14 +231,14 @@
 				<div id="mainB2HSpacer3" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				</div>
 				<div id="caseTypeChooseH" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-					<div id="simpleCaseoptionH" style='margin:0px;width:23%; height: 100%; display: inline-block; overflow: hidden;'>
-						<input id='simpleCaseoption' value='SIMPLE' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: hsla(0, 100%, 0%, 1); cursor: auto; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1); border: 0.5px solid hsla(280,100%,50%,1);" readonly></input>
+					<div id="simpleCaseoptionH" style='margin:0px;width:23%; height: 100%; display: inline-block; overflow: hidden;cursor: pointer;'>
+						<input onclick="handleConfigChange(event)" id='simpleCaseoption' value='SIMPLE' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: hsla(0, 100%, 0%, 1); cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1); border: 0.5px solid hsla(280,100%,50%,1);" readonly></input>
 					</div>
-					<div id="centralLocationoptionH" style='margin:0px;width:42%; height: 100%; display: inline-block; overflow: hidden;'>
-						<input id='centralLocationoption' value='CENTRAL LOCATION' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: grey; cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle;  background: hsla(280,100%,70%,0); border: 0.5px solid hsla(0, 0%, 60%, 1);" readonly></input>
+					<div id="centralLocationoptionH" style='margin:0px;width:42%; height: 100%; display: inline-block; overflow: hidden;cursor: pointer;'>
+						<input onclick="handleConfigChange(event)" id='centralLocationoption' value='CENTRAL LOCATION' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: grey; cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle;  background: hsla(280,100%,70%,0); border: 0.5px solid hsla(0, 0%, 60%, 1);" readonly></input>
 					</div>
-					<div id="CommunitiesoptionH" style='margin:0px;width:33%; height: 100%; display: inline-block; overflow: hidden;'>
-						<input id='Communitiesoption' value='COMMUNITIES' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: grey; cursor: pointer; user-select: none; outline: none; vertical-align: middle; border-top-right-radius: 20px; border-bottom-right-radius: 20px; background: hsla(280,100%,50%,0); border: 0.5px solid hsla(0, 0%, 70%, 1);" readonly></input>
+					<div id="communitiesoptionH" style='margin:0px;width:33%; height: 100%; display: inline-block; overflow: hidden;cursor: pointer;'>
+						<input onclick="handleConfigChange(event)" id='communitiesoption' value='COMMUNITIES' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: grey; cursor: pointer; user-select: none; outline: none; vertical-align: middle; border-top-right-radius: 20px; border-bottom-right-radius: 20px; background: hsla(280,100%,50%,0); border: 0.5px solid hsla(0, 0%, 70%, 1);" readonly></input>
 					</div>
 				</div>
 				<div id="mainB2HSpacer4" style='margin:0px;width:100%; height:1%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
@@ -3119,16 +3119,16 @@
 
 				document.getElementById('simpleCaseoption').style.fontSize = '0.86vmax'
 				document.getElementById('centralLocationoption').style.fontSize = '0.86vmax'
-				document.getElementById('Communitiesoption').style.fontSize = '0.86vmax'
+				document.getElementById('communitiesoption').style.fontSize = '0.86vmax'
 
 				document.getElementById('simpleCaseoptionH').style.width = '14%'
 				document.getElementById('centralLocationoptionH').style.width = '27%'
-				document.getElementById('CommunitiesoptionH').style.width = '23%'
+				document.getElementById('communitiesoptionH').style.width = '23%'
 
 				// $('#CommunitiesoptionH').insertBefore('#simpleCaseoptionH')
 				// $('#centralLocationoptionH').insertBefore('#simpleCaseoptionH')
 
-				$('#quarantineH').insertAfter('#CommunitiesoptionH')
+				$('#quarantineH').insertAfter('#communitiesoptionH')
 
 				// document.getElementById('simpleCaseoptionH').style.float = 'right'
 				// document.getElementById('centralLocationoptionH').style.float = 'right'
@@ -3171,15 +3171,16 @@
 		parameterData[5] = {name: 'socialDistanceObedientPop', div: '@@@% of the population obeys Social Distancing',initValue: 100, max: 100, min: 0, step: 0.1, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: 'handleSDObedience()'}
 		parameterData[6] = {name: 'quarantineAfter', div: 'Quarantine after @@@ days of Infection',initValue: 10, max: 100, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
 		parameterData[7] = {name: 'probabilityOfNoSymptoms', div: "@@@% of the infected, don't show symptoms, hence, won't be quarantined.", initValue: 2, max: 100, min: 0, step: 0.1, color: '76, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
-		parameterData[8] = {name: 'numberOfParticles', div: 'Number of Particles &nbsp&nbsp @@@' ,initValue: 200, max: 2000, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
-		parameterData[9] = {name: 'particleSize', div: 'Particle Size &nbsp&nbsp @@@',initValue: 0.7, max: 1, min: 0.1, step: 0.001, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: true, runFAtEnd: ''}
-		parameterData[10] = {name: 'frameRate', div: 'Frame Rate &nbsp&nbsp @@@',initValue: 40, max: 100, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
+		parameterData[8] = {name: 'probabilityCLVisit', div: "There is @@@% chance that an individual visits the central location on a given day.", initValue: 0.1, max: 2, min: 0, step: 0.001, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
+		parameterData[9] = {name: 'numberOfParticles', div: 'Number of Particles &nbsp&nbsp @@@' ,initValue: 200, max: 2000, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
+		parameterData[10] = {name: 'particleSize', div: 'Particle Size &nbsp&nbsp @@@',initValue: 0.7, max: 1, min: 0.1, step: 0.001, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: true, runFAtEnd: ''}
+		parameterData[11] = {name: 'frameRate', div: 'Frame Rate &nbsp&nbsp @@@',initValue: 40, max: 100, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
 
 		divAdjust = '@@@ days simulated every second <br/><font style="color:grey; font-size: 1.2vmax;"> (Might vary depending on your device clock speed.)</font>'
 		if (dmode == 'landscape') {
 			divAdjust = '@@@ days simulated every second <br/><font style="color:grey; font-size: 0.8vmax;"> (Might vary depending on your device clock speed.)</font>'
 		}
-		parameterData[11] = {name: 'daysEverySecond', div: divAdjust,initValue: 3, max: 20, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
+		parameterData[12] = {name: 'daysEverySecond', div: divAdjust,initValue: 3, max: 20, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
 		
 
 		parameterSliderRMap = {}
@@ -3259,6 +3260,43 @@
 		 			playAnimationLoop()
 					playing = true
 				}
+				else if (currentSim == 'centralLocationCase') {
+					playing = false
+					clearInterval(loopinterval);
+		 			clearInterval(loopinterval2);
+					removeParticlesFromBoundary('centralLocationCaseG', 'centralLocationCaseB')
+					removeGraph('centralLocationCaseG')
+					removeGraph('plotG')
+					dayCount = 0
+					timecount = 0
+					loopcount = 0
+					setUpCentralLocationCaseGraph()
+					setUpPlotGraph()
+					handleSDObedience()
+					playCalculationLoop()
+		 			playAnimationLoop()
+					playing = true
+				}
+				else if (currentSim == 'centralLocationQuarantineCase') {
+					playing = false
+					clearInterval(loopinterval);
+			 		clearInterval(loopinterval2);
+			 		timecount = 0
+			 		loopcount = 0
+					removeParticlesFromBoundary('centralLocationQuarantineCaseGraph', 'centralLocationQuarantineCaseB')
+					removeParticlesFromBoundary('centralLocationQuarantineCaseGraph', 'centralLocationQuarantineB')
+					removeGraph('centralLocationQuarantineCaseGraph')
+					removeGraph('plotG')
+					dayCount = 0
+					setUpCentralLocationQuarantineCaseGraph()
+					setUpPlotGraph()
+					handleSDObedience()
+					setAnimationDetails()
+					playCalculationLoop()
+			 		playAnimationLoop()
+					playing = true
+				}
+					
 			}
 
 			
@@ -3712,6 +3750,9 @@
 				particleData[boundaryN][particleID].quarantined = false
 				particleData[boundaryN][particleID].showsSymptoms = true
 
+				particleData[boundaryN][particleID].visitingCentralLocation = false
+				particleData[boundaryN][particleID].visitingCLFrame = 0
+
 				particleData[boundaryN][particleID].color = stateColors[particleData[boundaryN][particleID].state]
 
 				particleData[boundaryN][particleID].moveAnimation = false
@@ -3847,6 +3888,7 @@
 			boundaryProperties = {}
 			boundaryProperties.color = 'white'
 			drawBoundary('simpleCaseGraph&QG', 'simpleCaseGraph&QB', [-1, 1, -1, 1], boundaryProperties)
+
 			boundaryProperties.color = 'hsla(2, 100%, 50%, 1)'
 			drawBoundary('simpleCaseGraph&QG', 'simpleQuarantineB', [-1.7, -1.2, -1, -0.5], boundaryProperties)
 
@@ -3870,9 +3912,144 @@
 			
 		}
 
+		function setUpCentralLocationCaseGraph() {
+			graphH = document.getElementById('centralLocationCaseGraphH')
+			graphoptions = {}
+			graphoptions.xmax = 1
+			graphoptions.xmin = -1
+
+			graphoptions.ymax = 1
+			graphoptions.ymin = -1
+
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility= 'no'
+			graphoptions.yaxisvisibility = 'no'
+
+			graphoptions.xmajorgridlabelvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'no'
+
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+
+			graphoptions.fontSize = 1.6
+			
+			graphoptions.unitAspectRatio = 'yes'
+			graphoptions.fixAxisStretchCentrally = 'yes'
+
+			graphoptions.scrollZoom = 'no'
+			graphoptions.draggability = 'no'
+			
+			addGraph(graphH, 'centralLocationCaseG', graphoptions)
+
+			boundaryProperties = {}
+			boundaryProperties.color = 'white'
+			drawBoundary('centralLocationCaseG', 'centralLocationCaseB', simpleCaseBoundaryRanges, boundaryProperties)
+
+			options = {}
+			options.pathcolor = 'white'
+			options.strokewidth = 0.3
+			options.points = [[0.08, 0.08], [-0.08, 0.08], [-0.08, -0.08], [0.08, -0.08], [0.08, 0.08]]
+			addPath('centralLocationCaseG', 'centralLocB', options)
+
+			boundaryData['centralLocationCaseB']['fractionInfectedInitially'] = simulationParameters.fractionInfectedInitially
+
+			particleCounts['centralLocationCaseG'] = {}
+			particleCounts['centralLocationCaseG']['infected'] = 0
+			particleCounts['centralLocationCaseG']['susceptible'] = 0
+			particleCounts['centralLocationCaseG']['removed'] = 0
+
+			particleCountTimeLine['centralLocationCaseG'] = {}
+			particleCountTimeLine['centralLocationCaseG']['infected'] = []
+			particleCountTimeLine['centralLocationCaseG']['susceptible'] = []
+			particleCountTimeLine['centralLocationCaseG']['removed'] = []
+
+			addParticlesToBoundary('centralLocationCaseG', 'centralLocationCaseB', simulationParameters.numberOfParticles)
+
+			createVicinityDB('centralLocationCaseB')
+
+			prepInteractionData('centralLocationCaseB')
+			
+		}
+
+		function setUpCentralLocationQuarantineCaseGraph() {
+			graphH = document.getElementById('centralLocationQuarantineCaseGraphH')
+			graphoptions = {}
+			graphoptions.xmax = 1
+			graphoptions.xmin = -1.7
+
+			graphoptions.ymax = 1.7
+			graphoptions.ymin = -1.7
+
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility= 'no'
+			graphoptions.yaxisvisibility = 'no'
+
+			graphoptions.xmajorgridlabelvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'no'
+
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+
+			graphoptions.fontSize = 1.6
+			
+			graphoptions.unitAspectRatio = 'yes'
+			graphoptions.fixAxisStretchCentrally = 'yes'
+
+			graphoptions.scrollZoom = 'yes'
+			graphoptions.draggability = 'yes'
+			
+			addGraph(graphH, 'centralLocationQuarantineCaseGraph', graphoptions)
+
+			boundaryProperties = {}
+			boundaryProperties.color = 'white'
+			drawBoundary('centralLocationQuarantineCaseGraph', 'centralLocationQuarantineCaseB', simpleCaseBoundaryRanges, boundaryProperties)
+
+			boundaryProperties.color = 'hsla(2, 100%, 50%, 1)'
+			drawBoundary('centralLocationQuarantineCaseGraph', 'centralLocationQuarantineB', [-1.7, -1.2, -1, -0.5], boundaryProperties)
+
+			options = {}
+			options.pathcolor = 'white'
+			options.strokewidth = 0.3
+			options.points = [[0.08, 0.08], [-0.08, 0.08], [-0.08, -0.08], [0.08, -0.08], [0.08, 0.08]]
+			addPath('centralLocationQuarantineCaseGraph', 'centralLocB', options)
+
+			boundaryData['centralLocationQuarantineCaseB']['fractionInfectedInitially'] = simulationParameters.fractionInfectedInitially
+
+			particleCounts['centralLocationQuarantineCaseGraph'] = {}
+			particleCounts['centralLocationQuarantineCaseGraph']['infected'] = 0
+			particleCounts['centralLocationQuarantineCaseGraph']['susceptible'] = 0
+			particleCounts['centralLocationQuarantineCaseGraph']['removed'] = 0
+
+			particleCountTimeLine['centralLocationQuarantineCaseGraph'] = {}
+			particleCountTimeLine['centralLocationQuarantineCaseGraph']['infected'] = []
+			particleCountTimeLine['centralLocationQuarantineCaseGraph']['susceptible'] = []
+			particleCountTimeLine['centralLocationQuarantineCaseGraph']['removed'] = []
+
+			addParticlesToBoundary('centralLocationQuarantineCaseGraph', 'centralLocationQuarantineCaseB', simulationParameters.numberOfParticles)
+
+			createVicinityDB('centralLocationQuarantineCaseB')
+
+			prepInteractionData('centralLocationQuarantineCaseB')
+			
+		}
+
 		setUpSimpleCaseGraph()
 
 		setUpSimpleQuarantineCaseGraph()
+
+		setUpCentralLocationCaseGraph() 
+
+		setUpCentralLocationQuarantineCaseGraph() 
 
 		currentSim = 'simpleCase'
 		currentSimG = 'simpleCaseGraphG'
@@ -3901,6 +4078,32 @@
 					}
 					else {
 						particleData['simpleCaseGraph&QB'][allParts[partIndex]].socialDistancingObedience = 0
+					}
+				}
+			}
+			else if (currentSim == 'centralLocationCase') {
+				allParts = Object.keys(particleData['centralLocationCaseB'])
+				allParts = shuffle(allParts)
+				toObeyP = simulationParameters.socialDistanceObedientPop*allParts.length
+				for (partIndex = 0; partIndex < allParts.length; partIndex++) {
+					if (partIndex < toObeyP) {
+						particleData['centralLocationCaseB'][allParts[partIndex]].socialDistancingObedience = 1
+					}
+					else {
+						particleData['centralLocationCaseB'][allParts[partIndex]].socialDistancingObedience = 0
+					}
+				}
+			}
+			else if (currentSim == 'centralLocationQuarantineCase') {
+				allParts = Object.keys(particleData['centralLocationQuarantineCaseB'])
+				allParts = shuffle(allParts)
+				toObeyP = simulationParameters.socialDistanceObedientPop*allParts.length
+				for (partIndex = 0; partIndex < allParts.length; partIndex++) {
+					if (partIndex < toObeyP) {
+						particleData['centralLocationQuarantineCaseB'][allParts[partIndex]].socialDistancingObedience = 1
+					}
+					else {
+						particleData['centralLocationQuarantineCaseB'][allParts[partIndex]].socialDistancingObedience = 0
 					}
 				}
 			}
@@ -3994,6 +4197,23 @@
 						particleData[ofBoundary][particleIndex].moveAnimationFrame = 0
 					}
 				} 
+				else if (partDB[particleIndex].visitingCentralLocation) {
+					partDB[particleIndex].visitingCLFrame = partDB[particleIndex].visitingCLFrame + 1
+					if (partDB[particleIndex].visitingCLFrame < timeStepsPerDay/2) {
+						partDB[particleIndex].x = linearValue(0, timeStepsPerDay/2, partDB[particleIndex].visitingCLFrom[0], boundaryData[ofBoundary]['center'][0], partDB[particleIndex].visitingCLFrame)
+						partDB[particleIndex].y = linearValue(0, timeStepsPerDay/2, partDB[particleIndex].visitingCLFrom[1], boundaryData[ofBoundary]['center'][1], partDB[particleIndex].visitingCLFrame)
+					}
+					else {
+						partDB[particleIndex].x = linearValue(timeStepsPerDay/2, timeStepsPerDay, boundaryData[ofBoundary]['center'][0], partDB[particleIndex].visitingCLFrom[0], partDB[particleIndex].visitingCLFrame)
+						partDB[particleIndex].y = linearValue(timeStepsPerDay/2, timeStepsPerDay, boundaryData[ofBoundary]['center'][1], partDB[particleIndex].visitingCLFrom[1], partDB[particleIndex].visitingCLFrame)
+					}
+
+					if (partDB[particleIndex].visitingCLFrame >= timeStepsPerDay) {
+						partDB[particleIndex].visitingCentralLocation = false
+						partDB[particleIndex].visitingCLFrame = 0
+					}
+					
+				}
 				else {
 					partDB[particleIndex].x = partDB[particleIndex].x + (partDB[particleIndex].vx*timeStep)
 					partDB[particleIndex].y = partDB[particleIndex].y + (partDB[particleIndex].vy*timeStep)
@@ -4065,6 +4285,12 @@
 
 					partDB[particleIndex].vx = partDB[particleIndex].vx + (partDB[particleIndex].ax*timeStep) + (boundaryRForce[0]*timeStep)
 					partDB[particleIndex].vy = partDB[particleIndex].vy + (partDB[particleIndex].ay*timeStep) + (boundaryRForce[1]*timeStep)
+				}
+
+				if ((currentSim == 'centralLocationCase' || currentSim == 'centralLocationQuarantineCase') && particleData[ofBoundary][particleIndex].moveAnimation == false && Math.random() < simulationParameters.probabilityCLVisit && particleData[ofBoundary][particleIndex].visitingCentralLocation == false) {
+					particleData[ofBoundary][particleIndex].visitingCentralLocation = true
+					particleData[ofBoundary][particleIndex].visitingCLFrame = 0
+					particleData[ofBoundary][particleIndex].visitingCLFrom = [particleData[ofBoundary][particleIndex].x, particleData[ofBoundary][particleIndex].y]
 				}
 					
 			}	
@@ -4185,9 +4411,17 @@
 					if (currentSim == 'simpleCase&Q' && particleData[ofBoundary][mainParticle].daysSinceInfection > simulationParameters.quarantineAfter && particleData[ofBoundary][mainParticle].moveAnimation == false && particleData[ofBoundary][mainParticle].quarantined == false && particleData[ofBoundary][mainParticle].showsSymptoms) {
 						particleData[ofBoundary][mainParticle].quarantined = true
 						moveToBoundary('simpleQuarantineB', 'simpleCaseGraph&QB', mainParticle)
+					}
+
+					if (currentSim == 'centralLocationQuarantineCase' && particleData[ofBoundary][mainParticle].daysSinceInfection > simulationParameters.quarantineAfter && particleData[ofBoundary][mainParticle].moveAnimation == false && particleData[ofBoundary][mainParticle].quarantined == false && particleData[ofBoundary][mainParticle].showsSymptoms) {
+						particleData[ofBoundary][mainParticle].visitingCentralLocation = false
+						particleData[ofBoundary][mainParticle].visitingCLFrame = 0
+						particleData[ofBoundary][mainParticle].quarantined = true
+						moveToBoundary('centralLocationQuarantineB', 'centralLocationQuarantineCaseB', mainParticle)
 
 					}
 				}
+				
 			}
 		}
 
@@ -4291,6 +4525,7 @@
 					dayCount = dayCount + 1
 				}
 			}
+			
 			else if (currentSim == 'simpleCase&Q') {
 				moveParticles('simpleCaseGraph&QB')
 				moveParticles('simpleQuarantineB')
@@ -4305,6 +4540,31 @@
 					dayCount = dayCount + 1
 				}
 			}
+			else if (currentSim == 'centralLocationCase') {
+				moveParticles('centralLocationCaseB')
+				if (timecount % timeStepsPerDay == 0) {
+					prepInteractionData('centralLocationCaseB')
+				}
+				if (timecount % timeStepsPerDay == 1) {
+					updatePlotGraph()
+					interactions('centralLocationCaseB')
+					dayCount = dayCount + 1
+				}
+			}
+			else if (currentSim == 'centralLocationQuarantineCase') {
+				moveParticles('centralLocationQuarantineCaseB')
+				moveParticles('centralLocationQuarantineB')
+				if (timecount % timeStepsPerDay == 0) {
+					prepInteractionData('centralLocationQuarantineCaseB')
+					prepInteractionData('centralLocationQuarantineB')
+				}
+				if (timecount % timeStepsPerDay == 1) {
+					updatePlotGraph()
+					interactions('centralLocationQuarantineCaseB')
+					interactions('centralLocationQuarantineB')
+					dayCount = dayCount + 1
+				}
+			}
 		}
 
 		function handleAnimationPlaying() {
@@ -4314,6 +4574,13 @@
 			else if (currentSim == 'simpleCase&Q') {
 				animateParticles('simpleCaseGraph&QB')
 				animateParticles('simpleQuarantineB')
+			}
+			else if (currentSim == 'centralLocationCase') {
+				animateParticles('centralLocationCaseB')
+			}
+			else if (currentSim == 'centralLocationQuarantineCase') {
+				animateParticles('centralLocationQuarantineCaseB')
+				animateParticles('centralLocationQuarantineB')
 			}
 		}
 
@@ -4388,6 +4655,7 @@
 		 		timecount = 0
 		 		loopcount = 0
 				removeParticlesFromBoundary('simpleCaseGraph&QG', 'simpleCaseGraph&QB')
+				removeParticlesFromBoundary('simpleCaseGraph&QG', 'simpleQuarantineB')
 				removeGraph('simpleCaseGraph&QG')
 				removeGraph('plotG')
 				dayCount = 0
@@ -4399,31 +4667,103 @@
 		 		playAnimationLoop()
 				// playing = true
 			}
+			else if (currentSim == 'centralLocationCase') {
+				// playing = false
+				clearInterval(loopinterval);
+		 		clearInterval(loopinterval2);
+		 		timecount = 0
+		 		loopcount = 0
+				removeParticlesFromBoundary('centralLocationCaseG', 'centralLocationCaseB')
+				removeGraph('centralLocationCaseG')
+				removeGraph('plotG')
+				dayCount = 0
+				setUpCentralLocationCaseGraph()
+				setUpPlotGraph()
+				handleSDObedience()
+				setAnimationDetails()
+				playCalculationLoop()
+		 		playAnimationLoop()
+				// playing = true
+			}
+			else if (currentSim == 'centralLocationQuarantineCase') {
+				// playing = false
+				clearInterval(loopinterval);
+		 		clearInterval(loopinterval2);
+		 		timecount = 0
+		 		loopcount = 0
+				removeParticlesFromBoundary('centralLocationQuarantineCaseGraph', 'centralLocationQuarantineCaseB')
+				removeParticlesFromBoundary('centralLocationQuarantineCaseGraph', 'centralLocationQuarantineB')
+				removeGraph('centralLocationQuarantineCaseGraph')
+				removeGraph('plotG')
+				dayCount = 0
+				setUpCentralLocationQuarantineCaseGraph()
+				setUpPlotGraph()
+				handleSDObedience()
+				setAnimationDetails()
+				playCalculationLoop()
+		 		playAnimationLoop()
+				// playing = true
+			}
+		}
+
+		handleCases = {'simpleCaseoption': {false: ['simpleCaseGraphH', 'simpleCase', 'simpleCaseGraphG'], true: ['simpleCaseGraph&QH', 'simpleCase&Q', 'simpleCaseGraph&QG']}, 'centralLocationoption': {false: ['centralLocationCaseGraphH', 'centralLocationCase', 'centralLocationCaseG'], true: ['centralLocationQuarantineCaseGraphH', 'centralLocationQuarantineCase', 'centralLocationQuarantineCaseGraph']}}
+
+
+		function handleConfigChange(event) {
+			document.getElementById('simpleCaseGraphH').style.visibility = 'hidden'
+			document.getElementById('simpleCaseGraph&QH').style.visibility = 'hidden'
+			document.getElementById('centralLocationCaseGraphH').style.visibility = 'hidden'
+			document.getElementById('centralLocationQuarantineCaseGraphH').style.visibility = 'hidden'
+			document.getElementById('communitiesCaseGraphH').style.visibility = 'hidden'
+			document.getElementById('communitiesQuarantineCaseGraphH').style.visibility = 'hidden'
+
+			document.getElementById(handleCases[event.target.id][quarantineOn][0]).style.visibility = 'visible'
+			document.getElementById(handleCases[event.target.id][quarantineOn][0]).style.zIndex = 100
+			currentSimG = handleCases[event.target.id][quarantineOn][2]
+			currentSim = handleCases[event.target.id][quarantineOn][1]
+
+			dummye = {}
+			resetSim(dummye)
+			
 		}
 
 		graphToQMap = {}
 		graphToQMap['simpleCase'] = ['simpleCase&Q', 'simpleCaseGraph&QG', 'simpleCaseGraph&QH', 'simpleCaseGraphH'] 
-		graphToQMap['simpleCase&Q'] = ['simpleCase', 'simpleCaseGraphG', 'simpleCaseGraphH', 'simpleCaseGraph&QH'] 
+		graphToQMap['simpleCase&Q'] = ['simpleCase', 'simpleCaseGraphG', 'simpleCaseGraphH', 'simpleCaseGraph&QH']
+
+		graphToQMap['centralLocationQuarantineCase'] = ['centralLocationCase', 'centralLocationCaseG', 'centralLocationCaseGraphH', 'centralLocationQuarantineCaseGraphH']
+		graphToQMap['centralLocationCase'] = ['centralLocationQuarantineCase', 'centralLocationQuarantineCaseGraph', 'centralLocationQuarantineCaseGraphH', 'centralLocationCaseGraphH']
+
+		quarantineOn = false
 
 		function handleQClick(event) {
-			if (currentSim.split('&').length <= 1 && event.target.checked) {
-				document.getElementById(graphToQMap['simpleCase'][3]).style.visibility = 'hidden'
-				document.getElementById(graphToQMap['simpleCase'][2]).style.visibility = 'visible'
-				document.getElementById(graphToQMap['simpleCase'][2]).style.zIndex = 100
-				currentSim = graphToQMap['simpleCase'][0]
-				currentSimG = graphToQMap['simpleCase'][1]
+			if (quarantineOn && event.target.checked == false) {
+				document.getElementById(graphToQMap[currentSim][3]).style.visibility = 'hidden'
+				document.getElementById(graphToQMap[currentSim][2]).style.visibility = 'visible'
+				document.getElementById(graphToQMap[currentSim][2]).style.zIndex = 100
+				currentSimG = graphToQMap[currentSim][1]
+
+				currentSim = graphToQMap[currentSim][0]
+
 				dummye = {}
 				resetSim(dummye)
+
+				quarantineOn = false
 			}
-			else if (currentSim.split('&').length > 1 && event.target.checked == false) {
-				document.getElementById(graphToQMap['simpleCase&Q'][3]).style.visibility = 'hidden'
-				document.getElementById(graphToQMap['simpleCase&Q'][2]).style.visibility = 'visible'
-				document.getElementById(graphToQMap['simpleCase&Q'][2]).style.zIndex = 100
-				currentSim = graphToQMap['simpleCase&Q'][0]
-				currentSimG = graphToQMap['simpleCase&Q'][1]
+			else if (event.target.checked) {
+				document.getElementById(graphToQMap[currentSim][3]).style.visibility = 'hidden'
+				document.getElementById(graphToQMap[currentSim][2]).style.visibility = 'visible'
+				document.getElementById(graphToQMap[currentSim][2]).style.zIndex = 100
+				currentSimG = graphToQMap[currentSim][1]
+
+				currentSim = graphToQMap[currentSim][0]
+
 				dummye = {}
 				resetSim(dummye)
+
+				quarantineOn = true
 			}
+				
 		}
 
 		function distF(pt1, pt2) {
