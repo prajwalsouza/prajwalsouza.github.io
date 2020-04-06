@@ -203,11 +203,13 @@
 				</div>
 				<div id="mainB2HSpacer2" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 				</div>
-				<div id="caseTypeName" style='margin:0px;width:100%; height:2%; position: relative; z-index: 1;display: inline-block; font-size: 1.3vmax; text-align: left; color: hsla(190, 0%, 70%, 1); font-family: Source Sans Pro;'>
-					Simple Case
+				<div id="caseTypeNameH" style='margin:0px;width:100%; height:2%; position: relative; z-index: 1;display: inline-block; font-size: 1.3vmax; text-align: left; color: hsla(190, 0%, 70%, 1); font-family: Source Sans Pro;'>
+					<span id="caseTypeName">Simple Case</span>
 				</div>
 				<br/>
 				<div id="upperLayer" style='margin:0px;width:100%; height: 35%;overflow: hidden;position: absolute; z-index: 200; display: inline-block; background: none; box-shadow: inset 0px 0px 20px 5px hsla(32, 0%,0%, 1); border: 0px solid black; pointer-events: none;'>
+					 <!-- <span id="R_0" style="font-size: 1vmax; color: white; font-family: Source Sans Pro;">R : 0.1</span>
+					 <span id="R_0-Info" style="font-size: 0.7vmax; color: grey; font-family: Source Sans Pro; float: right; top: 80%;">Reproductive Number Calculation here is a little different from the 3B1B video. <br/>Here, its Average(Number of individuals infected by one infected individual)</span> -->
 				</div>
 				<div id="simpleCaseGraphH" style="width: 100%; height: 35%; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
 				<div id="centralLocationCaseGraphH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
@@ -224,7 +226,7 @@
 						<input id='resetbutton' onclick="resetSim(event)" value='RESET' list="brow" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.5vmax; background: hsla(198,0%,50%,1); color: hsla(0, 0%, 100%, 1); cursor: pointer; user-select: none; pointer-events: auto; overflow: hidden; outline: none;" readonly></input>
 					</div>
 					<div id="play-Info-QuarantineHSpacer2" style='margin:0px;width:4%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '></div>
-					<div id="infoH" style="width: 32%; height: 100%; position: relative; z-index: 1;display: inline-block; color: white; font-size: 0.9vmax; font-family: Source Sans Pro; overflow: auto;"><div style="display: table-cell; vertical-align: middle; text-align:left; height: 100%; width: 100%;">Please watch the <a href="https://www.youtube.com/watch?v=gxAaO2rsdIs" style="text-decoration: none; cursor: pointer; color: hsla(197, 100%, 70%, 1);" target="_blank">3b1b video</a> to understand what is presented here. <br/> Zoom in/out of simulation/graph if it doesn't fit into your screen.</div></div>
+					<div id="infoH" style="width: 32%; height: 100%; position: relative; z-index: 1;display: inline-block; color: white; font-size: 0.9vmax; font-family: Source Sans Pro; overflow: auto;"><div style="display: table-cell; vertical-align: middle; text-align:left; height: 100%; width: 100%;">Please watch the <a href="https://www.youtube.com/watch?v=gxAaO2rsdIs" style="text-decoration: none; cursor: pointer; color: hsla(197, 100%, 70%, 1);" target="_blank">3b1b video</a> to understand what is presented here. <br/> Parameters values here differ from the video and might give different results. <br/> Please zoom in/out of simulation/graph if it doesn't fit into your screen.</div></div>
 					<div id="play-Info-QuarantineHSpacer2" style='margin:0px;width:2%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '></div>
 					<div id="quarantineH" style="width: 30%; height: 100%; position: relative; z-index: 1;display: inline-block; overflow: hidden; text-align: center;">
 						<input onchange="handleQClick(event)" type="checkbox" id="quarantinecheck" name="quarantinecheck" value="quarantinecheck"  ><label id="quarantinecheckLabel" for="quarantinecheck" style="color: var(--themeinfected); font-size: 1.5vmax; font-weight: bold;">QUARANTINE</label>
@@ -250,7 +252,7 @@
 				</div>
 				<div id="parametersH" style='margin:0px;width:100%; height:19%;overflow: hidden;position: relative; z-index: 1;display: inline-block;'>
 					<div id="gradfillParameters" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 15%, hsla(0, 100%, 0%, 1) 16%, hsla(0, 100%, 100%, 0) 22%, hsla(0, 0%, 0%, 0) 95%,hsla(0, 100%, 0%, 1) 100%,hsla(0, 100%, 100%, 0) 100%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
-					<div id="parametersTitleText" style='margin:0px;width:100%; height:17%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-family: Source Sans Pro; font-size: 1.8vmax; color: hsla(190, 0%, 70%, 1);'>PARAMETERS<font id="additionalPText" style="color: white; font-size: 1.1vmax;"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Some parameters are specific to certain cases.</font></div>
+					<div id="parametersTitleText" style='margin:0px;width:100%; height:17%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-family: Source Sans Pro; font-size: 1.8vmax; color: hsla(190, 0%, 70%, 1);'>PARAMETERS<font id="additionalPText" style="color: white; font-size: 1.1vmax; float: right;"> Some parameters are specific to certain cases.</font></div>
 					<div id="parametersListH" style='margin:0px;width:100%; height:83%;overflow-y: auto;position: relative; z-index: 1;display: inline-block; font-family: Source Sans Pro; font-size: 1.7vmax; color: white;'>
 						<div id="parameterSpacer1" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block'></div>
 					</div>
@@ -3110,8 +3112,8 @@
 				document.getElementById('maintitle').innerHTML = "<font style='font-weight: bold;'>Epidemic Simulation </font><br/><font style='font-family: Source Sans Pro; font-size: 1.1vmax; vertical-align: bottom;'>An interactive based on 3Blue1Brown's <a href='https://www.youtube.com/watch?v=gxAaO2rsdIs' style='text-decoration: none; cursor: pointer;' target='_blank'><font style='color: hsla(197, 100%, 50%, 1);'>'Simulating an Epidemic' video</font></a><br/><font style='font-size: 0.9vmax'>For other interactives, visit <a href='https://prajwalsouza.github.io/' style='text-decoration: none; cursor: pointer;' target='_blank'><font style='color: hsla(280, 100%, 70%, 1);'>prajwalsouza.github.io</font></a></font></font>"
 
 				document.getElementById('mainB2HSpacer2').style.height = '3%'
-				document.getElementById('caseTypeName').style.height = '4%'
-				document.getElementById('caseTypeName').style.fontSize = '1vmax'
+				document.getElementById('caseTypeNameH').style.height = '4%'
+				document.getElementById('caseTypeNameH').style.fontSize = '1vmax'
 
 				document.getElementById('upperLayer').style.height = '65%'
 				document.getElementById('simpleCaseGraphH').style.height = '65%'
@@ -3131,7 +3133,7 @@
 
 				document.getElementById('play-Info-QuarantineHSpacer1').style.width = '4%'
 
-				document.getElementById('infoH').style.fontSize = '0.9vmax'
+				document.getElementById('infoH').style.fontSize = '0.8vmax'
 				document.getElementById('infoH').style.width = '100%'
 
 				document.getElementById('quarantineH').style.fontSize = '0.9vmax'
@@ -3170,7 +3172,7 @@
 				
 				document.getElementById('parametersListH').style.fontSize = '0.96vmax'
 
-				document.getElementById('mainB2HSpacer6').style.height = '5%'
+				document.getElementById('mainB2HSpacer6').style.height = '1%'
 
 				$('#infoH').insertAfter('#mainB2HSpacer6')
 
@@ -3190,8 +3192,10 @@
 		simulationParameters = {}
 
 		parameterData = {}
+
+		simulationParameters.reproductiveNumber = 0
 		
-		parameterData[0] = {name: 'infectionRadius', div: 'Infection Radius &nbsp&nbsp @@@',initValue: 0.1, max: 1, min: 0.01, step: 0.01, color: '10, 100%, 63%', transform: 'parseFloat(#paraValue#)', requiresReset: false, runFAtEnd: ''}
+		parameterData[0] = {name: 'infectionRadius', div: 'Infection Radius &nbsp&nbsp @@@',initValue: 0.1, max: 0.4, min: 0.01, step: 0.001, color: '10, 100%, 63%', transform: 'parseFloat(#paraValue#)', requiresReset: false, runFAtEnd: ''}
 		parameterData[1] = {name: 'probabilityofInfection', div: 'Chance of Infection on a given day is @@@%',initValue: 6, max: 100, min: 0, step: 0.01, color: '10, 100%, 63%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
 		divAdjust = '@@@% population/community infected initially<br/><font style="color:grey; font-size: 1.2vmax;"> (In community case, @@@% of the community is infected initially, not the population.)</font>'
 		if (dmode == 'landscape') {
@@ -3199,7 +3203,7 @@
 		}
 		parameterData[2] = {name: 'fractionInfectedInitially', div: divAdjust, initValue: 1, max: 100, min: 0, step: 0.1, color: '10, 100%, 63%', transform: 'parseFloat(#paraValue#)/100', requiresReset: true, runFAtEnd: ''}
 		parameterData[3] = {name: 'infectionTime', div: 'Infection duration is @@@ days',initValue: 25, max: 100, min: 1, step: 1, color: '10, 100%, 63%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
-		parameterData[4] = {name: 'socialDistancingFactorA', div: 'Social Distancing Factor &nbsp&nbsp @@@',initValue: 0, max: 1, min: 0, step: 0.01, color: '40, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: false, runFAtEnd: ''}
+		parameterData[4] = {name: 'socialDistancingFactorA', div: 'Social Distancing Factor &nbsp&nbsp @@@',initValue: 0, max: 1, min: 0, step: 0.01, color: '40, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: false, runFAtEnd: 'boundaryForceC = linearValue(0, 1, 0.1, 2,simulationParameters.socialDistancingFactorA)'}
 		parameterData[5] = {name: 'socialDistanceObedientPop', div: '@@@% of the population obeys Social Distancing',initValue: 100, max: 100, min: 0, step: 0.1, color: '40, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: 'handleSDObedience()'}
 
 		divAdjust = 'Observe Social Distancing within @@@ times the infection radius.<br/><font style="color:grey; font-size: 1.2vmax;"> (This quantity reduces many computations. Smaller the value, better. But, larger values may mimic the simulation in the video)</font>'
@@ -3210,12 +3214,12 @@
 		parameterData[6] = {name: 'boxesToConsider', div: divAdjust,initValue: 2, max: 20, min: 1, step: 1, color: '40, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
 
 		parameterData[7] = {name: 'quarantineAfter', div: 'Quarantine after @@@ days of Infection',initValue: 10, max: 100, min: 1, step: 1, color: '10, 100%, 63%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
-		parameterData[8] = {name: 'startQ', div: 'Begin quarantine zone @@@ days since the beginning of the epidemic',initValue: 2, max: 100, min: 0, step: 1, color: '10, 100%, 63%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
+		parameterData[8] = {name: 'startQ', div: 'Begin quarantine zone @@@ days after the beginning of the epidemic',initValue: 2, max: 100, min: 0, step: 1, color: '10, 100%, 63%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
 		parameterData[9] = {name: 'probabilityOfNoSymptoms', div: "@@@% of the infected, don't show symptoms, hence, won't be quarantined.", initValue: 2, max: 100, min: 0, step: 0.1, color: '58, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
-		parameterData[10] = {name: 'probabilityCLVisit', div: "There is @@@% chance that an individual visits the central location in any given hour.", initValue: 0.1, max: 2, min: 0, step: 0.001, color: '280, 100%, 80%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
-		parameterData[11] = {name: 'travelProbability', div: "There is a @@@% chance of travel by an individual on a given day to another community", initValue: 1, max: 10, min: 0, step: 0.01, color: '76, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
+		parameterData[10] = {name: 'probabilityCLVisit', div: "There is @@@% chance that an individual visits the central location in any given hour.", initValue: 0.4, max: 2, min: 0, step: 0.001, color: '280, 100%, 80%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
+		parameterData[11] = {name: 'travelProbability', div: "There is a @@@% chance of travel by an individual on a given day to another community", initValue: 2, max: 10, min: 0, step: 0.01, color: '76, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
 		parameterData[12] = {name: 'nPerCommunity', div: "@@@ individuals per community", initValue: 60, max: 500, min: 3, step: 1, color: '76, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
-		parameterData[13] = {name: 'infectNCommunitiesInitially', div: "Infect only @@@ communities initially", initValue: 1, max: 9, min: 1, step: 1, color: '76, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
+		parameterData[13] = {name: 'infectNCommunitiesInitially', div: "Infect only @@@ communities initially", initValue: 2, max: 9, min: 1, step: 1, color: '76, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
 
 		parameterData[14] = {name: 'numberOfParticles', div: 'Number of Particles &nbsp&nbsp @@@' ,initValue: 200, max: 2000, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
 		parameterData[15] = {name: 'particleSize', div: 'Particle Size &nbsp&nbsp @@@',initValue: 0.7, max: 1, min: 0.1, step: 0.001, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: true, runFAtEnd: ''}
@@ -3573,6 +3577,8 @@
 		particleCounts = {}
 		particleCountTimeLine = {}
 
+		particleInfectionCount = {}
+
 		function getParticleVicinityN(particle_pos, forBoundary) {
 			bdranges = boundaryData[forBoundary]['range']
 			xbreaks = boundaryData[forBoundary]['xbreaks']
@@ -3810,6 +3816,9 @@
 
 				particleData[boundaryN][particleID] = {}
 
+				particleInfectionCount[graphN][particleID] = {}
+				particleInfectionCount[graphN][particleID].infectionC = 0
+
 				particleData[boundaryN][particleID].socialDistancingObedience = 1
 
 				particleData[boundaryN][particleID].vx = 2*(Math.random() - 0.5)*initialParticleV
@@ -3823,6 +3832,7 @@
 				if (particleIndex < parseInt(totalparticles*initiallyInfectedN)) {
 					particleData[boundaryN][particleID].state = 'infected'
 					particleCounts[graphN]['infected'] = particleCounts[graphN]['infected'] + 1
+
 				}
 				else {
 					particleData[boundaryN][particleID].state = 'susceptible'
@@ -3840,6 +3850,11 @@
 				particleData[boundaryN][particleID].visitingCLFrame = 0
 
 				particleData[boundaryN][particleID].color = stateColors[particleData[boundaryN][particleID].state]
+				if (Math.random() < simulationParameters.probabilityOfNoSymptoms && particleData[boundaryN][particleID].state == 'infected') {
+					particleData[boundaryN][particleID].showsSymptoms = false
+					particleData[boundaryN][particleID].color = stateColors['noSymptoms']
+				}
+
 
 				particleData[boundaryN][particleID].moveAnimation = false
 				particleData[boundaryN][particleID].moveAnimationFrom = [particleData[boundaryN][particleID].x, particleData[boundaryN][particleID].y]
@@ -3872,6 +3887,8 @@
 				particleCounts[graphN]['infected'] = 0
 				particleCounts[graphN]['susceptible'] = 0
 				particleCounts[graphN]['removed'] = 0
+
+				delete particleInfectionCount[graphN][partID]
 
 				removePoint(graphN, 'particle@' + partID, options)
 				removeCircle(graphN, 'particleCircle@' + partID)
@@ -3927,6 +3944,8 @@
 			particleCountTimeLine['simpleCaseGraphG']['infected'] = []
 			particleCountTimeLine['simpleCaseGraphG']['susceptible'] = []
 			particleCountTimeLine['simpleCaseGraphG']['removed'] = []
+
+			particleInfectionCount['simpleCaseGraphG'] = {}
 
 			addParticlesToBoundary('simpleCaseGraphG', 'simpleCaseGraphB', simulationParameters.numberOfParticles)
 
@@ -3989,6 +4008,8 @@
 			particleCountTimeLine['simpleCaseGraph&QG']['infected'] = []
 			particleCountTimeLine['simpleCaseGraph&QG']['susceptible'] = []
 			particleCountTimeLine['simpleCaseGraph&QG']['removed'] = []
+
+			particleInfectionCount['simpleCaseGraph&QG'] = {}
 
 			addParticlesToBoundary('simpleCaseGraph&QG', 'simpleCaseGraph&QB', simulationParameters.numberOfParticles)
 
@@ -4053,6 +4074,8 @@
 			particleCountTimeLine['centralLocationCaseG']['infected'] = []
 			particleCountTimeLine['centralLocationCaseG']['susceptible'] = []
 			particleCountTimeLine['centralLocationCaseG']['removed'] = []
+
+			particleInfectionCount['centralLocationCaseG'] = {}
 
 			addParticlesToBoundary('centralLocationCaseG', 'centralLocationCaseB', simulationParameters.numberOfParticles)
 
@@ -4120,6 +4143,8 @@
 			particleCountTimeLine['centralLocationQuarantineCaseGraph']['infected'] = []
 			particleCountTimeLine['centralLocationQuarantineCaseGraph']['susceptible'] = []
 			particleCountTimeLine['centralLocationQuarantineCaseGraph']['removed'] = []
+
+			particleInfectionCount['centralLocationQuarantineCaseGraph'] = {}
 
 			addParticlesToBoundary('centralLocationQuarantineCaseGraph', 'centralLocationQuarantineCaseB', simulationParameters.numberOfParticles)
 
@@ -4196,6 +4221,8 @@
 			particleCountTimeLine['communitiesCaseGraph']['infected'] = []
 			particleCountTimeLine['communitiesCaseGraph']['susceptible'] = []
 			particleCountTimeLine['communitiesCaseGraph']['removed'] = []
+
+			particleInfectionCount['communitiesCaseGraph'] = {}
 
 			
 			for (bdi = 0; bdi < 3; bdi++) {
@@ -4284,6 +4311,8 @@
 			particleCountTimeLine['communitiesQuarantineCaseGraph']['infected'] = []
 			particleCountTimeLine['communitiesQuarantineCaseGraph']['susceptible'] = []
 			particleCountTimeLine['communitiesQuarantineCaseGraph']['removed'] = []
+
+			particleInfectionCount['communitiesQuarantineCaseGraph'] = {}
 
 			boundaryProperties.color = 'hsla(2, 100%, 50%, 1)'
 			drawBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineB', [aValueAP - 0.7, aValueAP - 0.7 + 0.5, aValueAP, aValueAP + 0.5], boundaryProperties)
@@ -4479,6 +4508,10 @@
 			return returnParticles
 		}
 
+		visitCLAndReturnDuration = timeStepsPerDay*2
+		fractionOfDurationToReachCL = 0.3
+		returnToCLFactor = 1 - fractionOfDurationToReachCL
+
 		function moveParticles(ofBoundary) {
 			partDB = particleData[ofBoundary]
 			for (var particleIndex in partDB) {
@@ -4497,16 +4530,16 @@
 				} 
 				else if (partDB[particleIndex].visitingCentralLocation) {
 					partDB[particleIndex].visitingCLFrame = partDB[particleIndex].visitingCLFrame + 1
-					if (partDB[particleIndex].visitingCLFrame < timeStepsPerDay/2) {
-						partDB[particleIndex].x = linearValue(0, timeStepsPerDay/2, partDB[particleIndex].visitingCLFrom[0], boundaryData[ofBoundary]['center'][0], partDB[particleIndex].visitingCLFrame)
-						partDB[particleIndex].y = linearValue(0, timeStepsPerDay/2, partDB[particleIndex].visitingCLFrom[1], boundaryData[ofBoundary]['center'][1], partDB[particleIndex].visitingCLFrame)
+					if (partDB[particleIndex].visitingCLFrame < visitCLAndReturnDuration*fractionOfDurationToReachCL) {
+						partDB[particleIndex].x = linearValue(0, visitCLAndReturnDuration*fractionOfDurationToReachCL, partDB[particleIndex].visitingCLFrom[0], boundaryData[ofBoundary]['center'][0], partDB[particleIndex].visitingCLFrame)
+						partDB[particleIndex].y = linearValue(0, visitCLAndReturnDuration*fractionOfDurationToReachCL, partDB[particleIndex].visitingCLFrom[1], boundaryData[ofBoundary]['center'][1], partDB[particleIndex].visitingCLFrame)
 					}
-					else {
-						partDB[particleIndex].x = linearValue(timeStepsPerDay/2, timeStepsPerDay, boundaryData[ofBoundary]['center'][0], partDB[particleIndex].visitingCLFrom[0], partDB[particleIndex].visitingCLFrame)
-						partDB[particleIndex].y = linearValue(timeStepsPerDay/2, timeStepsPerDay, boundaryData[ofBoundary]['center'][1], partDB[particleIndex].visitingCLFrom[1], partDB[particleIndex].visitingCLFrame)
+					else if(partDB[particleIndex].visitingCLFrame > visitCLAndReturnDuration*returnToCLFactor) {
+						partDB[particleIndex].x = linearValue(visitCLAndReturnDuration*fractionOfDurationToReachCL, visitCLAndReturnDuration, boundaryData[ofBoundary]['center'][0], partDB[particleIndex].visitingCLFrom[0], partDB[particleIndex].visitingCLFrame)
+						partDB[particleIndex].y = linearValue(visitCLAndReturnDuration*fractionOfDurationToReachCL, visitCLAndReturnDuration, boundaryData[ofBoundary]['center'][1], partDB[particleIndex].visitingCLFrom[1], partDB[particleIndex].visitingCLFrame)
 					}
 
-					if (partDB[particleIndex].visitingCLFrame >= timeStepsPerDay) {
+					if (partDB[particleIndex].visitingCLFrame >= visitCLAndReturnDuration) {
 						partDB[particleIndex].visitingCentralLocation = false
 						partDB[particleIndex].visitingCLFrame = 0
 					}
@@ -4557,12 +4590,12 @@
 							partDB[particleIndex].vx = partDB[particleIndex].vx*speedLimitForSD/pspeed
 							partDB[particleIndex].vy = partDB[particleIndex].vy*speedLimitForSD/pspeed
 						}
-						accLimit = linearValue(0, 1, 0.01, 0.1,simulationParameters.socialDistancingFactorA)
-						boundaryForceC = linearValue(0, 1, 0.1, 2,simulationParameters.socialDistancingFactorA)
+						accLimitForSD = linearValue(0, 1, 0.01, 0.1,simulationParameters.socialDistancingFactorA)
+						
 						modAcc = mod([partDB[particleIndex].ax, partDB[particleIndex].ay])
-						if (modAcc > accLimit) {
-							partDB[particleIndex].ax = partDB[particleIndex].ax*accLimit/modAcc
-							partDB[particleIndex].ay = partDB[particleIndex].ay*accLimit/modAcc
+						if (modAcc > accLimitForSD) {
+							partDB[particleIndex].ax = partDB[particleIndex].ax*accLimitForSD/modAcc
+							partDB[particleIndex].ay = partDB[particleIndex].ay*accLimitForSD/modAcc
 						}
 					}
 					else {
@@ -4671,6 +4704,8 @@
 								options = {}
 								particleData[ofBoundary][vicinityParticle].state = 'infected'
 								particleData[ofBoundary][vicinityParticle].color = stateColors['infected']
+
+								particleInfectionCount[graphForParticle][mainParticle].infectionC = particleInfectionCount[graphForParticle][mainParticle].infectionC + 1
 
 								graphForParticle = boundaryData[ofBoundary]['graph']
 								particleCounts[graphForParticle]['susceptible'] = particleCounts[graphForParticle]['susceptible'] - 1
@@ -4843,6 +4878,19 @@
 				options.x = dayCount*1.03
 			}
 			updateText('plotG', 'infectedText', options)
+
+			
+			casesSoFar = 0
+			totalInfections = 0
+			for (var infectedParticle in particleInfectionCount[graphForParticle]) {
+				if (particleInfectionCount[graphForParticle][infectedParticle].infectionC > 0) {
+					casesSoFar = casesSoFar + 1
+					totalInfections = totalInfections + particleInfectionCount[graphForParticle][infectedParticle].infectionC
+				}
+			}
+
+			// document.getElementById('R_0').innerHTML = 'R : ' + (totalInfections/casesSoFar).toFixed(2)
+			// console.log(totalInfections/casesSoFar, casesSoFar*100/totalP)
 
 		}
 
@@ -5243,6 +5291,7 @@
 		 		changeParameterWithoutReload(0, 0.2)
 		 		changeParameterWithoutReload(2, 4)
 		 		changeParameterWithoutReload(15, 0.4)
+		 		
 
 		 		timecount = 0
 		 		loopcount = 0
@@ -5271,6 +5320,9 @@
 		 		changeParameterWithoutReload(0, 0.2)
 		 		changeParameterWithoutReload(2, 4)
 		 		changeParameterWithoutReload(15, 0.4)
+		 		changeParameterWithoutReload(7, 3)
+		 		changeParameterWithoutReload(8, 6)
+		 		changeParameterWithoutReload(9, 20)
 
 		 		timecount = 0
 		 		loopcount = 0
