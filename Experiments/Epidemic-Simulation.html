@@ -195,7 +195,7 @@
 						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
 							<tr>
 								<td colspan="8" id='maintitle' style="text-align: center; vertical-align: bottom; font-size: 2.4vmax; color: white;">
-									<font style="font-weight: bold;">Epidemic Simulation </font><br/><font style="font-family: Source Sans Pro; font-size: 1.4vmax; vertical-align: bottom;">An interactive based on 3Blue1Brown's <a href="https://www.youtube.com/watch?v=gxAaO2rsdIs" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(197, 100%, 50%, 1);">"Simulating an Epidemic" video</font></a>.<br/><font style="font-size: 1.2vmax">For other interactives, visit <a href="https://prajwalsouza.github.io/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(280, 100%, 70%, 1);">prajwalsouza.github.io</font></a></font></font>
+									<font style="font-weight: bold;">Epidemic Simulation </font><br/><font style="font-family: Source Sans Pro; font-size: 1.4vmax; vertical-align: bottom;">An interactive inspired by 3Blue1Brown's <a href="https://www.youtube.com/watch?v=gxAaO2rsdIs" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(197, 100%, 50%, 1);">"Simulating an Epidemic" video</font></a>.<br/><font style="font-size: 1.2vmax">For other interactives, visit <a href="https://prajwalsouza.github.io/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(280, 100%, 70%, 1);">prajwalsouza.github.io</font></a></font></font>
 								</td>
 							</tr>
 						</table>
@@ -3109,7 +3109,7 @@
 				// document.getElementById('titleH').style.height = '15%'
 				document.getElementById('maintitle').style.fontSize = '2vmax'
 
-				document.getElementById('maintitle').innerHTML = "<font style='font-weight: bold;'>Epidemic Simulation </font><br/><font style='font-family: Source Sans Pro; font-size: 1.1vmax; vertical-align: bottom;'>An interactive based on 3Blue1Brown's <a href='https://www.youtube.com/watch?v=gxAaO2rsdIs' style='text-decoration: none; cursor: pointer;' target='_blank'><font style='color: hsla(197, 100%, 50%, 1);'>'Simulating an Epidemic' video</font></a><br/><font style='font-size: 0.9vmax'>For other interactives, visit <a href='https://prajwalsouza.github.io/' style='text-decoration: none; cursor: pointer;' target='_blank'><font style='color: hsla(280, 100%, 70%, 1);'>prajwalsouza.github.io</font></a></font></font>"
+				document.getElementById('maintitle').innerHTML = "<font style='font-weight: bold;'>Epidemic Simulation </font><br/><font style='font-family: Source Sans Pro; font-size: 1.1vmax; vertical-align: bottom;'>An interactive inspired by 3Blue1Brown's <a href='https://www.youtube.com/watch?v=gxAaO2rsdIs' style='text-decoration: none; cursor: pointer;' target='_blank'><font style='color: hsla(197, 100%, 50%, 1);'>'Simulating an Epidemic' video</font></a><br/><font style='font-size: 0.9vmax'>For other interactives, visit <a href='https://prajwalsouza.github.io/' style='text-decoration: none; cursor: pointer;' target='_blank'><font style='color: hsla(280, 100%, 70%, 1);'>prajwalsouza.github.io</font></a></font></font>"
 
 				document.getElementById('mainB2HSpacer2').style.height = '3%'
 				document.getElementById('caseTypeNameH').style.height = '4%'
@@ -3654,11 +3654,15 @@
 			graphoptions.xaxisthickness = 2
 
 			fontForLineLabel = '0.8vmax'
+
+			graphoptions.draggability = 'no'
+			
 			if (dmode == 'landscape') {
 				graphoptions.fontSize = '0.24vmax'
 				graphoptions.xmajorgridlabelshift = 4
 				graphoptions.ymajorgridlabelshift = -9
 				fontForLineLabel = '0.28vmax'
+				graphoptions.draggability = 'yes'
 			}
 
 			// if (mode == 'portrait') {
@@ -3673,8 +3677,7 @@
 
 			// graphoptions.position = 'relative'
 			graphoptions.scrollZoom = 'yes'
-
-			graphoptions.draggability = 'yes'
+			
 
 			// graphoptions.isgraphH = 'yes'
 			
