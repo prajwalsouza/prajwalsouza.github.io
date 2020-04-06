@@ -14,7 +14,7 @@
 
 		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-		<link rel="icon" href="square.png">
+		<link rel="icon" href="../square.png">
 
 		<style id='sliderstyles' type="text/css">
 
@@ -4519,7 +4519,6 @@
 							partDB[particleIndex].ax = partDB[particleIndex].ax*accLimit/modAcc
 							partDB[particleIndex].ay = partDB[particleIndex].ay*accLimit/modAcc
 						}
-
 					}
 					else {
 						partDB[particleIndex].ax = partDB[particleIndex].ax + 2*(Math.random() - 0.5)*randomSmallJerk
@@ -5009,8 +5008,10 @@
 				// playing = false
 				clearInterval(loopinterval);
 		 		clearInterval(loopinterval2);
+		 		changeParameter(0, 0.2)
 		 		changeParameter(2, 4)
 		 		changeParameter(14, 0.4)
+
 		 		timecount = 0
 		 		loopcount = 0
 		 		for (bdi = 0; bdi < 3; bdi++) {
