@@ -207,6 +207,8 @@
 					Simple Case
 				</div>
 				<br/>
+				<div id="upperLayer" style='margin:0px;width:100%; height: 35%;overflow: hidden;position: absolute; z-index: 200; display: inline-block; background: none; box-shadow: inset 0px 0px 20px 5px hsla(32, 0%,0%, 1); border: 0px solid black; pointer-events: none;'>
+				</div>
 				<div id="simpleCaseGraphH" style="width: 100%; height: 35%; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
 				<div id="centralLocationCaseGraphH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
 				<div id="communitiesCaseGraphH" style="width: 100%; height: 35%; visibility: hidden; overflow: hidden;position: absolute; z-index: 1;display: inline-block;"></div>
@@ -222,7 +224,7 @@
 						<input id='resetbutton' onclick="resetSim(event)" value='RESET' list="brow" style="border: 0px solid hsla(0, 0%, 70%, 1);  border-radius: 10px; width: 100%; height: 100%; text-align: center; font-family: Source Sans Pro; font-weight: bold; font-size: 1.5vmax; background: hsla(198,0%,50%,1); color: hsla(0, 0%, 100%, 1); cursor: pointer; user-select: none; pointer-events: auto; overflow: hidden; outline: none;" readonly></input>
 					</div>
 					<div id="play-Info-QuarantineHSpacer2" style='margin:0px;width:4%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '></div>
-					<div id="infoH" style="width: 32%; height: 100%; position: relative; z-index: 1;display: inline-block; color: white; font-size: 0.9vmax; font-family: Source Sans Pro; overflow: hidden;"><div style="display: table-cell; vertical-align: middle; text-align: center; height: 100%; width: 100%;">Please watch the 3b1b video to understand what is presented here.</div></div>
+					<div id="infoH" style="width: 32%; height: 100%; position: relative; z-index: 1;display: inline-block; color: white; font-size: 0.9vmax; font-family: Source Sans Pro; overflow: auto;"><div style="display: table-cell; vertical-align: middle; text-align:left; height: 100%; width: 100%;">Please watch the <a href="https://www.youtube.com/watch?v=gxAaO2rsdIs" style="text-decoration: none; cursor: pointer; color: hsla(197, 100%, 70%, 1);" target="_blank">3b1b video</a> to understand what is presented here. <br/> Zoom in/out of simulation/graph if it doesn't fit into your screen.</div></div>
 					<div id="play-Info-QuarantineHSpacer2" style='margin:0px;width:2%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '></div>
 					<div id="quarantineH" style="width: 30%; height: 100%; position: relative; z-index: 1;display: inline-block; overflow: hidden; text-align: center;">
 						<input onchange="handleQClick(event)" type="checkbox" id="quarantinecheck" name="quarantinecheck" value="quarantinecheck"  ><label id="quarantinecheckLabel" for="quarantinecheck" style="color: var(--themeinfected); font-size: 1.5vmax; font-weight: bold;">QUARANTINE</label>
@@ -232,7 +234,7 @@
 				</div>
 				<div id="caseTypeChooseH" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 					<div id="simpleCaseoptionH" style='margin:0px;width:23%; height: 100%; display: inline-block; overflow: hidden;cursor: pointer;'>
-						<input onclick="handleConfigChange(event)" id='simpleCaseoption' value='SIMPLE' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: hsla(0, 100%, 0%, 1); cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(280,100%,50%,1); border: 0.5px solid hsla(280,100%,50%,1);" readonly></input>
+						<input onclick="handleConfigChange(event)" id='simpleCaseoption' value='SIMPLE' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: hsla(0, 100%, 0%, 1); cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: hsla(40,100%,50%,1); border: 0.5px solid hsla(40,100%,50%,1);" readonly></input>
 					</div>
 					<div id="centralLocationoptionH" style='margin:0px;width:42%; height: 100%; display: inline-block; overflow: hidden;cursor: pointer;'>
 						<input onclick="handleConfigChange(event)" id='centralLocationoption' value='CENTRAL LOCATION' list="brow" style="width: 100%; height: 100%;  font-family: Source Sans Pro; font-weight: bold; text-align: center;font-size: 1.5vmax; letter-spacing: 0.8px; color: grey; cursor: pointer; user-select: none; border-color: hsla(0, 0%, 70%, 1); outline: none; vertical-align: middle;  background: hsla(280,100%,70%,0); border: 0.5px solid hsla(0, 0%, 60%, 1);" readonly></input>
@@ -248,7 +250,7 @@
 				</div>
 				<div id="parametersH" style='margin:0px;width:100%; height:19%;overflow: hidden;position: relative; z-index: 1;display: inline-block;'>
 					<div id="gradfillParameters" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 15%, hsla(0, 100%, 0%, 1) 16%, hsla(0, 100%, 100%, 0) 22%, hsla(0, 0%, 0%, 0) 95%,hsla(0, 100%, 0%, 1) 100%,hsla(0, 100%, 100%, 0) 100%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
-					<div id="parametersTitleText" style='margin:0px;width:100%; height:17%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-family: Source Sans Pro; font-size: 1.8vmax; color: hsla(190, 0%, 70%, 1);'>PARAMETERS</div>
+					<div id="parametersTitleText" style='margin:0px;width:100%; height:17%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-family: Source Sans Pro; font-size: 1.8vmax; color: hsla(190, 0%, 70%, 1);'>PARAMETERS<font id="additionalPText" style="color: white; font-size: 1.1vmax;"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Some parameters are specific to certain cases.</font></div>
 					<div id="parametersListH" style='margin:0px;width:100%; height:83%;overflow-y: auto;position: relative; z-index: 1;display: inline-block; font-family: Source Sans Pro; font-size: 1.7vmax; color: white;'>
 						<div id="parameterSpacer1" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block'></div>
 					</div>
@@ -263,14 +265,8 @@
 		</div>
 		<script type="text/javascript">
 
-		function infodisplay(infoobject, infolocation, infodata) {
-			if (infoobject == 'state') {
-				options = {}
-				options.text = infodata
-				options.x = infolocation[0]
-				options.y = infolocation[1]
-				updateText('chartG', 'InfoDisplayText', options)
-			}
+		function infodisplay(infodata) {
+			document.getElementById('infoH').innerHTML = infodata
 		}
 
 		function setDarkMode() {
@@ -1425,11 +1421,14 @@
 			if (darkmode) {
 				gdata.ymajorgridlabelcolor = gdata.ymajorgridlabelcolor || 'hsla(190, 100%, 50%, 1)'
 				gdata.xmajorgridlabelcolor = gdata.xmajorgridlabelcolor || 'hsla(190, 100%, 50%, 1)'
+
 			}
 			else {
 				gdata.ymajorgridlabelcolor = gdata.ymajorgridlabelcolor || 'hsla(190, 0%, 50%, 1)'
 				gdata.xmajorgridlabelcolor = gdata.xmajorgridlabelcolor || 'hsla(190, 0%, 50%, 1)'
 			}
+
+
 
 
 
@@ -1494,14 +1493,8 @@
 						textElement.style.fontSize = gdata.fontSize
 						textElement.style.userSelect = 'none'
 						textElement.style.fontFamily = 'Source Sans Pro'
-						if (darkmode == false) {
-							textElement.style.fill = gdata.ymajorgridlabelcolor
-						}
-						else {
-							textElement.style.fill = 'hsla(0, 0%, 100%, 1)'
-						}
+						textElement.style.fill = gdata.ymajorgridlabelcolor
 						svgElement.appendChild(textElement);
-
 						gdata.ymajorlabelsElements.push(textElement)
 					}
 					
@@ -1557,12 +1550,8 @@
 						textElement.style.fontSize = gdata.fontSize
 						textElement.style.fontFamily = 'Source Sans Pro'
 						textElement.style.userSelect = 'none'
-						if (darkmode == false) {
-							textElement.style.fill = gdata.xmajorgridlabelcolor
-						}
-						else {
-							textElement.style.fill = 'hsla(0, 0%, 100%, 1)'
-						}
+						textElement.style.fill = gdata.xmajorgridlabelcolor
+
 						svgElement.appendChild(textElement);
 						
 						gdata.xmajorlabelsElements.push(textElement)
@@ -3124,6 +3113,7 @@
 				document.getElementById('caseTypeName').style.height = '4%'
 				document.getElementById('caseTypeName').style.fontSize = '1vmax'
 
+				document.getElementById('upperLayer').style.height = '65%'
 				document.getElementById('simpleCaseGraphH').style.height = '65%'
 				document.getElementById('centralLocationCaseGraphH').style.height = '65%'
 				document.getElementById('communitiesCaseGraphH').style.height = '65%'
@@ -3175,6 +3165,8 @@
 
 				document.getElementById('parametersTitleText').style.fontSize = '1.1vmax'
 				document.getElementById('parametersTitleText').style.height = '10%'
+
+				document.getElementById('additionalPText').style.fontSize = '0.7vmax'
 				
 				document.getElementById('parametersListH').style.fontSize = '0.96vmax'
 
@@ -3199,29 +3191,41 @@
 
 		parameterData = {}
 		
-		parameterData[0] = {name: 'infectionRadius', div: 'Infection Radius &nbsp&nbsp @@@',initValue: 0.1, max: 1, min: 0.01, step: 0.01, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: false, runFAtEnd: ''}
-		parameterData[1] = {name: 'probabilityofInfection', div: 'Chance of Infection on a given day is @@@%',initValue: 6, max: 100, min: 0, step: 0.01, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
-		parameterData[2] = {name: 'fractionInfectedInitially', div: '@@@% population infected initially', initValue: 1, max: 100, min: 0, step: 0.1, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: true, runFAtEnd: ''}
-		parameterData[3] = {name: 'infectionTime', div: 'Infection duration is @@@ days',initValue: 25, max: 100, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
-		parameterData[4] = {name: 'socialDistancingFactorA', div: 'Social Distancing Factor &nbsp&nbsp @@@',initValue: 0, max: 1, min: 0, step: 0.01, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: false, runFAtEnd: ''}
-		parameterData[5] = {name: 'socialDistanceObedientPop', div: '@@@% of the population obeys Social Distancing',initValue: 100, max: 100, min: 0, step: 0.1, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: 'handleSDObedience()'}
-		parameterData[6] = {name: 'quarantineAfter', div: 'Quarantine after @@@ days of Infection',initValue: 10, max: 100, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
-		parameterData[7] = {name: 'startQ', div: 'Begin quarantine zone @@@ days since the beginning of the epidemic',initValue: 2, max: 100, min: 0, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
-		parameterData[8] = {name: 'probabilityOfNoSymptoms', div: "@@@% of the infected, don't show symptoms, hence, won't be quarantined.", initValue: 2, max: 100, min: 0, step: 0.1, color: '58, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
-		parameterData[9] = {name: 'probabilityCLVisit', div: "There is @@@% chance that an individual visits the central location in any given hour.", initValue: 0.1, max: 2, min: 0, step: 0.001, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
-		parameterData[10] = {name: 'travelProbability', div: "There is a @@@% chance of travel by an individual on a given day to another community", initValue: 1, max: 10, min: 0, step: 0.01, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
-		parameterData[11] = {name: 'nPerCommunity', div: "@@@ individuals per community", initValue: 60, max: 500, min: 3, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
-		parameterData[12] = {name: 'infectNCommunitiesInitially', div: "Infect only @@@ communities initially", initValue: 1, max: 9, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
+		parameterData[0] = {name: 'infectionRadius', div: 'Infection Radius &nbsp&nbsp @@@',initValue: 0.1, max: 1, min: 0.01, step: 0.01, color: '10, 100%, 63%', transform: 'parseFloat(#paraValue#)', requiresReset: false, runFAtEnd: ''}
+		parameterData[1] = {name: 'probabilityofInfection', div: 'Chance of Infection on a given day is @@@%',initValue: 6, max: 100, min: 0, step: 0.01, color: '10, 100%, 63%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
+		divAdjust = '@@@% population/community infected initially<br/><font style="color:grey; font-size: 1.2vmax;"> (In community case, @@@% of the community is infected initially, not the population.)</font>'
+		if (dmode == 'landscape') {
+			divAdjust = '@@@% population/community infected initially<br/><font style="color:grey; font-size: 0.8vmax;">(In community case, @@@% of the community is infected initially, not the population.)</font>'
+		}
+		parameterData[2] = {name: 'fractionInfectedInitially', div: divAdjust, initValue: 1, max: 100, min: 0, step: 0.1, color: '10, 100%, 63%', transform: 'parseFloat(#paraValue#)/100', requiresReset: true, runFAtEnd: ''}
+		parameterData[3] = {name: 'infectionTime', div: 'Infection duration is @@@ days',initValue: 25, max: 100, min: 1, step: 1, color: '10, 100%, 63%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
+		parameterData[4] = {name: 'socialDistancingFactorA', div: 'Social Distancing Factor &nbsp&nbsp @@@',initValue: 0, max: 1, min: 0, step: 0.01, color: '40, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: false, runFAtEnd: ''}
+		parameterData[5] = {name: 'socialDistanceObedientPop', div: '@@@% of the population obeys Social Distancing',initValue: 100, max: 100, min: 0, step: 0.1, color: '40, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: 'handleSDObedience()'}
 
-		parameterData[13] = {name: 'numberOfParticles', div: 'Number of Particles &nbsp&nbsp @@@' ,initValue: 200, max: 2000, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
-		parameterData[14] = {name: 'particleSize', div: 'Particle Size &nbsp&nbsp @@@',initValue: 0.7, max: 1, min: 0.1, step: 0.001, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: true, runFAtEnd: ''}
-		parameterData[15] = {name: 'frameRate', div: 'Frame Rate &nbsp&nbsp @@@',initValue: 40, max: 100, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
+		divAdjust = 'Observe Social Distancing within @@@ times the infection radius.<br/><font style="color:grey; font-size: 1.2vmax;"> (This quantity reduces many computations. Smaller the value, better. But, larger values may mimic the simulation in the video)</font>'
+		if (dmode == 'landscape') {
+			divAdjust = 'Observe Social Distancing within @@@ times the infection radius.<br/><font style="color:grey; font-size: 0.8vmax;">(This quantity reduces many computations. Smaller the value, better. But, larger values may mimic the simulation in the video)</font>'
+		}
+
+		parameterData[6] = {name: 'boxesToConsider', div: divAdjust,initValue: 2, max: 20, min: 1, step: 1, color: '40, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
+
+		parameterData[7] = {name: 'quarantineAfter', div: 'Quarantine after @@@ days of Infection',initValue: 10, max: 100, min: 1, step: 1, color: '10, 100%, 63%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
+		parameterData[8] = {name: 'startQ', div: 'Begin quarantine zone @@@ days since the beginning of the epidemic',initValue: 2, max: 100, min: 0, step: 1, color: '10, 100%, 63%', transform: 'parseInt(#paraValue#)', requiresReset: false, runFAtEnd: ''}
+		parameterData[9] = {name: 'probabilityOfNoSymptoms', div: "@@@% of the infected, don't show symptoms, hence, won't be quarantined.", initValue: 2, max: 100, min: 0, step: 0.1, color: '58, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
+		parameterData[10] = {name: 'probabilityCLVisit', div: "There is @@@% chance that an individual visits the central location in any given hour.", initValue: 0.1, max: 2, min: 0, step: 0.001, color: '280, 100%, 80%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
+		parameterData[11] = {name: 'travelProbability', div: "There is a @@@% chance of travel by an individual on a given day to another community", initValue: 1, max: 10, min: 0, step: 0.01, color: '76, 100%, 50%', transform: 'parseFloat(#paraValue#)/100', requiresReset: false, runFAtEnd: ''}
+		parameterData[12] = {name: 'nPerCommunity', div: "@@@ individuals per community", initValue: 60, max: 500, min: 3, step: 1, color: '76, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
+		parameterData[13] = {name: 'infectNCommunitiesInitially', div: "Infect only @@@ communities initially", initValue: 1, max: 9, min: 1, step: 1, color: '76, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
+
+		parameterData[14] = {name: 'numberOfParticles', div: 'Number of Particles &nbsp&nbsp @@@' ,initValue: 200, max: 2000, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: ''}
+		parameterData[15] = {name: 'particleSize', div: 'Particle Size &nbsp&nbsp @@@',initValue: 0.7, max: 1, min: 0.1, step: 0.001, color: '198, 100%, 50%', transform: 'parseFloat(#paraValue#)', requiresReset: true, runFAtEnd: ''}
+		parameterData[16] = {name: 'frameRate', div: 'Frame Rate &nbsp&nbsp @@@',initValue: 40, max: 100, min: 10, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
 
 		divAdjust = '@@@ days simulated every second <br/><font style="color:grey; font-size: 1.2vmax;"> (Might vary depending on your device clock speed.)</font>'
 		if (dmode == 'landscape') {
 			divAdjust = '@@@ days simulated every second <br/><font style="color:grey; font-size: 0.8vmax;"> (Might vary depending on your device clock speed.)</font>'
 		}
-		parameterData[16] = {name: 'daysEverySecond', div: divAdjust,initValue: 3, max: 20, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
+		parameterData[17] = {name: 'daysEverySecond', div: divAdjust,initValue: 3, max: 20, min: 1, step: 1, color: '198, 100%, 50%', transform: 'parseInt(#paraValue#)', requiresReset: true, runFAtEnd: 'setAnimationDetails()'}
 		
 
 		parameterSliderRMap = {}
@@ -3244,7 +3248,7 @@
 				for (var parameterIndex in parameterData) {
 					pName = parameterData[parameterIndex].name + 'div'
 					parameterSliderRMap[pName + 'Slider'] = parameterIndex
-					parameterDivData = '<div id="parameter' + pName + 'Box" style="margin:0px;width:100%; position: relative; z-index: 1;display: inline-block"><div id="parameter' + pName + 'Text" style="margin:0px;width:92%; position: relative; z-index: 1;display: inline-block; text-align: left;">' + parameterData[parameterIndex].div.replace(/@@@/g, '<font style="color:hsla(' + parameterData[parameterIndex].color + ', 1);">' + parameterData[parameterIndex].initValue + '</font>') + '</div><div style="width: 100%; height: 8%"></div><div id="parameter' + pName + 'SliderH" style="margin:0px;width:100%; position: relative; z-index: 1;display: inline-block;"></div><div style="width: 100%; height: 15%"></div></div>'
+					parameterDivData = '<div id="parameter' + pName + 'Box" style="margin:0px;width:100%; position: relative; z-index: 1;display: inline-block"><div id="parameter' + pName + 'Text" style="margin:0px;width:92%; position: relative; z-index: 1;display: inline-block; text-align: left;">' + parameterData[parameterIndex].div.replace(/@@@/g, '<font style="font-weight: bold; color:hsla(' + parameterData[parameterIndex].color + ', 1);">' + parameterData[parameterIndex].initValue + '</font>') + '</div><div style="width: 100%; height: 8%"></div><div id="parameter' + pName + 'SliderH" style="margin:0px;width:100%; position: relative; z-index: 1;display: inline-block;"></div><div style="width: 100%; height: 15%"></div></div>'
 					$(parameterDivData).appendTo('#parametersListH')
 					divSlider('parameter' + pName + 'SliderH',pName + 'Slider', parameterData[parameterIndex].min, parameterData[parameterIndex].max, parameterData[parameterIndex].initValue, parameterData[parameterIndex].step, 'parameterEvent(event)', '70%', '4px', 'hsla(190, 100%, 100%, 1)', '17px', 'hsla(' + parameterData[parameterIndex].color + ', 1)', '')
 
@@ -3261,7 +3265,7 @@
 			parData = parameterData[parameterNumber]
 			simulationParameters[parData.name] = eval(parData.transform.replace(/#paraValue#/g, event.target.value))
 			pName = parameterData[parameterNumber].name + 'div'
-			document.getElementById('parameter' + pName + 'Text').innerHTML = parData.div.replace(/@@@/g, '<font style="color:hsla(' + parData.color + ', 1);">' + event.target.value + '</font>')
+			document.getElementById('parameter' + pName + 'Text').innerHTML = parData.div.replace(/@@@/g, '<font style="font-weight: bold; color:hsla(' + parData.color + ', 1);">' + event.target.value + '</font>')
 
 			eval(parData.runFAtEnd)
 
@@ -3359,6 +3363,31 @@
 			 		playAnimationLoop()
 					// playing = true
 				}
+				else if (currentSim == 'communitiesQuarantineCase') {
+					// playing = false
+					clearInterval(loopinterval);
+			 		clearInterval(loopinterval2);
+			 		
+
+			 		timecount = 0
+			 		loopcount = 0
+			 		for (bdi = 0; bdi < 3; bdi++) {
+						for (bdj = 0; bdj < 3; bdj++) {
+							removeParticlesFromBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineCaseB_' + bdi + '_' + bdj)
+						}
+					}
+					removeParticlesFromBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineB')
+					removeGraph('communitiesQuarantineCaseGraph')
+					removeGraph('plotG')
+					dayCount = 0
+					setUpCommunitiesQuarantineCaseGraph()
+					setUpPlotGraph()
+					handleSDObedience()
+					setAnimationDetails()
+					playCalculationLoop()
+			 		playAnimationLoop()
+					// playing = true
+				}
 					
 			}
 		}
@@ -3367,7 +3396,7 @@
 			parData = parameterData[paraN]
 			simulationParameters[parData.name] = eval(parData.transform.replace(/#paraValue#/g, paraValueToSet))
 			pName = parData.name + 'div'
-			document.getElementById('parameter' + pName + 'Text').innerHTML = parData.div.replace(/@@@/g, '<font style="color:hsla(' + parData.color + ', 1);">' + paraValueToSet + '</font>')
+			document.getElementById('parameter' + pName + 'Text').innerHTML = parData.div.replace(/@@@/g, '<font style="font-weight: bold; color:hsla(' + parData.color + ', 1);">' + paraValueToSet + '</font>')
 
 			$("#" + pName + 'Slider').val(paraValueToSet);
 			$("#" + pName + 'Slider').trigger('input');
@@ -3445,8 +3474,67 @@
 					playCalculationLoop()
 			 		playAnimationLoop()
 					playing = true
+				}
+				else if (currentSim == 'communitiesCase') {
+					playing = false
+					clearInterval(loopinterval);
+			 		clearInterval(loopinterval2);
+			 		timecount = 0
+			 		loopcount = 0
+			 		for (bdi = 0; bdi < 3; bdi++) {
+						for (bdj = 0; bdj < 3; bdj++) {
+							removeParticlesFromBoundary('communitiesCaseGraph', 'communitiesCaseB_' + bdi + '_' + bdj)
+						}
+					}
+					removeGraph('communitiesCaseGraph')
+					removeGraph('plotG')
+					dayCount = 0
+					setUpCommunitiesCaseGraph()
+					setUpPlotGraph()
+					handleSDObedience()
+					setAnimationDetails()
+					playCalculationLoop()
+			 		playAnimationLoop()
+					playing = true
+				}
+				else if (currentSim == 'communitiesQuarantineCase') {
+					playing = false
+					clearInterval(loopinterval);
+			 		clearInterval(loopinterval2);
+			 		
+
+			 		timecount = 0
+			 		loopcount = 0
+			 		for (bdi = 0; bdi < 3; bdi++) {
+						for (bdj = 0; bdj < 3; bdj++) {
+							removeParticlesFromBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineCaseB_' + bdi + '_' + bdj)
+						}
+					}
+					removeParticlesFromBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineB')
+					removeGraph('communitiesQuarantineCaseGraph')
+					removeGraph('plotG')
+					dayCount = 0
+					setUpCommunitiesQuarantineCaseGraph()
+					setUpPlotGraph()
+					handleSDObedience()
+					setAnimationDetails()
+					playCalculationLoop()
+			 		playAnimationLoop()
+					playing = true
 				}		
 			}
+		}
+
+		function changeParameterWithoutReload(paraN, paraValueToSet) {
+			parData = parameterData[paraN]
+			simulationParameters[parData.name] = eval(parData.transform.replace(/#paraValue#/g, paraValueToSet))
+			pName = parData.name + 'div'
+			document.getElementById('parameter' + pName + 'Text').innerHTML = parData.div.replace(/@@@/g, '<font style="font-weight: bold; color:hsla(' + parData.color + ', 1);">' + paraValueToSet + '</font>')
+
+			$("#" + pName + 'Slider').val(paraValueToSet);
+			// $("#" + pName + 'Slider').trigger('input');
+
+			eval(parData.runFAtEnd)
 		}
 
 		function parameterHScroll() {
@@ -3477,156 +3565,7 @@
 		timeStepsPerDay = 24
 		timeStep = 1/timeStepsPerDay
 
-		function setUpGraph() {
-			graphH = document.getElementById('testGH')
-			graphoptions = {}
-			graphoptions.xmax = 2
-			graphoptions.xmin = -2
-
-			graphoptions.ymax = 2
-			graphoptions.ymin = -2
-			// if (mode == 'portrait') {
-			// 	graphoptions.ymax = 3
-			// 	graphoptions.ymin = -3	
-			// }
-
-			graphoptions.axislocationX = 0
-			graphoptions.axislocationY = 0
-
-			graphoptions.xaxislabelvisibility = 'no'
-			graphoptions.yaxislabelvisibility = 'no'
-
-			graphoptions.xaxisvisibility= 'no'
-			graphoptions.yaxisvisibility = 'no'
-
-			graphoptions.xmajorgridlabelvisibility = 'no'
-			graphoptions.ymajorgridlabelvisibility = 'no'
-
-			graphoptions.xmajorgridlinesvisibility = 'no'
-			graphoptions.ymajorgridlinesvisibility = 'no'
-
-			// graphoptions.ymajorgridlinesextension = 'yes'
-			// graphoptions.xmajorgridlinesextension = 'yes'
-
-			// graphoptions.xaxislabel = 'H'
-			// graphoptions.yaxislabel = 'M'
-
-			// graphoptions.gridlinenumberX = 5
-			// graphoptions.gridlinenumberY = 5
-
-			graphoptions.fontSize = 1.6
-			// graphoptions.xmajorgridlabelshift = 2
-			// graphoptions.ymajorgridlabelshift = 2
-
-			// if (mode == 'portrait') {
-			// 	graphoptions.gridlinenumberX = 4
-			// 	graphoptions.gridlinenumberY = 11
-			// 	graphoptions.fontSize = 5
-			// }
-
-			graphoptions.unitAspectRatio = 'yes'
-			// graphoptions.fixAxis = 'xaxis'
-			graphoptions.fixAxisStretchCentrally = 'yes'
-
-			// graphoptions.position = 'relative'
-			graphoptions.scrollZoom = 'no'
-
-			graphoptions.draggability = 'no'
-
-
-			// graphoptions.isgraphH = 'yes'
-			
-			addGraph(graphH, 'basicTestG', graphoptions)
-
-			infectionStates = ['infected', 'susceptible', 'removed']
-
-			options = {}
-			options.points = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 1]]
-			options.pathcolor = 'hsla(40, 100%, 100%, 1)'
-			options.strokewidth = 0.4
-			addPath('basicTestG', 'graphpointpath', options)
-
-
-
-			totalparticles = 200
-			particleData = {}
-
-			for (particleIndex = 0; particleIndex < totalparticles; particleIndex++) {
-				options = {}
-				options.pointsize = 0.5
-
-				particleData[particleIndex] = {}
-				particleData[particleIndex].vx = (Math.random() - 0.5)*0.001
-				particleData[particleIndex].vy = (Math.random() - 0.5)*0.001
-
-				particleData[particleIndex].ax = 0
-				particleData[particleIndex].ay = 0
-
-				particleData[particleIndex].x = (Math.random()*1.8) - 0.9
-				particleData[particleIndex].y = (Math.random()*1.8) - 0.9
-				particleData[particleIndex].state = randomWeightedChoice(infectionStates, [1, 98, 1])
-				particleData[particleIndex].infectionAnimation = false
-				particleData[particleIndex].infectionAnimationFrame = 0
-
-				if (particleData[particleIndex].state == 'removed') {
-					particleData[particleIndex].color = '190, 0%, 40%'
-				}
-				else if (particleData[particleIndex].state == 'infected') {
-					particleData[particleIndex].color = '10, 100%,70%'
-				}
-				else {
-					particleData[particleIndex].color = '190, 100%, 50%'
-				}
-
-				if (particleData[particleIndex].state == 'susceptible') {
-					particleVicinityDB['simpleCaseGraphB'][parseInt(particleData[particleIndex].x*10).toString() + '&' + parseInt(particleData[particleIndex].y*10).toString()].push(particleIndex)
-				}
-
-				options.x = particleData[particleIndex].x
-				options.y = particleData[particleIndex].y
-				options.pointcolor = 'hsla(' + particleData[particleIndex].color + ',1)'
-				addPoint('basicTestG', 'particle@' + particleIndex, options)
-
-				options = {}
-				options.circlecolor = 'hsla(190, 0%, 0%, 0)'
-				options.stroke = 'hsla(' + particleData[particleIndex].color + ',0)'
-				options.x = particleData[particleIndex].x
-				options.y = particleData[particleIndex].y
-				options.radius = 0
-				options.strokewidth = 2
-				addCircle('basicTestG', 'particleCircle@' + particleIndex, options)
-			}
-
-			// options = {}
-			// options.ellipsecolor = 'hsla(190, 0%, 0%, 0)'
-			// options.stroke = 'hsla(0,0%,0%,0)'
-			// options.x = 0
-			// options.y = 0
-			// options.ry = 1
-			// options.rx = 1
-			// options.strokewidth = 2
-			// addedellipseboundary = addEllipse('labG', 'simpleEllipticBoundary', options)[0]
-			// addedellipseboundary.style.pointerEvents = 'none'
-
-			// options = {}
-			// options.pathcolor = 'hsla(0, 0%, 0%, 0)'
-			// options.points = [[1,0], [0,1], [-1,0], [0,-1],[1,0]]
-			// options.strokewidth = 0.3
-			// addedpolyboundary = addPath('labG', 'simplePolygonBoundary', options)[0]
-			// addedpolyboundary.style.pointerEvents = 'none'
-
-
-			// options = {}
-			// options.circlecolor = 'hsla(190, 0%, 0%, 0)'
-			// options.stroke = boptions.color
-			// options.x = 0
-			// options.y = 0
-			// options.radius = boptions.radius
-			// options.strokewidth = boptions.boundaryThickness || 2
-			// addCircle('labG', 'simpleCircleBoundary', options)
-		}
-
-
+		
 		particleVicinityDB = {}
 		allParticleVicinityDB = {}
 		vicinityDelta = 0.1
@@ -3674,7 +3613,7 @@
 			graphoptions.axislocationX = 0
 			graphoptions.axislocationY = 0
 
-			graphoptions.xaxislabelvisibility = 'no'
+			// graphoptions.xaxislabelvisibility = 'no'
 			graphoptions.yaxislabelvisibility = 'no'
 
 			graphoptions.xaxisvisibility= 'no'
@@ -3727,9 +3666,9 @@
 			// graphoptions.fixAxisStretchCentrally = 'yes'
 
 			// graphoptions.position = 'relative'
-			graphoptions.scrollZoom = 'no'
+			graphoptions.scrollZoom = 'yes'
 
-			graphoptions.draggability = 'no'
+			graphoptions.draggability = 'yes'
 
 			// graphoptions.isgraphH = 'yes'
 			
@@ -3968,8 +3907,8 @@
 			graphoptions.unitAspectRatio = 'yes'
 			graphoptions.fixAxisStretchCentrally = 'yes'
 
-			graphoptions.scrollZoom = 'no'
-			graphoptions.draggability = 'no'
+			graphoptions.scrollZoom = 'yes'
+			graphoptions.draggability = 'yes'
 			
 			addGraph(graphH, 'simpleCaseGraphG', graphoptions)
 
@@ -4088,8 +4027,8 @@
 			graphoptions.unitAspectRatio = 'yes'
 			graphoptions.fixAxisStretchCentrally = 'yes'
 
-			graphoptions.scrollZoom = 'no'
-			graphoptions.draggability = 'no'
+			graphoptions.scrollZoom = 'yes'
+			graphoptions.draggability = 'yes'
 			
 			addGraph(graphH, 'centralLocationCaseG', graphoptions)
 
@@ -4243,8 +4182,8 @@
 			graphoptions.unitAspectRatio = 'yes'
 			graphoptions.fixAxisStretchCentrally = 'yes'
 
-			graphoptions.scrollZoom = 'no'
-			graphoptions.draggability = 'no'
+			graphoptions.scrollZoom = 'yes'
+			graphoptions.draggability = 'yes'
 			
 			addGraph(graphH, 'communitiesCaseGraph', graphoptions)
 
@@ -4279,15 +4218,102 @@
 				
 		}
 
+		toInfectCommunitiesQuarantine = {}
+		communitiesQuarantineNames = []
+
+		function setUpCommunitiesQuarantineCaseGraph() {
+			graphH = document.getElementById('communitiesQuarantineCaseGraphH')
+			graphoptions = {}
+			sep = 0.2
+			aValueAP = (-1)*(3 + sep)
+			dValueAP = 2 + sep
+		
+			toInfectCommunitiesQuarantine = {}
+			communitiesQuarantineNames = []
+
+			for (bdi = 0; bdi < 3; bdi++) {
+				for (bdj = 0; bdj < 3; bdj++) {
+					communitiesQuarantineNames.push('communitiesQuarantineCaseB_' + bdi + '_' + bdj)
+				}
+			}
+
+			communitiesQuarantineToInfect = shuffle(communitiesQuarantineNames)
+			communitiesQuarantineToInfect = communitiesQuarantineToInfect.slice(0, simulationParameters.infectNCommunitiesInitially)
+
+			for (commIndex = 0; commIndex < communitiesQuarantineToInfect.length; commIndex++) {
+				toInfectCommunitiesQuarantine[communitiesQuarantineToInfect[commIndex]] = true
+			}
+
+			graphoptions.xmax = 2 + aValueAP + (2*dValueAP)
+			graphoptions.xmin = aValueAP - 0.7
+
+			graphoptions.ymax = 2 + aValueAP + (2*dValueAP)
+			graphoptions.ymin = aValueAP - 0.7
+
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility= 'no'
+			graphoptions.yaxisvisibility = 'no'
+
+			graphoptions.xmajorgridlabelvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'no'
+
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+
+			graphoptions.fontSize = 1.6
+			
+			graphoptions.unitAspectRatio = 'yes'
+			graphoptions.fixAxisStretchCentrally = 'yes'
+
+			graphoptions.scrollZoom = 'yes'
+			graphoptions.draggability = 'yes'
+			
+			addGraph(graphH, 'communitiesQuarantineCaseGraph', graphoptions)
+
+			particleCounts['communitiesQuarantineCaseGraph'] = {}
+			particleCounts['communitiesQuarantineCaseGraph']['infected'] = 0
+			particleCounts['communitiesQuarantineCaseGraph']['susceptible'] = 0
+			particleCounts['communitiesQuarantineCaseGraph']['removed'] = 0
+
+			particleCountTimeLine['communitiesQuarantineCaseGraph'] = {}
+			particleCountTimeLine['communitiesQuarantineCaseGraph']['infected'] = []
+			particleCountTimeLine['communitiesQuarantineCaseGraph']['susceptible'] = []
+			particleCountTimeLine['communitiesQuarantineCaseGraph']['removed'] = []
+
+			boundaryProperties.color = 'hsla(2, 100%, 50%, 1)'
+			drawBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineB', [aValueAP - 0.7, aValueAP - 0.7 + 0.5, aValueAP, aValueAP + 0.5], boundaryProperties)
+
+			
+			for (bdi = 0; bdi < 3; bdi++) {
+				for (bdj = 0; bdj < 3; bdj++) {
+					boundaryRangeP = [aValueAP + (bdi*dValueAP), 2 + aValueAP + (bdi*dValueAP), aValueAP + (bdj*dValueAP), 2 + aValueAP + (bdj*dValueAP)]
+					boundaryProperties = {}
+					boundaryProperties.color = 'white'
+					drawBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineCaseB_' + bdi + '_' + bdj, boundaryRangeP, boundaryProperties)
+					if (toInfectCommunitiesQuarantine['communitiesQuarantineCaseB_' + bdi + '_' + bdj] == undefined) {
+						boundaryData['communitiesQuarantineCaseB_' + bdi + '_' + bdj]['fractionInfectedInitially'] = 0
+					}
+					else if (toInfectCommunitiesQuarantine['communitiesQuarantineCaseB_' + bdi + '_' + bdj] == true) {
+						boundaryData['communitiesQuarantineCaseB_' + bdi + '_' + bdj]['fractionInfectedInitially'] = simulationParameters.fractionInfectedInitially
+					}
+					
+					addParticlesToBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineCaseB_' + bdi + '_' + bdj, simulationParameters.nPerCommunity)
+					prepInteractionData('communitiesQuarantineCaseB_' + bdi + '_' + bdj)
+				}
+			}
+				
+		}
+
 		setUpSimpleCaseGraph()
 
-		setUpSimpleQuarantineCaseGraph()
-
-		setUpCentralLocationCaseGraph() 
-
-		setUpCentralLocationQuarantineCaseGraph()
-
 		setUpCommunitiesCaseGraph()
+
+		setUpCommunitiesQuarantineCaseGraph()
 
 		currentSim = 'simpleCase'
 		currentSimG = 'simpleCaseGraphG'
@@ -4362,6 +4388,23 @@
 					}
 				}
 			}
+			else if (currentSim == 'communitiesQuarantineCase') {
+				for (bdi = 0; bdi < 3; bdi++) {
+					for (bdj = 0; bdj < 3; bdj++) {
+						allParts = Object.keys(particleData['communitiesQuarantineCaseB_' + bdi + '_' + bdj])
+						allParts = shuffle(allParts)
+						toObeyP = simulationParameters.socialDistanceObedientPop*allParts.length
+						for (partIndex = 0; partIndex < allParts.length; partIndex++) {
+							if (partIndex < toObeyP) {
+								particleData['communitiesQuarantineCaseB_' + bdi + '_' + bdj][allParts[partIndex]].socialDistancingObedience = 1
+							}
+							else {
+								particleData['communitiesQuarantineCaseB_' + bdi + '_' + bdj][allParts[partIndex]].socialDistancingObedience = 0
+							}
+						}
+					}
+				}
+			}
 		}
 
 		function getSurroundingRepulsives(zonevalues, boundaryN) {
@@ -4369,7 +4412,7 @@
 			xbreaks = boundaryData[boundaryN]['xbreaks']
 			ybreaks = boundaryData[boundaryN]['ybreaks']
 
-			sideBoxesN = 1
+			sideBoxesN = simulationParameters.boxesToConsider
 			startib = zonevalues[0] - sideBoxesN
 			if (startib < 0) {
 				startib = 0
@@ -4495,25 +4538,27 @@
 								vicinityParticlePos = [particleData[ofBoundary][vicinityParticle].x, particleData[ofBoundary][vicinityParticle].y]
 								distanceR = distF(mainParticlePos, vicinityParticlePos)
 								unitVec = directionvec(vicinityParticlePos,mainParticlePos)
-								distanceInverse = 1/Math.pow(distanceR, 6)
+								distanceInverse = 1/Math.pow(distanceR, 3)
 
 								obedience = particleData[ofBoundary][particleIndex].socialDistancingObedience
-								socialDistancingForceFactor = simulationParameters.socialDistancingFactorA*0.0001
+								socialDistancingForceFactor = simulationParameters.socialDistancingFactorA
 								smallF = [unitVec[0]*distanceInverse*socialDistancingForceFactor*obedience, unitVec[1]*distanceInverse*socialDistancingForceFactor*obedience]
 								totalForce = addVec(totalForce, smallF)
 							}
 								
 						}
-						partDB[particleIndex].ax = partDB[particleIndex].ax + totalForce[0]
-						partDB[particleIndex].ay = partDB[particleIndex].ay + totalForce[1]
+						partDB[particleIndex].ax = partDB[particleIndex].ax + (totalForce[0]/100)
+						partDB[particleIndex].ay = partDB[particleIndex].ay + (totalForce[1]/100)
 
-						speedLimitForSD = linearValue(0,1, 0.05, 0.008,simulationParameters.socialDistancingFactorA)
+						speedLimitForSD = linearValue(0,1, 0.1, 0.05,simulationParameters.socialDistancingFactorA)
 
 						pspeed = mod([partDB[particleIndex].vx, partDB[particleIndex].vy])
 						if (pspeed > speedLimitForSD) {
 							partDB[particleIndex].vx = partDB[particleIndex].vx*speedLimitForSD/pspeed
 							partDB[particleIndex].vy = partDB[particleIndex].vy*speedLimitForSD/pspeed
 						}
+						accLimit = linearValue(0, 1, 0.01, 0.1,simulationParameters.socialDistancingFactorA)
+						boundaryForceC = linearValue(0, 1, 0.1, 2,simulationParameters.socialDistancingFactorA)
 						modAcc = mod([partDB[particleIndex].ax, partDB[particleIndex].ay])
 						if (modAcc > accLimit) {
 							partDB[particleIndex].ax = partDB[particleIndex].ax*accLimit/modAcc
@@ -4669,6 +4714,7 @@
 
 					if (currentSim == 'simpleCase&Q' && particleData[ofBoundary][mainParticle].daysSinceInfection > simulationParameters.quarantineAfter && particleData[ofBoundary][mainParticle].moveAnimation == false && particleData[ofBoundary][mainParticle].quarantined == false && particleData[ofBoundary][mainParticle].showsSymptoms && dayCount > simulationParameters.startQ) {
 						particleData[ofBoundary][mainParticle].quarantined = true
+						particleData[ofBoundary][mainParticle].socialDistancingObedience = 0
 						moveToBoundary('simpleQuarantineB', 'simpleCaseGraph&QB', mainParticle, timeStepsPerDay/2)
 					}
 
@@ -4676,7 +4722,16 @@
 						particleData[ofBoundary][mainParticle].visitingCentralLocation = false
 						particleData[ofBoundary][mainParticle].visitingCLFrame = 0
 						particleData[ofBoundary][mainParticle].quarantined = true
+						particleData[ofBoundary][mainParticle].socialDistancingObedience = 0
 						moveToBoundary('centralLocationQuarantineB', 'centralLocationQuarantineCaseB', mainParticle, timeStepsPerDay/2)
+
+					}
+					if (currentSim == 'communitiesQuarantineCase' && particleData[ofBoundary][mainParticle].daysSinceInfection > simulationParameters.quarantineAfter && particleData[ofBoundary][mainParticle].moveAnimation == false && particleData[ofBoundary][mainParticle].quarantined == false && particleData[ofBoundary][mainParticle].showsSymptoms && dayCount > simulationParameters.startQ) {
+						particleData[ofBoundary][mainParticle].visitingCentralLocation = false
+						particleData[ofBoundary][mainParticle].visitingCLFrame = 0
+						particleData[ofBoundary][mainParticle].quarantined = true
+						particleData[ofBoundary][mainParticle].socialDistancingObedience = 0
+						moveToBoundary('communitiesQuarantineB', ofBoundary, mainParticle, timeStepsPerDay/2)
 
 					}
 				}
@@ -4685,6 +4740,14 @@
 					chooseFrom.splice(chooseFrom.indexOf(ofBoundary), 1)
 					moveToBoundary(randomChoice(chooseFrom), ofBoundary, mainParticle, 2*timeStepsPerDay)
 				}
+				if (particleData[ofBoundary][mainParticle] != undefined) {
+					if (currentSim == 'communitiesQuarantineCase' && particleData[ofBoundary][mainParticle].moveAnimation == false && Math.random() < simulationParameters.travelProbability && particleData[ofBoundary][mainParticle].quarantined == false) {
+						chooseFrom = communitiesQuarantineNames.slice(0, communitiesQuarantineNames.length)
+						chooseFrom.splice(chooseFrom.indexOf(ofBoundary), 1)
+						moveToBoundary(randomChoice(chooseFrom), ofBoundary, mainParticle, 2*timeStepsPerDay)
+					}
+				}
+					
 				
 			}
 		}
@@ -4858,6 +4921,33 @@
 					dayCount = dayCount + 1
 				}
 			}
+			else if (currentSim == 'communitiesQuarantineCase') {
+				for (bdi = 0; bdi < 3; bdi++) {
+					for (bdj = 0; bdj < 3; bdj++) {
+						moveParticles('communitiesQuarantineCaseB_' + bdi + '_' + bdj)
+					}
+				}
+				moveParticles('communitiesQuarantineB')
+				if (timecount % timeStepsPerDay == 0) {
+					for (bdi = 0; bdi < 3; bdi++) {
+						for (bdj = 0; bdj < 3; bdj++) {
+							prepInteractionData('communitiesQuarantineCaseB_' + bdi + '_' + bdj)
+						}
+					}
+					prepInteractionData('communitiesQuarantineB')
+				}
+
+				if (timecount % timeStepsPerDay == 1) {
+					updatePlotGraph()
+					for (bdi = 0; bdi < 3; bdi++) {
+						for (bdj = 0; bdj < 3; bdj++) {
+							interactions('communitiesQuarantineCaseB_' + bdi + '_' + bdj)
+						}
+					}
+					interactions('communitiesQuarantineB')
+					dayCount = dayCount + 1
+				}
+			}
 		}
 
 		function handleAnimationPlaying() {
@@ -4881,6 +4971,14 @@
 						animateParticles('communitiesCaseB_' + bdi + '_' + bdj)
 					}
 				}
+			}
+			else if (currentSim == 'communitiesQuarantineCase') {
+				for (bdi = 0; bdi < 3; bdi++) {
+					for (bdj = 0; bdj < 3; bdj++) {
+						animateParticles('communitiesQuarantineCaseB_' + bdi + '_' + bdj)
+					}
+				}
+				animateParticles('communitiesQuarantineB')
 			}
 		}
 
@@ -5008,10 +5106,6 @@
 				// playing = false
 				clearInterval(loopinterval);
 		 		clearInterval(loopinterval2);
-		 		changeParameter(0, 0.2)
-		 		changeParameter(2, 4)
-		 		changeParameter(14, 0.4)
-
 		 		timecount = 0
 		 		loopcount = 0
 		 		for (bdi = 0; bdi < 3; bdi++) {
@@ -5030,10 +5124,191 @@
 		 		playAnimationLoop()
 				// playing = true
 			}
+			else if (currentSim == 'communitiesQuarantineCase') {
+				// playing = false
+				clearInterval(loopinterval);
+		 		clearInterval(loopinterval2);
+
+		 		timecount = 0
+		 		loopcount = 0
+		 		for (bdi = 0; bdi < 3; bdi++) {
+					for (bdj = 0; bdj < 3; bdj++) {
+						removeParticlesFromBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineCaseB_' + bdi + '_' + bdj)
+					}
+				}
+				removeParticlesFromBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineB')
+				removeGraph('communitiesQuarantineCaseGraph')
+				removeGraph('plotG')
+				dayCount = 0
+				setUpCommunitiesQuarantineCaseGraph()
+				setUpPlotGraph()
+				handleSDObedience()
+				setAnimationDetails()
+				playCalculationLoop()
+		 		playAnimationLoop()
+				// playing = true
+			}
 		}
 
-		handleCases = {'simpleCaseoption': {false: ['simpleCaseGraphH', 'simpleCase', 'simpleCaseGraphG'], true: ['simpleCaseGraph&QH', 'simpleCase&Q', 'simpleCaseGraph&QG']}, 'centralLocationoption': {false: ['centralLocationCaseGraphH', 'centralLocationCase', 'centralLocationCaseG'], true: ['centralLocationQuarantineCaseGraphH', 'centralLocationQuarantineCase', 'centralLocationQuarantineCaseGraph']}, 'communitiesoption': {false: ['communitiesCaseGraphH', 'communitiesCase', 'communitiesCaseGraph'], true: ['centralLocationQuarantineCaseGraphH', 'centralLocationQuarantineCase', 'centralLocationQuarantineCaseGraph']}}
+		function resetSimHard(event) {
+			if (currentSim == 'simpleCase') {
+				// playing = false
+				clearInterval(loopinterval);
+		 		clearInterval(loopinterval2);
+		 		timecount = 0
+		 		loopcount = 0
+		 		if (graphData['simpleCaseGraphG'] != undefined) {
+		 			removeParticlesFromBoundary('simpleCaseGraphG', 'simpleCaseGraphB')
+					removeGraph('simpleCaseGraphG')
+		 		}
+					
+				removeGraph('plotG')
+				dayCount = 0
+				setUpSimpleCaseGraph()
+				setUpPlotGraph()
+				handleSDObedience()
+				setAnimationDetails()
+				playCalculationLoop()
+		 		playAnimationLoop()
+				// playing = true
+			}
+			else if (currentSim == 'simpleCase&Q') {
+				// playing = false
+				clearInterval(loopinterval);
+		 		clearInterval(loopinterval2);
+		 		timecount = 0
+		 		loopcount = 0
+		 		if (graphData['simpleCaseGraph&QG'] != undefined) {
+		 			removeParticlesFromBoundary('simpleCaseGraph&QG', 'simpleCaseGraph&QB')
+					removeParticlesFromBoundary('simpleCaseGraph&QG', 'simpleQuarantineB')
+					removeGraph('simpleCaseGraph&QG')
+		 		}
+					
+				removeGraph('plotG')
+				dayCount = 0
+				setUpSimpleQuarantineCaseGraph()
+				setUpPlotGraph()
+				handleSDObedience()
+				setAnimationDetails()
+				playCalculationLoop()
+		 		playAnimationLoop()
+				// playing = true
+			}
+			else if (currentSim == 'centralLocationCase') {
+				// playing = false
+				clearInterval(loopinterval);
+		 		clearInterval(loopinterval2);
+		 		timecount = 0
+		 		loopcount = 0
+		 		if (graphData['centralLocationCaseG'] != undefined) {
+					removeParticlesFromBoundary('centralLocationCaseG', 'centralLocationCaseB')
+					removeGraph('centralLocationCaseG')
+				}
+				removeGraph('plotG')
+				dayCount = 0
+				setUpCentralLocationCaseGraph()
+				setUpPlotGraph()
+				handleSDObedience()
+				setAnimationDetails()
+				playCalculationLoop()
+		 		playAnimationLoop()
+				// playing = true
+			}
+			else if (currentSim == 'centralLocationQuarantineCase') {
+				// playing = false
+				clearInterval(loopinterval);
+		 		clearInterval(loopinterval2);
+		 		timecount = 0
+		 		loopcount = 0
+		 		if (graphData['centralLocationQuarantineCaseGraph'] != undefined) {
+					removeParticlesFromBoundary('centralLocationQuarantineCaseGraph', 'centralLocationQuarantineCaseB')
+					removeParticlesFromBoundary('centralLocationQuarantineCaseGraph', 'centralLocationQuarantineB')
+					removeGraph('centralLocationQuarantineCaseGraph')
+				}
+				
+				removeGraph('plotG')
+				dayCount = 0
+				setUpCentralLocationQuarantineCaseGraph()
+				setUpPlotGraph()
+				handleSDObedience()
+				setAnimationDetails()
+				playCalculationLoop()
+		 		playAnimationLoop()
+				// playing = true
+			}
+			else if (currentSim == 'communitiesCase') {
+				// playing = false
+				clearInterval(loopinterval);
+		 		clearInterval(loopinterval2);
+		 		changeParameterWithoutReload(0, 0.2)
+		 		changeParameterWithoutReload(2, 4)
+		 		changeParameterWithoutReload(15, 0.4)
 
+		 		timecount = 0
+		 		loopcount = 0
+		 		if (graphData['communitiesCaseGraph'] != undefined) {
+			 		for (bdi = 0; bdi < 3; bdi++) {
+						for (bdj = 0; bdj < 3; bdj++) {
+							removeParticlesFromBoundary('communitiesCaseGraph', 'communitiesCaseB_' + bdi + '_' + bdj)
+						}
+					}
+					removeGraph('communitiesCaseGraph')
+				}
+				removeGraph('plotG')
+				dayCount = 0
+				setUpCommunitiesCaseGraph()
+				setUpPlotGraph()
+				handleSDObedience()
+				setAnimationDetails()
+				playCalculationLoop()
+		 		playAnimationLoop()
+				// playing = true
+			}
+			else if (currentSim == 'communitiesQuarantineCase') {
+				// playing = false
+				clearInterval(loopinterval);
+		 		clearInterval(loopinterval2);
+		 		changeParameterWithoutReload(0, 0.2)
+		 		changeParameterWithoutReload(2, 4)
+		 		changeParameterWithoutReload(15, 0.4)
+
+		 		timecount = 0
+		 		loopcount = 0
+		 		if (graphData['communitiesQuarantineCaseGraph'] != undefined) {
+			 		for (bdi = 0; bdi < 3; bdi++) {
+						for (bdj = 0; bdj < 3; bdj++) {
+							removeParticlesFromBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineCaseB_' + bdi + '_' + bdj)
+						}
+					}
+					removeParticlesFromBoundary('communitiesQuarantineCaseGraph', 'communitiesQuarantineB')
+					removeGraph('communitiesQuarantineCaseGraph')
+				}
+				removeGraph('plotG')
+				dayCount = 0
+				setUpCommunitiesQuarantineCaseGraph()
+				setUpPlotGraph()
+				handleSDObedience()
+				setAnimationDetails()
+				playCalculationLoop()
+		 		playAnimationLoop()
+				// playing = true
+			}
+		}
+
+
+		handleCases = {'simpleCaseoption': {false: ['simpleCaseGraphH', 'simpleCase', 'simpleCaseGraphG'], true: ['simpleCaseGraph&QH', 'simpleCase&Q', 'simpleCaseGraph&QG']}, 'centralLocationoption': {false: ['centralLocationCaseGraphH', 'centralLocationCase', 'centralLocationCaseG'], true: ['centralLocationQuarantineCaseGraphH', 'centralLocationQuarantineCase', 'centralLocationQuarantineCaseGraph']}, 'communitiesoption': {false: ['communitiesCaseGraphH', 'communitiesCase', 'communitiesCaseGraph'], true: ['communitiesQuarantineCaseGraphH', 'communitiesQuarantineCase', 'communitiesQuarantineCaseGraph']}}
+
+		graphToQMap = {}
+		graphToQMap['simpleCase'] = ['simpleCase&Q', 'simpleCaseGraph&QG', 'simpleCaseGraph&QH', 'simpleCaseGraphH', 'Simple Case'] 
+		graphToQMap['simpleCase&Q'] = ['simpleCase', 'simpleCaseGraphG', 'simpleCaseGraphH', 'simpleCaseGraph&QH', 'Simple Case with Quarantine']
+
+		graphToQMap['centralLocationQuarantineCase'] = ['centralLocationCase', 'centralLocationCaseG', 'centralLocationCaseGraphH', 'centralLocationQuarantineCaseGraphH', 'Central Location Case with Quarantine']
+		graphToQMap['centralLocationCase'] = ['centralLocationQuarantineCase', 'centralLocationQuarantineCaseGraph', 'centralLocationQuarantineCaseGraphH', 'centralLocationCaseGraphH', 'Central Location Case']
+
+		graphToQMap['communitiesQuarantineCase'] = ['communitiesCase', 'communitiesCaseGraph', 'communitiesCaseGraphH', 'communitiesQuarantineCaseGraphH', 'Community Travel Case with Quarantine']
+		graphToQMap['communitiesCase'] = ['communitiesQuarantineCase', 'communitiesQuarantineCaseGraph', 'communitiesQuarantineCaseGraphH', 'communitiesCaseGraphH', 'Community Travel Case']
+
+		quarantineOn = false
 
 		function handleConfigChange(event) {
 			document.getElementById('simpleCaseGraphH').style.visibility = 'hidden'
@@ -5049,18 +5324,25 @@
 			currentSim = handleCases[event.target.id][quarantineOn][1]
 
 			dummye = {}
-			resetSim(dummye)
+			resetSimHard(dummye)
+
 			
+			document.getElementById('simpleCaseoption').style.border = '1px solid hsla(0, 0%, 60%, 1)'
+			document.getElementById('centralLocationoption').style.border = '1px solid hsla(0, 0%, 60%, 1)'
+			document.getElementById('communitiesoption').style.border = '1px solid hsla(0, 0%, 60%, 1)'
+			document.getElementById('simpleCaseoption').style.background = 'none'
+			document.getElementById('centralLocationoption').style.background = 'none'
+			document.getElementById('communitiesoption').style.background = 'none'
+			document.getElementById('simpleCaseoption').style.color = 'hsla(1, 0%, 60%, 1)'
+			document.getElementById('centralLocationoption').style.color = 'hsla(1, 0%, 60%, 1)'
+			document.getElementById('communitiesoption').style.color = 'hsla(1, 0%, 60%, 1)'
+
+			event.target.style.color = 'hsla(2, 0%, 0%, 1)'
+			event.target.style.border = '1px solid hsla(40, 100%, 50%, 1)'
+			event.target.style.background = 'hsla(40, 100%, 50%, 1)'
+
+			document.getElementById('caseTypeName').innerHTML = graphToQMap[currentSim][4]
 		}
-
-		graphToQMap = {}
-		graphToQMap['simpleCase'] = ['simpleCase&Q', 'simpleCaseGraph&QG', 'simpleCaseGraph&QH', 'simpleCaseGraphH'] 
-		graphToQMap['simpleCase&Q'] = ['simpleCase', 'simpleCaseGraphG', 'simpleCaseGraphH', 'simpleCaseGraph&QH']
-
-		graphToQMap['centralLocationQuarantineCase'] = ['centralLocationCase', 'centralLocationCaseG', 'centralLocationCaseGraphH', 'centralLocationQuarantineCaseGraphH']
-		graphToQMap['centralLocationCase'] = ['centralLocationQuarantineCase', 'centralLocationQuarantineCaseGraph', 'centralLocationQuarantineCaseGraphH', 'centralLocationCaseGraphH']
-
-		quarantineOn = false
 
 		function handleQClick(event) {
 			if (quarantineOn && event.target.checked == false) {
@@ -5072,7 +5354,9 @@
 				currentSim = graphToQMap[currentSim][0]
 
 				dummye = {}
-				resetSim(dummye)
+				resetSimHard(dummye)
+
+				document.getElementById('caseTypeName').innerHTML = graphToQMap[currentSim][4]
 
 				quarantineOn = false
 			}
@@ -5085,46 +5369,18 @@
 				currentSim = graphToQMap[currentSim][0]
 
 				dummye = {}
-				resetSim(dummye)
+				resetSimHard(dummye)
+
+				document.getElementById('caseTypeName').innerHTML = graphToQMap[currentSim][4]
 
 				quarantineOn = true
 			}
 				
 		}
 
-		
-
 		function handleLayout2() {
 			if (dmode == 'portrait') {
-				allTXTs = graphData['chartG'].textData
-				for (var textD in allTXTs) {
-					if (allTXTs[textD][1].fontSize == '0.15vmax') {
-						options = {}
-						options.fontSize = '0.4vmax'
-						updateText('chartG', textD, options)
-					}
-					if (allTXTs[textD][1].fontSize == '0.2vmax') {
-						options = {}
-						options.fontSize = '0.4vmax'
-						updateText('chartG', textD, options)
-					}
-					if (allTXTs[textD][1].fontSize == '0.27vmax') {
-						options = {}
-						options.fontSize = '0.5vmax'
-						updateText('chartG', textD, options)
-					}			
-				}
-
-
-				chartYL = graphData['chartG'].textData['chartYAxLabel'][0]
-
-				gtempData = graphData['chartG']
-				yAxisTransformX = graphToScaledX(-13, gtempData.xmin, gtempData.xmax, gdata.aspectratio)
-				yAxisTransformY = graphToScaledY(60, gtempData.ymin, gtempData.ymax, gdata.aspectratio)
-				chartYL.setAttribute('transform', "translate(" + yAxisTransformX + ", " + yAxisTransformY + ") rotate(-90)")
-				chartYL.setAttribute('x', "0")
-				chartYL.setAttribute('y', "0")
-				chartYL.style.textAnchor = 'middle'
+				
 			}
 			if (dmode == 'landscape') {
 				
