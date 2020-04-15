@@ -106,7 +106,7 @@
 			}
 
 			body::-webkit-scrollbar-thumb {
-				background-color: black;
+				background-color: hsla(195, 100%, 50%, 1);
 				border-radius: 50px;
 				/*outline: 1px solid slategrey;*/
 			}
@@ -121,7 +121,7 @@
 			}
 
 			body::-moz-scrollbar-thumb {
-				background-color: black;
+				background-color: hsla(195, 100%, 50%, 1);
 				border-radius: 50px;
 				/*outline: 1px solid slategrey;*/
 			}
@@ -271,7 +271,7 @@
 							</div>
 							<div id="HSi3" style="width: 100%; height: 3%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
 							<div id="initParameterHolder" style="width: 100%; height: 60%; overflow: auto; position: relative; z-index: 1;display: inline-block;">
-								<div id="HSii1" style="width: 100%; height: 5%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
+								<div id="HSii1" style="width: 100%; height: 9%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
 								<div id="parameterBox1" style="margin:0px;width:40%;position: relative; z-index: 1;display: inline-block;">
 									<div id="parameterBoxInner1" style="margin:0px;width:100%;position: relative; z-index: 1;display: flex; font-size: 1vmax; font-family: Source Sans Pro;">
 										<div id="parameter1Text" style="margin:0px;width:43%; position: relative; z-index: 1; display: inline-block; text-align: left; ">Agent Density &nbsp<font id="parameter1Value" style="font-weight:bold; color:hsla(195, 100%, 50% , 1);">0.1</font><br/><font style="color:hsla(0, 0%, 60%, 1); font-size: 0.8vmax;">How many agent per sq of pixel in our simulation</font>
@@ -290,7 +290,7 @@
 									</div>
 								</div>
 								<div id="parameterSpacer2" style="width: 10%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
-								<div id="HSii2" style="width: 100%; height: 5%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
+								<div id="HSii2" style="width: 100%; height: 9%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
 								<div id="parameterBox3" style="margin:0px;width:40%;position: relative; z-index: 1;display: inline-block;">
 									<div id="parameterBoxInner3" style="margin:0px;width:100%;position: relative; z-index: 1;display: flex; font-size: 1vmax; font-family: Source Sans Pro;">
 										<div id="parameter3Text" style="margin:0px;width:43%; position: relative; z-index: 1; display: inline-block; text-align: left; ">ICU bed per hospital bed &nbsp<font id="parameter3Value" style="font-weight:bold; color:hsla(195, 100%, 50% , 1);">0.1</font><br/><font style="color:hsla(0, 0%, 60%, 1); font-size: 0.8vmax;">How many ICU beds are available per hospital bed. </font>
@@ -309,7 +309,65 @@
 									</div>
 								</div>
 								<div id="parameterSpacer4" style="width: 10%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
-								
+								<div id="HSii3" style="width: 100%; height: 9%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
+								<div id="ageDisTextH" style="margin:0px;width:17%;position: relative; z-index: 1;display: inline-block;">
+									<div id="ageDisTextInner" style="margin:0px;width:100%; position: relative; z-index: 1;display: flex; font-size: 1vmax; font-family: Source Sans Pro;">
+										<div id="ageDisText" style="margin:0px;width:95%; position: relative; z-index: 1; display: inline-block; text-align: left; color: hsla(270, 100%, 50%, 1);">Age Distribution <br/>(Triangular Distribution) &nbsp
+										</div>
+									</div>
+								</div>
+								<div id="parameterBox5" style="margin:0px;width:24%;position: relative; z-index: 1;display: inline-block;">
+									<div id="parameterBoxInner5" style="margin:0px;width:100%; position: relative; z-index: 1;display: flex; font-size: 1vmax; font-family: Source Sans Pro;">
+										<div id="parameter5Text" style="margin:0px;width:41%; position: relative; z-index: 1; display: inline-block; text-align: left;">Distribution age minimum &nbsp<font id="parameter5Value" style="font-weight:bold; color:hsla(195, 100%, 50% , 1);">0.1</font><br/><font style="color:hsla(0, 0%, 60%, 1); font-size: 0.8vmax;"></font>
+										</div>
+										<div id="parameter5SliderSpacer" style="margin:0px;width:4%; position: relative;"></div>
+										<div id="parameter5SliderH" style="margin:0px;width:55%; position: relative; z-index: 1; display: flex; align-items: center;"></div>
+									</div>
+								</div>
+								<div id="parameterSpacer5" style="width: 3%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
+								<div id="parameterBox6" style="margin:0px;width:24%;position: relative; z-index: 1;display: inline-block;">
+									<div id="parameterBoxInner6" style="margin:0px;width:100%; position: relative; z-index: 1;display: flex; font-size: 1vmax; font-family: Source Sans Pro;">
+										<div id="parameter6Text" style="margin:0px;width:41%; position: relative; z-index: 1; display: inline-block; text-align: left;">Distribution age maximum &nbsp <font id="parameter6Value" style="font-weight:bold; color:hsla(195, 100%, 50% , 1);">0.1</font><br/><font style="color:hsla(0, 0%, 60%, 1); font-size: 0.8vmax;"></font>
+										</div>
+										<div id="parameter6SliderSpacer" style="margin:0px;width:4%; position: relative;"></div>
+										<div id="parameter6SliderH" style="margin:0px;width:55%; position: relative; z-index: 1; display: flex; align-items: center;"></div>
+									</div>
+								</div>
+								<div id="parameterSpacer6" style="width: 3%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
+								<div id="parameterBox7" style="margin:0px;width:24%;position: relative; z-index: 1;display: inline-block;">
+									<div id="parameterBoxInner7" style="margin:0px;width:100%; position: relative; z-index: 1;display: flex; font-size: 1vmax; font-family: Source Sans Pro;">
+										<div id="parameter7Text" style="margin:0px;width:41%; position: relative; z-index: 1; display: inline-block; text-align: left;">Distribution age peak &nbsp<font id="parameter7Value" style="font-weight:bold; color:hsla(195, 100%, 50% , 1);">0.1</font><br/><font style="color:hsla(0, 0%, 60%, 1); font-size: 0.8vmax;"></font>
+										</div>
+										<div id="parameter7SliderSpacer" style="margin:0px;width:4%; position: relative;"></div>
+										<div id="parameter7SliderH" style="margin:0px;width:55%; position: relative; z-index: 1; display: flex; align-items: center;"></div>
+									</div>
+								</div>
+								<div id="parameterSpacer7" style="width: 5%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
+								<div id="HSii4" style="width: 100%; height: 9%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
+								<div id="hygDisTextH" style="margin:0px;width:17%;position: relative; z-index: 1;display: inline-block;">
+									<div id="hygDisTextInner" style="margin:0px;width:100%; position: relative; z-index: 1;display: flex; font-size: 1vmax; font-family: Source Sans Pro;">
+										<div id="hygDisText" style="margin:0px;width:95%; position: relative; z-index: 1; display: inline-block; text-align: left; color: hsla(270, 100%, 50%, 1);">Hygiene Distribution
+										</div>
+									</div>
+								</div>
+								<div id="parameterBox8" style="margin:0px;width:36%;position: relative; z-index: 1;display: inline-block;">
+									<div id="parameterBoxInner8" style="margin:0px;width:100%; position: relative; z-index: 1;display: flex; font-size: 1vmax; font-family: Source Sans Pro;">
+										<div id="parameter8Text" style="margin:0px;width:41%; position: relative; z-index: 1; display: inline-block; text-align: left;">Distribution Hygiene mean &nbsp<font id="parameter8Value" style="font-weight:bold; color:hsla(195, 100%, 50% , 1);">0.1</font><br/><font style="color:hsla(0, 0%, 60%, 1); font-size: 0.8vmax;"></font>
+										</div>
+										<div id="parameter8SliderSpacer" style="margin:0px;width:4%; position: relative;"></div>
+										<div id="parameter8SliderH" style="margin:0px;width:55%; position: relative; z-index: 1; display: flex; align-items: center;"></div>
+									</div>
+								</div>
+								<div id="parameterSpacer8" style="width: 6%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
+								<div id="parameterBox9" style="margin:0px;width:36%;position: relative; z-index: 1;display: inline-block;">
+									<div id="parameterBoxInner9" style="margin:0px;width:100%; position: relative; z-index: 1;display: flex; font-size: 1vmax; font-family: Source Sans Pro;">
+										<div id="parameter9Text" style="margin:0px;width:41%; position: relative; z-index: 1; display: inline-block; text-align: left;">Distribution Hygiene Var &nbsp<font id="parameter9Value" style="font-weight:bold; color:hsla(195, 100%, 50% , 1);">0.1</font><br/><font style="color:hsla(0, 0%, 60%, 1); font-size: 0.8vmax;"></font>
+										</div>
+										<div id="parameter9SliderSpacer" style="margin:0px;width:4%; position: relative;"></div>
+										<div id="parameter9SliderH" style="margin:0px;width:55%; position: relative; z-index: 1; display: flex; align-items: center;"></div>
+									</div>
+								</div>
+								<div id="parameterSpacer9" style="width: 5%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
 							</div>
 						</div>
 						<div id="VSi2" style="width: 2.5%; height: 100%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
@@ -3437,6 +3495,11 @@
 		divSlider('parameter2SliderH', 'Slider', 0.001, 2, 0.1, 0.0001, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
 		divSlider('parameter3SliderH', 'Slider', 0.005, 1, 0.05, 0.001, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
 		divSlider('parameter4SliderH', 'Slider', 0, 1, 0, 0.0001, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
+		divSlider('parameter5SliderH', 'Slider', 0, 120, 1, 0.01, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
+		divSlider('parameter6SliderH', 'Slider', 0, 120, 90, 0.01, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
+		divSlider('parameter7SliderH', 'Slider', 0, 120, 25, 0.01, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
+		divSlider('parameter8SliderH', 'Slider', 0, 1, 0.5, 0.001, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
+		divSlider('parameter9SliderH', 'Slider', 1, 10, 1, 0.01, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
 		
 		function moveParticles(ofBoundary) {
 		}
