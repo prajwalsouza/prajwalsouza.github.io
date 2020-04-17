@@ -9,7 +9,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
-<!-- 		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 		<link href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css" rel="stylesheet" crossorigin="anonymous">
 
@@ -1817,7 +1817,7 @@
 
 
 			graphData[name] = gdata
-			return JSON.parse(JSON.stringify(gdata));
+			return gdata;
 		}
 
 		function getGraphCursorLocation(cursorpercent, graphname) {
@@ -3200,6 +3200,20 @@
 			event.preventDefault()
 		}
 
+		function getSvgCursorLocation(clocation, graph_name) {
+			gphname = graphData[graph_name].name
+
+			svgPTVariable[gphname].x = clocation.x;
+			svgPTVariable[gphname].y = clocation.y;
+
+			var cursorpt2 =  svgPTVariable[gphname].matrixTransform(document.getElementById(gphname).getScreenCTM().inverse());
+
+			moveX2 = svgToGraphX(cursorpt2.x, graphData[gphname].xmin,graphData[gphname].xmax, graphData[gphname].aspectratio)
+			moveY2 = svgToGraphY(cursorpt2.y, graphData[gphname].ymin,graphData[gphname].ymax, graphData[gphname].aspectratio)
+
+			return [moveX2, moveY2]
+		}
+
 
 		dmode = 'square'
 		if (1.25*window.innerWidth < window.innerHeight && window.innerWidth < window.innerHeight) {
@@ -3533,22 +3547,91 @@
 
 		setUpTopBarGraph()
 
-		borderclosingData = []
+		borderclosingData = {7: 16, 46:66, 77: 89}
 
-		function addBorderClosePoint(toAddData) {
-			if (toAddData.endLoc == undefined) {
-				toAddData.startLoc = parseInt(toAddData.startLoc)
-				toAddData.endLoc = parseInt(toAddData.startLoc) + 1
+		timeMax = 100
+
+		function borderclosemouseout(event) {
+			updateLine('BorderClosingGraph', 'sliderFillInstruct@BorderClosingGraph', {x1: -100,  y1: 0, x2: -99, y2: 0})
+			updatePoint('BorderClosingGraph', 'sliderthumbInstructleft@BorderClosingGraph', {x: -100,  y: 0})
+			updatePoint('BorderClosingGraph', 'sliderthumbInstructright@BorderClosingGraph', {x: -99,  y: 0})
+		}
+
+		function borderclosemousemove(event) {
+			cursorloc = {x: event.clientX, y: event.clientY}
+			if (event.clientX == undefined) {
+				cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
 			}
-			if (toAddData.startLoc < toAddData.endLoc && toAddData.startLoc >= 0 && toAddData.endLoc <= 100) {
-				addPoint('BorderClosingGraph', 'sliderthumbleft@' + borderclosingData.length + '@BorderClosingGraph', {x: toAddData.startLoc,  y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'moveX <= 101 && moveX >= 0', runFunctionDuringDrag: 'console.log(parseInt(moveX))'})
+
+			moveToLoc = parseInt(getSvgCursorLocation(cursorloc, 'BorderClosingGraph')[0])
+
+			moveConditions = getEndPointBorderclosingData(moveToLoc)
+			if (moveConditions[0]) {
+				updateLine('BorderClosingGraph', 'sliderFillInstruct@BorderClosingGraph', {x1: moveToLoc,  y1: 0, x2: moveConditions[1], y2: 0})
+				updatePoint('BorderClosingGraph', 'sliderthumbInstructleft@BorderClosingGraph', {x: moveToLoc,  y: 0})
+				updatePoint('BorderClosingGraph', 'sliderthumbInstructright@BorderClosingGraph', {x: moveConditions[1],  y: 0})
 			}
+			else {
+				updateLine('BorderClosingGraph', 'sliderFillInstruct@BorderClosingGraph', {x1: -100,  y1: 0, x2: -99, y2: 0})
+				updatePoint('BorderClosingGraph', 'sliderthumbInstructleft@BorderClosingGraph', {x: -100,  y: 0})
+				updatePoint('BorderClosingGraph', 'sliderthumbInstructright@BorderClosingGraph', {x: -99,  y: 0})
+			}
+				
+		}
+
+		function getEndPointBorderclosingData(start_point) {
+			allowed = true
+			toPlaceEnd = timeMax
+			placeendset = false
+			startPoints = Object.keys(borderclosingData).sort(function(a,b){ return borderclosingData[a] - borderclosingData[b]})
+			for (start_pIndex = 0; start_pIndex <= startPoints.length; start_pIndex++) {
+				start_p = startPoints[start_pIndex]
+				if (start_point >= (start_p - 1) && start_point <= borderclosingData[start_p]) {
+					allowed = false
+					break
+				}
+				if (start_point < start_p && placeendset == false) {
+					if (start_point < start_p - 1) {
+						toPlaceEnd = start_p - 1
+					}
+					placeendset = true
+				}
+			}
+
+			if (start_point >= timeMax || start_point < 0) {
+				allowed = false
+			}
+
+			return [allowed, toPlaceEnd]
+		}
+
+
+		function addBorderClosePoint(event) {
+			cursorloc = {x: event.clientX, y: event.clientY}
+			if (event.clientX == undefined) {
+				cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
+			}
+
+			moveToLoc = parseInt(getSvgCursorLocation(cursorloc, 'BorderClosingGraph')[0])
+			moveConditions = getEndPointBorderclosingData(moveToLoc)
+			if (moveConditions[0]) {
+
+				addLine('BorderClosingGraph', 'sliderFill@' + moveToLoc + '@BorderClosingGraph', {x1: moveToLoc, y1: 0, x2: moveConditions[1], y2: 0, linecolor: 'hsla(190, 100%, 50%, 1)', strokewidth: 4})
+
+				addPoint('BorderClosingGraph', 'sliderthumbleft@' + moveToLoc + '@BorderClosingGraph', {x: moveToLoc, y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'moveX <= ' + (timeMax + 1) +' && moveX >= 0', runFunctionDuringDrag: 'console.log(parseInt(moveX))'})
+
+				addPoint('BorderClosingGraph', 'sliderthumbright@' + moveToLoc + '@BorderClosingGraph', {x: moveConditions[1], y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'moveX <= ' + (timeMax + 1) +' && moveX >= 0', runFunctionDuringDrag: 'console.log(parseInt(moveX))'})
+
+				borderclosingData[moveToLoc] = moveConditions[1]
+			}
+
+			
 		}
 
 		function setUpBorderCloseGraph() {
 			graphH = document.getElementById('dynaParameterBorderClosingH')
 			graphoptions = {}
-			graphoptions.xmax = 100
+			graphoptions.xmax = timeMax
 			graphoptions.xmin = 0
 
 			graphoptions.ymax = 1
@@ -3577,14 +3660,24 @@
 			graphoptions.scrollZoom = 'no'
 			graphoptions.draggability = 'no'
 			
-			graphAdded = addGraph(graphH, 'BorderClosingGraph', graphoptions)[1]
+			graphAdded = addGraph(graphH, 'BorderClosingGraph', graphoptions)
+			graphAdded.svgElement.addEventListener('mousemove', borderclosemousemove)
+			graphAdded.svgElement.addEventListener('click', addBorderClosePoint)
+			graphAdded.svgElement.addEventListener('touchmove', borderclosemousemove)
+			graphAdded.svgElement.addEventListener('touchend', borderclosemouseout)
+			graphAdded.svgElement.addEventListener('touchcancel', borderclosemouseout)
+			graphAdded.svgElement.addEventListener('mouseout', borderclosemouseout)
+			graphAdded.svgElement.style.cursor = 'pointer'
+			graphAdded.svgElement.style.pointerEvents = 'auto'
 
-			addLine('BorderClosingGraph', 'slidertrack@BorderClosingGraph', {x1: 0,  y1: 0, x2: 100, y2: 0, linecolor: 'hsla(0, 0%, 80%, 1)', strokewidth: 4})
+			addLine('BorderClosingGraph', 'slidertrack@BorderClosingGraph', {x1: 0,  y1: 0, x2: timeMax, y2: 0, linecolor: 'hsla(0, 0%, 80%, 1)', strokewidth: 4})
 
 
-			addLine('BorderClosingGraph', 'sliderFillInstruct@BorderClosingGraph', {x1: -100,  y1: 0, x2: -99, y2: 0, pointcolor: 'hsla(190, 100%, 80%, 1)', strokewidth: 4})
+			addLine('BorderClosingGraph', 'sliderFillInstruct@BorderClosingGraph', {x1: -100,  y1: 0, x2: -99, y2: 0, linecolor: 'hsla(190, 100%, 90%, 1)', strokewidth: 4})
 			addPoint('BorderClosingGraph', 'sliderthumbInstructleft@BorderClosingGraph', {x: -100,  y: 0, pointcolor: 'hsla(190, 100%, 80%, 1)', pointsize: 10})
-			addPoint('BorderClosingGraph', 'sliderthumbInstructright@BorderClosingGraph', {x: -99,  y: 0, pointcolor: 'hsla(190, 100%, 80%, 1)', pointsize: 10})}
+			addPoint('BorderClosingGraph', 'sliderthumbInstructright@BorderClosingGraph', {x: -99,  y: 0, pointcolor: 'hsla(190, 100%, 80%, 1)', pointsize: 10})
+
+		}
 
 		setUpBorderCloseGraph()
 
