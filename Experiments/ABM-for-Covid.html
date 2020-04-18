@@ -3552,7 +3552,7 @@
 
 		singleParameterGraphs = {borderClose: ['BorderCloseGraph', 'dynaParameterBorderClosingH'], hospitalization: ['HospitalizationGraph', 'dynaParameterHospitalizationH'] }
 
-		singleParameterGraphMap = {'BorderCloseGraph': ['BorderCloseGraph', {}, 'Click to close borders between', 'Borders Closed between '], 'HospitalizationGraph' : ['HospitalizationGraph', {}, 'Click to start Hospitalization between', 'Hospitalization is practised between '] }
+		singleParameterGraphMap = {'BorderCloseGraph': ['BorderCloseGraph', {}, 'Click to close borders between', 'Borders Closed between ', '190, 100%'], 'HospitalizationGraph' : ['HospitalizationGraph', {}, 'Click to start Hospitalization between', 'Hospitalization is practised between ', '5, 100%'] }
 
 		timeMax = 100
 
@@ -3632,6 +3632,7 @@
 			}
 			moveX = parseInt(moveX)
 		}
+
 
 		function handleDynaPDragIf(graphNR, knobType, knobName, location_x) {
 			graphNR = singleParameterGraphMap[graphNR.id.split('-')[0]][0]
@@ -3718,12 +3719,12 @@
 				moveConditions = getEndPointData(moveToLoc, graphReferred)
 				if (moveConditions[0] && borderAddPT) {
 					pUid = pUid + 1
-					lineadded = addLine(graphReferred, 'sliderFill@' + pUid + '@' + graphReferred, {x1: moveToLoc, y1: 0, x2: moveConditions[1], y2: 0, linecolor: 'hsla(190, 100%, 50%, 1)', strokewidth: 4})[0]
+					lineadded = addLine(graphReferred, 'sliderFill@' + pUid + '@' + graphReferred, {x1: moveToLoc, y1: 0, x2: moveConditions[1], y2: 0, linecolor: 'hsla(' + singleParameterGraphMap[graphReferred][4] +', 50%, 1)', strokewidth: 4})[0]
 
-					addedpt = addPoint(graphReferred, 'sliderthumbleft@' + pUid + '@' + graphReferred, {x: moveToLoc, y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'handleDynaPDragIf(' + graphReferred + ',"left", ' + pUid + ', moveX)', runFunctionDuringDrag: 'handledynaPDrag(' + graphReferred + ',"left", ' + pUid + ', moveX)', runFunctionOnDragStart: 'borderAddPT = false'})[0]
+					addedpt = addPoint(graphReferred, 'sliderthumbleft@' + pUid + '@' + graphReferred, {x: moveToLoc, y: 0, pointcolor: 'hsla(' + singleParameterGraphMap[graphReferred][4] +', 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'handleDynaPDragIf(' + graphReferred + ',"left", ' + pUid + ', moveX)', runFunctionDuringDrag: 'handledynaPDrag(' + graphReferred + ',"left", ' + pUid + ', moveX)', runFunctionOnDragStart: 'borderAddPT = false'})[0]
 					addedpt.style.cursor = 'ew-resize'
 
-					addedpt = addPoint(graphReferred, 'sliderthumbright@' + pUid + '@' + graphReferred, {x: moveConditions[1], y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'handleDynaPDragIf(' + graphReferred + ',"right", ' + pUid + ', moveX)', runFunctionDuringDrag: 'handledynaPDrag(' + graphReferred + ',"right", ' + pUid + ', moveX)', runFunctionOnDragStart: 'borderAddPT = false'})[0]
+					addedpt = addPoint(graphReferred, 'sliderthumbright@' + pUid + '@' + graphReferred, {x: moveConditions[1], y: 0, pointcolor: 'hsla(' + singleParameterGraphMap[graphReferred][4] +', 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'handleDynaPDragIf(' + graphReferred + ',"right", ' + pUid + ', moveX)', runFunctionDuringDrag: 'handledynaPDrag(' + graphReferred + ',"right", ' + pUid + ', moveX)', runFunctionOnDragStart: 'borderAddPT = false'})[0]
 					addedpt.style.cursor = 'ew-resize'
 
 					singleParameterGraphMap[graphReferred][1][pUid] = [moveToLoc ,moveConditions[1]]
@@ -3812,14 +3813,14 @@
 				addLine(singleParameterGraphs[gph][0], 'slidertrack@' + singleParameterGraphs[gph][0], {x1: 0,  y1: 0, x2: timeMax, y2: 0, linecolor: 'hsla(0, 0%, 80%, 1)', strokewidth: 4})
 
 
-				addLine(singleParameterGraphs[gph][0], 'sliderFillInstruct@' + singleParameterGraphs[gph][0], {x1: -100,  y1: 0, x2: -99, y2: 0, linecolor: 'hsla(190, 100%, 90%, 1)', strokewidth: 4})
+				addLine(singleParameterGraphs[gph][0], 'sliderFillInstruct@' + singleParameterGraphs[gph][0], {x1: -100,  y1: 0, x2: -99, y2: 0, linecolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 90%, 1)', strokewidth: 4})
 				
-				pointadded = addPoint(singleParameterGraphs[gph][0], 'sliderthumbInstructleft@' + singleParameterGraphs[gph][0], {x: -100,  y: 0, pointcolor: 'hsla(190, 100%, 80%, 1)', pointsize: 10})
-				pointadded = addPoint(singleParameterGraphs[gph][0], 'sliderthumbInstructright@' + singleParameterGraphs[gph][0], {x: -99,  y: 0, pointcolor: 'hsla(190, 100%, 80%, 1)', pointsize: 10})
+				pointadded = addPoint(singleParameterGraphs[gph][0], 'sliderthumbInstructleft@' + singleParameterGraphs[gph][0], {x: -100,  y: 0, pointcolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 80%, 1)', pointsize: 10})
+				pointadded = addPoint(singleParameterGraphs[gph][0], 'sliderthumbInstructright@' + singleParameterGraphs[gph][0], {x: -99,  y: 0, pointcolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 80%, 1)', pointsize: 10})
 
-				addText(singleParameterGraphs[gph][0], 'nameDisplay@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1vmax", textcolor: 'hsla(190, 100%, 30%, 1)'})
+				addText(singleParameterGraphs[gph][0], 'nameDisplay@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1vmax", textcolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 30%, 1)'})
 
-				addedTXT = addText(singleParameterGraphs[gph][0], 'remove@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1.3vmax", textcolor: 'hsla(2, 100%, 50%, 1)'})[0]
+				addedTXT = addText(singleParameterGraphs[gph][0], 'remove@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1.3vmax", textcolor: 'hsla(2, 0%, 0%, 1)'})[0]
 				addedTXT.style.fontWeight = 'bold'
 				addedTXT.addEventListener('click', removeBorderClosePoint)
 			}
