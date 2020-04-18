@@ -3373,7 +3373,6 @@
 		frameInterval = 0
 		calculationFrameInterval = 0
 
-
 		function setUpTopBarGraph() {
 			graphH = document.getElementById('TopBarGraphH')
 			graphoptions = {}
@@ -3551,53 +3550,57 @@
 
 		setUpTopBarGraph()
 
-		borderclosingData = {}
+		singleParameterGraphs = {borderClose: ['BorderCloseGraph', 'dynaParameterBorderClosingH'], hospitalization: ['HospitalizationGraph', 'dynaParameterHospitalizationH'] }
+
+		singleParameterGraphMap = {'BorderCloseGraph': ['BorderCloseGraph', {}, 'Click to close borders between', 'Borders Closed between '], 'HospitalizationGraph' : ['HospitalizationGraph', {}, 'Click to start Hospitalization between', 'Hospitalization is practised between '] }
 
 		timeMax = 100
 
-		function borderclosemouseout(event) {
-			updateLine('BorderClosingGraph', 'sliderFillInstruct@BorderClosingGraph', {x1: -100,  y1: 0, x2: -99, y2: 0})
-			updatePoint('BorderClosingGraph', 'sliderthumbInstructleft@BorderClosingGraph', {x: -100,  y: 0})
-			updatePoint('BorderClosingGraph', 'sliderthumbInstructright@BorderClosingGraph', {x: -99,  y: 0})
-			updateText('BorderClosingGraph', 'nameDisplay@BorderClosingGraph', {x: -99,  y: 0, text:''})
+		function dynaPMouseOut(event) {
+			graphReferred = singleParameterGraphMap[event.target.id.split('-')[0]][0]
+			updateLine(graphReferred, 'sliderFillInstruct@' + graphReferred, {x1: -100,  y1: 0, x2: -99, y2: 0})
+			updatePoint(graphReferred, 'sliderthumbInstructleft@' + graphReferred, {x: -100,  y: 0})
+			updatePoint(graphReferred, 'sliderthumbInstructright@' + graphReferred, {x: -99,  y: 0})
+			updateText(graphReferred, 'nameDisplay@' + graphReferred, {x: -99,  y: 0, text:''})
 			
 		}
 
-		function borderclosemousemove(event) {
-			if ((event.target.id == "BorderClosingGraph-line-slidertrack@BorderClosingGraph" || event.target.id == "BorderClosingGraph"|| event.target.id == "BorderClosingGraph-line-sliderFillInstruct@BorderClosingGraph" || event.target.id == "BorderClosingGraph-point-sliderthumbInstructleft@BorderClosingGraph" || event.target.id == "BorderClosingGraph-point-sliderthumbInstructright@BorderClosingGraph") && borderAddPT) {
+		function dynaPMouseMove(event) {
+			graphReferred = singleParameterGraphMap[event.target.id.split('-')[0]][0]
+			if ((event.target.id == "" + graphReferred + "-line-slidertrack@" + graphReferred + "" || event.target.id == "" + graphReferred + ""|| event.target.id == "" + graphReferred + "-line-sliderFillInstruct@" + graphReferred + "" || event.target.id == "" + graphReferred + "-point-sliderthumbInstructleft@" + graphReferred + "" || event.target.id == "" + graphReferred + "-point-sliderthumbInstructright@" + graphReferred + "") && borderAddPT) {
 				cursorloc = {x: event.clientX, y: event.clientY}
 				if (event.clientX == undefined) {
 					cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
 				}
 
-				moveToLoc = parseInt(getSvgCursorLocation(cursorloc, 'BorderClosingGraph')[0])
+				moveToLoc = parseInt(getSvgCursorLocation(cursorloc, graphReferred)[0])
 
-				moveConditions = getEndPointBorderclosingData(moveToLoc)
+				moveConditions = getEndPointData(moveToLoc, graphReferred)
 				if (moveConditions[0]) {
-					updateLine('BorderClosingGraph', 'sliderFillInstruct@BorderClosingGraph', {x1: moveToLoc,  y1: 0, x2: moveConditions[1], y2: 0})
-					updatePoint('BorderClosingGraph', 'sliderthumbInstructleft@BorderClosingGraph', {x: moveToLoc,  y: 0})
-					updatePoint('BorderClosingGraph', 'sliderthumbInstructright@BorderClosingGraph', {x: moveConditions[1],  y: 0})
-					updateText('BorderClosingGraph', 'nameDisplay@BorderClosingGraph', {x: (moveToLoc + moveConditions[1])/2,  y: 0.6, text: 'Click to close borders between Day ' + moveToLoc + ' and Day ' + moveConditions[1]})
+					updateLine(graphReferred, 'sliderFillInstruct@' + graphReferred, {x1: moveToLoc,  y1: 0, x2: moveConditions[1], y2: 0})
+					updatePoint(graphReferred, 'sliderthumbInstructleft@' + graphReferred, {x: moveToLoc,  y: 0})
+					updatePoint(graphReferred, 'sliderthumbInstructright@' + graphReferred, {x: moveConditions[1],  y: 0})
+					updateText(graphReferred, 'nameDisplay@' + graphReferred, {x: (moveToLoc + moveConditions[1])/2,  y: 0.6, text: singleParameterGraphMap[graphReferred][2] + ' Day ' + moveToLoc + ' and Day ' + moveConditions[1]})
 				}
 				else {
-					updateLine('BorderClosingGraph', 'sliderFillInstruct@BorderClosingGraph', {x1: -100,  y1: 0, x2: -99, y2: 0})
-					updatePoint('BorderClosingGraph', 'sliderthumbInstructleft@BorderClosingGraph', {x: -100,  y: 0})
-					updatePoint('BorderClosingGraph', 'sliderthumbInstructright@BorderClosingGraph', {x: -99,  y: 0})
-					updateText('BorderClosingGraph', 'nameDisplay@BorderClosingGraph', {x: -99,  y: 0, text:''})
+					updateLine(graphReferred, 'sliderFillInstruct@' + graphReferred, {x1: -100,  y1: 0, x2: -99, y2: 0})
+					updatePoint(graphReferred, 'sliderthumbInstructleft@' + graphReferred, {x: -100,  y: 0})
+					updatePoint(graphReferred, 'sliderthumbInstructright@' + graphReferred, {x: -99,  y: 0})
+					updateText(graphReferred, 'nameDisplay@' + graphReferred, {x: -99,  y: 0, text:''})
 				}
 			}
 			
 				
 		}
 
-		function getEndPointBorderclosingData(start_point) {
+		function getEndPointData(start_point, toGraph) {
 			allowed = true
 			toPlaceEnd = timeMax
 			placeendset = false
-			startPoints = Object.keys(borderclosingData).sort(function(a,b){ return borderclosingData[a][0] - borderclosingData[b][0]})
+			startPoints = Object.keys(singleParameterGraphMap[toGraph][1]).sort(function(a,b){ return singleParameterGraphMap[toGraph][1][a][0] - singleParameterGraphMap[toGraph][1][b][0]})
 			for (start_pIndex = 0; start_pIndex < startPoints.length; start_pIndex++) {
-				start_p = borderclosingData[startPoints[start_pIndex]][0]
-				if (start_point >= (start_p - 1) && start_point <= borderclosingData[startPoints[start_pIndex]][1]) {
+				start_p = singleParameterGraphMap[toGraph][1][startPoints[start_pIndex]][0]
+				if (start_point >= (start_p - 1) && start_point <= singleParameterGraphMap[toGraph][1][startPoints[start_pIndex]][1]) {
 					allowed = false
 					break
 				}
@@ -3616,24 +3619,26 @@
 			return [allowed, toPlaceEnd]
 		}
 
-		function handleborderDrag(knobType, knobName, location_x) {
+		function handledynaPDrag(graphNR, knobType, knobName, location_x) {
+			graphNR = singleParameterGraphMap[graphNR.id.split('-')[0]][0]
 			location_x = parseInt(location_x)
 			if (knobType == 'left') {
-				borderclosingData[knobName][0] = location_x
-				updateLine('BorderClosingGraph', 'sliderFill@' + knobName + '@BorderClosingGraph', {x1: borderclosingData[knobName][0], y1: 0, x2: borderclosingData[knobName][1], y2: 0})
+				singleParameterGraphMap[graphNR][1][knobName][0] = location_x
+				updateLine(graphNR, 'sliderFill@' + knobName + '@' + graphNR, {x1: singleParameterGraphMap[graphNR][1][knobName][0], y1: 0, x2: singleParameterGraphMap[graphNR][1][knobName][1], y2: 0})
 			}
 			else if (knobType == 'right') {
-				borderclosingData[knobName][1] = location_x
-				updateLine('BorderClosingGraph', 'sliderFill@' + knobName + '@BorderClosingGraph', {x1: borderclosingData[knobName][0], y1: 0, x2: borderclosingData[knobName][1], y2: 0})
+				singleParameterGraphMap[graphNR][1][knobName][1] = location_x
+				updateLine(graphNR, 'sliderFill@' + knobName + '@' + graphNR, {x1: singleParameterGraphMap[graphNR][1][knobName][0], y1: 0, x2: singleParameterGraphMap[graphNR][1][knobName][1], y2: 0})
 			}
 			moveX = parseInt(moveX)
 		}
 
-		function handleborderDragIf(knobType, knobName, location_x) {
+		function handleDynaPDragIf(graphNR, knobType, knobName, location_x) {
+			graphNR = singleParameterGraphMap[graphNR.id.split('-')[0]][0]
 			location_x = parseInt(location_x)
 			if (knobType == 'left') {
-				allowedRange = [borderclosingData[knobName][0], borderclosingData[knobName][1] - 1]
-				startPoints = Object.keys(borderclosingData).sort(function(a,b){ return borderclosingData[a][0] - borderclosingData[b][0]})
+				allowedRange = [singleParameterGraphMap[graphNR][1][knobName][0], singleParameterGraphMap[graphNR][1][knobName][1] - 1]
+				startPoints = Object.keys(singleParameterGraphMap[graphNR][1]).sort(function(a,b){ return singleParameterGraphMap[graphNR][1][a][0] - singleParameterGraphMap[graphNR][1][b][0]})
 				getprevIndex = startPoints.length - 2
 
 				currentknob = startPoints.indexOf(knobName.toString())
@@ -3642,9 +3647,9 @@
 					allowedRange = [0, allowedRange[1]]
 				}
 				else {
-					allowedRange = [borderclosingData[startPoints[currentknob - 1]][1], allowedRange[1]]
+					allowedRange = [singleParameterGraphMap[graphNR][1][startPoints[currentknob - 1]][1], allowedRange[1]]
 				}
-				
+
 				if (location_x > allowedRange[0] && location_x <= allowedRange[1]) {
 					return true
 				}
@@ -3653,8 +3658,8 @@
 				}
 			}
 			else if (knobType == 'right') {
-				allowedRange = [borderclosingData[knobName][0] + 1, timeMax]
-				startPoints = Object.keys(borderclosingData).sort(function(a,b){ return borderclosingData[b][0] - borderclosingData[a][0]})
+				allowedRange = [singleParameterGraphMap[graphNR][1][knobName][0] + 1, timeMax]
+				startPoints = Object.keys(singleParameterGraphMap[graphNR][1]).sort(function(a,b){ return singleParameterGraphMap[graphNR][1][b][0] - singleParameterGraphMap[graphNR][1][a][0]})
 
 				currentknob = startPoints.indexOf(knobName.toString())
 				
@@ -3662,7 +3667,7 @@
 					allowedRange = [allowedRange[0], timeMax + 1]
 				}
 				else {
-					allowedRange = [allowedRange[0], borderclosingData[startPoints[currentknob - 1]][0]]
+					allowedRange = [allowedRange[0], singleParameterGraphMap[graphNR][1][startPoints[currentknob - 1]][0]]
 				}
 
 				if (location_x >= allowedRange[0] && location_x < allowedRange[1]) {
@@ -3674,51 +3679,54 @@
 			}
 		}
 
-		function displayBorderCloseData(event) {
+		function displayDynaPData(event) {
+			graphReferred = singleParameterGraphMap[event.target.id.split('-')[0]][0]
 			cursorloc = {x: event.clientX, y: event.clientY}
 			if (event.clientX == undefined) {
 				cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
 			}
-			eventLoc = parseInt(getSvgCursorLocation(cursorloc, 'BorderClosingGraph')[0])
+			eventLoc = parseInt(getSvgCursorLocation(cursorloc, graphReferred)[0])
 
-			for (var ptspacekey in borderclosingData) {
-				if (eventLoc >= borderclosingData[ptspacekey][0] && eventLoc <= borderclosingData[ptspacekey][1]) {
-					updateText('BorderClosingGraph', 'nameDisplay@BorderClosingGraph', {x: (borderclosingData[ptspacekey][0] + borderclosingData[ptspacekey][1])/2,  y: 0.6, text: 'Borders closed between Day ' + borderclosingData[ptspacekey][0] + ' and Day ' + borderclosingData[ptspacekey][1]})
-					updateText('BorderClosingGraph', 'remove@BorderClosingGraph', {x: (borderclosingData[ptspacekey][0] + borderclosingData[ptspacekey][1])/2,  y: -0.8, text: 'REMOVE'})
+			for (var ptspacekey in singleParameterGraphMap[graphReferred][1]) {
+				if (eventLoc >= singleParameterGraphMap[graphReferred][1][ptspacekey][0] && eventLoc <= singleParameterGraphMap[graphReferred][1][ptspacekey][1]) {
+					updateText(graphReferred, 'nameDisplay@' + graphReferred, {x: (singleParameterGraphMap[graphReferred][1][ptspacekey][0] + singleParameterGraphMap[graphReferred][1][ptspacekey][1])/2,  y: 0.6, text: singleParameterGraphMap[graphReferred][3] + 'Day ' + singleParameterGraphMap[graphReferred][1][ptspacekey][0] + ' and Day ' + singleParameterGraphMap[graphReferred][1][ptspacekey][1]})
+					updateText(graphReferred, 'remove@' + graphReferred, {x: (singleParameterGraphMap[graphReferred][1][ptspacekey][0] + singleParameterGraphMap[graphReferred][1][ptspacekey][1])/2,  y: -0.8, text: 'REMOVE'})
 					break
 				}
 			}
 		}
 
 
-		function displayBorderCloseDataOut(event) {
-			updateText('BorderClosingGraph', 'nameDisplay@BorderClosingGraph', {x: -99,  y: 0, text:''})
-			updateText('BorderClosingGraph', 'remove@BorderClosingGraph', {x: -99,  y: 0, text:''})
+		function displayDynaPDataOut(event) {
+			graphReferred = singleParameterGraphMap[event.target.id.split('-')[0]][0]
+			updateText(graphReferred, 'nameDisplay@' + graphReferred, {x: -99,  y: 0, text:''})
+			updateText(graphReferred, 'remove@' + graphReferred, {x: -99,  y: 0, text:''})
 		}
 
 		borderAddPT = true
 		pUid = 0
 
-		function addBorderClosePoint(event) {
-			if (event.target.id != "BorderClosingGraph-text-remove@BorderClosingGraph") {
+		function addDynaPPoint(event) {
+			graphReferred = singleParameterGraphMap[event.target.id.split('-')[0]][0]
+			if (event.target.id != graphReferred + "-text-remove@" + graphReferred) {
 				cursorloc = {x: event.clientX, y: event.clientY}
 				if (event.clientX == undefined) {
 					cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
 				}
 
-				moveToLoc = parseInt(getSvgCursorLocation(cursorloc, 'BorderClosingGraph')[0])
-				moveConditions = getEndPointBorderclosingData(moveToLoc)
+				moveToLoc = parseInt(getSvgCursorLocation(cursorloc, graphReferred)[0])
+				moveConditions = getEndPointData(moveToLoc, graphReferred)
 				if (moveConditions[0] && borderAddPT) {
 					pUid = pUid + 1
-					lineadded = addLine('BorderClosingGraph', 'sliderFill@' + pUid + '@BorderClosingGraph', {x1: moveToLoc, y1: 0, x2: moveConditions[1], y2: 0, linecolor: 'hsla(190, 100%, 50%, 1)', strokewidth: 4})[0]
+					lineadded = addLine(graphReferred, 'sliderFill@' + pUid + '@' + graphReferred, {x1: moveToLoc, y1: 0, x2: moveConditions[1], y2: 0, linecolor: 'hsla(190, 100%, 50%, 1)', strokewidth: 4})[0]
 
-					addedpt = addPoint('BorderClosingGraph', 'sliderthumbleft@' + pUid + '@BorderClosingGraph', {x: moveToLoc, y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'handleborderDragIf("left", ' + pUid + ', moveX)', runFunctionDuringDrag: 'handleborderDrag("left", ' + pUid + ', moveX)', runFunctionOnDragStart: 'borderAddPT = false'})[0]
+					addedpt = addPoint(graphReferred, 'sliderthumbleft@' + pUid + '@' + graphReferred, {x: moveToLoc, y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'handleDynaPDragIf(' + graphReferred + ',"left", ' + pUid + ', moveX)', runFunctionDuringDrag: 'handledynaPDrag(' + graphReferred + ',"left", ' + pUid + ', moveX)', runFunctionOnDragStart: 'borderAddPT = false'})[0]
 					addedpt.style.cursor = 'ew-resize'
 
-					addedpt = addPoint('BorderClosingGraph', 'sliderthumbright@' + pUid + '@BorderClosingGraph', {x: moveConditions[1], y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'handleborderDragIf("right", ' + pUid + ', moveX)', runFunctionDuringDrag: 'handleborderDrag("right", ' + pUid + ', moveX)', runFunctionOnDragStart: 'borderAddPT = false'})[0]
+					addedpt = addPoint(graphReferred, 'sliderthumbright@' + pUid + '@' + graphReferred, {x: moveConditions[1], y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'handleDynaPDragIf(' + graphReferred + ',"right", ' + pUid + ', moveX)', runFunctionDuringDrag: 'handledynaPDrag(' + graphReferred + ',"right", ' + pUid + ', moveX)', runFunctionOnDragStart: 'borderAddPT = false'})[0]
 					addedpt.style.cursor = 'ew-resize'
 
-					borderclosingData[pUid] = [moveToLoc ,moveConditions[1]]
+					singleParameterGraphMap[graphReferred][1][pUid] = [moveToLoc ,moveConditions[1]]
 				}
 
 				if (borderAddPT == false) {
@@ -3728,92 +3736,98 @@
 		}
 
 		function removeBorderClosePoint(event) {
+			graphReferred = singleParameterGraphMap[event.target.id.split('-')[0]][0]
 			cursorloc = {x: event.clientX, y: event.clientY}
 			if (event.clientX == undefined) {
 				cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
 			}
-			eventLoc = parseInt(getSvgCursorLocation(cursorloc, 'BorderClosingGraph')[0])
+			eventLoc = parseInt(getSvgCursorLocation(cursorloc, graphReferred)[0])
 
-			for (var ptspacekey in borderclosingData) {
-				if (eventLoc >= borderclosingData[ptspacekey][0] && eventLoc <= borderclosingData[ptspacekey][1]) {
-					delete borderclosingData[ptspacekey]
-					removeLine('BorderClosingGraph', 'sliderFill@' + ptspacekey + '@BorderClosingGraph')
-					removePoint('BorderClosingGraph', 'sliderthumbleft@' + ptspacekey + '@BorderClosingGraph')
-					removePoint('BorderClosingGraph', 'sliderthumbright@' + ptspacekey + '@BorderClosingGraph')
+			for (var ptspacekey in singleParameterGraphMap[graphReferred][1]) {
+				if (eventLoc >= singleParameterGraphMap[graphReferred][1][ptspacekey][0] && eventLoc <= singleParameterGraphMap[graphReferred][1][ptspacekey][1]) {
+					delete singleParameterGraphMap[graphReferred][1][ptspacekey]
+					removeLine(graphReferred, 'sliderFill@' + ptspacekey + '@' + graphReferred)
+					removePoint(graphReferred, 'sliderthumbleft@' + ptspacekey + '@' + graphReferred)
+					removePoint(graphReferred, 'sliderthumbright@' + ptspacekey + '@' + graphReferred)
 				}
 			}
 
-			updateText('BorderClosingGraph', 'nameDisplay@BorderClosingGraph', {x: -99,  y: 0, text:''})
-			updateText('BorderClosingGraph', 'remove@BorderClosingGraph', {x: -99,  y: 0, text:''})
+			updateText(graphReferred, 'nameDisplay@' + graphReferred, {x: -99,  y: 0, text:''})
+			updateText(graphReferred, 'remove@' + graphReferred, {x: -99,  y: 0, text:''})
 		}
 
-		function setUpBorderCloseGraph() {
-			graphH = document.getElementById('dynaParameterBorderClosingH')
-			graphoptions = {}
-			graphoptions.xmax = timeMax
-			graphoptions.xmin = 0
 
-			graphoptions.ymax = 1
-			graphoptions.ymin = -1
+		
 
-			graphoptions.axislocationX = 0
-			graphoptions.axislocationY = 0
+		function setUpDynaPGraphs() {
+			for (gph in singleParameterGraphs) {
+				graphH = document.getElementById(singleParameterGraphs[gph][1])
+				graphoptions = {}
+				graphoptions.xmax = timeMax
+				graphoptions.xmin = 0
 
-			graphoptions.xaxislabelvisibility = 'no'
-			graphoptions.yaxislabelvisibility = 'no'
+				graphoptions.ymax = 1
+				graphoptions.ymin = -1
 
-			graphoptions.xaxisvisibility= 'no'
-			graphoptions.yaxisvisibility = 'no'
+				graphoptions.axislocationX = 0
+				graphoptions.axislocationY = 0
 
-			graphoptions.xmajorgridlabelvisibility = 'no'
-			graphoptions.ymajorgridlabelvisibility = 'no'
+				graphoptions.xaxislabelvisibility = 'no'
+				graphoptions.yaxislabelvisibility = 'no'
 
-			graphoptions.xmajorgridlinesvisibility = 'no'
-			graphoptions.ymajorgridlinesvisibility = 'no'
+				graphoptions.xaxisvisibility= 'no'
+				graphoptions.yaxisvisibility = 'no'
 
-			graphoptions.fontSize = 8
-			
-			// graphoptions.unitAspectRatio = 'yes'
-			// graphoptions.fixAxisStretchCentrally = 'yes'
+				graphoptions.xmajorgridlabelvisibility = 'no'
+				graphoptions.ymajorgridlabelvisibility = 'no'
 
-			graphoptions.scrollZoom = 'no'
-			graphoptions.draggability = 'no'
-			
-			graphAdded = addGraph(graphH, 'BorderClosingGraph', graphoptions)
-			graphAdded.svgElement.addEventListener('mousemove', borderclosemousemove)
-			graphAdded.svgElement.addEventListener('click', addBorderClosePoint)
-			graphAdded.svgElement.addEventListener('touchmove', borderclosemousemove)
-			graphAdded.svgElement.addEventListener('touchend', borderclosemouseout)
-			graphAdded.svgElement.addEventListener('touchcancel', borderclosemouseout)
-			graphAdded.svgElement.addEventListener('mouseout', borderclosemouseout)
-			graphAdded.svgElement.style.cursor = 'pointer'
-			graphAdded.svgElement.style.pointerEvents = 'auto'
+				graphoptions.xmajorgridlinesvisibility = 'no'
+				graphoptions.ymajorgridlinesvisibility = 'no'
 
-			graphAdded.svgElement.addEventListener('mousemove', displayBorderCloseData)
-			graphAdded.svgElement.addEventListener('touchmove', displayBorderCloseData)
+				graphoptions.fontSize = 8
+				
+				// graphoptions.unitAspectRatio = 'yes'
+				// graphoptions.fixAxisStretchCentrally = 'yes'
 
-			graphAdded.svgElement.addEventListener('mouseout', displayBorderCloseDataOut)
-			graphAdded.svgElement.addEventListener('touchend', displayBorderCloseDataOut)
-			graphAdded.svgElement.addEventListener('touchcancel', displayBorderCloseDataOut)
+				graphoptions.scrollZoom = 'no'
+				graphoptions.draggability = 'no'
+				
+				graphAdded = addGraph(graphH, singleParameterGraphs[gph][0], graphoptions)
+				graphAdded.svgElement.addEventListener('mousemove', dynaPMouseMove)
+				graphAdded.svgElement.addEventListener('click', addDynaPPoint)
+				graphAdded.svgElement.addEventListener('touchmove', dynaPMouseMove)
+				graphAdded.svgElement.addEventListener('touchend', dynaPMouseOut)
+				graphAdded.svgElement.addEventListener('touchcancel', dynaPMouseOut)
+				graphAdded.svgElement.addEventListener('mouseout', dynaPMouseOut)
+				graphAdded.svgElement.style.cursor = 'pointer'
+				graphAdded.svgElement.style.pointerEvents = 'auto'
 
-			addLine('BorderClosingGraph', 'slidertrack@BorderClosingGraph', {x1: 0,  y1: 0, x2: timeMax, y2: 0, linecolor: 'hsla(0, 0%, 80%, 1)', strokewidth: 4})
+				graphAdded.svgElement.addEventListener('mousemove', displayDynaPData)
+				graphAdded.svgElement.addEventListener('touchmove', displayDynaPData)
+
+				graphAdded.svgElement.addEventListener('mouseout', displayDynaPDataOut)
+				graphAdded.svgElement.addEventListener('touchend', displayDynaPDataOut)
+				graphAdded.svgElement.addEventListener('touchcancel', displayDynaPDataOut)
+
+				addLine(singleParameterGraphs[gph][0], 'slidertrack@' + singleParameterGraphs[gph][0], {x1: 0,  y1: 0, x2: timeMax, y2: 0, linecolor: 'hsla(0, 0%, 80%, 1)', strokewidth: 4})
 
 
-			addLine('BorderClosingGraph', 'sliderFillInstruct@BorderClosingGraph', {x1: -100,  y1: 0, x2: -99, y2: 0, linecolor: 'hsla(190, 100%, 90%, 1)', strokewidth: 4})
-			
-			pointadded = addPoint('BorderClosingGraph', 'sliderthumbInstructleft@BorderClosingGraph', {x: -100,  y: 0, pointcolor: 'hsla(190, 100%, 80%, 1)', pointsize: 10})
-			pointadded = addPoint('BorderClosingGraph', 'sliderthumbInstructright@BorderClosingGraph', {x: -99,  y: 0, pointcolor: 'hsla(190, 100%, 80%, 1)', pointsize: 10})
+				addLine(singleParameterGraphs[gph][0], 'sliderFillInstruct@' + singleParameterGraphs[gph][0], {x1: -100,  y1: 0, x2: -99, y2: 0, linecolor: 'hsla(190, 100%, 90%, 1)', strokewidth: 4})
+				
+				pointadded = addPoint(singleParameterGraphs[gph][0], 'sliderthumbInstructleft@' + singleParameterGraphs[gph][0], {x: -100,  y: 0, pointcolor: 'hsla(190, 100%, 80%, 1)', pointsize: 10})
+				pointadded = addPoint(singleParameterGraphs[gph][0], 'sliderthumbInstructright@' + singleParameterGraphs[gph][0], {x: -99,  y: 0, pointcolor: 'hsla(190, 100%, 80%, 1)', pointsize: 10})
 
-			addText('BorderClosingGraph', 'nameDisplay@BorderClosingGraph', {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1vmax", textcolor: 'hsla(190, 100%, 30%, 1)'})
+				addText(singleParameterGraphs[gph][0], 'nameDisplay@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1vmax", textcolor: 'hsla(190, 100%, 30%, 1)'})
 
-			addedTXT = addText('BorderClosingGraph', 'remove@BorderClosingGraph', {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1.3vmax", textcolor: 'hsla(2, 100%, 50%, 1)'})[0]
-			addedTXT.style.fontWeight = 'bold'
-			addedTXT.addEventListener('click', removeBorderClosePoint)
-			
+				addedTXT = addText(singleParameterGraphs[gph][0], 'remove@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1.3vmax", textcolor: 'hsla(2, 100%, 50%, 1)'})[0]
+				addedTXT.style.fontWeight = 'bold'
+				addedTXT.addEventListener('click', removeBorderClosePoint)
+			}
+				
 
 		}
 
-		setUpBorderCloseGraph()
+		setUpDynaPGraphs()
 
 
 		divSlider('parameter1SliderH', 'Slider', 0.00001, 0.001, 0.0001, 0.000001, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
