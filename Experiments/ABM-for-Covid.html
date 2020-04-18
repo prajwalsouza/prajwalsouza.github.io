@@ -3635,21 +3635,16 @@
 				allowedRange = [borderclosingData[knobName][0], borderclosingData[knobName][1] - 1]
 				startPoints = Object.keys(borderclosingData).sort(function(a,b){ return borderclosingData[a][0] - borderclosingData[b][0]})
 				getprevIndex = startPoints.length - 2
-				// console.log(startPoints)
-				for (start_pIndex = 0; start_pIndex < startPoints.length; start_pIndex++) {
-					if (borderclosingData[startPoints[start_pIndex]][0] > borderclosingData[knobName][0]) {
-						getprevIndex = start_pIndex - 2
-						break
-					}
-				}
 
-				if (getprevIndex < 0) {
+				currentknob = startPoints.indexOf(knobName.toString())
+
+				if (currentknob == 0) {
 					allowedRange = [0, allowedRange[1]]
 				}
 				else {
-					allowedRange = [borderclosingData[startPoints[getprevIndex]][1], allowedRange[1]]
+					allowedRange = [borderclosingData[startPoints[currentknob - 1]][1], allowedRange[1]]
 				}
-
+				
 				if (location_x > allowedRange[0] && location_x <= allowedRange[1]) {
 					return true
 				}
@@ -3660,25 +3655,15 @@
 			else if (knobType == 'right') {
 				allowedRange = [borderclosingData[knobName][0] + 1, timeMax]
 				startPoints = Object.keys(borderclosingData).sort(function(a,b){ return borderclosingData[b][0] - borderclosingData[a][0]})
-				getprevIndex = 0
-				for (start_pIndex = 1; start_pIndex < startPoints.length; start_pIndex++) {
-					if (borderclosingData[startPoints[start_pIndex]][1] < borderclosingData[knobName][0]) {
-						getprevIndex = start_pIndex - 2
-						break
-					}
 
-				}
-
-				if (getprevIndex < 0) {
+				currentknob = startPoints.indexOf(knobName.toString())
+				
+				if (currentknob == 0) {
 					allowedRange = [allowedRange[0], timeMax + 1]
 				}
 				else {
-					if (startPoints.length > 1) {
-						allowedRange = [allowedRange[0], borderclosingData[startPoints[getprevIndex]][0]]
-					}
+					allowedRange = [allowedRange[0], borderclosingData[startPoints[currentknob - 1]][0]]
 				}
-
-				
 
 				if (location_x >= allowedRange[0] && location_x < allowedRange[1]) {
 					return true
