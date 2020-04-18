@@ -2597,6 +2597,7 @@
 				pointoptions.currentlyDraggable = pointoptions.currentlyDraggable || 'no'
 			}
 			pointoptions.runFunctionOnDragEnd = pointoptions.runFunctionOnDragEnd || ''
+			pointoptions.runFunctionOnDragStart = pointoptions.runFunctionOnDragStart || ''
 			pointoptions.runFunctionDuringDrag = pointoptions.runFunctionDuringDrag || ''
 
 			if (pointoptions.draggability == 'yes') {
@@ -2817,6 +2818,7 @@
 				window.addEventListener('touchend', pointUpEvent)
 				// window.addEventListener('mouseout', pointUpEvent)
 				currentMovingPoint = event.target
+				eval(graphData[gphname].pointData[ptname][1].runFunctionOnDragStart)
 			}
 				
 		}
@@ -2848,16 +2850,18 @@
 			if (typeof eval(graphData[gphname].pointData[ptname][1].dragIfCondition) != undefined) {
 				if (eval(graphData[gphname].pointData[ptname][1].dragIfCondition) == true) {
 					if (graphData[gphname].pointData[ptname][1].dragDirection == 'bothXY') {
-						updatePointXY(gphname, ptname, moveX, moveY)
 						eval(graphData[gphname].pointData[ptname][1].runFunctionDuringDrag)
+						updatePointXY(gphname, ptname, moveX, moveY)
+						
 					}
 					else if (graphData[gphname].pointData[ptname][1].dragDirection == 'onlyY') {
-						updatePointXY(gphname, ptname, graphData[gphname].pointData[ptname][1].x, moveY)
 						eval(graphData[gphname].pointData[ptname][1].runFunctionDuringDrag)
+						updatePointXY(gphname, ptname, graphData[gphname].pointData[ptname][1].x, moveY)
 					}
 					else if (graphData[gphname].pointData[ptname][1].dragDirection == 'onlyX') {
-						updatePointXY(gphname, ptname, moveX, graphData[gphname].pointData[ptname][1].y)
 						eval(graphData[gphname].pointData[ptname][1].runFunctionDuringDrag)
+						updatePointXY(gphname, ptname, moveX, graphData[gphname].pointData[ptname][1].y)
+						
 					}
 				}
 			}
@@ -3547,7 +3551,7 @@
 
 		setUpTopBarGraph()
 
-		borderclosingData = {0: [7,16], 1:[46,66], 2:[77,89]}
+		borderclosingData = {}
 
 		timeMax = 100
 
@@ -3558,8 +3562,8 @@
 		}
 
 		function borderclosemousemove(event) {
-			if (event.target.id == "BorderClosingGraph-line-slidertrack@BorderClosingGraph" || event.target.id == "BorderClosingGraph"|| event.target.id == "BorderClosingGraph-line-sliderFillInstruct@BorderClosingGraph" || event.target.id == "BorderClosingGraph-point-sliderthumbInstructleft@BorderClosingGraph" || event.target.id == "BorderClosingGraph-point-sliderthumbInstructright@BorderClosingGraph") {
-					cursorloc = {x: event.clientX, y: event.clientY}
+			if ((event.target.id == "BorderClosingGraph-line-slidertrack@BorderClosingGraph" || event.target.id == "BorderClosingGraph"|| event.target.id == "BorderClosingGraph-line-sliderFillInstruct@BorderClosingGraph" || event.target.id == "BorderClosingGraph-point-sliderthumbInstructleft@BorderClosingGraph" || event.target.id == "BorderClosingGraph-point-sliderthumbInstructright@BorderClosingGraph") && borderAddPT) {
+				cursorloc = {x: event.clientX, y: event.clientY}
 				if (event.clientX == undefined) {
 					cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
 				}
@@ -3612,10 +3616,13 @@
 			location_x = parseInt(location_x)
 			if (knobType == 'left') {
 				borderclosingData[knobName][0] = location_x
-				console.log('sliderFill@' + knobName + '@BorderClosingGraph')
 				updateLine('BorderClosingGraph', 'sliderFill@' + knobName + '@BorderClosingGraph', {x1: borderclosingData[knobName][0], y1: 0, x2: borderclosingData[knobName][1], y2: 0})
-
 			}
+			else if (knobType == 'right') {
+				borderclosingData[knobName][1] = location_x
+				updateLine('BorderClosingGraph', 'sliderFill@' + knobName + '@BorderClosingGraph', {x1: borderclosingData[knobName][0], y1: 0, x2: borderclosingData[knobName][1], y2: 0})
+			}
+			moveX = parseInt(moveX)
 		}
 
 		function handleborderDragIf(knobType, knobName, location_x) {
@@ -3623,8 +3630,9 @@
 			if (knobType == 'left') {
 				allowedRange = [borderclosingData[knobName][0], borderclosingData[knobName][1] - 1]
 				startPoints = Object.keys(borderclosingData).sort(function(a,b){ return borderclosingData[a][0] - borderclosingData[b][0]})
-				getprevIndex = 0
-				for (start_pIndex = 0; start_pIndex <= startPoints.length; start_pIndex++) {
+				getprevIndex = startPoints.length - 2
+				// console.log(startPoints)
+				for (start_pIndex = 0; start_pIndex < startPoints.length; start_pIndex++) {
 					if (borderclosingData[startPoints[start_pIndex]][0] > borderclosingData[knobName][0]) {
 						getprevIndex = start_pIndex - 2
 						break
@@ -3635,20 +3643,49 @@
 					allowedRange = [0, allowedRange[1]]
 				}
 				else {
-					allowedRange = [borderclosingData[startPoints[getprevIndex]][0], allowedRange[1]]
+					allowedRange = [borderclosingData[startPoints[getprevIndex]][1], allowedRange[1]]
 				}
 
-				if (location_x > allowedRange[0] && location_x < allowedRange[1]) {
+				if (location_x > allowedRange[0] && location_x <= allowedRange[1]) {
 					return true
 				}
 				else {
 					return false
 				}
-				// return getEndPointBorderclosingData(location_x)[0]
-				// borderclosingData[location_x] = borderclosingData[knobName]
-				// delete borderclosingData[knobName]
+			}
+			else if (knobType == 'right') {
+				allowedRange = [borderclosingData[knobName][0] + 1, timeMax]
+				startPoints = Object.keys(borderclosingData).sort(function(a,b){ return borderclosingData[b][0] - borderclosingData[a][0]})
+				getprevIndex = 0
+				for (start_pIndex = 1; start_pIndex < startPoints.length; start_pIndex++) {
+					if (borderclosingData[startPoints[start_pIndex]][1] < borderclosingData[knobName][0]) {
+						getprevIndex = start_pIndex - 2
+						break
+					}
+
+				}
+
+				if (getprevIndex < 0) {
+					allowedRange = [allowedRange[0], timeMax + 1]
+				}
+				else {
+					if (startPoints.length > 1) {
+						allowedRange = [allowedRange[0], borderclosingData[startPoints[getprevIndex]][0]]
+					}
+				}
+
+				
+
+				if (location_x >= allowedRange[0] && location_x < allowedRange[1]) {
+					return true
+				}
+				else {
+					return false
+				}
 			}
 		}
+
+		borderAddPT = true
 
 
 		function addBorderClosePoint(event) {
@@ -3659,19 +3696,23 @@
 
 			moveToLoc = parseInt(getSvgCursorLocation(cursorloc, 'BorderClosingGraph')[0])
 			moveConditions = getEndPointBorderclosingData(moveToLoc)
-			if (moveConditions[0]) {
+			if (moveConditions[0] && borderAddPT) {
 				keysSoFar = Object.keys(borderclosingData).length
 				lineadded = addLine('BorderClosingGraph', 'sliderFill@' + keysSoFar + '@BorderClosingGraph', {x1: moveToLoc, y1: 0, x2: moveConditions[1], y2: 0, linecolor: 'hsla(190, 100%, 50%, 1)', strokewidth: 4})
 				// lineadded.addEventListener('mouseover')
 
-				addedpt = addPoint('BorderClosingGraph', 'sliderthumbleft@' + keysSoFar + '@BorderClosingGraph', {x: moveToLoc, y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'handleborderDragIf("left", ' + keysSoFar + ', moveX)', runFunctionDuringDrag: 'handleborderDrag("left", ' + keysSoFar + ', moveX)'})[0]
+				addedpt = addPoint('BorderClosingGraph', 'sliderthumbleft@' + keysSoFar + '@BorderClosingGraph', {x: moveToLoc, y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'handleborderDragIf("left", ' + keysSoFar + ', moveX)', runFunctionDuringDrag: 'handleborderDrag("left", ' + keysSoFar + ', moveX)', runFunctionOnDragStart: 'borderAddPT = false'})[0]
 				addedpt.style.cursor = 'ew-resize'
 
-				addedpt = addPoint('BorderClosingGraph', 'sliderthumbright@' + keysSoFar + '@BorderClosingGraph', {x: moveConditions[1], y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'moveX <= ' + (timeMax + 1) +' && moveX >= 0', runFunctionDuringDrag: 'console.log(parseInt(moveX))'})[0]
+				addedpt = addPoint('BorderClosingGraph', 'sliderthumbright@' + keysSoFar + '@BorderClosingGraph', {x: moveConditions[1], y: 0, pointcolor: 'hsla(190, 100%, 50%, 1)', pointsize: 10, dragDirection: 'onlyX', draggability: 'yes', dragIfCondition: 'handleborderDragIf("right", ' + keysSoFar + ', moveX)', runFunctionDuringDrag: 'handleborderDrag("right", ' + keysSoFar + ', moveX)', runFunctionOnDragStart: 'borderAddPT = false'})[0]
 				addedpt.style.cursor = 'ew-resize'
 
 				borderclosingData[Object.keys(borderclosingData).length] = [moveToLoc ,moveConditions[1]]
 				// console.log(borderclosingData)
+			}
+
+			if (borderAddPT == false) {
+				borderAddPT = true
 			}
 
 			
