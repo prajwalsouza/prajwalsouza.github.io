@@ -453,6 +453,16 @@
 							</div>
 							<div id="dynaParameterDailytestingH" style="width: 80%; height: 4%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
 							</div>
+							<div id="HSi8" style="width: 100%; height: 1%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
+							<div id="dynaParameterTestingCapacityTextBox" style="width: 20%; height: 8%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
+								<div id="dynaParameterTestingCapacityText" style="width: 100%; height: 100%; overflow: hidden;position: relative; z-index: 1;display: inline-flex; align-items: center; font-family: Source Sans Pro; font-size: 1vmax; text-align: left;">
+									<div>
+										Tests per day<font style="color: grey; font-size: 0.9vmax"></font>
+									</div>
+								</div>
+							</div>
+							<div id="dynaParameterTestingCapacityH" style="width: 80%; height: 8%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
+							</div>
 							
 
 
@@ -3603,7 +3613,7 @@
 			'HospitalizationGraph' : ['HospitalizationGraph', {}, 'Click to start Hospitalization between', 'Hospitalization is practised between ', '5, 100%'], 
 			'LockdownGraph' : ['LockdownGraph', {}, 'Click to start Lockdown between', 'Lockdown is practised between ', '220, 100%'],
 			'QuarantineGraph' : ['QuarantineGraph', {}, 'Click to start Quarantine Approach between', 'Quarantine Approach is practised between ', '40, 100%'],
-			'DailytestingGraph' : ['DailytestingGraph', {}, 'Click to start Dailytesting Approach between', 'Dailytesting Approach is practised between ', '320, 100%']
+			'DailytestingGraph' : ['DailytestingGraph', {}, 'Click to start Daily Testing Approach between', 'Daily Testing Approach is practised between ', '320, 100%']
 		}
 
 		timeMax = 100
@@ -3809,9 +3819,6 @@
 			updateText(graphReferred, 'remove@' + graphReferred, {x: -99,  y: 0, text:''})
 		}
 
-
-		
-
 		function setUpDynaPGraphs() {
 			for (gph in singleParameterGraphs) {
 				graphH = document.getElementById(singleParameterGraphs[gph][1])
@@ -3868,9 +3875,10 @@
 				addLine(singleParameterGraphs[gph][0], 'sliderFillInstruct@' + singleParameterGraphs[gph][0], {x1: -100,  y1: 0, x2: -99, y2: 0, linecolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 90%, 1)', strokewidth: 4})
 				
 				pointadded = addPoint(singleParameterGraphs[gph][0], 'sliderthumbInstructleft@' + singleParameterGraphs[gph][0], {x: -100,  y: 0, pointcolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 80%, 1)', pointsize: 10})
+
 				pointadded = addPoint(singleParameterGraphs[gph][0], 'sliderthumbInstructright@' + singleParameterGraphs[gph][0], {x: -99,  y: 0, pointcolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 80%, 1)', pointsize: 10})
 
-				addText(singleParameterGraphs[gph][0], 'nameDisplay@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1vmax", textcolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 30%, 1)'})
+				addText(singleParameterGraphs[gph][0], 'nameDisplay@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1.3vmax", textcolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 30%, 1)'})
 
 				addedTXT = addText(singleParameterGraphs[gph][0], 'remove@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1.3vmax", textcolor: 'hsla(2, 0%, 0%, 1)'})[0]
 				addedTXT.style.fontWeight = 'bold'
@@ -3881,6 +3889,133 @@
 		}
 
 		setUpDynaPGraphs()
+
+		function zoomInPoint(event) {
+			cursorloc = {x: event.clientX, y: event.clientY}
+			if (event.clientX == undefined) {
+				cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
+			}
+			eventLoc = getSvgCursorLocation(cursorloc, 'TestingCapacityGraph')
+
+			xloc = parseInt(eventLoc[0] + 0.5)
+
+			if (testingValueDict[xloc] != undefined) {
+				updatePoint('TestingCapacityGraph', 'knob@' + xloc + '@TestingCapacityGraph', {pointsize: 6})
+			}
+		}
+
+		function zoomOutPoint(event) {
+			cursorloc = {x: event.clientX, y: event.clientY}
+			if (event.clientX == undefined) {
+				cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
+			}
+			eventLoc = getSvgCursorLocation(cursorloc, 'TestingCapacityGraph')
+
+			xloc = parseInt(eventLoc[0] + 0.5)
+		}
+
+		function testingCapacityMouseMove(event) {
+			cursorloc = {x: event.clientX, y: event.clientY}
+			if (event.clientX == undefined) {
+				cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
+			}
+			eventLoc = getSvgCursorLocation(cursorloc, 'TestingCapacityGraph')
+
+			for (dayp = 0; dayp <= timeMax; dayp++) {
+				updatePoint('TestingCapacityGraph', 'knob@' + xloc + '@TestingCapacityGraph', {pointsize: 5})
+			}
+
+			xloc = parseInt(eventLoc[0] + 0.5)
+
+			if (testingValueDict[xloc] != undefined) {
+				updatePoint('TestingCapacityGraph', 'knob@' + xloc + '@TestingCapacityGraph', {pointsize: 5})
+			}	
+
+		}
+
+		testingValueDict = {}
+
+		function setUpTestingGraphs() {
+			graphH = document.getElementById('dynaParameterTestingCapacityH')
+			graphoptions = {}
+			graphoptions.xmax = timeMax
+			graphoptions.xmin = 0
+
+			graphoptions.ymax = 100
+			graphoptions.ymin = -1
+
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility= 'no'
+			graphoptions.yaxisvisibility = 'no'
+
+			graphoptions.xmajorgridlabelvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'no'
+
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+
+			graphoptions.fontSize = 8
+			
+			// graphoptions.unitAspectRatio = 'yes'
+			// graphoptions.fixAxisStretchCentrally = 'yes'
+
+			graphoptions.scrollZoom = 'no'
+			graphoptions.draggability = 'no'
+			
+			graphAdded = addGraph(graphH, 'TestingCapacityGraph', graphoptions)
+			graphAdded.svgElement.addEventListener('mousemove', testingCapacityMouseMove)
+			// graphAdded.svgElement.addEventListener('click', addDynaPPoint)
+			// graphAdded.svgElement.addEventListener('touchmove', dynaPMouseMove)
+			// graphAdded.svgElement.addEventListener('touchend', dynaPMouseOut)
+			// graphAdded.svgElement.addEventListener('touchcancel', dynaPMouseOut)
+			// graphAdded.svgElement.addEventListener('mouseout', dynaPMouseOut)
+			graphAdded.svgElement.style.cursor = 'pointer'
+			graphAdded.svgElement.style.pointerEvents = 'auto'
+
+			// graphAdded.svgElement.addEventListener('mousemove', displayDynaPData)
+			// graphAdded.svgElement.addEventListener('touchmove', displayDynaPData)
+
+			// graphAdded.svgElement.addEventListener('mouseout', displayDynaPDataOut)
+			// graphAdded.svgElement.addEventListener('touchend', displayDynaPDataOut)
+			// graphAdded.svgElement.addEventListener('touchcancel', displayDynaPDataOut)
+
+			// addLine(singleParameterGraphs[gph][0], 'slidertrack@' + singleParameterGraphs[gph][0], {x1: 0,  y1: 0, x2: timeMax, y2: 0, linecolor: 'hsla(0, 0%, 80%, 1)', strokewidth: 4})
+
+
+			for (dayp = 0; dayp <= timeMax; dayp++) {
+				testingValueDict[dayp] = 5
+				pointadded = addPoint('TestingCapacityGraph', 'knob@' + dayp + '@TestingCapacityGraph', {x: dayp,  y: 5, pointcolor: 'hsla(320,100%, 80%, 1)', pointsize: 2})[0]
+				pointadded.addEventListener('mouseover', zoomInPoint)
+				pointadded.addEventListener('mouseout', zoomOutPoint)
+			}
+
+			pointadded = addPoint('TestingCapacityGraph', 'hoverKnob@TestingCapacityGraph', {x: -100,  y: 0, pointcolor: 'hsla(320, 100%, 50%, 0.4)', pointsize: 8})[0]
+			pointadded.style.cursor = 'ns-resize'
+			pointadded.style.pointerEvents = 'auto'
+
+
+			
+			
+
+
+			// addLine(singleParameterGraphs[gph][0], 'sliderFillInstruct@' + singleParameterGraphs[gph][0], {x1: -100,  y1: 0, x2: -99, y2: 0, linecolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 90%, 1)', strokewidth: 4})
+			
+			// pointadded = addPoint(singleParameterGraphs[gph][0], 'sliderthumbInstructleft@' + singleParameterGraphs[gph][0], {x: -100,  y: 0, pointcolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 80%, 1)', pointsize: 10})
+			// pointadded = addPoint(singleParameterGraphs[gph][0], 'sliderthumbInstructright@' + singleParameterGraphs[gph][0], {x: -99,  y: 0, pointcolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 80%, 1)', pointsize: 10})
+
+			// addText(singleParameterGraphs[gph][0], 'nameDisplay@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1vmax", textcolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 30%, 1)'})
+
+			// addedTXT = addText(singleParameterGraphs[gph][0], 'remove@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1.3vmax", textcolor: 'hsla(2, 0%, 0%, 1)'})[0]
+			// addedTXT.style.fontWeight = 'bold'
+			// addedTXT.addEventListener('click', removeBorderClosePoint)
+		}
+
+		setUpTestingGraphs()
 
 
 		divSlider('parameter1SliderH', 'Slider', 0.00001, 0.001, 0.0001, 0.000001, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
