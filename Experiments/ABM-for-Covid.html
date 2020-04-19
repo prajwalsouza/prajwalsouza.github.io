@@ -424,14 +424,14 @@
 							<div id="dynaParameterHospitalizationH" style="width: 80%; height: 4%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
 							</div>
 							<div id="HSi5" style="width: 100%; height: 1%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
-							<div id="dynaParameterLockdownTextBox" style="width: 20%; height: 4%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
+							<div id="dynaParameterLockdownTextBox" style="width: 20%; height: 5%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
 								<div id="dynaParameterLockDownTextownText" style="width: 100%; height: 100%; overflow: hidden;position: relative; z-index: 1;display: inline-flex; align-items: center; font-family: Source Sans Pro; font-size: 1vmax; text-align: left;">
 									<div>
 										Lockdown<font style="color: grey; font-size: 0.9vmax"><br/>Lockdown with essential agents running. Number of essential agents is defined among the initial parameters</font>
 									</div>
 								</div>
 							</div>
-							<div id="dynaParameterLockdownH" style="width: 80%; height: 4%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
+							<div id="dynaParameterLockdownH" style="width: 80%; height: 5%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
 							</div>
 							<div id="HSi6" style="width: 100%; height: 1%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
 							<div id="dynaParameterQuarantineTextBox" style="width: 20%; height: 4%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
@@ -454,14 +454,14 @@
 							<div id="dynaParameterDailytestingH" style="width: 80%; height: 4%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
 							</div>
 							<div id="HSi8" style="width: 100%; height: 1%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
-							<div id="dynaParameterTestingCapacityTextBox" style="width: 20%; height: 8%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
+							<div id="dynaParameterTestingCapacityTextBox" style="width: 20%; height: 15%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
 								<div id="dynaParameterTestingCapacityText" style="width: 100%; height: 100%; overflow: hidden;position: relative; z-index: 1;display: inline-flex; align-items: center; font-family: Source Sans Pro; font-size: 1vmax; text-align: left;">
 									<div>
-										Tests per day<font style="color: grey; font-size: 0.9vmax"></font>
+										Tests per day<font style="color: grey; font-size: 0.9vmax"><br/> Number of tests on a given day can vary. Please drag the points on the graph to change the values.</font>
 									</div>
 								</div>
 							</div>
-							<div id="dynaParameterTestingCapacityH" style="width: 80%; height: 8%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
+							<div id="dynaParameterTestingCapacityH" style="width: 80%; height: 15%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
 							</div>
 							
 
@@ -2458,8 +2458,13 @@
 
 			aratio = gdata.aspectratio
 
-			textoptions.x = parseFloat(textoptions.x.toString() || 0)
-			textoptions.y = parseFloat(textoptions.y.toString() || 0)
+			if (textoptions.x != 0) {
+				textoptions.x = parseFloat(textoptions.x.toString() || 0.3)
+			}
+			if (textoptions.y != 0) {
+				textoptions.y = parseFloat(textoptions.y.toString() || 0.3)
+			}
+
 			textoptions.text = textoptions.text || ''
 			textoptions.name = textname || uid
 
@@ -2652,6 +2657,7 @@
 
 			if (pointoptions.draggability == 'yes') {
 				pointElement.addEventListener('mousedown', pointDrag)
+
 				pointElement.addEventListener('touchstart', pointDrag)
 				gdata.svgElement.addEventListener('touchmove', graphTouchDisable)
 				pointElement.style.pointerEvents = 'auto'
@@ -2659,6 +2665,8 @@
 			else {
 				pointElement.style.pointerEvents = 'none'
 			}
+
+
 
 			pointoptions.dragDirection = pointoptions.dragDirection || 'bothXY'
 			pointoptions.dragIfCondition = pointoptions.dragIfCondition || 'true'
@@ -2678,8 +2686,9 @@
 				pointoptions.x = newpointoptions.x || pointoptions.x
 			}
 			if (pointoptions.y != 0) {
-				pointoptions.y = newpointoptions.x || pointoptions.y
+				pointoptions.y = newpointoptions.y || pointoptions.y
 			}
+
 			// pointoptions.y = pointoptions.y || 0.3
 			pointoptions.pointsize = newpointoptions.pointsize || pointoptions.pointsize
 
@@ -2692,26 +2701,26 @@
 			pointElement.setAttribute('vector-effect','non-scaling-stroke');
 			pointElement.style.fill = pointoptions.pointcolor
 
-			pointoptions.draggability = newpointoptions.draggability || 'no'
+			pointoptions.draggability = newpointoptions.draggability || pointoptions.draggability
 			if (pointoptions.draggability == 'yes') {
-				pointoptions.currentlyDraggable = newpointoptions.currentlyDraggable || 'yes'
+				pointoptions.currentlyDraggable = newpointoptions.currentlyDraggable || pointoptions.currentlyDraggable
 			}
 			else {
-				pointoptions.currentlyDraggable = newpointoptions.currentlyDraggable || 'no'
+				pointoptions.currentlyDraggable = newpointoptions.currentlyDraggable || pointoptions.currentlyDraggable
 			}
-			pointoptions.runFunctionOnDragEnd = newpointoptions.runFunctionOnDragEnd || ''
-			pointoptions.runFunctionDuringDrag = newpointoptions.runFunctionDuringDrag || ''
-			pointoptions.dragDirection = newpointoptions.dragDirection || 'bothXY'
-			pointoptions.dragIfCondition = newpointoptions.dragIfCondition || ''
+			pointoptions.runFunctionOnDragEnd = newpointoptions.runFunctionOnDragEnd || pointoptions.runFunctionOnDragEnd
+			pointoptions.runFunctionDuringDrag = newpointoptions.runFunctionDuringDrag || pointoptions.runFunctionDuringDrag
+			pointoptions.dragDirection = newpointoptions.dragDirection || pointoptions.dragDirection
+			pointoptions.dragIfCondition = newpointoptions.dragIfCondition || pointoptions.dragIfCondition
 
-			if (pointoptions.draggability == 'yes') {
-				pointElement.addEventListener('mousedown', pointDrag)
-				pointElement.addEventListener('touchstart', pointDrag)
-			}
-			else {
-				pointElement.removeEventListener('mousedown', pointDrag)
-				pointElement.removeEventListener('touchstart', pointDrag)
-			}
+			// if (pointoptions.draggability == 'yes') {
+			// 	pointElement.addEventListener('mousedown', pointDrag)
+			// 	pointElement.addEventListener('touchstart', pointDrag)
+			// }
+			// else {
+			// 	pointElement.removeEventListener('mousedown', pointDrag)
+			// 	pointElement.removeEventListener('touchstart', pointDrag)
+			// }
 
 			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
 
@@ -2852,6 +2861,7 @@
 
 		currentMovingPoint = ''
 		function pointDrag(event) {
+			
 			gphname = reverseGraphElementMap[event.target.id][0]
 			ptname = reverseGraphElementMap[event.target.id][1]
 			if (graphData[gphname].pointData[ptname][1].currentlyDraggable == 'yes') {
@@ -3600,6 +3610,8 @@
 
 		setUpTopBarGraph()
 
+		dayWiseGData = {}
+
 		singleParameterGraphs = {
 			borderClose: ['BorderCloseGraph', 'dynaParameterBorderClosingH'], 
 			hospitalization: ['HospitalizationGraph', 'dynaParameterHospitalizationH'], 
@@ -3609,11 +3621,11 @@
 		}
 
 		singleParameterGraphMap = {
-			'BorderCloseGraph': ['BorderCloseGraph', {}, 'Click to close borders between', 'Borders Closed between ', '190, 100%'], 
-			'HospitalizationGraph' : ['HospitalizationGraph', {}, 'Click to start Hospitalization between', 'Hospitalization is practised between ', '5, 100%'], 
-			'LockdownGraph' : ['LockdownGraph', {}, 'Click to start Lockdown between', 'Lockdown is practised between ', '220, 100%'],
-			'QuarantineGraph' : ['QuarantineGraph', {}, 'Click to start Quarantine Approach between', 'Quarantine Approach is practised between ', '40, 100%'],
-			'DailytestingGraph' : ['DailytestingGraph', {}, 'Click to start Daily Testing Approach between', 'Daily Testing Approach is practised between ', '320, 100%']
+			'BorderCloseGraph': ['BorderCloseGraph', {}, 'Click to close borders between', 'Borders Closed between ', '190, 100%', 'none'], 
+			'HospitalizationGraph' : ['HospitalizationGraph', {}, 'Click to start Hospitalization between', 'Hospitalization is practised between ', '5, 100%', 'none'], 
+			'LockdownGraph' : ['LockdownGraph', {}, 'Click to start Lockdown between', 'Lockdown is practised between ', '220, 100%', 'none'],
+			'QuarantineGraph' : ['QuarantineGraph', {}, 'Click to start Quarantine Approach between', 'Quarantine Approach is practised between ', '40, 100%', 'none'],
+			'DailytestingGraph' : ['DailytestingGraph', {}, 'Click to start Daily Testing Approach between', 'Daily Testing Approach is practised between ', '320, 100%', 'TestingCapacityGraph']
 		}
 
 		timeMax = 100
@@ -3693,6 +3705,23 @@
 				updateLine(graphNR, 'sliderFill@' + knobName + '@' + graphNR, {x1: singleParameterGraphMap[graphNR][1][knobName][0], y1: 0, x2: singleParameterGraphMap[graphNR][1][knobName][1], y2: 0})
 			}
 			moveX = parseInt(moveX)
+			calculateDayWise(graphNR)
+			if (singleParameterGraphMap[graphNR][5] != 'none') {
+				drawAllLinesAndPoints(singleParameterGraphMap[graphNR][5])
+			}
+			
+		}
+
+
+		function calculateDayWise(graph_n) {
+			for (day in dayWiseGData[graph_n]) {
+				dayWiseGData[graph_n][day] = 0
+			}
+			for (varkey in singleParameterGraphMap[graph_n][1]) {
+				for (dayS = singleParameterGraphMap[graph_n][1][varkey][0]; dayS <= singleParameterGraphMap[graph_n][1][varkey][1]; dayS++) {
+					dayWiseGData[graph_n][dayS] = 1
+				}
+			}
 		}
 
 
@@ -3790,6 +3819,14 @@
 					addedpt.style.cursor = 'ew-resize'
 
 					singleParameterGraphMap[graphReferred][1][pUid] = [moveToLoc ,moveConditions[1]]
+
+					for (dayval = moveToLoc; dayval <= moveConditions[1]; dayval++) {
+						dayWiseGData[graphReferred][dayval] = 1
+					}
+
+					if (singleParameterGraphMap[graphReferred][5] != 'none') {
+						drawAllLinesAndPoints(singleParameterGraphMap[graphReferred][5])
+					}
 				}
 
 				if (borderAddPT == false) {
@@ -3808,6 +3845,14 @@
 
 			for (var ptspacekey in singleParameterGraphMap[graphReferred][1]) {
 				if (eventLoc >= singleParameterGraphMap[graphReferred][1][ptspacekey][0] && eventLoc <= singleParameterGraphMap[graphReferred][1][ptspacekey][1]) {
+					for (dayval = singleParameterGraphMap[graphReferred][1][ptspacekey][0]; dayval <= singleParameterGraphMap[graphReferred][1][ptspacekey][1]; dayval++) {
+						dayWiseGData[graphReferred][dayval] = 0
+					}
+
+					if (singleParameterGraphMap[graphReferred][5] != 'none') {
+						drawAllLinesAndPoints(singleParameterGraphMap[graphReferred][5])
+					}
+
 					delete singleParameterGraphMap[graphReferred][1][ptspacekey]
 					removeLine(graphReferred, 'sliderFill@' + ptspacekey + '@' + graphReferred)
 					removePoint(graphReferred, 'sliderthumbleft@' + ptspacekey + '@' + graphReferred)
@@ -3883,6 +3928,11 @@
 				addedTXT = addText(singleParameterGraphs[gph][0], 'remove@' + singleParameterGraphs[gph][0], {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "1.3vmax", textcolor: 'hsla(2, 0%, 0%, 1)'})[0]
 				addedTXT.style.fontWeight = 'bold'
 				addedTXT.addEventListener('click', removeBorderClosePoint)
+
+				dayWiseGData[singleParameterGraphs[gph][0]] = {}
+				for (dayval = 0; dayval <= timeMax; dayval++) {
+					dayWiseGData[singleParameterGraphs[gph][0]][dayval] = 0
+				}
 			}
 				
 
@@ -3890,50 +3940,115 @@
 
 		setUpDynaPGraphs()
 
-		function zoomInPoint(event) {
-			cursorloc = {x: event.clientX, y: event.clientY}
-			if (event.clientX == undefined) {
-				cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
+		
+		function testingCapacityMouseOut(event) {
+			for (dayp = 0; dayp <= timeMax; dayp++) {
+				graphData['TestingCapacityGraph'].pointData['knob@' + dayp + '@TestingCapacityGraph'][0].setAttribute('rx','1.5%')
+				graphData['TestingCapacityGraph'].pointData['knob@' + dayp + '@TestingCapacityGraph'][0].setAttribute('ry', '1.5%');
 			}
-			eventLoc = getSvgCursorLocation(cursorloc, 'TestingCapacityGraph')
 
-			xloc = parseInt(eventLoc[0] + 0.5)
-
-			if (testingValueDict[xloc] != undefined) {
-				updatePoint('TestingCapacityGraph', 'knob@' + xloc + '@TestingCapacityGraph', {pointsize: 6})
-			}
+			updateText('TestingCapacityGraph', 'valueDisplayText@TestingCapacityGraph',  {x: -100 , y: 0, text: ''})
 		}
 
-		function zoomOutPoint(event) {
-			cursorloc = {x: event.clientX, y: event.clientY}
-			if (event.clientX == undefined) {
-				cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
-			}
-			eventLoc = getSvgCursorLocation(cursorloc, 'TestingCapacityGraph')
-
-			xloc = parseInt(eventLoc[0] + 0.5)
-		}
 
 		function testingCapacityMouseMove(event) {
-			cursorloc = {x: event.clientX, y: event.clientY}
-			if (event.clientX == undefined) {
-				cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
+			if (knobCurrentlyMoving == 'none') {
+				cursorloc = {x: event.clientX, y: event.clientY}
+				if (event.clientX == undefined) {
+					cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
+				}
+				eventLoc = getSvgCursorLocation(cursorloc, 'TestingCapacityGraph')
+
+				for (dayp = 0; dayp <= timeMax; dayp++) {
+					graphData['TestingCapacityGraph'].pointData['knob@' + dayp + '@TestingCapacityGraph'][0].setAttribute('rx','1.5%')
+					graphData['TestingCapacityGraph'].pointData['knob@' + dayp + '@TestingCapacityGraph'][0].setAttribute('ry', '1.5%');
+				}
+
+				xloc = parseInt(eventLoc[0] + 0.5)
+
+				if (testingValueDict[xloc] != undefined) {
+					graphData['TestingCapacityGraph'].pointData['knob@' + xloc + '@TestingCapacityGraph'][0].setAttribute('rx','3%')
+					graphData['TestingCapacityGraph'].pointData['knob@' + xloc + '@TestingCapacityGraph'][0].setAttribute('ry', '3%');
+					updateText('TestingCapacityGraph', 'valueDisplayText@TestingCapacityGraph',  {x: xloc, y: testingValueDict[xloc] + 17, text: 'Day ' + xloc + ' : ' + testingValueDict[xloc] + ' tests per day'})
+				}	
 			}
-			eventLoc = getSvgCursorLocation(cursorloc, 'TestingCapacityGraph')
-
-			for (dayp = 0; dayp <= timeMax; dayp++) {
-				updatePoint('TestingCapacityGraph', 'knob@' + xloc + '@TestingCapacityGraph', {pointsize: 5})
+			else {
+				graphData['TestingCapacityGraph'].pointData['knob@' + knobCurrentlyMoving + '@TestingCapacityGraph'][0].setAttribute('rx','3%')
+				graphData['TestingCapacityGraph'].pointData['knob@' + knobCurrentlyMoving + '@TestingCapacityGraph'][0].setAttribute('ry', '3%');
+				updateText('TestingCapacityGraph', 'valueDisplayText@TestingCapacityGraph',  {x: knobCurrentlyMoving , y: testingValueDict[knobCurrentlyMoving] + 17, text: 'Day ' + knobCurrentlyMoving  + ' : ' + testingValueDict[knobCurrentlyMoving] + ' tests per day'})
 			}
-
-			xloc = parseInt(eventLoc[0] + 0.5)
-
-			if (testingValueDict[xloc] != undefined) {
-				updatePoint('TestingCapacityGraph', 'knob@' + xloc + '@TestingCapacityGraph', {pointsize: 5})
-			}	
 
 		}
 
 		testingValueDict = {}
+
+		function drawAllLinesAndPoints(linkGraph) {
+			for (var dayp in testingValueDict) {
+				dayp = parseInt(dayp) 
+				if (dayp != timeMax) {
+					if (dayWiseGData['DailytestingGraph'][dayp] == 1) {
+						updateLine(linkGraph, 'knobLine@' + dayp + '@' + (dayp + 1) + '@' + linkGraph, {x1: dayp,  y1: testingValueDict[dayp], x2: dayp + 1, y2: testingValueDict[dayp + 1], linecolor: 'hsla(320, 100%, 50%, 1)'})
+					}
+					else {
+						updateLine(linkGraph, 'knobLine@' + dayp + '@' + (dayp + 1) + '@' + linkGraph, {x1: dayp,  y1: testingValueDict[dayp], x2: dayp + 1, y2: testingValueDict[dayp + 1], linecolor: 'grey'})
+					}
+				}
+
+
+				if (dayWiseGData['DailytestingGraph'][dayp] == 1) {
+					updatePoint(linkGraph, 'knob@' + dayp + '@' + linkGraph, {pointcolor: 'hsla(320, 100%, 50%, 1)'})
+				}
+				else {
+					updatePoint(linkGraph, 'knob@' + dayp + '@' + linkGraph, {pointcolor: 'grey'})
+				}
+
+				updatePointXY(linkGraph, 'knob@' + dayp + '@' + linkGraph, dayp, testingValueDict[dayp])
+				
+				
+
+			}
+		}
+
+		knobCurrentlyMoving = 'none'
+
+		function knobMove(knobXv, knobYv) {
+			knobCurrentlyMoving = parseInt(knobCurrentlyMoving)
+			knobYv = parseInt(knobYv)
+
+			if (dragAllPointsTillEnd) {
+				for (dayp = knobCurrentlyMoving; dayp <= timeMax; dayp++) {
+					testingValueDict[dayp] = knobYv
+				}
+				drawAllLinesAndPoints('TestingCapacityGraph')
+			}
+			else {
+				testingValueDict[knobCurrentlyMoving] = knobYv
+				drawAllLinesAndPoints('TestingCapacityGraph')
+			} 
+			
+		}
+
+		function knobMoveIf(knobYv) {
+			if (knobYv >= 0 && knobYv < 101) {
+				return true
+			}
+			else {
+				return false
+			}
+		}
+
+		function toggleDragging() {
+			if (dragAllPointsTillEnd == true) {
+				dragAllPointsTillEnd = false
+				updateText('TestingCapacityGraph', 'dragAllPointsTillEnd@TestingCapacityGraph',  {textcolor: 'grey', text: 'Click here to turn on dragging all points till the end'})
+			}
+			else {
+				dragAllPointsTillEnd = true
+				updateText('TestingCapacityGraph', 'dragAllPointsTillEnd@TestingCapacityGraph',  {textcolor: 'hsla(320, 100%, 50%, 1)', text: 'Click here to turn off dragging all points till the end'})
+			}
+		}
+
+		dragAllPointsTillEnd = true
 
 		function setUpTestingGraphs() {
 			graphH = document.getElementById('dynaParameterTestingCapacityH')
@@ -3941,8 +4056,8 @@
 			graphoptions.xmax = timeMax
 			graphoptions.xmin = 0
 
-			graphoptions.ymax = 100
-			graphoptions.ymin = -1
+			graphoptions.ymax = 110
+			graphoptions.ymin = -20
 
 			graphoptions.axislocationX = 0
 			graphoptions.axislocationY = 0
@@ -3969,12 +4084,13 @@
 			
 			graphAdded = addGraph(graphH, 'TestingCapacityGraph', graphoptions)
 			graphAdded.svgElement.addEventListener('mousemove', testingCapacityMouseMove)
+			graphAdded.svgElement.addEventListener('mouseout', testingCapacityMouseOut)
 			// graphAdded.svgElement.addEventListener('click', addDynaPPoint)
 			// graphAdded.svgElement.addEventListener('touchmove', dynaPMouseMove)
 			// graphAdded.svgElement.addEventListener('touchend', dynaPMouseOut)
 			// graphAdded.svgElement.addEventListener('touchcancel', dynaPMouseOut)
 			// graphAdded.svgElement.addEventListener('mouseout', dynaPMouseOut)
-			graphAdded.svgElement.style.cursor = 'pointer'
+			graphAdded.svgElement.style.cursor = 'auto'
 			graphAdded.svgElement.style.pointerEvents = 'auto'
 
 			// graphAdded.svgElement.addEventListener('mousemove', displayDynaPData)
@@ -3986,22 +4102,54 @@
 
 			// addLine(singleParameterGraphs[gph][0], 'slidertrack@' + singleParameterGraphs[gph][0], {x1: 0,  y1: 0, x2: timeMax, y2: 0, linecolor: 'hsla(0, 0%, 80%, 1)', strokewidth: 4})
 
+			addText('TestingCapacityGraph', 'valueDisplayText@TestingCapacityGraph',  {x: -100, y: 0, text: '', textAlign: 'center', fontSize: "0.37vmax", textcolor: 'hsla(0, 0%, 0%, 1)'})
+
+			addedText = addText('TestingCapacityGraph', 'dragAllPointsTillEnd@TestingCapacityGraph',  {x: 50, y: -20, text: 'Click here to turn off dragging all points till the end', textAlign: 'center', fontSize: "0.37vmax", textcolor: 'hsla(320, 100%, 50%, 1)'})[0]
+			addedText.style.fontWeight = 'bold'
+			addedText.style.cursor = 'pointer'
+			addedText.addEventListener('click', toggleDragging)
+
+			for (dayp = 0; dayp <= timeMax; dayp++) {
+				if (dayp != timeMax) {
+					if (dayWiseGData['DailytestingGraph'][dayp] == 1) {
+						addLine('TestingCapacityGraph', 'knobLine@' + dayp + '@' + (dayp + 1) + '@TestingCapacityGraph', {x1: dayp,  y1: 5, x2: dayp + 1, y2: 5, linecolor: 'hsla(320, 100%, 50%, 1)', strokewidth: 2})
+					}
+					else {
+						addLine('TestingCapacityGraph', 'knobLine@' + dayp + '@' + (dayp + 1) + '@TestingCapacityGraph', {x1: dayp,  y1: 5, x2: dayp + 1, y2: 5, linecolor: 'grey', strokewidth: 2})
+					}
+				}
+			}
 
 			for (dayp = 0; dayp <= timeMax; dayp++) {
 				testingValueDict[dayp] = 5
-				pointadded = addPoint('TestingCapacityGraph', 'knob@' + dayp + '@TestingCapacityGraph', {x: dayp,  y: 5, pointcolor: 'hsla(320,100%, 80%, 1)', pointsize: 2})[0]
-				pointadded.addEventListener('mouseover', zoomInPoint)
-				pointadded.addEventListener('mouseout', zoomOutPoint)
+				if (dayWiseGData['DailytestingGraph'][dayp] == 1) {
+					pointadded = addPoint('TestingCapacityGraph', 'knob@' + dayp + '@TestingCapacityGraph', {x: dayp,  y: 5, pointcolor: 'hsla(320,100%, 50%, 1)', pointsize: 1.5, draggability: 'yes', dragDirection:'onlyY', runFunctionDuringDrag: 'knobMove(moveX, moveY)', dragIfCondition: 'knobMoveIf(moveY)', runFunctionOnDragStart: 'knobCurrentlyMoving = ' + dayp, runFunctionOnDragEnd: 'knobCurrentlyMoving = "none"'})[0]
+				}
+				else {
+					pointadded = addPoint('TestingCapacityGraph', 'knob@' + dayp + '@TestingCapacityGraph', {x: dayp,  y: 5, pointcolor: 'grey', pointsize: 1.5, draggability: 'yes', dragDirection:'onlyY', runFunctionDuringDrag: 'knobMove(moveX, moveY)', dragIfCondition: 'knobMoveIf(moveY)', runFunctionOnDragStart: 'knobCurrentlyMoving = ' + dayp, runFunctionOnDragEnd: 'knobCurrentlyMoving = "none"'})[0]
+				}
+				pointadded.style.cursor = 'ns-resize'
+				pointadded.style.pointerEvents = 'auto'
+
 			}
 
-			pointadded = addPoint('TestingCapacityGraph', 'hoverKnob@TestingCapacityGraph', {x: -100,  y: 0, pointcolor: 'hsla(320, 100%, 50%, 0.4)', pointsize: 8})[0]
-			pointadded.style.cursor = 'ns-resize'
-			pointadded.style.pointerEvents = 'auto'
+			addRectangle('TestingCapacityGraph', 'boundRect@TestingCapacityGraph', {x: -2, y:100, w: 104, h: 100, rectcolor: 'none', stroke: 'black', strokewidth: 1})
+
+			valueStart = 0
+			valueEnd = 100
+			for (valueY = valueStart; valueY <= valueEnd; valueY = valueY + (valueEnd - valueStart)/5) {
+				addedText = addText('TestingCapacityGraph', parseInt(valueY) + '@yText@TestingCapacityGraph',  {x: -4, y: valueY, text: valueY.toFixed(0), textAlign: 'center', fontSize: "0.3vmax", textcolor: 'hsla(320, 100%, 50%, 1)'})[0]
+				addedText.style.fontWeight = 'bold'
+			}
+
+			
+
+			// pointadded = addPoint('TestingCapacityGraph', 'hoverKnob@TestingCapacityGraph', {x: -100,  y: 0, pointcolor: 'hsla(320, 100%, 50%, 0.4)', pointsize: 8})[0]
+			// pointadded.style.cursor = 'ns-resize'
+			// pointadded.style.pointerEvents = 'auto'
 
 
 			
-			
-
 
 			// addLine(singleParameterGraphs[gph][0], 'sliderFillInstruct@' + singleParameterGraphs[gph][0], {x1: -100,  y1: 0, x2: -99, y2: 0, linecolor: 'hsla(' + singleParameterGraphMap[singleParameterGraphs[gph][0]][4] + ', 90%, 1)', strokewidth: 4})
 			
