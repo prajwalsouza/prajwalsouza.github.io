@@ -424,9 +424,14 @@
 								<div style="width: 100%; height: 100%; font-family: Source Sans Pro; font-size: 1.3vmax; display:flex; align-items: center;">Dynamic Parameters &nbsp | &nbsp Policies</div>
 							</div>
 							<div id="HSi2" style="width: 100%; height: 0.30487804878%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
-							<div id="dynaParameterTime" style="width: 20%; height: 2.43902439024%; overflow: hidden;position: relative; z-index: 1;display: inline-block; font-family: Source Sans Pro; font-size: 1vmax; text-align: right;">Time (Days)
+							<div id="dynaParameterTime" style="width: 20%; height: 2.43902439024%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
+								<div id="timelabelText" style="width: 100%; height: 100%; overflow: hidden;position: relative; z-index: 1;display: inline-flex; align-items: center; justify-content: flex-end; font-family: Source Sans Pro; font-size: 1vmax; text-align: right;">
+									<div>
+										Time (Days)
+									</div>
+								</div>
 							</div>
-							<div id="dynaFullGraphH" style="width: 80%; height: 91%; overflow: hidden;position: absolute; z-index: 1;display: inline-block; font-family: Source Sans Pro; font-size: 1vmax;">
+							<div id="dynaFullGraphH" style="width: 80%; height: 96.9512195122%; overflow: hidden;position: absolute; z-index: 1;display: inline-block; font-family: Source Sans Pro; font-size: 1vmax;">
 							</div>
 							<div id="dynaParameterTimeGraphH" style="width: 80%; height: 2.43902439024%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
 
@@ -557,7 +562,27 @@
 							</div>
 							<div id="dynaParameterAgeThresholdH" style="width: 80%; height: 9.75609756098%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
 							</div>
-							<div id="HSii2Last" style="width: 100%; height: 1%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
+							<div id="HSi15" style="width: 100%; height: 0.30487804878%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
+							<div id="graphTextBox" style="width: 20%; height: 27.4390243902%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
+								<div id="graphInfoText" style="width: 100%; height: 100%; overflow: hidden;position: relative; z-index: 1;display: inline-flex; align-items: center; font-family: Source Sans Pro; font-size: 1.3vmax; text-align: left;">
+									<div>
+										Graph Plot<font style="color: grey; font-size: 0.9vmax"><br/>Various results plotted with the time</font><br/><br/>
+										<input type="checkbox" id="infected_agents" onchange="graphCheck(event)" name="infected_agents" value="0">&nbsp&nbsp<label for="infected_agents_check" style="text-indent: 1%; color: hsla(2, 100%, 50%, 1); font-size: 1vmax;">Infected Agents</label><br/>
+										<input type="checkbox" id="exposed_agents" onchange="graphCheck(event)" name="exposed_agents" value="0">&nbsp&nbsp<label for="exposed_agents_check" style="text-indent: 1%; color: hsla(320, 100%, 50%, 1); font-size: 1vmax;">Exposed Agents</label><br/>
+										<input type="checkbox" id="recovered_agents" onchange="graphCheck(event)" name="recovered_agents" value="0">&nbsp&nbsp<label for="recovered_agents_check" style="text-indent: 1%; color: hsla(280, 100%, 50%, 1); font-size: 1vmax;">Recovered Agents</label><br/>
+										<input type="checkbox" id="dead_agents" onchange="graphCheck(event)" name="dead_agents" value="0">&nbsp&nbsp<label for="dead_agents_check" style="text-indent: 1%; color: hsla(280, 0%, 50%, 1); font-size: 1vmax;">Dead Agents</label><br/>
+										<input type="checkbox" id="asympt_agents" onchange="graphCheck(event)" name="asympt_agents" value="0">&nbsp&nbsp<label for="asympt_agents_check" style="text-indent: 1%; color: hsla(230, 100%, 50%, 1); font-size: 1vmax;">Asymptomatic Agents</label><br/>
+										<input type="checkbox" id="suscept_agents" onchange="graphCheck(event)" name="suscept_agents" value="0">&nbsp&nbsp<label for="suscept_agents_check" style="text-indent: 1%; color: hsla(190, 100%, 50%, 1); font-size: 1vmax;">Susceptible Agents</label><br/><br/>
+										<input type="checkbox" id="hospital_beds" onchange="graphCheck(event)" name="hospital_beds" value="0">&nbsp&nbsp<label for="hospital_beds_check" style="text-indent: 1%; color: hsla(40, 100%, 50%, 1); font-size: 1vmax;">Hospital Beds</label><br/>
+										<input type="checkbox" id="icu_beds" onchange="graphCheck(event)" name="icu_beds" value="0">&nbsp&nbsp<label for="icu_beds_check" style="text-indent: 1%; color: hsla(2, 100%, 50%, 1); font-size: 1vmax;">ICU Beds</label><br/><br/>
+										<input type="checkbox" id="avg_infection" onchange="graphCheck(event)" name="avg_infection" value="0">&nbsp&nbsp<label for="avg_infection_check" style="text-indent: 1%; color: hsla(2, 50%, 20%, 1); font-size: 1vmax;">Average Infection</label><br/>
+										
+									</div>
+								</div>
+							</div>
+							<div id="plotGH" style="width: 80%; height: 27.4390243902%; overflow: hidden;position: relative; z-index: 1;display: inline-block;">
+							</div>
+							<div id="HSii2Last" style="width: 100%; height: 0.30487804878%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
 						</div>
 					</div>
 					<div id="HS3" style="width: 100%; height: 1%; overflow: hidden;position: relative; z-index: 1;display: inline-block;"></div>
@@ -1766,13 +1791,20 @@
 					if (eval(gdata.ymajorgridlabelOnlyIf)) {
 						var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
 						
-
 						if(isInt(ticklocation)) {
 							if (gdata.isComplexPlane == 'yes') {
 								textElement.innerHTML = ticklocation + 'i'
 							}
+							else {
+								textElement.innerHTML = ticklocation
+								if(ticklocation == 0) {
+									textElement.innerHTML = 0
+								}
+								
+							}
 						}
 						else {
+
 							expstring = ticklocation.toExponential().toString()
 							order = (expstring.slice(expstring
 								.indexOf('e') + 1)*(-1))
@@ -1791,6 +1823,7 @@
 							}
 
 						}
+
 
 
 						textElement.setAttribute('x', graphToScaledX(labelylocationX, gdata.xmin, gdata.xmax, aratio) + 0.5 + gdata.ymajorgridlabelshift + '%');
@@ -1857,7 +1890,6 @@
 						textElement.style.fontFamily = 'Source Sans Pro'
 						textElement.style.userSelect = 'none'
 						textElement.style.fill = gdata.xmajorgridlabelcolor
-
 						svgElement.appendChild(textElement);
 						
 						gdata.xmajorlabelsElements.push(textElement)
@@ -2187,6 +2219,7 @@
 			try {
 				pathElement.setAttribute('d', pathstring);
 				pathElement.setAttribute('id', graphname + '-path-' + pathname)
+				pathElement.setAttribute('stroke-dasharray', pathoptions.strokedasharray);
 				uid = uid + 1
 				pathElement.style.stroke = pathoptions.pathcolor
 				pathElement.style.fill = 'none'
@@ -4357,6 +4390,153 @@
 		setUpTimeGraphs()
 
 
+		function setUpOverlayGraph() {
+			graphH = document.getElementById('dynaFullGraphH')
+			graphoptions = {}
+			graphoptions.xmax = timeMax
+			graphoptions.xmin = 0
+
+			graphoptions.ymax = 100
+			graphoptions.ymin = -1
+
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility= 'no'
+			graphoptions.yaxisvisibility = 'no'
+
+			graphoptions.xmajorgridlabelvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'no'
+
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+
+			graphoptions.fontSize = 8
+			
+
+			graphoptions.scrollZoom = 'no'
+			graphoptions.draggability = 'no'
+			
+			addGraph(graphH, 'dynaFullGraph', graphoptions)
+
+			timePvalues = 10
+			for (tval = 0; tval <= timeMax; tval = tval + (timeMax/timePvalues)) {
+				addLine('dynaFullGraph', 'tpline@' + tval,  {x1: tval, y1: 0, x2: tval, y2: 100, linecolor: 'hsla(0, 0%, 10%, 0.1)'})
+			}
+		}
+
+		// setUpOverlayGraph()
+
+		plotMax = 1000
+
+
+		plotDataParameters = {infected_agents: {color: 'hsla(2, 100%, 50%, 1)'},  exposed_agents:{color: 'hsla(320, 100%, 50%, 1)'}, recovered_agents:{color: 'hsla(280, 100%, 50%, 1)'}, dead_agents:{color: 'hsla(280, 0%, 50%, 1)'}, asympt_agents:{color: 'hsla(230, 100%, 50%, 1)'}, suscept_agents:{color: 'hsla(190, 100%, 50%, 1)'}, hospital_beds:{color: 'hsla(40, 100%, 50%, 1)'}, icu_beds:{color: 'hsla(2, 100%, 50%, 1)'}, avg_infection:{color: 'hsla(2, 50%, 20%, 1)'}}
+
+		plotData = {infected_agents: [],  exposed_agents:[], recovered_agents:[], dead_agents:[], asympt_agents:[], suscept_agents:[], hospital_beds:[], icu_beds:[], avg_infection:[]}
+
+		function generateDummy() {
+			for (dayV = 0; dayV <= 100; dayV++) {
+				plotData['infected_agents'].push([dayV, Math.random()*40 + 200*Math.exp(-1*Math.pow((dayV - 60), 2)/200)])
+				plotData['exposed_agents'].push([dayV, Math.random()*40 + 700*Math.exp(-1*Math.pow((dayV - 30), 2)/100)])
+				plotData['recovered_agents'].push([dayV, Math.random()*50 + 700*Math.exp(-1*Math.pow((dayV - 40), 2)/100)])
+				plotData['dead_agents'].push([dayV, Math.random()*20 + 200*Math.exp(-1*Math.pow((dayV - 44), 2)/100)])
+				plotData['asympt_agents'].push([dayV, Math.random()*20 + 200*Math.exp(-1*Math.pow((dayV - 44), 2)/100)])
+				plotData['hospital_beds'].push([dayV, Math.random()*40 + 500*Math.exp(-1*Math.pow((dayV - 55), 2)/1000)])
+				plotData['icu_beds'].push([dayV, Math.random()*20 + 700*Math.exp(-1*Math.pow((dayV - 88), 2)/800)])
+				plotData['suscept_agents'].push([dayV, Math.random()*70 + 900*Math.exp(-1*Math.pow((dayV + 10), 2)/2000)])
+				plotData['avg_infection'].push([dayV, Math.random()*20 + 200*Math.exp(-1*Math.pow((dayV - 100), 2)/100)])
+			}
+		}
+
+		generateDummy()
+
+		function setUpPlotGraphs() {
+			graphH = document.getElementById('plotGH')
+			graphoptions = {}
+			graphoptions.xmax = timeMax
+			graphoptions.xmin = 0
+
+			graphoptions.ymax = plotMax
+			graphoptions.ymin = -1
+
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			// graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.xaxislabel = '&nbsp&nbsp   (Days)'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility= 'no'
+			graphoptions.yaxisvisibility = 'no'
+
+			graphoptions.ymajorgridlabelOnlyIf = 'value >= 0'
+			graphoptions.ymajorgridlabelshift = -8
+			graphoptions.xmajorgridlabelshift = 2
+
+			// graphoptions.xmajorgridlabelvisibility = 'no'
+			// graphoptions.ymajorgridlabelvisibility = 'no'
+
+			// graphoptions.xmajorgridlinesvisibility = 'no'
+			// graphoptions.ymajorgridlinesvisibility = 'no'
+
+			graphoptions.fontSize = 2
+			
+
+			graphoptions.scrollZoom = 'no'
+			graphoptions.draggability = 'no'
+			
+			addGraph(graphH, 'plotG', graphoptions)
+
+			addLine('plotG', 'xAxesLine',  {x1: 0, y1: 0, x2: timeMax, y2: 0, linecolor: 'hsla(0, 0%, 0%, 1)'})
+			addLine('plotG', 'yAxesLine',  {x1: 0, y1: 0, x2: 0, y2: plotMax, linecolor: 'hsla(0, 0%, 0%, 1)'})
+
+			for (plotcase in plotDataParameters) {
+				if (plotcase != 'hospital_beds' && plotcase != 'icu_beds' && plotcase != 'avg_infection') {
+					addedPath = addPath('plotG', plotcase + '@path', {pathcolor: plotDataParameters[plotcase].color, points: [[-100, 0], [-100, 1]], strokewidth: 0.3})[0]
+				}
+				else {
+					addedPath = addPath('plotG', plotcase + '@path', {pathcolor: plotDataParameters[plotcase].color, points: [[-100, 0], [-100, 1]], strokewidth: 0.3, strokedasharray: [0.5, 0.6]})[0]
+				}
+				
+			}
+
+		}
+
+		setUpPlotGraphs()
+
+
+		function updatePlot(pCase) {
+			updatePathPoints('plotG', pCase + '@path', plotData[pCase])
+		}
+
+
+		function graphCheck(event) {
+			if (document.getElementById(event.target.id).checked) {
+				updatePlot(event.target.id)
+			}
+			else {
+				updatePathPoints('plotG', event.target.id + '@path', [[-100, 0], [-100, 1]])
+			}
+		}
+
+		for (defCase in plotData) {
+			if (defCase == 'infected_agents' || defCase == 'asympt_agents' || defCase == 'recovered_agents' || defCase ==  'hospital_beds') {
+				document.getElementById(defCase).checked = true
+				updatePlot(defCase)
+			}
+			else {
+				document.getElementById(defCase).checked = false
+			}
+				
+		}
+
+
+
+
+
 
 
 
@@ -4375,6 +4555,7 @@
 		divSlider('parameter11SliderH', 'Slider', 0, 1, 0.3, 0.001, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
 		divSlider('parameter12SliderH', 'Slider', 0, 100, 5, 0.01, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
 		divSlider('parameter13SliderH', 'Slider', 0, 1, 0.6, 0.001, 'console.log("A")', '100%', '5px', 'hsla(0, 0%, 92%, 1)', '16px', 'hsla(190, 100%, 50%, 1)', '')
+
 		
 		function moveParticles(ofBoundary) {
 		}
