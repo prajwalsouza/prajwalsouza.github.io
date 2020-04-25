@@ -4422,13 +4422,15 @@
 			
 			addGraph(graphH, 'dynaFullGraph', graphoptions)
 
-			timePvalues = 10
-			for (tval = 0; tval <= timeMax; tval = tval + (timeMax/timePvalues)) {
-				addLine('dynaFullGraph', 'tpline@' + tval,  {x1: tval, y1: 0, x2: tval, y2: 100, linecolor: 'hsla(0, 0%, 10%, 0.1)'})
-			}
+			addLine('dynaFullGraph', 'showline',  {x1: -100, y1: 0, x2: -200, y2: 100, linecolor: 'hsla(0, 0%, 10%, 0.7)', strokedasharray: [5, 5]})
+
+			// timePvalues = 10
+			// for (tval = 0; tval <= timeMax; tval = tval + (timeMax/timePvalues)) {
+			// 	addLine('dynaFullGraph', 'tpline@' + tval,  {x1: tval, y1: 0, x2: tval, y2: 100, linecolor: 'hsla(0, 0%, 10%, 0.1)'})
+			// }
 		}
 
-		// setUpOverlayGraph()
+		setUpOverlayGraph()
 
 		plotMax = 1000
 
@@ -4452,6 +4454,23 @@
 		}
 
 		generateDummy()
+
+		function plotMoveOutHandle(event) {
+			updateLine('dynaFullGraph', 'showline',  {x1: -100, y1: 0, x2: -200, y2: 100})
+		}
+
+		function plotMoveHandle(event) {
+			cursorloc = {x: event.clientX, y: event.clientY}
+			if (event.clientX == undefined) {
+				cursorloc = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY}
+			}
+
+			eventLoc = getSvgCursorLocation(cursorloc, 'plotG')
+			if (eventLoc[0] >= 0 && eventLoc[0] <= timeMax) {
+				updateLine('dynaFullGraph', 'showline',  {x1: eventLoc[0], y1: -10, x2: eventLoc[0], y2: 200})
+			}
+			
+		}
 
 		function setUpPlotGraphs() {
 			graphH = document.getElementById('plotGH')
@@ -4479,8 +4498,8 @@
 			// graphoptions.xmajorgridlabelvisibility = 'no'
 			// graphoptions.ymajorgridlabelvisibility = 'no'
 
-			// graphoptions.xmajorgridlinesvisibility = 'no'
-			// graphoptions.ymajorgridlinesvisibility = 'no'
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
 
 			graphoptions.fontSize = 2
 			
@@ -4488,7 +4507,11 @@
 			graphoptions.scrollZoom = 'no'
 			graphoptions.draggability = 'no'
 			
-			addGraph(graphH, 'plotG', graphoptions)
+			gAdded = addGraph(graphH, 'plotG', graphoptions)
+
+			gAdded.svgElement.addEventListener('mousemove', plotMoveHandle)
+			gAdded.svgElement.addEventListener('mouseout', plotMoveOutHandle)
+			gAdded.svgElement.style.pointerEvents = 'auto'
 
 			addLine('plotG', 'xAxesLine',  {x1: 0, y1: 0, x2: timeMax, y2: 0, linecolor: 'hsla(0, 0%, 0%, 1)'})
 			addLine('plotG', 'yAxesLine',  {x1: 0, y1: 0, x2: 0, y2: plotMax, linecolor: 'hsla(0, 0%, 0%, 1)'})
