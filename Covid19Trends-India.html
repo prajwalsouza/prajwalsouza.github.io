@@ -1,296 +1,296 @@
 <html>
-	<head>
-		<title>Covid19Trends - India</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<head>
+	<title>Covid19Trends - India</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
-		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-		<link rel="icon" href="square.png">
+	<link rel="icon" href="square.png">
 
-		<style id='sliderstyles' type="text/css">
+	<style id='sliderstyles' type="text/css">
 
-		</style>
+	</style>
 
-		<style type="text/css">
-			:root {
-				--themeblue: hsla(196, 100%, 50%,  1);
-				--themeviolet: hsla(280, 100%, 50%,  1);
-				--themeorange: hsla(32, 100%, 50%,  1);
-				--boundaryorange: hsla(32, 100%, 50%, 0.6);
-				--themegrey: hsla(32, 0%, 70%, 0.6);
-			}
+	<style type="text/css">
+		:root {
+			--themeblue: hsla(196, 100%, 50%,  1);
+			--themeviolet: hsla(280, 100%, 50%,  1);
+			--themeorange: hsla(32, 100%, 50%,  1);
+			--boundaryorange: hsla(32, 100%, 50%, 0.6);
+			--themegrey: hsla(32, 0%, 70%, 0.6);
+		}
 
-			.inputButDiv:focus {
-				outline: none !important;
-				border: 0px solid black;
-			}
+		.inputButDiv:focus {
+			outline: none !important;
+			border: 0px solid black;
+		}
 
-		</style>
+	</style>
 
-		<style type="text/css">
-			a {
-				cursor: pointer;
-			}
+	<style type="text/css">
+		a {
+			cursor: pointer;
+		}
 
-			.standardSlider {
-				-webkit-appearance: none;
-				border-radius: 5px;
-				outline: none;
-				opacity: 0.7;
-				-webkit-transition: .2s;
-				transition: opacity .2s;
-			}
-			.standardSlider::-webkit-slider-thumb {
-				-webkit-appearance: none;
-				appearance: none;
-				width: 10px;
-				height: 10px;
-				border-radius: 50%; 
-				background: hsla(200, 100%, 50%, 1);
-				cursor: pointer;
-			}
+		.standardSlider {
+			-webkit-appearance: none;
+			border-radius: 5px;
+			outline: none;
+			opacity: 0.7;
+			-webkit-transition: .2s;
+			transition: opacity .2s;
+		}
+		.standardSlider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%; 
+			background: hsla(200, 100%, 50%, 1);
+			cursor: pointer;
+		}
 
-			.timesliderClass {
-				-webkit-appearance: none;
-				border-radius: 5px;
-				outline: none;
-				opacity: 0.7;
-				-webkit-transition: .2s;
-				transition: opacity .2s;
-				cursor: pointer;
-			}
-			.timesliderClass::-webkit-slider-thumb {
-				-webkit-appearance: none;
-				appearance: none;
-				width: 22px;
-				height: 22px;
-				border-radius: 50%; 
-				background: hsla(200, 100%, 50%, 1);
-				cursor: pointer;
-			}
+		.timesliderClass {
+			-webkit-appearance: none;
+			border-radius: 5px;
+			outline: none;
+			opacity: 0.7;
+			-webkit-transition: .2s;
+			transition: opacity .2s;
+			cursor: pointer;
+		}
+		.timesliderClass::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 22px;
+			height: 22px;
+			border-radius: 50%; 
+			background: hsla(200, 100%, 50%, 1);
+			cursor: pointer;
+		}
 
-			.timesliderClass::-moz-slider-thumb {
-				appearance: none;
-				width: 22px;
-				height: 22px;
-				border-radius: 50%; 
-				background: hsla(200, 100%, 50%, 1);
-				cursor: pointer;
-			}
+		.timesliderClass::-moz-slider-thumb {
+			appearance: none;
+			width: 22px;
+			height: 22px;
+			border-radius: 50%; 
+			background: hsla(200, 100%, 50%, 1);
+			cursor: pointer;
+		}
 
 
-			#statesListH::-webkit-scrollbar {
-				width: 1.4%;
-			}
+		#statesListH::-webkit-scrollbar {
+			width: 1.4%;
+		}
 
-			#statesListH::-webkit-scrollbar-track {
-				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
-				border-radius: 30px;
-			}
+		#statesListH::-webkit-scrollbar-track {
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+			border-radius: 30px;
+		}
 
-			#statesListH::-webkit-scrollbar-thumb {
-				background-color: hsla(190, 100%, 50%, 1);
-				border-radius: 50px;
-				/*outline: 1px solid slategrey;*/
-			}
+		#statesListH::-webkit-scrollbar-thumb {
+			background-color: hsla(190, 100%, 50%, 1);
+			border-radius: 50px;
+			/*outline: 1px solid slategrey;*/
+		}
 
-			body::-webkit-scrollbar {
-				width: 5px;
-			}
+		body::-webkit-scrollbar {
+			width: 5px;
+		}
 
-			body::-webkit-scrollbar-track {
-				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-				border-radius: 30px;
-			}
+		body::-webkit-scrollbar-track {
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+			border-radius: 30px;
+		}
 
-			body::-webkit-scrollbar-thumb {
-				background-color: black;
-				border-radius: 50px;
-				/*outline: 1px solid slategrey;*/
-			}
+		body::-webkit-scrollbar-thumb {
+			background-color: black;
+			border-radius: 50px;
+			/*outline: 1px solid slategrey;*/
+		}
 
-			#fileinputBack::focus {
-				outline: none;
-			}
+		#fileinputBack::focus {
+			outline: none;
+		}
 
-			#savebutton::focus {
-				outline: none;
-			}
+		#savebutton::focus {
+			outline: none;
+		}
 
-			#savebuttonH::focus {
-				outline: none;
-			}
+		#savebuttonH::focus {
+			outline: none;
+		}
 
-			input:invalid {
-				box-shadow:0 0 0px hsla(0,0%,0%,0);
-			}
-
-		
-		</style>
-		
-		<script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-		  ga('create', 'UA-103589215-2', 'auto');
-		  ga('send', 'pageview');
-
-		</script>
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.1/math.min.js"></script> -->
+		input:invalid {
+			box-shadow:0 0 0px hsla(0,0%,0%,0);
+		}
 
 		
-		<script type="application/ld+json">
-			{
-			  "@type": "covid19TrendsPlot",
-			  "name": "Covid19 Trends - India",
-			  "author": "Prajwal DSouza",
-			  "description": "A data plot inspired by the work of Aatish Bhatia. This plot involves the plot of how each state in india is doing handling the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it's the plot of total confimed cases verses new confirmed cases in the past week."
-			  }
-		</script>
+	</style>
+	
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-		  <meta charset="UTF-8">
-		  <meta name="description" content="A data plot inspired by the work of Aatish Bhatia. This plot involves the plot of how each state in india is doing handling the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it's the plot of total confimed cases verses new confirmed cases in the past week.">
-		  <meta name="keywords" content="covid india, covid india statewise, covid19india, covid india statewise, Aatish Bhatia, prajwalsouza, prajwal dsouza, pandemic, covid karnataka, covid kerala, covid Maharashtra, covid Andhra Pradesh">
-		  <meta name="author" content="Prajwal DSouza">
-		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	</head>
-	<body style='margin:0px; display: block; background: hsla(0, 0%, 92%, 1);'>
-		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; position: relative; background: hsla(0, 0%, 92%, 1);'>
-			<div id="mainVSpacer1" style='margin:0px;width:2%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-			</div>
-			<div id="MainBlock1" style='margin:0px;width:65%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				<div id="mainB1HSpacer1" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-				<div id="titleH" style='margin:0px;width:100%; height: 10%; position: relative; z-index: 1;display: inline-block; '>
-					<div id="title" style='margin:0px;width:100%; height: 100%; position: relative; z-index: 1;display: inline-block; font-size: 2.4vmax; color: hsla(190, 0%, 0%, 1);font-family: Raleway;'>
-						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
-							<tr>
-								<td colspan="8" id='maintitle' style="text-align: left; vertical-align: bottom; font-size: 2.4vmax;">
-									covid19 Trends <font style="font-weight: bold;">India</font><br/><font style="font-family: Source Sans Pro; font-size: 1.3vmax; vertical-align: bottom;">Inspired by <a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(334, 100%, 50%, 1);">Covid Trends</a></font> by <a href="https://aatishb.com/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Aatish Bhatia</font></a>, which was in collaboration with <a href="https://www.youtube.com/watch?v=54XLXg4fYsc" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(280, 100%, 50%, 1);">MinutePhysics</font></a></font>
-								</td>
-							</tr>
-						</table>
-						
-					</div>
-				</div>
-				<div id="mainB1HSpacer2" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-				<div id="onTopControlsH" style='margin:0px;width:100%; height: 69%;overflow: hidden;position: absolute; z-index: 10;display: inline-block; background: none; box-shadow: inset 0px 0px 50px 50px hsla(32, 100%,100%, 1); border: 0px solid black; border-radius: 30px; pointer-events: none;'>
-				</div>
-				<div id="visualChartH" style='margin:0px;width:100%; height: 67%;overflow: hidden;position: relative; z-index: 1;display: inline-block; background: white; border: 0px solid black; border-radius: 30px; '>
-				</div>
-				<div id="mainB1HSpacer3" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-				<div id="timeControlH" style='margin:0px;width:100%; height:8%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-					<div id="timebuttonH" style='margin:0px;width:10%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 2vmax; '>
-						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
-							<tr>
-								<td id='playpauseH' style="text-align: center; vertical-align: middle; font-size: 3vmax; color: hsla(200, 100%, 50%, 1); cursor: pointer;" onclick="togglePlay(event)">
-									<i class="fa fa-pause-circle" aria-hidden="true"></i>
-								</td>
-							</tr>
-						</table>
-						
-					</div>
-					<div id="timesliderTH" style='margin:0px;width:70%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
-							<tr>
-								<td id='timesliderH' style="text-align: middle; vertical-align: middle; font-size: 2.4vmax;">
-									
-								</td>
-							</tr>
-						</table>
-					</div>
-					<div id="timedisplayH" style='margin:0px;width:20%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-						<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
-							<tr>
-								<td id='timedisplay' style="text-align: center; vertical-align: middle; font-size: 1.2vmax; color: hsla(200, 100%, 0%, 1); font-family: Nunito;">
-									28/04/2020
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-				<div id="mainB1HSpacer3" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-			</div>
-			<div id="mainVSpacer2" style='margin:0px;width:2%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-			</div>
-			<div id="MainBlock2" style='margin:0px;width:29%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				<div id="mainB2HSpacer1" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-				<div id="aboutText" style='margin:0px;width:100%; height:8%; position: relative; z-index: 1;display: inline-block; font-size: 0.8vmax; font-family: Source Sans Pro; text-align: right;'>
-					<a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer; color: black;" target="_blank">This data plot was inspired by the work of Aatish Bhatia. This plot shows how much each state in india is following the trendline during the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it is the plot of new confirmed cases verses total confirmed cases in the past week.</a>
-				</div>
-				<div id="mainB2HSpacer2" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-				<div id="controlsH" style='margin:0px;width:100%; height:18%; position: relative; z-index: 1;display: inline-block; font-size: 0.4vmax; font-family: Source Sans Pro; text-align: right;'>
-					<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.2vmax;">Y AXIS</font><br/><br/>
-					<font style=" font-size: 1.2vmax;">New Cases Confirmed in the last &nbsp&nbsp</font>
-					<!-- onchange="chooseAlgo(event)" -->
-					<select  id="pastDaysToChoose" onchange="daysChosen(event)" style="font-family: Source Sans Pro; font-size: 1.2vmax; color: grey; width: 20%;">
-						<option value="daysoption@8">8 Days</option>
-					</select>
-					<br/><br/>				
-					<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.2vmax;">SCALE</font><br/><br/>
-					<select  id="scalesToChoose" onchange="scaleChosen(event)" style="font-family: Source Sans Pro; font-size: 1.2vmax; width: 50%; color: grey;">
-						<option value="logscaleoption">Logarithmic Scale</option>
-						<option value="linearscaleoption">Linear Scale</option>
-					</select>
+		ga('create', 'UA-103589215-2', 'auto');
+		ga('send', 'pageview');
 
-				</div>
+	</script>
 
-				<div id="mainB2HSpacer3" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-				<div id="statesSelectH" style='margin:0px;width:100%; height: 51%;overflow: hidden;position: relative; z-index: 1;display: inline-block; background: white; border: 0px solid black; border-radius: 30px; '>
-					<div id="gradfillstates" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 24%, hsla(0, 100%, 100%, 1) 25%, hsla(0, 100%, 100%, 0) 31%, hsla(0, 0%, 0%, 0) 85%,hsla(0, 100%, 100%, 1) 92%,hsla(0, 100%, 100%, 0) 99%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
-					<div id="statessub1" style='margin:0px;width:100%; height:4%; display: inline-block;'></div>
-					<div id="statessub2" style='margin:0px;width:9%; height: 10%; display: inline-block;'></div>
-					<div id="statesUtext" style='margin:0px;width:91%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>
-						<input value='STATES AND UNION TERRITORIES' id="statesTopName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 1.1vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
-					</div>
-					<div id="statessub3" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
-					<div id="statessub4" style='margin:0px;width:46%; height: 6%; display: inline-block;'></div>
-					<div id="selectAllblock" onclick="selectAllEvent(event)"  style='margin:0px;width:20%; height:6%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: hidden;'>
-						<input id='selectAllText' value='Select All' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vmax; font-weight: lighter; color:  black; background: hsla(190, 100%, 50%, 1); color: white; cursor: pointer; border-radius: 6px;" readonly></input>
-					</div>
-					<div id="statessub5" style='margin:0px;width:5%; height: 6%; display: inline-block;'></div>
-					<div id="selectAllblock" onclick="deSelectAllEvent(event)" style='margin:0px;width:20%; height:6%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: hidden;'>
-						<input id='deselectAllText' value='Deselect All' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vmax; font-weight: lighter; color:  black; background: hsla(190, 100%, 50%, 1); color: white; cursor: pointer; border-radius: 6px;" readonly></input>
-					</div>
-					<div id="statessub6" style='margin:0px;width:9%; height: 6%; display: inline-block;'></div>
-					<div id="statessub7" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
-					<div id="statessub8" style='margin:0px;width:9%; height: 65%; display: inline-block;'></div>
-					<div id="statesListH" style='margin:0px;width:82%; height: 65%; display: inline-block; font-size: 1.2vmax; font-family: Source Sans Pro; overflow-y: scroll; line-height: 160%;'>
-						 
-						  
-					</div>
-					<div id="statessub9" style='margin:0px;width:9%; height: 65%; display: inline-block;'></div>
-				</div>
-				<div id="mainB2HSpacer4" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
-				</div>
-				<div id="onDataSouce" style='margin:0px;width:100%; height:11%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 1vmax; font-family: Source Sans Pro; text-align: right; font-weight: bold; '>
-					<br/>Data collected from <a href="https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data/India_medical_cases_summary" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Wikipedia</font></a><br/> 
-					 <font style="color: hsla(190, 0%, 50%, 1); font-weight: normal;">Last updated at 10:08 AM 17/04/2020 IST</font>  
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.1/math.min.js"></script> -->
+
+	
+	<script type="application/ld+json">
+		{
+			"@type": "covid19TrendsPlot",
+			"name": "Covid19 Trends - India",
+			"author": "Prajwal DSouza",
+			"description": "A data plot inspired by the work of Aatish Bhatia. This plot involves the plot of how each state in india is doing handling the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it's the plot of total confimed cases verses new confirmed cases in the past week."
+		}
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="description" content="A data plot inspired by the work of Aatish Bhatia. This plot involves the plot of how each state in india is doing handling the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it's the plot of total confimed cases verses new confirmed cases in the past week.">
+	<meta name="keywords" content="covid india, covid india statewise, covid19india, covid india statewise, Aatish Bhatia, prajwalsouza, prajwal dsouza, pandemic, covid karnataka, covid kerala, covid Maharashtra, covid Andhra Pradesh">
+	<meta name="author" content="Prajwal DSouza">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style='margin:0px; display: block; background: hsla(0, 0%, 92%, 1);'>
+	<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; position: relative; background: hsla(0, 0%, 92%, 1);'>
+		<div id="mainVSpacer1" style='margin:0px;width:2%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+		</div>
+		<div id="MainBlock1" style='margin:0px;width:65%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			<div id="mainB1HSpacer1" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			</div>
+			<div id="titleH" style='margin:0px;width:100%; height: 10%; position: relative; z-index: 1;display: inline-block; '>
+				<div id="title" style='margin:0px;width:100%; height: 100%; position: relative; z-index: 1;display: inline-block; font-size: 2.4vmax; color: hsla(190, 0%, 0%, 1);font-family: Raleway;'>
+					<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
+						<tr>
+							<td colspan="8" id='maintitle' style="text-align: left; vertical-align: bottom; font-size: 2.4vmax;">
+								covid19 Trends <font style="font-weight: bold;">India</font><br/><font style="font-family: Source Sans Pro; font-size: 1.3vmax; vertical-align: bottom;">Inspired by <a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(334, 100%, 50%, 1);">Covid Trends</a></font> by <a href="https://aatishb.com/" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Aatish Bhatia</font></a>, which was in collaboration with <a href="https://www.youtube.com/watch?v=54XLXg4fYsc" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(280, 100%, 50%, 1);">MinutePhysics</font></a></font>
+							</td>
+						</tr>
+					</table>
+					
 				</div>
 			</div>
-			<div id="mainVSpacer3" style='margin:0px;width:2%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			<div id="mainB1HSpacer2" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			</div>
+			<div id="onTopControlsH" style='margin:0px;width:100%; height: 69%;overflow: hidden;position: absolute; z-index: 10;display: inline-block; background: none; box-shadow: inset 0px 0px 50px 50px hsla(32, 100%,100%, 1); border: 0px solid black; border-radius: 30px; pointer-events: none;'>
+			</div>
+			<div id="visualChartH" style='margin:0px;width:100%; height: 67%;overflow: hidden;position: relative; z-index: 1;display: inline-block; background: white; border: 0px solid black; border-radius: 30px; '>
+			</div>
+			<div id="mainB1HSpacer3" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			</div>
+			<div id="timeControlH" style='margin:0px;width:100%; height:8%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+				<div id="timebuttonH" style='margin:0px;width:10%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 2vmax; '>
+					<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
+						<tr>
+							<td id='playpauseH' style="text-align: center; vertical-align: middle; font-size: 3vmax; color: hsla(200, 100%, 50%, 1); cursor: pointer;" onclick="togglePlay(event)">
+								<i class="fa fa-pause-circle" aria-hidden="true"></i>
+							</td>
+						</tr>
+					</table>
+					
+				</div>
+				<div id="timesliderTH" style='margin:0px;width:70%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+					<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
+						<tr>
+							<td id='timesliderH' style="text-align: middle; vertical-align: middle; font-size: 2.4vmax;">
+								
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="timedisplayH" style='margin:0px;width:20%; height:100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+					<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed;">
+						<tr>
+							<td id='timedisplay' style="text-align: center; vertical-align: middle; font-size: 1.2vmax; color: hsla(200, 100%, 0%, 1); font-family: Nunito;">
+								28/04/2020
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="mainB1HSpacer3" style='margin:0px;width:100%; height:4%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
 			</div>
 		</div>
-		<script type="text/javascript">
+		<div id="mainVSpacer2" style='margin:0px;width:2%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+		</div>
+		<div id="MainBlock2" style='margin:0px;width:29%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			<div id="mainB2HSpacer1" style='margin:0px;width:100%; height: 3%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			</div>
+			<div id="aboutText" style='margin:0px;width:100%; height:8%; position: relative; z-index: 1;display: inline-block; font-size: 0.8vmax; font-family: Source Sans Pro; text-align: right;'>
+				<a href="https://aatishb.com/covidtrends/" style="text-decoration: none; cursor: pointer; color: black;" target="_blank">This data plot was inspired by the work of Aatish Bhatia. This plot shows how much each state in india is following the trendline during the Coronavirus Pandemic in 2020. As in Aatish Bhatia's plot at (https://aatishb.com/covidtrends/) it is the plot of new confirmed cases verses total confirmed cases in the past week.</a>
+			</div>
+			<div id="mainB2HSpacer2" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			</div>
+			<div id="controlsH" style='margin:0px;width:100%; height:18%; position: relative; z-index: 1;display: inline-block; font-size: 0.4vmax; font-family: Source Sans Pro; text-align: right;'>
+				<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.2vmax;">Y AXIS</font><br/><br/>
+				<font style=" font-size: 1.2vmax;">New Cases Confirmed in the last &nbsp&nbsp</font>
+				<!-- onchange="chooseAlgo(event)" -->
+				<select  id="pastDaysToChoose" onchange="daysChosen(event)" style="font-family: Source Sans Pro; font-size: 1.2vmax; color: grey; width: 20%;">
+					<option value="daysoption@8">8 Days</option>
+				</select>
+				<br/><br/>				
+				<font style="font-weight: bold; color: hsla(190, 0%, 50%, 1); font-size: 1.2vmax;">SCALE</font><br/><br/>
+				<select  id="scalesToChoose" onchange="scaleChosen(event)" style="font-family: Source Sans Pro; font-size: 1.2vmax; width: 50%; color: grey;">
+					<option value="logscaleoption">Logarithmic Scale</option>
+					<option value="linearscaleoption">Linear Scale</option>
+				</select>
+
+			</div>
+
+			<div id="mainB2HSpacer3" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			</div>
+			<div id="statesSelectH" style='margin:0px;width:100%; height: 51%;overflow: hidden;position: relative; z-index: 1;display: inline-block; background: white; border: 0px solid black; border-radius: 30px; '>
+				<div id="gradfillstates" style='margin:0px;width:100%; height: 100%; display: inline-block; position: absolute; pointer-events: none; background: linear-gradient(to bottom,hsla(0, 0%, 0%, 0), hsla(0, 100%, 100%, 0) 24%, hsla(0, 100%, 100%, 1) 25%, hsla(0, 100%, 100%, 0) 31%, hsla(0, 0%, 0%, 0) 85%,hsla(0, 100%, 100%, 1) 92%,hsla(0, 100%, 100%, 0) 99%,hsla(0, 100%, 100%, 0)); z-index: 2;'></div>
+				<div id="statessub1" style='margin:0px;width:100%; height:4%; display: inline-block;'></div>
+				<div id="statessub2" style='margin:0px;width:9%; height: 10%; display: inline-block;'></div>
+				<div id="statesUtext" style='margin:0px;width:91%; height: 10%; display: inline-block; font-size: 0.9vmax; font-family: Source Sans Pro; letter-spacing: 1px; color: hsla(0, 0%, 40%, 1); overflow: hidden; user-select: none;'>
+					<input value='STATES AND UNION TERRITORIES' id="statesTopName" list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); width: 100%; height: 100%; text-align: left;font-size: 1.1vmax; font-family: Source Sans Pro; letter-spacing: 1px; overflow: hidden;background: hsla(32,100%,50%,0); color: hsla(0, 0%, 40%, 1); cursor: auto; pointer-events: none; user-select: none;" readonly></input>
+				</div>
+				<div id="statessub3" style='margin:0px;width:100%; height: 1%; display: inline-block;'></div>
+				<div id="statessub4" style='margin:0px;width:46%; height: 6%; display: inline-block;'></div>
+				<div id="selectAllblock" onclick="selectAllEvent(event)"  style='margin:0px;width:20%; height:6%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: hidden;'>
+					<input id='selectAllText' value='Select All' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vmax; font-weight: lighter; color:  black; background: hsla(190, 100%, 50%, 1); color: white; cursor: pointer; border-radius: 6px;" readonly></input>
+				</div>
+				<div id="statessub5" style='margin:0px;width:5%; height: 6%; display: inline-block;'></div>
+				<div id="selectAllblock" onclick="deSelectAllEvent(event)" style='margin:0px;width:20%; height:6%; display: inline-block; border-radius: 4px; border: 0px solid hsla(0,0%,0%,0.5); position: relative; overflow: hidden;'>
+					<input id='deselectAllText' value='Deselect All' list="brow" style="border: 0px solid hsla(190, 0%, 50%,0.2); height: 100%; width: 100%; text-align: center; font-family: Roboto; font-size: 0.85vmax; font-weight: lighter; color:  black; background: hsla(190, 100%, 50%, 1); color: white; cursor: pointer; border-radius: 6px;" readonly></input>
+				</div>
+				<div id="statessub6" style='margin:0px;width:9%; height: 6%; display: inline-block;'></div>
+				<div id="statessub7" style='margin:0px;width:100%; height: 5%; display: inline-block;'></div>
+				<div id="statessub8" style='margin:0px;width:9%; height: 65%; display: inline-block;'></div>
+				<div id="statesListH" style='margin:0px;width:82%; height: 65%; display: inline-block; font-size: 1.2vmax; font-family: Source Sans Pro; overflow-y: scroll; line-height: 160%;'>
+					
+					
+				</div>
+				<div id="statessub9" style='margin:0px;width:9%; height: 65%; display: inline-block;'></div>
+			</div>
+			<div id="mainB2HSpacer4" style='margin:0px;width:100%; height:2%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+			</div>
+			<div id="onDataSouce" style='margin:0px;width:100%; height:11%;overflow: hidden;position: relative; z-index: 1;display: inline-block; font-size: 1vmax; font-family: Source Sans Pro; text-align: right; font-weight: bold; '>
+				<br/>Data collected from <a href="https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data/India_medical_cases_summary" style="text-decoration: none; cursor: pointer;" target="_blank"><font style="color: hsla(190, 100%, 50%, 1);">Wikipedia</font></a><br/> 
+				<font style="color: hsla(190, 0%, 50%, 1); font-weight: normal;">Last updated at 01:08 PM 04/05/2020 IST</font>  
+			</div>
+		</div>
+		<div id="mainVSpacer3" style='margin:0px;width:2%; height: 100%;overflow: hidden;position: relative; z-index: 1;display: inline-block; '>
+		</div>
+	</div>
+	<script type="text/javascript">
 
 		function infodisplay(infoobject, infolocation, infodata) {
 			if (infoobject == 'state') {
@@ -404,7 +404,7 @@
 						document.getElementById(strategies[stg]).style.backgroundColor = 'hsla(190, 100%, 0%, 0.1)'
 					}
 				}
-					
+				
 
 			}
 			else {
@@ -726,7 +726,7 @@
 
 				// y - y1 = (y2 - y1)/(x2 - x1) * (x - x1)
 				// x = (((v2 - v1)/(90))*(x - 10)) + v1
-				 
+				
 			}
 			return x
 		}
@@ -982,7 +982,7 @@
 						
 						if (Math.abs(ticklocation) < 0.01 && order > 2) {
 							ticklocation = ticklocation.toExponential(order)
-								
+							
 						}
 						else {
 							ticklocation = ticklocation.toFixed(order + 1)
@@ -1164,7 +1164,7 @@
 				textoptions = gdata.textData[key][1]
 				textElement.setAttribute('x', graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
 				textElement.setAttribute('y', graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
-			
+				
 			}
 
 			for (var key in gdata.rectData) {
@@ -1782,7 +1782,7 @@
 				}
 			}
 
-				
+			
 			
 			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
 			circleElement.setAttribute('cx', graphToScaledX(slideroptions.cx, gdata.xmin, gdata.xmax, aratio) + '%');
@@ -1888,7 +1888,7 @@
 			catch (err){
 				console.log(pathoptions.points)
 			}
-				
+			
 		}
 
 		function updatePath(graphname, pathname, newpathoptions) {
@@ -1931,7 +1931,7 @@
 			catch (err){
 				console.log(newpathoptions.points)
 			}
-				
+			
 		}
 
 		function updatePathPoints(graphname, pathname, npathpoints) {
@@ -2632,7 +2632,7 @@
 				// window.addEventListener('mouseout', pointUpEvent)
 				currentMovingPoint = event.target
 			}
-				
+			
 		}
 
 		svgPTVariable = {}
@@ -2787,7 +2787,7 @@
 					}
 				}
 
-					
+				
 			}
 		}
 
@@ -2991,7 +2991,7 @@
 				}
 			}
 
-				
+			
 		}
 
 		function graphDragUpEvent(event) {
@@ -3229,10 +3229,10 @@
 
 		// console.log(linearToGraphLinear(1, 100, 50))
 
-		datesAvailable = ['30 January 2020','31 January 2020','01 February 2020','02 February 2020','03 February 2020','04 February 2020','05 February 2020','06 February 2020','07 February 2020','08 February 2020','09 February 2020','10 February 2020','11 February 2020','12 February 2020','13 February 2020','14 February 2020','15 February 2020','16 February 2020','17 February 2020','18 February 2020','19 February 2020','20 February 2020','21 February 2020','22 February 2020','23 February 2020','24 February 2020','25 February 2020','26 February 2020','27 February 2020','28 February 2020','29 February 2020','01 March 2020','02 March 2020','03 March 2020','04 March 2020','05 March 2020','06 March 2020','07 March 2020','08 March 2020','09 March 2020','10 March 2020','11 March 2020','12 March 2020','13 March 2020','14 March 2020','15 March 2020','16 March 2020','17 March 2020','18 March 2020','19 March 2020','20 March 2020','21 March 2020','22 March 2020','23 March 2020','24 March 2020','25 March 2020','26 March 2020','27 March 2020','28 March 2020','29 March 2020','30 March 2020','31 March 2020','01 April 2020','02 April 2020','03 April 2020','04 April 2020','05 April 2020','06 April 2020','07 April 2020','08 April 2020','09 April 2020','10 April 2020','11 April 2020','12 April 2020','13 April 2020','14 April 2020','15 April 2020','16 April 2020']
+		datesAvailable = ['30 January 2020','31 January 2020','01 February 2020','02 February 2020','03 February 2020','04 February 2020','05 February 2020','06 February 2020','07 February 2020','08 February 2020','09 February 2020','10 February 2020','11 February 2020','12 February 2020','13 February 2020','14 February 2020','15 February 2020','16 February 2020','17 February 2020','18 February 2020','19 February 2020','20 February 2020','21 February 2020','22 February 2020','23 February 2020','24 February 2020','25 February 2020','26 February 2020','27 February 2020','28 February 2020','29 February 2020','01 March 2020','02 March 2020','03 March 2020','04 March 2020','05 March 2020','06 March 2020','07 March 2020','08 March 2020','09 March 2020','10 March 2020','11 March 2020','12 March 2020','13 March 2020','14 March 2020','15 March 2020','16 March 2020','17 March 2020','18 March 2020','19 March 2020','20 March 2020','21 March 2020','22 March 2020','23 March 2020','24 March 2020','25 March 2020','26 March 2020','27 March 2020','28 March 2020','29 March 2020','30 March 2020','31 March 2020','01 April 2020','02 April 2020','03 April 2020','04 April 2020','05 April 2020','06 April 2020','07 April 2020','08 April 2020','09 April 2020','10 April 2020','11 April 2020','12 April 2020','13 April 2020','14 April 2020','15 April 2020','16 April 2020','17 April 2020','18 April 2020','19 April 2020','20 April 2020','21 April 2020','22 April 2020','23 April 2020','24 April 2020','25 April 2020','26 April 2020','27 April 2020','28 April 2020','29 April 2020','30 April 2020','01 May 2020','02 May 2020','03 May 2020']
 
 
-		fullData = {Andaman_and_Nicobar_Islands: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,4,3,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0], Andhra_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2,0,2,2,1,1,2,3,0,5,4,17,43,3,46,29,29,36,40,39,43,15,18,0,51,41,30,31], Arunachal_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0], Assam: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,4,11,8,2,0,0,1,1,1,0,0,2,0,2,0], Bihar: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,3,3,0,2,4,0,8,1,5,1,0,2,0,6,1,21,0,4,0,2,4,4], Chandigarh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4,1,1,0,0,0,1,0,0,5,3,0,2,0,0,0,0,0,0,0,0,1,2,0,0,0], Chhattisgarh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,4,0,0,1,0,1,1,0,0,0,0,1,0,0,0,0,8,7,6,0,2,0], Delhi: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,1,0,1,2,0,1,0,0,1,2,2,5,8,3,0,0,1,5,3,0,10,48,0,55,67,77,149,58,20,53,0,93,229,5,166,85,356,51,17], Goa: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,2,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0], Gujarat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,2,11,11,4,5,5,2,0,13,11,4,9,5,8,10,17,22,21,0,14,62,67,124,107,78,78,176], Haryana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,4,5,2,0,2,3,0,0,3,4,3,0,6,0,10,25,6,57,22,0,8,8,0,14,0,6], Himachal_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0,3,0,0,7,0,5,0,10,0,4,0,0,1,2], Jammu_and_Kashmir: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,3,6,5,2,11,17,6,8,0,13,0,31,3,7,0,42,26,23,17,21,25,8,22], Jharkhand: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,0,0,9,0,4,0,2,5,3,1], Karnataka: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,2,0,0,1,3,1,3,1,0,11,4,7,4,14,0,9,12,7,0,18,9,14,4,16,7,24,0,6,16,17,12,21,11,19,38], Kerala: [1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,0,8,0,2,0,3,1,3,1,0,1,12,12,15,28,14,9,43,15,6,37,15,7,24,21,9,11,8,13,9,9,12,7,10,2,3,8,1], Ladakh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1,0,0,0,1,4,0,0,2,3,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,2,0], Madhya_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,2,1,7,6,10,0,0,17,0,19,33,5,0,61,0,64,0,30,0,184,121,40,126,257,133], Maharashtra: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,6,3,12,5,6,3,3,3,5,11,8,7,15,35,0,29,27,6,21,47,48,33,0,155,0,258,120,150,117,229,210,187,224,352,350,232], Manipur: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0], Meghalaya: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,6,0], Mizoram: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], Nagaland: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0], Odisha: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,15,1,21,0,0,2,4,6,0,1,5,0], Puducherry: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0], Punjab: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,11,7,2,6,4,0,5,0,0,0,3,1,4,2,9,0,19,15,0,10,31,0,19,16,9,10,0], Rajasthan: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,1,0,0,0,1,3,10,0,5,4,4,4,5,7,6,1,4,15,19,15,59,33,0,74,14,40,55,80,90,147,112,67,126,18], Tamil_Nadu: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3,3,6,3,8,12,2,9,18,7,160,0,75,102,74,86,50,69,48,96,77,58,106,98,31,38], Telangana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,1,11,4,1,10,3,0,9,4,8,10,5,8,17,11,51,1,110,52,43,63,15,31,31,0,58,62,23,51], Tripura: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0], Uttarakhand: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,1,0,1,0,0,2,0,0,0,0,3,6,6,4,5,0,4,0,0,0,0,0,2,0], Uttar_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,1,0,0,0,1,0,0,2,1,1,0,0,2,2,4,4,0,3,4,2,4,4,4,10,10,27,9,2,10,59,2,53,78,0,38,67,21,2,19,31,174,78,38], West_Bengal: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,3,2,0,1,5,0,3,4,4,11,16,10,6,11,0,11,8,4,13,10,8,18,38,23,18]}
+		fullData = {Andaman_and_Nicobar_Islands: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,4,3,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,2,1,1,1,1,4,5,6,0,0,0,0,0,0,0], Andhra_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2,0,2,2,1,1,2,3,0,5,4,17,43,3,46,29,29,36,40,39,43,15,18,0,51,41,30,31,38,31,0,119,35,56,82,60,106,36,80,82,73,71,60,62,58], Arunachal_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], Assam: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,4,11,8,2,0,0,1,1,1,0,0,2,0,2,0,2,0,0,0,0,0,0,1,0,0,0,2,0,4,0,1,0], Bihar: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,3,3,0,2,4,0,8,1,5,1,0,2,0,6,1,21,0,4,0,2,4,4,9,2,1,10,18,12,22,28,52,23,26,69,37,20,23,45,11], Chandigarh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4,1,1,0,0,0,1,0,0,5,3,0,2,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,2,3,0,1,0,0,1,2,0,10,16,0,0,32,6], Chhattisgarh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,4,0,0,1,0,1,1,0,0,0,0,1,0,0,0,0,8,7,6,0,2,0,3,0,0,0,0,0,0,0,0,1,0,0,1,0,2,3,0], Delhi: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,1,0,1,2,0,1,0,0,1,2,2,5,8,3,0,0,1,5,3,0,10,48,0,55,67,77,149,58,20,53,0,93,229,5,166,85,356,51,17,62,67,186,110,78,75,92,128,138,111,293,190,206,125,76,223,384], Goa: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,2,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], Gujarat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,2,11,11,4,5,5,2,0,13,11,4,9,5,8,10,17,22,21,0,14,62,67,124,107,78,78,176,150,251,332,247,215,206,135,217,191,256,230,247,226,308,313,326,334], Haryana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,4,5,2,0,2,3,0,0,3,4,3,0,6,0,10,25,6,57,22,0,8,8,0,14,0,6,0,20,8,0,21,0,8,10,0,17,0,7,14,0,3,47,34], Himachal_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0,3,0,0,7,0,5,0,10,0,4,0,0,1,2,0,3,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0], Jammu_and_Kashmir: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,3,6,5,2,11,17,6,8,0,13,0,31,3,7,0,42,26,23,17,21,25,8,22,14,14,13,9,18,12,27,20,27,40,29,23,19,16,33,25,27], Jharkhand: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,0,0,9,0,4,0,2,5,3,1,1,4,2,7,4,0,4,6,4,8,15,21,2,2,4,0,4], Karnataka: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,2,0,0,1,3,1,3,1,0,11,4,7,4,14,0,9,12,7,0,18,9,14,4,16,7,24,0,6,16,17,12,21,11,19,38,38,18,13,11,20,10,18,20,26,12,10,9,12,25,19,22,8], Kerala: [1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,0,8,0,2,0,3,1,3,1,0,1,12,12,15,28,14,9,43,15,6,37,15,7,24,21,9,11,8,13,9,9,12,7,10,2,3,8,1,7,1,4,2,6,19,11,10,3,7,11,13,4,10,1,1,2], Ladakh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1,0,0,0,1,4,0,0,2,3,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,2,0,1,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,18], Madhya_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,2,1,7,6,10,0,0,17,0,19,33,5,0,61,0,64,0,30,0,184,121,40,126,257,133,188,47,52,78,55,52,103,157,100,144,72,200,193,99,59,0,127], Maharashtra: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,6,3,12,5,6,3,3,3,5,11,8,7,15,35,0,29,27,6,21,47,48,33,0,155,0,258,120,150,117,229,210,187,224,352,350,232,286,118,328,552,466,552,431,778,387,811,440,522,728,597,583,1008,790], Manipur: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], Meghalaya: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,6,0,2,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0], Mizoram: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], Nagaland: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], Odisha: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,15,1,21,0,0,2,4,6,0,1,5,0,0,0,1,7,6,8,1,7,4,9,5,10,1,9,15,11,6], Puducherry: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0], Punjab: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,11,7,2,6,4,0,5,0,0,0,3,1,4,2,9,0,19,15,0,10,31,0,19,16,9,10,0,0,16,17,0,26,6,26,0,21,0,15,0,9,35,0,415,0], Rajasthan: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,1,0,0,0,1,3,10,0,5,4,4,4,5,7,6,1,4,15,19,15,59,33,0,74,14,40,55,80,90,147,112,67,126,18,108,98,122,127,98,225,89,74,70,49,102,77,102,74,146,82,106], Tamil_Nadu: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,3,3,6,3,8,12,2,9,18,7,160,0,75,102,74,86,50,69,48,96,77,58,106,98,31,38,25,56,49,105,43,76,33,54,72,66,64,52,121,104,161,203,231], Telangana: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,1,11,4,1,10,3,0,9,4,8,10,5,8,17,11,51,1,110,52,43,63,15,31,31,0,58,62,23,51,45,48,53,29,46,26,15,24,0,7,11,2,8,0,27,18,6], Tripura: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2], Uttarakhand: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,1,0,1,0,0,2,0,0,0,0,3,6,6,4,5,0,4,0,0,0,0,0,2,0,0,5,0,2,2,0,0,1,1,2,1,0,3,1,2,1,1], Uttar_Pradesh: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,1,0,0,0,1,0,0,2,1,1,0,0,2,2,4,4,0,3,4,2,4,4,4,10,10,27,9,2,10,59,2,53,78,0,38,67,21,2,19,31,174,78,38,73,123,115,92,118,118,97,95,174,65,112,88,72,88,78,174,171], West_Bengal: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,3,2,0,1,5,0,3,4,4,11,16,10,6,11,0,11,8,4,13,10,8,18,38,23,18,24,32,23,29,53,31,33,58,57,40,38,48,28,33,37,0,127]}
 
 		
 		nDays = 6
@@ -3467,7 +3467,7 @@
 			options.text = displayData3
 			updateText('chartG', 'boldInfo3', options)
 
-		
+			
 		}
 
 		function mouseOutStateInfo(event) {
@@ -3520,7 +3520,7 @@
 			
 		}
 
-			
+		
 
 		function infoBoldDisplayAndActivateGraph() {
 			graphData['chartG'].svgElement.style.pointerEvents = 'auto'
@@ -3918,7 +3918,7 @@
 				for (labelxN = 0; labelxN <= xDivisions; labelxN++) {
 					valueToGo = minMaxBounds[0] + (labelxN*xaxisdelta)
 					valueToG = linearValue(minMaxBounds[0], minMaxBounds[1], 0, 100, valueToGo)
-				
+					
 					options = {}
 					options.x = valueToG
 					options.y = -6
@@ -4130,7 +4130,7 @@
 							updatePointXY('chartG', 'stateCurveOf@' + stateName + '@' + infoPointI, gX, gY)
 						}
 					}
-						
+					
 					
 				}
 			}
@@ -4279,9 +4279,9 @@
 
 		// handleLayout()
 
-		</script>
+	</script>
 
 
-	</body>
+</body>
 <html>
 
