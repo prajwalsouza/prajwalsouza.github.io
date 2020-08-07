@@ -2266,6 +2266,8 @@
 		}
 
 		ringcolors = [160, 170, 180, 260, 122, 61]
+			
+		ringTheme = ['complimentary','complimentary','complimentary','selectedColors']
 
 		ringData = {}
 
@@ -2322,7 +2324,15 @@
 
 
 				// ringcolor = 'hsla(' + randomChoice(ringcolors) + ', 100%, 50%, 1)'
-				ringcolor = 'hsla(' + (0 + (ring - 5)*30) + ', 100%, 50%, 1)'
+				
+				chosenRingTheme = randomChoice(ringTheme)
+				if (chosenRingTheme == 'complimentary') {
+					ringcolor = 'hsla(' + (0 + (ring - 5)*30) + ', 100%, 50%, 1)'
+				}
+				else if (chosenRingTheme == 'selectedColors') {
+					ringcolor = 'hsla(' + randomChoice(ringcolors) + ', 100%, 50%, 1)'
+				}
+				
 
 				ringthick = 10*(Math.random() - 0.5)*0.1 + 1.2
 				ringrad = ring/14;
