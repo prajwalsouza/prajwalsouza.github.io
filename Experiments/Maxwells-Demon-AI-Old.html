@@ -1,0 +1,596 @@
+<html>
+	<head>
+		<title> Maxwell's Demon AI </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/PhysicsJS/0.7.0/physicsjs-full.min.js" type="text/javascript"></script>
+		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/synaptic/1.1.4/synaptic.min.js"></script>
+
+
+
+		<!-- Google Analytics Code -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-103589215-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+		<script type="application/ld+json">
+			{
+			  "@type": "Projects",
+			  "name": "Maxwell's Demon AI",
+			  "author": "Prajwal DSouza",
+			  "description": "Reinforcement learning for Maxwell's demon"
+			  }
+		</script>
+		  <meta charset="UTF-8">
+		  <meta name="description" content="Reinforcement learning for Maxwell's demon">
+		  <meta name="keywords" content="maxwell's demon, AI, ML, thermodynamics">
+		  <meta name="author" content="Prajwal DSouza">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+	</head>
+	<body style='margin:0px;width:100%; height: 100%;'>
+		<div id="containAll" style='margin:0px;width:100%; height: 100%;overflow: hidden; font-size: 0;'>
+			<div id="containEnv" style='margin:0px;width:100%; height: 100%;overflow: hidden;'> 
+				<svg id='graphSvg' height="100%" width="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style='position: absolute; z-index: 2'>
+					<line x1="0%" y1="50%" x2="40%" y2="50%" style="stroke:hsla(250,100%,50%,0.5);stroke-width:1%" />
+					<line x1="60%" y1="50%" x2="100%" y2="50%" style="stroke:hsla(250,100%,50%,0.5);stroke-width:1%" />
+					<line id='trapdoor' x1="40%" y1="50%" x2="60%" y2="50%" style="stroke:hsla(250,100%,50%,0.2);stroke-width:1%; opacity: 1;" />
+				</svg>
+				<div id="containTexts" style='margin:0px;width:100%; height: 100%;overflow: hidden; font-size: 0; position: absolute;'>
+					<div id="temperatureUpperSideTextContainer" style='margin:0px;width:100%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: relative; font-family: Calibri; font-size: 2vh;'>
+						<div id="temperatureUpperSideText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: McLaren; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1)'>
+						</div>
+					</div>
+					<div id="temperatureLowerSideTextContainer" style='margin:0px;width:100%; height: 50%;overflow: hidden;background: hsla(200 ,0%,100%,1);text-align: center; position: absolute; font-family: Calibri; font-size: 2vh;'>
+						<div id="temperatureLowerSideText" style='margin:0px;background: hsla(200 ,100%,50%,0); text-align: center; font-family: McLaren; font-size: 2.5vh; transform: translate(-50%,-50%); left: 50%; top: 50%; position: relative; color: hsla(200 ,100%,0%,1)'>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="containLab" style='margin:0px;width:100%; height: 100%;overflow: hidden;box-shadow: 0px 20px 50px rgba(0,0,0,0.2);'>
+			</div>
+
+			<div id="settings" style='margin:0px;width:100%; height: 100%;overflow: hidden;'> 
+				<svg id='settingsSvg' height="100%" width="100%">
+				</svg>
+			</div>
+		</div>
+		
+		<script>
+
+		
+		trapdoorOpen = false
+
+		particlesEachSide = 15
+		observableParticles = 5
+
+		var viewWidth = window.innerWidth;
+		var viewHeight = window.innerHeight;
+
+		timestepcount = 0;
+
+
+
+
+		function CreateEnvironment(numberofparticlesOnASide) {
+			Physics(function(world){
+
+			var renderer = Physics.renderer('canvas', {
+				el: 'viewport',
+				width: viewWidth,
+				height: viewHeight,
+				meta: false, // don't display meta data
+				styles: {
+					// set colors for the circle bodies
+					'circle' : {
+						strokeStyle: '#351024',
+						lineWidth: 1,
+						fillStyle: '#027FFC'
+					},
+					'rectangle' : {
+						fillStyle: 'rgba(130, 8, 251, 0.29)',
+						strokeStyle: 'rgba(130, 8, 251, 0)'
+					}
+				}
+			});
+
+
+			
+
+
+			// add the renderer
+			world.add(renderer);
+			// render on each step
+			world.on('step', function(){
+				world.render();
+			});
+
+			// bounds of the window
+			var viewportBounds = Physics.aabb(0, 0, viewWidth, viewHeight);
+			
+
+
+			//constrain objects to these bounds
+			world.add(Physics.behavior('edge-collision-detection', {
+				aabb: viewportBounds,
+				restitution: 1,
+				cof: 0
+			}));
+
+			createObjects(world)
+
+	
+			world.render();
+
+			var temperatureUpper;
+			var temperatureLower;
+
+			tempdiffTarget = 10;
+
+			// ensure objects bounce when edge collision is detected
+			world.add(Physics.behavior('body-impulse-response') );
+
+			
+			world.add( Physics.behavior('body-collision-detection') );
+			world.add( Physics.behavior('sweep-prune') );
+
+			
+
+			
+			
+
+			// subscribe to ticker to advance the simulation
+			Physics.util.ticker.on(function(time, dt ){
+				timestepcount = timestepcount + 1;
+				numberofRParticlesUpper = 0;
+				numberofRParticlesLower = 0;
+				numberofBParticlesUpper = 0;
+				numberofBParticlesLower = 0;
+				totalEnergyUpper = 0
+				totalEnergyLower = 0
+				numberofParticlesUpper = 0
+				numberofParticlesLower = 0
+
+				analysisWindowParticles = []
+
+				for (particleNumber = 0; particleNumber < world.getBodies().length; particleNumber++) {
+					particle = world.getBodies()[particleNumber];
+					if (particle.treatment == 'dynamic') {
+						kinetic = 0.5*particle.mass*(particle.state.vel.norm()**2)
+						if (particle.state.pos.y < viewHeight/2) {
+							totalEnergyUpper = totalEnergyUpper + kinetic;
+							numberofParticlesUpper = numberofParticlesUpper + 1;
+						}
+						if (particle.state.pos.y >= viewHeight/2) {
+							totalEnergyLower = totalEnergyLower + kinetic;
+							numberofParticlesLower = numberofParticlesLower + 1;
+						}
+						if (particle.state.pos.y < viewHeight/2 + viewHeight/100 && particle.state.pos.y > viewHeight/2 - viewHeight/100 && (particle.state.pos.x < viewWidth/2 - viewWidth/10 || particle.state.pos.x > viewWidth/2 + viewWidth/10) && trapdoorOpen) {
+							particle.state.vel.y = -particle.state.vel.y
+							if (particle.state.vel.y < 0) {
+								particle.state.pos.y = viewHeight/2 - viewHeight/100
+							}
+							else {
+								particle.state.pos.y = viewHeight/2 + viewHeight/100
+							}
+						}
+						if (particle.state.pos.y < viewHeight/2 + viewHeight/100 && particle.state.pos.y > viewHeight/2 - viewHeight/100 && trapdoorOpen == false) {
+							particle.state.vel.y = -particle.state.vel.y
+							if (particle.state.vel.y < 0) {
+								particle.state.pos.y = viewHeight/2 - viewHeight/100
+							}
+							else {
+								particle.state.pos.y = viewHeight/2 + viewHeight/100
+							}
+						}
+						if(particle.state.pos.x > analysisWindow[0] && particle.state.pos.x < analysisWindow[1] && particle.state.pos.y > analysisWindow[2] && particle.state.pos.y < analysisWindow[3]) {
+							analysisWindowParticles.push(particle)
+						}
+
+					}
+				}
+				temperatureUpper = totalEnergyUpper/numberofParticlesUpper;
+				temperatureLower = totalEnergyLower/numberofParticlesLower;
+				if (numberofParticlesLower == 0) {
+					temperatureLower = 0;
+				}
+				if (numberofParticlesUpper == 0) {
+					temperatureUpper = 0;
+				}
+				temperatureDifference = Math.abs(temperatureUpper - temperatureLower);
+				rewardvalue = rewardCalculation(temperatureDifference*10000)
+				world.step( time );
+				if (timestepcount % 20 == 0) {
+					chosenParticles = pickElements(analysisWindowParticles, observableParticles)
+					neuralNetworkInputs = neuralNetworkInputsGen(chosenParticles, observableParticles)
+					systemstate = neuralNetworkInputs
+					qvalue = myNetwork.activate(systemstate);
+					// console.log(qvalue, replayMemory.length)
+					if (policy == 'random') {
+						chosenaction = actions[parseInt(Math.random()*(actions.length))]
+					}
+					else if (policy == 'epsilonGreedy') {
+						if (Math.random() < epsilonG) {
+							chosenaction = actions[parseInt(Math.random()*(actions.length))]
+							console.log('chosenRandom', chosenaction)
+						}
+						else {
+							chosenaction = actions[qvalue.indexOf(Math.max(...qvalue))]
+							console.log('chosenFromNetwork', chosenaction)
+						}
+
+					}
+					endstate = 'episodeInProgress'
+					if (rewardvalue >= 1) {
+						endstate = 'episodeEnd'
+					}
+
+					if (replayMemory.length + 1 > replayMemorySize) {
+						endstate = 'replaySizeFull'
+					}
+
+					trapdoorAgentTrigger(chosenaction)
+					replayMemory.push([systemstate,chosenaction,rewardvalue,qvalue,endstate])
+				}
+				// console.log(neuralNetworkInputs)
+				
+				document.getElementById('temperatureUpperSideText').innerHTML = "Temperature  " + (temperatureUpper*10000).toFixed(2) + "</br>" + numberofParticlesUpper + " particles. ";
+				document.getElementById('temperatureLowerSideText').innerHTML = "Temperature  :" + (temperatureLower*10000).toFixed(2) + "</br>" + numberofParticlesLower + " particles. </br> </br>" + "Total Kinetic Energy : " + ((totalEnergyUpper + totalEnergyLower)*10000).toFixed(2) +  "</br> Reward : " + rewardvalue.toFixed(2);
+
+				// We Create a New Episode
+				if (rewardvalue >= 1) {
+					world.remove(world.getBodies())
+					advanceEpsilonG()
+					console.log(" End of Episode. ")
+					// Physics.util.ticker.stop();
+					// timestepcount = 0
+					createObjects(world)
+				}
+
+				if (replayMemory.length > replayMemorySize) {
+					world.remove(world.getBodies())
+					console.log(" Replay Size Reached. ")
+					backwardSweep()
+					console.log(" Back sweep done. ")
+					trainNetwork()
+					console.log(" Training done. ")
+					replayMemory = []
+					console.log(" Creating Environment. ")
+					createObjects(world)
+					// CreateEnvironment(particlesEachSide)
+					
+					
+				}
+			});
+
+			
+
+			// start the ticker
+			Physics.util.ticker.start();
+
+			});
+		}
+
+
+		function createObjects(world) {
+			for (body = 0; body < particlesEachSide; body++) {
+				ballcolor = 'hsla(190,100%,50%,0.5)';
+				xvel = (Math.random() - 0.5)*0.2
+				yvel = (Math.random() - 0.5)*0.2
+				
+				world.add(
+					Physics.body('circle', {
+						x: Math.random()*viewWidth, // x-coordinate
+						y: Math.random()*viewHeight/2 - viewHeight/10, // y-coordinate
+						vx: xvel, // velocity in x-direction
+						vy: yvel, // velocity in y-direction
+						mass: 1,
+						radius: 3,
+						cof: 0,
+						restitution: 1,
+						styles: {
+							fillStyle: ballcolor
+						}
+					})
+				);
+
+				world.add(
+					Physics.body('circle', {
+						x: Math.random()*viewWidth, // x-coordinate
+						y: viewHeight/2 + Math.random()*viewHeight/2 + viewHeight/10, // y-coordinate
+						vx: xvel, // velocity in x-direction
+						vy: yvel, // velocity in y-direction
+						mass: 1,
+						radius: 3,
+						cof: 0,
+						restitution: 1,
+						styles: {
+							fillStyle: ballcolor
+						}
+					})
+				);
+			}
+
+		}
+
+
+		function advanceEpsilonG() {
+			epsilonG = epsilonG*(1 - epsilonG)
+		}
+
+		analysisWindowParticles = []
+
+		analysisWindow = [viewWidth/2 - viewWidth/5,viewWidth/2 + viewWidth/5,viewHeight/2 - viewHeight/5, viewHeight/2 + viewHeight/5]
+
+		replayMemorySize = 100
+		replayMemory = []
+
+		discount = 0.97
+
+
+		function backwardSweep() {
+			for(k = replayMemory.length - 1; k > 0; k--) {
+				systemstatereplay = replayMemory[k][0]
+				actionchosenreplay = replayMemory[k][1]
+				rewardreplay = replayMemory[k][2]
+				qvaluereplay = replayMemory[k][3]
+				endstatereplay = replayMemory[k][4]
+
+				if (endstatereplay == 'episodeEnd' || endstatereplay == 'replaySizeFull') {
+					actionvalue = rewardreplay
+				}
+				else {
+					actionvalue = rewardreplay + discount * Math.max(...replayMemory[k+1][3])
+				}
+
+				replayMemory[k][3][actions.indexOf(actionchosenreplay)] = actionvalue
+				// qvalue[qkey] = qvalue[qkey] + learningrate*(nextstatereward + (discount)*maxQ(cstate) - qvalue[qkey])
+			}
+		}
+
+		function trainNetwork() {
+			ersum = 0
+			for(k = 0; k < replayMemory.length; k++) {
+				systemstatereplay = replayMemory[k][0]
+				qvaluereplay = replayMemory[k][3]
+				ervalue = backProp(systemstatereplay, qvaluereplay)
+				ersum = ersum + ervalue
+			}
+			console.log(ersum)
+		}
+
+		
+
+		function rewardCalculation(tempDiff) {
+			maxreward = 2
+			if (tempDiff >= maxreward) {
+				return 1
+			}
+			else {
+				return (tempDiff - maxreward)*0.1
+			}
+		}
+
+		function neuralNetworkInputsGen(particleset,size) {
+			Ninputs = []
+			for (k=0; k<particleset.length; k++) {
+				Ninputs.push(chosenParticles[k].state.pos.x)
+				Ninputs.push(chosenParticles[k].state.pos.y)
+				Ninputs.push(chosenParticles[k].state.vel.x)
+				Ninputs.push(chosenParticles[k].state.vel.y)
+			}
+			if (particleset.length < size) {
+				for (k=0; k<(size - particleset.length); k++) {
+					Ninputs.push(0)
+					Ninputs.push(0)
+					Ninputs.push(0)
+					Ninputs.push(0)
+				}
+			}
+			return Ninputs
+		}
+
+		function shuffle(array) {
+			var currentIndex = array.length, temporaryValue, randomIndex;
+
+			// While there remain elements to shuffle...
+			while (0 !== currentIndex) {
+
+				// Pick a remaining element...
+				randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex -= 1;
+
+				// And swap it with the current element.
+				temporaryValue = array[currentIndex];
+				array[currentIndex] = array[randomIndex];
+				array[randomIndex] = temporaryValue;
+			}
+
+			return array;
+		}
+
+		function pickElements(Earray, numElements) {
+			Narray = shuffle(Earray)
+			Narray = Narray.slice(0, numElements)
+
+			return Narray
+		}
+
+
+
+
+		function trapdoorTrigger(event) {
+			var code = event.keyCode;
+			if (code == 84) {
+				if(trapdoorOpen) {
+					trapdoorOpen = false
+					document.getElementById('trapdoor').style.opacity = 1
+				}
+				else {
+					trapdoorOpen = true
+					document.getElementById('trapdoor').style.opacity = 0
+				}
+			}
+		}
+
+		function trapdoorAgentTrigger(Tstate) {
+			if(Tstate == 'open') {
+				trapdoorOpen = true
+				document.getElementById('trapdoor').style.opacity = 0
+			}
+			else {
+				trapdoorOpen = false
+				document.getElementById('trapdoor').style.opacity = 1
+			}
+		}
+
+		actions = ['open','close']
+		policy = 'epsilonGreedy'
+		epsilonG = 0.5
+
+
+
+
+
+		// function XOR(x1,x2) {
+		// 	x1 = parseInt(x1)
+		// 	x2 = parseInt(x2)
+
+		// 	if(x1 == 0 && x2 == 0) {
+		// 		return 0
+		// 	}
+		// 	else if(x1 == 1 && x2 == 0) {
+		// 		return 1
+		// 	}
+		// 	else if(x1 == 0 && x2 == 1) {
+		// 		return 1
+		// 	}
+		// 	else if(x1 == 1 && x2 == 1) {
+		// 		return 0
+		// 	}
+		// 	else {
+		// 		return 'Error in Inputs.'
+		// 	}
+		// }
+
+		// function AND(x1,x2) {
+		// 	x1 = parseInt(x1)
+		// 	x2 = parseInt(x2)
+
+		// 	if(x1 == 0 && x2 == 0) {
+		// 		return 0
+		// 	}
+		// 	else if(x1 == 1 && x2 == 0) {
+		// 		return 0
+		// 	}
+		// 	else if(x1 == 0 && x2 == 1) {
+		// 		return 0
+		// 	}
+		// 	else if(x1 == 1 && x2 == 1) {
+		// 		return 1
+		// 	}
+		// 	else {
+		// 		return 'Error in Inputs.'
+		// 	}
+		// }
+
+
+		inputlayerlength = observableParticles*4
+		hiddenlayer1length = inputlayerlength
+		outputlayerlength = actions.length
+
+		// inputlayerlength = 2
+		// hiddenlayer1length = 5
+		// outputlayerlength = 1
+
+		// create the network
+		const { Layer, Network } = window.synaptic;
+
+		var inputLayer = new Layer(inputlayerlength);
+		var hiddenLayer = new Layer(hiddenlayer1length);
+		var outputLayer = new Layer(outputlayerlength);
+
+		inputLayer.project(hiddenLayer);
+		hiddenLayer.project(outputLayer);
+
+		var myNetwork = new Network({
+			input: inputLayer,
+			hidden: [hiddenLayer],
+			output: outputLayer
+		});
+
+		// train the network
+		var learningRate = .3;
+
+		function ErrorValue(actual, ideal) {
+			errorArray = actual
+			for(a=0; a<actual.length; a++) {
+				errorArray[a] = actual[a] - ideal[a]
+			}
+			return errorArray
+		}
+
+		function ErrorValueSq(actual, ideal) {
+			errorArray = actual
+			sum = 0
+			for(a=0; a<actual.length; a++) {
+				errorArray[a] = actual[a] - ideal[a]
+				sum = sum + Math.abs(errorArray[a])
+			}
+			return sum/actual.length
+		}
+
+		function backProp(inputpattern, expectedoutput) {
+			networkoutput = myNetwork.activate(inputpattern);
+			myNetwork.propagate(learningRate, expectedoutput);
+			console.log(expectedoutput)
+			return ErrorValueSq(networkoutput, expectedoutput)
+		}
+
+
+		// trainingpairs = [[0,0],[0,1],[1,0],[1,1]]
+
+		// for (var i = 0; i < 200; i++) {
+		// 	inp = trainingpairs[i%4]
+
+		// 	out = [AND(inp[0], inp[1])]
+
+		// 	backProp(inp, out)
+			
+		// }
+
+		// test the network
+		// console.log(myNetwork.activate([0,0])); 
+		// console.log(myNetwork.activate([0,1]));
+		// console.log(myNetwork.activate([1,0]));
+		// console.log(myNetwork.activate([1,1]));
+
+		CreateEnvironment(particlesEachSide)
+
+
+
+
+		document.addEventListener('keydown',trapdoorTrigger)
+
+
+
+		var fragment = document.createDocumentFragment();
+		fragment.appendChild(document.getElementById('viewport'));
+		document.getElementById('containEnv').appendChild(fragment);
+
+		// document.getElementById('viewport').height = canvasheight;
+		// document.getElementById('viewport').style.width = '100%'
+		
+		</script>
+
+
+
+	</body>
+<html>
