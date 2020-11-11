@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <script src="confetti.js"></script>
+    </head>
+    <body>
+        <canvas id="confetti-holder"></canvas>
+    </body>
+    <script>
+        confettiConfig = {"target":"confetti-holder","max":"190","size":"1","animate":true,"props":["circle","square","triangle","line"],"colors":[[165,104,246],[230,61,135],[0,199,228],[253,214,126]],"clock":"25","rotate": true,"width":"1536","height":"690","start_from_edge":false,"respawn":true}
+        var confetti = new ConfettiGenerator(confettiConfig);
+        confetti.render();
+    </script>
+</html>
