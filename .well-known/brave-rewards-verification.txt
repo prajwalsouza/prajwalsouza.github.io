@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: prajwalsouza.github.io
+Token: e591e1952a0e8721435bc0d72cc5f05af1dcac153d990283655b221556725e4a
