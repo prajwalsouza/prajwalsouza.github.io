@@ -2530,37 +2530,37 @@
 		function removePoint(graphname, pointname) {
 			pointElement = document.getElementById(graphname + '-point-' + pointname)
 			
-			pointElement.outerHTML = "";
+			pointElement.remove();
 			delete graphData[graphname].pointData[pointname]
 		}
 
 		function removeLine(graphname, linename) {
 			lineElement = document.getElementById(graphname + '-line-' + linename)
-			lineElement.outerHTML = "";
+			lineElement.remove();
 			delete graphData[graphname].lineData[linename]
 		}
 
 		function removeCircle(graphname, circlename) {
 			circleElement = document.getElementById(graphname + '-circle-' + circlename)
-			circleElement.outerHTML = "";
+			circleElement.remove();
 			delete graphData[graphname].circleData[circlename]
 		}
 
 		function removeText(graphname, textname) {
 			textElement = document.getElementById(graphname + '-text-' + textname)
-			textElement.outerHTML = "";
+			textElement.remove();
 			delete graphData[graphname].textData[textname]
 		}
 
 		function removePath(graphname, pathname) {
 			pathElement = document.getElementById(graphname + '-path-' + pathname)
-			pathElement.outerHTML = "";
+			pathElement.remove();
 			delete graphData[graphname].pathData[pathname]
 		}
 
 		function removeGraph(graphname) {
 			graphElement = document.getElementById(graphname)
-			graphElement.outerHTML = "";
+			graphElement.remove();
 			delete graphData[graphname]
 		}
 
