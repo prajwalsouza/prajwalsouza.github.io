@@ -1,4 +1,5 @@
 viewX = {}
+  
 
 viewX.graphToSvgY = function (value, graphymin, graphymax) {
 	if (graphymin == graphymax) {
@@ -707,8 +708,9 @@ viewX.updateGraphZoom = function(graphname, newMinMax) {
 	}
 }
 
-viewX.addGraph = function (parentdiv, name, gdata) {
-	gdata = gdata || {}
+viewX.addGraph = function (parentdiv, name, graphData) {
+	gdata = {}
+	gdata = graphData || {}
 
 	gdata.name = name || 'graph' + Math.random().toString()
 
@@ -1190,7 +1192,7 @@ viewX.addGraph = function (parentdiv, name, gdata) {
 	gdata.aspectratio = aratio
 
 
-	viewX.graphData[name] = gdata
+	viewX.graphData[name] =  Object.assign({}, gdata);
 	return JSON.parse(JSON.stringify(gdata));
 }
 
@@ -1261,7 +1263,6 @@ viewX.updateLine = function(graphname, linename, linevalues) {
 
 	gdata = viewX.graphData[graphname]
 	aratio = gdata.aspectratio
-
 	lineoptions = gdata.lineData[linename][1]
 	lineElement = gdata.lineData[linename][0]
 	
@@ -2116,6 +2117,9 @@ viewX.addPoint = function(graphname, pointname, pointoptions) {
 		pointElement.addEventListener('mousedown', viewX.pointDrag)
 		pointElement.addEventListener('touchstart', viewX.pointDrag)
 		gdata.svgElement.addEventListener('touchmove', viewX.graphTouchDisable)
+
+		pointElement.style.cursor = 'move'
+		pointElement.style.pointerEvents = 'auto'
 	}
 	else {
 		pointElement.style.pointerEvents = 'none'
@@ -2341,6 +2345,7 @@ viewX.pointDrag = function(event) {
 }
 
 viewX.svgPTVariable = {}
+
 
 viewX.pointMoveEvent = function(event) {
 	event.preventDefault()

@@ -134,6 +134,12 @@
                     </div>
                 </div>
 
+                <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                    <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                        <div id="distance-between-any-two-points-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                    </div>
+                </div>
+
                 
 
 
@@ -264,7 +270,7 @@
             graphH.addEventListener("mousemove", viewX.getCoordinatesOfEvent("upc-measurement-graph", "upcMeasurementGraphMouseMove"))
             
 
-            rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.2, rectcolor: "hsla(190, 100%, 50%, 0)"};
+            rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.4, rectcolor: "hsla(190, 100%, 50%, 0)"};
 
             viewX.addRectangle("upc-measurement-graph", "upc-measurement-unit-square", rectOptions);
             
@@ -347,11 +353,63 @@
         }
 
 
+        // Code For 2st Graph : distance-between-two-points
 
+        gph2 = {}
 
+        gph2.graphH2 = document.getElementById('distance-between-any-two-points-graphHolder')
+        viewX.addGraph(gph2.graphH2, "distance-between-any-two-points-graph", defaultGraphOptions)
 
+        rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.4, rectcolor: "hsla(190, 100%, 50%, 0)"};
+
+        viewX.addRectangle("distance-between-any-two-points-graph", "distance-between-any-two-points-square", rectOptions);
+
+        gph2.pointA = [0.2, 0.4]
+        gph2.pointB = [0.8, 0.7]
+
+        gph2.distanceText = viewX.distF(gph2.pointA, gph2.pointB).toFixed(3);
+
+        lineOptions = { x1: gph2.pointA[0], y1: gph2.pointA[1], x2: gph2.pointB[0], y2:gph2.pointB[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"}; 
+        viewX.addLine("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-line", lineOptions);
         
-        
+        pointOptions = {x: gph2.pointA[0], y: gph2.pointA[1], pointsize: 1, pointcolor: 'var(--lightBlue)', draggability: "yes", runFunctionDuringDrag: "gph2.onPointDrag()"};
+        viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A", pointOptions);
+        textOptions = {x: gph2.pointA[0] + 0.05, y: gph2.pointA[1] - 0.08, text: "A",  textAlign: "center",  fontSize: 4, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+        viewX.addText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A-label", textOptions);
+
+        pointOptions = { x: gph2.pointB[0], y: gph2.pointB[1], pointsize: 1, pointcolor: 'var(--lightPurple)', draggability: "yes", runFunctionDuringDrag: "gph2.onPointDrag()"};
+        viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B", pointOptions);
+        textOptions = {x: gph2.pointB[0] + 0.05, y: gph2.pointB[1] - 0.08, text: "B",  textAlign: "center",  fontSize: 4, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+        viewX.addText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B-label", textOptions);
+
+        textOptions = {x: (gph2.pointA[0] + gph2.pointB[0])/2, y: (gph2.pointA[1] + gph2.pointB[1])/2, text: gph2.distanceText,  textAlign: "center",  fontSize: 2.8, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+        viewX.addText("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-label", textOptions);
+
+
+        gph2.onPointDrag = function() {
+
+            gph2.movedLocationA = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-A"][1]
+
+            gph2.movedLocationB = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-B"][1]
+
+            gph2.point1 = [gph2.movedLocationA.x, gph2.movedLocationA.y]
+            gph2.point2 = [gph2.movedLocationB.x, gph2.movedLocationB.y]
+
+            gph2.distanceText = viewX.distF(gph2.point1, gph2.point2).toFixed(3);
+
+            lineOptions = { x1: gph2.point1[0], y1: gph2.point1[1], x2: gph2.point2[0], y2:gph2.point2[1]}; 
+            viewX.updateLine("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-line", lineOptions);
+            
+            textOptions = {x: gph2.point1[0] + 0.05, y: gph2.point1[1] - 0.08};
+            viewX.updateText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A-label", textOptions);
+
+            textOptions = {x: gph2.point2[0] + 0.05, y: gph2.point2[1] - 0.08};
+            viewX.updateText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B-label", textOptions);
+
+            textOptions = {x: (gph2.point1[0] + gph2.point2[0])/2, y: (gph2.point1[1] + gph2.point2[1])/2, text: gph2.distanceText};
+            viewX.updateText("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-label", textOptions);
+
+        }
 
 		</script>
 
