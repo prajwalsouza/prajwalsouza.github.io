@@ -25,7 +25,7 @@
 		
 		<script type="application/ld+json">
 			{
-			  "@type": "Blog",
+			  "@type": "blog",
 			  "name": "Where is the Parabola? - The Universal Parabolic Constant Mystery",
 			  "author": "Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello",
 			  "description": "Explore the mysteries of the Universal Parabolic Constant with Manas Shetty, Prajwal DSouza, Sparsha Kumari and Vinton Adrian Rebello. Dive into a journey of understanding average distances, shrinking random walks, and the unexpected links between parabolas and squares. Discover the complexities of curve length division and the elegance of parabolic arcs. A perfect resource for those intrigued by the fascinating world of mathematical problem-solving."
@@ -40,6 +40,11 @@
                 --lightPink:  hsl(320, 55%, 76%);
                 --lightBlue:  hsl(205, 100%, 69%);
 			}
+
+
+            a:hover {
+                color: white;
+            }
 
             p {
                 color: hsl(0,0%,45%)
@@ -61,6 +66,16 @@
                 color: var(--lightBlue);
             }
 
+            .our-text-block {
+                max-width: 1000px;
+            }
+
+            .p-White {
+                color: white;
+            }
+
+
+
 		</style>
 
 
@@ -68,7 +83,7 @@
 	<body style='margin:0px; display: block;'>
 		<div id="containAll" class="pl-3 pr-3 pt-3 pb-3">
             <div style="border: 1px solid hsl(0,0%,2%); border-radius: 10px; background: var(--generalBackground); ">
-                <!-- <div id="graphHolderH" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div> -->
+                
                 <div style="position: fixed; font-family: Raleway; overflow: hidden;" class="d-none">
                     <div style="background-image: linear-gradient(to bottom, var(--generalBackground), transparent); color: hsl(0,0%,20%); font-size: small; " class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center">
                         <b>Where is the Parabola? The Parabolic Constant Mystery</b><br/>
@@ -86,10 +101,44 @@
                 </div>
 
                 <div class="w-100 text-ignus pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
-                    <div style="max-width: 1000px;" class="text-center">
+                    <div class="our-text-block text-center">
                         <p>Let us start with a innocent looking problem. Imagine a <span class="p-lightYellow">unit square</span>, a perfect little 1x1 entity. Now, pick a point <span class="p-lightPurple">Q</span> at random along the square's boundary. What do you think is the <span class="p-lightPink">average distance</span> between this chosen <span class="p-lightPurple">point Q</span> and the very heart of our square, the <span class="p-lightBlue">center C</span>? </p>
                     </div>
                     
+                </div>
+
+                <div class="w-100 text-ignus pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                    <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                        <div id="upc-measurement-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="w-100 text-ignus pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                    <div class="our-text-block text-center">
+                        <p>The answer is approximately <span class="p-lightPink" id="parameter-measured-parabolic-constant">0.5738967</span>... This number is equal to <span class="p-White" >P</span>/4 and <span class="p-White" >P</span> is called the <span class="p-White" >Universal Parabolic Constant</span>. But wait. Parabola? This is question about squares. Where is the parabola? </p>
+                    </div>
+                </div>
+
+                
+
+                <div class="w-100 text-ignus pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                    <div class="our-text-block text-center">
+                        <p>This might seem like a co-incidence. But, we care about <span class="p-White" >pi</span> when it pops up in various places right? Just check <a class="p-lightBlue" href="" target="_blank" >3B1B</a>. :P  So, why not dig a little deeper. And if we explore a little more, there are other seemingly unrelated math problems where you see this number show up. </p>
+                    </div>
+                </div>
+
+                <div class="w-100 text-ignus pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                    <div class="our-text-block text-center">
+                        <p>What do you think is the average distance between any two points inside a unit square?</p>
+                    </div>
+                </div>
+
+                
+
+
+
+                <div class="w-100 pt-5 pb-5">
+
                 </div>
             </div>
 
@@ -105,193 +154,196 @@
 			}
 		</script>
 
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/prajwalsouza.github.io/JS/plots.js"></script>
-
-		<!-- <script type="text/javascript">
-
-
-		animLoopCount = 0
-		calculationLoopCount = 0
-
-		// starts playing animations when the browser loads. Changing this on demand anywhere can pause animations.
-		playing = true
-
-		// plots object positions/movements/changes 30 times a second.
-		frameRate = 30
-
-		// calculates object positions/movements/changes 60 times a second.
-		// But I'll not be using this, this time. 
-
-		// calculationRate = 60
-
-		frameInterval = 1000/frameRate
-		// calculationFrameInterval = 1000/calculationRate
-
-		// This is the importart part which sets up the graph.
-		function setUpGraph() {
-			graphH = document.getElementById('graphHolderH')
-			
-			// Comment out whatever property you wanna use
-
-			graphoptions = {}
-			graphoptions.xmax = 10
-			graphoptions.xmin = -10
-
-			graphoptions.ymax = 10
-			graphoptions.ymin = -10
-
-			graphoptions.axislocationX = 0
-			graphoptions.axislocationY = 0
-
-			graphoptions.xaxislabelvisibility = 'no'
-			graphoptions.yaxislabelvisibility = 'no'
-
-			// graphoptions.xaxisvisibility= 'no'
-			// graphoptions.yaxisvisibility = 'no'
-
-			// graphoptions.xmajorgridlabelvisibility = 'no'
-			// graphoptions.ymajorgridlabelvisibility = 'no'
-
-			// graphoptions.xmajorgridlinesvisibility = 'no'
-			// graphoptions.ymajorgridlinesvisibility = 'no'
-
-			graphoptions.fontSize = 1.6
-			
-			graphoptions.unitAspectRatio = 'yes'
-			graphoptions.fixAxisStretchCentrally = 'yes'
-
-			graphoptions.scrollZoom = 'yes'
-			graphoptions.draggability = 'yes'
-			
-			addGraph(graphH, 'graphName', graphoptions)	
-			// addGraph(div location inside which the graph gets added,     graph name,     parameters we described for the graph)
-		}
-
-		// We set up the graph
-		setUpGraph()
-
-		// Add objects to the graph called 'GraphName'
-		function addObjects() {
-			// We can add the following objects
-
-			// Adding a point at (5, 5)
-			options = {}
-			options.x = 5
-			options.y = 5
-			options.pointcolor = 'hsla(40, 100%, 50%, 1)'  // Orange
-			options.pointsize = 1
-			addPoint('graphName', 'samplePoint', options)
-			// We will animate this later and move it in a circle of radius 3.
-
-			// Adding a path 
-
-			options = {}
-			options.points = [[4, 0], [0, 4], [-4, 0], [0, -4], [4, 0]]
-			options.pathcolor = 'hsla(190, 100%, 50%, 1)' // Blue
-			options.strokewidth = 0.3
-			addPath('graphName', 'samplePath', options)
-
-			// Adding a circle at [3, 6] with radius 2
-
-			options = {}
-			options.x = 3
-			options.y = 6
-			options.radius = 2
-			options.circlecolor ='hsla(80, 100%, 50%, 0.4)' //lighter green
-			options.stroke =  'hsla(100, 100%, 50%, 1)' // green
-			options.strokewidth = 1
-			addCircle('graphName', 'sampleCircle', options)
-
-			// We'll change this radius and fill color continously later.
-
-			// Adding a line from [1, 1] to [3, 2]
-
-			options = {}
-			options.x1 = 1
-			options.y1 = 1
-			options.x2 = 3
-			options.y2 = 2
-			options.linecolor = 'hsla(280, 100%, 50%, 0.4)' // violet ish
-			options.strokewidth = 3
-			addLine('graphName', 'sampleLine', options)
-
-			// There are many more objects. Please check them out in the plots.js file.
-
-		}
-
-		addObjects()
-
-		// This is invoked inside the calculation loop. It calculates object positions.
-		// Not using this, this time.
-		function moveObjects() {
-
-		}
-
-		// This is invoked inside the animation loop. It plots object positions/changes.
-		function plotObjects() {
-
-			// animLoopCount increases by one every time step. 
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/viewX@latest/viewx.js"></script>  -->
+        <script type="text/javascript" src="JS/viewx.js"></script> 
 
 
-			// We will update the position of the point at [5, 5] continously in a circle, at a radius of 3. 
-			toMovePointX = 3*Math.cos(animLoopCount*0.01)
-			toMovePointY = 3*Math.sin(animLoopCount*0.01)
+		<script type="text/javascript">
 
-			updatePointXY('graphName', 'samplePoint', toMovePointX, toMovePointY)
+        upc = 2.2955871493926380
 
-			// We change the circle's radius in a oscillation.
+        // First graph : upc-measurement-graph
 
-			newRadius = 2 + Math.cos(animLoopCount*0.01)
-			newColor = 'hsla(' + animLoopCount/2 + ', 100%, 50%, 0.4)'
+        defaultGraphOptions = {}
+        defaultGraphOptions.xmax = 1.1
+        defaultGraphOptions.xmin = -0.1
 
-			// animLoopCount/2 goes from 0 to 349 changing colors. 
+        defaultGraphOptions.ymax = 1.1
+        defaultGraphOptions.ymin = -0.1
 
-			options = {}
-			options.radius = newRadius
-			options.circlecolor = newColor
-			updateCircle('graphName', 'sampleCircle', options)
+        defaultGraphOptions.axislocationX = 0
+        defaultGraphOptions.axislocationY = 0
 
-			// To update other objects you can refer the plots.js file.
-		}
+        defaultGraphOptions.xaxislabelvisibility = 'no'
+        defaultGraphOptions.yaxislabelvisibility = 'no'
 
-		// Animation Handler
+        defaultGraphOptions.xaxisvisibility= 'no'
+        defaultGraphOptions.yaxisvisibility = 'no'
 
-		function playAnimationLoop(event) {
-			loopinterval = setInterval(frame, frameInterval);
-			function frame() {
-				animLoopCount = animLoopCount + 1
-				if (playing) {
-					plotObjects()
-				}
-			}
-		}
+        defaultGraphOptions.xmajorgridlabelvisibility = 'no'
+        defaultGraphOptions.ymajorgridlabelvisibility = 'no'
+
+        defaultGraphOptions.xmajorgridlinesvisibility = 'no'
+        defaultGraphOptions.ymajorgridlinesvisibility = 'no'
+
+        defaultGraphOptions.fontSize = 1.6
+        
+        defaultGraphOptions.unitAspectRatio = 'yes'
+        defaultGraphOptions.fixAxisStretchCentrally = 'yes'
+
+        defaultGraphOptions.scrollZoom = "no"
+
+        graphH = document.getElementById('upc-measurement-graphHolder')
+        viewX.addGraph(graphH, "upc-measurement-graph", defaultGraphOptions)
+    
+        graphH.addEventListener("mousemove", viewX.getCoordinatesOfEvent("upc-measurement-graph", "upcMeasurementGraphMouseMove"))
+        
+
+        rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.2, rectcolor: "hsla(190, 100%, 50%, 0)"};
+
+        viewX.addRectangle("upc-measurement-graph", "upc-measurement-unit-square", rectOptions);
+        
+        // Code by GPT-4
+        function pickAPointOnSquare(givenPointOnPlane) {
+            A = givenPointOnPlane;
+            let center = [0.5, 0.5];
+
+            // Compute the vector from center to A
+            let vec = [A[0] - center[0], A[1] - center[1]];
+
+            // Normalize the vector
+            let dist = Math.sqrt(vec[0]*vec[0] + vec[1]*vec[1]);
+            let normVec = [vec[0]/dist, vec[1]/dist];
+
+            // The maximum length from the center to the edge of the square
+            let maxDist = Math.min(Math.abs(0.5 / normVec[0]), Math.abs(0.5 / normVec[1]));
+
+            // Compute the intersection point
+            let intersectionPoint = [center[0] + maxDist * normVec[0], center[1] + maxDist * normVec[1]];
+
+            return intersectionPoint;
+        }
+
+        function calculateAverageOfPoints(points) {
+            if (!Array.isArray(points)) {
+                throw new Error("Points must be an array.");
+            }
+
+            if (points.length === 0) {
+                throw new Error("Points array must not be empty.");
+            }
+
+            distanceValue = []
+
+            for (i = 0; i < points.length; i++) {
+                distanceValue.push(viewX.distF([0.5, 0.5], points[i]))
+            }
+
+            const sum = distanceValue.reduce((total, point) => total + point, 0);
+            const average = sum / distanceValue.length;
+
+            return average;
+        }
+
+        function removeRandomPoint(points) {
+            if (!Array.isArray(points)) {
+                throw new Error("Points must be an array.");
+            }
+
+            if (points.length === 0) {
+                throw new Error("Points array must not be empty.");
+            }
+
+            const randomIndex = Math.floor(Math.random() * points.length);
+            const removedPoint = points.splice(randomIndex, 1)[0];
+
+            return removedPoint;
+        }
+
+        sampledPointsOnSquare = []
+
+        pointOnSquare = pickAPointOnSquare([0.7, 0.6])
+        sampledPointsOnSquare.push(pointOnSquare)
+        averageSoFar = calculateAverageOfPoints(sampledPointsOnSquare)
+        document.getElementById("parameter-measured-parabolic-constant").innerHTML = averageSoFar.toFixed(5)
+
+        distanceText = viewX.distF([0.5, 0.5], pointOnSquare).toFixed(3);
+        
+        lineOptions = { x1: 0.5, y1: 0.5, x2: pointOnSquare[0], y2:pointOnSquare[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"};
+        viewX.addLine("upc-measurement-graph", "upc-measurement-distance-line", lineOptions);
+
+        pointOptions = { x: 0.5, y: 0.5, pointsize: 1, pointcolor: 'var(--lightBlue)'};
+        viewX.addPoint("upc-measurement-graph", "upc-measurement-center-C", pointOptions);
+        textOptions = {x: 0.5 + 0.05, y: 0.5 - 0.08, text: "C",  textAlign: "center",  fontSize: 4, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+        viewX.addText("upc-measurement-graph", "upc-measurement-center-C-label", textOptions);
+
+        pointOptions = { x: pointOnSquare[0], y: pointOnSquare[1], pointsize: 1, pointcolor: 'var(--lightPurple)'};
+        viewX.addPoint("upc-measurement-graph", "upc-measurement-randomPoint-Q", pointOptions);
+        textOptions = {x: pointOnSquare[0] + 0.05, y: pointOnSquare[1] - 0.08, text: "Q",  textAlign: "center",  fontSize: 4, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+        viewX.addText("upc-measurement-graph", "upc-measurement-randomPoint-Q-label", textOptions);
+
+        textOptions = {x: (0.5 + pointOnSquare[0])/2, y: (0.5 + pointOnSquare[1])/2, text: distanceText,  textAlign: "center",  fontSize: 2.8, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+        viewX.addText("upc-measurement-graph", "upc-measurement-distance-label", textOptions);
 
 
-		// Calculation Handler
-		// Not using it this time.
+        function upcMeasurement(givenPointOnPlane) {
+            
+            pointOnSquare = pickAPointOnSquare(givenPointOnPlane)
+            sampledPointsOnSquare.push(pointOnSquare)
+            
+            if (sampledPointsOnSquare.length > 1000) {
+                removeRandomPoint(sampledPointsOnSquare)
+            }
 
-		function playCalculationLoop(event) {
-			loopinterval2 = setInterval(frame, calculationFrameInterval);
-			function frame() {
-				calculationLoopCount = calculationLoopCount + 1
-				if (playing) {
-					plotObjects()
-				}
-			}
-		}
+            averageSoFar = calculateAverageOfPoints(sampledPointsOnSquare)
 
-		// playCalculationLoop()
+            
+            document.getElementById("parameter-measured-parabolic-constant").innerHTML = averageSoFar.toFixed(5)
 
-		// This will be use. This starts the animations.
-		playAnimationLoop()
+            lineOptions = {x2: pointOnSquare[0], y2:pointOnSquare[1]};
+            viewX.updateLine("upc-measurement-graph", "upc-measurement-distance-line", lineOptions);
+
+            viewX.updatePointXY("upc-measurement-graph", "upc-measurement-randomPoint-Q", pointOnSquare[0], pointOnSquare[1]);
+
+            textOptions = {x: pointOnSquare[0] + 0.05, y: pointOnSquare[1] - 0.08};
+            viewX.updateText("upc-measurement-graph", "upc-measurement-randomPoint-Q-label", textOptions);
+
+            distanceText = viewX.distF([0.5, 0.5], pointOnSquare).toFixed(3);
+
+            textOptions = {x: (0.5 + pointOnSquare[0])/2 + 0.05, y: (0.5 + pointOnSquare[1])/2 - 0.08, text: distanceText};
+            viewX.updateText("upc-measurement-graph", "upc-measurement-distance-label", textOptions);
+        }
+
+        function upcMeasurementGraphMouseMove() {
+            givenPointOnPlane = viewX.cursorCoordinates["upc-measurement-graph"]
+            upcMeasurement(givenPointOnPlane)
+        }
+
+        function upcRandomMeasurement() {
+            Math.cos(2*Math.PI*Math.random())
+            givenPointOnPlane = [Math.cos(2*Math.PI*Math.random()), Math.sin(2*Math.PI*Math.random())]
+            upcMeasurement(givenPointOnPlane)
+        }
 
 
-		// Important Code ends here.
+        loopinterval = setInterval(frame, 1000);
+        animLoopCount = 1
 
+        function frame() {
+            animLoopCount = animLoopCount + (sampledPointsOnSquare.length/2)
+            if (animLoopCount*0.6 > sampledPointsOnSquare.length) {
+                upcRandomMeasurement()
+            }
+        }
 
 
 
-		</script> -->
+
+
+        
+        
+
+		</script>
 
 
 	</body>
