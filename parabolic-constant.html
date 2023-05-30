@@ -47,7 +47,8 @@
             }
 
             p {
-                color: hsl(0,0%,45%)
+                color: hsl(0,0%,45%);
+                font-family: Nunito;
             }
 
             .p-lightYellow {
@@ -100,36 +101,36 @@
                     </div>
                 </div>
 
-                <div class="w-100 text-ignus pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
                     <div class="our-text-block text-center">
-                        <p>Let us start with a innocent looking problem. Imagine a <span class="p-lightYellow">unit square</span>, a perfect little 1x1 entity. Now, pick a point <span class="p-lightPurple">Q</span> at random along the square's boundary. What do you think is the <span class="p-lightPink">average distance</span> between this chosen <span class="p-lightPurple">point Q</span> and the very heart of our square, the <span class="p-lightBlue">center C</span>? </p>
+                        <p>Let us start with a innocent looking problem. Picture a <span class="p-lightYellow">unit square</span>, a perfect little 1x1 entity. Now, pick a point <span class="p-lightPurple">Q</span> at random along the square's boundary. What do you think is the <span class="p-lightPink">average distance</span> between this chosen <span class="p-lightPurple">point Q</span> and the very heart of our square, the <span class="p-lightBlue">center C</span>? </p>
                     </div>
                     
                 </div>
 
-                <div class="w-100 text-ignus pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
                     <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
                         <div id="upc-measurement-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
                     </div>
                 </div>
 
-                <div class="w-100 text-ignus pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
                     <div class="our-text-block text-center">
-                        <p>The answer is approximately <span class="p-lightPink" id="parameter-measured-parabolic-constant">0.5738967</span>... This number is equal to <span class="p-White" >P</span>/4 and <span class="p-White" >P</span> is called the <span class="p-White" >Universal Parabolic Constant</span>. But wait. Parabola? This is question about squares. Where is the parabola? </p>
+                        <p>Surprisingly, the answer is approximately <span class="p-lightPink" id="parameter-measured-parabolic-constant">0.5738967</span>... a peculiar figure, isn't it? This number equals <span class="p-White" >P</span>/4 where <span class="p-White" >P</span> is known as <span class="p-White" >Universal Parabolic Constant</span>. The value is around <span class="p-White" >2.295587149...</span> Hold on a second - a Parabolic Constant? But our question was about squares, wasn't it? <span class="p-White" >Where does the parabola come in? </span></p>
                     </div>
                 </div>
 
                 
 
-                <div class="w-100 text-ignus pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
                     <div class="our-text-block text-center">
-                        <p>This might seem like a co-incidence. But, we care about <span class="p-White" >pi</span> when it pops up in various places right? Just check <a class="p-lightBlue" href="" target="_blank" >3B1B</a>. :P  So, why not dig a little deeper. And if we explore a little more, there are other seemingly unrelated math problems where you see this number show up. </p>
+                        <p>This might seem like a co-incidence. But, we look for a circle when <span class="p-White" >pi</span>  pops up in various places right? Just check <a class="p-lightBlue" href="" target="_blank" >3B1B</a> :P  So, why not dig a little deeper. And if we explore a little more, there are other seemingly unrelated math problems where you see this number show up. </p>
                     </div>
                 </div>
 
-                <div class="w-100 text-ignus pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
                     <div class="our-text-block text-center">
-                        <p>What do you think is the average distance between any two points inside a unit square?</p>
+                        <p>What do you think is the average <span class="p-lightPink" >distance </span>between any two points inside a <span class="p-lightYellow" >unit square</span>? Take a guess. :D</p>
                     </div>
                 </div>
 
@@ -164,44 +165,36 @@
 
         // First graph : upc-measurement-graph
 
-        defaultGraphOptions = {}
-        defaultGraphOptions.xmax = 1.1
-        defaultGraphOptions.xmin = -0.1
+        defaultGraphOptions = {
+            xmax: 1.1,
+            xmin: -0.1,
 
-        defaultGraphOptions.ymax = 1.1
-        defaultGraphOptions.ymin = -0.1
+            ymax: 1.1,
+            ymin: -0.1,
 
-        defaultGraphOptions.axislocationX = 0
-        defaultGraphOptions.axislocationY = 0
+            axislocationX: 0,
+            axislocationY: 0,
 
-        defaultGraphOptions.xaxislabelvisibility = 'no'
-        defaultGraphOptions.yaxislabelvisibility = 'no'
+            xaxislabelvisibility: 'no',
+            yaxislabelvisibility: 'no',
 
-        defaultGraphOptions.xaxisvisibility= 'no'
-        defaultGraphOptions.yaxisvisibility = 'no'
+            xaxisvisibility: 'no',
+            yaxisvisibility: 'no',
 
-        defaultGraphOptions.xmajorgridlabelvisibility = 'no'
-        defaultGraphOptions.ymajorgridlabelvisibility = 'no'
+            xmajorgridlabelvisibility: 'no',
+            ymajorgridlabelvisibility: 'no',
 
-        defaultGraphOptions.xmajorgridlinesvisibility = 'no'
-        defaultGraphOptions.ymajorgridlinesvisibility = 'no'
+            xmajorgridlinesvisibility: 'no',
+            ymajorgridlinesvisibility: 'no',
 
-        defaultGraphOptions.fontSize = 1.6
+            fontSize: 1.6,
         
-        defaultGraphOptions.unitAspectRatio = 'yes'
-        defaultGraphOptions.fixAxisStretchCentrally = 'yes'
+            unitAspectRatio: 'yes',
+            fixAxisStretchCentrally: 'yes',
 
-        defaultGraphOptions.scrollZoom = "no"
+            scrollZoom: "no",
+        }
 
-        graphH = document.getElementById('upc-measurement-graphHolder')
-        viewX.addGraph(graphH, "upc-measurement-graph", defaultGraphOptions)
-    
-        graphH.addEventListener("mousemove", viewX.getCoordinatesOfEvent("upc-measurement-graph", "upcMeasurementGraphMouseMove"))
-        
-
-        rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.2, rectcolor: "hsla(190, 100%, 50%, 0)"};
-
-        viewX.addRectangle("upc-measurement-graph", "upc-measurement-unit-square", rectOptions);
         
         // Code by GPT-4
         function pickAPointOnSquare(givenPointOnPlane) {
@@ -260,31 +253,49 @@
             return removedPoint;
         }
 
-        sampledPointsOnSquare = []
 
-        pointOnSquare = pickAPointOnSquare([0.7, 0.6])
-        sampledPointsOnSquare.push(pointOnSquare)
-        averageSoFar = calculateAverageOfPoints(sampledPointsOnSquare)
-        document.getElementById("parameter-measured-parabolic-constant").innerHTML = averageSoFar.toFixed(5)
+        // Code For 1st Graph : upc-measurement-graph
 
-        distanceText = viewX.distF([0.5, 0.5], pointOnSquare).toFixed(3);
+    
+        function upcMeasurementSetup() {
+            graphH = document.getElementById('upc-measurement-graphHolder')
+            viewX.addGraph(graphH, "upc-measurement-graph", defaultGraphOptions)
         
-        lineOptions = { x1: 0.5, y1: 0.5, x2: pointOnSquare[0], y2:pointOnSquare[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"};
-        viewX.addLine("upc-measurement-graph", "upc-measurement-distance-line", lineOptions);
+            graphH.addEventListener("mousemove", viewX.getCoordinatesOfEvent("upc-measurement-graph", "upcMeasurementGraphMouseMove"))
+            
 
-        pointOptions = { x: 0.5, y: 0.5, pointsize: 1, pointcolor: 'var(--lightBlue)'};
-        viewX.addPoint("upc-measurement-graph", "upc-measurement-center-C", pointOptions);
-        textOptions = {x: 0.5 + 0.05, y: 0.5 - 0.08, text: "C",  textAlign: "center",  fontSize: 4, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
-        viewX.addText("upc-measurement-graph", "upc-measurement-center-C-label", textOptions);
+            rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.2, rectcolor: "hsla(190, 100%, 50%, 0)"};
 
-        pointOptions = { x: pointOnSquare[0], y: pointOnSquare[1], pointsize: 1, pointcolor: 'var(--lightPurple)'};
-        viewX.addPoint("upc-measurement-graph", "upc-measurement-randomPoint-Q", pointOptions);
-        textOptions = {x: pointOnSquare[0] + 0.05, y: pointOnSquare[1] - 0.08, text: "Q",  textAlign: "center",  fontSize: 4, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
-        viewX.addText("upc-measurement-graph", "upc-measurement-randomPoint-Q-label", textOptions);
+            viewX.addRectangle("upc-measurement-graph", "upc-measurement-unit-square", rectOptions);
+            
 
-        textOptions = {x: (0.5 + pointOnSquare[0])/2, y: (0.5 + pointOnSquare[1])/2, text: distanceText,  textAlign: "center",  fontSize: 2.8, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
-        viewX.addText("upc-measurement-graph", "upc-measurement-distance-label", textOptions);
+            sampledPointsOnSquare = []
 
+            pointOnSquare = pickAPointOnSquare([0.7, 0.6])
+            sampledPointsOnSquare.push(pointOnSquare)
+            averageSoFar = calculateAverageOfPoints(sampledPointsOnSquare)
+            document.getElementById("parameter-measured-parabolic-constant").innerHTML = averageSoFar.toFixed(5)
+
+            distanceText = viewX.distF([0.5, 0.5], pointOnSquare).toFixed(3);
+            
+            lineOptions = { x1: 0.5, y1: 0.5, x2: pointOnSquare[0], y2:pointOnSquare[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"};
+            viewX.addLine("upc-measurement-graph", "upc-measurement-distance-line", lineOptions);
+
+            pointOptions = { x: 0.5, y: 0.5, pointsize: 1, pointcolor: 'var(--lightBlue)'};
+            viewX.addPoint("upc-measurement-graph", "upc-measurement-center-C", pointOptions);
+            textOptions = {x: 0.5 + 0.05, y: 0.5 - 0.08, text: "C",  textAlign: "center",  fontSize: 4, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+            viewX.addText("upc-measurement-graph", "upc-measurement-center-C-label", textOptions);
+
+            pointOptions = { x: pointOnSquare[0], y: pointOnSquare[1], pointsize: 1, pointcolor: 'var(--lightPurple)'};
+            viewX.addPoint("upc-measurement-graph", "upc-measurement-randomPoint-Q", pointOptions);
+            textOptions = {x: pointOnSquare[0] + 0.05, y: pointOnSquare[1] - 0.08, text: "Q",  textAlign: "center",  fontSize: 4, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+            viewX.addText("upc-measurement-graph", "upc-measurement-randomPoint-Q-label", textOptions);
+
+            textOptions = {x: (0.5 + pointOnSquare[0])/2, y: (0.5 + pointOnSquare[1])/2, text: distanceText,  textAlign: "center",  fontSize: 2.8, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+            viewX.addText("upc-measurement-graph", "upc-measurement-distance-label", textOptions);
+        }
+
+        upcMeasurementSetup()
 
         function upcMeasurement(givenPointOnPlane) {
             
@@ -320,7 +331,6 @@
         }
 
         function upcRandomMeasurement() {
-            Math.cos(2*Math.PI*Math.random())
             givenPointOnPlane = [Math.cos(2*Math.PI*Math.random()), Math.sin(2*Math.PI*Math.random())]
             upcMeasurement(givenPointOnPlane)
         }
