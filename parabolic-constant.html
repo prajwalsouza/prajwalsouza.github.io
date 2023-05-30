@@ -13,6 +13,7 @@
 
 		<!-- Some times used library for icons -->
 		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
@@ -31,11 +32,69 @@
 			  }
 		</script>
 
+        <style type="text/css">
+			:root {
+                --generalBackground: hsl(0,0%,5%);
+                --lightYellow:  hsl(43, 51%, 81%);
+                --lightPurple:  hsl(256, 100%, 76%);
+                --lightPink:  hsl(320, 55%, 76%);
+                --lightBlue:  hsl(205, 100%, 69%);
+			}
+
+            p {
+                color: hsl(0,0%,45%)
+            }
+
+            .p-lightYellow {
+                color: var(--lightYellow);
+            }
+            
+            .p-lightPurple {
+                color: var(--lightPurple);
+            }
+
+            .p-lightPink {
+                color: var(--lightPink);
+            }
+
+            .p-lightBlue {
+                color: var(--lightBlue);
+            }
+
+		</style>
+
 
 	</head>
 	<body style='margin:0px; display: block;'>
-		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0; display: inline-block; position: relative; '>
-			<div id="graphHolderH" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+		<div id="containAll" class="pl-3 pr-3 pt-3 pb-3">
+            <div style="border: 1px solid hsl(0,0%,2%); border-radius: 10px; background: var(--generalBackground); ">
+                <!-- <div id="graphHolderH" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div> -->
+                <div style="position: fixed; font-family: Raleway; overflow: hidden;" class="d-none">
+                    <div style="background-image: linear-gradient(to bottom, var(--generalBackground), transparent); color: hsl(0,0%,20%); font-size: small; " class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center">
+                        <b>Where is the Parabola? The Parabolic Constant Mystery</b><br/>
+                         <p style="font-size:x-small">Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello</p>
+                    </div>
+                    
+                </div>
+
+                <div class="w-100 text-center text-ignus pt-5 mt-3 pb-4" style="font-family: Raleway;">
+                    <div class="pl-3 pr-3">
+                        <b style="font-size: x-large;">Where is the Parabola? </b><br/>
+                        <b style="font-size: large; color: gray">The Parabolic Constant Mystery</b><br/>
+                        <p style="font-size: medium; color: hsl(0,0%,30%)">Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello</p>
+                    </div>
+                </div>
+
+                <div class="w-100 text-ignus pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                    <div style="max-width: 1000px;" class="text-center">
+                        <p>Let us start with a innocent looking problem. Imagine a <span class="p-lightYellow">unit square</span>, a perfect little 1x1 entity. Now, pick a point <span class="p-lightPurple">Q</span> at random along the square's boundary. What do you think is the <span class="p-lightPink">average distance</span> between this chosen <span class="p-lightPurple">point Q</span> and the very heart of our square, the <span class="p-lightBlue">center C</span>? </p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            
+			
 		</div>
 
 		<script type="text/javascript">		
@@ -48,7 +107,7 @@
 
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/prajwalsouza.github.io/JS/plots.js"></script>
 
-		<script type="text/javascript">
+		<!-- <script type="text/javascript">
 
 
 		animLoopCount = 0
@@ -232,26 +291,7 @@
 
 
 
-
-
-
-
-
-
-		// Not always used. But, helps, fix certain layout issues.
-
-		function handleLayout2() {
-			if (dmode == 'portrait') {
-				
-			}
-			if (dmode == 'landscape') {
-				
-			}
-		}
-		// handleLayout2()
-
-
-		</script>
+		</script> -->
 
 
 	</body>
