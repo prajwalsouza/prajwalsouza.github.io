@@ -1459,6 +1459,87 @@ viewX.divSlider = function(holder, divslidername, minval, maxval, currvalue, ste
 	viewX.addSliderToDiv(holder, divslidername, options)
 }
 
+// GPT 3.5
+
+viewX.generateSliderStyles = function(sliderProperties, elementId) {
+	var css = "";
+
+      css += "#" + elementId + " {";
+      css += "width: " + sliderProperties.width + "px;";
+      css += "height: " + sliderProperties.height + "px;";
+      css += "background: " + sliderProperties.trackColor + ";";
+      css += "opacity: " + sliderProperties.opacity + ";";
+      css += "transition: opacity 0.2s;";
+	  css += "border-radius: 15px;";
+      css += "}";
+	  
+
+      css += "#" + elementId + "::-webkit-slider-thumb {";
+      css += "-webkit-appearance: none !important;";
+      css += "appearance: none !important;";
+      css += "width: " + sliderProperties.thumbWidth + "px;";
+      css += "height: " + sliderProperties.thumbHeight + "px;";
+      css += "background: " + sliderProperties.thumbColor + ";";
+      css += "cursor: pointer;";
+      css += "border-radius: 50%;";
+	  css += "border: none;";
+      css += "margin-top: -" + (sliderProperties.thumbHeight / 2 - sliderProperties.height / 2) + "px;";
+      css += "}";
+
+      css += "#" + elementId + "::-webkit-slider-runnable-track {";
+      css += "height: " + sliderProperties.height + "px;";
+	  css += "border-radius: 12px;";
+      css += "background: " + sliderProperties.trackColor + ";";
+      css += "}";
+
+      css += "#" + elementId + "::-moz-range-thumb {";
+      css += "width: " + sliderProperties.thumbWidth + "px;";
+      css += "height: " + sliderProperties.thumbHeight + "px;";
+      css += "background: " + sliderProperties.thumbColor + ";";
+      css += "cursor: pointer;";
+      css += "border-radius: 50%;";
+	  css += "border: none;";
+      css += "margin-top: -" + (sliderProperties.thumbHeight / 2 - sliderProperties.height / 2) + "px;";
+      css += "}";
+
+      css += "#" + elementId + "::-moz-range-progress {";
+      css += "height: " + sliderProperties.height + "px;";
+      css += "background-color: " + sliderProperties.trackFillColor + ";";
+      css += "}";
+
+      css += "#" + elementId + "::-moz-range-track {";
+      css += "height: " + sliderProperties.height + "px;";
+      css += "background: " + sliderProperties.trackColor + ";";
+      css += "}";
+
+      css += "#" + elementId + "::-ms-thumb {";
+      css += "width: " + sliderProperties.thumbWidth + "px;";
+      css += "height: " + sliderProperties.thumbHeight + "px;";
+      css += "background: " + sliderProperties.thumbColor + ";";
+      css += "cursor: pointer;";
+      css += "border-radius: 50%;";
+      css += "margin-top: 0;";
+      css += "}";
+
+      css += "#" + elementId + "::-ms-fill-lower {";
+      css += "background: " + sliderProperties.trackFillColor + ";";
+      css += "}";
+
+      css += "#" + elementId + "::-ms-fill-upper {";
+      css += "background: " + sliderProperties.trackColor + ";";
+      css += "}";
+
+      css += "#" + elementId + "::-ms-tooltip {";
+      css += "display: none;";
+      css += "}";
+
+
+	var styleElement = document.createElement("style");
+	styleElement.innerHTML = css;
+    styleElement.style.setProperty('--track-fill-color-for-' + elementId, sliderProperties.trackFillColor);
+
+	document.head.appendChild(styleElement);
+}
 
 viewX.addPath = function(graphname, pathname, pathoptions) {
 	gdata = viewX.graphData[graphname]
