@@ -1465,7 +1465,8 @@ viewX.generateSliderStyles = function(sliderProperties, elementId) {
 	var css = "";
 
       css += "#" + elementId + " {";
-      css += "width: " + sliderProperties.width + "px;";
+      css += "min-width: " + sliderProperties.minwidth + ";";
+	  css += "width: " + sliderProperties.width + ";";
       css += "height: " + sliderProperties.height + "px;";
       css += "background: " + sliderProperties.trackColor + ";";
       css += "opacity: " + sliderProperties.opacity + ";";

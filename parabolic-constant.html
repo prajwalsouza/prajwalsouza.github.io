@@ -39,10 +39,29 @@
                 -webkit-appearance: none;
                 outline: none;
             }
+
+            .commonButton {
+                border: 1px solid hsla(198, 100%, 70%, 0.2);
+                color: hsla(198, 100%, 70%, 1);
+                background: hsla(43, 100%, 70%, 0);
+                cursor: pointer;
+                border-radius: 14px;
+                font-size: small;
+            }
+
+            .commonButton:hover {
+                border: 1px solid hsla(43, 100%, 70%, 0);
+                color: black !important;
+                background: hsla(43, 100%, 100%, 1);
+            }
+
 			:root {
                 --generalBackground: hsl(0,0%,5%);
                 --lightYellow:  hsl(43, 51%, 81%);
                 --lightPurple:  hsl(256, 100%, 76%);
+                --lightPinkH:  320;
+                --lightPinkS:  55%;
+                --lightPinkL:  76%;
                 --lightPink:  hsl(320, 55%, 76%);
                 --lightBlue:  hsl(205, 100%, 69%);
 			}
@@ -115,7 +134,7 @@
                     
                 </div>
 
-                <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center">
                     <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
                         <div id="upc-measurement-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
                     </div>
@@ -137,7 +156,7 @@
 
                 
 
-                <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center">
                     <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
                         <div id="distance-between-any-two-points-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
                     </div>
@@ -145,22 +164,32 @@
 
                 <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
                     <div class="our-text-block text-center">
-                        <p>What do you think is the average <span class="p-lightPink" >distance </span>between any two points inside a <span class="p-lightYellow" >unit square</span>? Take a guess. :D</p>
-
-                        <input type="range" min="0" max="100" value="50"  class="commonSlider" id="distance-between-any-two-points-Slider">
-
-                        <input type="range" min="0" max="100" value="50"  class="commonSlider" id="distance-between-any-two-points-Slider2">
-
-                        <div class="pt-3 pb-3">
+                        <p>
                             
+                            So, What do you think is the average <span class="p-lightPink" >distance </span>between any two points inside a <span class="p-lightYellow" >unit square</span>? Take a guess. :D
+                        </p>
+                        <div class="mt-5">
+                            <input type="range" min="0" max="100" value="50"  class="commonSlider mb-3" id="distance-between-any-two-points-Slider">
+                            <div class="d-block d-sm-none"></div>
+                            <span class="p-lightPink pl-sm-3 pl-0" >distance </span>
+                            <div>
+                                <p class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">Points <span class="p-lightBlue">A</span> and <span class="p-lightPurple">B</span> above are draggable. :)</p>
+                                
+                                <div class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
+                                <div class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+
+                            </div>
                         </div>
+                        
 
                     </div>
                 </div>
 
                 <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
                     <div class="our-text-block text-center">
-                        <p>Also, you can drag the points A and B around. </p>
+                        <p class="mt-5">
+                            So, What do you think is the average <span class="p-lightPink" >distance </span>between any two points inside a <span class="p-lightYellow" >unit square</span>? Take a guess. :D
+                        </p>
                     </div>
                 </div>
 
@@ -188,6 +217,12 @@
         <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/viewX@latest/viewx.js"></script>  -->
         <script type="text/javascript" src="JS/viewx.js"></script> 
 
+        <script>
+            ignusTheme.baseHue = 201;
+            ignusTheme.baseLightness = 70;
+            ignusTheme.setUp();
+        </script>
+
 
 		<script type="text/javascript">
 
@@ -200,7 +235,7 @@
             upcApp.graphFontSizeSmall = 2.8;
             upcApp.graphFontSizeLarge = 4;
             upcApp.graphPointSize = 1.3;
-            if (window.innerWidth < 787) {
+            if (window.innerWidth < 580) {
                 upcApp.graphFontSizeSmall = 4;
                 upcApp.graphFontSizeLarge = 6;
                 upcApp.graphPointSize = 2.1;
@@ -413,13 +448,17 @@
             lineOptions = { x1: gph2.pointA[0], y1: gph2.pointA[1], x2: gph2.pointB[0], y2:gph2.pointB[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"}; 
             viewX.addLine("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-line", lineOptions);
             
-            pointOptions = {x: gph2.pointA[0], y: gph2.pointA[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)', draggability: "yes", runFunctionDuringDrag: "gph2.onPointDrag()"};
+            pointOptions = {x: gph2.pointA[0], y: gph2.pointA[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
             viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A", pointOptions);
+            pointOptions = {x: gph2.pointA[0], y: gph2.pointA[1], pointsize: upcApp.graphPointSize*3, pointcolor: 'transparent', draggability: "yes", runFunctionDuringDrag: "gph2.onPointDrag()"};
+            viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A-dragger", pointOptions);
             textOptions = {x: gph2.pointA[0] + 0.05, y: gph2.pointA[1] - 0.08, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
             viewX.addText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A-label", textOptions);
 
-            pointOptions = { x: gph2.pointB[0], y: gph2.pointB[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)', draggability: "yes", runFunctionDuringDrag: "gph2.onPointDrag()"};
+            pointOptions = { x: gph2.pointB[0], y: gph2.pointB[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
             viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B", pointOptions);
+            pointOptions = { x: gph2.pointB[0], y: gph2.pointB[1], pointsize: upcApp.graphPointSize*3, pointcolor: 'transparent', draggability: "yes", runFunctionDuringDrag: "gph2.onPointDrag()"};
+            viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B-dragger", pointOptions);
             textOptions = {x: gph2.pointB[0] + 0.05, y: gph2.pointB[1] - 0.08, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
             viewX.addText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B-label", textOptions);
 
@@ -431,10 +470,10 @@
         gph2.setUpDistanceBetweenTwoPoints();
 
         gph2.onPointDrag = function() {
+            
+            gph2.movedLocationA = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-A-dragger"][1]
 
-            gph2.movedLocationA = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-A"][1]
-
-            gph2.movedLocationB = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-B"][1]
+            gph2.movedLocationB = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-B-dragger"][1]
 
             gph2.point1 = [gph2.movedLocationA.x, gph2.movedLocationA.y]
             gph2.point2 = [gph2.movedLocationB.x, gph2.movedLocationB.y]
@@ -444,6 +483,9 @@
             lineOptions = { x1: gph2.point1[0], y1: gph2.point1[1], x2: gph2.point2[0], y2:gph2.point2[1]}; 
             viewX.updateLine("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-line", lineOptions);
             
+            viewX.updatePointXY("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A", gph2.point1[0], gph2.point1[1]);
+            viewX.updatePointXY("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B", gph2.point2[0], gph2.point2[1]);
+
             textOptions = {x: gph2.point1[0] + 0.05, y: gph2.point1[1] - 0.08};
             viewX.updateText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A-label", textOptions);
 
@@ -456,30 +498,18 @@
         }
 
         var sliderProperties = {
-            width: 300,
+            minwidth: '200px',
+            width: '50%',
             height: 5,
             trackColor: "hsla(280, 0%, 20%, 0.7)",
-            trackFillColor: "hsla(280, 100%, 50%, 1)",
+            trackFillColor: "var(--lightPink)",
             thumbWidth: 15,
             thumbHeight: 15,
-            thumbColor: "hsla(280, 100%, 50%, 1)",
+            thumbColor: "var(--lightPink)",
             opacity: 0.7
         };
 
         viewX.generateSliderStyles(sliderProperties, "distance-between-any-two-points-Slider");
-
-
-        // slideroptions = {
-        //     x1 :0,
-        //     y1 :0,
-        //     x2 :1,
-        //     y2 :1,
-        //     currentvalue: 5,
-        //     maxvalue: 1,
-        //     minvalue: 7
-        // }
-        // viewX.addSlider("distance-between-any-two-points-graph", "distance-between-any-two-points-slider", slideroptions)
-
 
 
 		</script>
