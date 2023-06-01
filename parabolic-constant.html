@@ -105,6 +105,7 @@
 
             .our-text-block {
                 max-width: 1000px;
+                width: 100%;
             }
 
             .p-White {
@@ -223,9 +224,9 @@
                             <p class="mt-5">
                                 It is about  <span class="p-lightPink" >0.52140.</span> To be more precise, it is. <br/><br/>
                                 
-                                <span class="p-lightPink" >8 (0.0416*<span class="p-White" >P</span> - 0.030473)</span><br/><br/>
+                                <span class="p-lightPink" >8 (0.0416*<span class="p-White" >P</span> - 0.030473)</span><br/>
 
-                                And exactly, it is <br/>
+                                And exactly, it is
 
                                 <div class="p-lightPink" style="font-size: 25px;">
                                     \(8\left(\frac{P}{24}-\frac{\sqrt{2}}{30}+\frac{1}{60}\right)\)
@@ -271,7 +272,48 @@
                                     <div id="distance-between-center-and-any-point-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
                                 </div>
                             </div>
-                            
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                                <div class="our-text-block text-center">
+                                    <p>
+                                        Take a guess. :D
+                                    </p>
+                                    <div class="mt-1 pb-2">
+                                        <input type="range" min="0" max="1" value="0.2" step="0.001"  class="commonSlider mb-3" id="distance-between-center-and-point-inside-Slider">
+                                        <div class="d-block d-sm-none"></div>
+                                        <label id="distance-between-center-and-point-inside-SliderLabel" class="p-lightPink pl-sm-3 pl-0" for="distance-between-center-and-point-inside-Slider" style="min-width: 100px;" >0.8</label>
+                                        <div>
+                                            <p id="distance-between-center-and-point-inside-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
+                                                Point<span class="p-lightPurple">B</span> above is draggable. :)
+                                            </p>
+                                            
+                                            <div id="gph3-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
+                                            <div id="reveal-sub-section-1-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+            
+                                        </div>
+                                    </div>
+                                    
+            
+                                </div>
+                            </div>
+                            <div class="w-100 pl-4 pr-4 pb-5 pl-sm-5 pr-sm-5 d-flex justify-content-center reveal-sub-section-1 revealable">
+                                <div class="mt-2 text-center">
+                                    <p>
+                                        It is about <span class="p-lightPink">0.38259785</span> ... To be exact, it is.
+                                    </p>
+                                    
+                                    <div class="p-lightPink" style="font-size: 25px;">
+                                        \(\frac{P}{3}\)
+                                    </div>
+                                
+                                
+                                    <br />
+                                    <p>
+                                        Yep. There's a <span class="p-White">P</span> here too. <br />
+                                    </p>
+                                </div>
+                                
+
+                            </div>
                             
                         </div>
                         <div id="rotatingSection-1-2" class="rotatingSection-1" style="display: none">
@@ -289,6 +331,46 @@
                                 <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
                                     <div id="distance-between-corner-and-point-on-square-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
                                 </div>
+                            </div>
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                                <div class="our-text-block text-center">
+                                    <p>
+                                        Take a guess. :D
+                                    </p>
+                                    <div class="mt-1 pb-2">
+                                        <input type="range" min="0" max="2" value="0.2" step="0.001"  class="commonSlider mb-3" id="distance-between-corner-and-point-Slider">
+                                        <div class="d-block d-sm-none"></div>
+                                        <label id="distance-between-corner-and-point-SliderLabel" class="p-lightPink pl-sm-3 pl-0" for="distance-between-corner-and-point-Slider" style="min-width: 100px;" >0.8</label>
+                                        <div>
+                                            <p id="distance-between-corner-and-point-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
+                                                Point<span class="p-lightPurple">B</span> above is draggable. :)
+                                            </p>
+                                            
+                                            <div id="gph4-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
+                                            <div id="reveal-sub-section-2-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+                                        </div>
+                                    </div>
+                                    
+            
+                                </div>
+                            </div>
+                            <div class="w-100 pl-4 pr-4 pb-5 pl-sm-5 pr-sm-5 d-flex justify-content-center reveal-sub-section-2 revealable">
+                                <div class="mt-2 text-center">
+                                    <p>
+                                        It is about <span class="p-lightPink">0.76519571</span>...  To be exact, it is.
+                                    </p>
+                                    
+                                    <div class="p-lightPink" style="font-size: 25px;">
+                                        \(\frac{P}{3}\)
+                                    </div>
+                                
+                                    <br />
+                                    <p>
+                                        There's a <span class="p-White">P</span> here too. <br />
+                                    </p>
+                                </div>
+                                
+
                             </div>
                         </div>
                         
@@ -410,6 +492,32 @@
                         }, 50 + index*upcApp.revealGap);
                     })(i);
                 }
+
+            }
+
+
+            upcApp.revealSubSectionLib = {}
+            upcApp.revealSubSectionLib[1] = false
+            upcApp.revealSubSectionLib[2] = false
+
+            upcApp.revealSubSection = function(sectionNumber) {
+                if (upcApp.revealSubSectionLib[sectionNumber] == false) {
+                    toRevealElements = document.getElementsByClassName('reveal-sub-section-' + sectionNumber)
+                    document.getElementById('reveal-sub-section-' + sectionNumber + "-continueButton").style.display = "none";
+
+                    for (i = 0; i < toRevealElements.length; i++) {
+                        (function(index) {
+                            toRevealElements[index].classList.remove("hidden-element");
+                            setTimeout(function() {
+                                toRevealElements[index].style.opacity = 1;
+                                if (index == 0) {
+                                    toRevealElements[index].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+                                }
+                            }, 50 + index*upcApp.revealGap);
+                        })(i);
+                    }
+                }
+                
 
             }
 
@@ -806,7 +914,7 @@
             gph2.sliderLabel = document.getElementById("distance-between-any-two-points-SliderLabel");
             gph2.sliderInfo = document.getElementById("distance-between-any-two-points-SliderInfo");
 
-            gph2.slider.value = Math.random()*2
+            gph2.slider.value = Math.random()*1
             gph2.sliderLabel.innerHTML = gph2.slider.value
 
             gph2.slider.addEventListener('input', function() {
@@ -912,6 +1020,76 @@
                 viewX.updateText("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-distance-label", textOptions);
             }
 
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(280, 0%, 20%, 0.7)",
+                trackFillColor: "var(--lightPink)",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "var(--lightPink)",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "distance-between-center-and-point-inside-Slider");
+
+            gph3.correctAnswer = upc/6
+            gph3.acceptableError = 0.02
+
+            gph3.slider = document.getElementById("distance-between-center-and-point-inside-Slider");
+            gph3.sliderLabel = document.getElementById("distance-between-center-and-point-inside-SliderLabel");
+            gph3.sliderInfo = document.getElementById("distance-between-center-and-point-inside-SliderInfo");
+
+            gph3.slider.value = Math.random()*1
+            gph3.sliderLabel.innerHTML = gph3.slider.value
+
+            gph3.slider.addEventListener('input', function() {
+                gph3.sliderLabel.innerHTML = gph3.slider.value
+                gph3.sliderInfo.innerHTML = "Point <span class='p-lightPurple'>B</span> above is draggable. :)"
+            });
+
+
+            gph3.checkAnswerButton = document.getElementById("gph3-checkAnswerButton");
+            gph3.checkAnswerButton.addEventListener('click', function() {
+                gph3.checkAnswer()
+            });
+
+            gph3.lastError = null;
+            gph3.checkAnswer = function() {
+                let currentError = Math.abs(parseFloat(gph3.slider.value) - gph3.correctAnswer);
+                if (currentError < gph3.acceptableError) {
+                    gph3.sliderInfo.innerHTML = "Correct! 🎉 The answer you gave is less than " + gph3.acceptableError + " away from the actual value.";
+                    upcApp.anim.show();
+                    upcApp.anim.goToAndPlay(0);
+                    upcApp.anim.setSpeed(2)
+                    upcApp.anim.play();
+                    // if (upcApp.revealPoint == 0) {
+                    //     upcApp.revealSection()
+                    // }
+                }
+                else {
+                    if (gph3.lastError === null) {
+                        gph3.sliderInfo.innerHTML = "Keep trying!";
+                    } else if (currentError < gph3.lastError) {
+                        gph3.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
+                    } else if (currentError > gph3.lastError) {
+                        gph3.sliderInfo.innerHTML = "Colder! 😃 ";
+                    }
+                }
+                gph3.lastError = currentError;
+            };
+
+
+
+            gph3.continueButton = document.getElementById("reveal-sub-section-1-continueButton");
+
+            gph3.continueButton.addEventListener('click', function() {
+                    upcApp.revealSubSection(1)
+            });
+
+
             // Code For Graph 4 : distance between corner and point on square
 
             gph4 = {}
@@ -970,6 +1148,74 @@
                 textOptions = {x: (gph4.point1[0] + gph4.point2[0])/2, y: (gph4.point1[1] + gph4.point2[1])/2, text: gph4.distanceText};
                 viewX.updateText("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-distance-label", textOptions);
             }
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(280, 0%, 20%, 0.7)",
+                trackFillColor: "var(--lightPink)",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "var(--lightPink)",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "distance-between-corner-and-point-Slider");
+
+            gph4.correctAnswer = upc/3
+            gph4.acceptableError = 0.02
+
+            gph4.slider = document.getElementById("distance-between-corner-and-point-Slider");
+            gph4.sliderLabel = document.getElementById("distance-between-corner-and-point-SliderLabel");
+            gph4.sliderInfo = document.getElementById("distance-between-corner-and-point-SliderInfo");
+
+            gph4.slider.value = Math.random()*2
+            gph4.sliderLabel.innerHTML = gph4.slider.value
+
+            gph4.slider.addEventListener('input', function() {
+                gph4.sliderLabel.innerHTML = gph4.slider.value
+                gph4.sliderInfo.innerHTML = "Point <span class='p-lightPurple'>B</span> above is draggable. :)"
+            });
+
+
+            gph4.checkAnswerButton = document.getElementById("gph4-checkAnswerButton");
+            gph4.checkAnswerButton.addEventListener('click', function() {
+                gph4.checkAnswer()
+            });
+
+            gph4.lastError = null;
+            gph4.checkAnswer = function() {
+                let currentError = Math.abs(parseFloat(gph4.slider.value) - gph4.correctAnswer);
+                if (currentError < gph4.acceptableError) {
+                    gph4.sliderInfo.innerHTML = "Correct! 🎉 The answer you gave is less than " + gph4.acceptableError + " away from the actual value.";
+                    upcApp.anim.show();
+                    upcApp.anim.goToAndPlay(0);
+                    upcApp.anim.setSpeed(2)
+                    upcApp.anim.play();
+                    // if (upcApp.revealPoint == 0) {
+                    //     upcApp.revealSection()
+                    // }
+                }
+                else {
+                    if (gph4.lastError === null) {
+                        gph4.sliderInfo.innerHTML = "Keep trying!";
+                    } else if (currentError < gph4.lastError) {
+                        gph4.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
+                    } else if (currentError > gph4.lastError) {
+                        gph4.sliderInfo.innerHTML = "Colder! 😃 ";
+                    }
+                }
+                gph4.lastError = currentError;
+            };
+
+
+            gph4.continueButton = document.getElementById("reveal-sub-section-2-continueButton");
+
+            gph4.continueButton.addEventListener('click', function() {
+                    upcApp.revealSubSection(2)
+            });
+
 
 
 
