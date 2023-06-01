@@ -65,6 +65,22 @@
                 background: hsla(43, 0%, 0%, 1);
             }
 
+
+            .commonButtonTrial {
+                border: 1px solid hsla(var(--lightPinkH), 100%, 70%, 0.2);
+                color: hsla(var(--lightPinkH), 100%, 70%, 1);
+                background: hsla(43, 100%, 70%, 0);
+                cursor: pointer;
+                border-radius: 9px;
+                font-size: small;
+            }
+
+            .commonButtonTrial:hover {
+                border: 1px solid hsla(43, 100%, 70%, 0) !important;
+                color: black !important;
+                background: var(--lightPink);
+            }
+
 			:root {
                 --generalBackground: hsl(0,0%,4%);
                 --lightYellow:  hsl(43, 51%, 81%);
@@ -415,9 +431,15 @@
                         </div>
                     </div>
 
-                    <div class="w-100 pl-0 pr-0 pl-sm-5 pb-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-1 revealable">
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-1 revealable">
                         <div class="our-text-block text-center" style="height: 500px; width: 100%; position: relative;">
                             <div id="random-shrinking-walk-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                            
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
                             <div class="mt-1 pb-2">
                                 <input type="range" min="0" max="30" value="1" step="1"  class="commonSlider mb-3" id="random-shrinking-walk-Slider">
                                 <div class="d-block d-sm-none"></div>
@@ -442,6 +464,63 @@
                             </p>
                         </div>
                     </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center" style="height: 500px; width: 100%; position: relative;">
+                            <div id="random-shrinking-walk-trials-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p id="random-shrinking-walk-trials-info-for-trial">
+                                
+                            </p>
+                            <p id="random-shrinking-walk-trials-holder">
+                                
+                            </p>
+                            <p id="random-shrinking-walk-trials-average-statement">
+                                
+                            </p>
+                            <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" onclick="gph6.addNewWalk()"> Add another trial</span>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-2 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                After looking at these values, what do you think is the average value?
+                            </p><br/>
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="4" value="0.2" step="0.001"  class="commonSlider mb-3" id="random-shrinking-walk-distance-answer-Slider">
+                                    <label id="random-shrinking-walk-distance-answer-SliderLabel" class="p-lightPink pl-sm-3 pl-0" for="random-shrinking-walk-distance-answer-Slider" style="min-width: 100px;" >0.8</label>
+                                    <div>
+                                        <p id="random-shrinking-walk-distance-answer-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
+                                        </p>
+                                        <div id="gph6-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
+                                        <div id="reveal-2-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+        
+                                    </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p>
+                                The answer is <span class="p-White">2.295587149</span>...
+                                Yes. It is <span class="p-White">P</span>. It's here too. 
+                                <br/>
+                                This problem doesn't seem to have a square, but still deals with  concept of averages. 
+                                <br/><br/>
+                                But, why? What does this have to do with the parabola we've been discussing? Could it be linked to a concept you're already familiar with?
+                                <br/>
+                                Here's a hint. It's about the <span class="p-lightPurple">final point</span> after large iterations . (where the drunkard lands after infinitely many steps)
+                            </p>
+                        </div>
+                    </div>
     
                     <div class="w-100 pt-5 pb-5"></div>
                     <div class="w-100 pt-5 pb-5"></div>
@@ -457,6 +536,8 @@
 		</div>
 
         <!-- <audio id="backgroundMusic" src="assets/audio/grant-piano.mp3"></audio> -->
+        <audio id="warmerMusic" src="assets/audio/state-change_confirm-up.ogg"></audio>
+        <audio id="colderMusic" src="assets/audio/state-change_confirm-down.ogg"></audio>
 
 		<script type="text/javascript">		
 			darkmode = true
@@ -542,7 +623,12 @@
                         upcApp.chooseSection(1, 1);
                         gph5.setUpShrinkingRandomWalk();
                         gph5.interval = setInterval(gph5.nextValue, 1000);
+                        gph6.setUpShrinkingRandomWalkTrials()
                         // gph5.setAtValue(6)
+
+                        gph6.addNewWalk()
+                        gph6.addNewWalk()
+                        // gph6.addNewWalk()
                     }, 1000);
                 }
 
@@ -1012,8 +1098,10 @@
                         gph2.sliderInfo.innerHTML = "Keep trying!";
                     } else if (currentError < gph2.lastError) {
                         gph2.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
+                        document.getElementById("warmerMusic").play();
                     } else if (currentError > gph2.lastError) {
                         gph2.sliderInfo.innerHTML = "Colder! 😃 ";
+                        document.getElementById("colderMusic").play();
                     }
                 }
                 gph2.lastError = currentError;
@@ -1144,8 +1232,10 @@
                         gph3.sliderInfo.innerHTML = "Keep trying!";
                     } else if (currentError < gph3.lastError) {
                         gph3.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
+                        document.getElementById("warmerMusic").play();
                     } else if (currentError > gph3.lastError) {
                         gph3.sliderInfo.innerHTML = "Colder! 😃 ";
+                        document.getElementById("colderMusic").play();
                     }
                 }
                 gph3.lastError = currentError;
@@ -1277,8 +1367,10 @@
                         gph4.sliderInfo.innerHTML = "Keep trying!";
                     } else if (currentError < gph4.lastError) {
                         gph4.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
+                        document.getElementById("warmerMusic").play();
                     } else if (currentError > gph4.lastError) {
                         gph4.sliderInfo.innerHTML = "Colder! 😃 ";
+                        document.getElementById("colderMusic").play();
                     }
                 }
                 gph4.lastError = currentError;
@@ -1366,9 +1458,6 @@
                 }
             }
 
-            
-
-
             gph5.setUpShrinkingRandomWalk = function() {
                 gph5.graphH = document.getElementById('random-shrinking-walk-graphHolder')
                 defaultGraphOptions["xmax"] = 2*1.414 + 1
@@ -1446,8 +1535,219 @@
             }
 
             
+            // graph 6 : shrinking random walk - trials
+
+            gph6 = {}
+
+            gph6.setUpShrinkingRandomWalkTrials = function() {
+                gph6.graphH = document.getElementById('random-shrinking-walk-trials-graphHolder')
+                defaultGraphOptions["xmax"] = 2*1.414 + 1
+                defaultGraphOptions["ymax"] = 2*1.414
+                defaultGraphOptions["xmin"] = -1
+                defaultGraphOptions["ymin"] = -1
+
+                // defaultGraphOptions["scrollZoom"] = 'yes'
+                // defaultGraphOptions["draggability"] = 'yes'
+
+                viewX.addGraph(gph6.graphH, "random-shrinking-walk-trials-graph", defaultGraphOptions)
+
+                lineOptions = { x1: -0.5, y1: 0, x2: 2*1.414, y2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
+                viewX.addLine("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-y-axis-line", lineOptions);
+
+                lineOptions = { y1: -0.5, x1: 0, y2: 2*1.414, x2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
+                viewX.addLine("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-y-axis-line", lineOptions);
+
+                pointOptions = { x: 0, y: 0, pointsize: upcApp.graphPointSize, pointcolor: 'white'};
+                viewX.addPoint("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-origin", pointOptions);
+
+                textOptions = {x: 0 + 0.3, y: 0 - 0.2, text: "(0, 0)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.8, fontFamily: "Nunito",   textcolor: "white"};
+                viewX.addText("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-origin-label", textOptions);
+                
+            }
+            
+            gph6.maxWalkedSteps = 12
+            gph6.trials = []
+            gph6.trialDisplayed = 0
+            gph6.trialsDistances = []
+
+            gph6.walkedPoints = []
+            gph6.walkedPointsCurrent = []
+            gph6.generateWalk = function(uptoNumber) {
+                gph6.walkedPoints = []
+                if (gph6.walkedPoints.length < uptoNumber) {
+                    for (let i = gph6.walkedPoints.length + 1; i <= uptoNumber; i++) {
+                        stepLengthAtStep = Math.sqrt(2)/Math.pow(2, i - 1)
+                        stepDirection = viewX.randomChoice([[0, 1], [1, 0]])
+                        previousPoint = [0, 0]
+                        if (gph6.walkedPoints.length != 0) {
+                            previousPoint = gph6.walkedPoints[i - 2]
+                        }
+                        newPoint = [previousPoint[0] + stepLengthAtStep*stepDirection[0], previousPoint[1] + stepLengthAtStep*stepDirection[1]]
+                        gph6.walkedPoints.push(newPoint)
+                    }
+                }
+                else {
+                    gph6.walkedPoints = gph6.walkedPoints.slice(0, uptoNumber)
+                }
+            }
+
+            gph6.drawShrinkingRandomWalkPath = function() {
+                for (let i = 0; i < gph6.walkedPointsCurrent.length; i++) {
+                    if (i < 3) {
+                        pointColor = ["var(--brightYellow)","var(--lightOrange)","var(--lightGreen)","var(--lightBlue)"][i]
+                    }
+                    else if (i >= 3) {
+                        pointColor = "var(--lightBlue)"
+                    }
+
+                    if (i < 4) {
+                        sizeToUse = upcApp.graphPointSize/(i + 1)
+                    }
+                    else {
+                        sizeToUse = upcApp.graphPointSize/4
+                    }
+                    pointOptions = { x: gph6.walkedPointsCurrent[i][0] , y: gph6.walkedPointsCurrent[i][1], pointsize: sizeToUse, pointcolor: pointColor};
+                    viewX.addPoint("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-point-" + i, pointOptions);
+                    gph6.previousPoint = [0, 0]
+                    if (i != 0) {
+                        gph6.previousPoint = gph6.walkedPointsCurrent[i - 1]
+                    }
+                    lineOptions = { x1: gph6.previousPoint[0], y1: gph6.previousPoint[1], x2: gph6.walkedPointsCurrent[i][0], y2: gph6.walkedPointsCurrent[i][1], strokewidth: 0.7/(i + 1), linecolor: pointColor}; 
+                    viewX.addLine("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-line-segment-" + i, lineOptions);
+
+                    if (i == gph6.walkedPointsCurrent.length - 1) {
+                        pointOptions = { x: gph6.walkedPointsCurrent[i][0] , y: gph6.walkedPointsCurrent[i][1], pointsize: upcApp.graphPointSize, pointcolor: "var(--lightPurple)"};
+                        viewX.addPoint("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-point-final", pointOptions);
+
+                        textOptions = {x: gph6.walkedPointsCurrent[i][0] + 0.4, y: gph6.walkedPointsCurrent[i][1] - 0.2, text: "Drunkard",  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+                        viewX.addText("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-point-final-label", textOptions);
+
+                        
+                        textOptions = {x: gph6.walkedPointsCurrent[i][0]/2, y: gph6.walkedPointsCurrent[i][1]/2, text: gph6.trialsDistances[gph6.trialDisplayed].toFixed(3),  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+                        viewX.addText("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-distance-label", textOptions);
+                    }
+
+                    
+                }
+
+                if (gph6.walkedPointsCurrent.length > 3) {
+                    lineOptions = { x1: 0, y1: 0, x2: gph6.walkedPointsCurrent[gph6.walkedPointsCurrent.length - 1][0], y2: gph6.walkedPointsCurrent[gph6.walkedPointsCurrent.length - 1][1], strokewidth: 0.7, strokedasharray: "4, 4", linecolor: "hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), " + (gph6.walkedPointsCurrent.length/30) + ")"};
+                    viewX.addLine("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-distance-line-segment", lineOptions);
+                }
+            }
+
+            gph6.eraseWalk = function() {
+                for (let i = 0; i < gph6.walkedPointsCurrent.length; i++) {
+                    viewX.removePoint("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-point-" + i)
+                    viewX.removeLine("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-line-segment-" + i)
+                    viewX.removePoint("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-point-final")
+                    viewX.removeText("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-point-final-label")
+                    viewX.removeText("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-distance-label")
+                    viewX.removeLine("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-distance-line-segment")
+                }
+            }
+
+            
+            gph6.displayTrial = function() {
+                gph6.eraseWalk()
+                gph6.walkedPointsCurrent = gph6.trials[gph6.trialDisplayed]
+                gph6.drawShrinkingRandomWalkPath()
+                document.getElementById('random-shrinking-walk-trials-info-for-trial').innerHTML= 'For trial <span class="p-lightPink">' + (gph6.trialDisplayed + 1) + '</span>, the distance was  <span class="p-lightPink">' + gph6.trialsDistances[gph6.trialDisplayed].toFixed(4) + '.</span>. '
+
+                trialsHolder = document.getElementById("random-shrinking-walk-trials-holder")
+                trialsHolder.innerHTML = ""
+                for (let i = 0; i < gph6.trials.length; i++) {
+                    trialsHolder.innerHTML += "<div class='commonButtonTrial p-2 pl-3 pr-3 mt-1 btn-ignus' id='random-shrinking-walk-trial-" + i + "-button' onclick='gph6.trialDisplayed = " + i + "; gph6.displayTrial()' " + (i == gph6.trialDisplayed ? "style='background-color: var(--lightPink); color: black;'" : "") + ">" + (i + 1) + "</div>"
+                }
+
+                document.getElementById('random-shrinking-walk-trials-average-statement').innerHTML= 'Average distance for <span class="p-lightPink">' + gph6.trialsDistances.length + ' trial' +  (gph6.trialsDistances.length != 1 ? 's':'') + '</span> so far, is <span class="p-lightPink">' + (gph6.trialsDistances.reduce((a, b) => a + b, 0)/gph6.trialsDistances.length).toFixed(4) + '.</span>'
+            }
+
+            gph6.addNewWalk = function() {
+                gph6.generateWalk(gph6.maxWalkedSteps)
+                gph6.trials.push(gph6.walkedPoints)
+                gph6.trialsDistances.push(viewX.distF([0, 0], gph6.walkedPoints[gph6.walkedPoints.length - 1]))
+                gph6.trialDisplayed = gph6.trials.length - 1
+                gph6.displayTrial()
+                
+            }
+
+            
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(280, 0%, 20%, 0.7)",
+                trackFillColor: "var(--lightPink)",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "var(--lightPink)",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "random-shrinking-walk-distance-answer-Slider");
+
+            gph6.correctAnswer = upc
+            gph6.acceptableError = 0.04
+
+            gph6.slider = document.getElementById("random-shrinking-walk-distance-answer-Slider");
+            gph6.sliderLabel = document.getElementById("random-shrinking-walk-distance-answer-SliderLabel");
+            gph6.sliderInfo = document.getElementById("random-shrinking-walk-distance-answer-SliderInfo");
+
+            gph6.slider.value = Math.random()*1
+            gph6.sliderLabel.innerHTML = gph6.slider.value
+
+            gph6.slider.addEventListener('input', function() {
+                gph6.sliderLabel.innerHTML = gph6.slider.value
+            });
 
 
+            gph6.checkAnswerButton = document.getElementById("gph6-checkAnswerButton");
+            gph6.checkAnswerButton.addEventListener('click', function() {
+                gph6.checkAnswer()
+            });
+
+            gph6.lastError = null;
+            gph6.checkAnswer = function() {
+                let currentError = Math.abs(parseFloat(gph6.slider.value) - gph6.correctAnswer);
+                if (currentError < gph6.acceptableError) {
+                    gph6.sliderInfo.innerHTML = "Correct! 🎉 The answer you gave is less than " + gph6.acceptableError + " away from the actual value.";
+                    upcApp.anim.show();
+                    upcApp.anim.goToAndPlay(0);
+                    upcApp.anim.setSpeed(2)
+                    upcApp.anim.play();
+                    if (upcApp.revealPoint == 1) {
+                        upcApp.revealSection()
+                    }
+                }
+                else {
+                    if (gph6.lastError === null) {
+                        gph6.sliderInfo.innerHTML = "Keep trying!";
+                    } else if (currentError < gph6.lastError) {
+                        gph6.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
+                        document.getElementById("warmerMusic").play();
+                    } else if (currentError > gph6.lastError) {
+                        gph6.sliderInfo.innerHTML = "Colder! 😃 ";
+                        document.getElementById("colderMusic").play();
+                    }
+                }
+                gph6.lastError = currentError;
+            };
+
+
+            gph6.continueButton = document.getElementById("reveal-2-continueButton");
+
+            gph6.continueButton.addEventListener('click', function() {
+                if (upcApp.revealPoint == 1) {
+                    upcApp.revealSection()
+                }
+            });
+
+
+
+            
+            
+            
 
 
         </script>
