@@ -35,6 +35,15 @@
 
         <style type="text/css">
 
+            .hidden-element {
+                display: none !important;
+            }
+
+            .revealable {
+                opacity: 0;
+                transition: opacity 0.4s ease-in-out;
+            }
+
             .commonSlider {
                 appearance: none;
                 -webkit-appearance: none;
@@ -57,7 +66,7 @@
             }
 
 			:root {
-                --generalBackground: hsl(0,0%,2%);
+                --generalBackground: hsl(0,0%,4%);
                 --lightYellow:  hsl(43, 51%, 81%);
                 --lightPurple:  hsl(256, 100%, 76%);
                 --lightPinkH:  320;
@@ -100,6 +109,25 @@
 
             .p-White {
                 color: white;
+            }
+
+
+            .dragDownExtension {
+                color: hsla(198, 0%, 54%, 1);
+                cursor: pointer;
+                z-index: 1;
+            }
+
+            .dragDownExtension:hover {
+                color: white
+            }
+
+            .inActiveSectionButton {
+                filter: saturate(0.5) contrast(0.4);
+            }
+
+            .inActiveSectionButton:hover {
+                filter: none
             }
 
 
@@ -181,7 +209,7 @@
                                     </p>
                                     
                                     <div id="gph2-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
-                                    <div id="gph2-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+                                    <div id="reveal-1-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
     
                                 </div>
                             </div>
@@ -190,12 +218,80 @@
                         </div>
                     </div>
     
-                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
                         <div class="our-text-block text-center">
                             <p class="mt-5">
-                                So, What do you think is the average <span class="p-lightPink" >distance </span>between any two points inside a <span class="p-lightYellow" >unit square</span>? Take a guess. :D
+                                It is about  <span class="p-lightPink" >0.52140.</span> To be more precise, it is. <br/><br/>
+                                
+                                <span class="p-lightPink" >8 (0.0416*<span class="p-White" >P</span> - 0.030473)</span><br/><br/>
+
+                                And exactly, it is <br/>
+
+                                <div class="p-lightPink" style="font-size: 25px;">
+                                    \(8\left(\frac{P}{24}-\frac{\sqrt{2}}{30}+\frac{1}{60}\right)\)
+                                </div>
+                                
+                                
+                                <br/>
+                                <p>
+                                Yep. Yep. Strange combination of numbers. There's a <span class="p-White" >P</span> there. <br/>
+
+                                There's many more instances where we see this. But, mostly involving a unit square.</p>
                             </p>
                         </div>
+                    </div>
+                    
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" onclick="upcApp.chooseSection(1, 1)" id="rotatingSectionButton-1-1"> Center-Point Distance</span>
+                                <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus inActiveSectionButton" onclick="upcApp.chooseSection(1, 2)" id="rotatingSectionButton-1-2"> Corner-Perimeter Distance</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="hidden-element reveal-1 revealable" id="extender-section-1" style="max-height: 100px; overflow: hidden; position: relative;">
+                        <div style="position: absolute; background: linear-gradient(to bottom, transparent, var(--generalBackground)); pointer-events: none; z-index: 1;" class="w-100 h-100" id="extender-section-1-cover"></div>
+                        <div style="position: absolute; bottom: 0px; height: 30px; " class="w-100 text-center dragDownExtension" onclick="upcApp.extendSection(1)">
+                            <span><i id="extender-section-1-chevron-down" class="fa fa-chevron-down"></i></span>
+                        </div>
+                        
+                        <div id="rotatingSection-1-1" class="rotatingSection-1">
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                                <div class="our-text-block text-center pb-1">
+                                    <p>
+                                        Here is a slightly similar problem. <br/>
+                                        What do you think is the average <span class="p-lightPink" >distance </span>between the <span class="p-lightBlue" >center</span> and <span class="p-lightPurple" >any point</span> 'inside' the <span class="p-lightYellow" >unit square</span>?
+                                       
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center rotatingSectionGraph-1-1" id="rotatingSectionGraph-1-1-1" style="position: absolute; left: 200vw;">
+                                <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                                    <div id="distance-between-center-and-any-point-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <div id="rotatingSection-1-2" class="rotatingSection-1" style="display: none">
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center ">
+                                <div class="our-text-block text-center pb-1">
+                                    <p>
+                                        Here is another problem. Try to guess this one.<br/>
+                                        What do you think is the average <span class="p-lightPink" >distance </span>between a <span class="p-lightBlue" >corner</span> and <span class="p-lightPurple" >a point</span> on the <span class="p-lightYellow" >unit square</span>?
+                                       
+                                    </p>
+                                
+                                </div>
+                            </div>
+                            <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center rotatingSectionGraph-1-2" id="rotatingSectionGraph-1-2-1" style="position: absolute; left: 200vw;">
+                                <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                                    <div id="distance-between-corner-and-point-on-square-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
     
                     
@@ -207,7 +303,7 @@
                     </div>
                 </main>
 
-                <div style="position: fixed; height: 100vh; width: 100vw; pointer-events: none; top: 0; left: 0;" id="lottie-popper"></div>
+                <div style="position: fixed; height: 100%; width: 100vw; pointer-events: none; bottom: 0px; left: 0px;" id="lottie-popper"></div>
 
 
             </div>
@@ -228,7 +324,8 @@
 
         <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/viewX@latest/viewx.js"></script>  -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
-
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
         <script type="text/javascript" src="JS/viewx.js"></script> 
 
@@ -236,6 +333,14 @@
             ignusTheme.baseHue = 201;
             ignusTheme.baseLightness = 70;
             ignusTheme.setUp();
+
+            MathJax = {
+                options: {
+                    menuOptions: {
+                    settings: { disabled: true }
+                    }
+                }
+            };
         </script>
 
 
@@ -277,10 +382,95 @@
                 });
             }
 
-
             loadAnimation();
 
+            upcApp.revealPoint = 0
 
+            upcApp.revealSection = function() {
+                upcApp.revealPoint = upcApp.revealPoint + 1
+                toRevealElements = document.getElementsByClassName('reveal-' + upcApp.revealPoint)
+                document.getElementById('reveal-' + upcApp.revealPoint + "-continueButton").style.display = "none";
+
+                upcApp.revealGap = 100
+
+                if (upcApp.revealPoint == 1) {
+                    setTimeout(function() {
+                        upcApp.chooseSection(1, 1);
+                    }, 1000);
+                }
+
+                for (i = 0; i < toRevealElements.length; i++) {
+                    (function(index) {
+                        toRevealElements[index].classList.remove("hidden-element");
+                        setTimeout(function() {
+                            toRevealElements[index].style.opacity = 1;
+                            if (index == 0) {
+                                toRevealElements[index].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+                            }
+                        }, 50 + index*upcApp.revealGap);
+                    })(i);
+                }
+
+            }
+
+            upcApp.extendSection = function(sectionNumber) {
+                currentMaxHeight = document.getElementById('extender-section-1').style.maxHeight
+                if (currentMaxHeight == "100px") {
+                    document.getElementById('extender-section-1').style.maxHeight = "none";
+                    document.getElementById('extender-section-1').style.overflow = "visible";
+                    document.getElementById('extender-section-1').style.height = "auto";
+                    document.getElementById('extender-section-1-cover').style.display = "none";
+                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-chevron-up");
+                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-chevron-down");
+                }
+                else {
+                    document.getElementById('extender-section-1').style.maxHeight = "100px";
+                    document.getElementById('extender-section-1').style.overflow = "hidden";
+                    document.getElementById('extender-section-1').style.height = "100px";
+                    document.getElementById('extender-section-1-cover').style.display = "block";
+                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-chevron-up");
+                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-chevron-down");
+                }
+                
+            }
+
+            upcApp.chooseSection = function(rotatingSectionIndex, rotateToSection) {
+                numberOfSections = document.getElementsByClassName('rotatingSection-' + rotatingSectionIndex).length
+                for (s = 1; s <= numberOfSections; s++) {
+                    document.getElementById('rotatingSectionButton-' + rotatingSectionIndex + '-' + s).classList.add("inActiveSectionButton");
+                    document.getElementById('rotatingSection-' + rotatingSectionIndex + '-' + s).style.display = "none";
+                    sectionGraphs = document.getElementsByClassName('rotatingSectionGraph-' + rotatingSectionIndex + '-' + s)
+                    for (g = 1; g <= sectionGraphs.length; g++) {
+                        document.getElementById('rotatingSectionGraph-' + rotatingSectionIndex + '-' + s + '-' + g).style.position = "absolute";
+                        document.getElementById('rotatingSectionGraph-' + rotatingSectionIndex + '-' + s + '-' + g).style.left = "200vw";
+                    }
+                }
+                document.getElementById('rotatingSectionButton-' + rotatingSectionIndex + '-' + rotateToSection).classList.remove("inActiveSectionButton");
+                document.getElementById('rotatingSection-' + rotatingSectionIndex + '-' + rotateToSection).style.display = "block";
+                
+                sectionGraphs = document.getElementsByClassName('rotatingSectionGraph-' + rotatingSectionIndex + '-' + rotateToSection)
+                for (g = 1; g <= sectionGraphs.length; g++) {
+                    document.getElementById('rotatingSectionGraph-' + rotatingSectionIndex + '-' + rotateToSection + '-' + g).style.position = "relative";
+                    document.getElementById('rotatingSectionGraph-' + rotatingSectionIndex + '-' + rotateToSection + '-' + g).style.left = "0px";
+                }
+
+
+                if (rotatingSectionIndex == 1) {
+                    if (rotateToSection == 1) {
+                        if (typeof viewX.graphData['distance-between-center-and-any-point-graph'] != 'undefined') {
+                            viewX.removeGraph('distance-between-center-and-any-point-graph');
+                        }
+                        gph3.setUpDistanceBetweenCenterAndAnyPointInside();
+                    }
+                    else if (rotateToSection == 2) {
+                        if (typeof viewX.graphData['distance-between-corner-and-point-on-square-graph'] != 'undefined') {
+                            viewX.removeGraph('distance-between-corner-and-point-on-square-graph');
+                        }
+                        gph4.setUpDistanceBetweenCornerAnyPointOnSquare();
+                    }
+                }
+                
+            }
 
             // First graph : upc-measurement-graph
 
@@ -639,7 +829,9 @@
                     upcApp.anim.goToAndPlay(0);
                     upcApp.anim.setSpeed(2)
                     upcApp.anim.play();
-                    
+                    if (upcApp.revealPoint == 0) {
+                        upcApp.revealSection()
+                    }
                 }
                 else {
                     if (gph2.lastError === null) {
@@ -654,7 +846,131 @@
             };
 
 
-            gph2.continueButton = document.getElementById("gph2-continueButton");
+            gph2.continueButton = document.getElementById("reveal-1-continueButton");
+
+            gph2.continueButton.addEventListener('click', function() {
+                if (upcApp.revealPoint == 0) {
+                    upcApp.revealSection()
+                }
+            });
+
+
+            // Code For Graph 3 : distance between center and any point inside
+
+            gph3 = {}
+
+            gph3.setUpDistanceBetweenCenterAndAnyPointInside = function() {
+                gph3.graphH = document.getElementById('distance-between-center-and-any-point-graphHolder')
+                viewX.addGraph(gph3.graphH, "distance-between-center-and-any-point-graph", defaultGraphOptions)
+
+                rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.4, rectcolor: "hsla(190, 100%, 50%, 0)"};
+
+                viewX.addRectangle("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-square", rectOptions);
+
+                gph3.pointA = [0.5, 0.5]
+                gph3.pointB = [0.8, 0.7]
+
+                gph3.distanceText = viewX.distF(gph3.pointA, gph3.pointB).toFixed(3);
+
+                lineOptions = { x1: gph3.pointA[0], y1: gph3.pointA[1], x2: gph3.pointB[0], y2:gph3.pointB[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"}; 
+                viewX.addLine("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-distance-line", lineOptions);
+                
+                pointOptions = {x: gph3.pointA[0], y: gph3.pointA[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
+                viewX.addPoint("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-A", pointOptions);
+                textOptions = {x: gph3.pointA[0] + 0.05, y: gph3.pointA[1] - 0.08, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+                viewX.addText("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-A-label", textOptions);
+
+                pointOptions = { x: gph3.pointB[0], y: gph3.pointB[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-B", pointOptions);
+                pointOptions = { x: gph3.pointB[0], y: gph3.pointB[1], pointsize: upcApp.graphPointSize*3, pointcolor: 'transparent', draggability: "yes", runFunctionDuringDrag: "gph3.onPointDrag()"};
+                viewX.addPoint("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-B-dragger", pointOptions);
+                textOptions = {x: gph3.pointB[0] + 0.05, y: gph3.pointB[1] - 0.08, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+                viewX.addText("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-B-label", textOptions);
+
+                textOptions = {x: (gph3.pointA[0] + gph3.pointB[0])/2, y: (gph3.pointA[1] + gph3.pointB[1])/2, text: gph3.distanceText,  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+                viewX.addText("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-distance-label", textOptions);
+            }
+
+            gph3.onPointDrag = function() {
+                gph3.movedLocationB = viewX.graphData["distance-between-center-and-any-point-graph"].pointData["distance-between-center-and-any-point-point-B-dragger"][1]
+
+                gph3.point1 = [0.5, 0.5]
+                gph3.point2 = [gph3.movedLocationB.x, gph3.movedLocationB.y]
+
+                gph3.distanceText = viewX.distF(gph3.point1, gph3.point2).toFixed(3);
+
+                lineOptions = { x1: gph3.point1[0], y1: gph3.point1[1], x2: gph3.point2[0], y2:gph3.point2[1]}; 
+                viewX.updateLine("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-distance-line", lineOptions);
+                
+                viewX.updatePointXY("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-B", gph3.point2[0], gph3.point2[1]);
+
+
+                textOptions = {x: gph3.point2[0] + 0.05, y: gph3.point2[1] - 0.08};
+                viewX.updateText("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-B-label", textOptions);
+
+                textOptions = {x: (gph3.point1[0] + gph3.point2[0])/2, y: (gph3.point1[1] + gph3.point2[1])/2, text: gph3.distanceText};
+                viewX.updateText("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-distance-label", textOptions);
+            }
+
+            // Code For Graph 4 : distance between corner and point on square
+
+            gph4 = {}
+
+            gph4.setUpDistanceBetweenCornerAnyPointOnSquare = function() {
+                gph4.graphH = document.getElementById('distance-between-corner-and-point-on-square-graphHolder')
+                viewX.addGraph(gph4.graphH, "distance-between-corner-and-point-on-square-graph", defaultGraphOptions)
+
+
+                gph4.graphH.addEventListener("mousemove", viewX.getCoordinatesOfEvent("distance-between-corner-and-point-on-square-graph", "gph4graphMouseMove"))
+
+                rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.4, rectcolor: "hsla(190, 100%, 50%, 0)"};
+
+                viewX.addRectangle("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-square", rectOptions);
+
+                gph4.pointA = [0, 0]
+                gph4.pointB = [0.8, 0.7]
+
+                gph4.distanceText = viewX.distF(gph4.pointA, gph4.pointB).toFixed(3);
+
+                lineOptions = { x1: gph4.pointA[0], y1: gph4.pointA[1], x2: gph4.pointB[0], y2:gph4.pointB[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"}; 
+                viewX.addLine("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-distance-line", lineOptions);
+                
+                pointOptions = {x: gph4.pointA[0], y: gph4.pointA[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
+                viewX.addPoint("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-A", pointOptions);
+                textOptions = {x: gph4.pointA[0] + 0.05, y: gph4.pointA[1] - 0.08, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+                viewX.addText("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-A-label", textOptions);
+
+                pointOptions = { x: gph4.pointB[0], y: gph4.pointB[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-B", pointOptions);
+                textOptions = {x: gph4.pointB[0] + 0.05, y: gph4.pointB[1] - 0.08, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+                viewX.addText("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-B-label", textOptions);
+
+                textOptions = {x: (gph4.pointA[0] + gph4.pointB[0])/2, y: (gph4.pointA[1] + gph4.pointB[1])/2, text: gph4.distanceText,  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+                viewX.addText("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-distance-label", textOptions);
+            }
+
+            function gph4graphMouseMove() {
+                givenPointOnPlane = viewX.cursorCoordinates["distance-between-corner-and-point-on-square-graph"]
+                pointOnSquare = pickAPointOnSquare(givenPointOnPlane)
+
+                gph4.point1 = [0, 0]
+                gph4.point2 = pointOnSquare
+
+                gph4.distanceText = viewX.distF(gph4.point1, gph4.point2).toFixed(3);
+
+                lineOptions = { x1: gph4.point1[0], y1: gph4.point1[1], x2: gph4.point2[0], y2:gph4.point2[1]}; 
+                viewX.updateLine("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-distance-line", lineOptions);
+                
+                viewX.updatePointXY("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-B", gph4.point2[0], gph4.point2[1]);
+
+
+                textOptions = {x: gph4.point2[0] + 0.05, y: gph4.point2[1] - 0.08};
+                viewX.updateText("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-B-label", textOptions);
+
+                textOptions = {x: (gph4.point1[0] + gph4.point2[0])/2, y: (gph4.point1[1] + gph4.point2[1])/2, text: gph4.distanceText};
+                viewX.updateText("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-distance-label", textOptions);
+            }
+
 
 
         </script>
