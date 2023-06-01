@@ -68,7 +68,10 @@
 			:root {
                 --generalBackground: hsl(0,0%,4%);
                 --lightYellow:  hsl(43, 51%, 81%);
+                --brightYellow:  hsl(54, 51%, 59%);
                 --lightPurple:  hsl(256, 100%, 76%);
+                --lightOrange:  hsl(25, 100%, 78%);
+                --lightGreen: hsl(97, 100%, 74%);
                 --lightPinkH:  320;
                 --lightPinkS:  55%;
                 --lightPinkL:  76%;
@@ -103,14 +106,32 @@
                 color: var(--lightBlue);
             }
 
+            .p-White {
+                color: white;
+            }
+
+            .p-lightOrange {
+                color: var(--lightOrange);
+            }
+
+            .p-lightGreen {
+                color: var(--lightGreen);
+            }
+
+            .p-brightYellow {
+                color: var(--brightYellow);
+            }
+
+
+
+        
+
             .our-text-block {
                 max-width: 1000px;
                 width: 100%;
             }
 
-            .p-White {
-                color: white;
-            }
+            
 
 
             .dragDownExtension {
@@ -378,7 +399,27 @@
     
                     
     
-    
+                    <div  class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                Let's branch out a little and delve into a problem unrelated to the unit square. A problem related to <span class="p-lightPurple" >Shrinking Random Walk</span> appeared in Tom Yuster's April 2017 Math Horizons piece (pp. 32-33)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                Consider a drunkard walking in a plane that starts at the <span class="p-White" >origin</span> and moves only in the east and north directions. He randomly chooses a direction and takes a step. The walk is such that the length of the <span class="p-lightOrange" >first step must be √2</span>, the length of the <span class="p-brightYellow" >second step must be √2/2</span>, the length of the <span class="p-lightGreen" >third step must be √2/4</span>, and <span class="p-lightBlue" >so on</span>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center reveal-1 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="random-shrinking-problem-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
     
                     <div class="w-100 pt-5 pb-5">
     
