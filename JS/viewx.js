@@ -2024,7 +2024,7 @@ viewX.addText = function(graphname, textname, textoptions) {
 	textElement.style.fill = textoptions.textcolor
 	textElement.innerHTML = textoptions.text
 	textElement.style.fontFamily = textoptions.fontFamily
-	textElement.style.fontSize = textoptions.fontSize;
+	textElement.style.fontSize = textoptions.fontSize + 'pt';
 	if (textoptions.textAlign == 'center') {
 		textElement.setAttribute('text-anchor','middle')
 	}

@@ -1470,7 +1470,7 @@
                     viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-line-segment-" + i, lineOptions);
 
                     if (i == gph5.walkedPoints.length - 1) {
-                        pointOptions = { x: gph5.walkedPoints[i][0] , y: gph5.walkedPoints[i][1], pointsize: upcApp.graphPointSize, pointcolor: "var(--lightPurple)"};
+                        pointOptions = { x: gph5.walkedPoints[i][0] , y: gph5.walkedPoints[i][1], pointsize: upcApp.graphPointSize/(i + 1), pointcolor: "var(--lightPurple)"};
                         viewX.addPoint("random-shrinking-walk-graph", "random-shrinking-walk-point-final", pointOptions);
 
                         textOptions = {x: gph5.walkedPoints[i][0] + 0.4, y: gph5.walkedPoints[i][1] - 0.2, text: "Drunkard",  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
