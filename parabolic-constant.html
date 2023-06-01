@@ -415,7 +415,7 @@
                         </div>
                     </div>
 
-                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-1 revealable">
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pb-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-1 revealable">
                         <div class="our-text-block text-center" style="height: 500px; width: 100%; position: relative;">
                             <div id="random-shrinking-walk-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
                             <div class="mt-1 pb-2">
@@ -424,10 +424,22 @@
                                 <label id="random-shrinking-walk-SliderLabel" class="p-lightBlue pl-sm-3 pl-0" for="random-shrinking-walk-Slider" style="min-width: 100px;" >0.8</label>
                                 <div>
                                     <p id="random-shrinking-walk-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
-                                        Point<span class="p-lightPurple">B</span> above is draggable. :)
+                                        There are infinitely many steps. But, you can choose how many steps to show. :)
                                     </p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p>
+                                Imagine the endless steps taken by the drunkard, how far would you expect to be from the starting point,  <span class="p-White">the origin</span>? Let's denote this distance as <span class="p-lightPink">D</span>. But, what about the average value of <span class="p-lightPink">D</span>? How could we possibly calculate that?<br/>
+                                This problem might seem to be a departure from our discussion about the unit square. Still, it maintains a common thread: the concept of averages.
+                                (Note that the length of the path is <span class="p-brightYellow">√2</span> + <span class="p-lightOrange">√2/2</span> + ... , and we are not referring to that) <br/><br/>
+
+                                So, how about we roll up our sleeves and crunch some numbers? Let's simulate the Drunkard's Walk, taking about 30 steps, and observe where we end up. From there, we can compute the distance, <span class="p-lightPink">D</span>, from the origin. To get an approximation of <span class="p-lightPink">D</span>'s average value, we'll repeat this process a few times.
+                            </p>
                         </div>
                     </div>
     
