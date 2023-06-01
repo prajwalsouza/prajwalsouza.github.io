@@ -1148,7 +1148,7 @@ viewX.addGraph = function (parentdiv, name, graphData) {
 	gdata.scrollZoom = gdata.scrollZoom || 'yes'
 
 	if (gdata.scrollZoom == 'yes') {
-		svgElement.addEventListener('wheel', viewX.wheelHandle)
+		svgElement.addEventListener('wheel', viewX.wheelHandle(gdata.name))
 	}
 
 	viewX.svgPTVariable[name] = svgElement.createSVGPoint()
@@ -1164,8 +1164,8 @@ viewX.addGraph = function (parentdiv, name, graphData) {
 	gdata.runFunctionDuringDrag = gdata.runFunctionDuringDrag || ''
 
 	if (gdata.draggability == 'yes') {
-		svgElement.addEventListener('mousedown', viewX.graphDragHandle)
-		svgElement.addEventListener('touchstart', viewX.graphDragHandle)
+		svgElement.addEventListener('mousedown', viewX.graphDragHandle(gdata.name))
+		svgElement.addEventListener('touchstart', viewX.graphDragHandle(gdata.name))
 	}
 	// else {
 	// 	svgElement.addEventListener('touchmove', viewX.graphTouchDisable)
@@ -2282,16 +2282,22 @@ viewX.updatePointXY = function(graphname, pointname, xvalue, yvalue) {
 }
 
 viewX.removePoint = function(graphname, pointname) {
-	pointElement = document.getElementById(graphname + '-point-' + pointname)
+	if (typeof viewX.graphData[graphname].pointData[pointname] != 'undefined') {
+		pointElement = document.getElementById(graphname + '-point-' + pointname)
+		
+		pointElement.outerHTML = "";
+		delete viewX.graphData[graphname].pointData[pointname]
+	}
 	
-	pointElement.outerHTML = "";
-	delete viewX.graphData[graphname].pointData[pointname]
 }
 
 viewX.removeLine = function(graphname, linename) {
-	lineElement = document.getElementById(graphname + '-line-' + linename)
-	lineElement.outerHTML = "";
-	delete viewX.graphData[graphname].lineData[linename]
+	if (typeof viewX.graphData[graphname].lineData[linename] != 'undefined') {
+		lineElement = document.getElementById(graphname + '-line-' + linename)
+		
+		lineElement.outerHTML = "";
+		delete viewX.graphData[graphname].lineData[linename]
+	}
 }
 
 viewX.removeCircle = function(graphname, circlename) {
@@ -2301,9 +2307,11 @@ viewX.removeCircle = function(graphname, circlename) {
 }
 
 viewX.removeText = function(graphname, textname) {
-	textElement = document.getElementById(graphname + '-text-' + textname)
-	textElement.outerHTML = "";
-	delete viewX.graphData[graphname].textData[textname]
+	if (typeof viewX.graphData[graphname].textData[textname] != 'undefined') {
+		textElement = document.getElementById(graphname + '-text-' + textname)
+		textElement.outerHTML = "";
+		delete viewX.graphData[graphname].textData[textname]
+	}
 }
 
 viewX.removePath = function(graphname, pathname) {
@@ -2514,7 +2522,7 @@ viewX.pointUpEvent = function(event) {
 	eval(viewX.graphData[gphname].pointData[ptname][1].runFunctionOnDragEnd)
 }
 
-viewX.wheelHandle = function(event) {
+viewX.wheelHandle = (gphname) => (event) => {
 	event.preventDefault();
 	whlvalue = (event.wheelDeltaY)/Math.abs(event.wheelDeltaY)
 	if (event.wheelDeltaY == undefined) {
@@ -2523,12 +2531,11 @@ viewX.wheelHandle = function(event) {
 	}
 	scalefactorup = 1.1
 	scalefactordown = 0.9
-
-	if(viewX.graphData[event.target.id.split('-')[0]] == undefined) {
-
+	if (viewX.graphData[gphname] == undefined) {
+		console.log("Cannot scroll")
 	}
 	else {
-		gdata = viewX.graphData[event.target.id.split('-')[0]]
+		gdata = viewX.graphData[gphname]
 
 		scale = gdata.ymax - gdata.ymin
 		expstring = scale.toExponential().toString()
@@ -2613,9 +2620,9 @@ viewX.wheelHandle = function(event) {
 viewX.currentMovingGraph = ''
 viewX.currentMovingGraphStartLocation = []
 
-viewX.graphDragHandle = function(event) {
+viewX.graphDragHandle = (gphname) => (event) => {
 	event.preventDefault();
-	gphname = event.target.id.split('-')[0]
+	// gphname = event.target.id.split('-')[0]
 	if (viewX.graphData[gphname].currentlyDraggableGraph == 'yes') {
 		viewX.graphData[gphname].svgElement.removeEventListener('mousedown', viewX.graphDragHandle)
 		viewX.graphData[gphname].svgElement.removeEventListener('touchstart', viewX.graphDragHandle)
@@ -2816,8 +2823,8 @@ viewX.graphDragMoveEvent = function(event) {
 viewX.graphDragUpEvent = function(event) {
 	gphname = viewX.currentMovingGraph.id
 
-	viewX.currentMovingGraph.addEventListener('mousedown', viewX.graphDragHandle)
-	viewX.currentMovingGraph.addEventListener('touchstart', viewX.graphDragHandle)
+	viewX.currentMovingGraph.addEventListener('mousedown', viewX.graphDragHandle(gphname))
+	viewX.currentMovingGraph.addEventListener('touchstart', viewX.graphDragHandle(gphname))
 	window.removeEventListener('mousemove', viewX.graphDragMoveEvent)
 	window.removeEventListener('mouseup', viewX.graphDragUpEvent)
 	window.removeEventListener('touchmove', viewX.graphDragMoveEvent)

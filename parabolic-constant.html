@@ -415,15 +415,24 @@
                         </div>
                     </div>
 
-                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center reveal-1 revealable">
-                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
-                            <div id="random-shrinking-problem-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center" style="height: 500px; width: 100%; position: relative;">
+                            <div id="random-shrinking-walk-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="30" value="1" step="1"  class="commonSlider mb-3" id="random-shrinking-walk-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="random-shrinking-walk-SliderLabel" class="p-lightBlue pl-sm-3 pl-0" for="random-shrinking-walk-Slider" style="min-width: 100px;" >0.8</label>
+                                <div>
+                                    <p id="random-shrinking-walk-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
+                                        Point<span class="p-lightPurple">B</span> above is draggable. :)
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
     
-                    <div class="w-100 pt-5 pb-5">
-    
-                    </div>
+                    <div class="w-100 pt-5 pb-5"></div>
+                    <div class="w-100 pt-5 pb-5"></div>
                 </main>
 
                 <div style="position: fixed; height: 100%; width: 100vw; pointer-events: none; bottom: 0px; left: 0px;" id="lottie-popper"></div>
@@ -514,11 +523,14 @@
                 toRevealElements = document.getElementsByClassName('reveal-' + upcApp.revealPoint)
                 document.getElementById('reveal-' + upcApp.revealPoint + "-continueButton").style.display = "none";
 
-                upcApp.revealGap = 100
+                upcApp.revealGap = 300
 
                 if (upcApp.revealPoint == 1) {
                     setTimeout(function() {
                         upcApp.chooseSection(1, 1);
+                        gph5.setUpShrinkingRandomWalk();
+                        gph5.interval = setInterval(gph5.nextValue, 1000);
+                        // gph5.setAtValue(6)
                     }, 1000);
                 }
 
@@ -655,6 +667,7 @@
 
             
             // Code by GPT-4
+
             function pickAPointOnSquare(givenPointOnPlane) {
                 A = givenPointOnPlane;
                 let center = [0.5, 0.5];
@@ -1009,6 +1022,12 @@
             gph3 = {}
 
             gph3.setUpDistanceBetweenCenterAndAnyPointInside = function() {
+                defaultGraphOptions["xmax"] = 1.1
+                defaultGraphOptions["xmin"] = -0.1
+                defaultGraphOptions["ymax"] = 1.1
+                defaultGraphOptions["ymin"] = -0.1
+                defaultGraphOptions["scrollZoom"] = "no"
+                
                 gph3.graphH = document.getElementById('distance-between-center-and-any-point-graphHolder')
                 viewX.addGraph(gph3.graphH, "distance-between-center-and-any-point-graph", defaultGraphOptions)
 
@@ -1134,6 +1153,13 @@
             gph4 = {}
 
             gph4.setUpDistanceBetweenCornerAnyPointOnSquare = function() {
+
+                defaultGraphOptions["xmax"] = 1.1
+                defaultGraphOptions["xmin"] = -0.1
+                defaultGraphOptions["ymax"] = 1.1
+                defaultGraphOptions["ymin"] = -0.1
+                defaultGraphOptions["scrollZoom"] = "no"
+
                 gph4.graphH = document.getElementById('distance-between-corner-and-point-on-square-graphHolder')
                 viewX.addGraph(gph4.graphH, "distance-between-corner-and-point-on-square-graph", defaultGraphOptions)
 
@@ -1252,6 +1278,162 @@
             gph4.continueButton.addEventListener('click', function() {
                     upcApp.revealSubSection(2)
             });
+
+            // graph 5 : shrinking random walk
+
+            gph5 = {}
+
+            gph5.walkedPoints = []
+            gph5.generateWalk = function(uptoNumber) {
+                for (let i = 0; i < gph5.walkedPoints.length; i++) {
+                    viewX.removePoint("random-shrinking-walk-graph", "random-shrinking-walk-point-" + i)
+                    viewX.removeLine("random-shrinking-walk-graph", "random-shrinking-walk-line-segment-" + i)
+                    viewX.removePoint("random-shrinking-walk-graph", "random-shrinking-walk-point-final")
+                    viewX.removeText("random-shrinking-walk-graph", "random-shrinking-walk-point-final-label")
+                    viewX.removeLine("random-shrinking-walk-graph", "random-shrinking-walk-distance-line-segment")
+                }
+
+                if (gph5.walkedPoints.length < uptoNumber) {
+                    for (let i = gph5.walkedPoints.length + 1; i <= uptoNumber; i++) {
+                        stepLengthAtStep = Math.sqrt(2)/Math.pow(2, i - 1)
+                        stepDirection = viewX.randomChoice([[0, 1], [1, 0]])
+                        previousPoint = [0, 0]
+                        if (gph5.walkedPoints.length != 0) {
+                            previousPoint = gph5.walkedPoints[i - 2]
+                        }
+                        newPoint = [previousPoint[0] + stepLengthAtStep*stepDirection[0], previousPoint[1] + stepLengthAtStep*stepDirection[1]]
+                        gph5.walkedPoints.push(newPoint)
+                    }
+                }
+                else {
+                    gph5.walkedPoints = gph5.walkedPoints.slice(0, uptoNumber)
+                }
+            }
+
+
+            gph5.drawShrinkingRandomWalkPath = function() {
+                
+                
+                for (let i = 0; i < gph5.walkedPoints.length; i++) {
+                    if (i < 3) {
+                        pointColor = ["var(--brightYellow)","var(--lightOrange)","var(--lightGreen)","var(--lightBlue)"][i]
+                    }
+                    else if (i >= 3) {
+                        pointColor = "var(--lightBlue)"
+                    }
+
+                    if (i < 4) {
+                        sizeToUse = upcApp.graphPointSize/(i + 1)
+                    }
+                    else {
+                        sizeToUse = upcApp.graphPointSize/4
+                    }
+                    pointOptions = { x: gph5.walkedPoints[i][0] , y: gph5.walkedPoints[i][1], pointsize: sizeToUse, pointcolor: pointColor};
+                    viewX.addPoint("random-shrinking-walk-graph", "random-shrinking-walk-point-" + i, pointOptions);
+                    previousPoint = [0, 0]
+                    if (i != 0) {
+                        previousPoint = gph5.walkedPoints[i - 1]
+                    }
+                    lineOptions = { x1: previousPoint[0], y1: previousPoint[1], x2: gph5.walkedPoints[i][0], y2: gph5.walkedPoints[i][1], strokewidth: 0.7/(i + 1), linecolor: pointColor}; 
+                    viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-line-segment-" + i, lineOptions);
+
+                    if (i == gph5.walkedPoints.length - 1) {
+                        pointOptions = { x: gph5.walkedPoints[i][0] , y: gph5.walkedPoints[i][1], pointsize: upcApp.graphPointSize, pointcolor: "var(--lightPurple)"};
+                        viewX.addPoint("random-shrinking-walk-graph", "random-shrinking-walk-point-final", pointOptions);
+
+                        textOptions = {x: gph5.walkedPoints[i][0] + 0.4, y: gph5.walkedPoints[i][1] - 0.2, text: "Drunkard",  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+                        viewX.addText("random-shrinking-walk-graph", "random-shrinking-walk-point-final-label", textOptions);
+                    }
+
+                    
+                }
+
+                if (gph5.walkedPoints.length > 3) {
+                    lineOptions = { x1: 0, y1: 0, x2: gph5.walkedPoints[gph5.walkedPoints.length - 1][0], y2: gph5.walkedPoints[gph5.walkedPoints.length - 1][1], strokewidth: 0.7, strokedasharray: "4, 4", linecolor: "hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), " + (gph5.walkedPoints.length/30) + ")"};
+                    viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-distance-line-segment", lineOptions);
+                }
+            }
+
+            
+
+
+            gph5.setUpShrinkingRandomWalk = function() {
+                gph5.graphH = document.getElementById('random-shrinking-walk-graphHolder')
+                defaultGraphOptions["xmax"] = 2*1.414 + 1
+                defaultGraphOptions["ymax"] = 2*1.414
+                defaultGraphOptions["xmin"] = -1
+                defaultGraphOptions["ymin"] = -1
+
+                // defaultGraphOptions["scrollZoom"] = 'yes'
+                // defaultGraphOptions["draggability"] = 'yes'
+
+                viewX.addGraph(gph5.graphH, "random-shrinking-walk-graph", defaultGraphOptions)
+
+                lineOptions = { x1: -0.5, y1: 0, x2: 2*1.414, y2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
+                viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-y-axis-line", lineOptions);
+
+                lineOptions = { y1: -0.5, x1: 0, y2: 2*1.414, x2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
+                viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-y-axis-line", lineOptions);
+
+                pointOptions = { x: 0, y: 0, pointsize: upcApp.graphPointSize, pointcolor: 'white'};
+                viewX.addPoint("random-shrinking-walk-graph", "random-shrinking-walk-origin", pointOptions);
+
+                textOptions = {x: 0 + 0.3, y: 0 - 0.2, text: "(0, 0)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.8, fontFamily: "Nunito",   textcolor: "white"};
+                viewX.addText("random-shrinking-walk-graph", "random-shrinking-walk-origin-label", textOptions);
+                
+            }
+
+            gph5.setAtValue = function(toSetSliderAt) {
+                gph5.slider.value = toSetSliderAt
+                gph5.sliderLabel.innerHTML = gph5.slider.value + " step" + (gph5.slider.value == 1 ? "" : "s")
+                gph5.generateWalk(gph5.slider.value)
+                gph5.drawShrinkingRandomWalkPath()
+                gph5.sliderInfo.innerHTML = "There's a lot of steps in this walk. Let's just look at the first " + gph5.slider.value + " step" + (gph5.slider.value == 1 ? "" : "s") +  ". :)"
+            }
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(10, 0%, 20%, 0.7)",
+                trackFillColor: "var(--lightBlue)",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "var(--lightBlue)",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "random-shrinking-walk-Slider");
+
+            gph5.slider = document.getElementById("random-shrinking-walk-Slider");
+            gph5.sliderLabel = document.getElementById("random-shrinking-walk-SliderLabel");
+            gph5.sliderInfo = document.getElementById("random-shrinking-walk-SliderInfo");
+
+            gph5.slider.value = 1
+            gph5.sliderLabel.innerHTML = gph5.slider.value + " step" + (gph5.slider.value == 1 ? "" : "s")
+
+            gph5.slider.addEventListener('input', function() {
+                gph5.setAtValue(gph5.slider.value)
+            });
+
+            function pauseAutoplay() {
+                clearInterval(gph5.interval);
+            }
+
+            gph5.slider.addEventListener('mouseover', pauseAutoplay);
+            gph5.slider.addEventListener('touchstart', pauseAutoplay);
+
+            gph5.nextValue = function() {
+                if (gph5.slider.value < 30) {
+                    gph5.slider.value = parseInt(gph5.slider.value) + 1
+                }
+                else {
+                    gph5.slider.value = 1
+                }
+                
+                gph5.setAtValue(gph5.slider.value)
+            }
+
+            
 
 
 
