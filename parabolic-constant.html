@@ -2076,6 +2076,14 @@
                 document.getElementById('random-shrinking-walk-reveal-graph').style.transform = 'rotate(0deg)'
                 document.getElementById('random-shrinking-walk-reveal-graph').style.transformOrigin = 'center'
 
+                zoomValues = {}
+                zoomValues["xmax"] = 2*1.414 + 1
+                zoomValues["ymax"] = 2*1.414
+                zoomValues["xmin"] = - 1
+                zoomValues["ymin"] = - 1
+                
+                viewX.updateGraphZoom("random-shrinking-walk-reveal-graph", zoomValues)
+
                 if (gph7.slider.value > 100) {
 
                     rotationAngle = viewX.linearValue(100, 200, 0, 45, gph7.slider.value)
