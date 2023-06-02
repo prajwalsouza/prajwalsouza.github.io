@@ -2026,7 +2026,7 @@
                         finalPointInTrial = gph7.trials[k][gph7.trials[k].length - 1]
                         pointOptions = { x: finalPointInTrial[0] , y: finalPointInTrial[1], pointsize: upcApp.graphPointSize, pointcolor: "var(--lightPurple)"};
                         finalPoint = viewX.addPoint("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-point-final-for-trial-" + k, pointOptions);
-                        finalPoint[0].style.opacity = 0.4
+                        finalPoint[0].style.opacity = 0.4 - (0.35*gph7.slider.value/200)
                     }
                 }
 
