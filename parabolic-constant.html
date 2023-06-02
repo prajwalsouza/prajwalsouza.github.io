@@ -62,7 +62,7 @@
             .commonButton:hover {
                 border: 1px solid hsla(43, 100%, 70%, 0) !important;
                 color: white !important;
-                background: hsla(43, 0%, 0%, 1);
+                background: hsla(198, 0%, 40%, 1);
             }
 
 
@@ -82,7 +82,7 @@
             }
 
 			:root {
-                --generalBackground: hsl(0,0%,4%);
+                --generalBackground: hsl(0,0%,5%);
                 --lightYellow:  hsl(43, 51%, 81%);
                 --brightYellow:  hsl(54, 51%, 59%);
                 --lightPurple:  hsl(256, 100%, 76%);
@@ -176,7 +176,7 @@
 
 	</head>
 	<body style='margin:0px; display: block;'>
-		<div id="containAll" class="pl-3 pr-3 pt-3 pb-3">
+		<div id="containAll" class="p-sm-3 p-1">
             <div style="border: 1px solid hsl(0,0%,2%); border-radius: 10px; background: var(--generalBackground); ">
                 
                 <header style="position: fixed; font-family: Raleway; overflow: hidden;" class="d-none">
@@ -517,7 +517,7 @@
                                 <br/><br/>
                                 But, why? What does this have to do with the parabola we've been discussing? Could it be linked to a concept you're already familiar with?
                                 <br/>
-                                Here's a hint. It's about the <span class="p-lightPurple">final point</span> after large iterations . (where the drunkard lands after infinitely many steps)
+                                Here's a hint. The drunkard destiny isn't that random after all. It's about the <span class="p-lightPurple">final point</span> after large iterations . (where the drunkard lands after infinitely many steps)
                             </p>
                         </div>
                     </div>
@@ -532,7 +532,7 @@
                     <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
                         <div class="our-text-block text-center">
                             <div class="mt-1 pb-2">
-                                <input type="range" min="0" max="200" value="2" step="1"  class="commonSlider mb-3" id="random-shrinking-walk-reveal-Slider">
+                                <input type="range" min="1" max="200" value="2" step="1"  class="commonSlider mb-3" id="random-shrinking-walk-reveal-Slider">
                                 <div class="d-block d-sm-none"></div>
                                 <label id="random-shrinking-walk-reveal-SliderLabel" class="p-lightBlue pl-sm-3 pl-0" for="random-shrinking-walk-reveal-Slider" style="min-width: 100px;" >2 trials</label>
                                 <div>
@@ -603,8 +603,8 @@
                 upcApp.graphFontSizeLarge = 4;
                 upcApp.graphPointSize = 1.3;
                 if (window.innerWidth < 580) {
-                    upcApp.graphFontSizeSmall = 4;
-                    upcApp.graphFontSizeLarge = 6;
+                    upcApp.graphFontSizeSmall = 3.6;
+                    upcApp.graphFontSizeLarge = 5;
                     upcApp.graphPointSize = 2.1;
                 }
             }
@@ -1502,7 +1502,7 @@
                 viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-y-axis-line", lineOptions);
 
                 lineOptions = { y1: -0.5, x1: 0, y2: 2*1.414, x2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
-                viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-y-axis-line", lineOptions);
+                viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-x-axis-line", lineOptions);
 
                 pointOptions = { x: 0, y: 0, pointsize: upcApp.graphPointSize, pointcolor: 'white'};
                 viewX.addPoint("random-shrinking-walk-graph", "random-shrinking-walk-origin", pointOptions);
@@ -1583,7 +1583,7 @@
                 viewX.addLine("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-y-axis-line", lineOptions);
 
                 lineOptions = { y1: -0.5, x1: 0, y2: 2*1.414, x2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
-                viewX.addLine("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-y-axis-line", lineOptions);
+                viewX.addLine("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-x-axis-line", lineOptions);
 
                 pointOptions = { x: 0, y: 0, pointsize: upcApp.graphPointSize, pointcolor: 'white'};
                 viewX.addPoint("random-shrinking-walk-trials-graph", "random-shrinking-walk-trials-origin", pointOptions);
@@ -1789,7 +1789,7 @@
                 viewX.addGraph(gph7.graphH, "random-shrinking-walk-reveal-graph", defaultGraphOptions)
 
                 lineOptions = { x1: -0.5, y1: 0, x2: 2*1.414, y2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
-                viewX.addLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-y-axis-line", lineOptions);
+                viewX.addLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-x-axis-line", lineOptions);
 
                 lineOptions = { y1: -0.5, x1: 0, y2: 2*1.414, x2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
                 viewX.addLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-y-axis-line", lineOptions);
@@ -1800,17 +1800,139 @@
                 textOptions = {x: 0 + 0.3, y: 0 - 0.2, text: "(0, 0)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.8, fontFamily: "Nunito",   textcolor: "white"};
                 viewX.addText("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-origin-label", textOptions);
                 
+                for (m = 0; m < 4; m++) {
+                    gph7.addNewWalk()
+                }
+
+                gph7.otherDrawings()
+                
             }
+
+
+            gph7.maxWalkedSteps = 12
+            gph7.trials = []
+            gph7.trialDisplayed = 0
+            gph7.trialsDistances = []
+
+            gph7.walkedPoints = []
+            gph7.walkedPointsCurrent = []
+            gph7.generateWalk = function(uptoNumber) {
+                gph7.walkedPoints = []
+                if (gph7.walkedPoints.length < uptoNumber) {
+                    for (let i = gph7.walkedPoints.length + 1; i <= uptoNumber; i++) {
+                        stepLengthAtStep = Math.sqrt(2)/Math.pow(2, i - 1)
+                        stepDirection = viewX.randomChoice([[0, 1], [1, 0]])
+                        previousPoint = [0, 0]
+                        if (gph7.walkedPoints.length != 0) {
+                            previousPoint = gph7.walkedPoints[i - 2]
+                        }
+                        newPoint = [previousPoint[0] + stepLengthAtStep*stepDirection[0], previousPoint[1] + stepLengthAtStep*stepDirection[1]]
+                        gph7.walkedPoints.push(newPoint)
+                    }
+                }
+                else {
+                    gph7.walkedPoints = gph7.walkedPoints.slice(0, uptoNumber)
+                }
+            }
+
+            gph7.drawShrinkingRandomWalkPath = function() {
+                for (let i = 0; i < gph7.walkedPointsCurrent.length; i++) {
+                    if (i < 3) {
+                        pointColor = ["var(--brightYellow)","var(--lightOrange)","var(--lightGreen)","var(--lightBlue)"][i]
+                    }
+                    else if (i >= 3) {
+                        pointColor = "var(--lightBlue)"
+                    }
+
+
+                    if (i < 4) {
+                        sizeToUse = upcApp.graphPointSize/(i + 1)
+                    }
+                    else {
+                        sizeToUse = upcApp.graphPointSize/4
+                    }
+                    pointOptions = { x: gph7.walkedPointsCurrent[i][0] , y: gph7.walkedPointsCurrent[i][1], pointsize: sizeToUse, pointcolor: pointColor};
+                    thePoint = viewX.addPoint("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-point-" + i, pointOptions);
+
+                    thePoint[0].style.opacity = 0.4
+
+                    gph7.previousPoint = [0, 0]
+                    if (i != 0) {
+                        gph7.previousPoint = gph7.walkedPointsCurrent[i - 1]
+                    }
+
+                    lineOptions = { x1: gph7.previousPoint[0], y1: gph7.previousPoint[1], x2: gph7.walkedPointsCurrent[i][0], y2: gph7.walkedPointsCurrent[i][1], strokewidth: 0.7/(i + 1), linecolor: pointColor}; 
+                    theLine = viewX.addLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-line-segment-" + i, lineOptions);
+                    theLine[0].style.opacity = 0.4
+
+                    if (i == gph7.walkedPointsCurrent.length - 1) {
+                        pointOptions = { x: gph7.walkedPointsCurrent[i][0] , y: gph7.walkedPointsCurrent[i][1], pointsize: upcApp.graphPointSize, pointcolor: "var(--lightPurple)"};
+                        viewX.addPoint("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-point-final", pointOptions);
+
+                        textOptions = {x: gph7.walkedPointsCurrent[i][0] + 0.4, y: gph7.walkedPointsCurrent[i][1] - 0.2, text: "Drunkard",  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+                        viewX.addText("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-point-final-label", textOptions);
+
+                        
+                        textOptions = {x: gph7.walkedPointsCurrent[i][0]/2, y: gph7.walkedPointsCurrent[i][1]/2, text: gph7.trialsDistances[gph7.trialDisplayed].toFixed(3),  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+                        viewX.addText("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-distance-label", textOptions);
+                    }
+
+                    
+                }
+
+                if (gph7.walkedPointsCurrent.length > 3) {
+                    lineOptions = { x1: 0, y1: 0, x2: gph7.walkedPointsCurrent[gph7.walkedPointsCurrent.length - 1][0], y2: gph7.walkedPointsCurrent[gph7.walkedPointsCurrent.length - 1][1], strokewidth: 0.7, strokedasharray: "4, 4", linecolor: "hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1)"};
+                    viewX.addLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-distance-line-segment", lineOptions);
+                }
+            }
+
+            gph7.eraseWalk = function() {
+                for (let i = 0; i < gph7.walkedPointsCurrent.length; i++) {
+                    viewX.removePoint("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-point-" + i)
+                    viewX.removeLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-line-segment-" + i)
+                    viewX.removePoint("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-point-final")
+                    viewX.removeText("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-point-final-label")
+                    viewX.removeText("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-distance-label")
+                    viewX.removeLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-distance-line-segment")
+                    
+                    for (k = 0; k < gph7.trials.length - 1; k++) {
+                        viewX.removePoint("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-point-final-for-trial-" + k)
+                    }
+                    viewX.removeLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-line-of-square")
+
+                    viewX.removeLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-line-of-square-1")
+                    viewX.removeLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-line-of-square-2")
+                    viewX.removeLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-line-of-square-3")
+                    
+                }
+            }
+
+            
+            gph7.displayTrial = function() {
+                gph7.eraseWalk()
+                gph7.walkedPointsCurrent = gph7.trials[gph7.trialDisplayed]
+                gph7.drawShrinkingRandomWalkPath()
+            }
+
+            gph7.addNewWalk = function() {
+                gph7.generateWalk(gph7.maxWalkedSteps)
+                gph7.trials.push(gph7.walkedPoints)
+                gph7.trialsDistances.push(viewX.distF([0, 0], gph7.walkedPoints[gph7.walkedPoints.length - 1]))
+                gph7.trialDisplayed = gph7.trials.length - 1
+                gph7.displayTrial()
+                
+            }
+
 
             var sliderProperties = {
                 minwidth: '200px',
                 width: '50%',
                 height: 5,
                 trackColor: "hsla(280, 0%, 20%, 0.7)",
-                trackFillColor: "var(--lightPink)",
+                trackFillColor: "var(--lightBlue)",
                 thumbWidth: 15,
                 thumbHeight: 15,
-                thumbColor: "var(--lightPink)",
+                thumbColor: "var(--lightBlue)",
                 opacity: 0.7
             };
 
@@ -1828,6 +1950,12 @@
 
             gph7.sliderMoveEvent = function(event) {
                 gph7.sliderLabel.innerHTML = gph7.slider.value + " trial" + (gph7.slider.value == 1 ? "" : "s")
+                gph7.trialDisplayed = gph7.slider.value - 1
+
+                
+                gph7.displayTrial()
+                gph7.otherDrawings()
+                
                 if (gph7.slider.max == gph7.slider.value && gph7.slider.max != 200) {
                     gph7.slider.removeEventListener('input', gph7.sliderMoveEvent);
                     gph7.slider.disabled = true
@@ -1836,22 +1964,40 @@
                         gph7.slider.addEventListener('input', gph7.sliderMoveEvent);
                         gph7.slider.disabled = false
                         gph7.slider.style.filter = 'none'
-                    }, 2000);
+                    }, 00);
+
+
                     if (gph7.slider.max == 4) {
                         gph7.slider.max = 15
                         gph7.sliderInfo.innerHTML = "Maybe more trials? 🤔"
+                        for (m = 4; m < 15; m++) {
+                            gph7.addNewWalk()
+                            gph7.otherDrawings()
+                        }
                     }
                     else if(gph7.slider.max == 15) {
                         gph7.slider.max = 25
                         gph7.sliderInfo.innerHTML = "Maybe even more trials. :D"
+                        for (m = 15; m < 25; m++) {
+                            gph7.addNewWalk()
+                            gph7.otherDrawings()
+                        }
                     }
                     else if(gph7.slider.max == 25) {
                         gph7.slider.max = 100
                         gph7.sliderInfo.innerHTML = "The picture might be clear with more trials."
+                        for (m = 25; m < 100; m++) {
+                            gph7.addNewWalk()
+                            gph7.otherDrawings()
+                        }
                     }
-                    else if(gph7.slider.max == 95) {
+                    else if(gph7.slider.max == 100) {
                         gph7.slider.max = 200
                         gph7.sliderInfo.innerHTML = "Better?"
+                        for (m = 95; m < 200; m++) {
+                            gph7.addNewWalk()
+                            gph7.otherDrawings()
+                        }
                     }
                     else {
                         gph7.slider.max = 200
@@ -1863,7 +2009,74 @@
 
             gph7.slider.addEventListener('input', gph7.sliderMoveEvent);
 
+            gph7.otherDrawings = function() {
+                if (gph7.slider.value > 0) {
+                    for (k = 0; k < gph7.slider.value -1; k++) {
+                        finalPointInTrial = gph7.trials[k][gph7.trials[k].length - 1]
+                        pointOptions = { x: finalPointInTrial[0] , y: finalPointInTrial[1], pointsize: upcApp.graphPointSize, pointcolor: "var(--lightPurple)"};
+                        finalPoint = viewX.addPoint("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-point-final-for-trial-" + k, pointOptions);
+                        finalPoint[0].style.opacity = 0.4
+                    }
+                    
+                }
 
+                if (gph7.slider.value > 15) {
+                    lineOptions = { x1: 2*Math.sqrt(2), y1: 0, x2: 0, y2: 2*Math.sqrt(2), strokewidth: 3, linecolor: 'var(--lightYellow)'}; 
+                    theLineSquarePart = viewX.addLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-line-of-square", lineOptions);
+                    if (gph7.slider.value < 100) {
+                        theLineSquarePart[0].style.opacity = (gph7.slider.value - 15)*0.9/100
+                    }
+                    else {
+                        theLineSquarePart[0].style.opacity = (100 - 15)*0.9/100
+                    }
+                    
+                }
+
+                if (gph7.slider.value > 25) {
+                    lineOptions = { x1: -2*Math.sqrt(2), y1: 0, x2: 0, y2: 2*Math.sqrt(2), strokewidth: 1, linecolor: 'var(--lightYellow)'}; 
+                    theLineSquarePart = viewX.addLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-line-of-square-1", lineOptions);
+                    if (gph7.slider.value < 100) {
+                        theLineSquarePart[0].style.opacity = (gph7.slider.value - 25)*0.9/150
+                    }
+                    else {
+                        theLineSquarePart[0].style.opacity = (100 - 25)*0.9/150
+                    }
+
+                    lineOptions = { x1: -2*Math.sqrt(2), y1: 0, x2: 0, y2: -2*Math.sqrt(2), strokewidth: 1, linecolor: 'var(--lightYellow)'}; 
+                    theLineSquarePart = viewX.addLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-line-of-square-2", lineOptions);
+                    if (gph7.slider.value < 100) {
+                        theLineSquarePart[0].style.opacity = (gph7.slider.value - 25)*0.9/150
+                    }
+                    else {
+                        theLineSquarePart[0].style.opacity = (100 - 25)*0.9/150
+                    }
+
+                    lineOptions = { x1: 2*Math.sqrt(2), y1: 0, x2: 0, y2: -2*Math.sqrt(2), strokewidth: 1, linecolor: 'var(--lightYellow)'}; 
+                    theLineSquarePart = viewX.addLine("random-shrinking-walk-reveal-graph", "random-shrinking-walk-reveal-line-of-square-3", lineOptions);
+                    if (gph7.slider.value < 100) {
+                        theLineSquarePart[0].style.opacity = (gph7.slider.value - 25)*0.9/150
+                    }
+                    else {
+                        theLineSquarePart[0].style.opacity = (100 - 25)*0.9/150
+                    }
+                    
+                }
+
+                if (gph7.slider.value > 100) {
+
+                    rotationAngle = viewX.linearValue(100, 200, 0, 45, gph7.slider.value)
+                    document.getElementById('random-shrinking-walk-reveal-graph').style.transform = 'rotate(' +rotationAngle + 'deg)'
+                    document.getElementById('random-shrinking-walk-reveal-graph').style.transformOrigin = 'center'
+                    
+                    zoomValues = {}
+                    zoomValues["xmax"] = 2*1.414 + 1 + viewX.linearValue(100, 210, 0, 1, gph7.slider.value)
+                    zoomValues["ymax"] = 2*1.414 + viewX.linearValue(100, 210, 0, 1, gph7.slider.value)
+                    zoomValues["xmin"] = - 1 - viewX.linearValue(100, 210, 0, 2*1.414 + 1, gph7.slider.value)
+                    zoomValues["ymin"] = - 1 - viewX.linearValue(100, 210, 0, 2*1.414 - 1, gph7.slider.value)
+                    
+                    viewX.updateGraphZoom("random-shrinking-walk-reveal-graph", zoomValues)
+                }
+            }
 
 
 

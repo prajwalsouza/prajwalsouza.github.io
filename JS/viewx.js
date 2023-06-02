@@ -2024,7 +2024,8 @@ viewX.addText = function(graphname, textname, textoptions) {
 	textElement.style.fill = textoptions.textcolor
 	textElement.innerHTML = textoptions.text
 	textElement.style.fontFamily = textoptions.fontFamily
-	textElement.style.fontSize = textoptions.fontSize + 'pt';
+	textElement.style.fontSize = textoptions.fontSize + 'px';
+
 	if (textoptions.textAlign == 'center') {
 		textElement.setAttribute('text-anchor','middle')
 	}
@@ -2052,7 +2053,7 @@ viewX.updateText = function(graphname, textname, textvalues) {
 	textElement.setAttribute('x', viewX.graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
 	textElement.setAttribute('y', viewX.graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
 	textElement.style.fill = textoptions.textcolor
-	textElement.style.fontSize = textoptions.fontSize;
+	textElement.style.fontSize = textoptions.fontSize + "px"
 	
 	viewX.graphData[graphname].textData[textname] = [textElement, textoptions]
 	return [textElement, textoptions]
