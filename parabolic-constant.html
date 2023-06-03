@@ -2562,6 +2562,10 @@
                 gph9.thePointsRandom = gph9.theParabolaRandom.points.slice()
                 gph9.thePointsRandom = viewX.shuffle(gph9.thePointsRandom)
 
+                gph9.thePointsRandom.unshift(gph9.theParabolaRandom.latusRectumPointRight)
+                gph9.thePointsRandom.unshift(gph9.theParabolaRandom.latusRectumPointLeft)
+                gph9.thePointsRandom.unshift(gph9.theParabolaRandom.vertex)
+
                 gph9.slider.value = 2;
                 gph9.showPoints()
                 gph9.sliderLabel.innerHTML = gph9.slider.value + " point" + (gph9.slider.value == 1 ? "" : "s")
