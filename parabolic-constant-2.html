@@ -551,29 +551,7 @@
                             </p>
                         </div>
                     </div>
-
-                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
-                        <div class="our-text-block text-center pt-4">
-                            <p class="p-White" style="font-size: large; font-family: Raleway;">
-                                So, what is the Universal Parabolic Constant?
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
-                        <div class="our-text-block text-center pt-4">
-                            <p>
-                                Let's start with something familiar, what is pi?<br/>
-                                If you take any circle and divide a part of it's curve, the <span class="p-lightPink">half circumference/perimeter</span>, by the <span class="p-lightBlue">radius</span> of the circle, we get a value that is a constant. It's pi. This seems to be the case of parabolas too. 
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
-                        <div class="our-text-block text-center" style="height: 600px; width: 100%; position: relative;">
-                            <div id="parabola-circle-compare-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
-                        </div>
-                    </div>
+                    
     
                     <div class="w-100 pt-5 pb-5"></div>
                     <div class="w-100 pt-5 pb-5"></div>
@@ -687,7 +665,6 @@
                 else if (upcApp.revealPoint == 2) {
                     setTimeout(function() {
                         gph7.setUpShrinkingRandomWalkReveal()
-                        gph8.setUpParabolaCircleCompare()
                     }, 1000);
                     
                 }
@@ -2123,102 +2100,7 @@
                 }
             }
 
-            // More Code by GPT4
 
-            function parabolaPoints(focus, directrixPoint1, directrixPoint2, tStart, tEnd, numPoints) {
-
-                // Convert the points to vectors
-                focus = [focus.x, focus.y]
-                const FA = { x: focus[0] - directrixPoint1.x, y: focus[1] - directrixPoint1.y };
-
-                let dirVec = {x: directrixPoint2.x - directrixPoint1.x, y: directrixPoint2.y - directrixPoint1.y};
-                
-
-                // Calculate the parameter t
-                const t = (FA.x * dirVec.x + FA.y * dirVec.y) / (dirVec.x * dirVec.x + dirVec.y * dirVec.y);
-
-                // Calculate the coordinates of the closest point P
-                const xP = directrixPoint1.x + t * dirVec.x;
-                const yP = directrixPoint1.y + t * dirVec.y;
-
-                // Create and return the closest point P
-                closePoint = [xP, yP];
-
-                // Parabola parameter 'a' is the distance from the focus to the directrix/2
-                valueOfA = viewX.distF(closePoint, focus)/2
-
-                // vertex is the midpoint of the focus and the closest point
-                vertex = [(focus[0] + closePoint[0])/2, (focus[1] + closePoint[1])/2]
-
-                var magnitudeA = Math.sqrt(dirVec.x * dirVec.x + dirVec.y * dirVec.y);
-                var cosAngle = dirVec.x / (magnitudeA * 1);
-                
-                var angleRad = Math.acos(cosAngle);
-                var angleDeg = angleRad * (180 / Math.PI);
-                if (dirVec.y < 0) {
-                    angleDeg = 360 - angleDeg; // Adjust for the fourth quadrant
-                }
-
-                let points = [];
-                for(let i = 0; i < numPoints; i++){
-                    let t = tStart + i * (tEnd - tStart) / (numPoints - 1);
-                    untransformed = [2*valueOfA*t, valueOfA*Math.pow(t, 2)]
-                    
-                    rotatedVector = viewX.rotatedVec(untransformed, angleDeg)
-                    
-                    thePointOnTheParabola = [rotatedVector[0] + vertex[0], rotatedVector[1] + vertex[1]]
-
-                    points.push(thePointOnTheParabola)
-                }
-
-                return points
-            }
-
-
-            
-            // thePoints = parabolaPoints({x: 0, y: 1}, {x: -1, y: -1}, {x: 1, y: -1}, -4, 4, 100)
-
-
-             // graph 8 : the circle parabola compare
-            
-            gph8 = {}
-
-            gph8.setUpParabolaCircleCompare = function() {
-                gph8.graphH = document.getElementById('parabola-circle-compare-graphHolder')
-                defaultGraphOptions["xmax"] = 1
-                defaultGraphOptions["ymax"] = 4
-                defaultGraphOptions["xmin"] = -1
-                defaultGraphOptions["ymin"] = -1
-
-                // defaultGraphOptions["scrollZoom"] = 'yes'
-                // defaultGraphOptions["draggability"] = 'yes'
-
-                viewX.addGraph(gph8.graphH, "parabola-circle-compare-graph", defaultGraphOptions)
-
-                lineOptions = { x1: -0.5, y1: 0, x2: 2*1.414, y2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
-                viewX.addLine("parabola-circle-compare-graph", "parabola-circle-compare-x-axis-line", lineOptions);
-
-                lineOptions = { y1: -0.5, x1: 0, y2: 2*1.414, x2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
-                viewX.addLine("parabola-circle-compare-graph", "parabola-circle-compare-y-axis-line", lineOptions);
-
-                pointOptions = { x: 0, y: 0, pointsize: upcApp.graphPointSize, pointcolor: 'white'};
-                viewX.addPoint("parabola-circle-compare-graph", "parabola-circle-compare-origin", pointOptions);
-
-                textOptions = {x: 0 + 0.3, y: 0 - 0.2, text: "(0, 0)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.8, fontFamily: "Nunito",   textcolor: "white"};
-                viewX.addText("parabola-circle-compare-graph", "parabola-circle-compare-origin-label", textOptions);
-
-
-                thePoints = parabolaPoints({x: 0, y: 1}, {x: -1, y: -1}, {x: 1, y: -1}, -4, 4, 100)
-                var pathOptions = {
-                    points: thePoints,
-                    strokewidth: 0.3,
-                    strokedasharray: "4, 4",
-                    pathcolor: "hsla(190, 0%, 50%, 0.5)",
-                    pathfillcolor: "none"
-                };
-                viewX.addPath("parabola-circle-compare-graph", "parabola-circle-compare-parabola-dotted", pathOptions);
-                
-            }
 
         </script>
 

@@ -1567,15 +1567,18 @@ viewX.addPath = function(graphname, pathname, pathoptions) {
 	pathoptions.strokewidth = pathoptions.strokewidth || 1
 	pathoptions.pathcolor = pathoptions.pathcolor || 'hsla(190, 100%, 50%, 1)'
 	pathoptions.pathfillcolor = pathoptions.pathfillcolor || 'none'
+	pathoptions.strokedasharray = pathoptions.strokedasharray || ''
 
 	var pathElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
 	try {
 		pathElement.setAttribute('d', pathstring);
 		pathElement.setAttribute('id', graphname + '-path-' + pathname)
+		pathElement.setAttribute('stroke-dasharray', pathoptions.strokedasharray);
 		viewX.uid = viewX.uid + 1
 		pathElement.style.stroke = pathoptions.pathcolor
 		pathElement.style.fill = pathoptions.pathfillcolor;
 		pathElement.style.strokeWidth = pathoptions.strokewidth + '%';
+		
 		gdata.svgElement.appendChild(pathElement);
 
 		viewX.graphData[graphname].pathData[pathname] = [pathElement, pathoptions]
@@ -1737,10 +1740,12 @@ viewX.updatePath = function(graphname, pathname, newpathoptions) {
 		pathoptions.strokewidth = newpathoptions.strokewidth || pathoptions.strokewidth
 		pathoptions.pathcolor = newpathoptions.pathcolor || pathoptions.pathcolor
 		pathoptions.pathfillcolor = newpathoptions.pathfillcolor || pathoptions.pathfillcolor
+		pathoptions.strokedasharray = newpathoptions.strokedasharray || pathoptions.strokedasharray
 
 		pathElement.style.stroke = pathoptions.pathcolor
 		pathElement.style.fill = pathoptions.pathfillcolor
 		pathElement.style.strokeWidth = pathoptions.strokewidth + '%';
+		pathElement.setAttribute('stroke-dasharray', pathoptions.strokedasharray);
 		
 		viewX.graphData[graphname].pathData[pathname] = [pathElement, pathoptions]
 	}
