@@ -653,7 +653,7 @@
                             <div class="mt-1 pb-2">
                                 <input type="range" min="1" max="100" value="1" step="1"  class="commonSlider mb-3" id="parabola-points-description-Slider">
                                 <div class="d-block d-sm-none"></div>
-                                <label id="parabola-points-description-SliderLabel" class="p-lightBlue pl-sm-3 pl-0" for="parabola-points-description-Slider" style="min-width: 100px;" >1</label>
+                                <label id="parabola-points-description-SliderLabel" class="p-lightPurple pl-sm-3 pl-0" for="parabola-points-description-Slider" style="min-width: 100px;" >1</label>
                                 <div>
                                     <p id="parabola-points-description-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
                                     </p>
@@ -791,6 +791,7 @@
                         gph7.setUpShrinkingRandomWalkReveal()
                         gph8.setUpParabolaCircleCompare()
                         gph9.setUpParabolicPointsDescription()
+                        gph9.interval = setInterval(gph9.nextValue, 1000);
                     }, 1000);
                     
                 }
@@ -2638,6 +2639,22 @@
                 gph9.showPoints()
                 gph9.sliderLabel.innerHTML = gph9.slider.value + " point" + (gph9.slider.value == 1 ? "" : "s")
             });
+
+            function pauseAutoplaygph9() {
+                clearInterval(gph9.interval);
+            }
+
+            gph9.slider.addEventListener('mouseover', pauseAutoplaygph9);
+            gph9.slider.addEventListener('touchstart', pauseAutoplaygph9);
+
+            gph9.nextValue = function() {
+                gph9.slider.value = parseInt(gph9.slider.value) + 1
+                if (gph9.slider.value > 15) {
+                    gph9.slider.value = 1
+                }
+                gph9.showPoints()
+                gph9.sliderLabel.innerHTML = gph9.slider.value + " point" + (gph9.slider.value == 1 ? "" : "s")
+            }
 
 
         </script>
