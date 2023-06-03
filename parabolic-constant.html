@@ -574,6 +574,54 @@
                             <div id="parabola-circle-compare-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
                         </div>
                     </div>
+
+                    <div class="w-100 pl-1 pl-sm-4 pt-0 pr-sm-4 pr-1 d-flex justify-content-center hidden-element reveal-2 revealable" style="overflow: hidden;">
+                        <div class="our-text-block text-center pt-4">
+                            <p class="d-inline-flex">
+                                <span class="mr-3 mr-sm-5">
+                                    <span class="p-lightPink">Circle</span><br/><br/>
+                                    <span class="p-lightPink">
+                                        \(π = \frac{\text{Enclosing Arc}}{Radius}\)
+                                    </span><br/><br/>
+                                    <span>
+                                        = <span class="p-lightPink" id="parabola-circle-compare-parabolaarc-value">2.334445</span>/<span class="p-lightBlue" id="parabola-circle-compare-parabolaradius-value">1.2</span>
+                                    </span><br/>
+                                    <span>
+                                        = <span class="p-White" id="parabola-circle-compare-upc-value">3.1545</span>
+                                    </span>
+                                </span>
+                                <span>
+                                    <span class="p-lightPurple">Parabola</span><br/><br/>
+                                    <span class="p-lightPurple">
+                                        \(P = \frac{\text{Enclosing Arc}}{Radius}\)
+                                    </span><br/><br/>
+                                    <span>
+                                        = <span class="p-lightPurple" id="parabola-circle-compare-circlearc-value">2.334445</span>/<span class="p-lightBlue" id="parabola-circle-compare-circleradius-value">1.2</span>
+                                    </span><br/>
+                                    <span>
+                                        = <span class="p-White" id="parabola-circle-compare-pi-value">2.2123</span>
+                                    </span>
+                                </span>
+                                 
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0.4" max="4" value="2" step="0.001"  class="commonSlider mb-3" id="parabola-circle-compare-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="parabola-circle-compare-SliderLabel" class="p-lightBlue pl-sm-3 pl-0" for="parabola-circle-compare-Slider" style="min-width: 100px;" >0.8</label>
+                                <div>
+                                    <p id="parabola-circle-compare-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
+                                        Radius
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
     
                     <div class="w-100 pt-5 pb-5"></div>
                     <div class="w-100 pt-5 pb-5"></div>
@@ -633,10 +681,20 @@
                 upcApp.graphFontSizeSmall = 2.8;
                 upcApp.graphFontSizeLarge = 4;
                 upcApp.graphPointSize = 1.3;
+                upcApp.parabolicCircleGraph = {}
+                upcApp.parabolicCircleGraph["xmax"] = 1
+                upcApp.parabolicCircleGraph["ymax"] = 4
+                upcApp.parabolicCircleGraph["xmin"] = -1
+                upcApp.parabolicCircleGraph["ymin"] = -1
+
                 if (window.innerWidth < 580) {
                     upcApp.graphFontSizeSmall = 3.6;
                     upcApp.graphFontSizeLarge = 5;
                     upcApp.graphPointSize = 2.1;
+                    upcApp.parabolicCircleGraph["xmax"] = 1
+                    upcApp.parabolicCircleGraph["ymax"] = 10
+                    upcApp.parabolicCircleGraph["xmin"] = -1
+                    upcApp.parabolicCircleGraph["ymin"] = -1
                 }
             }
 
@@ -2128,18 +2186,17 @@
             function parabolaPoints(focus, directrixPoint1, directrixPoint2, tStart, tEnd, numPoints) {
 
                 // Convert the points to vectors
-                focus = [focus.x, focus.y]
-                const FA = { x: focus[0] - directrixPoint1.x, y: focus[1] - directrixPoint1.y };
+                const FA = { x: focus[0] - directrixPoint1[0], y: focus[1] - directrixPoint1[1] };
 
-                let dirVec = {x: directrixPoint2.x - directrixPoint1.x, y: directrixPoint2.y - directrixPoint1.y};
+                let dirVec = {x: directrixPoint2[0] - directrixPoint1[0], y: directrixPoint2[1] - directrixPoint1[1]};
                 
 
                 // Calculate the parameter t
                 const t = (FA.x * dirVec.x + FA.y * dirVec.y) / (dirVec.x * dirVec.x + dirVec.y * dirVec.y);
 
                 // Calculate the coordinates of the closest point P
-                const xP = directrixPoint1.x + t * dirVec.x;
-                const yP = directrixPoint1.y + t * dirVec.y;
+                const xP = directrixPoint1[0] + t * dirVec.x;
+                const yP = directrixPoint1[1] + t * dirVec.y;
 
                 // Create and return the closest point P
                 closePoint = [xP, yP];
@@ -2171,7 +2228,26 @@
                     points.push(thePointOnTheParabola)
                 }
 
-                return points
+                parabolaProperties = {}
+                parabolaProperties.points = points
+                parabolaProperties.vertex = vertex
+                parabolaProperties.focus = focus
+                parabolaProperties.directrixPoint1 = directrixPoint1
+                parabolaProperties.directrixPoint2 = directrixPoint2
+                parabolaProperties.a = valueOfA
+                parabolaProperties.angleWithXAxis = angleDeg
+
+                untransformed = [2*valueOfA*1, valueOfA*Math.pow(1, 2)]
+                rotatedVector = viewX.rotatedVec(untransformed, angleDeg)
+                thePointOnTheParabola = [rotatedVector[0] + vertex[0], rotatedVector[1] + vertex[1]]
+                parabolaProperties.latusRectumPointRight = thePointOnTheParabola
+
+                untransformed = [2*valueOfA*(-1), valueOfA*Math.pow(-1, 2)]
+                rotatedVector = viewX.rotatedVec(untransformed, angleDeg)
+                thePointOnTheParabola = [rotatedVector[0] + vertex[0], rotatedVector[1] + vertex[1]]
+                parabolaProperties.latusRectumPointLeft = thePointOnTheParabola
+
+                return parabolaProperties
             }
 
 
@@ -2185,40 +2261,168 @@
 
             gph8.setUpParabolaCircleCompare = function() {
                 gph8.graphH = document.getElementById('parabola-circle-compare-graphHolder')
-                defaultGraphOptions["xmax"] = 1
-                defaultGraphOptions["ymax"] = 4
-                defaultGraphOptions["xmin"] = -1
-                defaultGraphOptions["ymin"] = -1
+                defaultGraphOptions["xmax"] = upcApp.parabolicCircleGraph["xmax"]
+                defaultGraphOptions["ymax"] = upcApp.parabolicCircleGraph["ymax"]
+                defaultGraphOptions["xmin"] = upcApp.parabolicCircleGraph["xmin"]
+                defaultGraphOptions["ymin"] = upcApp.parabolicCircleGraph["ymin"]
 
                 // defaultGraphOptions["scrollZoom"] = 'yes'
                 // defaultGraphOptions["draggability"] = 'yes'
 
+                
+
                 viewX.addGraph(gph8.graphH, "parabola-circle-compare-graph", defaultGraphOptions)
 
-                lineOptions = { x1: -0.5, y1: 0, x2: 2*1.414, y2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
-                viewX.addLine("parabola-circle-compare-graph", "parabola-circle-compare-x-axis-line", lineOptions);
+                theParabola = parabolaPoints([0, 1], [-1, -1], [1, -1], -4, 4, 100)
+                thePoints = theParabola.points
 
-                lineOptions = { y1: -0.5, x1: 0, y2: 2*1.414, x2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
-                viewX.addLine("parabola-circle-compare-graph", "parabola-circle-compare-y-axis-line", lineOptions);
+                lineOptions = { x1: theParabola.latusRectumPointLeft[0], y1: theParabola.latusRectumPointLeft[1], x2: theParabola.latusRectumPointRight[0], y2: theParabola.latusRectumPointRight[1], strokewidth: 2, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
+                viewX.addLine("parabola-circle-compare-graph", "parabola-circle-compare-latusRectum", lineOptions);
 
-                pointOptions = { x: 0, y: 0, pointsize: upcApp.graphPointSize, pointcolor: 'white'};
-                viewX.addPoint("parabola-circle-compare-graph", "parabola-circle-compare-origin", pointOptions);
+                lineOptions = { x1: theParabola.latusRectumPointRight[0], y1: theParabola.latusRectumPointRight[1], x2: theParabola.focus[0], y2: theParabola.focus[1], strokewidth: 3, linecolor: "var(--lightBlue)"}; 
+                viewX.addLine("parabola-circle-compare-graph", "parabola-circle-compare-radius", lineOptions);
 
-                textOptions = {x: 0 + 0.3, y: 0 - 0.2, text: "(0, 0)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.8, fontFamily: "Nunito",   textcolor: "white"};
-                viewX.addText("parabola-circle-compare-graph", "parabola-circle-compare-origin-label", textOptions);
+                pointOptions = { x:  theParabola.focus[0], y:  theParabola.focus[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--brightYellow)'};
+                viewX.addPoint("parabola-circle-compare-graph", "parabola-circle-compare-focus", pointOptions);
 
+                textOptions = {x:  theParabola.focus[0] + 0.3, y:  theParabola.focus[1] - 0.4, text: "F",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--brightYellow)"};
+                viewX.addText("parabola-circle-compare-graph", "parabola-circle-compare-focus-label", textOptions);
 
-                thePoints = parabolaPoints({x: 0, y: 1}, {x: -1, y: -1}, {x: 1, y: -1}, -4, 4, 100)
+                circleOptions = {
+                    x: theParabola.focus[0],
+                    y: theParabola.focus[1],
+                    radius: 2*theParabola.a,
+                    circlecolor: 'hsla(80, 100%, 50%, 0)',
+                    stroke: "hsla(190, 0%, 40%, 0.5)",
+                    strokewidth: 0.5,
+                    strokedasharray: "7, 7",
+                };
+                viewX.addCircle("parabola-circle-compare-graph", "parabola-circle-compare-circle-dotted", circleOptions);
+
+                // viewX.makeArc = function(gphname, ringname, arcradius, arccenter, arcthickness, arccolor, startanglepercent,endanglepercent, resolution)
+
+                viewX.makeArc("parabola-circle-compare-graph", "parabola-circle-compare-circle-arc", 2, theParabola.focus, 0.9, "var(--lightPink)", 0.5, 1, 100)
+                
                 var pathOptions = {
                     points: thePoints,
                     strokewidth: 0.3,
-                    strokedasharray: "4, 4",
-                    pathcolor: "hsla(190, 0%, 50%, 0.5)",
+                    strokedasharray: "1, 1",
+                    pathcolor: "hsla(190, 0%, 40%, 0.5)",
                     pathfillcolor: "none"
                 };
                 viewX.addPath("parabola-circle-compare-graph", "parabola-circle-compare-parabola-dotted", pathOptions);
                 
+                theParabolicArc = parabolaPoints([0, 1], [-1, -1], [1, -1], -1, 1, 50)
+                theParabolicArcPoints = theParabolicArc.points
+
+                var pathOptions = {
+                    points: theParabolicArcPoints,
+                    strokewidth: 0.9,
+                    pathcolor: "var(--lightPurple)",
+                    pathfillcolor: "none"
+                };
+                viewX.addPath("parabola-circle-compare-graph", "parabola-circle-compare-parabola-arc", pathOptions);
+                
+                document.getElementById("parabola-circle-compare-parabolaarc-value").innerHTML = (gph8.slider.value*upc).toFixed(4)
+                document.getElementById("parabola-circle-compare-parabolaradius-value").innerHTML = gph8.slider.value
+                document.getElementById("parabola-circle-compare-circlearc-value").innerHTML = (gph8.slider.value*Math.PI).toFixed(4)
+                document.getElementById("parabola-circle-compare-circleradius-value").innerHTML = gph8.slider.value
+                document.getElementById("parabola-circle-compare-upc-value").innerHTML = upc.toFixed(4)
+                document.getElementById("parabola-circle-compare-pi-value").innerHTML = Math.PI.toFixed(4)
             }
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(10, 0%, 20%, 0.7)",
+                trackFillColor: "var(--lightBlue)",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "var(--lightBlue)",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "parabola-circle-compare-Slider");
+
+            gph8.slider = document.getElementById("parabola-circle-compare-Slider");
+            gph8.sliderLabel = document.getElementById("parabola-circle-compare-SliderLabel");
+            gph8.sliderInfo = document.getElementById("parabola-circle-compare-SliderInfo");
+
+            gph8.slider.value = 2
+            gph8.sliderLabel.innerHTML = gph8.slider.value
+
+            gph8.sliderLabel.innerHTML = gph8.slider.value
+            
+            
+            gph8.eraseParts = function() {
+                viewX.removeCircle("parabola-circle-compare-graph", "parabola-circle-compare-circle-dotted")
+                viewX.removePath("parabola-circle-compare-graph", "parabola-circle-compare-parabola-dotted")
+                viewX.removePath("parabola-circle-compare-graph", "parabola-circle-compare-parabola-arc")
+                viewX.removePath("parabola-circle-compare-graph", "parabola-circle-compare-circle-arc")
+            }
+
+            gph8.slider.addEventListener('input', function() {
+                gph8.updateGraph()
+                gph8.sliderLabel.innerHTML = gph8.slider.value
+                document.getElementById("parabola-circle-compare-parabolaarc-value").innerHTML = (gph8.slider.value*upc).toFixed(4)
+                document.getElementById("parabola-circle-compare-parabolaradius-value").innerHTML = gph8.slider.value
+                document.getElementById("parabola-circle-compare-circlearc-value").innerHTML = (gph8.slider.value*Math.PI).toFixed(4)
+                document.getElementById("parabola-circle-compare-circleradius-value").innerHTML = gph8.slider.value
+                document.getElementById("parabola-circle-compare-upc-value").innerHTML = upc.toFixed(4)
+                document.getElementById("parabola-circle-compare-pi-value").innerHTML = Math.PI.toFixed(4)
+            });
+
+            gph8.updateGraph = function() {
+                gph8.eraseParts()
+
+                directrixDistance = viewX.linearValue(1, 2, 0, -1, gph8.slider.value)
+
+                theParabola = parabolaPoints([0, 1], [-1, directrixDistance], [1, directrixDistance], -4, 4, 100)
+                thePoints = theParabola.points
+
+                lineOptions = { x1: theParabola.latusRectumPointLeft[0], y1: theParabola.latusRectumPointLeft[1], x2: theParabola.latusRectumPointRight[0], y2: theParabola.latusRectumPointRight[1]}; 
+                viewX.updateLine("parabola-circle-compare-graph", "parabola-circle-compare-latusRectum", lineOptions);
+
+                lineOptions = { x1: theParabola.latusRectumPointRight[0], y1: theParabola.latusRectumPointRight[1], x2: theParabola.focus[0], y2: theParabola.focus[1]}; 
+                viewX.updateLine("parabola-circle-compare-graph", "parabola-circle-compare-radius", lineOptions);
+
+                circleOptions = {
+                    x: theParabola.focus[0],
+                    y: theParabola.focus[1],
+                    radius: 2*theParabola.a,
+                    circlecolor: 'hsla(80, 100%, 50%, 0)',
+                    stroke: "hsla(190, 0%, 40%, 0.5)",
+                    strokewidth: 0.5,
+                    strokedasharray: "7, 7",
+                };
+                viewX.addCircle("parabola-circle-compare-graph", "parabola-circle-compare-circle-dotted", circleOptions);
+
+                // viewX.makeArc = function(gphname, ringname, arcradius, arccenter, arcthickness, arccolor, startanglepercent,endanglepercent, resolution)
+
+                viewX.makeArc("parabola-circle-compare-graph", "parabola-circle-compare-circle-arc", gph8.slider.value, theParabola.focus, 0.9, "var(--lightPink)", 0.5, 1, 100)
+                
+                var pathOptions = {
+                    points: thePoints,
+                    strokewidth: 0.3,
+                    strokedasharray: "1, 1",
+                    pathcolor: "hsla(190, 0%, 40%, 0.5)",
+                    pathfillcolor: "none"
+                };
+                viewX.addPath("parabola-circle-compare-graph", "parabola-circle-compare-parabola-dotted", pathOptions);
+                
+                theParabolicArc = parabolaPoints([0, 1], [-1, directrixDistance], [1, directrixDistance], -1, 1, 50)
+                theParabolicArcPoints = theParabolicArc.points
+
+                var pathOptions = {
+                    points: theParabolicArcPoints,
+                    strokewidth: 0.9,
+                    pathcolor: "var(--lightPurple)",
+                    pathfillcolor: "none"
+                };
+                viewX.addPath("parabola-circle-compare-graph", "parabola-circle-compare-parabola-arc", pathOptions);
+            }
+
 
         </script>
 

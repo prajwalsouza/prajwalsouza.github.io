@@ -2307,9 +2307,12 @@ viewX.removeLine = function(graphname, linename) {
 }
 
 viewX.removeCircle = function(graphname, circlename) {
-	circleElement = document.getElementById(graphname + '-circle-' + circlename)
-	circleElement.outerHTML = "";
-	delete viewX.graphData[graphname].circleData[circlename]
+	if (typeof viewX.graphData[graphname].circleData[circlename] != 'undefined') {
+		circleElement = document.getElementById(graphname + '-circle-' + circlename)
+		
+		circleElement.outerHTML = "";
+		delete viewX.graphData[graphname].circleData[circlename]
+	}
 }
 
 viewX.removeText = function(graphname, textname) {
@@ -2321,9 +2324,11 @@ viewX.removeText = function(graphname, textname) {
 }
 
 viewX.removePath = function(graphname, pathname) {
-	pathElement = document.getElementById(graphname + '-path-' + pathname)
-	pathElement.outerHTML = "";
-	delete viewX.graphData[graphname].pathData[pathname]
+	if (typeof viewX.graphData[graphname].pathData[pathname] != 'undefined') {
+		pathElement = document.getElementById(graphname + '-path-' + pathname)
+		pathElement.outerHTML = "";
+		delete viewX.graphData[graphname].pathData[pathname]
+	}
 }
 
 viewX.removeArrow = function(graphname, arrowname) {
@@ -2352,18 +2357,17 @@ viewX.basicSlider = function(graphname2, slidernamebasic, maxv, minv, currentv, 
 	viewX.addSlider(graphname2, slidernamebasic, options)
 }
 
-viewX.makeArc = function(arcradius, arcthickness, arccolor, startanglepercent, endanglepercent, ringname) {
-	resolution = 100
+viewX.makeArc = function(gphname, ringname, arcradius, arccenter, arcthickness, arccolor, startanglepercent,endanglepercent, resolution) {
 	arcpoints = []
 	for (p = startanglepercent*resolution; p < endanglepercent*(resolution + 1); p++) {
 		quanta = 2*Math.PI/resolution
-		arcpoints.push([arcradius*Math.cos(quanta*p), arcradius*Math.sin(quanta*p)])
+		arcpoints.push([arccenter[0] + arcradius*Math.cos(quanta*p), arccenter[1] + arcradius*Math.sin(quanta*p)])
 	}
 	options = {}
 	options.points = arcpoints
 	options.pathcolor = arccolor
 	options.strokewidth = arcthickness
-	viewX.addPath('ringvisualgraph', ringname, options)
+	viewX.addPath(gphname, ringname, options)
 	// console.log(options.points)
 
 	return arcpoints
