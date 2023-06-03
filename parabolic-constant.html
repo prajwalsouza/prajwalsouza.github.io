@@ -642,7 +642,25 @@
                             </p>
                         </div>
                     </div>
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 600px; width: 100%; position: relative;">
+                            <div id="parabola-points-description-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
 
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="1" max="100" value="1" step="1"  class="commonSlider mb-3" id="parabola-points-description-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="parabola-points-description-SliderLabel" class="p-lightBlue pl-sm-3 pl-0" for="parabola-points-description-Slider" style="min-width: 100px;" >1</label>
+                                <div>
+                                    <p id="parabola-points-description-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     
                     <div class="w-100 pt-5 pb-5"></div>
@@ -772,6 +790,7 @@
                     setTimeout(function() {
                         gph7.setUpShrinkingRandomWalkReveal()
                         gph8.setUpParabolaCircleCompare()
+                        gph9.setUpParabolicPointsDescription()
                     }, 1000);
                     
                 }
@@ -2209,6 +2228,25 @@
 
             // More Code by GPT4
 
+
+            function closestPointOnLineGivenByPoints(p1, p2, forPoint) {
+                // Convert the points to vectors
+                const FA = { x: forPoint[0] - p1[0], y: forPoint[1] - p1[1] };
+
+                let dirVec = {x: p2[0] - p1[0], y: p2[1] - p1[1]};
+
+
+                // Calculate the parameter t
+                const t = (FA.x * dirVec.x + FA.y * dirVec.y) / (dirVec.x * dirVec.x + dirVec.y * dirVec.y);
+
+                // Calculate the coordinates of the closest point P
+                const xP = p1[0] + t * dirVec.x;
+                const yP = p1[1] + t * dirVec.y;
+
+                // Create and return the closest point P
+                return  [xP, yP];
+            }
+
             function parabolaPoints(focus, directrixPoint1, directrixPoint2, tStart, tEnd, numPoints) {
 
                 // Convert the points to vectors
@@ -2455,6 +2493,139 @@
                 };
                 viewX.addPath("parabola-circle-compare-graph", "parabola-circle-compare-parabola-arc", pathOptions);
             }
+
+            // graph 9 : the parabola points
+            
+            gph9 = {}
+            gph9.setUpParabolicPointsDescription = function() {
+                gph9.graphH = document.getElementById('parabola-points-description-graphHolder')
+                defaultGraphOptions["xmax"] = upcApp.parabolicCircleGraph["xmax"]
+                defaultGraphOptions["ymax"] = upcApp.parabolicCircleGraph["ymax"]
+                defaultGraphOptions["xmin"] = upcApp.parabolicCircleGraph["xmin"]
+                defaultGraphOptions["ymin"] = upcApp.parabolicCircleGraph["ymin"]
+                
+                // if (window.innerWidth >= 1000) {
+                //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
+                //     defaultGraphOptions["xmajorgridlinesvisibility"] = "yes"
+                // }
+
+                // defaultGraphOptions["scrollZoom"] = 'yes'
+                // defaultGraphOptions["draggability"] = 'yes'
+
+            
+                viewX.addGraph(gph9.graphH, "parabola-points-description-graph", defaultGraphOptions)
+
+                defaultGraphOptions["ymajorgridlinesvisibility"] = "no"
+                defaultGraphOptions["xmajorgridlinesvisibility"] = "no"
+
+                gph9.theParabola = parabolaPoints([0, 1], [-3, 0], [1, -1], -4, 4, 100)
+                gph9.thePoints = gph9.theParabola.points
+
+
+                lineOptions = { x1: gph9.theParabola.focus[0], y1: gph9.theParabola.focus[1], x2: gph9.theParabola.directrixPoint2[0], y2: gph9.theParabola.directrixPoint2[1], strokewidth: 0.6, linecolor: "var(--lightPink)"}; 
+                viewX.addLine("parabola-points-description-graph", "parabola-points-description-distanceFP", lineOptions);
+
+                lineOptions = { x1: gph9.theParabola.focus[0], y1: gph9.theParabola.focus[1], x2: gph9.theParabola.directrixPoint2[0], y2: gph9.theParabola.directrixPoint2[1], strokewidth: 0.6, linecolor: "var(--lightPink)"}; 
+                viewX.addLine("parabola-points-description-graph", "parabola-points-description-distancePD", lineOptions);
+
+                lineOptions = { x1: gph9.theParabola.directrixPoint1[0], y1: gph9.theParabola.directrixPoint1[1], x2: gph9.theParabola.directrixPoint2[0], y2: gph9.theParabola.directrixPoint2[1], strokewidth: 3, linecolor: "var(--lightGreen)", strokedasharray: "7, 7"}; 
+                viewX.addLine("parabola-points-description-graph", "parabola-points-description-directrix", lineOptions);
+
+                textOptions = {x:  (gph9.theParabola.directrixPoint1[0] + gph9.theParabola.directrixPoint2[0])/2 + upcApp.parabolicCircleGraph["point-label-gap"]*2.1, y:  (gph9.theParabola.directrixPoint1[1] + gph9.theParabola.directrixPoint2[1])/2 - upcApp.parabolicCircleGraph["point-label-gap"]*2.1, text: "L",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightGreen)"};
+                viewX.addText("parabola-points-description-graph", "parabola-points-description-directrix-label", textOptions);
+
+                pointOptions = { x:  gph9.theParabola.focus[0], y:  gph9.theParabola.focus[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--brightYellow)'};
+                viewX.addPoint("parabola-points-description-graph", "parabola-points-description-focus", pointOptions);
+
+                textOptions = {x:  gph9.theParabola.focus[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  gph9.theParabola.focus[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "F",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--brightYellow)"};
+                viewX.addText("parabola-points-description-graph", "parabola-points-description-focus-label", textOptions);
+
+                
+                var pathOptions = {
+                    points: gph9.thePoints,
+                    strokewidth: 0.3,
+                    pathcolor: "var(--lightPurple)",
+                    pathfillcolor: "none"
+                };
+                pathElementDetails = viewX.addPath("parabola-points-description-graph", "parabola-points-description-parabola", pathOptions);
+                pathElementDetails[0].style.opacity = 0
+                
+
+                gph9.theParabolaRandom = parabolaPoints([0, 1], [-3, 0], [1, -1], -2, 2, 600)
+                gph9.thePointsRandom = gph9.theParabolaRandom.points.slice()
+                gph9.thePointsRandom = viewX.shuffle(gph9.thePointsRandom)
+
+                gph9.slider.value = 2;
+                gph9.showPoints()
+                gph9.sliderLabel.innerHTML = gph9.slider.value + " point" + (gph9.slider.value == 1 ? "" : "s")
+
+
+            }
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(10, 0%, 20%, 0.7)",
+                trackFillColor: "var(--lightPurple)",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "var(--lightPurple)",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "parabola-points-description-Slider");
+
+            gph9.slider = document.getElementById("parabola-points-description-Slider");
+            gph9.sliderLabel = document.getElementById("parabola-points-description-SliderLabel");
+            gph9.sliderInfo = document.getElementById("parabola-points-description-SliderInfo");
+
+            gph9.slider.value = 1
+            gph9.sliderLabel.innerHTML = gph9.slider.value + "point" + (gph9.slider.value == 1 ? "" : "s")
+
+            gph9.erasePoints = function() {
+                for (i = 0; i < 100; i++) {
+                    viewX.removePoint("parabola-points-description-graph", "parabola-points-description-point-" + i)
+                }
+            }
+
+            gph9.showPoints = function() {
+                gph9.erasePoints()
+                
+                var pathOptions = {
+                    points: gph9.thePoints
+                };
+                pathElementDetails = viewX.updatePath("parabola-points-description-graph", "parabola-points-description-parabola", pathOptions);
+                if (gph9.slider.value > 20) {
+                    pathElementDetails[0].style.opacity = 0.3*(gph9.slider.value - 20)/100
+                }
+
+                for (i = 0; i < gph9.slider.value; i++) {
+                    pointOptions = { x:  gph9.thePointsRandom[i][0], y:  gph9.thePointsRandom[i][1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                    thePointElement = viewX.addPoint("parabola-points-description-graph", "parabola-points-description-point-" + i, pointOptions);
+
+                    if (i == gph9.slider.value - 1) {
+                        thePointElement[0].style.opacity = 1
+
+                        lineOptions = { x1: gph9.theParabola.focus[0], y1: gph9.theParabola.focus[1], x2: gph9.thePointsRandom[i][0], y2: gph9.thePointsRandom[i][1], strokewidth: 0.6, linecolor: "var(--lightPink)"}; 
+                        viewX.updateLine("parabola-points-description-graph", "parabola-points-description-distanceFP", lineOptions);
+
+                        perpendicularPoint = closestPointOnLineGivenByPoints(gph9.theParabolaRandom.directrixPoint1, gph9.theParabolaRandom.directrixPoint2, gph9.thePointsRandom[i]) 
+
+                        lineOptions = { x1: gph9.thePointsRandom[i][0], y1: gph9.thePointsRandom[i][1], x2: perpendicularPoint[0], y2: perpendicularPoint[1], strokewidth: 0.6, linecolor: "var(--lightPink)"}; 
+                        viewX.updateLine("parabola-points-description-graph", "parabola-points-description-distancePD", lineOptions);
+
+                    }
+                    else {
+                        thePointElement[0].style.opacity = 0.2
+                    }
+                }
+            }
+
+            gph9.slider.addEventListener('input', function() {
+                gph9.showPoints()
+                gph9.sliderLabel.innerHTML = gph9.slider.value + " point" + (gph9.slider.value == 1 ? "" : "s")
+            });
 
 
         </script>

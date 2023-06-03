@@ -1748,6 +1748,7 @@ viewX.updatePath = function(graphname, pathname, newpathoptions) {
 		pathElement.setAttribute('stroke-dasharray', pathoptions.strokedasharray);
 		
 		viewX.graphData[graphname].pathData[pathname] = [pathElement, pathoptions]
+		return [pathElement, pathoptions]
 	}
 
 	catch (err){
