@@ -628,6 +628,10 @@
                             <p>
                                 MORE EXAMPLES IN COMING<br/>
                                 In fact, the universal parabolic constant <span class="p-White">2.295587...</span> is an irrational number and is equal to <span class="p-White">√2 + ln((1+√2)</span>.
+                                <br/>
+                                If you give me the radius of a circle, I can tell you the circumference. If you give me the <span class="p-lightBlue">"radius"</span> of a parabola, I can tell you the <span class="p-lightPurple">enclosing arc length</span>.
+                                <br/><br/>
+                                <span class="p-lightPurple">Enclosing Arc</span> = <span class="p-White">Universal Parabolic Constant</span> * <span class="p-lightBlue">Radius</span>
                             </p>
                         </div>
                     </div>
@@ -637,7 +641,7 @@
                             <p>
                                 But what does  <span class="p-lightBlue">radius</span> and <span class="p-brightYellow">center</span> of a parabola even mean?<br/>
                                 First, what is a parabola?<br/>
-                                How to cook a parabola? Take a fixed <span class="p-brightYellow">point F</span>. Take a <span class="p-lightGreen">line L</span>. Then, then pick a point Q such that the <span class="p-lightPink">distance</span> between this point Q and F is the same as the <span class="p-lightPink">distance</span> between this point Q and the line L.<br/>
+                                How to cook a parabola? <br/>Take a fixed <span class="p-brightYellow">point F</span>. Take a <span class="p-lightGreen">line L</span>. Then, then pick a point Q such that the <span class="p-lightPink">distance</span> between this point Q and F is the same as the <span class="p-lightPink">distance</span> between this point Q and the line L.<br/>
                                 Parabola is a set of <span class="p-lightPurple">points</span> that are at the same <span class="p-lightPink">distance</span> from a <span class="p-brightYellow">fixed point (F)</span>, as the <span class="p-lightPink">perpendicular distance</span> from a <span class="p-lightGreen">fixed line (L)</span>.
                             </p>
                         </div>
@@ -658,6 +662,34 @@
                                     <p id="parabola-points-description-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
                                     </p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p>
+                                Before we go ahead and tell you what Parabolic constant exactly is. Here's some more things about the parabola. <br/>
+                                The fixed point is called the <span class="p-brightYellow">Focus</span>, usually denoted <span class="p-brightYellow">F</span>. If we go by the definition, one of the special points is the <span class="p-lightPurple">vertex</span> of the parabola (let's say <span class="p-lightPurple">C</span>), which has the smallest distance (let's say <span class="p-lightPink">a</span>) from the <span class="p-lightGreen">fixed line L</span>. There are two more <span class="p-lightPurple">interesting points</span> on the parabola, the ones that cut the parabola if we draw a <span class="p-lightOrange">line M</span> parallel to the <span class="p-lightGreen">fixed line L</span>, passing through the <span class="p-brightYellow">focus F</span>.<br/><br/>
+
+                                The points are <span class="p-lightPurple">G</span> and <span class="p-lightPurple">H</span> drawn below. 
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 600px; width: 100%; position: relative;">
+                            <div id="parabola-important-dimensions-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-3 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="1" max="100" value="1" step="1"  class="commonSlider mb-3" id="parabola-important-dimensions-Slider">
+                               <br/>
+                                <label id="parabola-important-dimensions-SliderInfo" class="p-lightPurple" for="parabola-important-dimensions-Slider" style="min-width: 100px;" ></label>
                             </div>
                         </div>
                     </div>
@@ -792,6 +824,8 @@
                         gph8.setUpParabolaCircleCompare()
                         gph9.setUpParabolicPointsDescription()
                         gph9.interval = setInterval(gph9.nextValue, 1000);
+
+                        gph10.setUpParabolicPointsDescription()
                     }, 1000);
                     
                 }
@@ -2660,6 +2694,95 @@
                 gph9.sliderLabel.innerHTML = gph9.slider.value + " point" + (gph9.slider.value == 1 ? "" : "s")
             }
 
+
+
+            // graph 10 : the parabola dimensions
+            
+            gph10 = {}
+            gph10.setUpParabolicPointsDescription = function() {
+                gph10.graphH = document.getElementById('parabola-important-dimensions-graphHolder')
+                defaultGraphOptions["xmax"] = upcApp.parabolicCircleGraph["xmax"]
+                defaultGraphOptions["ymax"] = upcApp.parabolicCircleGraph["ymax"]
+                defaultGraphOptions["xmin"] = upcApp.parabolicCircleGraph["xmin"]
+                defaultGraphOptions["ymin"] = upcApp.parabolicCircleGraph["ymin"]
+                
+                // if (window.innerWidth >= 1000) {
+                //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
+                //     defaultGraphOptions["xmajorgridlinesvisibility"] = "yes"
+                // }
+
+            
+                viewX.addGraph(gph10.graphH, "parabola-important-dimensions-graph", defaultGraphOptions)
+
+                defaultGraphOptions["ymajorgridlinesvisibility"] = "no"
+                defaultGraphOptions["xmajorgridlinesvisibility"] = "no"
+
+                gph10.theParabola = parabolaPoints([0, 1], [-3, -1], [3, -1], -4, 4, 100)
+                gph10.thePoints = gph10.theParabola.points
+
+                
+                lineOptions = { x1: -3, y1: 0, x2: 3, y2: 0, strokewidth: 0.6, linecolor: "hsla(0, 0%, 40%, 0.7)"}; 
+                viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-theXAxis", lineOptions);
+
+                lineOptions = { x1: 0, y1: 5, x2: 0, y2: -3, strokewidth: 0.6, linecolor: "hsla(0, 0%, 40%, 0.7)"}; 
+                viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-theYAxis", lineOptions);
+
+                lineOptions = { x1: gph10.theParabola.focus[0], y1: gph10.theParabola.focus[1], x2: gph10.theParabola.vertex[0], y2: gph10.theParabola.vertex[1], strokewidth: 3, linecolor: "var(--lightPink)", strokedasharray: "7, 7"}; 
+                viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-FC", lineOptions);
+
+                lineOptions = { x1: gph10.theParabola.vertex[0], y1: gph10.theParabola.vertex[1], x2: (gph10.theParabola.directrixPoint2[0] + gph10.theParabola.directrixPoint1[0])/2, y2: (gph10.theParabola.directrixPoint2[1] + gph10.theParabola.directrixPoint1[1])/2, strokewidth: 3, linecolor: "var(--lightPink)", strokedasharray: "7, 7"}; 
+                viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-CL", lineOptions);
+
+                lineOptions = { x1: gph10.theParabola.directrixPoint1[0], y1: gph10.theParabola.directrixPoint1[1], x2: gph10.theParabola.directrixPoint2[0], y2: gph10.theParabola.directrixPoint2[1], strokewidth: 3, linecolor: "var(--lightGreen)", strokedasharray: "7, 7"}; 
+                viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-directrix", lineOptions);
+
+                textOptions = {x:  (gph10.theParabola.directrixPoint1[0] + gph10.theParabola.directrixPoint2[0])/2 + upcApp.parabolicCircleGraph["point-label-gap"]*2.1, y:  (gph10.theParabola.directrixPoint1[1] + gph10.theParabola.directrixPoint2[1])/2 - upcApp.parabolicCircleGraph["point-label-gap"]*2.1, text: "L",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightGreen)"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-directrix-label", textOptions);
+
+                pointOptions = { x:  gph10.theParabola.focus[0], y:  gph10.theParabola.focus[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--brightYellow)'};
+                viewX.addPoint("parabola-important-dimensions-graph", "parabola-important-dimensions-focus", pointOptions);
+
+                textOptions = {x:  gph10.theParabola.focus[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  gph10.theParabola.focus[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "F",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--brightYellow)"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-focus-label", textOptions);
+
+                
+                var pathOptions = {
+                    points: gph10.thePoints,
+                    strokewidth: 0.3,
+                    pathcolor: "var(--lightPurple)",
+                    pathfillcolor: "none"
+                };
+                pathElementDetails = viewX.addPath("parabola-important-dimensions-graph", "parabola-important-dimensions-parabola", pathOptions);
+                // pathElementDetails[0].style.opacity = 0
+                
+
+                // gph10.theParabolaRandom.latusRectumPointRight
+                // gph10.theParabolaRandom.latusRectumPointLeft
+                // gph10.theParabolaRandom.vertex
+
+                gph10.slider.value = 2;
+                // gph10.showPoints()
+                // gph10.sliderLabel.innerHTML = gph10.slider.value + " point" + (gph10.slider.value == 1 ? "" : "s")
+
+
+            }
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(10, 0%, 20%, 0.7)",
+                trackFillColor: "white",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "white",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "parabola-important-dimensions-Slider");
+
+            gph10.slider = document.getElementById("parabola-important-dimensions-Slider");
+            gph10.sliderLabel = document.getElementById("parabola-important-dimensions-SliderInfo");
 
         </script>
 
