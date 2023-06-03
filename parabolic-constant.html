@@ -2528,6 +2528,12 @@
                 lineOptions = { x1: gph9.theParabola.focus[0], y1: gph9.theParabola.focus[1], x2: gph9.theParabola.directrixPoint2[0], y2: gph9.theParabola.directrixPoint2[1], strokewidth: 0.6, linecolor: "var(--lightPink)"}; 
                 viewX.addLine("parabola-points-description-graph", "parabola-points-description-distancePD", lineOptions);
 
+                // textOptions = {x:  (gph9.theParabola.directrixPoint1[0] + gph9.theParabola.directrixPoint2[0])/2 + upcApp.parabolicCircleGraph["point-label-gap"]*2.1, y:  (gph9.theParabola.directrixPoint1[1] + gph9.theParabola.directrixPoint2[1])/2 - upcApp.parabolicCircleGraph["point-label-gap"]*2.1, text: "Distance to Focus",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.5, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+                // viewX.addText("parabola-points-description-graph", "parabola-points-description-FP-label", textOptions);
+
+                // textOptions = {x:  (gph9.theParabola.directrixPoint1[0] + gph9.theParabola.directrixPoint2[0])/2 + upcApp.parabolicCircleGraph["point-label-gap"]*2.1, y:  (gph9.theParabola.directrixPoint1[1] + gph9.theParabola.directrixPoint2[1])/2 - upcApp.parabolicCircleGraph["point-label-gap"]*2.1, text: "Distance to Line",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.5, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+                // viewX.addText("parabola-points-description-graph", "parabola-points-description-PD-label", textOptions);
+
                 lineOptions = { x1: gph9.theParabola.directrixPoint1[0], y1: gph9.theParabola.directrixPoint1[1], x2: gph9.theParabola.directrixPoint2[0], y2: gph9.theParabola.directrixPoint2[1], strokewidth: 3, linecolor: "var(--lightGreen)", strokedasharray: "7, 7"}; 
                 viewX.addLine("parabola-points-description-graph", "parabola-points-description-directrix", lineOptions);
 
@@ -2614,6 +2620,12 @@
 
                         lineOptions = { x1: gph9.thePointsRandom[i][0], y1: gph9.thePointsRandom[i][1], x2: perpendicularPoint[0], y2: perpendicularPoint[1], strokewidth: 0.6, linecolor: "var(--lightPink)"}; 
                         viewX.updateLine("parabola-points-description-graph", "parabola-points-description-distancePD", lineOptions);
+
+                        // textOptions = {x:  (gph9.thePointsRandom[i][0] + perpendicularPoint[0])/2 + upcApp.parabolicCircleGraph["point-label-gap"]*1, y:  (gph9.thePointsRandom[i][1] + perpendicularPoint[1])/2 - upcApp.parabolicCircleGraph["point-label-gap"]*1};
+                        // viewX.updateText("parabola-points-description-graph", "parabola-points-description-PD-label", textOptions);
+
+                        // textOptions = {x:  (gph9.thePointsRandom[i][0] + gph9.theParabolaRandom.focus[0])/2 + upcApp.parabolicCircleGraph["point-label-gap"]*1, y:  (gph9.thePointsRandom[i][1] + gph9.theParabolaRandom.focus[1])/2 - upcApp.parabolicCircleGraph["point-label-gap"]*1};
+                        // viewX.updateText("parabola-points-description-graph", "parabola-points-description-FP-label", textOptions);
 
                     }
                     else {
