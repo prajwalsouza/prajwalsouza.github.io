@@ -2265,13 +2265,20 @@
                 defaultGraphOptions["ymax"] = upcApp.parabolicCircleGraph["ymax"]
                 defaultGraphOptions["xmin"] = upcApp.parabolicCircleGraph["xmin"]
                 defaultGraphOptions["ymin"] = upcApp.parabolicCircleGraph["ymin"]
+                
+                if (window.innerWidth >= 1000) {
+                    defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
+                    defaultGraphOptions["xmajorgridlinesvisibility"] = "yes"
+                }
 
                 // defaultGraphOptions["scrollZoom"] = 'yes'
                 // defaultGraphOptions["draggability"] = 'yes'
 
-                
-
+            
                 viewX.addGraph(gph8.graphH, "parabola-circle-compare-graph", defaultGraphOptions)
+
+                defaultGraphOptions["ymajorgridlinesvisibility"] = "no"
+                defaultGraphOptions["xmajorgridlinesvisibility"] = "no"
 
                 theParabola = parabolaPoints([0, 1], [-1, -1], [1, -1], -4, 4, 100)
                 thePoints = theParabola.points
@@ -2285,7 +2292,7 @@
                 pointOptions = { x:  theParabola.focus[0], y:  theParabola.focus[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--brightYellow)'};
                 viewX.addPoint("parabola-circle-compare-graph", "parabola-circle-compare-focus", pointOptions);
 
-                textOptions = {x:  theParabola.focus[0] + 0.3, y:  theParabola.focus[1] - 0.4, text: "F",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--brightYellow)"};
+                textOptions = {x:  theParabola.focus[0] + 0.2, y:  theParabola.focus[1] - 0.2, text: "F",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--brightYellow)"};
                 viewX.addText("parabola-circle-compare-graph", "parabola-circle-compare-focus-label", textOptions);
 
                 circleOptions = {
@@ -2293,7 +2300,7 @@
                     y: theParabola.focus[1],
                     radius: 2*theParabola.a,
                     circlecolor: 'hsla(80, 100%, 50%, 0)',
-                    stroke: "hsla(190, 0%, 40%, 0.5)",
+                    stroke: "hsla(190, 0%, 60%, 0.5)",
                     strokewidth: 0.5,
                     strokedasharray: "7, 7",
                 };
@@ -2307,7 +2314,7 @@
                     points: thePoints,
                     strokewidth: 0.3,
                     strokedasharray: "1, 1",
-                    pathcolor: "hsla(190, 0%, 40%, 0.5)",
+                    pathcolor: "hsla(190, 0%, 60%, 0.5)",
                     pathfillcolor: "none"
                 };
                 viewX.addPath("parabola-circle-compare-graph", "parabola-circle-compare-parabola-dotted", pathOptions);
@@ -2392,7 +2399,7 @@
                     y: theParabola.focus[1],
                     radius: 2*theParabola.a,
                     circlecolor: 'hsla(80, 100%, 50%, 0)',
-                    stroke: "hsla(190, 0%, 40%, 0.5)",
+                    stroke: "hsla(190, 0%, 60%, 0.5)",
                     strokewidth: 0.5,
                     strokedasharray: "7, 7",
                 };
@@ -2406,7 +2413,7 @@
                     points: thePoints,
                     strokewidth: 0.3,
                     strokedasharray: "1, 1",
-                    pathcolor: "hsla(190, 0%, 40%, 0.5)",
+                    pathcolor: "hsla(190, 0%, 60%, 0.5)",
                     pathfillcolor: "none"
                 };
                 viewX.addPath("parabola-circle-compare-graph", "parabola-circle-compare-parabola-dotted", pathOptions);
