@@ -709,6 +709,8 @@
                 upcApp.parabolicCircleGraph["xmin"] = -1
                 upcApp.parabolicCircleGraph["ymin"] = -1
 
+                upcApp.parabolicCircleGraph["point-label-gap"] = 0.2
+
                 if (window.innerWidth < 580) {
                     upcApp.graphFontSizeSmall = 3.6;
                     upcApp.graphFontSizeLarge = 5;
@@ -717,6 +719,8 @@
                     upcApp.parabolicCircleGraph["ymax"] = 10
                     upcApp.parabolicCircleGraph["xmin"] = -1
                     upcApp.parabolicCircleGraph["ymin"] = -1
+
+                    upcApp.parabolicCircleGraph["point-label-gap"] = 0.4
                 }
             }
 
@@ -2314,7 +2318,7 @@
                 pointOptions = { x:  theParabola.focus[0], y:  theParabola.focus[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--brightYellow)'};
                 viewX.addPoint("parabola-circle-compare-graph", "parabola-circle-compare-focus", pointOptions);
 
-                textOptions = {x:  theParabola.focus[0] + 0.2, y:  theParabola.focus[1] - 0.2, text: "F",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--brightYellow)"};
+                textOptions = {x:  theParabola.focus[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  theParabola.focus[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "F",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--brightYellow)"};
                 viewX.addText("parabola-circle-compare-graph", "parabola-circle-compare-focus-label", textOptions);
 
                 circleOptions = {
