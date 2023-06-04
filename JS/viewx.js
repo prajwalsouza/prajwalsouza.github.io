@@ -3201,10 +3201,15 @@ viewX.playAnimation = function(animname, startKey, endKey, animDuration) {
 	animoptions = viewX.animationData[animname][1]
 	animdata = viewX.animationData[animname][0]
 
-	startKey = startKey || 0
-	endKey = endKey || Object.keys(animoptions.keyframes).length - 1
+	if (startKey === undefined) {
+		startKey = 0
+	}
+	
+	if (endKey === undefined) {
+		endKey = Object.keys(animoptions.keyframes).length - 1
+	}
 
-	if (endKey >= startKey) {
+	if (endKey != startKey) {
 		animoptions.duration = animDuration || animoptions.duration
 		animoptions.frameRate = 30
 
@@ -3222,16 +3227,28 @@ viewX.playAnimation = function(animname, startKey, endKey, animDuration) {
 		viewX.animationIntervals[animname] = setInterval(function() {
 			animoptions = viewX.animationData[animname][1]
 			animoptions.animationAt = animoptions.animationAt + animoptions.animationDelta
-			if (animoptions.endKey < animoptions.animationAt) {
-				viewX.stopAnimation(animname)
+			if (animoptions.endKey > animoptions.startKey) {
+				if (animoptions.endKey <= animoptions.animationAt) {
+					viewX.stopAnimation(animname)
+				}
+				else {
+					viewX.setAnimationFrame(animname, animoptions.animationAt)
+				}
 			}
 			else {
-				viewX.setAnimationFrame(animname, animoptions.animationAt)
+				if (animoptions.endKey >= animoptions.animationAt) {
+					viewX.stopAnimation(animname)
+				}
+				else {
+					viewX.setAnimationFrame(animname, animoptions.animationAt)
+				}
 			}
+			console.log(animoptions.animationAt)
+			
 		}, 1000/animoptions.frameRate);
 	}
 	else {
-		console.log("Error with given start and end keys")
+		console.log("Error with given start and end keys. They are equal")
 	}
 
 }
