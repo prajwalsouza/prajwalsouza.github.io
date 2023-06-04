@@ -711,7 +711,7 @@ viewX.updateGraphZoom = function(graphname, newMinMax) {
 viewX.addGraph = function (parentdiv, name, graphData) {
 	gdata = {}
 	gdata = graphData || {}
-
+	viewX.graphData.objectType[gdata.name] = 'graph'
 	gdata.name = name || 'graph' + Math.random().toString()
 
 	if (gdata.axislocationX != 0) {
@@ -1229,7 +1229,7 @@ viewX.addLine = function(graphname, linename, lineoptions) {
 	lineoptions = lineoptions || {}
 
 	aratio = gdata.aspectratio
-
+	viewX.graphData.objectType[linename] = 'line'
 	lineoptions.x1 = parseFloat(lineoptions.x1.toString() || 0)
 	lineoptions.y1 = parseFloat(lineoptions.y1.toString() || 0)
 	lineoptions.x2 = parseFloat(lineoptions.x2.toString() || 0.5)
@@ -1317,7 +1317,7 @@ viewX.updateLine = function(graphname, linename, linevalues) {
 viewX.addSlider = function(graphname, slidername, slideroptions) {
 	gdata = viewX.graphData[graphname]
 	slideroptions = slideroptions || {}
-
+	viewX.graphData.objectType[slidername] = 'slider'
 	aratio = gdata.aspectratio
 
 	slideroptions.x1 = parseFloat(slideroptions.x1.toString() || 0)
@@ -1545,7 +1545,7 @@ viewX.generateSliderStyles = function(sliderProperties, elementId) {
 viewX.addPath = function(graphname, pathname, pathoptions) {
 	gdata = viewX.graphData[graphname]
 	pathoptions = pathoptions || {}
-
+	viewX.graphData.objectType[pathname] = 'path'
 	aratio = gdata.aspectratio
 
 	pathoptions.points = pathoptions.points || [[0, 1], [1, 0]]
@@ -1593,6 +1593,7 @@ viewX.addPath = function(graphname, pathname, pathoptions) {
 viewX.addArrow = function(graphname, arrowname, arrowoptions) {
 	gdata = viewX.graphData[graphname]
 	arrowoptions = arrowoptions || {}
+	viewX.graphData.objectType[arrowname] = 'arrow'
 
 	aratio = gdata.aspectratio
 
@@ -1807,6 +1808,7 @@ viewX.distanceBTWgraphToSvg = function(p1, p2, xmin, xmax, ymin, ymax, aspectrat
 viewX.addCircle = function(graphname, circlename, circleoptions) {
 	gdata = viewX.graphData[graphname]
 	circleoptions = circleoptions || {}
+	viewX.graphData.objectType[circlename] = 'circle'
 	aratio = gdata.aspectratio
 
 	if (circleoptions.x != 0) {
@@ -1919,6 +1921,7 @@ viewX.addEllipse = function(graphname, ellipsename, ellipseoptions) {
 	aratio = gdata.aspectratio
 
 	ellipseoptions = ellipseoptions || {}
+	viewX.graphData.objectType[ellipsename] = 'ellipse'
 
 	ellipseoptions.x = parseFloat(ellipseoptions.x.toString() || 0)
 	ellipseoptions.y = parseFloat(ellipseoptions.y.toString() || 0)
@@ -2013,7 +2016,7 @@ viewX.updateEllipse = function(graphname, ellipsename, ellipsenewvalues) {
 viewX.addText = function(graphname, textname, textoptions) {
 	gdata = viewX.graphData[graphname]
 	textoptions = textoptions || {}
-
+	viewX.graphData.objectType[textname] = 'text'
 	aratio = gdata.aspectratio
 
 	textoptions.x = parseFloat(textoptions.x.toString() || 0)
@@ -2075,6 +2078,7 @@ viewX.addRectangle = function(graphname, rectname, rectoptions) {
 	gdata = viewX.graphData[graphname]
 	aratio = gdata.aspectratio
 	rectoptions = rectoptions || {}
+	viewX.graphData.objectType[rectname] = 'rectangle'
 
 	rectoptions.x = parseFloat(rectoptions.x.toString() || 0)
 	rectoptions.y = parseFloat(rectoptions.y.toString() || 0)
@@ -2174,7 +2178,7 @@ viewX.addPoint = function(graphname, pointname, pointoptions) {
 	aratio = gdata.aspectratio
 
 	pointoptions = pointoptions || {}
-
+	viewX.graphData.objectType[pointname] = 'point'
 	if (pointoptions.x != 0) {
 		pointoptions.x = pointoptions.x || 0.3	
 	}
@@ -2299,7 +2303,10 @@ viewX.removePoint = function(graphname, pointname) {
 		pointElement = document.getElementById(graphname + '-point-' + pointname)
 		
 		pointElement.outerHTML = "";
+		delete viewX.reverseGraphElementMap[pointElement.id]
 		delete viewX.graphData[graphname].pointData[pointname]
+		delete viewX.graphData.objectType[pointname]
+		
 	}
 	
 }
@@ -2309,6 +2316,7 @@ viewX.removeLine = function(graphname, linename) {
 		lineElement = document.getElementById(graphname + '-line-' + linename)
 		
 		lineElement.outerHTML = "";
+		delete viewX.graphData.objectType[linename]
 		delete viewX.graphData[graphname].lineData[linename]
 	}
 }
@@ -2319,6 +2327,7 @@ viewX.removeCircle = function(graphname, circlename) {
 		
 		circleElement.outerHTML = "";
 		delete viewX.graphData[graphname].circleData[circlename]
+		delete viewX.graphData.objectType[circlename]
 	}
 }
 
@@ -2327,6 +2336,7 @@ viewX.removeText = function(graphname, textname) {
 		textElement = document.getElementById(graphname + '-text-' + textname)
 		textElement.outerHTML = "";
 		delete viewX.graphData[graphname].textData[textname]
+		delete viewX.graphData.objectType[textname]
 	}
 }
 
@@ -2335,6 +2345,7 @@ viewX.removePath = function(graphname, pathname) {
 		pathElement = document.getElementById(graphname + '-path-' + pathname)
 		pathElement.outerHTML = "";
 		delete viewX.graphData[graphname].pathData[pathname]
+		delete viewX.graphData.objectType[pathname]
 	}
 }
 
@@ -2342,12 +2353,14 @@ viewX.removeArrow = function(graphname, arrowname) {
 	arrowElement = document.getElementById(graphname + '-arrow-' + arrowname)
 	arrowElement.outerHTML = "";
 	delete viewX.graphData[graphname].arrowData[arrowname]
+	delete viewX.graphData.objectType[arrowname]
 }
 
 viewX.removeGraph = function(graphname) {
 	graphElement = document.getElementById(graphname)
 	graphElement.outerHTML = "";
 	delete viewX.graphData[graphname]
+	delete viewX.graphData.objectType[graphname]
 }
 
 viewX.basicSlider = function(graphname2, slidernamebasic, maxv, minv, currentv, thickness, coordinates) {
@@ -2925,8 +2938,232 @@ viewX.shuffle = function(array) {
 	return array;
 }
 
+
+
+
+// Animations
+viewX.animationData = {}
+
+viewX.addAnimation = function(animname, animoptions) {
+	animdata = {}
+	animoptions = animoptions || {}
+	animoptions.name = animname
+	animoptions.duration = animoptions.duration || 1
+	// in seconds
+
+	animoptions.delay = animoptions.delay || 0
+	// in seconds
+
+	animoptions.repeat = animoptions.repeat || "no"
+	// "yes" or "no"
+
+	animoptions.repeatdelay = animoptions.repeatdelay || 0
+	// in seconds
+
+	// animoptions.easing = animoptions.easing || "linear"
+	// "linear", "easeIn", "easeOut", "easeInOut", "easeInQuad", "easeOutQuad", "easeInOutQuad", "easeInCubic", "easeOutCubic", "easeInOutCubic", "easeInQuart", "easeOutQuart", "easeInOutQuart", "easeInQuint", "easeOutQuint", "easeInOutQuint"
+
+	animoptions.defaultGraph = animoptions.defaultGraph || ""
+	// name of graph
+
+	animoptions.keyframes = animoptions.keyframes || {
+		0 : {}
+	}
+
+	// 0 : {
+	// 	"0" : {
+	// 		'graph': graphName,
+	//		'object': objectName, 
+	// 		'options': options,
+	// 	}
+	// }
+
+	animdata.objects = {}
+	for (var key in animoptions.keyframes) {
+		for (var objectIndex in animoptions.keyframes[key]) {
+			for (var propertyName in animoptions.keyframes[key][objectIndex].options) {
+				forProperty = animoptions.keyframes[key][objectIndex].graph + "-" + animoptions.keyframes[key][objectIndex].object + "-" + propertyName
+
+
+				objectFullName = animoptions.keyframes[key][objectIndex].object + "-FROM-" + animoptions.keyframes[key][objectIndex].graph
+				if (animdata.objects[objectFullName] == undefined) {
+					animdata.objects[objectFullName] = {
+						'keys' : [],
+						'graphName': animoptions.keyframes[key][objectIndex].graph,
+						'objectName': animoptions.keyframes[key][objectIndex].object,
+						'objectType': viewX.graphData.objectType[animoptions.keyframes[key][objectIndex].object],
+						'propertiesToBeAnimated': {},
+						'propertySetCalculatedAtKeys': {}
+					}
+				}
+				if (!animdata.objects[objectFullName]['keys'].includes(key)) {
+					animdata.objects[objectFullName]['keys'].push(key)
+				}
+				
+
+				if (animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName] == undefined) {
+					animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName] = {}
+				}
+
+				animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][key] = animoptions.keyframes[key][objectIndex].options[propertyName]
+			}
+		}
+	}
+	
+	for (var objectFullName in animdata.objects) {
+		for (propertyName in animdata.objects[objectFullName]['propertiesToBeAnimated']) {
+			for (var key in animoptions.keyframes) {
+				if (animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][key] == undefined) {
+					totalKeys = Object.keys(animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName]).length
+
+					if (totalKeys == 0) {
+						console.log("Something is wrong, this animation has no keyframes for this property")
+					}
+					else if (totalKeys == 1) {
+						theOnlyKey = Object.keys(animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName])[0]
+						animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][key] = animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][theOnlyKey]
+					}
+					else if (totalKeys > 1) {
+						animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][key]
+						
+						valuesOfInterest = viewX.libraryFunctions.findClosestRightAndLeftNumbersInArray(Object.keys(animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName]), key)
+
+						if (valuesOfInterest[0] == null && valuesOfInterest[1] != null) {
+							assignPropertyAtKey = valuesOfInterest[1]
+							animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][key] = animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][assignPropertyAtKey]
+						}
+						else if (valuesOfInterest[1] == null && valuesOfInterest[0] != null) {
+							assignPropertyAtKey = valuesOfInterest[0]
+							animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][key] = animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][assignPropertyAtKey]
+						}
+						else if (valuesOfInterest[0] == null && valuesOfInterest[1] == null) {
+							console.log("Something is wrong with given keyframe values", Object.keys(animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName]))
+						}
+						else if (valuesOfInterest[0] != null && valuesOfInterest[1] != null) {
+							propValueAtLeft = animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][valuesOfInterest[0]]
+
+							if (typeof propValueAtLeft === 'number') {
+								propValueAtRight = animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][valuesOfInterest[1]]
+								animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][key] = viewX.linearValue(valuesOfInterest[0], valuesOfInterest[1], propValueAtLeft, propValueAtRight, key)
+							}
+							else {
+								animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][key] = propValueAtLeft
+							}
+							
+						}
+
+					}
+				}
+			}
+		}
+		
+	}
+
+	animoptions.animationAt = animoptions.animationAt || 0
+
+	viewX.animationData[animname] = [animdata, animoptions]
+
+}
+
+viewX.setAnimationFrame = function(animname, atKey) {
+	animoptions = viewX.animationData[animname][1]
+	animdata = viewX.animationData[animname][0]
+
+	atKey = atKey || 0
+
+	for (var animObject in animdata.objects) {
+		
+		propertyValuesToSet = animdata.objects[animObject]['propertySetCalculatedAtKeys'][atKey]
+		if (propertyValuesToSet == undefined) {
+			propertyValuesToSet = {}
+		}
+		if (animdata.objects[animObject]['propertySetCalculatedAtKeys'][atKey] === undefined) {
+			for (var propertyName in animdata.objects[animObject]['propertiesToBeAnimated']) {
+				keyStonesAvailableForProp = Object.keys(animdata.objects[animObject]['propertiesToBeAnimated'][propertyName])
+				if (keyStonesAvailableForProp.includes(atKey.toString())) {
+					propertyValuesToSet[propertyName] = animdata.objects[animObject]['propertiesToBeAnimated'][propertyName][atKey]
+				}
+				else {
+					valuesOfInterest = viewX.libraryFunctions.findClosestRightAndLeftNumbersInArray(keyStonesAvailableForProp, atKey)
+					if (valuesOfInterest[0] == null && valuesOfInterest[1] != null) {
+						assignPropertyAtKey = valuesOfInterest[1]
+						propertyValuesToSet[propertyName] = animdata.objects[animObject]['propertiesToBeAnimated'][propertyName][assignPropertyAtKey]
+					}
+					else if (valuesOfInterest[1] == null && valuesOfInterest[0] != null) {
+						assignPropertyAtKey = valuesOfInterest[0]
+						propertyValuesToSet[propertyName] = animdata.objects[animObject]['propertiesToBeAnimated'][propertyName][assignPropertyAtKey]
+					}
+					else if (valuesOfInterest[0] == null && valuesOfInterest[1] == null) {
+						console.log("Something is wrong with given keyframe values", Object.keys(animdata.objects[animObject]['propertiesToBeAnimated'][propertyName]))
+					}
+					else if (valuesOfInterest[0] != null && valuesOfInterest[1] != null) {
+						propValueAtLeft = animdata.objects[animObject]['propertiesToBeAnimated'][propertyName][valuesOfInterest[0]]
+						if (typeof propValueAtLeft === 'number') {
+							propValueAtRight = animdata.objects[animObject]['propertiesToBeAnimated'][propertyName][valuesOfInterest[1]]
+							propertyValuesToSet[propertyName] = viewX.linearValue(valuesOfInterest[0], valuesOfInterest[1], propValueAtLeft, propValueAtRight, atKey)
+						}
+						else {
+							propertyValuesToSet[propertyName] = propValueAtLeft
+						}
+						
+					}
+				}
+			}
+
+		}
+
+		graphOfObject = animdata.objects[animObject]['graphName']
+		theObjectName = animdata.objects[animObject]['objectName']
+		if (animdata.objects[animObject]['objectType'] == 'line') {
+			viewX.updateLine(graphOfObject, theObjectName, propertyValuesToSet)
+		}
+		else if (animdata.objects[animObject]['objectType'] == 'rectangle') {
+			viewX.updateRectangle(graphOfObject, theObjectName, propertyValuesToSet)
+		}
+		else if (animdata.objects[animObject]['objectType'] == 'circle') {
+			viewX.updateCircle(graphOfObject, theObjectName, propertyValuesToSet)
+		}
+		else if (animdata.objects[animObject]['objectType'] == 'point') {
+			viewX.updatePoint(graphOfObject, theObjectName, propertyValuesToSet)
+		}
+		else if (animdata.objects[animObject]['objectType'] == 'text') {
+			viewX.updateText(graphOfObject, theObjectName, propertyValuesToSet)
+		}
+		else if (animdata.objects[animObject]['objectType'] == 'path') {
+			viewX.updatePath(graphOfObject, theObjectName, propertyValuesToSet)
+		}
+
+		animdata.objects[animObject]['propertySetCalculatedAtKeys'][atKey] = propertyValuesToSet
+
+	}
+
+	viewX.animationData[animname][0] = Object.assign({}, animdata)
+
+
+}
+
+viewX.libraryFunctions = {}
+viewX.libraryFunctions.findClosestRightAndLeftNumbersInArray = function(theArray, toTheNumber) {
+	theArray = theArray.slice()
+	let valueLeft = null;
+	let valueRight = null;
+
+	for (let i = 0; i < theArray.length; i++) {
+		if (theArray[i] <= toTheNumber && (valueLeft === null || theArray[i] > valueLeft)) {
+			valueLeft = theArray[i];
+		}
+		if (theArray[i] > toTheNumber && (valueRight === null || theArray[i] < valueRight)) {
+			valueRight = theArray[i];
+		}
+	}
+
+	return [valueLeft, valueRight];
+
+}
+
 viewX.uid = 0
 viewX.graphData = {}
+viewX.graphData.objectType = {}
 
 viewX.reverseGraphElementMap = {}
 
