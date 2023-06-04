@@ -3111,6 +3111,7 @@ viewX.addAnimation = function(animname, animoptions) {
 	}
 
 	animoptions.animationAt = animoptions.animationAt || 0
+	animoptions.playing = animoptions.playing || 'no'
 
 	viewX.animationData[animname] = [animdata, animoptions]
 
@@ -3188,10 +3189,59 @@ viewX.setAnimationFrame = function(animname, atKey) {
 
 	}
 
-	viewX.animationData[animname][0] = Object.assign({}, animdata)
+	animoptions.animationAt = atKey
 
+	viewX.animationData[animname][0] = Object.assign({}, animdata)
+	viewX.animationData[animname][1] = Object.assign({}, animoptions)
 
 }
+
+
+viewX.playAnimation = function(animname, startKey, endKey, animDuration) {
+	animoptions = viewX.animationData[animname][1]
+	animdata = viewX.animationData[animname][0]
+
+	startKey = startKey || 0
+	endKey = endKey || Object.keys(animoptions.keyframes).length - 1
+
+	if (endKey >= startKey) {
+		animoptions.duration = animDuration || animoptions.duration
+		animoptions.frameRate = 30
+
+		animoptions.startKey = startKey
+		animoptions.endKey = endKey
+
+		animoptions.animationDelta =  ((endKey - startKey)/(animoptions.duration*animoptions.frameRate))
+
+		animoptions.playing = 'yes'
+		animoptions.animationAt = startKey
+
+		
+		viewX.animationData[animname][1] = Object.assign({}, animoptions)
+
+		viewX.animationIntervals[animname] = setInterval(function() {
+			animoptions = viewX.animationData[animname][1]
+			animoptions.animationAt = animoptions.animationAt + animoptions.animationDelta
+			if (animoptions.endKey < animoptions.animationAt) {
+				viewX.stopAnimation(animname)
+			}
+			else {
+				viewX.setAnimationFrame(animname, animoptions.animationAt)
+			}
+		}, 1000/animoptions.frameRate);
+	}
+	else {
+		console.log("Error with given start and end keys")
+	}
+
+}
+
+
+viewX.stopAnimation = function(animname) {
+	clearInterval(viewX.animationIntervals[animname])
+}
+
+
 
 viewX.libraryFunctions = {}
 viewX.libraryFunctions.findClosestRightAndLeftNumbersInArray = function(theArray, toTheNumber) {
@@ -3215,6 +3265,8 @@ viewX.libraryFunctions.findClosestRightAndLeftNumbersInArray = function(theArray
 viewX.uid = 0
 viewX.graphData = {}
 viewX.graphData.objectType = {}
+
+viewX.animationIntervals = {}
 
 viewX.reverseGraphElementMap = {}
 
