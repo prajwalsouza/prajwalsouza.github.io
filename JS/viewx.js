@@ -1626,9 +1626,12 @@ viewX.addArrow = function(graphname, arrowname, arrowoptions) {
 
 	arrowstring = arrowstring + 'M' + arrowHeadDirectionHeadPoint[0] + ' ' + arrowHeadDirectionHeadPoint[1] + ' ';
 	arrowstring = arrowstring + 'L' + arrowTo[0] + ' ' + arrowTo[1] + ' ';
+	
 
 	arrowoptions.name = arrowname || viewX.uid;
 	arrowoptions.arrowcolor = arrowoptions.arrowcolor || 'hsla(0, 0%, 0%, 1)';
+
+	arrowoptions.strokedasharray = arrowoptions.strokedasharray || ''
 
 	var arrowElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
 	try {
@@ -1638,7 +1641,9 @@ viewX.addArrow = function(graphname, arrowname, arrowoptions) {
 		arrowElement.style.stroke = arrowoptions.arrowcolor;
 		arrowElement.style.fill = 'none';
 		arrowElement.style.strokeWidth = arrowoptions.strokewidth + '%';
+		arrowElement.setAttribute('stroke-dasharray', arrowoptions.strokedasharray);
 		gdata.svgElement.appendChild(arrowElement);
+		
 
 		viewX.graphData[graphname].arrowData[arrowname] = [arrowElement, arrowoptions]
 		return [arrowElement, arrowoptions]
@@ -1664,7 +1669,7 @@ viewX.updateArrow = function(graphname, arrowname, newarrowoptions) {
 
 	arrowoptions.from = newarrowoptions.from || arrowoptions.from;
 	arrowoptions.to = newarrowoptions.to || arrowoptions.to;
-
+	arrowoptions.strokedasharray = newarrowoptions.strokedasharray || arrowoptions.strokedasharray;
 
 	arrowFrom = [viewX.graphToScaledX(arrowoptions.from[0], gdata.xmin, gdata.xmax, aratio), viewX.graphToScaledY(arrowoptions.from[1], gdata.ymin, gdata.ymax, aratio)]
 	arrowTo = [viewX.graphToScaledX(arrowoptions.to[0], gdata.xmin, gdata.xmax, aratio), viewX.graphToScaledY(arrowoptions.to[1], gdata.ymin, gdata.ymax, aratio)]
@@ -1700,7 +1705,8 @@ viewX.updateArrow = function(graphname, arrowname, newarrowoptions) {
 		arrowElement.style.stroke = arrowoptions.arrowcolor
 		arrowElement.style.fill = 'none'
 		arrowElement.style.strokeWidth = arrowoptions.strokewidth + '%';
-		
+		arrowElement.setAttribute('stroke-dasharray', arrowoptions.strokedasharray);
+
 		viewX.graphData[graphname].arrowData[arrowname] = [arrowElement, arrowoptions]
 	}
 
@@ -1710,7 +1716,7 @@ viewX.updateArrow = function(graphname, arrowname, newarrowoptions) {
 		
 }
 
-viewX.updatePath = function(graphname, pathname, newpathoptions) {
+viewX.updatePath = function(graphname, pathname, newpathoptions) {	
 
 	gdata = viewX.graphData[graphname]
 	aratio = gdata.aspectratio
@@ -2874,6 +2880,14 @@ viewX.distF = function(pt1, pt2) {
 
 viewX.addVec = function(pt1, pt2) {
 	return [pt1[0] + pt2[0], pt1[1] + pt2[1]]
+}
+
+viewX.scalarMultiplyVec = function(c, pt1) {
+	return [c*pt1[0], c*pt1[1]]
+}
+
+viewX.subtractVec = function(pt1, pt2) {
+	return [pt1[0] - pt2[0], pt1[1] - pt2[1]]
 }
 
 viewX.directionVec = function(pt1, pt2) {

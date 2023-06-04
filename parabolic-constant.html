@@ -35,6 +35,24 @@
 
         <style type="text/css">
 
+            :root {
+                --generalBackground: hsl(0,0%,5%);
+                --lightYellow:  hsl(43, 51%, 81%);
+                --brightYellow:  hsl(54, 51%, 59%);
+                --lightPurple:  hsl(256, 100%, 76%);
+                --lightOrange:  hsl(25, 100%, 78%);
+                --lightGreen: hsl(97, 100%, 74%);
+                --lightRed: hsl(0, 100%, 74%);
+                --lightPinkH:  320;
+                --lightPinkS:  55%;
+                --lightPinkL:  76%;
+                --lightPink:  hsl(320, 55%, 76%);
+                --lightBlue:  hsl(205, 100%, 69%);
+                --writingGrey: hsl(0,0%,45%);
+			}
+
+
+
             .hidden-element {
                 display: none !important;
             }
@@ -81,21 +99,6 @@
                 background: var(--lightPink);
             }
 
-			:root {
-                --generalBackground: hsl(0,0%,5%);
-                --lightYellow:  hsl(43, 51%, 81%);
-                --brightYellow:  hsl(54, 51%, 59%);
-                --lightPurple:  hsl(256, 100%, 76%);
-                --lightOrange:  hsl(25, 100%, 78%);
-                --lightGreen: hsl(97, 100%, 74%);
-                --lightPinkH:  320;
-                --lightPinkS:  55%;
-                --lightPinkL:  76%;
-                --lightPink:  hsl(320, 55%, 76%);
-                --lightBlue:  hsl(205, 100%, 69%);
-                --writingGrey: hsl(0,0%,45%);
-			}
-
 
             a:hover {
                 color: white;
@@ -132,6 +135,10 @@
 
             .p-lightGreen {
                 color: var(--lightGreen);
+            }
+
+            .p-lightRed {
+                color: var(--lightRed);
             }
 
             .p-brightYellow {
@@ -555,7 +562,7 @@
                     <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
                         <div class="our-text-block text-center pt-4">
                             <p class="p-White" style="font-size: large; font-family: Raleway;">
-                                So, what is the Universal Parabolic Constant?
+                                <b>So, what is the Universal Parabolic Constant?</b>
                             </p>
                         </div>
                     </div>
@@ -803,7 +810,7 @@
                 toRevealElements = document.getElementsByClassName('reveal-' + upcApp.revealPoint)
                 document.getElementById('reveal-' + upcApp.revealPoint + "-continueButton").style.display = "none";
 
-                upcApp.revealGap = 300
+                upcApp.revealGap = 10
 
                 if (upcApp.revealPoint == 1) {
                     setTimeout(function() {
@@ -2727,14 +2734,81 @@
                 lineOptions = { x1: 0, y1: 5, x2: 0, y2: -3, strokewidth: 0.6, linecolor: "hsla(0, 0%, 40%, 0.7)"}; 
                 viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-theYAxis", lineOptions);
 
-                lineOptions = { x1: gph10.theParabola.focus[0], y1: gph10.theParabola.focus[1], x2: gph10.theParabola.vertex[0], y2: gph10.theParabola.vertex[1], strokewidth: 3, linecolor: "var(--lightPink)", strokedasharray: "7, 7"}; 
-                viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-FC", lineOptions);
 
-                lineOptions = { x1: gph10.theParabola.vertex[0], y1: gph10.theParabola.vertex[1], x2: (gph10.theParabola.directrixPoint2[0] + gph10.theParabola.directrixPoint1[0])/2, y2: (gph10.theParabola.directrixPoint2[1] + gph10.theParabola.directrixPoint1[1])/2, strokewidth: 3, linecolor: "var(--lightPink)", strokedasharray: "7, 7"}; 
+                var pathOptions = {
+                    points: gph10.thePoints,
+                    strokewidth: 0.3,
+                    pathcolor: "var(--lightPurple)",
+                    pathfillcolor: "none"
+                };
+                pathElementDetails = viewX.addPath("parabola-important-dimensions-graph", "parabola-important-dimensions-parabola", pathOptions);
+
+                var arrowOptions = {
+                    from: viewX.addVec(gph10.theParabola.focus, [0, -0.1]),
+                    to: viewX.addVec(gph10.theParabola.vertex, [0, 0.1]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightPink)"
+                };
+                arrow = viewX.addArrow("parabola-important-dimensions-graph", "parabola-important-dimensions-FC-arrow-1", arrowOptions);
+
+                pointOnLineL = viewX.scalarMultiplyVec(0.5, viewX.addVec(gph10.theParabola.directrixPoint2, gph10.theParabola.directrixPoint1))
+                var arrowOptions = {
+                    to: viewX.addVec(gph10.theParabola.focus, [0, -0.1]),
+                    from: viewX.addVec(gph10.theParabola.vertex, [0, 0.1]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightPink)"
+                };
+                arrow = viewX.addArrow("parabola-important-dimensions-graph", "parabola-important-dimensions-FC-arrow-2", arrowOptions);
+
+                midFC = viewX.scalarMultiplyVec(0.5, viewX.addVec(gph10.theParabola.focus, gph10.theParabola.vertex))
+
+                textOptions = {x:  midFC[0] - upcApp.parabolicCircleGraph["point-label-gap"], y:  midFC[1], text: "a",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-FC-label", textOptions);
+
+                var arrowOptions = {
+                    from: pointOnLineL,
+                    to: viewX.addVec(gph10.theParabola.vertex, [0, -0.1]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightPink)"
+                };
+                arrow = viewX.addArrow("parabola-important-dimensions-graph", "parabola-important-dimensions-CL-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    to: pointOnLineL,
+                    from: viewX.addVec(gph10.theParabola.vertex, [0, -0.1]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightPink)"
+                };
+                arrow = viewX.addArrow("parabola-important-dimensions-graph", "parabola-important-dimensions-CL-arrow-2", arrowOptions);
+
+                midCL = viewX.scalarMultiplyVec(0.5, viewX.addVec(gph10.theParabola.vertex, pointOnLineL))
+                
+                textOptions = {x:  midCL[0] - upcApp.parabolicCircleGraph["point-label-gap"], y:  midCL[1], text: "a",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-CL-label", textOptions);
+
+                lineOptions = { x1: gph10.theParabola.vertex[0], y1: gph10.theParabola.vertex[1], x2: (gph10.theParabola.directrixPoint2[0] + gph10.theParabola.directrixPoint1[0])/2, y2: (gph10.theParabola.directrixPoint2[1] + gph10.theParabola.directrixPoint1[1])/2, strokewidth: 2, linecolor: "var(--lightPink)", strokedasharray: "3, 3"}; 
                 viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-CL", lineOptions);
+
+                pointOptions = { x:  gph10.theParabola.vertex[0], y:  gph10.theParabola.vertex[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("parabola-important-dimensions-graph", "parabola-important-dimensions-vertex", pointOptions);
+
+                textOptions = {x: gph10.theParabola.vertex[0] + upcApp.parabolicCircleGraph["point-label-gap"], y: gph10.theParabola.vertex[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-vertex-label", textOptions);
 
                 lineOptions = { x1: gph10.theParabola.directrixPoint1[0], y1: gph10.theParabola.directrixPoint1[1], x2: gph10.theParabola.directrixPoint2[0], y2: gph10.theParabola.directrixPoint2[1], strokewidth: 3, linecolor: "var(--lightGreen)", strokedasharray: "7, 7"}; 
                 viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-directrix", lineOptions);
+
+                lineOptions = { x1: gph10.theParabola.latusRectumPointLeft[0] - 2, y1: gph10.theParabola.latusRectumPointLeft[1], x2: gph10.theParabola.latusRectumPointRight[0] + 2, y2: gph10.theParabola.latusRectumPointRight[1], strokewidth: 2.5, linecolor: "var(--lightOrange)", strokedasharray: "5, 5"}; 
+                lineE = viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-lineM", lineOptions);
+                lineE[0].style.opacity = 0.5
+
+                positionForLineMLabel = viewX.addVec(gph10.theParabola.latusRectumPointLeft, viewX.scalarMultiplyVec(2, viewX.directionVec(gph10.theParabola.focus, gph10.theParabola.latusRectumPointLeft)))
+
+                textOptions = {x:  positionForLineMLabel[0] + upcApp.parabolicCircleGraph["point-label-gap"]*2.1, y:  positionForLineMLabel[1] - upcApp.parabolicCircleGraph["point-label-gap"]*2.1, text: "line M",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightOrange)"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-lineM-label", textOptions);
+
+                lineOptions = { x1: gph10.theParabola.latusRectumPointLeft[0], y1: gph10.theParabola.latusRectumPointLeft[1], x2: gph10.theParabola.latusRectumPointRight[0], y2: gph10.theParabola.latusRectumPointRight[1], strokewidth: 3, linecolor: "var(--lightRed)"}; 
+                viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-latusRectum", lineOptions);
 
                 textOptions = {x:  (gph10.theParabola.directrixPoint1[0] + gph10.theParabola.directrixPoint2[0])/2 + upcApp.parabolicCircleGraph["point-label-gap"]*2.1, y:  (gph10.theParabola.directrixPoint1[1] + gph10.theParabola.directrixPoint2[1])/2 - upcApp.parabolicCircleGraph["point-label-gap"]*2.1, text: "L",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightGreen)"};
                 viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-directrix-label", textOptions);
@@ -2745,16 +2819,111 @@
                 textOptions = {x:  gph10.theParabola.focus[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  gph10.theParabola.focus[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "F",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--brightYellow)"};
                 viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-focus-label", textOptions);
 
-                
-                var pathOptions = {
-                    points: gph10.thePoints,
-                    strokewidth: 0.3,
-                    pathcolor: "var(--lightPurple)",
-                    pathfillcolor: "none"
+                pointOptions = { x:  gph10.theParabola.latusRectumPointLeft[0], y:  gph10.theParabola.latusRectumPointLeft[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("parabola-important-dimensions-graph", "parabola-important-dimensions-G", pointOptions);
+
+                textOptions = {x:  gph10.theParabola.latusRectumPointLeft[0] - upcApp.parabolicCircleGraph["point-label-gap"], y:  gph10.theParabola.latusRectumPointLeft[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "G",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-G-label", textOptions);
+
+                pointOptions = { x:  gph10.theParabola.latusRectumPointRight[0], y:  gph10.theParabola.latusRectumPointRight[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("parabola-important-dimensions-graph", "parabola-important-dimensions-H", pointOptions);
+
+                textOptions = {x:  gph10.theParabola.latusRectumPointRight[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  gph10.theParabola.latusRectumPointRight[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "H",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-H-label", textOptions);
+
+                BPoint = viewX.addVec(gph10.theParabola.latusRectumPointRight, viewX.subtractVec(gph10.theParabola.vertex, gph10.theParabola.focus))
+
+                pointOptions = { x:  BPoint[0], y:  BPoint[1], pointsize: upcApp.graphPointSize*0.5, pointcolor: 'white'};
+                viewX.addPoint("parabola-important-dimensions-graph", "parabola-important-dimensions-BPoint", pointOptions);
+
+                textOptions = {x:  BPoint[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  BPoint[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "white"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-BPoint-label", textOptions);
+
+
+                sideShiftDirection = viewX.scalarMultiplyVec(gph10.theParabola.a, viewX.directionVec(gph10.theParabola.focus, gph10.theParabola.latusRectumPointRight))
+
+                var arrowOptions = {
+                    from: viewX.subtractVec(viewX.addVec(gph10.theParabola.latusRectumPointRight, sideShiftDirection), [0, 0.03]),
+                    to: viewX.addVec(viewX.addVec(BPoint, sideShiftDirection), [0, 0.03]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightPink)"
                 };
-                pathElementDetails = viewX.addPath("parabola-important-dimensions-graph", "parabola-important-dimensions-parabola", pathOptions);
+                arrow = viewX.addArrow("parabola-important-dimensions-graph", "parabola-important-dimensions-HB-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    to: viewX.subtractVec(viewX.addVec(gph10.theParabola.latusRectumPointRight, sideShiftDirection), [0, 0.03]),
+                    from: viewX.addVec(viewX.addVec(BPoint, sideShiftDirection), [0, 0.03]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightPink)"
+                };
+
+                arrow = viewX.addArrow("parabola-important-dimensions-graph", "parabola-important-dimensions-HB-arrow-2", arrowOptions);
+
+                midHB = viewX.scalarMultiplyVec(0.5, viewX.addVec(gph10.theParabola.latusRectumPointRight, BPoint))
+
+                midHBShifted = viewX.addVec(midHB, sideShiftDirection)
+                textOptions = {x:  midHBShifted[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  midHBShifted[1], text: "a",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-HB-label", textOptions);
+
+
+
+                LPoint = viewX.addVec(gph10.theParabola.latusRectumPointRight, viewX.subtractVec(pointOnLineL, gph10.theParabola.focus))
+
+
+                sideShiftDirectionMore = viewX.scalarMultiplyVec(gph10.theParabola.a/2, viewX.directionVec(gph10.theParabola.focus, gph10.theParabola.latusRectumPointRight))
+
+                var arrowOptions = {
+                    from: viewX.subtractVec(viewX.addVec(gph10.theParabola.latusRectumPointRight, sideShiftDirectionMore), [0, 0.03]),
+                    to: viewX.addVec(viewX.addVec(LPoint, sideShiftDirectionMore), [0, 0.03]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightBlue)"
+                };
+                arrow = viewX.addArrow("parabola-important-dimensions-graph", "parabola-important-dimensions-HL-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    to: viewX.subtractVec(viewX.addVec(gph10.theParabola.latusRectumPointRight, sideShiftDirectionMore), [0, 0.03]),
+                    from: viewX.addVec(viewX.addVec(LPoint, sideShiftDirectionMore), [0, 0.03]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightBlue)"
+                };
+
+                arrow = viewX.addArrow("parabola-important-dimensions-graph", "parabola-important-dimensions-HL-arrow-2", arrowOptions);
+
+                midHL = viewX.scalarMultiplyVec(0.5, viewX.addVec(gph10.theParabola.latusRectumPointRight, LPoint))
+
+                midHLShifted = viewX.addVec(midHL, sideShiftDirectionMore)
+                textOptions = {x:  midHLShifted[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  midHLShifted[1], text: "2a",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightBlue)"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-HL-label", textOptions);
+
+
+                var arrowOptions = {
+                    from: viewX.addVec(gph10.theParabola.latusRectumPointRight, [0, 0.3]),
+                    to: viewX.addVec(gph10.theParabola.focus, [0, 0.3]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightBlue)"
+                };
+                arrow = viewX.addArrow("parabola-important-dimensions-graph", "parabola-important-dimensions-HF-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    to: viewX.addVec(gph10.theParabola.latusRectumPointRight, [0, 0.3]),
+                    from: viewX.addVec(gph10.theParabola.focus, [0, 0.3]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightBlue)"
+                };
+
+                arrow = viewX.addArrow("parabola-important-dimensions-graph", "parabola-important-dimensions-HF-arrow-2", arrowOptions);
+
+                midHF = viewX.scalarMultiplyVec(0.5, viewX.addVec(gph10.theParabola.latusRectumPointRight, gph10.theParabola.focus))
+
+                midHFShifted = viewX.addVec(midHF, [0, 0.3])
+                textOptions = {x:  midHFShifted[0], y:  midHFShifted[1] +  upcApp.parabolicCircleGraph["point-label-gap"], text: "2a",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightBlue)"};
+                viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-HF-label", textOptions);
+
+
                 // pathElementDetails[0].style.opacity = 0
-                
+
+
+                                
 
                 // gph10.theParabolaRandom.latusRectumPointRight
                 // gph10.theParabolaRandom.latusRectumPointLeft
