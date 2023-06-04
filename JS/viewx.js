@@ -1236,6 +1236,8 @@ viewX.addLine = function(graphname, linename, lineoptions) {
 	lineoptions.y2 = parseFloat(lineoptions.y2.toString() || 0.5)
 	lineoptions.name = linename || viewX.uid
 
+	lineoptions.opacity = lineoptions.opacity || 1
+
 	lineoptions.strokedasharray = lineoptions.strokedasharray || ""
 	lineoptions.strokewidth = lineoptions.strokewidth || 1
 	lineoptions.linecolor = lineoptions.linecolor || 'hsla(190, 100%, 50%, 1)'
@@ -1246,6 +1248,7 @@ viewX.addLine = function(graphname, linename, lineoptions) {
 	lineElement.setAttribute('x2', viewX.graphToScaledX(lineoptions.x2, gdata.xmin, gdata.xmax, aratio) + '%')
 	lineElement.setAttribute('y2', viewX.graphToScaledY(lineoptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
 	lineElement.setAttribute('stroke-dasharray', lineoptions.strokedasharray);
+	lineElement.style.opacity = lineoptions.opacity;
 	
 	lineElement.setAttribute('id', graphname + '-line-' + linename)
 	viewX.uid = viewX.uid + 1
@@ -1300,6 +1303,7 @@ viewX.updateLine = function(graphname, linename, linevalues) {
 	lineoptions.strokedasharray = linevalues.strokedasharray || lineoptions.strokedasharray
 	lineoptions.strokewidth = linevalues.strokewidth || lineoptions.strokewidth
 	lineoptions.linecolor = linevalues.linecolor || lineoptions.linecolor
+	lineoptions.opacity = linevalues.opacity || lineoptions.opacity
 
 	lineElement.setAttribute('x1', viewX.graphToScaledX(lineoptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
 	lineElement.setAttribute('y1', viewX.graphToScaledY(lineoptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
@@ -1307,6 +1311,7 @@ viewX.updateLine = function(graphname, linename, linevalues) {
 	lineElement.setAttribute('y2', viewX.graphToScaledY(lineoptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
 
 	lineElement.setAttribute('stroke-dasharray', lineoptions.strokedasharray);
+	lineElement.style.opacity = lineoptions.opacity;
 	lineElement.style.stroke = lineoptions.linecolor
 	lineElement.style.strokeWidth = lineoptions.strokewidth + '%';
 	
@@ -1568,12 +1573,14 @@ viewX.addPath = function(graphname, pathname, pathoptions) {
 	pathoptions.pathcolor = pathoptions.pathcolor || 'hsla(190, 100%, 50%, 1)'
 	pathoptions.pathfillcolor = pathoptions.pathfillcolor || 'none'
 	pathoptions.strokedasharray = pathoptions.strokedasharray || ''
+	pathoptions.opacity = pathoptions.opacity || 1
 
 	var pathElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
 	try {
 		pathElement.setAttribute('d', pathstring);
 		pathElement.setAttribute('id', graphname + '-path-' + pathname)
 		pathElement.setAttribute('stroke-dasharray', pathoptions.strokedasharray);
+		pathElement.style.opacity = pathoptions.opacity;
 		viewX.uid = viewX.uid + 1
 		pathElement.style.stroke = pathoptions.pathcolor
 		pathElement.style.fill = pathoptions.pathfillcolor;
@@ -1634,6 +1641,8 @@ viewX.addArrow = function(graphname, arrowname, arrowoptions) {
 
 	arrowoptions.strokedasharray = arrowoptions.strokedasharray || ''
 
+	arrowoptions.opacity = arrowoptions.opacity || 1
+
 	var arrowElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
 	try {
 		arrowElement.setAttribute('d', arrowstring);
@@ -1643,6 +1652,7 @@ viewX.addArrow = function(graphname, arrowname, arrowoptions) {
 		arrowElement.style.fill = 'none';
 		arrowElement.style.strokeWidth = arrowoptions.strokewidth + '%';
 		arrowElement.setAttribute('stroke-dasharray', arrowoptions.strokedasharray);
+		arrowElement.style.opacity = arrowoptions.opacity;
 		gdata.svgElement.appendChild(arrowElement);
 		
 
@@ -1671,6 +1681,7 @@ viewX.updateArrow = function(graphname, arrowname, newarrowoptions) {
 	arrowoptions.from = newarrowoptions.from || arrowoptions.from;
 	arrowoptions.to = newarrowoptions.to || arrowoptions.to;
 	arrowoptions.strokedasharray = newarrowoptions.strokedasharray || arrowoptions.strokedasharray;
+	arrowoptions.opacity = newarrowoptions.opacity || arrowoptions.opacity;
 
 	arrowFrom = [viewX.graphToScaledX(arrowoptions.from[0], gdata.xmin, gdata.xmax, aratio), viewX.graphToScaledY(arrowoptions.from[1], gdata.ymin, gdata.ymax, aratio)]
 	arrowTo = [viewX.graphToScaledX(arrowoptions.to[0], gdata.xmin, gdata.xmax, aratio), viewX.graphToScaledY(arrowoptions.to[1], gdata.ymin, gdata.ymax, aratio)]
@@ -1707,7 +1718,7 @@ viewX.updateArrow = function(graphname, arrowname, newarrowoptions) {
 		arrowElement.style.fill = 'none'
 		arrowElement.style.strokeWidth = arrowoptions.strokewidth + '%';
 		arrowElement.setAttribute('stroke-dasharray', arrowoptions.strokedasharray);
-
+		arrowElement.style.opacity = arrowoptions.opacity;
 		viewX.graphData[graphname].arrowData[arrowname] = [arrowElement, arrowoptions]
 	}
 
@@ -1729,6 +1740,8 @@ viewX.updatePath = function(graphname, pathname, newpathoptions) {
 
 	pathoptions.points = newpathoptions.points || pathoptions.points
 
+	
+
 	pathstring = 'M'
 
 	for (pth = 0; pth < pathoptions.points.length; pth++) {
@@ -1749,10 +1762,13 @@ viewX.updatePath = function(graphname, pathname, newpathoptions) {
 		pathoptions.pathfillcolor = newpathoptions.pathfillcolor || pathoptions.pathfillcolor
 		pathoptions.strokedasharray = newpathoptions.strokedasharray || pathoptions.strokedasharray
 
+		pathoptions.opacity = newpathoptions.opacity || pathoptions.opacity
+
 		pathElement.style.stroke = pathoptions.pathcolor
 		pathElement.style.fill = pathoptions.pathfillcolor
 		pathElement.style.strokeWidth = pathoptions.strokewidth + '%';
 		pathElement.setAttribute('stroke-dasharray', pathoptions.strokedasharray);
+		pathElement.style.opacity = pathoptions.opacity;
 		
 		viewX.graphData[graphname].pathData[pathname] = [pathElement, pathoptions]
 		return [pathElement, pathoptions]
@@ -1838,6 +1854,8 @@ viewX.addCircle = function(graphname, circlename, circleoptions) {
 	circleoptions.strokewidth = circleoptions.strokewidth || 0.1
 	
 	circleoptions.circlecolor = circleoptions.circlecolor || 'hsla(190, 100%, 50%, 1)'
+	circleoptions.strokedasharray = circleoptions.strokedasharray || ''
+	circleoptions.opacity = circleoptions.opacity || 1
 
 	rx = viewX.distanceBTWgraphToSvg([0,0],[circleoptions.radius, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
 	ry = viewX.distanceBTWgraphToSvg([0,0],[0, circleoptions.radius], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
@@ -1850,6 +1868,10 @@ viewX.addCircle = function(graphname, circlename, circleoptions) {
 	circleElement.setAttribute('id', graphname + '-circle-' + circlename)
 	viewX.uid = viewX.uid + 1
 	circleElement.setAttribute('vector-effect','non-scaling-stroke');
+	
+	circleElement.style.opacity = circleoptions.opacity;
+
+
 	circleElement.style.fill = circleoptions.circlecolor
 	circleElement.style.strokeWidth = circleoptions.strokewidth + '%';
 	circleElement.style.stroke = circleoptions.stroke;
@@ -1896,6 +1918,8 @@ viewX.updateCircle = function(graphname, circlename, circlenewvalues) {
 	circleoptions.strokewidth = circlenewvalues.strokewidth || circleoptions.strokewidth
 	
 	circleoptions.circlecolor = circlenewvalues.circlecolor || circleoptions.circlecolor
+	circleoptions.strokedasharray = circlenewvalues.strokedasharray || circleoptions.strokedasharray
+	circleoptions.opacity = circlenewvalues.opacity || circleoptions.opacity
 
 	rx = viewX.distanceBTWgraphToSvg([0,0],[circleoptions.radius, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
 	ry = viewX.distanceBTWgraphToSvg([0,0],[0, circleoptions.radius], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
@@ -1911,6 +1935,7 @@ viewX.updateCircle = function(graphname, circlename, circlenewvalues) {
 	circleElement.style.strokeWidth = circleoptions.strokewidth + '%';
 	circleElement.style.stroke = circleoptions.stroke;
 	circleElement.setAttribute('stroke-dasharray', circleoptions.strokedasharray);
+	circleElement.style.opacity = circleoptions.opacity;
 	
 	viewX.graphData[graphname].circleData[circlename] = [circleElement, circleoptions]
 }
@@ -1933,6 +1958,8 @@ viewX.addEllipse = function(graphname, ellipsename, ellipseoptions) {
 	ellipseoptions.strokewidth = ellipseoptions.strokewidth || 0.1
 	
 	ellipseoptions.ellipsecolor = ellipseoptions.ellipsecolor || 'hsla(190, 100%, 50%, 1)'
+	ellipseoptions.strokedasharray = ellipseoptions.strokedasharray || ''
+	ellipseoptions.opacity = ellipseoptions.opacity || 1
 
 	rx = viewX.distanceBTWgraphToSvg([0,0],[ellipseoptions.rx, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
 	ry = viewX.distanceBTWgraphToSvg([0,0],[0, ellipseoptions.ry], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
@@ -1945,6 +1972,9 @@ viewX.addEllipse = function(graphname, ellipsename, ellipseoptions) {
 	ellipseElement.setAttribute('id', graphname + '-ellipse-' + ellipsename)
 	viewX.uid = viewX.uid + 1
 	ellipseElement.setAttribute('vector-effect','non-scaling-stroke');
+	ellipseElement.style.opacity = ellipseoptions.opacity;
+	ellipseElement.setAttribute('stroke-dasharray', ellipseoptions.strokedasharray);
+
 	ellipseElement.style.fill = ellipseoptions.ellipsecolor
 	ellipseElement.style.strokeWidth = ellipseoptions.strokewidth + '%';
 	ellipseElement.style.stroke = ellipseoptions.stroke;
@@ -1994,6 +2024,8 @@ viewX.updateEllipse = function(graphname, ellipsename, ellipsenewvalues) {
 	ellipseoptions.strokewidth = ellipsenewvalues.strokewidth || ellipseoptions.strokewidth
 	
 	ellipseoptions.ellipsecolor = ellipsenewvalues.ellipsecolor || ellipseoptions.ellipsecolor
+	ellipseoptions.strokedasharray = ellipsenewvalues.strokedasharray || ellipseoptions.strokedasharray
+	ellipseoptions.opacity = ellipsenewvalues.opacity || ellipseoptions.opacity
 
 	rx = viewX.distanceBTWgraphToSvg([0,0],[ellipseoptions.rx, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
 	ry = viewX.distanceBTWgraphToSvg([0,0],[0, ellipseoptions.ry], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
@@ -2005,6 +2037,9 @@ viewX.updateEllipse = function(graphname, ellipsename, ellipsenewvalues) {
 	ellipseElement.setAttribute('id', graphname + '-ellipse-' + ellipsename)
 	viewX.uid = viewX.uid + 1
 	ellipseElement.setAttribute('vector-effect','non-scaling-stroke');
+	ellipseElement.style.opacity = ellipseoptions.opacity;
+	ellipseElement.setAttribute('stroke-dasharray', ellipseoptions.strokedasharray);
+
 	ellipseElement.style.fill = ellipseoptions.ellipsecolor
 	ellipseElement.style.strokeWidth = ellipseoptions.strokewidth + '%';
 	ellipseElement.style.stroke = ellipseoptions.stroke;
@@ -2029,6 +2064,7 @@ viewX.addText = function(graphname, textname, textoptions) {
 	textoptions.fontFamily = textoptions.fontFamily || 'Source Sans Pro'
 	
 	textoptions.textcolor = textoptions.textcolor || 'hsla(190, 100%, 0%, 1)'
+	textoptions.opacity = textoptions.opacity || 1
 	
 	var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
 	textElement.setAttribute('x', viewX.graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
@@ -2036,6 +2072,7 @@ viewX.addText = function(graphname, textname, textoptions) {
 	textElement.setAttribute('id', graphname + '-text-' + textname)
 	viewX.uid = viewX.uid + 1
 	textElement.setAttribute('vector-effect','non-scaling-stroke');
+	textElement.style.opacity = textoptions.opacity;
 	textElement.style.fill = textoptions.textcolor
 	textElement.innerHTML = textoptions.text
 	textElement.style.fontFamily = textoptions.fontFamily
@@ -2063,10 +2100,14 @@ viewX.updateText = function(graphname, textname, textvalues) {
 	textoptions.y = textvalues.y || textoptions.y
 	textoptions.textcolor = textvalues.textcolor || textoptions.textcolor
 	textoptions.fontSize = textvalues.fontSize || textoptions.fontSize
+	textoptions.fontFamily = textvalues.fontFamily || textoptions.fontFamily
+	textoptions.opacity = textvalues.opacity || textoptions.opacity
 
 	textElement.innerHTML = textoptions.text
 	textElement.setAttribute('x', viewX.graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
 	textElement.setAttribute('y', viewX.graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+	textElement.style.opacity = textoptions.opacity;
+	textElement.style.fontFamily = textoptions.fontFamily
 	textElement.style.fill = textoptions.textcolor
 	textElement.style.fontSize = textoptions.fontSize + "px"
 	
@@ -2089,6 +2130,7 @@ viewX.addRectangle = function(graphname, rectname, rectoptions) {
 	rectoptions.stroke = rectoptions.stroke || 'hsla(190, 100%, 50%, 0.5)'
 	rectoptions.strokewidth = rectoptions.strokewidth || 0.1
 	rectoptions.strokedasharray = rectoptions.strokedasharray || ""
+	rectoptions.opacity = rectoptions.opacity || 1
 
 	
 	rectoptions.rectcolor = rectoptions.rectcolor || 'hsla(190, 100%, 50%, 1)'
@@ -2107,6 +2149,7 @@ viewX.addRectangle = function(graphname, rectname, rectoptions) {
 	rectElement.style.fill = rectoptions.rectcolor
 	rectElement.style.strokeWidth = rectoptions.strokewidth + '%';
 	rectElement.style.stroke = rectoptions.stroke;
+	rectElement.style.opacity = rectoptions.opacity;
 	rectElement.setAttribute('stroke-dasharray', rectoptions.strokedasharray);
 
 	gdata.svgElement.appendChild(rectElement);
@@ -2157,6 +2200,7 @@ viewX.updateRectangle = function(graphname, rectname, rectvalueupdate) {
 	rectoptions.strokewidth = rectvalueupdate.strokewidth || rectoptions.strokewidth
 	
 	rectoptions.rectcolor = rectvalueupdate.rectcolor || rectoptions.rectcolor
+	rectoptions.strokedasharray = rectvalueupdate.strokedasharray || rectoptions.strokedasharray
 
 	rx = viewX.distanceBTWgraphToSvg([0,0],[rectoptions.w, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
 	ry = viewX.distanceBTWgraphToSvg([0,0],[0, rectoptions.h], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
@@ -2165,9 +2209,12 @@ viewX.updateRectangle = function(graphname, rectname, rectvalueupdate) {
 	rectElement.setAttribute('y', viewX.graphToScaledY(rectoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
 	rectElement.setAttribute('width', rx + '%')
 	rectElement.setAttribute('height', ry + '%');
+	rectElement.setAttribute('stroke-dasharray', rectoptions.strokedasharray);
+
 	rectElement.style.fill = rectoptions.rectcolor
 	rectElement.style.strokeWidth = rectoptions.strokewidth + '%';
 	rectElement.style.stroke = rectoptions.stroke;
+	rectElement.style.opacity = rectoptions.opacity;
 
 	
 	viewX.graphData[graphname].rectData[rectname] = [rectElement, rectoptions]
@@ -2190,6 +2237,7 @@ viewX.addPoint = function(graphname, pointname, pointoptions) {
 	pointoptions.name = pointname || viewX.uid
 
 	pointoptions.pointcolor = pointoptions.pointcolor || 'hsla(190, 100%, 50%, 1)'
+	pointoptions.opacity = pointoptions.opacity || 1
 	
 	var pointElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
 	pointElement.setAttribute('cx', viewX.graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
@@ -2200,6 +2248,7 @@ viewX.addPoint = function(graphname, pointname, pointoptions) {
 	viewX.uid = viewX.uid + 1
 	pointElement.setAttribute('vector-effect','non-scaling-stroke');
 	pointElement.style.fill = pointoptions.pointcolor
+	pointElement.style.opacity = pointoptions.opacity;
 	gdata.svgElement.appendChild(pointElement);
 
 	pointoptions.draggability = pointoptions.draggability || 'no'
@@ -2248,6 +2297,7 @@ viewX.updatePoint = function(graphname, pointname, newpointoptions) {
 	pointoptions.pointsize = newpointoptions.pointsize || pointoptions.pointsize
 
 	pointoptions.pointcolor = newpointoptions.pointcolor || pointoptions.pointcolor
+	pointoptions.opacity = newpointoptions.opacity || pointoptions.opacity
 	
 	pointElement.setAttribute('cx', viewX.graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
 	pointElement.setAttribute('cy', viewX.graphToScaledY(pointoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
@@ -2255,6 +2305,7 @@ viewX.updatePoint = function(graphname, pointname, newpointoptions) {
 	pointElement.setAttribute('ry', pointoptions.pointsize + '%');
 	pointElement.setAttribute('vector-effect','non-scaling-stroke');
 	pointElement.style.fill = pointoptions.pointcolor
+	pointElement.style.opacity = pointoptions.opacity;
 
 	pointoptions.draggability = newpointoptions.draggability || 'no'
 	if (pointoptions.draggability == 'yes') {
