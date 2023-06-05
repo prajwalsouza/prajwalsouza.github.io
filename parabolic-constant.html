@@ -696,7 +696,9 @@
                             <div class="mt-1 pb-2">
                                 <input type="range" min="0" max="100" value="1" step="1"  class="commonSlider mb-3" id="parabola-important-dimensions-Slider">
                                <br/>
-                                <label id="parabola-important-dimensions-SliderInfo" class="p-lightPurple" for="parabola-important-dimensions-Slider" style="min-width: 100px;" ></label>
+                               <p>
+                                <label id="parabola-important-dimensions-SliderInfo" for="parabola-important-dimensions-Slider" style="min-width: 100px;" ></label>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -3008,27 +3010,39 @@
                     }
                 }
 
-                gph10.graphObjects = ['parabola-important-dimensions-focus', 'parabola-important-dimensions-focus-label', 'parabola-important-dimensions-directrix', 'parabola-important-dimensions-directrix-label', 'parabola-important-dimensions-vertex', 'parabola-important-dimensions-vertex-label','parabola-important-dimensions-FC-arrow-1',
-                'parabola-important-dimensions-FC-label',
-                'parabola-important-dimensions-CL-arrow-1',
-                'parabola-important-dimensions-CL-label',
-                'parabola-important-dimensions-parabola',
-                'parabola-important-dimensions-lineM',
-                'parabola-important-dimensions-lineM-label',
-                'parabola-important-dimensions-G',
-                'parabola-important-dimensions-G-label',
-                'parabola-important-dimensions-H',
-                'parabola-important-dimensions-H-label',
-                'parabola-important-dimensions-HL-arrow-1',
-                'parabola-important-dimensions-HL-label',
-                'parabola-important-dimensions-BPoint',
-                'parabola-important-dimensions-BPoint-label',
-                'parabola-important-dimensions-HB-arrow-1',
-                'parabola-important-dimensions-HB-label',
-                'parabola-important-dimensions-HF-arrow-1',
-                'parabola-important-dimensions-HF-label',
-                'parabola-important-dimensions-latusRectum'
-            ]
+                gph10.messageOfSteps = [
+                    'Shall we begin? :)',
+                    'The focus of the parabola is the <span class="p-brightYellow"> point F</span>.',
+                    'The focus of the parabola is the <span class="p-brightYellow"> point F</span>.',
+                    'The directrix of the parabola is the <span class="p-lightGreen"> line L</span>.',
+                    'The directrix of the parabola is the <span class="p-lightGreen"> line L</span>.',
+                    'The vertex of the parabola is the <span class="p-lightPurple"> point C</span>.',
+                    'The vertex of the parabola is the <span class="p-lightPurple"> point C</span>.',
+                    '<span class="p-lightPink">FC</span> is the shortest distance from the parabola to <span class="p-brightYellow"> focus F</span>.',
+                    'Let\'s call it <span class="p-lightPink">a</span>.',
+                    '<span class="p-lightPink">CL</span> is at the same distance "a" from the vertex to <span class="p-lightGreen"> line L</span>.',
+                    'So, <span class="p-lightPink">CL</span> is "a" too.',
+                    'There is one point so far, but we can get more points like that forming the  <span class="p-lightPurple">parabola.</span>',
+                    'Let\'s draw <span class="p-lightOrange"> line M</span>.',
+                    'Let\'s draw <span class="p-lightOrange"> line M</span>.',
+                    'The line intersects the parabola at points <span class="p-lightPurple">G </span>..',
+                    'The line intersects the parabola at points <span class="p-lightPurple">G </span>...',
+                    'The line intersects the parabola at points <span class="p-lightPurple">G </span>and <span class="p-lightPurple">H</span>.',
+                    'The line intersects the parabola at points <span class="p-lightPurple">G </span>and <span class="p-lightPurple">H</span>.',
+                    'By our understanding of the parabola, point <span class="p-lightPurple">H </span> must be at a distance of <span class="p-lightBlue">2a</span>.',
+                    'By our understanding of the parabola, point <span class="p-lightPurple">H </span> must be at a distance of <span class="p-lightBlue">2a</span>.',
+                    'Consider point B.',
+                    'Consider point B.',
+                    'HB must be at a distance of <span class="p-lightPink">a</span>.',
+                    'HB must be at a distance of <span class="p-lightPink">a</span>.',
+                    'HF must be at a distance of <span class="p-lightBlue">2a</span>.',
+                    'HF must be at a distance of <span class="p-lightBlue">2a</span>.',
+                    'So, <span class="p-lightRed">Latus Rectum</span> of the parabola spans 4a which is <span class="p-lightBlue">2a</span> + <span class="p-lightBlue">2a</span>',
+                ]
+
+                gph10.graphObjects = [
+                    'parabola-important-dimensions-focus', 'parabola-important-dimensions-focus-label', 'parabola-important-dimensions-directrix', 'parabola-important-dimensions-directrix-label', 'parabola-important-dimensions-vertex', 'parabola-important-dimensions-vertex-label','parabola-important-dimensions-FC-arrow-1','parabola-important-dimensions-FC-label','parabola-important-dimensions-CL-arrow-1','parabola-important-dimensions-CL-label','parabola-important-dimensions-parabola','parabola-important-dimensions-lineM','parabola-important-dimensions-lineM-label','parabola-important-dimensions-G','parabola-important-dimensions-G-label','parabola-important-dimensions-H','parabola-important-dimensions-H-label','parabola-important-dimensions-HL-arrow-1','parabola-important-dimensions-HL-label','parabola-important-dimensions-BPoint','parabola-important-dimensions-BPoint-label','parabola-important-dimensions-HB-arrow-1','parabola-important-dimensions-HB-label','parabola-important-dimensions-HF-arrow-1','parabola-important-dimensions-HF-label','parabola-important-dimensions-latusRectum'
+                ]
 
                 for(i = 1; i < gph10.graphObjects.length; i++) {
                     gph10.sliderAnimationOptions.keyframes[i] = {}
@@ -3126,8 +3140,8 @@
 
             
             gph10.slider.addEventListener('input', function() {
-                gph10.sliderLabel.innerHTML = "Step " + gph10.slider.value
-                viewX.playAnimationToFrame('parabola-important-dimensions-animation', parseInt(gph10.slider.value), 2)
+                gph10.sliderLabel.innerHTML = gph10.messageOfSteps[parseInt(gph10.slider.value)]
+                viewX.playAnimationToFrame('parabola-important-dimensions-animation', parseInt(gph10.slider.value), 1)
             });
 
             function pauseAutoplaygph10() {
@@ -3142,9 +3156,13 @@
                 if (gph10.slider.value == gph10.slider.max) {
                     gph10.slider.value = 1
                 }
-                gph10.sliderLabel.innerHTML = "Step " + gph10.slider.value
+                gph10.sliderLabel.innerHTML = gph10.messageOfSteps[parseInt(gph10.slider.value)]
                 viewX.playAnimationToFrame('parabola-important-dimensions-animation', parseInt(gph10.slider.value), 2)
+
+
             }
+
+            
 
             
 
