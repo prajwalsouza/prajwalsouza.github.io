@@ -2976,7 +2976,12 @@
                 // gph10.theParabolaRandom.latusRectumPointLeft
                 // gph10.theParabolaRandom.vertex
 
-                gph10.slider.value = 2;
+                // gph10.slider.value = 2;
+                viewX.addAnimation('parabola-important-dimensions-animation', gph10.slider.animationOptions)
+
+
+                viewX.playAnimation('parabola-important-dimensions-animation', 0, 2, 1)
+
                 // gph10.showPoints()
                 // gph10.sliderLabel.innerHTML = gph10.slider.value + " point" + (gph10.slider.value == 1 ? "" : "s")
 
@@ -3000,52 +3005,62 @@
             gph10.slider = document.getElementById("parabola-important-dimensions-Slider");
             gph10.sliderLabel = document.getElementById("parabola-important-dimensions-SliderInfo");
 
-            // animationOptions = {}
+            gph10.slider.animationOptions = {}
 
-            // animationOptions.keyframes = {
-            //     "0" : {
-            //     	"0" : {
-            //     		'graph': 'upc-measurement-graph',
-            //     		'object': 'upc-measurement-center-C', 
-            //     		'options': { x: 1, y: 0.1, pointsize: 2}
-            //     	},
-            //         "1" : {
-            //     		'graph': 'upc-measurement-graph',
-            //     		'object': 'upc-measurement-unit-square', 
-            //     		'options': { w: 0.5}
-            //     	}
-            //     },
-            //     "1" : {
-            //     	"0" : {
-            //     		'graph': 'upc-measurement-graph',
-            //     		'object': 'upc-measurement-center-C', 
-            //     		'options': { x: 0.4, y: 0.8, pointsize: 1}
-            //     	},
-            //         "1" : {
-            //     		'graph': 'upc-measurement-graph',
-            //     		'object': 'upc-measurement-unit-square', 
-            //     		'options': { w: 1}
-            //     	}
-            //     },
-            //     "8" : {
-            //     	"0" : {
-            //     		'graph': 'upc-measurement-graph',
-            //     		'object': 'upc-measurement-center-C', 
-            //     		'options': { x: 0.1, y: 0.3, pointsize: 5}
-            //     	},
-            //         "1" : {
-            //     		'graph': 'upc-measurement-graph',
-            //     		'object': 'upc-measurement-unit-square', 
-            //     		'options': { w: 2}
-            //     	}
-            //     }
+            gph10.slider.animationOptions.keyframes = {
+                "0" : {
+                	"0" : {
+                		'graph': 'parabola-important-dimensions-graph',
+                		'object': 'parabola-important-dimensions-focus', 
+                		'options': { opacity: 0}
+                	},
+                    "1" : {
+                		'graph': 'parabola-important-dimensions-graph',
+                		'object': 'parabola-important-dimensions-focus-label', 
+                		'options': { opacity: 0}
+                	}
+                },
+                "1" : {
+                    "0" : {
+                		'graph': 'parabola-important-dimensions-graph',
+                		'object': 'parabola-important-dimensions-focus', 
+                		'options': { opacity: 1}
+                	},
+                    "1" : {
+                		'graph': 'parabola-important-dimensions-graph',
+                		'object': 'parabola-important-dimensions-focus-label', 
+                		'options': { opacity: 1}
+                	},
+                    "2" : {
+                		'graph': 'parabola-important-dimensions-graph',
+                		'object': 'parabola-important-dimensions-directrix', 
+                		'options': { opacity: 0}
+                	},
+                    "3" : {
+                		'graph': 'parabola-important-dimensions-graph',
+                		'object': 'parabola-important-dimensions-directrix-label', 
+                		'options': { opacity: 0}
+                	}
+                },
+                "2" : {
+                    "0" : {
+                		'graph': 'parabola-important-dimensions-graph',
+                		'object': 'parabola-important-dimensions-directrix', 
+                		'options': { opacity: 1}
+                	},
+                    "1" : {
+                		'graph': 'parabola-important-dimensions-graph',
+                		'object': 'parabola-important-dimensions-directrix-label', 
+                		'options': { opacity: 1}
+                	}
+                }
                 
-            // }
-            // viewX.addAnimation('someName', animationOptions)
+            }
+            
 
             // viewX.setAnimationFrame('someName', 4)
 
-            // viewX.playAnimation('someName', 8, 0, 9)
+            
 
         </script>
 

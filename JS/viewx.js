@@ -1236,7 +1236,9 @@ viewX.addLine = function(graphname, linename, lineoptions) {
 	lineoptions.y2 = parseFloat(lineoptions.y2.toString() || 0.5)
 	lineoptions.name = linename || viewX.uid
 
-	lineoptions.opacity = lineoptions.opacity || 1
+	if (lineoptions.opacity == undefined) {
+		lineoptions.opacity = 1
+	}
 
 	lineoptions.strokedasharray = lineoptions.strokedasharray || ""
 	lineoptions.strokewidth = lineoptions.strokewidth || 1
@@ -1303,7 +1305,10 @@ viewX.updateLine = function(graphname, linename, linevalues) {
 	lineoptions.strokedasharray = linevalues.strokedasharray || lineoptions.strokedasharray
 	lineoptions.strokewidth = linevalues.strokewidth || lineoptions.strokewidth
 	lineoptions.linecolor = linevalues.linecolor || lineoptions.linecolor
-	lineoptions.opacity = linevalues.opacity || lineoptions.opacity
+
+	if (linevalues.opacity !== undefined) {
+		lineoptions.opacity = linevalues.opacity
+	}
 
 	lineElement.setAttribute('x1', viewX.graphToScaledX(lineoptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
 	lineElement.setAttribute('y1', viewX.graphToScaledY(lineoptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
@@ -1573,7 +1578,9 @@ viewX.addPath = function(graphname, pathname, pathoptions) {
 	pathoptions.pathcolor = pathoptions.pathcolor || 'hsla(190, 100%, 50%, 1)'
 	pathoptions.pathfillcolor = pathoptions.pathfillcolor || 'none'
 	pathoptions.strokedasharray = pathoptions.strokedasharray || ''
-	pathoptions.opacity = pathoptions.opacity || 1
+	if (pathoptions.opacity == undefined) {
+		pathoptions.opacity = 1
+	}
 
 	var pathElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
 	try {
@@ -1641,7 +1648,9 @@ viewX.addArrow = function(graphname, arrowname, arrowoptions) {
 
 	arrowoptions.strokedasharray = arrowoptions.strokedasharray || ''
 
-	arrowoptions.opacity = arrowoptions.opacity || 1
+	if (arrowoptions.opacity == undefined) {
+		arrowoptions.opacity = 1
+	}
 
 	var arrowElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
 	try {
@@ -1681,7 +1690,9 @@ viewX.updateArrow = function(graphname, arrowname, newarrowoptions) {
 	arrowoptions.from = newarrowoptions.from || arrowoptions.from;
 	arrowoptions.to = newarrowoptions.to || arrowoptions.to;
 	arrowoptions.strokedasharray = newarrowoptions.strokedasharray || arrowoptions.strokedasharray;
-	arrowoptions.opacity = newarrowoptions.opacity || arrowoptions.opacity;
+	if (newarrowoptions.opacity !== undefined) {
+		arrowoptions.opacity = newarrowoptions.opacity
+	}
 
 	arrowFrom = [viewX.graphToScaledX(arrowoptions.from[0], gdata.xmin, gdata.xmax, aratio), viewX.graphToScaledY(arrowoptions.from[1], gdata.ymin, gdata.ymax, aratio)]
 	arrowTo = [viewX.graphToScaledX(arrowoptions.to[0], gdata.xmin, gdata.xmax, aratio), viewX.graphToScaledY(arrowoptions.to[1], gdata.ymin, gdata.ymax, aratio)]
@@ -1762,7 +1773,9 @@ viewX.updatePath = function(graphname, pathname, newpathoptions) {
 		pathoptions.pathfillcolor = newpathoptions.pathfillcolor || pathoptions.pathfillcolor
 		pathoptions.strokedasharray = newpathoptions.strokedasharray || pathoptions.strokedasharray
 
-		pathoptions.opacity = newpathoptions.opacity || pathoptions.opacity
+		if (newpathoptions.opacity !== undefined) {
+			pathoptions.opacity = newpathoptions.opacity
+		}
 
 		pathElement.style.stroke = pathoptions.pathcolor
 		pathElement.style.fill = pathoptions.pathfillcolor
@@ -1855,7 +1868,9 @@ viewX.addCircle = function(graphname, circlename, circleoptions) {
 	
 	circleoptions.circlecolor = circleoptions.circlecolor || 'hsla(190, 100%, 50%, 1)'
 	circleoptions.strokedasharray = circleoptions.strokedasharray || ''
-	circleoptions.opacity = circleoptions.opacity || 1
+	if (circleoptions.opacity == undefined) {
+		circleoptions.opacity = 1
+	}
 
 	rx = viewX.distanceBTWgraphToSvg([0,0],[circleoptions.radius, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
 	ry = viewX.distanceBTWgraphToSvg([0,0],[0, circleoptions.radius], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
@@ -1919,7 +1934,9 @@ viewX.updateCircle = function(graphname, circlename, circlenewvalues) {
 	
 	circleoptions.circlecolor = circlenewvalues.circlecolor || circleoptions.circlecolor
 	circleoptions.strokedasharray = circlenewvalues.strokedasharray || circleoptions.strokedasharray
-	circleoptions.opacity = circlenewvalues.opacity || circleoptions.opacity
+	if (circlenewvalues.opacity !== undefined) {
+		circleoptions.opacity = circlenewvalues.opacity
+	}
 
 	rx = viewX.distanceBTWgraphToSvg([0,0],[circleoptions.radius, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
 	ry = viewX.distanceBTWgraphToSvg([0,0],[0, circleoptions.radius], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
@@ -1959,7 +1976,10 @@ viewX.addEllipse = function(graphname, ellipsename, ellipseoptions) {
 	
 	ellipseoptions.ellipsecolor = ellipseoptions.ellipsecolor || 'hsla(190, 100%, 50%, 1)'
 	ellipseoptions.strokedasharray = ellipseoptions.strokedasharray || ''
-	ellipseoptions.opacity = ellipseoptions.opacity || 1
+
+	if (ellipseoptions.opacity == undefined) {
+		ellipseoptions.opacity = 1
+	}
 
 	rx = viewX.distanceBTWgraphToSvg([0,0],[ellipseoptions.rx, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
 	ry = viewX.distanceBTWgraphToSvg([0,0],[0, ellipseoptions.ry], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
@@ -2025,7 +2045,9 @@ viewX.updateEllipse = function(graphname, ellipsename, ellipsenewvalues) {
 	
 	ellipseoptions.ellipsecolor = ellipsenewvalues.ellipsecolor || ellipseoptions.ellipsecolor
 	ellipseoptions.strokedasharray = ellipsenewvalues.strokedasharray || ellipseoptions.strokedasharray
-	ellipseoptions.opacity = ellipsenewvalues.opacity || ellipseoptions.opacity
+	if (ellipsenewvalues.opacity !== undefined) {
+		ellipseoptions.opacity = ellipsenewvalues.opacity
+	}
 
 	rx = viewX.distanceBTWgraphToSvg([0,0],[ellipseoptions.rx, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
 	ry = viewX.distanceBTWgraphToSvg([0,0],[0, ellipseoptions.ry], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
@@ -2064,7 +2086,10 @@ viewX.addText = function(graphname, textname, textoptions) {
 	textoptions.fontFamily = textoptions.fontFamily || 'Source Sans Pro'
 	
 	textoptions.textcolor = textoptions.textcolor || 'hsla(190, 100%, 0%, 1)'
-	textoptions.opacity = textoptions.opacity || 1
+
+	if (textoptions.opacity == undefined) {
+		textoptions.opacity = 1
+	}
 	
 	var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
 	textElement.setAttribute('x', viewX.graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
@@ -2101,7 +2126,10 @@ viewX.updateText = function(graphname, textname, textvalues) {
 	textoptions.textcolor = textvalues.textcolor || textoptions.textcolor
 	textoptions.fontSize = textvalues.fontSize || textoptions.fontSize
 	textoptions.fontFamily = textvalues.fontFamily || textoptions.fontFamily
-	textoptions.opacity = textvalues.opacity || textoptions.opacity
+
+	if (textvalues.opacity !== undefined) {
+		textoptions.opacity = textvalues.opacity
+	}
 
 	textElement.innerHTML = textoptions.text
 	textElement.setAttribute('x', viewX.graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
@@ -2130,7 +2158,10 @@ viewX.addRectangle = function(graphname, rectname, rectoptions) {
 	rectoptions.stroke = rectoptions.stroke || 'hsla(190, 100%, 50%, 0.5)'
 	rectoptions.strokewidth = rectoptions.strokewidth || 0.1
 	rectoptions.strokedasharray = rectoptions.strokedasharray || ""
-	rectoptions.opacity = rectoptions.opacity || 1
+
+	if (rectoptions.opacity == undefined) {
+		rectoptions.opacity = 1
+	}
 
 	
 	rectoptions.rectcolor = rectoptions.rectcolor || 'hsla(190, 100%, 50%, 1)'
@@ -2237,7 +2268,10 @@ viewX.addPoint = function(graphname, pointname, pointoptions) {
 	pointoptions.name = pointname || viewX.uid
 
 	pointoptions.pointcolor = pointoptions.pointcolor || 'hsla(190, 100%, 50%, 1)'
-	pointoptions.opacity = pointoptions.opacity || 1
+
+	if (pointoptions.opacity == undefined) {
+		pointoptions.opacity = 1
+	}
 	
 	var pointElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
 	pointElement.setAttribute('cx', viewX.graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
@@ -2297,7 +2331,10 @@ viewX.updatePoint = function(graphname, pointname, newpointoptions) {
 	pointoptions.pointsize = newpointoptions.pointsize || pointoptions.pointsize
 
 	pointoptions.pointcolor = newpointoptions.pointcolor || pointoptions.pointcolor
-	pointoptions.opacity = newpointoptions.opacity || pointoptions.opacity
+
+	if (newpointoptions.opacity !== undefined) {
+		pointoptions.opacity = newpointoptions.opacity
+	}
 	
 	pointElement.setAttribute('cx', viewX.graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
 	pointElement.setAttribute('cy', viewX.graphToScaledY(pointoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
@@ -3123,6 +3160,8 @@ viewX.setAnimationFrame = function(animname, atKey) {
 
 	atKey = atKey || 0
 
+	console.log(animdata.objects)
+
 	for (var animObject in animdata.objects) {
 		
 		propertyValuesToSet = animdata.objects[animObject]['propertySetCalculatedAtKeys'][atKey]
@@ -3204,7 +3243,7 @@ viewX.playAnimation = function(animname, startKey, endKey, animDuration) {
 	if (startKey === undefined) {
 		startKey = 0
 	}
-	
+
 	if (endKey === undefined) {
 		endKey = Object.keys(animoptions.keyframes).length - 1
 	}
@@ -3243,7 +3282,6 @@ viewX.playAnimation = function(animname, startKey, endKey, animDuration) {
 					viewX.setAnimationFrame(animname, animoptions.animationAt)
 				}
 			}
-			console.log(animoptions.animationAt)
 			
 		}, 1000/animoptions.frameRate);
 	}
