@@ -3274,7 +3274,7 @@ viewX.playAnimation = function(animname, startKey, endKey, animDuration) {
 			animoptions = viewX.animationData[animname][1]
 			animoptions.animationAt = animoptions.animationAt + animoptions.animationDelta
 			if (animoptions.endKey > animoptions.startKey) {
-				if (animoptions.endKey <= animoptions.animationAt) {
+				if (animoptions.endKey - animoptions.animationDelta <= animoptions.animationAt) {
 					viewX.stopAnimation(animname)
 				}
 				else {
@@ -3282,7 +3282,7 @@ viewX.playAnimation = function(animname, startKey, endKey, animDuration) {
 				}
 			}
 			else {
-				if (animoptions.endKey >= animoptions.animationAt) {
+				if (animoptions.endKey >= animoptions.animationAt - animoptions.animationDelta) {
 					viewX.stopAnimation(animname)
 				}
 				else {
