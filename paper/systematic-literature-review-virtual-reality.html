@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Where is the Parabola? - The Universal Parabolic Constant Mystery</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta charset="UTF-8">
+        <meta name="description" content="Explore the mysteries of the Universal Parabolic Constant with Manas Shetty, Prajwal DSouza, Sparsha Kumari and Vinton Adrian Rebello. Dive into a journey of understanding average distances, shrinking random walks, and the unexpected links between parabolas and squares. Discover the complexities of curve length division and the elegance of parabolic arcs. A perfect resource for those intrigued by the fascinating world of mathematical problem-solving.">
+        <meta name="keywords" content="plots.js, prajwalsouza, Prajwal DSouza, template">
+        <meta name="author" content="Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+		<!-- Some times used library for icons -->
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/prajwalsouza/IgnusTheme@1.3/ignus-theme.css">
+        <script src="https://cdn.jsdelivr.net/gh/prajwalsouza/IgnusTheme@1.3/ignus-theme.js"></script>
+
+
+		<link rel="icon" href="square.png">
+		
+		<script type="application/ld+json">
+			{
+			  "@type": "blog",
+			  "name": "Where is the Parabola? - The Universal Parabolic Constant Mystery",
+			  "author": "Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello",
+			  "description": "Explore the mysteries of the Universal Parabolic Constant with Manas Shetty, Prajwal DSouza, Sparsha Kumari and Vinton Adrian Rebello. Dive into a journey of understanding average distances, shrinking random walks, and the unexpected links between parabolas and squares. Discover the complexities of curve length division and the elegance of parabolic arcs. A perfect resource for those intrigued by the fascinating world of mathematical problem-solving."
+			  }
+		</script>
+
+        <style type="text/css">
+
+            :root {
+                --generalBackground: hsl(0,0%,5%);
+                --lightYellow:  hsl(43, 51%, 81%);
+                --brightYellow:  hsl(54, 51%, 59%);
+                --lightPurple:  hsl(256, 100%, 76%);
+                --lightOrange:  hsl(25, 100%, 78%);
+                --lightGreen: hsl(97, 100%, 74%);
+                --lightRed: hsl(0, 100%, 74%);
+                --lightPinkH:  320;
+                --lightPinkS:  55%;
+                --lightPinkL:  76%;
+                --lightPink:  hsl(320, 55%, 76%);
+                --lightBlue:  hsl(205, 100%, 69%);
+                --writingGrey: hsl(0,0%,45%);
+			}
+
+
+
+            .hidden-element {
+                display: none !important;
+            }
+
+            .revealable {
+                opacity: 0;
+                transition: opacity 0.4s ease-in-out;
+            }
+
+            .commonSlider {
+                appearance: none;
+                -webkit-appearance: none;
+                outline: none;
+            }
+
+            .commonButton {
+                border: 1px solid hsla(198, 100%, 70%, 0.2);
+                color: hsla(198, 100%, 70%, 1);
+                background: hsla(43, 100%, 70%, 0);
+                cursor: pointer;
+                border-radius: 14px;
+                font-size: small;
+            }
+
+            .commonButton:hover {
+                border: 1px solid hsla(43, 100%, 70%, 0) !important;
+                color: white !important;
+                background: hsla(198, 0%, 40%, 1);
+            }
+
+
+            .commonButtonTrial {
+                border: 1px solid hsla(var(--lightPinkH), 100%, 70%, 0.2);
+                color: hsla(var(--lightPinkH), 100%, 70%, 1);
+                background: hsla(43, 100%, 70%, 0);
+                cursor: pointer;
+                border-radius: 9px;
+                font-size: small;
+            }
+
+            .commonButtonTrial:hover {
+                border: 1px solid hsla(43, 100%, 70%, 0) !important;
+                color: black !important;
+                background: var(--lightPink);
+            }
+
+
+            a:hover {
+                color: white;
+            }
+
+            p {
+                color: var(--writingGrey);
+                font-family: Nunito;
+            }
+
+            .p-lightYellow {
+                color: var(--lightYellow);
+            }
+            
+            .p-lightPurple {
+                color: var(--lightPurple);
+            }
+
+            .p-lightPink {
+                color: var(--lightPink);
+            }
+
+            .p-lightBlue {
+                color: var(--lightBlue);
+            }
+
+            .p-White {
+                color: white;
+            }
+
+            .p-lightOrange {
+                color: var(--lightOrange);
+            }
+
+            .p-lightGreen {
+                color: var(--lightGreen);
+            }
+
+            .p-lightRed {
+                color: var(--lightRed);
+            }
+
+            .p-brightYellow {
+                color: var(--brightYellow);
+            }
+
+
+
+        
+
+            .our-text-block {
+                max-width: 1000px;
+                width: 100%;
+            }
+
+            
+
+
+            .dragDownExtension {
+                color: hsla(198, 0%, 54%, 1);
+                cursor: pointer;
+                z-index: 1;
+            }
+
+            .dragDownExtension:hover {
+                color: white
+            }
+
+            .inActiveSectionButton {
+                filter: saturate(0.5) contrast(0.4);
+            }
+
+            .inActiveSectionButton:hover {
+                filter: none
+            }
+
+
+
+		</style>
+
+      
+
+	</head>
+	<body style='margin:0px; display: block;'>
+		<div id="containAll" class="p-sm-3 p-1">
+            <div style="border: 1px solid hsl(0,0%,2%); border-radius: 10px; background: var(--generalBackground); ">
+                
+                <header style="position: fixed; font-family: Raleway; overflow: hidden;" class="d-none">
+                    <div style="background-image: linear-gradient(to bottom, var(--generalBackground), transparent); color: hsl(0,0%,20%); font-size: small; " class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center">
+                        <b>A systematic literature review on public understanding of science in the context of Extended Reality</b><br/>
+                         <p style="font-size:x-small">Daniel Fernandes, Juho Hamari, Prajwal DSouza, Zampeta Legaki</p>
+                    </div>
+                    
+                </header>
+
+                <main>
+                    <div class="w-100 text-center text-ignus pt-5 mt-3 pb-4" style="font-family: Raleway;">
+                        <div class="pl-3 pr-3">
+                            <b style="font-size: large; color: gray;">A systematic literature review on </b><br/>
+                            <b style="font-size: large; ">Extended Reality (XR) for Public Understanding of Science </b><br/>
+                            <p style="font-size: medium; color: hsl(0,0%,30%)">Daniel Fernandes, Juho Hamari, Prajwal DSouza, Zampeta Legaki</p>
+                        </div>
+                    </div>
+    
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" id="gph1-starting-block">
+                            <p>Let us start with a innocent looking problem. Picture a <span class="p-lightYellow">unit square</span>, a perfect little 1x1 entity. Now, pick a point <span class="p-lightPurple">Q</span> at random along the square's boundary. What do you think is the <span class="p-lightPink">average distance</span> between this chosen <span class="p-lightPurple">point Q</span> and the very heart of our square, the <span class="p-lightBlue">center C</span>? </p>
+                        </div>
+ 
+    
+                    </div>
+                    
+                    
+                    <div class="w-100 pt-5 pb-5"></div>
+                    <div class="w-100 pt-5 pb-5"></div>
+                </main>
+
+
+
+            </div>
+
+            
+			
+		</div>
+
+        <!-- <audio id="backgroundMusic" src="assets/audio/grant-piano.mp3"></audio> -->
+
+		<script type="text/javascript">		
+			darkmode = true
+
+			if (darkmode) {
+				document.body.style.background = 'black'
+			}
+		</script>
+
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/viewX@latest/viewx.js"></script>  -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+        <script type="text/javascript" src="../../JS/viewx.js"></script> 
+
+
+	</body>
+<html>
+
