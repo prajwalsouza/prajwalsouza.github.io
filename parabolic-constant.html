@@ -880,6 +880,7 @@
                         gph9.interval = setInterval(gph9.nextValue, 1000);
 
                         gph10.setUpParabolicPointsDescription()
+                        gph10.interval = setInterval(gph10.nextValue, 1000);
                     }, 1000);
                     
                 }
@@ -2727,10 +2728,6 @@
                 }
             }
 
-            gph9.slider.addEventListener('input', function() {
-                gph9.showPoints()
-                gph9.sliderLabel.innerHTML = gph9.slider.value + " point" + (gph9.slider.value == 1 ? "" : "s")
-            });
 
             function pauseAutoplaygph9() {
                 clearInterval(gph9.interval);
@@ -2833,8 +2830,8 @@
                 textOptions = {x:  midCL[0] - upcApp.parabolicCircleGraph["point-label-gap"], y:  midCL[1], text: "a",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
                 viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-CL-label", textOptions);
 
-                lineOptions = { x1: gph10.theParabola.vertex[0], y1: gph10.theParabola.vertex[1], x2: (gph10.theParabola.directrixPoint2[0] + gph10.theParabola.directrixPoint1[0])/2, y2: (gph10.theParabola.directrixPoint2[1] + gph10.theParabola.directrixPoint1[1])/2, strokewidth: 2, linecolor: "var(--lightPink)", strokedasharray: "3, 3"}; 
-                viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-CL", lineOptions);
+                // lineOptions = { x1: gph10.theParabola.vertex[0], y1: gph10.theParabola.vertex[1], x2: (gph10.theParabola.directrixPoint2[0] + gph10.theParabola.directrixPoint1[0])/2, y2: (gph10.theParabola.directrixPoint2[1] + gph10.theParabola.directrixPoint1[1])/2, strokewidth: 2, linecolor: "var(--lightPink)", strokedasharray: "3, 3"}; 
+                // viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-CL", lineOptions);
 
                 pointOptions = { x:  gph10.theParabola.vertex[0], y:  gph10.theParabola.vertex[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
                 viewX.addPoint("parabola-important-dimensions-graph", "parabola-important-dimensions-vertex", pointOptions);
@@ -2967,22 +2964,15 @@
                 viewX.addText("parabola-important-dimensions-graph", "parabola-important-dimensions-HF-label", textOptions);
 
 
-                // pathElementDetails[0].style.opacity = 0
-
-
-                                
-
-                // gph10.theParabolaRandom.latusRectumPointRight
-                // gph10.theParabolaRandom.latusRectumPointLeft
-                // gph10.theParabolaRandom.vertex
-
                 // gph10.slider.value = 2;
-                viewX.addAnimation('parabola-important-dimensions-animation', gph10.slider.animationOptions)
+                viewX.addAnimation('parabola-important-dimensions-animation', gph10.sliderAnimationOptions)
 
 
-                viewX.playAnimation('parabola-important-dimensions-animation', 0, 2, 1)
+                // viewX.playAnimation('parabola-important-dimensions-animation', 0, 32, 20)
 
-                // gph10.showPoints()
+
+                
+
                 // gph10.sliderLabel.innerHTML = gph10.slider.value + " point" + (gph10.slider.value == 1 ? "" : "s")
 
 
@@ -3005,57 +2995,157 @@
             gph10.slider = document.getElementById("parabola-important-dimensions-Slider");
             gph10.sliderLabel = document.getElementById("parabola-important-dimensions-SliderInfo");
 
-            gph10.slider.animationOptions = {}
+            gph10.sliderAnimationOptions = {}
 
-            gph10.slider.animationOptions.keyframes = {
-                "0" : {
-                	"0" : {
-                		'graph': 'parabola-important-dimensions-graph',
-                		'object': 'parabola-important-dimensions-focus', 
-                		'options': { opacity: 0}
-                	},
-                    "1" : {
-                		'graph': 'parabola-important-dimensions-graph',
-                		'object': 'parabola-important-dimensions-focus-label', 
-                		'options': { opacity: 0}
-                	}
-                },
-                "1" : {
+            gph10.animationGenerator = function() {
+                gph10.sliderAnimationOptions.keyframes = {
                     "0" : {
-                		'graph': 'parabola-important-dimensions-graph',
-                		'object': 'parabola-important-dimensions-focus', 
-                		'options': { opacity: 1}
-                	},
-                    "1" : {
-                		'graph': 'parabola-important-dimensions-graph',
-                		'object': 'parabola-important-dimensions-focus-label', 
-                		'options': { opacity: 1}
-                	},
-                    "2" : {
-                		'graph': 'parabola-important-dimensions-graph',
-                		'object': 'parabola-important-dimensions-directrix', 
-                		'options': { opacity: 0}
-                	},
-                    "3" : {
-                		'graph': 'parabola-important-dimensions-graph',
-                		'object': 'parabola-important-dimensions-directrix-label', 
-                		'options': { opacity: 0}
-                	}
-                },
-                "2" : {
-                    "0" : {
-                		'graph': 'parabola-important-dimensions-graph',
-                		'object': 'parabola-important-dimensions-directrix', 
-                		'options': { opacity: 1}
-                	},
-                    "1" : {
-                		'graph': 'parabola-important-dimensions-graph',
-                		'object': 'parabola-important-dimensions-directrix-label', 
-                		'options': { opacity: 1}
-                	}
+                        "ob0" : {
+                            'graph': 'parabola-important-dimensions-graph',
+                            'object': 'parabola-important-dimensions-focus', 
+                            'options': { opacity: 0}
+                        }
+                    }
                 }
+
+                gph10.graphObjects = ['parabola-important-dimensions-focus', 'parabola-important-dimensions-focus-label', 'parabola-important-dimensions-directrix', 'parabola-important-dimensions-directrix-label', 'parabola-important-dimensions-vertex', 'parabola-important-dimensions-vertex-label','parabola-important-dimensions-FC-arrow-1',
+                'parabola-important-dimensions-FC-label',
+                'parabola-important-dimensions-CL-arrow-1',
+                'parabola-important-dimensions-CL-label',
+                'parabola-important-dimensions-parabola',
+                'parabola-important-dimensions-lineM',
+                'parabola-important-dimensions-lineM-label',
+                'parabola-important-dimensions-G',
+                'parabola-important-dimensions-G-label',
+                'parabola-important-dimensions-H',
+                'parabola-important-dimensions-H-label',
+                'parabola-important-dimensions-HL-arrow-1',
+                'parabola-important-dimensions-HL-label',
+                'parabola-important-dimensions-BPoint',
+                'parabola-important-dimensions-BPoint-label',
+                'parabola-important-dimensions-HB-arrow-1',
+                'parabola-important-dimensions-HB-label',
+                'parabola-important-dimensions-HF-arrow-1',
+                'parabola-important-dimensions-HF-label',
+                'parabola-important-dimensions-latusRectum'
+            ]
+
+                for(i = 1; i < gph10.graphObjects.length; i++) {
+                    gph10.sliderAnimationOptions.keyframes[i] = {}
+                    gph10.sliderAnimationOptions.keyframes[i]["ob0"] = {
+                        'graph': 'parabola-important-dimensions-graph',
+                        'object': gph10.graphObjects[i - 1], 
+                        'options': { opacity: 1}
+                    }
+
+                    gph10.sliderAnimationOptions.keyframes[i]["ob1"] = {
+                        'graph': 'parabola-important-dimensions-graph',
+                        'object': gph10.graphObjects[i], 
+                        'options': { opacity: 0}
+                    }
+                }
+
+                gph10.sliderAnimationOptions.keyframes[gph10.graphObjects.length] = {}
+                gph10.sliderAnimationOptions.keyframes[gph10.graphObjects.length]["ob0"] = {
+                    'graph': 'parabola-important-dimensions-graph',
+                    'object': gph10.graphObjects[gph10.graphObjects.length - 1], 
+                    'options': { opacity: 1}
+                }
+                gph10.sliderAnimationOptions.keyframes[6]["ob2"] = {
+                    'graph': 'parabola-important-dimensions-graph',
+                    'object': 'parabola-important-dimensions-FC-arrow-2', 
+                    'options': { opacity: 0}
+                }
+
+                gph10.sliderAnimationOptions.keyframes[7]["ob2"] = {
+                    'graph': 'parabola-important-dimensions-graph',
+                    'object': 'parabola-important-dimensions-FC-arrow-2', 
+                    'options': { opacity: 1}
+                }
+
+                gph10.sliderAnimationOptions.keyframes[8]["ob2"] = {
+                    'graph': 'parabola-important-dimensions-graph',
+                    'object': 'parabola-important-dimensions-CL-arrow-2', 
+                    'options': { opacity: 0}
+                }
+
+                gph10.sliderAnimationOptions.keyframes[9]["ob2"] = {
+                    'graph': 'parabola-important-dimensions-graph',
+                    'object': 'parabola-important-dimensions-CL-arrow-2', 
+                    'options': { opacity: 1}
+                }
+
+                gph10.sliderAnimationOptions.keyframes[17]["ob2"] = {
+                    'graph': 'parabola-important-dimensions-graph',
+                    'object': 'parabola-important-dimensions-HL-arrow-2', 
+                    'options': { opacity: 0}
+                }
+
+                gph10.sliderAnimationOptions.keyframes[18]["ob2"] = {
+                    'graph': 'parabola-important-dimensions-graph',
+                    'object': 'parabola-important-dimensions-HL-arrow-2', 
+                    'options': { opacity: 1}
+                }
+
+                gph10.sliderAnimationOptions.keyframes[21]["ob2"] = {
+                    'graph': 'parabola-important-dimensions-graph',
+                    'object': 'parabola-important-dimensions-HB-arrow-2', 
+                    'options': { opacity: 0}
+                }
+
+                gph10.sliderAnimationOptions.keyframes[22]["ob2"] = {
+                    'graph': 'parabola-important-dimensions-graph',
+                    'object': 'parabola-important-dimensions-HB-arrow-2', 
+                    'options': { opacity: 1}
+                }
+
+                gph10.sliderAnimationOptions.keyframes[23]["ob2"] = {
+                    'graph': 'parabola-important-dimensions-graph',
+                    'object': 'parabola-important-dimensions-HF-arrow-2', 
+                    'options': { opacity: 0}
+                }
+
+                gph10.sliderAnimationOptions.keyframes[24]["ob2"] = {
+                    'graph': 'parabola-important-dimensions-graph',
+                    'object': 'parabola-important-dimensions-HF-arrow-2', 
+                    'options': { opacity: 1}
+                }
+
+
                 
+
+
+                // parabola-important-dimensions-FC-arrow-2
+                // parabola-important-dimensions-FC-arrow-1
+                // parabola-important-dimensions-FC-label
+
+                gph10.slider.max = gph10.graphObjects.length + 5
             }
+
+            gph10.animationGenerator()
+
+            
+            gph10.slider.addEventListener('input', function() {
+                gph10.sliderLabel.innerHTML = "Step " + gph10.slider.value
+                viewX.playAnimationToFrame('parabola-important-dimensions-animation', parseInt(gph10.slider.value), 2)
+            });
+
+            function pauseAutoplaygph10() {
+                clearInterval(gph10.interval);
+            }
+
+            gph10.slider.addEventListener('mouseover', pauseAutoplaygph10);
+            gph10.slider.addEventListener('touchstart', pauseAutoplaygph10);
+
+            gph10.nextValue = function() {
+                gph10.slider.value = parseInt(gph10.slider.value) + 1
+                if (gph10.slider.value == gph10.slider.max) {
+                    gph10.slider.value = 1
+                }
+                gph10.sliderLabel.innerHTML = "Step " + gph10.slider.value
+                viewX.playAnimationToFrame('parabola-important-dimensions-animation', parseInt(gph10.slider.value), 2)
+            }
+
             
 
             // viewX.setAnimationFrame('someName', 4)

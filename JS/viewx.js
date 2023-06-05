@@ -1694,6 +1694,7 @@ viewX.updateArrow = function(graphname, arrowname, newarrowoptions) {
 		arrowoptions.opacity = newarrowoptions.opacity
 	}
 
+
 	arrowFrom = [viewX.graphToScaledX(arrowoptions.from[0], gdata.xmin, gdata.xmax, aratio), viewX.graphToScaledY(arrowoptions.from[1], gdata.ymin, gdata.ymax, aratio)]
 	arrowTo = [viewX.graphToScaledX(arrowoptions.to[0], gdata.xmin, gdata.xmax, aratio), viewX.graphToScaledY(arrowoptions.to[1], gdata.ymin, gdata.ymax, aratio)]
 
@@ -3067,6 +3068,7 @@ viewX.addAnimation = function(animname, animoptions) {
 	// }
 
 	animdata.objects = {}
+
 	for (var key in animoptions.keyframes) {
 		for (var objectIndex in animoptions.keyframes[key]) {
 			for (var propertyName in animoptions.keyframes[key][objectIndex].options) {
@@ -3094,9 +3096,11 @@ viewX.addAnimation = function(animname, animoptions) {
 				}
 
 				animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][key] = animoptions.keyframes[key][objectIndex].options[propertyName]
+
 			}
 		}
 	}
+	
 	
 	for (var objectFullName in animdata.objects) {
 		for (propertyName in animdata.objects[objectFullName]['propertiesToBeAnimated']) {
@@ -3115,6 +3119,7 @@ viewX.addAnimation = function(animname, animoptions) {
 						animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName][key]
 						
 						valuesOfInterest = viewX.libraryFunctions.findClosestRightAndLeftNumbersInArray(Object.keys(animdata.objects[objectFullName]['propertiesToBeAnimated'][propertyName]), key)
+
 
 						if (valuesOfInterest[0] == null && valuesOfInterest[1] != null) {
 							assignPropertyAtKey = valuesOfInterest[1]
@@ -3147,6 +3152,7 @@ viewX.addAnimation = function(animname, animoptions) {
 		
 	}
 
+
 	animoptions.animationAt = animoptions.animationAt || 0
 	animoptions.playing = animoptions.playing || 'no'
 
@@ -3159,8 +3165,6 @@ viewX.setAnimationFrame = function(animname, atKey) {
 	animdata = viewX.animationData[animname][0]
 
 	atKey = atKey || 0
-
-	console.log(animdata.objects)
 
 	for (var animObject in animdata.objects) {
 		
@@ -3222,6 +3226,9 @@ viewX.setAnimationFrame = function(animname, atKey) {
 		}
 		else if (animdata.objects[animObject]['objectType'] == 'path') {
 			viewX.updatePath(graphOfObject, theObjectName, propertyValuesToSet)
+		}
+		else if (animdata.objects[animObject]['objectType'] == 'arrow') {
+			viewX.updateArrow(graphOfObject, theObjectName, propertyValuesToSet)
 		}
 
 		animdata.objects[animObject]['propertySetCalculatedAtKeys'][atKey] = propertyValuesToSet
@@ -3296,11 +3303,19 @@ viewX.stopAnimation = function(animname) {
 	clearInterval(viewX.animationIntervals[animname])
 }
 
+viewX.playAnimationToFrame = function(animname, atKey, animDuration) {
+	viewX.stopAnimation(animname);
+	viewX.playAnimation(animname, viewX.animationData[animname][1].animationAt, atKey, animDuration)
+}
+
 
 
 viewX.libraryFunctions = {}
 viewX.libraryFunctions.findClosestRightAndLeftNumbersInArray = function(theArray, toTheNumber) {
 	theArray = theArray.slice()
+	for (let i = 0; i < theArray.length; i++) {
+		theArray[i] = parseFloat(theArray[i])
+	}
 	let valueLeft = null;
 	let valueRight = null;
 
