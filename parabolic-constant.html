@@ -298,7 +298,7 @@
                     <div  class="hidden-element reveal-1 revealable" id="extender-section-1" style="max-height: 100px; overflow: hidden; position: relative;">
                         <div style="position: absolute; background: linear-gradient(to bottom, transparent, var(--generalBackground)); pointer-events: none; z-index: 1;" class="w-100 h-100" id="extender-section-1-cover"></div>
                         <div style="position: absolute; bottom: 0px; height: 30px; " class="w-100 text-center dragDownExtension" onclick="upcApp.extendSection(1)">
-                            <span><i id="extender-section-1-chevron-down" class="fa fa-chevron-down"></i></span>
+                            <span><i id="extender-section-1-chevron-down" class="fa fa-angle-double-down" style="font-size: 23px;"></i></span>
                         </div>
                         
                         <div id="rotatingSection-1-1" class="rotatingSection-1">
@@ -734,7 +734,7 @@
                             <p class="mt-5">
 
                                 Here's another interesting property of the parabola. This might be obvious if you have encountered it in calculus, otherwise, take our word for it.<br><br>
-                                
+
                                 If we compare it to the equation of a line<br>
                                 y = <span class="p-White">m</span>x<br>
                                 
@@ -935,16 +935,16 @@
                     document.getElementById('extender-section-1').style.overflow = "visible";
                     document.getElementById('extender-section-1').style.height = "auto";
                     document.getElementById('extender-section-1-cover').style.display = "none";
-                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-chevron-up");
-                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-chevron-down");
+                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-angle-double-up");
+                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-angle-double-down");
                 }
                 else {
                     document.getElementById('extender-section-1').style.maxHeight = "100px";
                     document.getElementById('extender-section-1').style.overflow = "hidden";
                     document.getElementById('extender-section-1').style.height = "100px";
                     document.getElementById('extender-section-1-cover').style.display = "block";
-                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-chevron-up");
-                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-chevron-down");
+                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-angle-double-up");
+                    document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-angle-double-down");
                 }
                 
             }
