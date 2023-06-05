@@ -3243,7 +3243,7 @@ viewX.setAnimationFrame = function(animname, atKey) {
 }
 
 
-viewX.playAnimation = function(animname, startKey, endKey, animDuration) {
+viewX.playAnimation = function(animname, startKey, endKey, animDuration, frameRate) {
 	animoptions = viewX.animationData[animname][1]
 	animdata = viewX.animationData[animname][0]
 
@@ -3257,7 +3257,14 @@ viewX.playAnimation = function(animname, startKey, endKey, animDuration) {
 
 	if (endKey != startKey) {
 		animoptions.duration = animDuration || animoptions.duration
-		animoptions.frameRate = 30
+
+		if (frameRate != undefined) {
+			animoptions.frameRate = frameRate
+		}
+		else {
+			animoptions.frameRate = 30
+		}
+		
 
 		animoptions.startKey = startKey
 		animoptions.endKey = endKey
@@ -3303,9 +3310,9 @@ viewX.stopAnimation = function(animname) {
 	clearInterval(viewX.animationIntervals[animname])
 }
 
-viewX.playAnimationToFrame = function(animname, atKey, animDuration) {
+viewX.playAnimationToFrame = function(animname, atKey, animDuration, frameRate) {
 	viewX.stopAnimation(animname);
-	viewX.playAnimation(animname, viewX.animationData[animname][1].animationAt, atKey, animDuration)
+	viewX.playAnimation(animname, viewX.animationData[animname][1].animationAt, atKey, animDuration, frameRate)
 }
 
 

@@ -882,7 +882,7 @@
                         gph9.interval = setInterval(gph9.nextValue, 1000);
 
                         gph10.setUpParabolicPointsDescription()
-                        gph10.interval = setInterval(gph10.nextValue, 1000);
+                        gph10.interval = setInterval(gph10.nextValue, 2100);
                     }, 1000);
                     
                 }
@@ -2701,6 +2701,9 @@
                 if (gph9.slider.value > 20) {
                     pathElementDetails[0].style.opacity = 0.3*(gph9.slider.value - 20)/100
                 }
+                else {
+                    pathElementDetails[0].style.opacity = 0
+                }
 
                 for (i = 0; i < gph9.slider.value; i++) {
                     pointOptions = { x:  gph9.thePointsRandom[i][0], y:  gph9.thePointsRandom[i][1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
@@ -2746,6 +2749,11 @@
                 gph9.showPoints()
                 gph9.sliderLabel.innerHTML = gph9.slider.value + " point" + (gph9.slider.value == 1 ? "" : "s")
             }
+
+            gph9.slider.addEventListener('input', function() {
+                gph9.showPoints()
+                gph9.sliderLabel.innerHTML = gph9.slider.value + " point" + (gph9.slider.value == 1 ? "" : "s")
+            });
 
 
 
@@ -3014,8 +3022,8 @@
                     'Shall we begin? :)',
                     'The focus of the parabola is the <span class="p-brightYellow"> point F</span>.',
                     'The focus of the parabola is the <span class="p-brightYellow"> point F</span>.',
-                    'The directrix of the parabola is the <span class="p-lightGreen"> line L</span>.',
-                    'The directrix of the parabola is the <span class="p-lightGreen"> line L</span>.',
+                    'The <span class="p-lightGreen">fixed line</span> is the directrix of the parabola..',
+                    'The <span class="p-lightGreen">fixed line</span> is the directrix of the parabola. Here it is called the <span class="p-lightGreen"> line L</span>.',
                     'The vertex of the parabola is the <span class="p-lightPurple"> point C</span>.',
                     'The vertex of the parabola is the <span class="p-lightPurple"> point C</span>.',
                     '<span class="p-lightPink">FC</span> is the shortest distance from the parabola to <span class="p-brightYellow"> focus F</span>.',
@@ -3038,6 +3046,7 @@
                     'HF must be at a distance of <span class="p-lightBlue">2a</span>.',
                     'HF must be at a distance of <span class="p-lightBlue">2a</span>.',
                     'So, <span class="p-lightRed">Latus Rectum</span> of the parabola spans 4a which is <span class="p-lightBlue">2a</span> + <span class="p-lightBlue">2a</span>',
+                    'So, <span class="p-lightRed">Latus Rectum</span> of the parabola spans 4a which is <span class="p-lightBlue">2a</span> + <span class="p-lightBlue">2a</span>'
                 ]
 
                 gph10.graphObjects = [
@@ -3133,7 +3142,7 @@
                 // parabola-important-dimensions-FC-arrow-1
                 // parabola-important-dimensions-FC-label
 
-                gph10.slider.max = gph10.graphObjects.length
+                gph10.slider.max = gph10.graphObjects.length + 1
             }
 
             gph10.animationGenerator()
