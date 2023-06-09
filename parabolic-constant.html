@@ -591,10 +591,10 @@
                                         \(π = \frac{\text{Enclosing Arc}}{Radius}\)
                                     </span><br/><br/>
                                     <span>
-                                        = <span class="p-lightPink" id="parabola-circle-compare-parabolaarc-value">2.334445</span>/<span class="p-lightBlue" id="parabola-circle-compare-parabolaradius-value">1.2</span>
+                                        = <span class="p-lightPink" id="parabola-circle-compare-circlearc-value">2.334445</span>/<span class="p-lightBlue" id="parabola-circle-compare-parabolaradius-value">1.2</span>
                                     </span><br/>
                                     <span>
-                                        = <span class="p-White" id="parabola-circle-compare-upc-value">3.1545</span>
+                                        = <b id="parabola-circle-compare-pi-value">2.2123</b>
                                     </span>
                                 </span>
                                 <span>
@@ -603,10 +603,10 @@
                                         \(P = \frac{\text{Enclosing Arc}}{Radius}\)
                                     </span><br/><br/>
                                     <span>
-                                        = <span class="p-lightPurple" id="parabola-circle-compare-circlearc-value">2.334445</span>/<span class="p-lightBlue" id="parabola-circle-compare-circleradius-value">1.2</span>
+                                        = <span class="p-lightPurple" id="parabola-circle-compare-parabolaarc-value">2.334445</span>/<span class="p-lightBlue" id="parabola-circle-compare-circleradius-value">1.2</span>
                                     </span><br/>
                                     <span>
-                                        = <span class="p-White" id="parabola-circle-compare-pi-value">2.2123</span>
+                                        = <b class="p-White" id="parabola-circle-compare-upc-value">3.1545</b>
                                     </span>
                                 </span>
                                  
@@ -634,7 +634,7 @@
                         <div class="our-text-block text-center pt-4">
                             <p>
                                 <br/>
-                                In fact, the universal parabolic constant <span class="p-White">2.295587...</span> is an irrational number and is equal to <span class="p-White">√2 + ln((1+√2)</span>.
+                                In fact, the universal parabolic constant <span class="p-White">2.295587...</span> is an irrational number and is equal to <span class="p-White">\(√2 + ln(1+√2)\)</span>.
                                 <br/>
                                 If you give me the radius of a circle, I can tell you the circumference. If you give me the <span class="p-lightBlue">"radius"</span> of a parabola, I can tell you the <span class="p-lightPurple">enclosing arc length</span>.
                                 <br/><br/>
@@ -888,10 +888,10 @@
                     setTimeout(function() {
                         gph7.setUpShrinkingRandomWalkReveal()
                         gph8.setUpParabolaCircleCompare()
-                        gph9.setUpParabolicPointsDescription()
+                        gph9.setUpParabolicPointsDescription([0, 1], [-5, 0], [4, -1])
                         gph9.interval = setInterval(gph9.nextValue, 1000);
 
-                        gph10.setUpParabolicPointsDescription()
+                        gph10.setUpParabolicDescriptionGraph()
                         gph10.interval = setInterval(gph10.nextValue, 2100);
                     }, 1000);
                     
@@ -1196,6 +1196,9 @@
             }
 
             function upcMeasurementGraphMouseMove() {
+                if (gph1.sampledPointsOnSquare.length > 10) {
+                    clearInterval(gph1.loopinterval)
+                }
                 givenPointOnPlane = viewX.cursorCoordinates["upc-measurement-graph"]
                 upcMeasurement(givenPointOnPlane)
             }
@@ -1685,7 +1688,7 @@
                 
                 for (let i = 0; i < gph5.walkedPoints.length; i++) {
                     if (i < 3) {
-                        pointColor = ["var(--brightYellow)","var(--lightOrange)","var(--lightGreen)","var(--lightBlue)"][i]
+                        pointColor = ["var(--lightOrange)","var(--brightYellow)","var(--lightGreen)","var(--lightBlue)"][i]
                     }
                     else if (i >= 3) {
                         pointColor = "var(--lightBlue)"
@@ -1859,7 +1862,7 @@
             gph6.drawShrinkingRandomWalkPath = function() {
                 for (let i = 0; i < gph6.walkedPointsCurrent.length; i++) {
                     if (i < 3) {
-                        pointColor = ["var(--brightYellow)","var(--lightOrange)","var(--lightGreen)","var(--lightBlue)"][i]
+                        pointColor = ["var(--lightOrange)", "var(--brightYellow)", "var(--lightGreen)","var(--lightBlue)"][i]
                     }
                     else if (i >= 3) {
                         pointColor = "var(--lightBlue)"
@@ -2599,7 +2602,7 @@
             // graph 9 : the parabola points
             
             gph9 = {}
-            gph9.setUpParabolicPointsDescription = function() {
+            gph9.setUpParabolicPointsDescription = function(focusPoint, directrixPoint1, directrixPoint2) {
                 gph9.graphH = document.getElementById('parabola-points-description-graphHolder')
                 defaultGraphOptions["xmax"] = upcApp.parabolicCircleGraph["xmax"]
                 defaultGraphOptions["ymax"] = upcApp.parabolicCircleGraph["ymax"]
@@ -2620,7 +2623,7 @@
                 defaultGraphOptions["ymajorgridlinesvisibility"] = "no"
                 defaultGraphOptions["xmajorgridlinesvisibility"] = "no"
 
-                gph9.theParabola = parabolaPoints([0, 1], [-3, 0], [1, -1], -4, 4, 100)
+                gph9.theParabola = parabolaPoints(focusPoint, directrixPoint1, directrixPoint2, -4, 4, 100)
                 gph9.thePoints = gph9.theParabola.points
 
 
@@ -2659,7 +2662,7 @@
                 pathElementDetails[0].style.opacity = 0
                 
 
-                gph9.theParabolaRandom = parabolaPoints([0, 1], [-3, 0], [1, -1], -2, 2, 600)
+                gph9.theParabolaRandom = parabolaPoints(focusPoint, directrixPoint1, directrixPoint2, -2, 2, 600)
                 gph9.thePointsRandom = gph9.theParabolaRandom.points.slice()
                 gph9.thePointsRandom = viewX.shuffle(gph9.thePointsRandom)
 
@@ -2770,7 +2773,7 @@
             // graph 10 : the parabola dimensions
             
             gph10 = {}
-            gph10.setUpParabolicPointsDescription = function() {
+            gph10.setUpParabolicDescriptionGraph = function() {
                 gph10.graphH = document.getElementById('parabola-important-dimensions-graphHolder')
                 defaultGraphOptions["xmax"] = upcApp.parabolicCircleGraph["xmax"]
                 defaultGraphOptions["ymax"] = upcApp.parabolicCircleGraph["ymax"]
