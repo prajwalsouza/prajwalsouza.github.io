@@ -36,20 +36,21 @@
         <style type="text/css">
 
             :root {
-                --generalBackground: hsl(0,0%,5%);
-                --lightYellow:  hsl(43, 51%, 81%);
-                --brightYellow:  hsl(54, 51%, 59%);
-                --lightPurple:  hsl(256, 100%, 76%);
-                --lightOrange:  hsl(25, 100%, 78%);
-                --lightGreen: hsl(97, 100%, 74%);
-                --lightRed: hsl(0, 100%, 74%);
-                --lightPinkH:  320;
+                --generalBackground: hsl(0,0%,5%); /*#0e0e0e*/
+                --lightYellow:  hsl(43, 51%, 81%); /*#e7d9b6*/
+                --brightYellow:  hsl(54, 51%, 59%); /*#ccc161*/
+                --lightPurple:  hsl(256, 100%, 76%); /*#a585ff*/
+                --lightOrange:  rgb(255, 190, 143); /*#ffbe8f*/
+                --lightGreen: hsl(97, 100%, 74%);  /*#adff7a*/
+                --lightRed: hsl(0, 100%, 74%); /*#ff7a7a*/
+                --lightPinkH:  320; 
                 --lightPinkS:  55%;
                 --lightPinkL:  76%;
-                --lightPink:  hsl(320, 55%, 76%);
-                --lightBlue:  hsl(205, 100%, 69%);
-                --writingGrey: hsl(0,0%,45%);
+                --lightPink:  hsl(320, 55%, 76%); /*#e3a0cd*/
+                --lightBlue:  hsl(205, 100%, 69%); /*#61bdff*/
+                --writingGrey: hsl(0,0%,45%); /*#737373*/
 			}
+            
 
 
 
@@ -645,7 +646,10 @@
                                 <br/>
                                 If you give me the radius of a circle, I can tell you the circumference. If you give me the <span class="p-lightBlue">"radius"</span> of a parabola, I can tell you the <span class="p-lightPurple">enclosing arc length</span>.
                                 <br/><br/>
-                                <span class="p-lightPurple">Enclosing Arc</span> = <span class="p-White">Universal Parabolic Constant</span> x <span class="p-lightBlue">Radius</span>
+                                <b>
+                                    <span class="p-lightPurple">Enclosing Arc</span> = <span class="p-White">Universal Parabolic Constant</span> x <span class="p-lightBlue">Radius</span>
+                                </b>
+                                
                                 <br/><br/>
                                 This is true for an asteroid's parabolic trajectory, or for a tiny parabolic satellite dish, - there's a parabola in there, with our universal parabolic constant winking back at us. 
 
@@ -681,7 +685,7 @@
                                 <label id="parabola-points-description-SliderLabel" class="p-lightPurple pl-sm-3 pl-0" for="parabola-points-description-Slider" style="min-width: 100px;" >1</label>
                                 <div>
                                     <p id="parabola-points-description-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
-                                        Move the slider to see more points that obey the <span class=" text-ignus p-lightPink">same distance</span> rule.
+                                        Move the <span class="p-lightPurple">slider</span> to see more <span class="p-lightPurple">points</span> that obey the <span class=" text-ignus p-lightPink">same distance</span> rule.
                                     </p>
                                 </div>
                             </div>
@@ -734,13 +738,19 @@
 
                                 Keep in mind that arc <span class="p-lightPurple">GCH</span> is the enclosed arc of the parabola, and the line <span class="p-lightRed">FH</span> can be likened to its 'radius'. With this understanding, we can see how the Universal Parabolic Constant, <span class="p-White">P</span>, acts as the ratio of the arc <span class="p-lightPurple">GCH</span> to <span class="p-lightRed">FH</span>. Thus, we can write:<br><br>
 
-                                <span class="p-lightPurple">GCH</span> = <span class="p-White">P</span> x <span class="p-lightRed">FH</span><br>
+              
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{GCH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#ff7a7a}FH\)</span>
+                                
+                                <br><br>
                                 If we represent the length of the enclosing arc <span class="p-lightPurple">GCH</span> as <span class="p-White">P</span> x <span class="p-lightBlue">2a</span>, and the arc <span class="p-lightPurple">CH</span> as <span class="p-White">P</span> x <span class="p-lightPink">a</span>, we have a clear relationship between these parts of the parabola and the UPC. In other words, we find that:<br><br>
 
-                                Arc <span class="p-lightPurple">CH</span> = <span class="p-White">P</span> x <span class="p-lightPink">a</span><br>
-                                Which, substituting the value of the UPC, gives us:<br>
-                                Arc <span class="p-lightPurple">CH</span> = <span class="p-White">2.292334</span> x <span class="p-lightPink">a</span>
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#e3a0cd}a\)</span><br><br>
 
+                                Which, substituting the value of the UPC, gives us:<br>
+                   
+                                <br>
+
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}2.292334..\color{#737373} \times \color{#e3a0cd}a\)</span>
                                 
                                 
                             </p>
@@ -753,19 +763,19 @@
                                 Here's another interesting property of the parabola. This might be obvious if you have encountered it in calculus, otherwise, take our word for it.<br><br>
 
                                 If we compare it to the equation of a line<br>
-                                y = <span class="p-White">m</span>x<br>
+                                <span>
+                                        \(\color{#737373}{y = \color{#ffffff}{m}\color{#737373}{x}}\)
+                                </span><br><br>
                                 
                                 Taking one of the simplest parabolas, we see that<br>
-                                y = x<sup>2</sup> = <span class="p-White">x</span>x<br>
+
+                                <span>
+                                    \(\color{#737373}{y = x^2 = \color{#ffffff}{x}\color{#737373}{x}}\)
+                                </span><br><br>
                                 
                                 Meaning it seems  like the <span class="p-White">steepness</span> of the curve at a given point increases as you move future away from the origin along the x axis. (steepness increases with the value of x)
-                                How do we know that ? Well its simple to illustrate, just draw a <span class="p-White">line</span> that touched the curve at the <span class="p-lightPurple">point of interest</span>, (<span class="p-White">tangent</span>) and see the steepness of this line increase with increase in the x coordinate of the <span class="p-lightPurple">point of interest</span>. 
+                                How do we know that? Well its simple to illustrate, just draw a <span class="p-White">line</span> that touched the curve at the <span class="p-lightPurple">point of interest</span>, (<span class="p-White">tangent</span>) and see the steepness of this line increase with increase in the x coordinate of the <span class="p-lightPurple">point of interest</span>. 
                                 
-
-                                
-                                <span>\(\color{#ffaa00}{x} + \color{#ffaaff}{y}\)</span>
-                                <span>\(\color{#ffaa00}{x} + \color{#ffaaff}{y}\)</span>
-                                <span>\(\color{#ffaa00}{x} + \color{#ffaaff}{y}\)</span>
                             </p>
                         </div>
                     </div>
@@ -2566,8 +2576,15 @@
                 document.getElementById("parabola-circle-compare-parabola-equation-with-values").innerHTML = "\\(\\color{#737373}{=\\frac{\\color{#e3a0cd}{" + (gph8.slider.value*upc).toFixed(4) + "}}{\\color{#61bdff}{" + gph8.slider.value  + "}}}\\)"
                 document.getElementById("parabola-circle-compare-upc-value").innerHTML = upc.toFixed(4)
                 document.getElementById("parabola-circle-compare-pi-value").innerHTML = Math.PI.toFixed(4)
+                
+                typesettingElement1 = document.getElementById("parabola-circle-compare-circle-equation-with-values")
 
-                MathJax.typeset()
+                typesettingElement2 = document.getElementById("parabola-circle-compare-parabola-equation-with-values")
+
+                MathJax.typesetClear([typesettingElement1, typesettingElement2]);
+                MathJax.typeset([typesettingElement1, typesettingElement2])
+
+                
             }
 
             var sliderProperties = {
@@ -2618,7 +2635,14 @@
                 document.getElementById("parabola-circle-compare-upc-value").innerHTML = upc.toFixed(4)
                 document.getElementById("parabola-circle-compare-pi-value").innerHTML = Math.PI.toFixed(4)
 
-                MathJax.typeset()
+                typesettingElement1 = document.getElementById("parabola-circle-compare-circle-equation-with-values")
+
+                typesettingElement2 = document.getElementById("parabola-circle-compare-parabola-equation-with-values")
+
+                MathJax.typesetClear([typesettingElement1, typesettingElement2]);
+                MathJax.typeset([typesettingElement1, typesettingElement2])
+
+                
             });
 
             gph8.updateGraph = function() {
@@ -2937,7 +2961,7 @@
                 lineOptions = { x1: gph10.theParabola.directrixPoint1[0], y1: gph10.theParabola.directrixPoint1[1], x2: gph10.theParabola.directrixPoint2[0], y2: gph10.theParabola.directrixPoint2[1], strokewidth: 3, linecolor: "var(--lightGreen)", strokedasharray: "7, 7"}; 
                 viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-directrix", lineOptions);
 
-                lineOptions = { x1: gph10.theParabola.latusRectumPointLeft[0] - 2, y1: gph10.theParabola.latusRectumPointLeft[1], x2: gph10.theParabola.latusRectumPointRight[0] + 2, y2: gph10.theParabola.latusRectumPointRight[1], strokewidth: 2.5, linecolor: "var(--lightOrange)", strokedasharray: "5, 5"}; 
+                lineOptions = { x1: gph10.theParabola.latusRectumPointLeft[0] - 2, y1: gph10.theParabola.latusRectumPointLeft[1], x2: gph10.theParabola.latusRectumPointRight[0] + 2, y2: gph10.theParabola.latusRectumPointRight[1], strokewidth: 1.3, linecolor: "var(--lightOrange)", strokedasharray: "5, 5"}; 
                 lineE = viewX.addLine("parabola-important-dimensions-graph", "parabola-important-dimensions-lineM", lineOptions);
                 lineE[0].style.opacity = 0.5
 
