@@ -250,7 +250,7 @@
                                 <label id="distance-between-any-two-points-SliderLabel" class="p-lightPink pl-sm-3 pl-0" for="distance-between-any-two-points-Slider" style="min-width: 100px;" >0.8</label>
                                 <div>
                                     <p id="distance-between-any-two-points-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
-                                        Points <span class="p-lightBlue">A</span> and <span class="p-lightPurple">B</span> above are draggable. :)
+                                        Move the <span class='p-lightPink'>slider</span> to choose your answer...  and also, the points <span class="p-lightBlue">A</span> and <span class="p-lightPurple">B</span> above are draggable. :)
                                     </p>
                                     
                                     <div id="gph2-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
@@ -268,12 +268,14 @@
                             <p class="mt-5">
                                 It is about  <span class="p-lightPink" >0.52140.</span> To be more precise, it is. <br/><br/>
                                 
-                                <span class="p-lightPink" >8 (0.0416*<span class="p-White" >P</span> - 0.030473)</span><br/>
+                                <span class="p-lightPink" >
+                                    \(\color{#e3a0cd}{8\left(0.0416{\color{#ffffff}{P}}-0.030473\right)}\)
+                                </span><br/>
 
                                 And exactly, it is
 
-                                <div class="p-lightPink" style="font-size: 25px;">
-                                    \(8\left(\frac{P}{24}-\frac{\sqrt{2}}{30}+\frac{1}{60}\right)\)
+                                <div style="font-size: 25px;">
+                                    \(\color{#e3a0cd}{8\left(\frac{\color{#ffffff}{P}}{24}-\frac{\sqrt{2}}{30}+\frac{1}{60}\right)}\)
                                 </div>
                                 
                                 
@@ -346,7 +348,7 @@
                                     </p>
                                     
                                     <div class="p-lightPink" style="font-size: 25px;">
-                                        \(\frac{P}{3}\)
+                                        \(\color{#e3a0cd}{\frac{\color{#ffffff}{P}}{6}}\)
                                     </div>
                                 
                                 
@@ -405,7 +407,7 @@
                                     </p>
                                     
                                     <div class="p-lightPink" style="font-size: 25px;">
-                                        \(\frac{P}{3}\)
+                                        \(\color{#e3a0cd}{\frac{\color{#ffffff}{P}}{3}}\)
                                     </div>
                                 
                                     <br />
@@ -587,24 +589,29 @@
                             <p class="d-inline-flex">
                                 <span class="mr-3 mr-sm-5">
                                     <span class="p-lightPink">Circle</span><br/><br/>
-                                    <span class="p-lightPink">
+                                    <span class="p-lightPink text-large-ignus">
                                         \(π = \frac{\text{Enclosing Arc}}{Radius}\)
                                     </span><br/><br/>
                                     <span>
-                                        = <span class="p-lightPink" id="parabola-circle-compare-circlearc-value">2.334445</span>/<span class="p-lightBlue" id="parabola-circle-compare-parabolaradius-value">1.2</span>
-                                    </span><br/>
+                                        <span id="parabola-circle-compare-circle-equation-with-values" class="text-large-ignus"> </span>
+                                        <!-- =
+                                        <span class="p-lightPink" id="parabola-circle-compare-circlearc-value">2.334445</span>/<span class="p-lightBlue" id="parabola-circle-compare-parabolaradius-value">1.2</span> -->
+                                    </span><br/><br/>
                                     <span>
                                         = <b id="parabola-circle-compare-pi-value">2.2123</b>
                                     </span>
                                 </span>
                                 <span>
                                     <span class="p-lightPurple">Parabola</span><br/><br/>
-                                    <span class="p-lightPurple">
+                                    <span class="p-lightPurple  text-large-ignus">
                                         \(P = \frac{\text{Enclosing Arc}}{Radius}\)
                                     </span><br/><br/>
                                     <span>
+                                        <span id="parabola-circle-compare-parabola-equation-with-values" class="text-large-ignus"> </span>
+                                    </span><br/><br/>
+                                    <!-- <span>
                                         = <span class="p-lightPurple" id="parabola-circle-compare-parabolaarc-value">2.334445</span>/<span class="p-lightBlue" id="parabola-circle-compare-circleradius-value">1.2</span>
-                                    </span><br/>
+                                    </span><br/> -->
                                     <span>
                                         = <b class="p-White" id="parabola-circle-compare-upc-value">3.1545</b>
                                     </span>
@@ -638,7 +645,7 @@
                                 <br/>
                                 If you give me the radius of a circle, I can tell you the circumference. If you give me the <span class="p-lightBlue">"radius"</span> of a parabola, I can tell you the <span class="p-lightPurple">enclosing arc length</span>.
                                 <br/><br/>
-                                <span class="p-lightPurple">Enclosing Arc</span> = <span class="p-White">Universal Parabolic Constant</span> * <span class="p-lightBlue">Radius</span>
+                                <span class="p-lightPurple">Enclosing Arc</span> = <span class="p-White">Universal Parabolic Constant</span> x <span class="p-lightBlue">Radius</span>
                                 <br/><br/>
                                 This is true for an asteroid's parabolic trajectory, or for a tiny parabolic satellite dish, - there's a parabola in there, with our universal parabolic constant winking back at us. 
 
@@ -674,6 +681,7 @@
                                 <label id="parabola-points-description-SliderLabel" class="p-lightPurple pl-sm-3 pl-0" for="parabola-points-description-Slider" style="min-width: 100px;" >1</label>
                                 <div>
                                     <p id="parabola-points-description-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
+                                        Move the slider to see more points that obey the <span class=" text-ignus p-lightPink">same distance</span> rule.
                                     </p>
                                 </div>
                             </div>
@@ -734,7 +742,7 @@
                                 Arc <span class="p-lightPurple">CH</span> = <span class="p-White">2.292334</span> x <span class="p-lightPink">a</span>
 
                                 
-
+                                
                             </p>
                         </div>
                     </div>
@@ -755,7 +763,9 @@
                                 
 
                                 
-
+                                <span>\(\color{#ffaa00}{x} + \color{#ffaaff}{y}\)</span>
+                                <span>\(\color{#ffaa00}{x} + \color{#ffaaff}{y}\)</span>
+                                <span>\(\color{#ffaa00}{x} + \color{#ffaaff}{y}\)</span>
                             </p>
                         </div>
                     </div>
@@ -788,8 +798,6 @@
 
         <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/viewX@latest/viewx.js"></script>  -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
         <script type="text/javascript" src="JS/viewx.js"></script> 
 
@@ -799,13 +807,16 @@
             ignusTheme.setUp();
 
             MathJax = {
+                loader: {load: ['[tex]/color']},
                 options: {
-                    menuOptions: {
-                    settings: { disabled: true }
-                    }
+                    enableMenu: false
                 }
             };
         </script>
+
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/input/tex/extensions/color.js" charset="UTF-8"></script>
 
 
 		<script type="text/javascript">
@@ -1087,6 +1098,50 @@
                 return removedPoint;
             }
 
+            function removeMaxOrMinPoint(points) {
+                if (!Array.isArray(points)) {
+                    throw new Error("Points must be an array.");
+                }
+
+                if (points.length === 0) {
+                    throw new Error("Points array must not be empty.");
+                }
+
+                const removeDirection = ['max', 'min'][Math.floor(Math.random() * ['max', 'min'].length)];
+
+                currentAverage = calculateAverageOfPoints(points);
+                if (removeDirection === 'max') {
+                    const maxPoint = points.reduce((max, point) => {
+                        if (viewX.distF([0.5, 0.5], point) > viewX.distF([0.5, 0.5], max)) {
+                            return point;
+                        }
+
+                        return max;
+                    }, points[0]);
+
+                    const maxIndex = points.indexOf(maxPoint);
+                    const removedPoint = points.splice(maxIndex, 1)[0];
+                    // console.log(removeDirection, removedPoint)
+                    return removedPoint;
+                }
+                else {
+                    const minPoint = points.reduce((min, point) => {
+                        if (viewX.distF([0.5, 0.5], point) < viewX.distF([0.5, 0.5], min)) {
+                            return point;
+                        }
+
+                        return min;
+                    }, points[0]);
+
+                    const minIndex = points.indexOf(minPoint);
+                    const removedPoint = points.splice(minIndex, 1)[0];
+
+                    // console.log(removeDirection, removedPoint)
+                    return removedPoint;
+                }
+                
+            }
+
 
             gph0  = {}
 
@@ -1311,6 +1366,8 @@
                 textOptions = {x: (gph2.point1[0] + gph2.point2[0])/2, y: (gph2.point1[1] + gph2.point2[1])/2, text: gph2.distanceText};
                 viewX.updateText("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-label", textOptions);
 
+                "=\\frac{\\color{#e3a0cd}{" + (gph8.slider.value*Math.PI).toFixed(4) + "}}{\\color{#61bdff}{" + gph8.slider.value  + "}}}\\)"
+
             }
 
             var sliderProperties = {
@@ -1339,7 +1396,7 @@
 
             gph2.slider.addEventListener('input', function() {
                 gph2.sliderLabel.innerHTML = gph2.slider.value
-                gph2.sliderInfo.innerHTML = "Points <span class='p-lightBlue'>A</span> and <span class='p-lightPurple'>B</span> above are draggable. :)"
+                gph2.sliderInfo.innerHTML = "Move the <span class='p-lightPink'>slider</span> to choose your answer...  and also, the points <span class='p-lightBlue'>A</span> and <span class='p-lightPurple'>B</span> above are draggable. :)"
             });
 
 
@@ -2499,12 +2556,18 @@
                 };
                 viewX.addPath("parabola-circle-compare-graph", "parabola-circle-compare-parabola-arc", pathOptions);
                 
-                document.getElementById("parabola-circle-compare-parabolaarc-value").innerHTML = (gph8.slider.value*upc).toFixed(4)
-                document.getElementById("parabola-circle-compare-parabolaradius-value").innerHTML = gph8.slider.value
-                document.getElementById("parabola-circle-compare-circlearc-value").innerHTML = (gph8.slider.value*Math.PI).toFixed(4)
-                document.getElementById("parabola-circle-compare-circleradius-value").innerHTML = gph8.slider.value
+                // document.getElementById("parabola-circle-compare-parabolaarc-value").innerHTML = (gph8.slider.value*upc).toFixed(4)
+                // document.getElementById("parabola-circle-compare-parabolaradius-value").innerHTML = gph8.slider.value
+                // document.getElementById("parabola-circle-compare-circlearc-value").innerHTML = (gph8.slider.value*Math.PI).toFixed(4)
+                // document.getElementById("parabola-circle-compare-circleradius-value").innerHTML = gph8.slider.value
+                
+                document.getElementById("parabola-circle-compare-circle-equation-with-values").innerHTML = "\\(\\color{#737373}{=\\frac{\\color{#e3a0cd}{" + (gph8.slider.value*Math.PI).toFixed(4) + "}}{\\color{#61bdff}{" + gph8.slider.value  + "}}}\\)"
+
+                document.getElementById("parabola-circle-compare-parabola-equation-with-values").innerHTML = "\\(\\color{#737373}{=\\frac{\\color{#e3a0cd}{" + (gph8.slider.value*upc).toFixed(4) + "}}{\\color{#61bdff}{" + gph8.slider.value  + "}}}\\)"
                 document.getElementById("parabola-circle-compare-upc-value").innerHTML = upc.toFixed(4)
                 document.getElementById("parabola-circle-compare-pi-value").innerHTML = Math.PI.toFixed(4)
+
+                MathJax.typeset()
             }
 
             var sliderProperties = {
@@ -2541,12 +2604,21 @@
             gph8.slider.addEventListener('input', function() {
                 gph8.updateGraph()
                 gph8.sliderLabel.innerHTML = gph8.slider.value
-                document.getElementById("parabola-circle-compare-parabolaarc-value").innerHTML = (gph8.slider.value*upc).toFixed(4)
-                document.getElementById("parabola-circle-compare-parabolaradius-value").innerHTML = gph8.slider.value
-                document.getElementById("parabola-circle-compare-circlearc-value").innerHTML = (gph8.slider.value*Math.PI).toFixed(4)
-                document.getElementById("parabola-circle-compare-circleradius-value").innerHTML = gph8.slider.value
+                // document.getElementById("parabola-circle-compare-parabolaarc-value").innerHTML = (gph8.slider.value*upc).toFixed(4)
+
+                document.getElementById("parabola-circle-compare-parabola-equation-with-values").innerHTML = "\\(\\color{#737373}{=\\frac{\\color{#e3a0cd}{" + (gph8.slider.value*upc).toFixed(4) + "}}{\\color{#61bdff}{" + gph8.slider.value  + "}}}\\)"
+
+
+                // document.getElementById("parabola-circle-compare-parabolaradius-value").innerHTML = gph8.slider.value
+                // document.getElementById("parabola-circle-compare-circlearc-value").innerHTML = (gph8.slider.value*Math.PI).toFixed(4)
+
+                document.getElementById("parabola-circle-compare-circle-equation-with-values").innerHTML = "\\(\\color{#737373}{=\\frac{\\color{#e3a0cd}{" + (gph8.slider.value*Math.PI).toFixed(4) + "}}{\\color{#61bdff}{" + gph8.slider.value  + "}}}\\)"
+                
+                // document.getElementById("parabola-circle-compare-circleradius-value").innerHTML = gph8.slider.value
                 document.getElementById("parabola-circle-compare-upc-value").innerHTML = upc.toFixed(4)
                 document.getElementById("parabola-circle-compare-pi-value").innerHTML = Math.PI.toFixed(4)
+
+                MathJax.typeset()
             });
 
             gph8.updateGraph = function() {
