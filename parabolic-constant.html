@@ -787,7 +787,7 @@
                             <div id="parabola-increasing-slope-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
                         </div>
                     </div>
-
+                     
 
                     <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
                         <div class="our-text-block text-center">
@@ -802,6 +802,42 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div  class="hidden-element reveal-2 revealable" id="extender-section-2" style="max-height: 100px; overflow: hidden; position: relative;">
+                        <div style="position: absolute; background: linear-gradient(to bottom, transparent, var(--generalBackground)); pointer-events: none; z-index: 1;" class="w-100 h-100" id="extender-section-2-cover"></div>
+                        <div style="position: absolute; bottom: 0px; height: 30px; " class="w-100 text-center dragDownExtension" onclick="upcApp.extendSection(2)">
+                            <span><i id="extender-section-2-chevron-down" class="fa fa-angle-double-down" style="font-size: 23px;"></i></span>
+                        </div>
+                        
+                        <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                            <div class="our-text-block text-center pb-1">
+                                <p>
+                                    For those among you, who want a serious proof that the slope is indeed equal to 1 at point H. Here's some calculus<br/><br/>
+
+                                    The equation of the parabola, with latus rectum 2a is given by 
+                                    <div class="p-White">
+                                            \({y = x^2/4a}\)
+                                    </div>
+                                    
+                                    </br></br>
+                                    <p>
+                                        The points C and H here are at (0,0) and (2a, a) respectively. <br/><br/>
+                                        Because when<br/>
+                                        1. <span>\(y = 0 \)</span> when <span>\(x = 0 \)</span> (the vertex C)<br/>
+                                        2. <span>\(y = a \)</span> when <span>\(x = 2a \)</span> (our point H)<br/><br/><br/>
+        
+                                        Now, differentiate the equation of the parabola to get the slope at any point (x,y) on the parabola.<br/><br/>
+                                        <span>\(dy/dx = x/2a \)</span><br/><br/>
+        
+                                        So, at H, where x = 2a, \(dy/dx = 2a/2a\) = 1, so the slope is 1, and hence, <br/><br/><span class="p-White">At H, the tangent makes a 45 degree angle with the x axis. </span><br/><br/> 
+                                    </p>
+    
+                                   
+                                </p>
+                            </div>
+                        </div>
+                        
                     </div>
 
                     <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
@@ -876,7 +912,7 @@
 
                     <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
                         <div class="our-text-block text-center">
-                            <p class="mt-2">
+                            <p class="mt-2 mb-5 pb-5">
                                     
                                 This method is good. But there is another approach that might be more useful for us.<br/><br/>
                                 Shrinking the  <span class="p-lightPurple">line segment</span>, by a factor of <span class="p-lightOrange">4</span>.  
@@ -905,9 +941,48 @@
                     <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
                         <div class="our-text-block text-center">
                             <p class="mt-2">
-                                    
                                 This method is actually a little better for curves. <br/><br/>How do you perform the same operation for curves? How to divide a curve of length L to get a identical curve of length L/n? (where n is a number). <br/>
                                 Let's start with a line..  
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 250px; width: 100%; position: relative;">
+                            <div id="shrinking-line-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 250px; width: 100%; position: relative;">
+                            <div id="shrinking-line-animation-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center d-inline-flex justify-content-center">
+                            <span class="mt-1 pb-2">
+                                <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-line-x-animation-Slider">
+                               <br/>
+                                <p>
+                                    <label id="shrinking-line-x-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-line-x-animation-Slider" style="min-width: 100px;" >Shrinking along x</label>
+                                </p>
+                            </span>
+                            <span class="mt-1 pb-2 ml-4">
+                                <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-line-y-animation-Slider">
+                               <br/>
+                                <p>
+                                    <label id="shrinking-line-y-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-line-y-animation-Slider" style="min-width: 100px;" >Shrinking along y</label>
+                                </p>
+                            </span>
+                        </div>
+                    </div>
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2 mb-5 pb-5">
+                                    
+                                Scaling down along both x and y by a factor of <span class="p-lightOrange">4</span>, will give us the <span class="p-lightBlue">line segment</span> we want. It's length is <span class="p-lightBlue">3</span>.. which is <span class="p-lightPurple">12</span>/<span class="p-lightOrange">4</span>.
+
                             </p>
                         </div>
                     </div>
@@ -1057,6 +1132,10 @@
                         gph14.setUpShrinkingRibbonAnimation();
 
                         gph14.interval = setInterval(gph14.nextValue, 2100);
+
+                        gph15.setUpShrinkingLine();
+
+                        gph16.setUpShrinkingLineAnimation();
                     }, 1000);
                     
                 }
@@ -1102,20 +1181,20 @@
             }
 
             upcApp.extendSection = function(sectionNumber) {
-                currentMaxHeight = document.getElementById('extender-section-1').style.maxHeight
+                currentMaxHeight = document.getElementById('extender-section-' + sectionNumber + '').style.maxHeight
                 if (currentMaxHeight == "100px") {
-                    document.getElementById('extender-section-1').style.maxHeight = "none";
-                    document.getElementById('extender-section-1').style.overflow = "visible";
-                    document.getElementById('extender-section-1').style.height = "auto";
-                    document.getElementById('extender-section-1-cover').style.display = "none";
+                    document.getElementById('extender-section-' + sectionNumber + '').style.maxHeight = "none";
+                    document.getElementById('extender-section-' + sectionNumber + '').style.overflow = "visible";
+                    document.getElementById('extender-section-' + sectionNumber + '').style.height = "auto";
+                    document.getElementById('extender-section-' + sectionNumber + '-cover').style.display = "none";
                     document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-angle-double-up");
                     document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-angle-double-down");
                 }
                 else {
-                    document.getElementById('extender-section-1').style.maxHeight = "100px";
-                    document.getElementById('extender-section-1').style.overflow = "hidden";
-                    document.getElementById('extender-section-1').style.height = "100px";
-                    document.getElementById('extender-section-1-cover').style.display = "block";
+                    document.getElementById('extender-section-' + sectionNumber + '').style.maxHeight = "100px";
+                    document.getElementById('extender-section-' + sectionNumber + '').style.overflow = "hidden";
+                    document.getElementById('extender-section-' + sectionNumber + '').style.height = "100px";
+                    document.getElementById('extender-section-' + sectionNumber + '-cover').style.display = "block";
                     document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-angle-double-up");
                     document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-angle-double-down");
                 }
@@ -3525,7 +3604,7 @@
                 viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-xvalue-text", textOptions);
 
                 
-                lineOptions = { x1: gph11.xValue, y1: defaultGraphOptions["ymax"], x2: gph11.xValue, y2: defaultGraphOptions["ymin"], strokewidth: 0.6, linecolor: "var(--lightBlue)", strokedasharray: "3, 5", opacity: 0.4}; 
+                lineOptions = { x1: gph11.xValue, y1: defaultGraphOptions["ymax"], x2: gph11.xValue, y2: defaultGraphOptions["ymin"], strokewidth: 1.2, linecolor: "var(--lightBlue)", strokedasharray: "3, 5", opacity: 0.4}; 
                 viewX.addLine("parabola-increasing-slope-graph", "parabola-increasing-slope-xline", lineOptions);
 
                 pointOptions = { x: gph11.xValue, y: gph11.yValue, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
@@ -3539,7 +3618,7 @@
                 xyTangentStart = viewX.subtractVec(gph11.point, gph11.deltaForTangent)
                 
 
-                lineOptions = { x1: xyTangentEnd[0], y1: xyTangentEnd[1], x2: xyTangentStart[0], y2: xyTangentStart[1], strokewidth: 1, linecolor: "hsla(0, 0%, 90%, 0.5)", strokedasharray: "4, 4"}; 
+                lineOptions = { x1: xyTangentEnd[0], y1: xyTangentEnd[1], x2: xyTangentStart[0], y2: xyTangentStart[1], strokewidth: 1, linecolor: "hsla(0, 0%, 90%, 1)", strokedasharray: "4, 4"}; 
                 viewX.addLine("parabola-increasing-slope-graph", "parabola-increasing-tangent", lineOptions);
 
                 gph11.arrowDelta = viewX.rotatedVec([0.3, 0], gph11.slopeAngle)
@@ -4060,25 +4139,188 @@
             gph14.sliderLabel = document.getElementById("shrinking-ribbon-animation-SliderInfo");
 
             gph14.slider.addEventListener('input', function() {
-            gph14.sliderLabel.innerHTML = gph14.messageOfSteps[parseInt(gph14.slider.value)]
-                viewX.playAnimationToFrame('shrinking-ribbon-animation', parseInt(gph14.slider.value), 1)
+                if (parseFloat(gph14.slider.value) >= 1 && parseFloat(gph14.slider.value) <= 2) {
+                    if (parseFloat(gph14.slider.value) == 1) {
+                        gph14.sliderLabel.innerHTML = gph14.messageOfSteps[parseInt(gph14.slider.value)]
+                    }
+                    else {
+                        gph14.sliderLabel.innerHTML = 'Shrink it by a factor of <span class="p-lightOrange"> ' + viewX.linearValue(1, 2, 1, 4, parseFloat(gph14.slider.value)).toFixed(1) + '</span>.'
+                    }
+                    
+                    if (parseFloat(gph14.slider.step) >= 1) {
+                        gph14.slider.disabled = true
+                        setTimeout(function() {
+                            gph14.slider.disabled = false
+                        }, 10);
+                    }
+                    gph14.slider.step = 0.01
+                }
+                else {
+                    gph14.sliderLabel.innerHTML = gph14.messageOfSteps[parseInt(gph14.slider.value)]
+                    gph14.slider.step = 1
+                }
+
+                viewX.playAnimationToFrame('shrinking-ribbon-animation', parseFloat(gph14.slider.value), 1)
             });
 
             function pauseAutoplaygph14() {
                 clearInterval(gph14.interval);
+                gph14.slider.step = 0.01
             }
 
             gph14.slider.addEventListener('mouseover', pauseAutoplaygph14);
             gph14.slider.addEventListener('touchstart', pauseAutoplaygph14);
 
             gph14.nextValue = function() {
-                gph14.slider.value = parseInt(gph14.slider.value) + 1
+                gph14.slider.value = parseFloat(gph14.slider.value) + 1
                 if (gph14.slider.value == gph14.slider.max) {
                     gph14.slider.value = 0
                 }
                 gph14.sliderLabel.innerHTML = gph14.messageOfSteps[parseInt(gph14.slider.value)]
                 viewX.playAnimationToFrame('shrinking-ribbon-animation', parseInt(gph14.slider.value), 2)
             }
+
+
+            
+            // graph 15 : lines, what we have, what we want.
+            
+            gph15 = {}
+            gph15.setUpShrinkingLine = function() {
+                gph15.graphH = document.getElementById('shrinking-line-graphHolder')
+                defaultGraphOptions["xmax"] = 10
+                defaultGraphOptions["ymax"] = 3
+                defaultGraphOptions["xmin"] = -8
+                defaultGraphOptions["ymin"] = -6
+                
+                // if (window.innerWidth >= 1000) {
+                //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
+                //     defaultGraphOptions["xmajorgridlinesvisibility"] = "yes"
+                // }
+
+                viewX.addGraph(gph15.graphH, "shrinking-line-graph", defaultGraphOptions)
+
+                
+                lineOptions = { x1: -8, y1: -3, x2: 5, y2: 2, strokewidth: 7, linecolor: "var(--lightPurple)"}; 
+                viewX.addLine("shrinking-line-graph", "shrinking-line-12-line", lineOptions);
+
+                textOptions = { x: -2.5, y: 1, textcolor: "var(--lightPurple)", text: "12", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.4};
+                viewX.addText("shrinking-line-graph", "shrinking-line-12-text", textOptions);
+
+                textOptions = { x: -2.5, y: -5, textcolor: "var(--writingGrey)", text: "What we have", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.2}
+                viewX.addText("shrinking-line-graph", "shrinking-line-12-what-text", textOptions);
+                
+
+                lineOptions = { x1: -8 + 13 + 2, y1: -3, x2: -8 + (13/4) + 13 + 2, y2: -3 + (5/4), strokewidth: 7, linecolor: "var(--lightBlue)"}; 
+                viewX.addLine("shrinking-line-graph", "shrinking-line-3-line", lineOptions);
+
+                textOptions = { x: 6.5 + 2, y:  -1, textcolor: "var(--lightBlue)", text: "3", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.4};
+                viewX.addText("shrinking-line-graph", "shrinking-line-3-text", textOptions);
+
+                textOptions = { x: 6.5 + 2, y: -5, textcolor: "var(--writingGrey)", text: "What we want", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.2}
+                viewX.addText("shrinking-line-graph", "shrinking-line-3-what-text", textOptions);
+            }
+
+
+            // graph 16 : lines, shrinking animation
+            
+            gph16 = {}
+            gph16.setUpShrinkingLineAnimation = function() {
+                gph16.graphH = document.getElementById('shrinking-line-animation-graphHolder')
+                defaultGraphOptions["xmax"] = 10
+                defaultGraphOptions["ymax"] = 3
+                defaultGraphOptions["xmin"] = -8
+                defaultGraphOptions["ymin"] = -6
+                
+                // if (window.innerWidth >= 1000) {
+                //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
+                //     defaultGraphOptions["xmajorgridlinesvisibility"] = "yes"
+                // }
+
+                viewX.addGraph(gph16.graphH, "shrinking-line-animation-graph", defaultGraphOptions)
+
+                
+                lineOptions = { x1: -8 + 3, y1: -3, x2: 5 + 3, y2: 2, strokewidth: 7, linecolor: "var(--lightPurple)"}; 
+                viewX.addLine("shrinking-line-animation-graph", "shrinking-line-animation-12-line", lineOptions);
+
+                lineOptions = { x1: -8 + 3, y1: -3, x2: 5 + 3, y2: 2, strokewidth: 7, linecolor: "var(--lightPurple)", opacity: 0.1}; 
+                viewX.addLine("shrinking-line-animation-graph", "shrinking-line-animation-placeholder-12-line", lineOptions);
+
+                // textOptions = { x: -2.5, y: 1, textcolor: "var(--lightPurple)", text: "12", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.4};
+                // viewX.addText("shrinking-line-animation-graph", "shrinking-line-animation-12-text", textOptions);
+
+                // textOptions = { x: -2.5, y: -5, textcolor: "var(--writingGrey)", text: "What we have", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.2}
+                // viewX.addText("shrinking-line-animation-graph", "shrinking-line-animation-12-what-text", textOptions);
+                
+
+                lineOptions = { x1: -8 + 3, y1: -3, x2: -8 + (13/4) + 3, y2: -3 + (5/4), strokewidth: 7, linecolor: "var(--lightBlue)", opacity: 0.8}; 
+                viewX.addLine("shrinking-line-animation-graph", "shrinking-line-animation-3-line", lineOptions);
+
+                textOptions = { x: 6.5 + 2, y:  -1, textcolor: "var(--lightBlue)", text: "3", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.4, opacity: 0};
+                viewX.addText("shrinking-line-animation-graph", "shrinking-line-animation-3-text", textOptions);
+
+
+                rectOptions = { x: -8 + 3, y: 2, w: 13, h: 5, stroke: "hsla(0, 0%, 30%, 1)", strokewidth: 2, strokedasharray: "4, 4" ,  rectcolor: "hsla(190, 100%, 50%, 0)"};
+
+                viewX.addRectangle("shrinking-line-animation-graph", "shrinking-line-animation-12-dotted-rect", rectOptions);
+
+                rectOptions = { x: -8 + 3, y: 2, w: 13, h: 5, stroke: "hsla(0, 0%, 20%, 1)", strokewidth: 0.7,  rectcolor: "hsla(190, 100%, 50%, 0)"};
+
+                viewX.addRectangle("shrinking-line-animation-graph", "shrinking-line-animation-12-rect", rectOptions);
+
+                // textOptions = { x: 6.5 + 2, y: -5, textcolor: "var(--writingGrey)", text: "What we want", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.2}
+                // viewX.addText("shrinking-line-animation-graph", "shrinking-line-animation-3-what-text", textOptions);
+            }
+
+            
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(10, 0%, 20%, 0.7)",
+                trackFillColor: "white",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "white",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "shrinking-line-x-animation-Slider");
+            viewX.generateSliderStyles(sliderProperties, "shrinking-line-y-animation-Slider");
+
+            gph16.sliderx = document.getElementById("shrinking-line-x-animation-Slider");
+            gph16.sliderxLabel = document.getElementById("shrinking-line-x-animation-SliderInfo");
+            gph16.slidery = document.getElementById("shrinking-line-y-animation-Slider");
+            gph16.slideryLabel = document.getElementById("shrinking-line-y-animation-SliderInfo");
+
+            gph16.updateShrinkingLineAnimation = function() {
+
+                gph16.xscaling = viewX.linearValue(1, 4, 1, 0.25, parseFloat(gph16.sliderx.value))
+                gph16.yscaling = viewX.linearValue(1, 4, 1, 0.25, parseFloat(gph16.slidery.value))
+                
+                rectOptions = {x: -8 + 3, y: 2 - (5 - 5*gph16.yscaling), w: 13*gph16.xscaling, h: 5*gph16.yscaling};
+
+                viewX.updateRectangle("shrinking-line-animation-graph", "shrinking-line-animation-12-dotted-rect", rectOptions);
+
+
+                lineOptions = { x1: -8 + 3, y1: -3, x2: -8 + 3 + 13*gph16.xscaling, y2: -3 + 5*gph16.yscaling}; 
+                viewX.updateLine("shrinking-line-animation-graph", "shrinking-line-animation-12-line", lineOptions);
+
+                gph16.sliderxLabel.innerHTML = "Shrinking along x by a factor <span class='p-lightOrange'>" + parseFloat(1/gph16.xscaling).toFixed(1) + "</span>"
+                gph16.slideryLabel.innerHTML = "Shrinking along y by a factor <span class='p-lightOrange'>" + parseFloat(1/gph16.yscaling).toFixed(1) + "</span>"
+
+            }
+
+            gph16.sliderx.addEventListener('input', function() {
+                gph16.updateShrinkingLineAnimation();
+            });
+
+            gph16.slidery.addEventListener('input', function() {
+                gph16.updateShrinkingLineAnimation();
+            });
+
+
+            
+
 
            
         </script>
