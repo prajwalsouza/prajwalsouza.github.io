@@ -762,24 +762,47 @@
 
                                 Here's another interesting property of the parabola. This might be obvious if you have encountered it in calculus, otherwise, take our word for it.<br><br>
 
-                                If we compare it to the equation of a line<br>
+                                Consider the equation of a line<br>
                                 <span>
-                                        \(\color{#737373}{y = \color{#ffffff}{m}\color{#737373}{x}}\)
+                                        \(\color{#737373}{y = \color{#ffffff}{m}\color{#61bdff}{x}}\)
                                 </span><br><br>
                                 
                                 Taking one of the simplest parabolas, we see that<br>
 
                                 <span>
-                                    \(\color{#737373}{y = x^2 = \color{#ffffff}{x}\color{#737373}{x}}\)
+                                    \(\color{#737373}{y = x^2 = \color{#ffffff}{x}\color{#61bdff}{x}}\)
                                 </span><br><br>
                                 
-                                Meaning it seems  like the <span class="p-White">steepness</span> of the curve at a given point increases as you move future away from the origin along the x axis. (steepness increases with the value of x)
-                                How do we know that? Well its simple to illustrate, just draw a <span class="p-White">line</span> that touched the curve at the <span class="p-lightPurple">point of interest</span>, (<span class="p-White">tangent</span>) and see the steepness of this line increase with increase in the x coordinate of the <span class="p-lightPurple">point of interest</span>. 
+                                Meaning it seems like the <span class="p-White">steepness </span> (<span class="p-White">slope</span>, to be precise) of the curve at a given point increases as you move future away from the origin along the x axis. (steepness increases with the value of <span class="p-lightBlue">x</span>)
+                                How do we know that? Well its simple to illustrate, just draw a <span class="p-White">line</span> that touched the curve at the <span class="p-lightPurple">point of interest</span>, (<span class="p-White">tangent</span>, as an arrow here) and see the steepness of this line increase with increase in the <span class="p-lightBlue">x coordinate</span> of the <span class="p-lightPurple">point of interest</span>. 
+
+                                <br/><br/>
+                                The parabola can be thought of a curve whose <span class="p-White">slope</span> changes (linearly) with the position of the <span class="p-lightBlue">x</span> coordinate. Also, notice that a tangent drawn to the parabola at the point <span class="p-lightPurple">H</span>, makes a 45 degree angle with the x axis. Or in more precise terms, the  <span class="p-White">slope</span> of the parabola at the point  <span class="p-lightPurple">H</span> (x = 2a) is  <span class="p-White">1</span>. 
                                 
                             </p>
                         </div>
                     </div>
-                    
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 600px; width: 100%; position: relative;">
+                            <div id="parabola-increasing-slope-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0.01" max="2" value="1.2" step="0.001"  class="commonSlider mb-3" id="parabola-increasing-slope-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="parabola-increasing-slope-SliderLabel" class="p-lightBlue pl-sm-3 pl-0" for="parabola-increasing-slope-Slider" style="min-width: 100px;" >0.8</label>
+                                <div>
+                                    <p id="parabola-increasing-slope-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
+                                        Value of the <span class="p-lightBlue">x co-ordinate</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="w-100 pt-5 pb-5"></div>
                     <div class="w-100 pt-5 pb-5"></div>
@@ -914,6 +937,8 @@
 
                         gph10.setUpParabolicDescriptionGraph()
                         gph10.interval = setInterval(gph10.nextValue, 2100);
+
+                        gph11.setUpParabolicIncreasingSlope()
                     }, 1000);
                     
                 }
@@ -2487,6 +2512,48 @@
             }
 
 
+            function getParabolicPointData(focus, directrixPoint1, directrixPoint2, tValue) {
+                // Convert the points to vectors
+                const FA = { x: focus[0] - directrixPoint1[0], y: focus[1] - directrixPoint1[1] };
+
+                let dirVec = {x: directrixPoint2[0] - directrixPoint1[0], y: directrixPoint2[1] - directrixPoint1[1]};
+
+
+                // Calculate the parameter t
+                const t = (FA.x * dirVec.x + FA.y * dirVec.y) / (dirVec.x * dirVec.x + dirVec.y * dirVec.y);
+
+                // Calculate the coordinates of the closest point P
+                const xP = directrixPoint1[0] + t * dirVec.x;
+                const yP = directrixPoint1[1] + t * dirVec.y;
+
+                // Create and return the closest point P
+                closePoint = [xP, yP];
+
+                // Parabola parameter 'a' is the distance from the focus to the directrix/2
+                valueOfA = viewX.distF(closePoint, focus)/2
+
+                // vertex is the midpoint of the focus and the closest point
+                vertex = [(focus[0] + closePoint[0])/2, (focus[1] + closePoint[1])/2]
+
+                var magnitudeA = Math.sqrt(dirVec.x * dirVec.x + dirVec.y * dirVec.y);
+                var cosAngle = dirVec.x / (magnitudeA * 1);
+
+                var angleRad = Math.acos(cosAngle);
+                var angleDeg = angleRad * (180 / Math.PI);
+                if (dirVec.y < 0) {
+                    angleDeg = 360 - angleDeg; // Adjust for the fourth quadrant
+                }
+
+                untransformed = [2*valueOfA*tValue, valueOfA*Math.pow(tValue, 2)]
+                rotatedVector = viewX.rotatedVec(untransformed, angleDeg)
+                thePointOnTheParabola = [rotatedVector[0] + vertex[0], rotatedVector[1] + vertex[1]]
+
+                theSlope = (2*valueOfA*tValue)/(2*valueOfA)
+
+                return {point: thePointOnTheParabola, slope: theSlope}
+            }
+
+
             
             // thePoints = parabolaPoints({x: 0, y: 1}, {x: -1, y: -1}, {x: 1, y: -1}, -4, 4, 100)
 
@@ -3282,9 +3349,202 @@
 
             
 
+
+            // graph 11 : the parabola increasing slope
             
+            gph11 = {}
+            gph11.setUpParabolicIncreasingSlope = function() {
+                gph11.graphH = document.getElementById('parabola-increasing-slope-graphHolder')
+                defaultGraphOptions["xmax"] = upcApp.parabolicCircleGraph["xmax"]
+                defaultGraphOptions["ymax"] = upcApp.parabolicCircleGraph["ymax"]/2
+                defaultGraphOptions["xmin"] = upcApp.parabolicCircleGraph["xmin"]/12
+                defaultGraphOptions["ymin"] = upcApp.parabolicCircleGraph["ymin"]/5
+                
+                // if (window.innerWidth >= 1000) {
+                //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
+                //     defaultGraphOptions["xmajorgridlinesvisibility"] = "yes"
+                // }
+
+            
+                viewX.addGraph(gph11.graphH, "parabola-increasing-slope-graph", defaultGraphOptions)
+
+                defaultGraphOptions["ymajorgridlinesvisibility"] = "no"
+                defaultGraphOptions["xmajorgridlinesvisibility"] = "no"
+
+                gph11.theParabola = parabolaPoints([0, 0.25], [-3, -0.25], [3, -0.25], 0, 4, 100)
+                gph11.thePoints = gph11.theParabola.points
+
+                
+                lineOptions = { x1: defaultGraphOptions["xmin"], y1: 0, x2: defaultGraphOptions["xmax"], y2: 0, strokewidth: 0.6, linecolor: "hsla(0, 0%, 40%, 0.7)"}; 
+                viewX.addLine("parabola-increasing-slope-graph", "parabola-increasing-slope-theXAxis", lineOptions);
+
+                lineOptions = { x1: 0, y1: defaultGraphOptions["ymax"], x2: 0, y2: defaultGraphOptions["ymin"], strokewidth: 0.6, linecolor: "hsla(0, 0%, 40%, 0.7)"}; 
+                viewX.addLine("parabola-increasing-slope-graph", "parabola-increasing-slope-theYAxis", lineOptions);
+
+
+                var pathOptions = {
+                    points: gph11.thePoints,
+                    strokewidth: 0.3,
+                    pathcolor: "var(--lightPurple)",
+                    pathfillcolor: "none",
+                    opacity: 0.3
+                };
+                pathElementDetails = viewX.addPath("parabola-increasing-slope-graph", "parabola-increasing-slope-parabola", pathOptions);
+
+                pointOptions = { x:  gph11.theParabola.vertex[0], y:  gph11.theParabola.vertex[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)', opacity: 0.5};
+                viewX.addPoint("parabola-increasing-slope-graph", "parabola-increasing-slope-vertex", pointOptions);
+
+
+                textOptions = {x: gph11.theParabola.vertex[0] + upcApp.parabolicCircleGraph["point-label-gap"]/2, y: gph11.theParabola.vertex[1] - upcApp.parabolicCircleGraph["point-label-gap"]/2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)", opacity: 0.5};
+                viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-vertex-label", textOptions);
+
+                gph11.xValue = gph11.slider.value
+                gph11.pointDetails= getParabolicPointData([0, 0.25], [-3, -0.25], [3, -0.25], 2*gph11.xValue)
+                gph11.yValue = gph11.pointDetails.point[1]
+                gph11.slope = gph11.pointDetails.slope
+                gph11.slopeAngle = Math.atan(gph11.slope) * (180 / Math.PI)
+                gph11.point = [gph11.xValue, gph11.yValue]
+
+                textOptions = {x: gph11.xValue + upcApp.parabolicCircleGraph["point-label-gap"], y: 0 - upcApp.parabolicCircleGraph["point-label-gap"], text: "x = " + gph11.xValue,  textAlign: "left",  fontSize: upcApp.graphFontSizeLarge*0.62, fontFamily: "Nunito",   textcolor: "var(--lightBlue)", opacity: 0.6};
+                viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-xvalue-text", textOptions);
+
+                
+                lineOptions = { x1: gph11.xValue, y1: defaultGraphOptions["ymax"], x2: gph11.xValue, y2: defaultGraphOptions["ymin"], strokewidth: 0.6, linecolor: "var(--lightBlue)", strokedasharray: "3, 5", opacity: 0.4}; 
+                viewX.addLine("parabola-increasing-slope-graph", "parabola-increasing-slope-xline", lineOptions);
+
+                pointOptions = { x: gph11.xValue, y: gph11.yValue, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("parabola-increasing-slope-graph", "parabola-increasing-slope-pointOnParabola", pointOptions);
+
+                textOptions = {x: gph11.xValue + upcApp.parabolicCircleGraph["point-label-gap"], y: gph11.yValue - upcApp.parabolicCircleGraph["point-label-gap"], text: "(" + gph11.xValue + ", 2.345)",  textAlign: "left",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--writingGrey)"};
+                viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-pointOnParabola-description", textOptions);
+
+                gph11.deltaForTangent = viewX.rotatedVec([3, 0], gph11.slopeAngle)
+                xyTangentEnd = viewX.addVec(gph11.point, gph11.deltaForTangent)
+                xyTangentStart = viewX.subtractVec(gph11.point, gph11.deltaForTangent)
+                
+
+                lineOptions = { x1: xyTangentEnd[0], y1: xyTangentEnd[1], x2: xyTangentStart[0], y2: xyTangentStart[1], strokewidth: 1, linecolor: "hsla(0, 0%, 90%, 0.5)", strokedasharray: "4, 4"}; 
+                viewX.addLine("parabola-increasing-slope-graph", "parabola-increasing-tangent", lineOptions);
+
+                gph11.arrowDelta = viewX.rotatedVec([0.3, 0], gph11.slopeAngle)
+                xyArrowEnd = viewX.addVec(gph11.point, gph11.arrowDelta)
+                xyArrowStart = viewX.subtractVec(gph11.point, gph11.arrowDelta)
+                
+                var arrowOptions = {
+                    from: xyArrowStart,
+                    to:xyArrowEnd,
+                    strokewidth: 0.4,
+                    arrowcolor: "white"
+                };
+                arrow = viewX.addArrow("parabola-increasing-slope-graph", "parabola-increasing-slope-steep-arrow", arrowOptions);
+
+
+                
+                pointOptions = { x:  gph11.theParabola.latusRectumPointRight[0], y:  gph11.theParabola.latusRectumPointRight[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)', opacity: 0.5};
+                viewX.addPoint("parabola-increasing-slope-graph", "parabola-increasing-slope-H", pointOptions);
+
+                textOptions = {x:  gph11.theParabola.latusRectumPointRight[0] + upcApp.parabolicCircleGraph["point-label-gap"]/2, y:  gph11.theParabola.latusRectumPointRight[1] - upcApp.parabolicCircleGraph["point-label-gap"]/2, text: "H",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)", opacity: 0.5};
+                viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-H-label", textOptions);
+
+
+                textOptions = {x: gph11.xValue - 4.5*upcApp.parabolicCircleGraph["point-label-gap"], y: gph11.yValue + upcApp.parabolicCircleGraph["point-label-gap"], text: "Steepness : " + gph11.slope.toFixed(2),  textAlign: "right",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "white", opacity: 0.5};
+                viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-steepness-label", textOptions);
+
+
+
+                gph11.updateParabolicIncreasingSlope()
+
+                // viewX.playAnimation('parabola-increasing-slope-animation', 0, 32, 20)
+
+
+                
+
+                // gph11.sliderLabel.innerHTML = gph11.slider.value + " point" + (gph11.slider.value == 1 ? "" : "s")
+
+
+            }
 
             // viewX.setAnimationFrame('someName', 4)
+
+            gph11.updateParabolicIncreasingSlope = function() {
+                gph11.xValue = parseFloat(gph11.slider.value)
+                gph11.pointDetails= getParabolicPointData([0, 0.25], [-3, -0.25], [3, -0.25], 2*gph11.xValue)
+                gph11.yValue = gph11.pointDetails.point[1]
+                gph11.slope = gph11.pointDetails.slope
+                gph11.slopeAngle = (Math.atan(gph11.slope)) * (180 / Math.PI)
+                gph11.point = [gph11.xValue, gph11.yValue]
+
+                textOptions = {x: gph11.xValue + upcApp.parabolicCircleGraph["point-label-gap"]/2, y: upcApp.parabolicCircleGraph["ymin"]/5, text: "x = " + gph11.xValue};
+                viewX.updateText("parabola-increasing-slope-graph", "parabola-increasing-slope-xvalue-text", textOptions);
+                
+                lineOptions = { x1: gph11.xValue, y1: defaultGraphOptions["ymax"], x2: gph11.xValue, y2: defaultGraphOptions["ymin"]}; 
+                viewX.updateLine("parabola-increasing-slope-graph", "parabola-increasing-slope-xline", lineOptions);
+
+                viewX.updatePointXY("parabola-increasing-slope-graph", "parabola-increasing-slope-pointOnParabola", gph11.xValue, gph11.yValue);
+
+                textOptions = {x: gph11.xValue + upcApp.parabolicCircleGraph["point-label-gap"]/2, y: gph11.yValue - upcApp.parabolicCircleGraph["point-label-gap"]/2, text: "(" + gph11.xValue.toFixed(2) + ", " + gph11.yValue.toFixed(2) + ")"};
+                viewX.updateText("parabola-increasing-slope-graph", "parabola-increasing-slope-pointOnParabola-description", textOptions);
+
+                textOptions = {x: gph11.xValue - 4.5*upcApp.parabolicCircleGraph["point-label-gap"], y: gph11.yValue + upcApp.parabolicCircleGraph["point-label-gap"], text: "Steepness : " + gph11.slope.toFixed(1) + " (" + gph11.slopeAngle.toFixed(1) + "°)"};
+                viewX.updateText("parabola-increasing-slope-graph", "parabola-increasing-slope-steepness-label", textOptions);
+
+                gph11.arrowDelta = viewX.rotatedVec([0.2, 0], gph11.slopeAngle)
+                xyArrowEnd = viewX.addVec(gph11.point, gph11.arrowDelta)
+                xyArrowStart = viewX.subtractVec(gph11.point, gph11.arrowDelta)
+                
+                var arrowOptions = {
+                    from: xyArrowStart,
+                    to:xyArrowEnd,
+                    strokewidth: 0.4,
+                    arrowcolor: "white"
+                };
+                arrow = viewX.updateArrow("parabola-increasing-slope-graph", "parabola-increasing-slope-steep-arrow", arrowOptions);
+
+
+                gph11.deltaForTangent = viewX.rotatedVec([10, 0], gph11.slopeAngle)
+                xyTangentEnd = viewX.addVec(gph11.point, gph11.deltaForTangent)
+                xyTangentStart = viewX.subtractVec(gph11.point, gph11.deltaForTangent)
+
+                lineOptions = { x1: xyTangentEnd[0], y1: xyTangentEnd[1], x2: xyTangentStart[0], y2: xyTangentStart[1]}; 
+                viewX.updateLine("parabola-increasing-slope-graph", "parabola-increasing-tangent", lineOptions);
+
+            }
+
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(10, 0%, 20%, 0.7)",
+                trackFillColor: "white",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "white",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "parabola-increasing-slope-Slider");
+
+            gph11.slider = document.getElementById("parabola-increasing-slope-Slider");
+            gph11.sliderLabel = document.getElementById("parabola-increasing-slope-SliderLabel");
+            gph11.sliderInfo = document.getElementById("parabola-increasing-slope-SliderInfo");
+
+            gph11.slider.value = 1
+            gph11.sliderLabel.innerHTML = "x = " + (gph11.slider.value)
+
+
+            gph11.slider.addEventListener('input', function() {
+                gph11.updateParabolicIncreasingSlope()
+                gph11.sliderLabel.innerHTML = "x = " + (gph11.slider.value)
+            });
+
+
+            window.addEventListener("keypress", function(event) {
+                if (event.keyCode == 13) {
+                    upcApp.revealSection()
+                }
+            })
+            
 
             
 
