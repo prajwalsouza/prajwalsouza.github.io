@@ -855,6 +855,62 @@
                             </p>
                         </div>
                     </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 150px; width: 100%; position: relative;">
+                            <div id="cutting-ribbon-animation-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="5" value="0" step="1"  class="commonSlider mb-3" id="cutting-ribbon-animation-Slider">
+                                <span id="reveal-sub-section-2-continueButton" class="commonButton p-2 pl-4 pr-4 ml-3 btn-ignus" onclick="gph13.nextValue(); pauseAutoplaygph13();">Next</span>
+                               <br/>
+                                <p>
+                                    <label id="cutting-ribbon-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="cutting-ribbon-animation-Slider" style="min-width: 100px;" ></label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                    
+                                This method is good. But there is another approach that might be more useful for us.<br/><br/>
+                                Shrinking the  <span class="p-lightPurple">line segment</span>, by a factor of <span class="p-lightOrange">4</span>.  
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 150px; width: 100%; position: relative;">
+                            <div id="shrinking-ribbon-animation-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="4" value="0" step="1"  class="commonSlider mb-3" id="shrinking-ribbon-animation-Slider">
+                                <span id="reveal-sub-section-2-continueButton" class="commonButton p-2 pl-4 pr-4 ml-3 btn-ignus" onclick="gph14.nextValue(); pauseAutoplaygph14();">Next</span>
+                               <br/>
+                                <p>
+                                    <label id="shrinking-ribbon-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-ribbon-animation-Slider" style="min-width: 100px;" ></label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                    
+                                This method is actually a little better for curves. <br/><br/>How do you perform the same operation for curves? How to divide a curve of length L to get a identical curve of length L/n? (where n is a number). <br/>
+                                Let's start with a line..  
+                            </p>
+                        </div>
+                    </div>
                     
                     <div class="w-100 pt-5 pb-5"></div>
                     <div class="w-100 pt-5 pb-5"></div>
@@ -991,6 +1047,16 @@
                         gph10.interval = setInterval(gph10.nextValue, 2100);
 
                         gph11.setUpParabolicIncreasingSlope()
+
+                        gph12.setUpCuttingRibbon()
+
+                        gph13.setUpCuttingRibbonAnimation();
+
+                        gph13.interval = setInterval(gph13.nextValue, 2100);
+
+                        gph14.setUpShrinkingRibbonAnimation();
+
+                        gph14.interval = setInterval(gph14.nextValue, 2100);
                     }, 1000);
                     
                 }
@@ -3395,8 +3461,6 @@
                 }
                 gph10.sliderLabel.innerHTML = gph10.messageOfSteps[parseInt(gph10.slider.value)]
                 viewX.playAnimationToFrame('parabola-important-dimensions-animation', parseInt(gph10.slider.value), 2)
-
-
             }
 
             
@@ -3645,8 +3709,378 @@
             })
             
 
+            // graph 12 : cutting ribbon
             
+            gph12 = {}
+            gph12.setUpCuttingRibbon = function() {
+                gph12.graphH = document.getElementById('cutting-ribbon-graphHolder')
+                defaultGraphOptions["xmax"] = 15
+                defaultGraphOptions["ymax"] = 3.5
+                defaultGraphOptions["xmin"] = -15
+                defaultGraphOptions["ymin"] = -3.5
+                
+                // if (window.innerWidth >= 1000) {
+                //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
+                //     defaultGraphOptions["xmajorgridlinesvisibility"] = "yes"
+                // }
 
+                viewX.addGraph(gph12.graphH, "cutting-ribbon-graph", defaultGraphOptions)
+
+                
+                lineOptions = { x1: -10, y1: 0, x2: 2, y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}; 
+                viewX.addLine("cutting-ribbon-graph", "cutting-ribbon-12-line", lineOptions);
+
+                textOptions = { x: -3.5, y: 1, textcolor: "var(--lightPurple)", text: "12", fontFamily: "Nunito", textAlign: "center"}; 
+                viewX.addText("cutting-ribbon-graph", "cutting-ribbon-12-text", textOptions);
+
+                textOptions = { x: -3.5, y: -1.5, textcolor: "var(--writingGrey)", text: "What we have", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*2}
+                viewX.addText("cutting-ribbon-graph", "cutting-ribbon-12-what-text", textOptions);
+                
+
+                lineOptions = { x1: 5, y1: 0, x2: 8, y2: 0, strokewidth: 7, linecolor: "var(--lightBlue)"}; 
+                viewX.addLine("cutting-ribbon-graph", "cutting-ribbon-3-line", lineOptions);
+
+                textOptions = { x: 6.5, y: 1, textcolor: "var(--lightBlue)", text: "3", fontFamily: "Nunito", textAlign: "center"}; 
+                viewX.addText("cutting-ribbon-graph", "cutting-ribbon-3-text", textOptions);
+
+                textOptions = { x: 6.5, y: -1.5, textcolor: "var(--writingGrey)", text: "What we want", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*2}
+                viewX.addText("cutting-ribbon-graph", "cutting-ribbon-3-what-text", textOptions);
+            }
+
+
+            // graph 13 : cutting ribbon animation
+
+            gph13 = {}
+            gph13.setUpCuttingRibbonAnimation = function() {
+                gph13.graphH = document.getElementById('cutting-ribbon-animation-graphHolder')
+                defaultGraphOptions["xmax"] = 15
+                defaultGraphOptions["ymax"] = 2.5
+                defaultGraphOptions["xmin"] = -15
+                defaultGraphOptions["ymin"] = -4.5
+                
+                // if (window.innerWidth >= 1000) {
+                //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
+                //     defaultGraphOptions["xmajorgridlinesvisibility"] = "yes"
+                // }
+
+                viewX.addGraph(gph13.graphH, "cutting-ribbon-animation-graph", defaultGraphOptions)
+
+                lineOptions = { x1: -6, y1: 0, x2: -6 + (12/4), y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}; 
+                viewX.addLine("cutting-ribbon-animation-graph", "cutting-ribbon-animation-12-cut1", lineOptions);
+                lineOptions = { x1: -6 + 1*(12/4), y1: 0, x2: -6 + 1*(12/4) + (12/4), y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}; 
+                viewX.addLine("cutting-ribbon-animation-graph", "cutting-ribbon-animation-12-cut2", lineOptions);
+                lineOptions = { x1: -6 + 2*(12/4), y1: 0, x2: -6 + 2*(12/4) + (12/4), y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}; 
+                viewX.addLine("cutting-ribbon-animation-graph", "cutting-ribbon-animation-12-cut3", lineOptions);
+                lineOptions = { x1: -6 + 3*(12/4), y1: 0, x2: -6 + 3*(12/4) + (12/4), y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}; 
+                viewX.addLine("cutting-ribbon-animation-graph", "cutting-ribbon-animation-12-cut4", lineOptions);
+
+                
+                lineOptions = { x1: -6, y1: 0, x2: 6, y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}; 
+                viewX.addLine("cutting-ribbon-animation-graph", "cutting-ribbon-animation-12-line", lineOptions);
+
+                textOptions = { x: 0, y: 1, textcolor: "var(--lightPurple)", text: "12", fontFamily: "Nunito", textAlign: "center"}; 
+                viewX.addText("cutting-ribbon-animation-graph", "cutting-ribbon-animation-12-text", textOptions);
+
+
+                textOptions = { x: 6.5, y: 1, textcolor: "var(--lightBlue)", text: "3", fontFamily: "Nunito", textAlign: "center", opacity: 0}; 
+                viewX.addText("cutting-ribbon-animation-graph", "cutting-ribbon-animation-3-text", textOptions);
+
+                viewX.addAnimation("cutting-ribbon-animation", gph13.sliderAnimationOptions)
+                // setTimeout(function() {
+                //     viewX.playAnimationToFrame("cutting-ribbon-animation", 12, 5, 30)
+                // }, 2000);
+                
+            }
+
+            gph13.sliderAnimationOptions = {}
+            gph13.sliderAnimationOptions.keyframes = {
+                "0" : {
+                    "ob0" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut1', 
+                        'options': { x1: -6, y1: 0, x2: -6 + (12/4), y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}
+                    },
+                    "ob1" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut2', 
+                        'options': { x1: -6 + 1*(12/4), y1: 0, x2: -6 + 1*(12/4) + (12/4), y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}
+                    },
+                    "ob2" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut3', 
+                        'options': { x1: -6 + 2*(12/4), y1: 0, x2: -6 + 2*(12/4) + (12/4), y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}
+                    },
+                    "ob3" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut4', 
+                        'options': { x1: -6 + 3*(12/4), y1: 0, x2: -6 + 3*(12/4) + (12/4), y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}
+                    },
+                    "ob4" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-3-text', 
+                        'options': { x: 6.5, y: 1, opacity: 0}
+                    }
+                },
+                "1" : {
+                    "ob0" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut1', 
+                        'options': {x1: -6 + 0*(12/4) , y1: -2, x2: -6 + 0*(12/4) + (12/4), y2: -2, linecolor: "var(--lightPurple)"}
+                    },
+                    "ob1" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut2', 
+                        'options': {x1: -6 + 1*(12/4) , y1: -2, x2: -6 + 1*(12/4) + (12/4), y2: -2, linecolor: "var(--lightPurple)"}
+                    },
+                    "ob2" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut3', 
+                        'options': {x1: -6 + 2*(12/4) , y1: -2, x2: -6 + 2*(12/4) + (12/4), y2: -2, linecolor: "var(--lightPurple)"}
+                    },
+                    "ob3" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut4', 
+                        'options': {x1: -6 + 3*(12/4) , y1: -2, x2: -6 + 3*(12/4) + (12/4), y2: -2, linecolor: "var(--lightPurple)"}
+                    }
+                },
+                "2" : {
+                    "ob0" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut1', 
+                        'options': {x1: -6 + 0*(12/4) - 1 , y1: -2, x2: -6 + 0*(12/4) + (12/4) - 1, y2: -2, linecolor: "var(--lightBlue)"}
+                    },
+                    "ob1" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut2', 
+                        'options': {x1: -6 + 1*(12/4) - 0.3, y1: -2, x2: -6 + 1*(12/4) + (12/4) - 0.3, y2: -2, linecolor: "var(--writingGrey)"}
+                    },
+                    "ob2" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut3', 
+                        'options': {x1: -6 + 2*(12/4) + 0.3 , y1: -2, x2: -6 + 2*(12/4) + (12/4) + 0.3, y2: -2, linecolor: "var(--writingGrey)"}
+                    },
+                    "ob3" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut4', 
+                        'options': {x1: -6 + 3*(12/4) + 1 , y1: -2, x2: -6 + 3*(12/4) + (12/4) + 1, y2: -2, linecolor: "var(--writingGrey)"}
+                    }
+                },
+                "3" : {
+                    "ob0" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut1', 
+                        'options': {y1: -2, y2: -2, linecolor: "var(--lightBlue)"}
+                    },
+                    "ob1" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut2', 
+                        'options': {y1: -2, y2: -2, linecolor: "var(--writingGrey)"}
+                    },
+                    "ob2" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut3', 
+                        'options': {y1: -2, y2: -2, linecolor: "var(--writingGrey)"}
+                    },
+                    "ob3" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-12-cut4', 
+                        'options': {y1: -2, y2: -2, linecolor: "var(--writingGrey)"}
+                    },
+                    "ob4" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-3-text', 
+                        'options': { x: -5.5, y: -4, opacity: 0}
+                    }
+                },
+                "4" : {
+                    "ob1" : {
+                        'graph': 'cutting-ribbon-animation-graph',
+                        'object': 'cutting-ribbon-animation-3-text', 
+                        'options': { x: -5.5, y: -4, opacity: 1}
+                    }
+                }
+                    
+            }
+
+            gph13.messageOfSteps = [
+                    'Take the <span class="p-lightPurple">ribbon</span> :)',
+                    'Take the <span class="p-lightPurple">ribbon</span> :)',
+                    'Cut it into <span class="p-lightOrange"> 4 pieces</span>.',
+                    'Discard the last 3 pieces.',
+                    'Keep the <span class="p-lightBlue">1st piece</span>. This piece is of length <span class="p-lightBlue">3</span>.',
+                    'There you go.'
+
+                ]
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(10, 0%, 20%, 0.7)",
+                trackFillColor: "white",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "white",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "cutting-ribbon-animation-Slider");
+
+            gph13.slider = document.getElementById("cutting-ribbon-animation-Slider");
+            gph13.sliderLabel = document.getElementById("cutting-ribbon-animation-SliderInfo");
+
+            gph13.slider.addEventListener('input', function() {
+            gph13.sliderLabel.innerHTML = gph13.messageOfSteps[parseInt(gph13.slider.value)]
+                viewX.playAnimationToFrame('cutting-ribbon-animation', parseInt(gph13.slider.value), 1)
+            });
+
+            function pauseAutoplaygph13() {
+                clearInterval(gph13.interval);
+            }
+
+            gph13.slider.addEventListener('mouseover', pauseAutoplaygph13);
+            gph13.slider.addEventListener('touchstart', pauseAutoplaygph13);
+
+            gph13.nextValue = function() {
+                gph13.slider.value = parseInt(gph13.slider.value) + 1
+                if (gph13.slider.value == gph13.slider.max) {
+                    gph13.slider.value = 0
+                }
+                gph13.sliderLabel.innerHTML = gph13.messageOfSteps[parseInt(gph13.slider.value)]
+                viewX.playAnimationToFrame('cutting-ribbon-animation', parseInt(gph13.slider.value), 2)
+            }
+
+
+
+            // graph 14 : shrinking ribbon animation
+
+            gph14 = {}
+            gph14.setUpShrinkingRibbonAnimation = function() {
+                gph14.graphH = document.getElementById('shrinking-ribbon-animation-graphHolder')
+                defaultGraphOptions["xmax"] = 15
+                defaultGraphOptions["ymax"] = 2.5
+                defaultGraphOptions["xmin"] = -15
+                defaultGraphOptions["ymin"] = -4.5
+                
+                // if (window.innerWidth >= 1000) {
+                //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
+                //     defaultGraphOptions["xmajorgridlinesvisibility"] = "yes"
+                // }
+
+                viewX.addGraph(gph14.graphH, "shrinking-ribbon-animation-graph", defaultGraphOptions)
+
+                lineOptions = { x1: -6, y1: 0, x2: 6, y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}; 
+                viewX.addLine("shrinking-ribbon-animation-graph", "shrinking-ribbon-animation-12-copy", lineOptions);
+
+                
+                lineOptions = { x1: -6, y1: 0, x2: 6, y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}; 
+                viewX.addLine("shrinking-ribbon-animation-graph", "shrinking-ribbon-animation-12-line", lineOptions);
+
+                textOptions = { x: 0, y: 1, textcolor: "var(--lightPurple)", text: "12", fontFamily: "Nunito", textAlign: "center"}; 
+                viewX.addText("shrinking-ribbon-animation-graph", "shrinking-ribbon-animation-12-text", textOptions);
+
+
+                textOptions = { x: 6.5, y: 1, textcolor: "var(--lightBlue)", text: "3", fontFamily: "Nunito", textAlign: "center", opacity: 0}; 
+                viewX.addText("shrinking-ribbon-animation-graph", "shrinking-ribbon-animation-3-text", textOptions);
+
+                viewX.addAnimation("shrinking-ribbon-animation", gph14.sliderAnimationOptions)
+                // setTimeout(function() {
+                //     viewX.playAnimationToFrame("shrinking-ribbon-animation", 12, 5, 30)
+                // }, 2000);
+                
+            }
+
+            gph14.sliderAnimationOptions = {}
+            gph14.sliderAnimationOptions.keyframes = {
+                "0" : {
+                    "ob0" : {
+                        'graph': 'shrinking-ribbon-animation-graph',
+                        'object': 'shrinking-ribbon-animation-12-copy', 
+                        'options': { x1: -6, y1: 0, x2: 6, y2: 0, strokewidth: 7, linecolor: "var(--lightPurple)"}
+                    },
+                    "ob4" : {
+                        'graph': 'shrinking-ribbon-animation-graph',
+                        'object': 'shrinking-ribbon-animation-3-text', 
+                        'options': { x: 6.5, y: 1, opacity: 0}
+                    }
+                },
+                "1" : {
+                    "ob0" : {
+                        'graph': 'shrinking-ribbon-animation-graph',
+                        'object': 'shrinking-ribbon-animation-12-copy', 
+                        'options': {x1: -6 , y1: -2, x2: 6, y2: -2, linecolor: "var(--lightPurple)"}
+                    }
+                },
+                "2" : {
+                    "ob0" : {
+                        'graph': 'shrinking-ribbon-animation-graph',
+                        'object': 'shrinking-ribbon-animation-12-copy', 
+                        'options': {x1: -6 , y1: -2, x2: -3, y2: -2, linecolor: "var(--lightBlue)"}
+                    },
+                    "ob1" : {
+                        'graph': 'shrinking-ribbon-animation-graph',
+                        'object': 'shrinking-ribbon-animation-3-text', 
+                        'options': { x: -4.5, y: -4, opacity: 0}
+                    }
+                },
+                "3" : {
+                    "ob1" : {
+                        'graph': 'shrinking-ribbon-animation-graph',
+                        'object': 'shrinking-ribbon-animation-3-text', 
+                        'options': { x: -4.5, y: -4, opacity: 1}
+                    }
+                }
+                    
+            }
+
+            gph14.messageOfSteps = [
+                    'Take the <span class="p-lightPurple">line segment</span> :)',
+                    'Take the <span class="p-lightPurple">line segment</span> :)',
+                    'Shrink it by a factor of <span class="p-lightOrange"> 4</span>.',
+                    'This piece is of length <span class="p-lightBlue">3</span>.',
+                    'There you go.'
+
+                ]
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(10, 0%, 20%, 0.7)",
+                trackFillColor: "white",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "white",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "shrinking-ribbon-animation-Slider");
+
+            gph14.slider = document.getElementById("shrinking-ribbon-animation-Slider");
+            gph14.sliderLabel = document.getElementById("shrinking-ribbon-animation-SliderInfo");
+
+            gph14.slider.addEventListener('input', function() {
+            gph14.sliderLabel.innerHTML = gph14.messageOfSteps[parseInt(gph14.slider.value)]
+                viewX.playAnimationToFrame('shrinking-ribbon-animation', parseInt(gph14.slider.value), 1)
+            });
+
+            function pauseAutoplaygph14() {
+                clearInterval(gph14.interval);
+            }
+
+            gph14.slider.addEventListener('mouseover', pauseAutoplaygph14);
+            gph14.slider.addEventListener('touchstart', pauseAutoplaygph14);
+
+            gph14.nextValue = function() {
+                gph14.slider.value = parseInt(gph14.slider.value) + 1
+                if (gph14.slider.value == gph14.slider.max) {
+                    gph14.slider.value = 0
+                }
+                gph14.sliderLabel.innerHTML = gph14.messageOfSteps[parseInt(gph14.slider.value)]
+                viewX.playAnimationToFrame('shrinking-ribbon-animation', parseInt(gph14.slider.value), 2)
+            }
+
+           
         </script>
 
 
