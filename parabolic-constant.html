@@ -1007,7 +1007,7 @@
                         </div>
                     </div>
 
-                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
                         <div class="our-text-block text-center d-inline-flex justify-content-center">
                             <span class="mt-1 pb-2">
                                 <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-curve-x-animation-Slider">
@@ -1023,9 +1023,19 @@
                                     <label id="shrinking-curve-y-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-curve-y-animation-Slider" style="min-width: 100px;" >Shrinking along y</label>
                                 </p>
                             </span>
+                            <br/>
                         </div>
+
+                        
+                        
                     </div>
-                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div id="reveal-3-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+                        </div>
+                        
+                    </div>
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
                         <div class="our-text-block text-center">
                             <p class="mt-2 mb-5 pb-5">
                                     
@@ -1035,14 +1045,14 @@
                         </div>
                     </div>
 
-                    <div class="w-100 pl-4 pt-5 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                    <div class="w-100 pl-4 pt-5 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
                         <div class="our-text-block text-center pt-4">
                             <p class="p-White" style="font-size: large; font-family: Raleway;">
                                 <b>What is average?</b>
                             </p>
                         </div>
                     </div>
-                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
                         <div class="our-text-block text-center">
                             <p class="mt-2">
                                     
@@ -1103,13 +1113,13 @@
                     </div>
 
 
-                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
                         <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
                             <div id="simple-problem-average-animation-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
                         </div>
                     </div>
 
-                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
                         <div class="our-text-block text-center" style="width: 100%; position: relative;">
                             <input type="range" min="0.01" max="13" value="1" step="1"  class="commonSlider mb-3" id="simple-problem-average-animation-Slider">
                             <div class="d-block d-sm-none"></div>
@@ -1120,7 +1130,7 @@
                         </div>
                     </div>
 
-                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
                         <div class="our-text-block text-center">
                             <p class="mt-2">
                                 Sounds like there is a fixed line and a fixed point. :P And no sight of parabola yet. Wait for a while . <br/>
@@ -1283,8 +1293,12 @@
 
                         gph18.setUpShrinkingCurveAnimation();
 
+                    }, 1000);
+                    
+                }
+                else if (upcApp.revealPoint == 3) {
+                    setTimeout(function() {
                         gph19.setUpSimpleProblemAverageAnimation();
-
                         gph19.interval = setInterval(gph19.nextValue, 2100);
 
                     }, 1000);
@@ -4463,10 +4477,22 @@
 
             gph16.sliderx.addEventListener('input', function() {
                 gph16.updateShrinkingLineAnimation();
+                if (parseFloat(gph16.slidery.value) >= 4 && parseFloat(gph16.sliderx.value) >= 4) {
+                    upcApp.anim.show();
+                    upcApp.anim.goToAndPlay(0);
+                    upcApp.anim.setSpeed(2)
+                    upcApp.anim.play();
+                }
             });
 
             gph16.slidery.addEventListener('input', function() {
                 gph16.updateShrinkingLineAnimation();
+                if (parseFloat(gph16.slidery.value) >= 4 && parseFloat(gph16.sliderx.value) >= 4) {
+                    upcApp.anim.show();
+                    upcApp.anim.goToAndPlay(0);
+                    upcApp.anim.setSpeed(2)
+                    upcApp.anim.play();
+                }
             });
 
 
@@ -4607,10 +4633,36 @@
 
             gph18.sliderx.addEventListener('input', function() {
                 gph18.updateShrinkingLineAnimation();
+                if (parseFloat(gph18.sliderx.value) >= 4 && parseFloat(gph18.slidery.value) >= 4) {
+                    if (upcApp.revealPoint == 2) {
+                        upcApp.revealSection()
+                    }
+                    upcApp.anim.show();
+                    upcApp.anim.goToAndPlay(0);
+                    upcApp.anim.setSpeed(2)
+                    upcApp.anim.play();
+                }
             });
 
             gph18.slidery.addEventListener('input', function() {
                 gph18.updateShrinkingLineAnimation();
+                if (parseFloat(gph18.slidery.value) >= 4 && parseFloat(gph18.sliderx.value) >= 4) {
+                    if (upcApp.revealPoint == 2) {
+                        upcApp.revealSection()
+                    }
+                    upcApp.anim.show();
+                    upcApp.anim.goToAndPlay(0);
+                    upcApp.anim.setSpeed(2)
+                    upcApp.anim.play();
+                }
+            });
+
+            gph18.continueButton = document.getElementById("reveal-3-continueButton");
+
+            gph18.continueButton.addEventListener('click', function() {
+                if (upcApp.revealPoint == 2) {
+                    upcApp.revealSection()
+                }
             });
 
 
