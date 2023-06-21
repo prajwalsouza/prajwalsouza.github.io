@@ -1560,6 +1560,7 @@ viewX.addPath = function(graphname, pathname, pathoptions) {
 
 	pathoptions.points = pathoptions.points || [[0, 1], [1, 0]]
 
+
 	pathstring = 'M'
 
 	for (pth = 0; pth < pathoptions.points.length; pth++) {
@@ -2233,6 +2234,9 @@ viewX.updateRectangle = function(graphname, rectname, rectvalueupdate) {
 	
 	rectoptions.rectcolor = rectvalueupdate.rectcolor || rectoptions.rectcolor
 	rectoptions.strokedasharray = rectvalueupdate.strokedasharray || rectoptions.strokedasharray
+
+
+	rectoptions.opacity = rectvalueupdate.opacity || rectoptions.opacity
 
 	rx = viewX.distanceBTWgraphToSvg([0,0],[rectoptions.w, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
 	ry = viewX.distanceBTWgraphToSvg([0,0],[0, rectoptions.h], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
@@ -2981,7 +2985,17 @@ viewX.distF = function(pt1, pt2) {
 }
 
 viewX.addVec = function(pt1, pt2) {
-	return [pt1[0] + pt2[0], pt1[1] + pt2[1]]
+	if (typeof(pt2[0]) == 'number') {
+		return [pt1[0] + pt2[0], pt1[1] + pt2[1]]
+	}
+	else if (typeof(pt2[0]) == 'object') {
+		pts = []
+		for (var i = 0; i < pt2.length; i++) {
+			pts.push(viewX.addVec(pt1, pt2[i]))
+		}
+		return pts
+
+	} 
 }
 
 viewX.scalarMultiplyVec = function(c, pt1) {

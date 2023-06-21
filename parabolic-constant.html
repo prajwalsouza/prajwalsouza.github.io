@@ -49,6 +49,7 @@
                 --lightPink:  hsl(320, 55%, 76%); /*#e3a0cd*/
                 --lightBlue:  hsl(205, 100%, 69%); /*#61bdff*/
                 --writingGrey: hsl(0,0%,45%); /*#737373*/
+                --darkBlue: hsl(223, 75%, 60%); /*#4a76e5*/
 			}
             
 
@@ -124,6 +125,10 @@
 
             .p-lightBlue {
                 color: var(--lightBlue);
+            }
+
+            .p-darkBlue {
+                color: var(--darkBlue);
             }
 
             .p-White {
@@ -822,7 +827,7 @@
                                     
                                     </br></br>
                                     <p>
-                                        The points C and H here are at (0,0) and (2a, a) respectively. <br/><br/>
+                                        The points <span class="p-lightPurple">C</span> and <span class="p-lightPurple">H</span> here are at (0,0) and (2a, a) respectively. <br/><br/>
                                         Because when<br/>
                                         1. <span>\(y = 0 \)</span> when <span>\(x = 0 \)</span> (the vertex C)<br/>
                                         2. <span>\(y = a \)</span> when <span>\(x = 2a \)</span> (our point H)<br/><br/><br/>
@@ -979,9 +984,147 @@
                     </div>
                     <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
                         <div class="our-text-block text-center">
-                            <p class="mt-2 mb-5 pb-5">
+                            <p class="mt-2">
                                     
                                 Scaling down along both x and y by a factor of <span class="p-lightOrange">4</span>, will give us the <span class="p-lightBlue">line segment</span> we want. It's length is <span class="p-lightBlue">3</span>.. which is <span class="p-lightPurple">12</span>/<span class="p-lightOrange">4</span>.
+
+                                <br/><br/>
+                                This can be done with any curve. Let it be a <span class="p-lightPurple">curve</span> of length 20. And we want to divide it by <span class="p-lightOrange">4</span>. But we also want to preserve the shape of the curve.. <br/><br/> 
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 250px; width: 100%; position: relative;">
+                            <div id="shrinking-curve-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 250px; width: 100%; position: relative;">
+                            <div id="shrinking-curve-animation-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center d-inline-flex justify-content-center">
+                            <span class="mt-1 pb-2">
+                                <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-curve-x-animation-Slider">
+                               <br/>
+                                <p>
+                                    <label id="shrinking-curve-x-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-curve-x-animation-Slider" style="min-width: 100px;" >Shrinking along x</label>
+                                </p>
+                            </span>
+                            <span class="mt-1 pb-2 ml-4">
+                                <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-curve-y-animation-Slider">
+                               <br/>
+                                <p>
+                                    <label id="shrinking-curve-y-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-curve-y-animation-Slider" style="min-width: 100px;" >Shrinking along y</label>
+                                </p>
+                            </span>
+                        </div>
+                    </div>
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2 mb-5 pb-5">
+                                    
+                                So, now you know how to <span class="p-lightOrange">divide</span> a curve. What's next? Be patient. It will all make sense. 
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-5 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p class="p-White" style="font-size: large; font-family: Raleway;">
+                                <b>What is average?</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                    
+                                The problem is about average value, right? So, what is average? <br/><br/>
+                                
+                                How does one calculate average? <br/><br/>
+                                One approach is to go through <span class="p-lightPink">all possible cases</span>. <span class="p-darkBlue">Add</span> <span class="p-lightPink">them</span> and then divide by the <span class="p-lightRed">number of cases</span>. For example, What is the <span class="p-lightPurple">average value (expected value)</span> of a die roll? <br/><br/>
+
+                                 \(\color{#a585ff}{A} \color{#737373}= \frac{\color{#e3a0cd}{1} \color{#4a76e5}+ \color{#e3a0cd}{2} \color{#4a76e5}+ \color{#e3a0cd}{3} \color{#4a76e5}+ \color{#e3a0cd}{4} \color{#4a76e5}+ \color{#e3a0cd}{5} \color{#4a76e5}+ \color{#e3a0cd}{6}}{\color{#ff7a7a}{6}} \)
+                                <br/><br/>
+
+                                <p>
+        
+                                    If there are <span class="p-lightRed">9</span> people in the room, all with height <span class="p-lightPink">6 ft</span>, what is the average height?
+                                    <br/>
+                                    <p>
+                                        \( \color{#a585ff}{A} \color{#737373}= \frac{ \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6} {\color{#ff7a7a}{9}} \)
+                                    </p>
+                                    <p>
+                                        But here is something interesting. 
+                                        <br/><br/>
+                                        What is the average of the following numbers? 
+                                        <br/>
+                                        <span class="p-White">1, 6, 2, 2, 6, 2, 1, 1, 6</span>
+
+                                        <br/><br/>
+                                        If you carefully rearrange, 
+                                    </p>
+                                    <p>
+                                        \(  \color{#a585ff}A \color{#737373}= \frac{\color{#ccc161}1 + 2 + 6 + \color{#adff7a}1 + 2 + 6 + \color{#ccc161}1 + 2 + 6}{\color{#ff7a7a}9} \)
+                                    </p>
+                                    <br/>
+                                    
+                                    <p>
+                                        the average can simply be... <br/><br/>
+                                        \( \color{#a585ff}A \color{#737373}= \frac{ \color{#ccc161}1 + 2 + 6}{\color{#ff7a7a} 3} \)
+                                    </p>
+                                    <p>
+                                        Instead of taking the average of all <span class="p-lightRed">9</span> numbers, we can take the average of <span class="p-brightYellow">1, 2, 6</span> because they repeat. <br/>
+                                        If you have <span class="p-brightYellow">10 people</span> with average height of <span class="p-lightPink">6</span> foot, getting <span class="p-lightGreen">10</span> more identical people (whose average is obviously <span class="p-lightPink">6</span> foot because they are identical), doesn't change the average height of the total. <br/>
+                                        This is because these groups are identical, and due to symmetry, we can ignore these repeating numbers during calculations.<br/><br/>
+                                    </p>
+                                    <p>
+                                        <span class="p-lightPurple">Average</span> for <span class="p-brightYellow">1, 2, 6</span>, <span class="p-lightGreen">1, 2, 6</span>, <span class="p-brightYellow">1, 2, 6</span><br/>
+                                        is the same as <br/>
+                                        <span class="p-lightPurple">Average</span> for <span class="p-brightYellow">1, 2, 6</span>, <span class="p-lightGreen">1, 2, 6</span>, <span class="p-brightYellow">1, 2, 6</span>, <span class="p-lightGreen">1, 2, 6</span>, <span class="p-brightYellow">1, 2, 6</span>, <span class="p-lightGreen">1, 2, 6</span>, <span class="p-brightYellow">1, 2, 6</span>, <span class="p-lightGreen">1, 2, 6</span>, <span class="p-brightYellow">1, 2, 6</span><br/>
+                                        is the same as <br/>
+                                        <span class="p-lightPurple">Average</span> for <span class="p-brightYellow">1, 2, 6</span>
+                                    </p>
+                                    <br/><br/>
+                                    <p>
+                                        So, when asked, What is the <span class="p-lightPink">average distance</span> between a point <span class="p-lightPurple">Q</span> on the square the center <span class="p-lightBlue">C</span>? There is a chance to simplify the problem by re framing the question due to repetition of the points that lie on the perimeter of the square. What is the <span class="p-lightPink">average distance</span> between the point <span class="p-lightBlue">C</span> and a point on the line <span class="p-brightYellow">AB</span>? 
+                                    </p>
+                                </p>
+
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-average-animation-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="width: 100%; position: relative;">
+                            <input type="range" min="0.01" max="13" value="1" step="1"  class="commonSlider mb-3" id="simple-problem-average-animation-Slider">
+                            <div class="d-block d-sm-none"></div>
+                            
+                            <div>
+                                <label id="simple-problem-average-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="simple-problem-average-animation-Slider" style="min-width: 100px;" ></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                Sounds like there is a fixed line and a fixed point. :P And no sight of parabola yet. Wait for a while . <br/>
+                                Let's see where we will take us in a minute or two.
 
                             </p>
                         </div>
@@ -1136,6 +1279,14 @@
                         gph15.setUpShrinkingLine();
 
                         gph16.setUpShrinkingLineAnimation();
+                        gph17.setUpShrinkingCurve();
+
+                        gph18.setUpShrinkingCurveAnimation();
+
+                        gph19.setUpSimpleProblemAverageAnimation();
+
+                        gph19.interval = setInterval(gph19.nextValue, 2100);
+
                     }, 1000);
                     
                 }
@@ -3688,7 +3839,7 @@
                 textOptions = {x: gph11.xValue + upcApp.parabolicCircleGraph["point-label-gap"]/2, y: upcApp.parabolicCircleGraph["ymin"]/5, text: "x = " + gph11.xValue};
                 viewX.updateText("parabola-increasing-slope-graph", "parabola-increasing-slope-xvalue-text", textOptions);
                 
-                lineOptions = { x1: gph11.xValue, y1: defaultGraphOptions["ymax"], x2: gph11.xValue, y2: defaultGraphOptions["ymin"]}; 
+                lineOptions = { x1: gph11.xValue, y1: defaultGraphOptions["ymax"]*2, x2: gph11.xValue, y2: defaultGraphOptions["ymin"]}; 
                 viewX.updateLine("parabola-increasing-slope-graph", "parabola-increasing-slope-xline", lineOptions);
 
                 viewX.updatePointXY("parabola-increasing-slope-graph", "parabola-increasing-slope-pointOnParabola", gph11.xValue, gph11.yValue);
@@ -4318,6 +4469,589 @@
                 gph16.updateShrinkingLineAnimation();
             });
 
+
+            
+            // graph 17 : curves, what we have, what we want.
+            
+            gph17 = {}
+            gph17.setUpShrinkingCurve = function() {
+                gph17.graphH = document.getElementById('shrinking-curve-graphHolder')
+                defaultGraphOptions["xmax"] = 5
+                defaultGraphOptions["ymax"] = 1.5
+                defaultGraphOptions["xmin"] = -1
+                defaultGraphOptions["ymin"] = -0.5
+
+
+                gph17.curvePathPoints = [[0, 0], [0.1, 0.2], [0.2, 0.4], [0.3, 0.6], [0.5, 0.8], [0.7, 0.95], [1, 1], [1.1, 0.97], [1.4, 0.8], [1.6, 0.5], [1.7, 0.4], [1.8, 0.35], [1.9, 0.39], [2.1, 0.5], [2.6, 0.9], [3, 1.3]]
+   
+                // if (window.innerWidth >= 1000) {
+                //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
+                //     defaultGraphOptions["xmajorgridlinesvisibility"] = "yes"
+                // }
+
+                viewX.addGraph(gph17.graphH, "shrinking-curve-graph", defaultGraphOptions)
+
+                
+                pathOptions = { points: gph17.curvePathPoints, strokewidth: 2, pathcolor: "var(--lightPurple)"}; 
+                viewX.addPath("shrinking-curve-graph", "shrinking-curve-20-line", pathOptions);
+
+                textOptions = { x: 0.3, y: 1, textcolor: "var(--lightPurple)", text: "20", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.4};
+                viewX.addText("shrinking-curve-graph", "shrinking-curve-20-text", textOptions);
+
+                textOptions = { x: 1.7, y: -0.3, textcolor: "var(--writingGrey)", text: "What we have", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.2}
+                viewX.addText("shrinking-curve-graph", "shrinking-curve-20-what-text", textOptions);
+
+                gph17.translatedPoints = viewX.addVec([4, 0], gph17.curvePathPoints) 
+                
+                gph17.curvePathPointsScaled = pointsScaled(gph17.translatedPoints, 0.25, 0.25, [4, 0])
+                pathOptions = { points: gph17.curvePathPointsScaled, strokewidth: 2, pathcolor: "var(--lightBlue)"};
+                viewX.addPath("shrinking-curve-graph", "shrinking-curve-5-line", pathOptions);
+
+                textOptions = { x: 4.3, y: 0.5, textcolor: "var(--lightBlue)", text: "5", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.4};
+                viewX.addText("shrinking-curve-graph", "shrinking-curve-5-text", textOptions);
+
+                textOptions = { x: 4.3, y: -0.3, textcolor: "var(--writingGrey)", text: "What we want", fontFamily: "Nunito", textAlign: "center", fontSize:  upcApp.graphFontSizeLarge*1.2}
+                viewX.addText("shrinking-curve-graph", "shrinking-curve-5-what-text", textOptions);
+            }
+
+
+            // graph 18 : curves, shrinking animation
+            
+            gph18 = {}
+            gph18.setUpShrinkingCurveAnimation = function() {
+                gph18.graphH = document.getElementById('shrinking-curve-animation-graphHolder')
+                defaultGraphOptions["xmax"] = 4
+                defaultGraphOptions["ymax"] = 1.5
+                defaultGraphOptions["xmin"] = -2
+                defaultGraphOptions["ymin"] = -0.5
+                
+
+
+                viewX.addGraph(gph18.graphH, "shrinking-curve-animation-graph", defaultGraphOptions)
+
+                gph18.curvePathPoints = [[0, 0], [0.1, 0.2], [0.2, 0.4], [0.3, 0.6], [0.5, 0.8], [0.7, 0.95], [1, 1], [1.1, 0.97], [1.4, 0.8], [1.6, 0.5], [1.7, 0.4], [1.8, 0.35], [1.9, 0.39], [2.1, 0.5], [2.6, 0.9], [3, 1.3]]
+
+
+                pathOptions = { points: gph18.curvePathPoints, strokewidth: 2, pathcolor: "var(--lightPurple)"}; 
+                viewX.addPath("shrinking-curve-animation-graph", "shrinking-curve-animation-20-line", pathOptions);
+
+                pathOptions = { points: gph18.curvePathPoints, strokewidth: 2, pathcolor: "var(--lightPurple)", opacity: 0.1}; 
+                viewX.addPath("shrinking-curve-animation-graph", "shrinking-curve-animation-placeholder-20-line", pathOptions);
+
+                gph18.curveScaledPointsFinal = pointsScaled(gph18.curvePathPoints, 0.25, 0.25, [0, 0])
+                pathOptions = {points: gph18.curveScaledPointsFinal, strokewidth: 2, pathcolor: "var(--lightBlue)", opacity: 0.4}; 
+                viewX.addPath("shrinking-curve-animation-graph", "shrinking-curve-animation-5-line", pathOptions);
+
+
+                rectOptions = {x: 0, y: 1.5, w: 3, h: 1.5, stroke: "hsla(0, 0%, 30%, 1)", strokewidth: 2, strokedasharray: "4, 4" ,  rectcolor: "hsla(190, 100%, 50%, 0)"};
+
+                viewX.addRectangle("shrinking-curve-animation-graph", "shrinking-curve-animation-20-dotted-rect", rectOptions);
+
+                rectOptions = { x: 0, y: 1.5, w: 3, h: 1.5, stroke: "hsla(0, 0%, 20%, 1)", strokewidth: 0.7,  rectcolor: "hsla(190, 100%, 50%, 0)"};
+
+                viewX.addRectangle("shrinking-curve-animation-graph", "shrinking-curve-animation-20-rect", rectOptions);
+
+            }
+
+            
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(10, 0%, 20%, 0.7)",
+                trackFillColor: "white",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "white",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "shrinking-curve-x-animation-Slider");
+            viewX.generateSliderStyles(sliderProperties, "shrinking-curve-y-animation-Slider");
+
+
+            function pointsScaled(points, amountAlongX, amountAlongY, scaleAbout) {
+                var scaledPoints = []
+                for (var i = 0; i < points.length; i++) {
+                    differenceVector = viewX.subtractVec(points[i], scaleAbout)
+                    differenceVectorScaled = [differenceVector[0]*amountAlongX, differenceVector[1]*amountAlongY]
+                    scaledPoint = viewX.addVec(scaleAbout, differenceVectorScaled)
+                    scaledPoints.push(scaledPoint)
+                }
+                return scaledPoints
+            }
+
+
+            gph18.sliderx = document.getElementById("shrinking-curve-x-animation-Slider");
+            gph18.sliderxLabel = document.getElementById("shrinking-curve-x-animation-SliderInfo");
+            gph18.slidery = document.getElementById("shrinking-curve-y-animation-Slider");
+            gph18.slideryLabel = document.getElementById("shrinking-curve-y-animation-SliderInfo");
+
+            gph18.updateShrinkingLineAnimation = function() {
+
+                gph18.xscaling = viewX.linearValue(1, 4, 1, 0.25, parseFloat(gph18.sliderx.value))
+                gph18.yscaling = viewX.linearValue(1, 4, 1, 0.25, parseFloat(gph18.slidery.value))
+                
+                rectOptions = {x: 0, y: 1.5  - 1.5*(1 - gph18.yscaling), w: 3*gph18.xscaling, h: 1.5*gph18.yscaling};
+
+                viewX.updateRectangle("shrinking-curve-animation-graph", "shrinking-curve-animation-20-dotted-rect", rectOptions);
+
+
+                gph18.curveScaledPoints = pointsScaled(gph18.curvePathPoints, gph18.xscaling, gph18.yscaling, [0, 0])
+                viewX.updatePathPoints("shrinking-curve-animation-graph", "shrinking-curve-animation-20-line", gph18.curveScaledPoints);
+
+                gph18.sliderxLabel.innerHTML = "Shrinking along x by a factor <span class='p-lightOrange'>" + parseFloat(1/gph18.xscaling).toFixed(1) + "</span>"
+                gph18.slideryLabel.innerHTML = "Shrinking along y by a factor <span class='p-lightOrange'>" + parseFloat(1/gph18.yscaling).toFixed(1) + "</span>"
+
+            }
+
+            gph18.sliderx.addEventListener('input', function() {
+                gph18.updateShrinkingLineAnimation();
+            });
+
+            gph18.slidery.addEventListener('input', function() {
+                gph18.updateShrinkingLineAnimation();
+            });
+
+
+            
+            
+            // graph 19 : average distance simple problem
+            
+            gph19 = {}
+            gph19.setUpSimpleProblemAverageAnimation = function() {
+                gph19.graphH = document.getElementById('simple-problem-average-animation-graphHolder')
+                defaultGraphOptions["xmax"] = 1.1
+                defaultGraphOptions["ymax"] = 1.1
+                defaultGraphOptions["xmin"] = -0.1
+                defaultGraphOptions["ymin"] = -0.1
+                
+                viewX.addGraph(gph19.graphH, "simple-problem-average-animation-graph", defaultGraphOptions)
+
+                defaultGraphOptions["ymajorgridlinesvisibility"] = "no"
+                defaultGraphOptions["xmajorgridlinesvisibility"] = "no"
+
+                rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 2, rectcolor: "hsla(190, 100%, 50%, 0)", strokedasharray: "3, 4", opacity: 0.5};
+
+                viewX.addRectangle("simple-problem-average-animation-graph", "simple-problem-average-animation-unit-square", rectOptions);
+
+                pointOnSquare = pickAPointOnSquare([0.8, 0.6])
+
+
+                lineOptions = { x1: 1, y1: 0.5, x2: 1, y2: 1, strokewidth: 4, linecolor: "var(--brightYellow)", opacity: 0};
+                viewX.addLine("simple-problem-average-animation-graph", "simple-problem-average-animation-AB-line", lineOptions);
+
+                lineOptions = { x1: 1, y1: 0.5, x2: 1, y2: 0, strokewidth: 3.5, linecolor: "var(--lightGreen)", opacity: 0};
+                viewX.addLine("simple-problem-average-animation-graph", "simple-problem-average-animation-reflect1-line", lineOptions);
+
+                lineOptions = { x1: 0.5, y1: 0, x2: 1, y2: 0, strokewidth: 3, linecolor: "var(--brightYellow)", opacity: 0};
+                viewX.addLine("simple-problem-average-animation-graph", "simple-problem-average-animation-reflect2-line", lineOptions);
+
+                lineOptions = { x1: 0.5, y1: 0, x2: 0, y2: 0, strokewidth: 3, linecolor: "var(--lightGreen)", opacity: 0};
+                viewX.addLine("simple-problem-average-animation-graph", "simple-problem-average-animation-reflect3-line", lineOptions);
+
+                lineOptions = { x1: 0, y1: 0.5, x2: 0, y2: 0, strokewidth: 3, linecolor: "var(--brightYellow)", opacity: 0};
+                viewX.addLine("simple-problem-average-animation-graph", "simple-problem-average-animation-reflect4-line", lineOptions);
+
+                lineOptions = { x1: 0, y1: 0.5, x2: 0, y2: 1, strokewidth: 3, linecolor: "var(--lightGreen)", opacity: 0};
+                viewX.addLine("simple-problem-average-animation-graph", "simple-problem-average-animation-reflect5-line", lineOptions);
+
+                lineOptions = { x1: 0, y1: 1, x2: 0.5, y2: 1, strokewidth: 3, linecolor: "var(--brightYellow)", opacity: 0};
+                viewX.addLine("simple-problem-average-animation-graph", "simple-problem-average-animation-reflect6-line", lineOptions);
+
+                lineOptions = { x1: 1, y1: 1, x2: 0.5, y2: 1, strokewidth: 3, linecolor: "var(--lightGreen)", opacity: 0};
+                viewX.addLine("simple-problem-average-animation-graph", "simple-problem-average-animation-reflect7-line", lineOptions);
+
+
+                lineOptions = { x1: 0.5, y1: 0.5, x2: pointOnSquare[0], y2:pointOnSquare[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"};
+                viewX.addLine("simple-problem-average-animation-graph", "simple-problem-average-animation-distance-line", lineOptions);
+
+                pointOptions = { x: 0.5, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
+                viewX.addPoint("simple-problem-average-animation-graph", "simple-problem-average-animation-center-C", pointOptions);
+                textOptions = {x: 0.5 + 0.05, y: 0.5 - 0.08, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+                viewX.addText("simple-problem-average-animation-graph", "simple-problem-average-animation-center-C-label", textOptions);
+
+                pointOptions = { x: pointOnSquare[0], y: pointOnSquare[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("simple-problem-average-animation-graph", "simple-problem-average-animation-randomPoint-Q", pointOptions);
+                textOptions = {x: pointOnSquare[0] + 0.05, y: pointOnSquare[1] - 0.08, text: "Q",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+                viewX.addText("simple-problem-average-animation-graph", "simple-problem-average-animation-randomPoint-Q-label", textOptions);
+
+                pointOptions = { x: 1, y: 1, pointsize: upcApp.graphPointSize, pointcolor: 'white', opacity: 0};
+                viewX.addPoint("simple-problem-average-animation-graph", "simple-problem-average-animation-point-A", pointOptions);
+
+                textOptions = {x: 1 + 0.05, y: 1 - 0.08, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "white", opacity: 0};
+                viewX.addText("simple-problem-average-animation-graph", "simple-problem-average-animation-point-A-label", textOptions);
+
+                pointOptions = { x: 1, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'white', opacity: 0};
+                viewX.addPoint("simple-problem-average-animation-graph", "simple-problem-average-animation-point-B", pointOptions);
+
+                textOptions = {x: 1 + 0.05, y: 0.5 - 0.08, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "white", opacity: 0};
+                viewX.addText("simple-problem-average-animation-graph", "simple-problem-average-animation-point-B-label", textOptions);
+
+                textOptions = {x: 1 + 0.2, y: 0.5, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--writingGrey)", opacity: 0};
+                viewX.addText("simple-problem-average-animation-graph", "simple-problem-average-animation-unit-length-label", textOptions);
+
+                
+                var arrowOptions = {
+                    from: [1.15, 1],
+                    to: [1.15, 0],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0
+                };
+                arrow = viewX.addArrow("simple-problem-average-animation-graph", "simple-problem-average-animation-unit-length-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    from: [1.15, 0],
+                    to: [1.15, 1],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0
+                };
+                arrow = viewX.addArrow("simple-problem-average-animation-graph", "simple-problem-average-animation-unit-length-arrow-2", arrowOptions);
+
+                viewX.addAnimation("simple-problem-average-animation", gph19.sliderAnimationOptions)
+            }
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(10, 0%, 20%, 0.7)",
+                trackFillColor: "white",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "white",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "simple-problem-average-animation-Slider");
+
+            gph19.slider = document.getElementById("simple-problem-average-animation-Slider");
+            gph19.sliderLabel = document.getElementById("simple-problem-average-animation-SliderInfo");
+
+            gph19.sliderAnimationOptions = {}
+
+            gph19.sliderAnimationOptions.keyframes = {
+                "1" : {
+                    "ob0" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect1-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob1" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect2-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob2" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect3-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob3" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect4-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob4" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect5-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob5" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect6-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob6" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect7-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob7" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-AB-line', 
+                        'options': { opacity: 0}
+                    }
+                },
+                "2" : {
+                    "ob0" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect1-line', 
+                        'options': { opacity: 1}
+                    },
+                    "ob2" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect3-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob4" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect5-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob6" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect7-line', 
+                        'options': { opacity: 0}
+                    }
+                },
+                "3" : {
+                    "ob0" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect1-line', 
+                        'options': { opacity: 1}
+                    },
+                    "ob1" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect3-line', 
+                        'options': { opacity: 1}
+                    },
+                    "ob2" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect5-line', 
+                        'options': { opacity: 1}
+                    },
+                    "ob3" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect7-line', 
+                        'options': { opacity: 1}
+                    },
+                    "ob4" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect2-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob5" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect4-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob6" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect6-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob7" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-AB-line', 
+                        'options': { opacity: 0}
+                    }
+                },
+                "4" : {
+                    "ob0" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect2-line', 
+                        'options': { opacity: 1}
+                    },
+                    "ob2" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect4-line', 
+                        'options': { opacity: 1}
+                    },
+                    "ob4" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect6-line', 
+                        'options': { opacity: 1}
+                    },
+                    "ob6" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-AB-line', 
+                        'options': { opacity: 1}
+                    },
+                    "ob7": {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-unit-square', 
+                        'options': { opacity: 1}
+                    }
+                },
+                "5" : {
+                    "ob7": {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-unit-square', 
+                        'options': { opacity: 0}
+                    }
+                },
+                "6" : {
+                    "ob0" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect2-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob2" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect4-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob4" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect6-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob6" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-AB-line', 
+                        'options': { opacity: 1}
+                    }
+                },
+                "7" : {
+                    "ob0" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect7-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob2" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect3-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob4" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect5-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob6" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect1-line', 
+                        'options': { opacity: 1}
+                    }
+                },
+                "8" : {
+                    "ob6" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-reflect1-line', 
+                        'options': { opacity: 0}
+                    },
+                    "ob0" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-point-B', 
+                        'options': { opacity: 0}
+                    },
+                    "ob1" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-point-B-label', 
+                        'options': { opacity: 0}
+                    },
+                    "ob2" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-point-A', 
+                        'options': { opacity: 0}
+                    },
+                    "ob3" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-point-A-label', 
+                        'options': { opacity: 0}
+                    }
+                },
+                "9" : {
+                    "ob0" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-point-B', 
+                        'options': { opacity: 1}
+                    },
+                    "ob1" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-point-B-label', 
+                        'options': { opacity: 1}
+                    },
+                    "ob2" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-point-A', 
+                        'options': { opacity: 1}
+                    },
+                    "ob3" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-point-A-label', 
+                        'options': { opacity: 1}
+                    },
+                    "ob4" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-unit-length-arrow-1', 
+                        'options': { opacity: 0}
+                    },
+                    "ob5" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-unit-length-arrow-2', 
+                        'options': { opacity: 0}
+                    },
+                    "ob6" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-unit-length-label', 
+                        'options': { opacity: 0, text: "1", x: 1.1 + 0.2, y: 0.5}
+                    }
+
+                },
+                "10": {
+                    "ob4" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-unit-length-arrow-1', 
+                        'options': { opacity: 1, from: [1.2, 0], to: [1.2, 1]}
+                    },
+                    "ob5" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-unit-length-arrow-2', 
+                        'options': { opacity: 1, from: [1.2, 1], to: [1.2, 0]}
+                    },
+                    "ob6" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-unit-length-label', 
+                        'options': { opacity: 1, text: "0.5", x: 1.1 + 0.2, y: 0.75}
+                    }
+                },
+                "11": {
+                    "ob4" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-unit-length-arrow-1', 
+                        'options': { opacity: 1, from: [1.2, 0.5], to: [1.2, 1]}
+                    },
+                    "ob5" : {
+                        'graph': 'simple-problem-average-animation-graph',
+                        'object': 'simple-problem-average-animation-unit-length-arrow-2', 
+                        'options': { opacity: 1, from: [1.2, 1], to: [1.2, 0.5]}
+                    }
+                }
+            }
+
+            
+
+            gph19.messageOfSteps = [
+                    'Shall we begin? :)',
+                    'The initial problem. Average distance between point C and point Q on the perimeter.',
+                    'Consider this <span class="p-lightGreen">set of possible cases</span> ',
+                    'These are all <span class="p-lightGreen">similar pieces</span>, the average of one of them is the average of all of them.',
+                    'These are all <span class="p-brightYellow">similar pieces</span>, the average of one of them is the average of all of them.',
+                    'Consider the <span class="p-brightYellow">yellow pieces</span>, since the average is the same, we can ignore all of them and just consider one of them. ',
+                    'Average of <span class="p-brightYellow">126</span> instead of <span class="p-brightYellow">126126126</span>.',
+                    'The same thing can be done with the other <span class="p-lightGreen">symmetric segments</span>. Average of <span class="p-lightGreen">126</span> instead of <span class="p-lightGreen">126126126</span>.',
+                    'In fact, the <span class="p-lightGreen">green</span> and <span class="p-brightYellow">yellow</span> segments have the same average and we can keep only the <span class="p-brightYellow">yellow</span> segment in the calculation of average.',
+                    'Now we have a simpler problem. What is the average distance between the point C and a point on the <span class="p-brightYellow">line AB</span>?',
+                    'Now we have a simpler problem. What is the average distance between the point C and a point on the <span class="p-brightYellow">line AB</span>... of length 0.5?',
+                    'What is the average distance between a point and a point on the <span class="p-brightYellow">line</span>... of length 0.5?',
+                    'What is the average distance between a point and a point on the <span class="p-brightYellow">line</span>... of length 0.5?'
+                ]
+
+            
+            gph19.slider.addEventListener('input', function() {
+                gph19.sliderLabel.innerHTML = gph19.messageOfSteps[parseInt(gph19.slider.value)]
+                viewX.playAnimationToFrame('simple-problem-average-animation', parseInt(gph19.slider.value), 1)
+            });
+
+            function pauseAutoplaygph19() {
+                clearInterval(gph19.interval);
+            }
+
+            gph19.slider.addEventListener('mouseover', pauseAutoplaygph19);
+            gph19.slider.addEventListener('touchstart', pauseAutoplaygph19);
+
+            gph19.nextValue = function() {
+                gph19.slider.value = parseInt(gph19.slider.value) + 1
+                if (gph19.slider.value == gph19.slider.max) {
+                    gph19.slider.value = 1
+                }
+                gph19.sliderLabel.innerHTML = gph19.messageOfSteps[parseInt(gph19.slider.value)]
+                viewX.playAnimationToFrame('simple-problem-average-animation', parseInt(gph19.slider.value), 2)
+            }
 
             
 
