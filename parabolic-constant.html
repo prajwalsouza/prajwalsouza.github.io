@@ -6205,17 +6205,17 @@
 
                 for (p = 0; p < gph25.numberOfPoints; p++) {
                     pointPlacement = [1, 0.5 + p*(0.5/(gph25.numberOfPoints - 1))]
-                    lineOptions = { x1: 0.5, y1: 0.5, x2: pointPlacement[0], y2: pointPlacement[1], strokedasharray: "2,2", strokewidth: 0.7, linecolor: "var(--lightPink)"};
+                    lineOptions = { x1: 0.5, y1: 0.5, x2: pointPlacement[0], y2: pointPlacement[1], strokedasharray: "2,2", strokewidth: 0.7, linecolor: "var(--lightPink)", opacity: 0.5};
                     viewX.addLine("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-distance-line-" + (p + 1), lineOptions);
 
                     pointOptions = { x: pointPlacement[0], y: pointPlacement[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPink)', opacity: 1};
                     viewX.addPoint("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-" + (p + 1), pointOptions);
 
-                    textOptions = {x: pointPlacement[0] + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: pointPlacement[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "Q" + (p + 1),  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.8, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 1};
+                    textOptions = {x: pointPlacement[0] + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: pointPlacement[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "Q" + (p + 1),  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.8, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 0.5};
                     viewX.addText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-label-" + (p + 1), textOptions);
 
                 
-                    textOptions = {x: (pointPlacement[0] + 0.5)/2 - 0.1*upcApp.parabolicCircleGraph["point-label-gap"], y: (pointPlacement[1] + 0.5)/2 + 0.1*upcApp.parabolicCircleGraph["point-label-gap"], text: (viewX.distF(pointPlacement, [0.5, 0.5])*2).toFixed(2),  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)", opacity: 1};
+                    textOptions = {x: (pointPlacement[0] + 0.5)/2 - 0.1*upcApp.parabolicCircleGraph["point-label-gap"], y: (pointPlacement[1] + 0.5)/2 + 0.1*upcApp.parabolicCircleGraph["point-label-gap"], text: (viewX.distF(pointPlacement, [0.5, 0.5])*2).toFixed(2),  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)", opacity: 0.5};
                     viewX.addText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-distance-text-label-" + (p + 1), textOptions);
                 }
 
@@ -6223,6 +6223,9 @@
 
 
                 gph25.animationGenerator(); 
+                pauseAutoplaygph25()
+
+                gph25.interval = setInterval(gph25.nextValue, 2000);
             }
 
             gph25.deleteAdditionalSetup = function() {
@@ -6313,10 +6316,15 @@
                         stem = stems[s]
                         frameNumber = frameNumber + 1
                         gph25.sliderAnimationOptions.keyframes[frameNumber.toString()] = {}
+
+                        opacityToSet = 0.5
+                        if (s == 0) {
+                            opacityToSet = 1
+                        }
                         gph25.sliderAnimationOptions.keyframes[frameNumber.toString()]["ob-" + k + "-" + s] = {
                             'graph': 'simple-problem-size1-n-point-graph',
                             'object': stems[s] + k.toString(), 
-                            'options': { opacity: 1}
+                            'options': { opacity: opacityToSet}
                         }
 
                         gph25.sliderAnimationOptions.keyframes[(frameNumber - 1).toString()]["ob-" + k + "-" + s] = {
@@ -6344,23 +6352,7 @@
                 }
             }
 
-            gph25.messageOfSteps = [
-                    'Shall we begin? :)',
-                    'Let\'s pick point B. ',
-                    'Let\'s pick point B. ',
-                    'It is at a distance of 1 unit from C. ',
-                    'CB = 1 ',
-                    'Now let\'s pick point E. ',
-                    'That\'s point E. ',
-                    'It is at a distance of sqaure root of 5..  divided by 2 from C. By Pythagoras theorem ',
-                    'So.. CE = 1.118...',
-                    'Now let\'s pick point A. ',
-                    'That\'s point A. ',
-                    'It is at a distance of sqaure root of 2 from C. By Pythagoras theorem ',
-                    'So.. CA = 1.414...'
-                ]
-
-
+            gph25.messageOfSteps = []
 
             gph25.slider.step = 1
             gph25.slider.min = 0
