@@ -2443,10 +2443,12 @@ viewX.removePath = function(graphname, pathname) {
 }
 
 viewX.removeArrow = function(graphname, arrowname) {
-	arrowElement = document.getElementById(graphname + '-arrow-' + arrowname)
-	arrowElement.outerHTML = "";
-	delete viewX.graphData[graphname].arrowData[arrowname]
-	delete viewX.graphData.objectType[arrowname]
+	if (typeof viewX.graphData[graphname].arrowData[arrowname] != 'undefined') {
+		arrowElement = document.getElementById(graphname + '-arrow-' + arrowname)
+		arrowElement.outerHTML = "";
+		delete viewX.graphData[graphname].arrowData[arrowname]
+		delete viewX.graphData.objectType[arrowname]
+	}
 }
 
 viewX.removeGraph = function(graphname) {

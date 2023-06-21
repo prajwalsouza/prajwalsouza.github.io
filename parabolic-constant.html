@@ -1299,6 +1299,38 @@
                         </div>
                     </div>
 
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-size1-n-point-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="1" value="0.5" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-n-point-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                
+                                <div>
+                                    <label id="simple-problem-size1-n-point-SliderInfo" class="p-White pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-n-point-Slider" style="min-width: 100px;" ></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="3" max="10" value="4" step="1"  class="commonSlider mb-3" id="simple-problem-size1-n-point-selection-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                
+                                <div>
+                                    <label id="simple-problem-size1-n-point-selection-SliderInfo" class="p-White pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-n-point-selection-Slider" style="min-width: 100px;" ></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     
                     <div class="w-100 pt-5 pb-5"></div>
                     <div class="w-100 pt-5 pb-5"></div>
@@ -1472,6 +1504,9 @@
 
                         gph24.setUpSimpleProblemSizeOneThreePoint();
                         gph24.interval = setInterval(gph24.nextValue, 2100);
+
+
+                        gph25.setUpSimpleProblemSizeOneNPoint();
 
                     }, 1000);
                     
@@ -6080,6 +6115,277 @@
                 }
                 gph24.sliderLabel.innerHTML = gph24.messageOfSteps[parseInt(gph24.slider.value)]
                 viewX.playAnimationToFrame('simple-problem-size1-3-point-animation', parseInt(gph24.slider.value), 2)
+            }
+
+
+            
+            // graph 25 : simple problem size 1 - n point
+
+            gph25 = {}
+            gph25.setUpSimpleProblemSizeOneNPoint = function() {
+                gph25.graphH = document.getElementById('simple-problem-size1-n-point-graphHolder')
+                defaultGraphOptions["xmax"] = 1.1
+                defaultGraphOptions["ymax"] = 1.1
+                defaultGraphOptions["xmin"] = 0.4
+                defaultGraphOptions["ymin"] = 0.4
+                
+                viewX.addGraph(gph25.graphH, "simple-problem-size1-n-point-graph", defaultGraphOptions)
+
+                defaultGraphOptions["ymajorgridlinesvisibility"] = "no"
+                defaultGraphOptions["xmajorgridlinesvisibility"] = "no"
+
+                rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 2, rectcolor: "hsla(190, 100%, 50%, 0)", strokedasharray: "3, 4", opacity: 0.05};
+
+                viewX.addRectangle("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-unit-square", rectOptions);
+
+                pointOnSquare = pickAPointOnSquare([0.8, 0.6])
+
+                lineOptions = { x1: 1, y1: 0.5, x2: 1, y2: 1, strokewidth: 4, linecolor: "var(--brightYellow)", opacity: 1};
+                viewX.addLine("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-AB-line", lineOptions);
+
+                pointOptions = { x: 0.5, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
+                viewX.addPoint("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-center-C", pointOptions);
+                textOptions = {x: 0.5 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+                viewX.addText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-center-C-label", textOptions);
+
+                var arrowOptions = {
+                    from: [1, 0.4],
+                    to: [0.5, 0.4],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-unit-length-bottom-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    from: [0.5, 0.4],
+                    to: [1, 0.4],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-unit-length-bottom-arrow-2", arrowOptions);
+
+                textOptions = {x: 0.75, y: 0.5 - 0.15, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--writingGrey)", opacity: 1};
+                viewX.addText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-unit-length-bottom-label", textOptions);
+
+                
+                gph25.additionalSetup();
+
+
+                
+
+            }
+
+            gph25.additionalSetup = function() {
+                gph25.numberOfPoints = parseInt(gph25.pointsNumberslider.value)
+                for (p = 1; p < gph25.numberOfPoints; p++) {
+
+                    textOptions = {x: 1 + 0.15, y: 0.5 + (p - 1)*(0.5/(gph25.numberOfPoints - 1)) + (0.25/(gph25.numberOfPoints - 1)), text: "1/" + (gph25.numberOfPoints - 1),  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--writingGrey)", opacity: 1};
+                    viewX.addText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-unit-length-side-label-" + p, textOptions);
+                    
+                    var arrowOptions = {
+                        from: [1.1, 0.5 + (p - 1)*(0.5/(gph25.numberOfPoints - 1))],
+                        to: [1.1, 0.5 + p*(0.5/(gph25.numberOfPoints - 1))],
+                        strokewidth: 0.4,
+                        arrowcolor: "var(--writingGrey)",
+                        opacity: 0.3
+                    };
+                    arrow = viewX.addArrow("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-unit-length-side-1st-arrow-" + p, arrowOptions);
+
+                    var arrowOptions = {
+                        from: [1.1, 0.5 + p*(0.5/(gph25.numberOfPoints - 1))],
+                        to: [1.1, 0.5 + (p - 1)*(0.5/(gph25.numberOfPoints - 1))],
+                        strokewidth: 0.4,
+                        arrowcolor: "var(--writingGrey)",
+                        opacity: 0.3
+                    };
+                    arrow = viewX.addArrow("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-unit-length-side-2nd-arrow-" + p, arrowOptions);
+                }
+
+                for (p = 0; p < gph25.numberOfPoints; p++) {
+                    pointPlacement = [1, 0.5 + p*(0.5/(gph25.numberOfPoints - 1))]
+                    lineOptions = { x1: 0.5, y1: 0.5, x2: pointPlacement[0], y2: pointPlacement[1], strokedasharray: "2,2", strokewidth: 0.7, linecolor: "var(--lightPink)"};
+                    viewX.addLine("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-distance-line-" + (p + 1), lineOptions);
+
+                    pointOptions = { x: pointPlacement[0], y: pointPlacement[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPink)', opacity: 1};
+                    viewX.addPoint("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-" + (p + 1), pointOptions);
+
+                    textOptions = {x: pointPlacement[0] + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: pointPlacement[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "Q" + (p + 1),  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.8, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 1};
+                    viewX.addText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-label-" + (p + 1), textOptions);
+
+                
+                    textOptions = {x: (pointPlacement[0] + 0.5)/2 - 0.1*upcApp.parabolicCircleGraph["point-label-gap"], y: (pointPlacement[1] + 0.5)/2 + 0.1*upcApp.parabolicCircleGraph["point-label-gap"], text: (viewX.distF(pointPlacement, [0.5, 0.5])*2).toFixed(2),  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)", opacity: 1};
+                    viewX.addText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-distance-text-label-" + (p + 1), textOptions);
+                }
+
+                gph25.pointsNumbersliderLabel.innerHTML = "Number of <span class='p-lightPink'>points</span>: " + gph25.pointsNumberslider.value
+
+
+                gph25.animationGenerator(); 
+            }
+
+            gph25.deleteAdditionalSetup = function() {
+                
+                gph25.numberOfPoints = parseInt(gph25.pointsNumberslider.value)
+
+                for (p = 1; p < parseInt(gph25.pointsNumberslider.max); p++) {
+                    viewX.removeText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-unit-length-side-label-" + p);
+                    viewX.removeArrow("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-unit-length-side-1st-arrow-" + p);
+                    viewX.removeArrow("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-unit-length-side-2nd-arrow-" + p);
+                }
+
+                for (p = 0; p < parseInt(gph25.pointsNumberslider.max); p++) {
+                    viewX.removeLine("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-distance-line-" + (p + 1));
+                    viewX.removePoint("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-" + (p + 1));
+                    viewX.removeText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-label-" + (p + 1));
+                    viewX.removeText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-distance-text-label-" + (p + 1));
+                }
+
+            }
+
+
+
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(280, 0%, 20%, 0.7)",
+                trackFillColor: "white",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "white",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "simple-problem-size1-n-point-Slider");
+
+            gph25.slider = document.getElementById("simple-problem-size1-n-point-Slider");
+            gph25.sliderLabel = document.getElementById("simple-problem-size1-n-point-SliderInfo")
+
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(280, 0%, 20%, 0.7)",
+                trackFillColor: "var(--lightPurple)",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "var(--lightPurple)",
+                opacity: 0.7
+            };
+            viewX.generateSliderStyles(sliderProperties, "simple-problem-size1-n-point-selection-Slider");
+
+            gph25.pointsNumberslider = document.getElementById("simple-problem-size1-n-point-selection-Slider");
+            gph25.pointsNumbersliderLabel = document.getElementById("simple-problem-size1-n-point-selection-SliderInfo")
+
+            gph25.pointsNumberslider.addEventListener('input', function() {
+                
+                gph25.deleteAdditionalSetup()
+                gph25.additionalSetup()
+            });
+
+            gph25.sliderAnimationOptions = {}
+
+            gph25.animationGenerator = function() {
+                stems = ["simple-problem-size1-n-point-", "simple-problem-size1-n-point-label-", "simple-problem-size1-n-point-distance-line-", "simple-problem-size1-n-point-distance-text-label-"]
+
+                gph25.sliderAnimationOptions.keyframes = {}
+
+                frameNumber = 0
+                
+                gph25.sliderAnimationOptions.keyframes[frameNumber.toString()] = {}
+                for (k = 1; k <= gph25.numberOfPoints; k++ ) {
+                    for (s = 0; s < stems.length; s++) {
+                        stem = stems[s]
+                        gph25.sliderAnimationOptions.keyframes[frameNumber.toString()]["ob-" + k + "-" + s] = {
+                            'graph': 'simple-problem-size1-n-point-graph',
+                            'object': stems[s] + k.toString(), 
+                            'options': { opacity: 0}
+                        }
+                    }
+                }
+
+                for (k = 1; k <= gph25.numberOfPoints; k++ ) {
+                    for (s = 0; s < stems.length; s++) {
+                        stem = stems[s]
+                        frameNumber = frameNumber + 1
+                        gph25.sliderAnimationOptions.keyframes[frameNumber.toString()] = {}
+                        gph25.sliderAnimationOptions.keyframes[frameNumber.toString()]["ob-" + k + "-" + s] = {
+                            'graph': 'simple-problem-size1-n-point-graph',
+                            'object': stems[s] + k.toString(), 
+                            'options': { opacity: 1}
+                        }
+
+                        gph25.sliderAnimationOptions.keyframes[(frameNumber - 1).toString()]["ob-" + k + "-" + s] = {
+                            'graph': 'simple-problem-size1-n-point-graph',
+                            'object': stems[s] + k.toString(), 
+                            'options': { opacity: 0}
+                        }
+                    }
+                }
+
+                gph25.slider.max = gph25.numberOfPoints*4  
+
+                viewX.addAnimation('simple-problem-size1-n-point-animation', gph25.sliderAnimationOptions)
+
+                gph25.messageOfSteps = []
+
+                gph25.messageOfSteps.push('Shall we begin? :)')
+
+                for (p = 1; p <= gph25.numberOfPoints; p++) {
+                    pointPlacement = [1, 0.5 + (p - 1)*(0.5/(gph25.numberOfPoints - 1))]
+                    gph25.messageOfSteps.push('Let\'s pick point <span class="p-lightPink">Q<sub>' + p + '</sub></span>. ')
+                    gph25.messageOfSteps.push('Let\'s pick point <span class="p-lightPink">Q<sub>' + p + '</sub></span>. ')
+                    gph25.messageOfSteps.push('It is at a distance of ' + (viewX.distF([0.5, 0.5], pointPlacement)*2).toFixed(2) + ' from C. ')
+                    gph25.messageOfSteps.push('CQ<sub>' + p + '</sub> = <span class="p-lightPink">' + (viewX.distF([0.5, 0.5], pointPlacement)*2).toFixed(2) + '</span> ')
+                }
+            }
+
+            gph25.messageOfSteps = [
+                    'Shall we begin? :)',
+                    'Let\'s pick point B. ',
+                    'Let\'s pick point B. ',
+                    'It is at a distance of 1 unit from C. ',
+                    'CB = 1 ',
+                    'Now let\'s pick point E. ',
+                    'That\'s point E. ',
+                    'It is at a distance of sqaure root of 5..  divided by 2 from C. By Pythagoras theorem ',
+                    'So.. CE = 1.118...',
+                    'Now let\'s pick point A. ',
+                    'That\'s point A. ',
+                    'It is at a distance of sqaure root of 2 from C. By Pythagoras theorem ',
+                    'So.. CA = 1.414...'
+                ]
+
+
+
+            gph25.slider.step = 1
+            gph25.slider.min = 0
+            gph25.slider.max = parseInt(gph25.pointsNumberslider.value)*4  
+
+
+            gph25.slider.addEventListener('input', function() {
+                gph25.sliderLabel.innerHTML = gph25.messageOfSteps[parseInt(gph25.slider.value)]
+                viewX.playAnimationToFrame('simple-problem-size1-n-point-animation', parseInt(gph25.slider.value), 1)
+            });
+
+            function pauseAutoplaygph25() {
+                clearInterval(gph25.interval);
+            }
+
+            gph25.slider.addEventListener('mouseover', pauseAutoplaygph25);
+            gph25.slider.addEventListener('touchstart', pauseAutoplaygph25);
+
+            gph25.nextValue = function() {
+                gph25.slider.value = parseInt(gph25.slider.value) + 1
+                if (gph25.slider.value == gph25.slider.max) {
+                    gph25.slider.value = 1
+                }
+                gph25.sliderLabel.innerHTML = gph25.messageOfSteps[parseInt(gph25.slider.value)]
+                viewX.playAnimationToFrame('simple-problem-size1-n-point-animation', parseInt(gph25.slider.value), 2)
             }
 
 
