@@ -1139,6 +1139,76 @@
                             </p>
                         </div>
                     </div>
+
+                    <div class="w-100 pl-4 pt-5 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p class="p-White" style="font-size: large; font-family: Raleway;">
+                                <b>The simpler problem</b>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                Now the bare bone of problem to solve is that If there is a line of height 0.5, standing at a distance of 0.5 from point C, what is the average distance between a point C and a point on the line?
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-description-size05-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                To make our calculations easier, let's lengthen the side of the square by 2, so the distance CB is 1. 
+                                So, now the problem is If there is a line of height 1, standing at a distance of 1 from point C, what is the average distance between a point C and a point on the line? 
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-description-size1-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                One approach to calculating average is to sweep through all possible cases. Add them and then divide by the number of points. If we take every single point on the line once, add the distances and divide by the number of points taken while calculating , that should work? But, how to take every single point while calculating the mean. There are infinitely many points here. Infinitely many cases.
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-size1-sweep-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <label id="simple-problem-size1-sweep-SliderLabel2" class="p-White pr-sm-1 pr-0" for="simple-problem-size1-sweep-Slider" style="min-width: 100px;" >B</label>
+                                <input type="range" min="0" max="1" value="0.5" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-sweep-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="simple-problem-size1-sweep-SliderLabel1" class="p-White pl-sm-1 pl-0" for="simple-problem-size1-sweep-Slider" style="min-width: 100px;" >A</label>
+                                <div>
+                                    <p id="simple-problem-size1-sweep-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
+                                        
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="w-100 pt-5 pb-5"></div>
                     <div class="w-100 pt-5 pb-5"></div>
@@ -1300,6 +1370,12 @@
                     setTimeout(function() {
                         gph19.setUpSimpleProblemAverageAnimation();
                         gph19.interval = setInterval(gph19.nextValue, 2100);
+
+                        gph20.setUpSimpleProblemPointFive();
+
+                        gph21.setUpSimpleProblemSizeOne();
+
+                        gph22.setUpSimpleProblemSizeOneSweep();
 
                     }, 1000);
                     
@@ -3037,8 +3113,6 @@
             gph8.slider.value = 2
             gph8.sliderLabel.innerHTML = gph8.slider.value
 
-            gph8.sliderLabel.innerHTML = gph8.slider.value
-            
             
             gph8.eraseParts = function() {
                 viewX.removeCircle("parabola-circle-compare-graph", "parabola-circle-compare-circle-dotted")
@@ -5104,6 +5178,356 @@
                 gph19.sliderLabel.innerHTML = gph19.messageOfSteps[parseInt(gph19.slider.value)]
                 viewX.playAnimationToFrame('simple-problem-average-animation', parseInt(gph19.slider.value), 2)
             }
+
+
+
+            // graph 20 : simple problem size 0.5
+
+            gph20 = {}
+            gph20.setUpSimpleProblemPointFive = function() {
+                gph20.graphH = document.getElementById('simple-problem-description-size05-graphHolder')
+                defaultGraphOptions["xmax"] = 1.1
+                defaultGraphOptions["ymax"] = 1.1
+                defaultGraphOptions["xmin"] = 0.4
+                defaultGraphOptions["ymin"] = 0.4
+                
+                viewX.addGraph(gph20.graphH, "simple-problem-description-size05-graph", defaultGraphOptions)
+
+                defaultGraphOptions["ymajorgridlinesvisibility"] = "no"
+                defaultGraphOptions["xmajorgridlinesvisibility"] = "no"
+
+                rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 2, rectcolor: "hsla(190, 100%, 50%, 0)", strokedasharray: "3, 4", opacity: 0.05};
+
+                viewX.addRectangle("simple-problem-description-size05-graph", "simple-problem-description-size05-unit-square", rectOptions);
+
+                pointOnSquare = pickAPointOnSquare([0.8, 0.6])
+
+                lineOptions = { x1: 1, y1: 0.5, x2: 1, y2: 1, strokewidth: 4, linecolor: "var(--brightYellow)", opacity: 1};
+                viewX.addLine("simple-problem-description-size05-graph", "simple-problem-description-size05-AB-line", lineOptions);
+
+                lineOptions = { x1: 0.5, y1: 0.5, x2: pointOnSquare[0], y2:pointOnSquare[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"};
+                viewX.addLine("simple-problem-description-size05-graph", "simple-problem-description-size05-distance-line", lineOptions);
+
+                pointOptions = { x: 0.5, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
+                viewX.addPoint("simple-problem-description-size05-graph", "simple-problem-description-size05-center-C", pointOptions);
+                textOptions = {x: 0.5 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+                viewX.addText("simple-problem-description-size05-graph", "simple-problem-description-size05-center-C-label", textOptions);
+
+                pointOptions = { x: pointOnSquare[0], y: pointOnSquare[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("simple-problem-description-size05-graph", "simple-problem-description-size05-randomPoint-Q", pointOptions);
+                textOptions = {x: pointOnSquare[0] + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: pointOnSquare[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "Q",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+                viewX.addText("simple-problem-description-size05-graph", "simple-problem-description-size05-randomPoint-Q-label", textOptions);
+
+                pointOptions = { x: 1, y: 1, pointsize: upcApp.graphPointSize, pointcolor: 'white', opacity: 1};
+                viewX.addPoint("simple-problem-description-size05-graph", "simple-problem-description-size05-point-A", pointOptions);
+
+                textOptions = {x: 1 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 1 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "white", opacity: 1};
+                viewX.addText("simple-problem-description-size05-graph", "simple-problem-description-size05-point-A-label", textOptions);
+
+                pointOptions = { x: 1, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'white', opacity: 1};
+                viewX.addPoint("simple-problem-description-size05-graph", "simple-problem-description-size05-point-B", pointOptions);
+
+                textOptions = {x: 1 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "white", opacity: 1};
+                viewX.addText("simple-problem-description-size05-graph", "simple-problem-description-size05-point-B-label", textOptions);
+
+                textOptions = {x: 1 + 0.15, y: 0.75, text: "0.5",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--brightYellow)", opacity: 1};
+                viewX.addText("simple-problem-description-size05-graph", "simple-problem-description-size05-unit-length-label", textOptions);
+
+                
+                var arrowOptions = {
+                    from: [1.1, 1],
+                    to: [1.1, 0.5],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-description-size05-graph", "simple-problem-description-size05-unit-length-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    from: [1.1, 0.5],
+                    to: [1.1, 1],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-description-size05-graph", "simple-problem-description-size05-unit-length-arrow-2", arrowOptions);
+
+                var arrowOptions = {
+                    from: [1, 0.4],
+                    to: [0.5, 0.4],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-description-size05-graph", "simple-problem-description-size05-unit-length2-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    from: [0.5, 0.4],
+                    to: [1, 0.4],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-description-size05-graph", "simple-problem-description-size05-unit-length2-arrow-2", arrowOptions);
+
+                textOptions = {x: 0.75, y: 0.5 - 0.15, text: "0.5",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--brightYellow)", opacity: 1};
+                viewX.addText("simple-problem-description-size05-graph", "simple-problem-description-size05-unit-length2-label", textOptions);
+
+
+            }
+
+
+            // graph 21 : simple problem size 1
+
+            gph21 = {}
+            gph21.setUpSimpleProblemSizeOne = function() {
+                gph21.graphH = document.getElementById('simple-problem-description-size1-graphHolder')
+                defaultGraphOptions["xmax"] = 1.1
+                defaultGraphOptions["ymax"] = 1.1
+                defaultGraphOptions["xmin"] = 0.4
+                defaultGraphOptions["ymin"] = 0.4
+                
+                viewX.addGraph(gph21.graphH, "simple-problem-description-size1-graph", defaultGraphOptions)
+
+                defaultGraphOptions["ymajorgridlinesvisibility"] = "no"
+                defaultGraphOptions["xmajorgridlinesvisibility"] = "no"
+
+                rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 2, rectcolor: "hsla(190, 100%, 50%, 0)", strokedasharray: "3, 4", opacity: 0.05};
+
+                viewX.addRectangle("simple-problem-description-size1-graph", "simple-problem-description-size1-unit-square", rectOptions);
+
+                pointOnSquare = pickAPointOnSquare([0.8, 0.6])
+
+                lineOptions = { x1: 1, y1: 0.5, x2: 1, y2: 1, strokewidth: 4, linecolor: "var(--brightYellow)", opacity: 1};
+                viewX.addLine("simple-problem-description-size1-graph", "simple-problem-description-size1-AB-line", lineOptions);
+
+                lineOptions = { x1: 0.5, y1: 0.5, x2: pointOnSquare[0], y2:pointOnSquare[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"};
+                viewX.addLine("simple-problem-description-size1-graph", "simple-problem-description-size1-distance-line", lineOptions);
+
+                pointOptions = { x: 0.5, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
+                viewX.addPoint("simple-problem-description-size1-graph", "simple-problem-description-size1-center-C", pointOptions);
+                textOptions = {x: 0.5 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+                viewX.addText("simple-problem-description-size1-graph", "simple-problem-description-size1-center-C-label", textOptions);
+
+                pointOptions = { x: pointOnSquare[0], y: pointOnSquare[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("simple-problem-description-size1-graph", "simple-problem-description-size1-randomPoint-Q", pointOptions);
+                textOptions = {x: pointOnSquare[0] + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: pointOnSquare[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "Q",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+                viewX.addText("simple-problem-description-size1-graph", "simple-problem-description-size1-randomPoint-Q-label", textOptions);
+
+                pointOptions = { x: 1, y: 1, pointsize: upcApp.graphPointSize, pointcolor: 'white', opacity: 1};
+                viewX.addPoint("simple-problem-description-size1-graph", "simple-problem-description-size1-point-A", pointOptions);
+
+                textOptions = {x: 1 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 1 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "white", opacity: 1};
+                viewX.addText("simple-problem-description-size1-graph", "simple-problem-description-size1-point-A-label", textOptions);
+
+                pointOptions = { x: 1, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'white', opacity: 1};
+                viewX.addPoint("simple-problem-description-size1-graph", "simple-problem-description-size1-point-B", pointOptions);
+
+                textOptions = {x: 1 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "white", opacity: 1};
+                viewX.addText("simple-problem-description-size1-graph", "simple-problem-description-size1-point-B-label", textOptions);
+
+                textOptions = {x: 1 + 0.15, y: 0.75, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--brightYellow)", opacity: 1};
+                viewX.addText("simple-problem-description-size1-graph", "simple-problem-description-size1-unit-length-label", textOptions);
+
+                
+                var arrowOptions = {
+                    from: [1.1, 1],
+                    to: [1.1, 0.5],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-description-size1-graph", "simple-problem-description-size1-unit-length-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    from: [1.1, 0.5],
+                    to: [1.1, 1],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-description-size1-graph", "simple-problem-description-size1-unit-length-arrow-2", arrowOptions);
+
+                var arrowOptions = {
+                    from: [1, 0.4],
+                    to: [0.5, 0.4],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-description-size1-graph", "simple-problem-description-size1-unit-length2-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    from: [0.5, 0.4],
+                    to: [1, 0.4],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-description-size1-graph", "simple-problem-description-size1-unit-length2-arrow-2", arrowOptions);
+
+                textOptions = {x: 0.75, y: 0.5 - 0.15, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--brightYellow)", opacity: 1};
+                viewX.addText("simple-problem-description-size1-graph", "simple-problem-description-size1-unit-length2-label", textOptions);
+
+
+            }
+
+
+            // graph 22 : simple problem size 1 sweep
+
+            gph22 = {}
+            gph22.setUpSimpleProblemSizeOneSweep = function() {
+                gph22.graphH = document.getElementById('simple-problem-size1-sweep-graphHolder')
+                defaultGraphOptions["xmax"] = 1.1
+                defaultGraphOptions["ymax"] = 1.1
+                defaultGraphOptions["xmin"] = 0.4
+                defaultGraphOptions["ymin"] = 0.4
+                
+                viewX.addGraph(gph22.graphH, "simple-problem-size1-sweep-graph", defaultGraphOptions)
+
+                defaultGraphOptions["ymajorgridlinesvisibility"] = "no"
+                defaultGraphOptions["xmajorgridlinesvisibility"] = "no"
+
+                rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 2, rectcolor: "hsla(190, 100%, 50%, 0)", strokedasharray: "3, 4", opacity: 0.05};
+
+                viewX.addRectangle("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-unit-square", rectOptions);
+
+                pointOnSquare = pickAPointOnSquare([0.8, 0.6])
+
+                lineOptions = { x1: 1, y1: 0.5, x2: 1, y2: 1, strokewidth: 4, linecolor: "var(--brightYellow)", opacity: 1};
+                viewX.addLine("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-AB-line", lineOptions);
+
+                lineOptions = { x1: 0.5, y1: 0.5, x2: pointOnSquare[0], y2:pointOnSquare[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"};
+                viewX.addLine("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-distance-line", lineOptions);
+
+                pointOptions = { x: 0.5, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
+                viewX.addPoint("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-center-C", pointOptions);
+                textOptions = {x: 0.5 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+                viewX.addText("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-center-C-label", textOptions);
+
+
+
+                pointOptions = { x: 1, y: 1, pointsize: upcApp.graphPointSize, pointcolor: 'white', opacity: 1};
+                viewX.addPoint("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-point-A", pointOptions);
+
+                textOptions = {x: 1 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 1 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "white", opacity: 1};
+                viewX.addText("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-point-A-label", textOptions);
+
+                pointOptions = { x: 1, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'white', opacity: 1};
+                viewX.addPoint("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-point-B", pointOptions);
+
+                textOptions = {x: 1 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "white", opacity: 1};
+                viewX.addText("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-point-B-label", textOptions);
+
+                textOptions = {x: 1 + 0.15, y: 0.75, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--brightYellow)", opacity: 1};
+                viewX.addText("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-unit-length-label", textOptions);
+
+                
+                var arrowOptions = {
+                    from: [1.1, 1],
+                    to: [1.1, 0.5],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-unit-length-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    from: [1.1, 0.5],
+                    to: [1.1, 1],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-unit-length-arrow-2", arrowOptions);
+
+                var arrowOptions = {
+                    from: [1, 0.4],
+                    to: [0.5, 0.4],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-unit-length2-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    from: [0.5, 0.4],
+                    to: [1, 0.4],
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--writingGrey)",
+                    opacity: 0.3
+                };
+                arrow = viewX.addArrow("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-unit-length2-arrow-2", arrowOptions);
+
+                textOptions = {x: 0.75, y: 0.5 - 0.15, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--brightYellow)", opacity: 1};
+                viewX.addText("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-unit-length2-label", textOptions);
+
+
+                pointOptions = { x: pointOnSquare[0], y: pointOnSquare[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-randomPoint-Q", pointOptions);
+                textOptions = {x: pointOnSquare[0] + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: pointOnSquare[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "Q",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+                viewX.addText("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-randomPoint-Q-label", textOptions);
+
+                textOptions = {x: (pointOnSquare[0] + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (pointOnSquare[1] + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 1};
+                viewX.addText("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-distance-text-label", textOptions);
+
+                gph22.y = viewX.linearValue(0, 1, 0.5, 1, parseFloat(gph22.slider.value))
+                gph22.point = [1, gph22.y]
+                gph22.distanceValue = 2*viewX.distF([0.5, 0.5], gph22.point)
+
+                gph22.sliderLabel.innerHTML = "At point <span class='p-lightPurple'>Q</span>, giving us the case of distance <span class='p-lightPink'>" + gph22.distanceValue.toFixed(3) + "</span>. Ofcourse, we need to go through all cases."
+
+                viewX.updatePointXY("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-randomPoint-Q", gph22.point[0], gph22.point[1]);
+
+                textOptions = {x: gph22.point[0] + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: gph22.point[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2};
+                viewX.updateText("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-randomPoint-Q-label", textOptions);
+
+
+                lineOptions = { x1: 0.5, y1: 0.5, x2: gph22.point[0], y2:gph22.point[1]};
+                viewX.updateLine("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-distance-line", lineOptions);
+
+                textOptions = {x: (gph22.point[0] + 0.5)/2 - 0.1*upcApp.parabolicCircleGraph["point-label-gap"], y: (gph22.point[1] + 0.5)/2  + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], text: gph22.distanceValue.toFixed(3)};
+                viewX.updateText("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-distance-text-label", textOptions);
+
+            }
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(280, 0%, 20%, 0.7)",
+                trackFillColor: "var(--lightPurple)",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "var(--lightPurple)",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "simple-problem-size1-sweep-Slider");
+
+            gph22.slider = document.getElementById("simple-problem-size1-sweep-Slider");
+            gph22.sliderLabel = document.getElementById("simple-problem-size1-sweep-SliderInfo")
+
+            gph22.slider.addEventListener('input', function() {
+                gph22.y = viewX.linearValue(0, 1, 0.5, 1, parseFloat(gph22.slider.value))
+                gph22.point = [1, gph22.y]
+                gph22.distanceValue = 2*viewX.distF([0.5, 0.5], gph22.point)
+
+                gph22.sliderLabel.innerHTML = "At point <span class='p-lightPurple'>Q</span>, giving us the case of distance <span class='p-lightPink'>" + gph22.distanceValue.toFixed(3) + "</span>. Ofcourse, we need to go through all cases."
+
+                viewX.updatePointXY("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-randomPoint-Q", gph22.point[0], gph22.point[1]);
+
+                textOptions = {x: gph22.point[0] + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: gph22.point[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2};
+                viewX.updateText("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-randomPoint-Q-label", textOptions);
+
+
+                lineOptions = { x1: 0.5, y1: 0.5, x2: gph22.point[0], y2:gph22.point[1]};
+                viewX.updateLine("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-distance-line", lineOptions);
+
+                textOptions = {x: (gph22.point[0] + 0.5)/2 - 0.1*upcApp.parabolicCircleGraph["point-label-gap"], y: (gph22.point[1] + 0.5)/2  + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], text: gph22.distanceValue.toFixed(3)};
+                viewX.updateText("simple-problem-size1-sweep-graph", "simple-problem-size1-sweep-distance-text-label", textOptions);
+                
+            });
 
             
 
