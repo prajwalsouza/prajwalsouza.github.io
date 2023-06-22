@@ -2232,165 +2232,176 @@
             upcApp.revealSection = function() {
                 upcApp.revealPoint = upcApp.revealPoint + 1
                 toRevealElements = document.getElementsByClassName('reveal-' + upcApp.revealPoint)
-                document.getElementById('reveal-' + upcApp.revealPoint + "-continueButton").style.display = "none";
 
-                upcApp.revealGap = 10
-
-                if (upcApp.revealPoint == 1) {
-                    setTimeout(function() {
-                        upcApp.chooseSection(1, 1);
-                        gph5.setUpShrinkingRandomWalk();
-                        gph5.interval = setInterval(gph5.nextValue, 1000);
-                        gph6.setUpShrinkingRandomWalkTrials()
-                        // gph5.setAtValue(6)
-
-                        gph6.addNewWalk()
-                        gph6.addNewWalk()
-                        // gph6.addNewWalk()
-                    }, 1000);
+                if (toRevealElements.length == 0) {
+                    return
                 }
-                else if (upcApp.revealPoint == 2) {
-                    setTimeout(function() {
-                        gph7.setUpShrinkingRandomWalkReveal()
-                        gph8.setUpParabolaCircleCompare()
-                        gph9.setUpParabolicPointsDescription([0, 1], [-5, 0], [4, -1])
-                        gph9.interval = setInterval(gph9.nextValue, 1000);
+                else {
+                    document.getElementById('reveal-' + upcApp.revealPoint + "-continueButton").style.display = "none";
 
-                        gph10.setUpParabolicDescriptionGraph()
-                        gph10.interval = setInterval(gph10.nextValue, 2100);
+                    upcApp.revealGap = 10
 
-                        gph11.setUpParabolicIncreasingSlope()
-
-                        gph12.setUpCuttingRibbon()
-
-                        gph13.setUpCuttingRibbonAnimation();
-
-                        gph13.interval = setInterval(gph13.nextValue, 2100);
-
-                        gph14.setUpShrinkingRibbonAnimation();
-
-                        gph14.interval = setInterval(gph14.nextValue, 2100);
-
-                        gph15.setUpShrinkingLine();
-
-                        gph16.setUpShrinkingLineAnimation();
-                        gph17.setUpShrinkingCurve();
-
-                        gph18.setUpShrinkingCurveAnimation();
-
-                    }, 1000);
-                    
-                }
-                else if (upcApp.revealPoint == 3) {
-                    setTimeout(function() {
-                        gph19.setUpSimpleProblemAverageAnimation();
-                        gph19.interval = setInterval(gph19.nextValue, 2100);
-
-                        gph20.setUpSimpleProblemPointFive();
-
-                        gph21.setUpSimpleProblemSizeOne();
-
-                        gph22.setUpSimpleProblemSizeOneSweep();
-
-                        gph23.setUpSimpleProblemSizeOneTwoPoint();
-                        gph23.interval = setInterval(gph23.nextValue, 2100);
-
-                        gph24.setUpSimpleProblemSizeOneThreePoint();
-                        gph24.interval = setInterval(gph24.nextValue, 2100);
-
-
-                        gph25.setUpSimpleProblemSizeOneNPoint();
-
-                        gph26.setUpSimpleProblemSizeOneTwoPointAdding();
-                        gph26.interval = setInterval(gph26.nextValue, 2100);
-
-                    }, 1000);
-                    
-                }
-                else if (upcApp.revealPoint == 4) {
-                    setTimeout(function() {
-                        gph26.selectedMenu = "Scale"
-                        gph26.handleMenuSelect();
-
-                        gph26.slider.value = gph26.slider.max
-                        gph26.nextValue();
-                    }, 1000);
-                    
-                }
-                else if (upcApp.revealPoint == 5) {
-                    setTimeout(function() {
-
-                        gph27.setUpSimpleProblemSizeOneThreePointAdding();
-                        gph27.interval = setInterval(gph27.nextValue, 2100);
-
-                    }, 1000);
-                    
-                }
-                else if (upcApp.revealPoint == 6) {
-                    setTimeout(function() {
-
-                        gph27.selectedMenu = "Scale"
-                        gph27.handleMenuSelect();
-
-                        gph27.slider.value = gph27.slider.max
-                        gph27.nextValue();
-
-                    }, 1000);
-                    
-                }
-                else if (upcApp.revealPoint == 7) {
-                    setTimeout(function() {
-
-                        gph28.setUpSimpleProblemSizeOneFourPointAdding();
-                        gph28.interval = setInterval(gph28.nextValue, 2100);
-
-                    }, 1000);
-                    
-                }
-                else if (upcApp.revealPoint == 8) {
-                    setTimeout(function() {
-
-                        gph28.selectedMenu = "Add"
-                        gph28.handleMenuSelect();
-
-                        // gph28.slider.value = gph28.slider.max
-                        gph28.nextValue();
-
-                    }, 1000);
-                    
-                }
-                else if (upcApp.revealPoint == 9) {
-                    setTimeout(function() {
-
-                        gph29.setUpSimpleProblemSizeOneNPointAdding();
-                        gph29.interval = setInterval(gph29.nextValue, 2100);
-
-                    }, 1000);
-                    
-                }
-                else if (upcApp.revealPoint == 10) {
-                    setTimeout(function() {
-
-                        gph29.selectedMenu = "Add"
-                        gph29.handleMenuSelect();
-
-                        // gph29.slider.value = gph29.slider.max
-                        gph29.nextValue();
-
-                    }, 1000);
-                    
-                }
-
-                for (i = 0; i < toRevealElements.length; i++) {
-                    (function(index) {
-                        toRevealElements[index].classList.remove("hidden-element");
+                    if (upcApp.revealPoint == 1) {
                         setTimeout(function() {
-                            toRevealElements[index].style.opacity = 1;
-                            if (index == 0) {
-                                toRevealElements[index].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
-                            }
-                        }, 50 + index*upcApp.revealGap);
-                    })(i);
+                            upcApp.chooseSection(1, 1);
+                            gph5.setUpShrinkingRandomWalk();
+                            gph5.interval = setInterval(gph5.nextValue, 1000);
+                            gph6.setUpShrinkingRandomWalkTrials()
+                            // gph5.setAtValue(6)
+
+                            gph6.addNewWalk()
+                            gph6.addNewWalk()
+                            // gph6.addNewWalk()
+                        }, 1000);
+                    }
+                    else if (upcApp.revealPoint == 2) {
+                        setTimeout(function() {
+                            gph7.setUpShrinkingRandomWalkReveal()
+                            gph8.setUpParabolaCircleCompare()
+                            gph9.setUpParabolicPointsDescription([0, 1], [-5, 0], [4, -1])
+                            gph9.interval = setInterval(gph9.nextValue, 1000);
+
+                            gph10.setUpParabolicDescriptionGraph()
+                            gph10.interval = setInterval(gph10.nextValue, 2100);
+
+                            gph11.setUpParabolicIncreasingSlope()
+
+                            gph12.setUpCuttingRibbon()
+
+                            gph13.setUpCuttingRibbonAnimation();
+
+                            gph13.interval = setInterval(gph13.nextValue, 2100);
+
+                            gph14.setUpShrinkingRibbonAnimation();
+
+                            gph14.interval = setInterval(gph14.nextValue, 2100);
+
+                            gph15.setUpShrinkingLine();
+
+                            gph16.setUpShrinkingLineAnimation();
+                            gph17.setUpShrinkingCurve();
+
+                            gph18.setUpShrinkingCurveAnimation();
+
+                        }, 1000);
+                        
+                    }
+                    else if (upcApp.revealPoint == 3) {
+                        setTimeout(function() {
+                            gph19.setUpSimpleProblemAverageAnimation();
+                            gph19.interval = setInterval(gph19.nextValue, 2100);
+
+                            gph20.setUpSimpleProblemPointFive();
+
+                            gph21.setUpSimpleProblemSizeOne();
+
+                            gph22.setUpSimpleProblemSizeOneSweep();
+
+                            gph23.setUpSimpleProblemSizeOneTwoPoint();
+                            gph23.interval = setInterval(gph23.nextValue, 2100);
+
+                            gph24.setUpSimpleProblemSizeOneThreePoint();
+                            gph24.interval = setInterval(gph24.nextValue, 2100);
+
+
+                            gph25.setUpSimpleProblemSizeOneNPoint();
+
+                            gph26.setUpSimpleProblemSizeOneTwoPointAdding();
+                            gph26.interval = setInterval(gph26.nextValue, 2100);
+
+                        }, 1000);
+                        
+                    }
+                    else if (upcApp.revealPoint == 4) {
+                        setTimeout(function() {
+                            gph26.selectedMenu = "Scale"
+                            gph26.handleMenuSelect();
+
+                            gph26.slider.value = gph26.slider.max
+                            gph26.nextValue();
+                        }, 1000);
+                        
+                    }
+                    else if (upcApp.revealPoint == 5) {
+                        setTimeout(function() {
+
+                            gph27.setUpSimpleProblemSizeOneThreePointAdding();
+                            gph27.interval = setInterval(gph27.nextValue, 2100);
+
+                        }, 1000);
+                        
+                    }
+                    else if (upcApp.revealPoint == 6) {
+                        setTimeout(function() {
+
+                            gph27.selectedMenu = "Scale"
+                            gph27.handleMenuSelect();
+
+                            gph27.slider.value = gph27.slider.max
+                            gph27.nextValue();
+
+                        }, 1000);
+                        
+                    }
+                    else if (upcApp.revealPoint == 7) {
+                        setTimeout(function() {
+
+                            gph28.setUpSimpleProblemSizeOneFourPointAdding();
+                            // gph28.interval = setInterval(gph28.nextValue, 2100);
+
+                        }, 1000);
+                        
+                    }
+                    else if (upcApp.revealPoint == 8) {
+                        setTimeout(function() {
+
+                            gph28.selectedMenu = "Add"
+                            gph28.handleMenuSelect();
+
+                            // gph28.slider.value = gph28.slider.max
+                            gph28.nextValue();
+
+                        }, 1000);
+                        
+                    }
+                    else if (upcApp.revealPoint == 9) {
+                        setTimeout(function() {
+
+                            gph29.setUpSimpleProblemSizeOneNPointAdding();
+                            // gph29.interval = setInterval(gph29.nextValue, 2100);
+
+                        }, 1000);
+                        
+                    }
+                    else if (upcApp.revealPoint == 10) {
+                        setTimeout(function() {
+
+                            gph29.selectedMenu = "Add"
+                            gph29.handleMenuSelect();
+
+                            // gph29.slider.value = gph29.slider.max
+                            gph29.nextValue();
+
+                        }, 1000);
+                        
+                    }
+
+                    for (i = 0; i < toRevealElements.length; i++) {
+                        (function(index) {
+                            toRevealElements[index].classList.remove("hidden-element");
+                            setTimeout(function() {
+                                if (toRevealElements[index] != null) {
+                                    toRevealElements[index].style.opacity = 1;
+                                    if (index == 0) {
+                                        
+                                        toRevealElements[index].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+                                    }
+                                }
+                                
+                            }, 50 + index*upcApp.revealGap);
+                        })(i);
+                    }
+
                 }
 
             }
