@@ -2235,8 +2235,14 @@ viewX.updateRectangle = function(graphname, rectname, rectvalueupdate) {
 	rectoptions.rectcolor = rectvalueupdate.rectcolor || rectoptions.rectcolor
 	rectoptions.strokedasharray = rectvalueupdate.strokedasharray || rectoptions.strokedasharray
 
+	if (rectvalueupdate.opacity != 0) {
+		rectoptions.opacity = rectvalueupdate.opacity || rectoptions.opacity
+	}
+	else {
+		rectoptions.opacity = rectvalueupdate.opacity
+	}
 
-	rectoptions.opacity = rectvalueupdate.opacity || rectoptions.opacity
+	
 
 	rx = viewX.distanceBTWgraphToSvg([0,0],[rectoptions.w, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
 	ry = viewX.distanceBTWgraphToSvg([0,0],[0, rectoptions.h], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)

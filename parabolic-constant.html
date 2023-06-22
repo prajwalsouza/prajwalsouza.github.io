@@ -1712,7 +1712,7 @@
                         gph25.setUpSimpleProblemSizeOneNPoint();
 
                         gph26.setUpSimpleProblemSizeOneTwoPointAdding();
-                        gph26.interval = setInterval(gph26.nextValue, 2100);
+                        // gph26.interval = setInterval(gph26.nextValue, 2100);
 
                     }, 1000);
                     
@@ -6608,15 +6608,61 @@
 
 
             
-            // graph 26 : simple problem size 1 - two point - adding
+            // graph 26 : simple problem size 1 - two point
 
             gph26 = {}
+            gph26.samples = {}
+
+            gph26.generateSampleData = function(numberOfSamples, center=[0, 0], sideLength=2 ) {
+
+                condition = {}
+
+                // Picking Samples
+
+                condition.samples = {}
+                condition.globalValues = {}
+                condition.globalValues.center = center
+                condition.globalValues.sideLength = sideLength
+                condition.globalValues.numberOfSamples = numberOfSamples
+                condition.globalValues.distanceBetweenSamples = 0.5*sideLength/(numberOfSamples - 1)
+
+                for (sm = 0; sm < numberOfSamples; sm++) {
+                    condition.samples[sm] = {}
+                    condition.samples[sm].point = viewX.addVec(viewX.addVec(center, [sideLength/2, 0]), [0, condition.globalValues.distanceBetweenSamples*sm])
+
+                    condition.samples[sm].name = "Q" + (sm + 1)
+                    condition.samples[sm].color = "var(--lightGreen)"
+                    if (sm % 2 == 0) {
+                        condition.samples[sm].color = "var(--lightPink)"
+                    }
+                   
+                    condition.samples[sm].distanceLabel = viewX.distF(center, condition.samples[sm].point).toFixed(2)
+                }
+
+                // On Addition, where the lines go to. 
+
+                pointVector = center
+                for (sm = 0; sm < numberOfSamples; sm++) {
+                    pointVector = viewX.addVec(pointVector,  viewX.subtractVec(condition.samples[sm].point, center))
+                    condition.samples[sm].pointOnAddition = pointVector
+                }
+
+                // Final point locations
+
+                for (sm = 0; sm < numberOfSamples; sm++) {
+                    condition.samples[sm].finalPoint = viewX.addVec(center, viewX.scalarMultiplyVec(1/numberOfSamples, viewX.subtractVec(condition.samples[sm].pointOnAddition, center)))
+                }
+
+                return Object.assign({}, condition)
+            }
+
+
             gph26.setUpSimpleProblemSizeOneTwoPointAdding = function() {
                 gph26.graphH = document.getElementById('simple-problem-size1-2-point-adding-graphHolder')
-                defaultGraphOptions["xmax"] = 1.5
-                defaultGraphOptions["ymax"] = 1.1
-                defaultGraphOptions["xmin"] = 0.4
-                defaultGraphOptions["ymin"] = 0.4
+                defaultGraphOptions["xmax"] = 2 + 0.1
+                defaultGraphOptions["ymax"] = 2 + 0.1
+                defaultGraphOptions["xmin"] = 1 - 0.1
+                defaultGraphOptions["ymin"] = 1 - 0.1
                 
                 viewX.addGraph(gph26.graphH, "simple-problem-size1-2-point-adding-graph", defaultGraphOptions)
 
@@ -6629,25 +6675,26 @@
 
                 pointOnSquare = pickAPointOnSquare([0.8, 0.6])
 
-                lineOptions = { x1: 1, y1: 0.5, x2: 1, y2: 1, strokewidth: 4, linecolor: "var(--brightYellow)", opacity: 0.5};
+                lineOptions = { x1: 2, y1: 1, x2: 2, y2: 2, strokewidth: 4, linecolor: "var(--brightYellow)", opacity: 0.5};
                 viewX.addLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-AB-line", lineOptions);
 
-                pointOptions = { x: 0.5, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)', opacity: 1};
+                pointOptions = { x: 1, y: 1, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)', opacity: 1};
                 viewX.addPoint("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-center-C", pointOptions);
-                textOptions = {x: 0.5 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)", opacity: 0.4};
+
+                textOptions = {x: 1 + 0.4*upcApp.parabolicCircleGraph["point-label-gap"], y: 1 - upcApp.parabolicCircleGraph["point-label-gap"]*0.5, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)", opacity: 0.4};
                 viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-center-C-label", textOptions);
 
                 
 
 
 
-                textOptions = {x: 1 + 0.15, y: 0.75, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--writingGrey)", opacity: 1};
+                textOptions = {x: 2 + 0.3, y: 1.5, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--writingGrey)", opacity: 1};
                 viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-unit-length-label", textOptions);
 
                 
                 var arrowOptions = {
-                    from: [1.1, 1],
-                    to: [1.1, 0.5],
+                    from: [2.2, 2],
+                    to: [2.2, 1],
                     strokewidth: 0.4,
                     arrowcolor: "var(--writingGrey)",
                     opacity: 0.3
@@ -6655,76 +6702,50 @@
                 arrow = viewX.addArrow("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-unit-length-arrow-1", arrowOptions);
 
                 var arrowOptions = {
-                    from: [1.1, 0.5],
-                    to: [1.1, 1],
+                    from: [2.2, 1],
+                    to: [2.2, 2],
                     strokewidth: 0.4,
                     arrowcolor: "var(--writingGrey)",
                     opacity: 0.3
                 };
                 arrow = viewX.addArrow("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-unit-length-arrow-2", arrowOptions);
 
-                // var arrowOptions = {
-                //     from: [1, 0.4],
-                //     to: [0.5, 0.4],
-                //     strokewidth: 0.4,
-                //     arrowcolor: "var(--writingGrey)",
-                //     opacity: 0.3
-                // };
-                // arrow = viewX.addArrow("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-unit-length2-arrow-1", arrowOptions);
-
-                // var arrowOptions = {
-                //     from: [0.5, 0.4],
-                //     to: [1, 0.4],
-                //     strokewidth: 0.4,
-                //     arrowcolor: "var(--writingGrey)",
-                //     opacity: 0.3
-                // };
-                // arrow = viewX.addArrow("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-unit-length2-arrow-2", arrowOptions);
-
-                // textOptions = {x: 0.75, y: 0.5 - 0.15, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--writingGrey)", opacity: 1};
-                // viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-unit-length2-label", textOptions);
-
-                rectOptions = { x: 0.5, y: 1, w: 1, h: 0.5, stroke: "var(--lightYellow)", strokewidth: 2, rectcolor: "hsla(190, 100%, 50%, 0)", strokedasharray: "3, 4", opacity: 0};
+                rectOptions = { x: 1, y: 2, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 2, rectcolor: "hsla(190, 100%, 50%, 0)", strokedasharray: "3, 4", opacity: 0};
 
                 viewX.addRectangle("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-rect", rectOptions);
 
 
 
 
-                lineOptions = { x1: 0.5, y1: 0.5, x2: 1, y2: 0.5, strokedasharray: "2,2", strokewidth: 1.3, linecolor: "var(--lightPink)"};
-                viewX.addLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-1", lineOptions);
+                gph26.condition = gph26.generateSampleData(5, [1, 1], 2)
 
-                pointOptions = { x: 1, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPink)', opacity: 1};
-                viewX.addPoint("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-1", pointOptions);
+                gph26.samples = gph26.condition.samples
 
-                textOptions = {x: 1 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 0.5};
-                viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-label-1", textOptions);
+                gph26.samples[1].color = "var(--lightGreen)"
+                gph26.samples[1].name = "A"
+                gph26.samples[0].name = "B"
+                gph26.samples[1].distanceLabel = "√2"
+                gph26.samples[0].distanceLabel = "1"
 
-                textOptions = {x: (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (0.5 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 1};
-                viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-1", textOptions);
+                for (cs = 0; cs < gph26.condition.globalValues.numberOfSamples; cs++) {
+                    lineOptions = { x1: gph26.condition.globalValues.center[0], y1: gph26.condition.globalValues.center[1], x2: gph26.samples[cs].point[0], y2: gph26.samples[cs].point[1], strokedasharray: "2,2", strokewidth: 1.3, linecolor: gph26.samples[cs].color};
+                    viewX.addLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-" + (cs + 1), lineOptions);
 
+                    pointOptions = { x: gph26.samples[cs].point[0], y: gph26.samples[cs].point[1], pointsize: upcApp.graphPointSize, pointcolor: gph26.samples[cs].color, opacity: 1};
+                    viewX.addPoint("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-" + (cs + 1), pointOptions);
 
-                lineOptions = { x1: 0.5, y1: 0.5, x2: 1, y2: 1, strokedasharray: "2,2", strokewidth: 1.3, linecolor: "var(--lightGreen)"};
-                viewX.addLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-2", lineOptions);
+                    textOptions = {x: gph26.samples[cs].point[0] + 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: gph26.samples[cs].point[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2*gph26.condition.globalValues.sideLength, text: gph26.samples[cs].name,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph26.samples[cs].color, opacity: 0.5};
+                    viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-label-" + (cs + 1), textOptions);
 
-                pointOptions = { x: 1, y: 1, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightGreen)', opacity: 1};
-                viewX.addPoint("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-2", pointOptions);
+                    textOptions = {x: (gph26.samples[cs].point[0] + gph26.condition.globalValues.center[0])/2 - 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: (gph26.samples[cs].point[1] + gph26.condition.globalValues.center[1])/2 + 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], text:gph26.samples[cs].distanceLabel,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph26.samples[cs].color, opacity: 1};
+                    viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-" + (cs + 1), textOptions);
 
-                textOptions = {x: 1 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 1 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightGreen)", opacity: 0.5};
-                viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-label-2", textOptions);
+                    lineOptions = { x1: 0.5, y1: 0.5, x2: gph26.samples[cs].point[0], y2: gph26.samples[cs].point[1], strokedasharray: "2,2", strokewidth: 1.3, linecolor: gph26.samples[cs].color, opacity: 0};
+                    viewX.addLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-placeholder-" + (cs + 1), lineOptions);
 
-                textOptions = {x: (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], text: "sqrt(2)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightGreen)", opacity: 1};
-                viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-2", textOptions);
-
-
-
-
-                lineOptions = { x1: 0.5, y1: 0.5, x2: 1, y2: 0.5, strokedasharray: "2,2", strokewidth: 1.3, linecolor: "var(--lightPink)", opacity: 0};
-                viewX.addLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-placeholder-1", lineOptions);
-                lineOptions = { x1: 0.5, y1: 0.5, x2: 1, y2: 1, strokedasharray: "2,2", strokewidth: 1.3, linecolor: "var(--lightGreen)", opacity: 0};
-                viewX.addLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-placeholder-2", lineOptions);
-
-
+                    pointOptions = { x: gph26.samples[cs].point[0], y: gph26.samples[cs].point[1], pointsize: upcApp.graphPointSize, pointcolor: gph26.samples[cs].color, opacity: 0};
+                    viewX.addPoint("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-placeholder-" + (cs + 1), pointOptions);
+                }
 
             }
 
@@ -6750,11 +6771,40 @@
 
             gph26.addCurve = function() {
                 
-                gph26.moveX = viewX.linearValue(0, 1, 0, 0.5, parseFloat(gph26.slider.value))
-                textOptions = {x: gph26.moveX + (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"]};
-                viewX.updateText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-2", textOptions);
+                
 
-                gph26.locations = [[gph26.moveX + 0.5,  0.5], [gph26.moveX + 1, 1]]
+                for (cs = 0; cs < gph26.condition.globalValues.numberOfSamples; cs++) {
+                    
+
+                    gph26.moveX = viewX.linearValue(0, 1, gph26.samples[cs].point[0], gph26.samples[cs].pointOnAddition[0], parseFloat(gph26.slider.value))
+
+                    gph26.moveY = viewX.linearValue(0, 1, gph26.samples[cs].point[1], gph26.samples[cs].pointOnAddition[1], parseFloat(gph26.slider.value))
+
+                    startXY = gph26.condition.globalValues.center
+                    if (cs != 0) {
+                        startXY = gph26.samples[cs - 1].pointOnAddition
+                    }
+                    
+                    gph26.moveStartX = viewX.linearValue(0, 1, gph26.condition.globalValues.center[0],startXY[0], parseFloat(gph26.slider.value))
+
+                    gph26.moveStartY = viewX.linearValue(0, 1, gph26.condition.globalValues.center[1],startXY[1], parseFloat(gph26.slider.value))
+
+                    lineOptions = { x1: gph26.moveStartX, y1: gph26.moveStartY, x2: gph26.moveX, y2: gph26.moveY};
+
+                    viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-" + (cs + 1), lineOptions);
+
+
+                    textOptions = {x: (gph26.moveStartX + gph26.moveX)/2 - 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: (gph26.moveStartY + gph26.moveY)/2 + 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"]};
+                    viewX.updateText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-" + (cs + 1), textOptions);
+
+
+                }
+
+                // textOptions = {x: gph26.moveX + (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"]};
+                
+                // viewX.updateText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-2", textOptions);
+
+                // gph26.locations = [[gph26.moveX + 0.5,  0.5], [gph26.moveX + 1, 1]]
 
                 // lineOptions = { x1: gph26.moveX + 0.5, y1: 0.5, x2: gph26.moveX + 1, y2: 1};
                 // viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-2", lineOptions);
@@ -6770,6 +6820,24 @@
                 gph26.moveX = viewX.linearValue(0, 1, 0, 0.5, parseFloat(gph26.slider.value))
                 gph26.locations = [[gph26.moveX + 0.5,  0.5], [gph26.moveX + 1, 1]]
 
+
+
+
+                rectOptions = { x: 0.5, y: 0.5 + 0.5*gph26.scaleY, w: 1*gph26.scaleX, h: 0.5*gph26.scaleY};
+
+                viewX.updateRectangle("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-rect", rectOptions);
+                
+
+                gph26.scaledLocations = pointsScaled(gph26.locations, gph26.scaleX, gph26.scaleY, [0.5, 0.5])
+
+                lineOptions = { x1: gph26.scaledLocations[0][0], y1: gph26.scaledLocations[0][1], x2: gph26.scaledLocations[1][0], y2: gph26.scaledLocations[1][1]};
+                viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-2", lineOptions);
+
+                // textOptions = {x: gph26.scaleX + (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"]};
+                // viewX.updateText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-2", textOptions);
+
+                // lineOptions = { x1: gph26.scaleX + 0.5, y1: 0.5, x2: gph26.scaleX + 1, y2: 1, strokedasharray: "2,2", strokewidth: 1.3, linecolor: "var(--lightGreen)"};
+                // viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-2", lineOptions);
 
                 if (gph26.selectedMenu == 'Scale') {
                     lineOptions = {opacity: 0.2};
@@ -6795,26 +6863,10 @@
                     viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-placeholder-2", lineOptions);
                 }
 
-                rectOptions = { x: 0.5, y: 0.5 + 0.5*gph26.scaleY, w: 1*gph26.scaleX, h: 0.5*gph26.scaleY};
-
-                viewX.updateRectangle("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-rect", rectOptions);
-                
-
-                gph26.scaledLocations = pointsScaled(gph26.locations, gph26.scaleX, gph26.scaleY, [0.5, 0.5])
-
-                lineOptions = { x1: gph26.scaledLocations[0][0], y1: gph26.scaledLocations[0][1], x2: gph26.scaledLocations[1][0], y2: gph26.scaledLocations[1][1]};
-                viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-2", lineOptions);
-
-                // textOptions = {x: gph26.scaleX + (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"]};
-                // viewX.updateText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-2", textOptions);
-
-                // lineOptions = { x1: gph26.scaleX + 0.5, y1: 0.5, x2: gph26.scaleX + 1, y2: 1, strokedasharray: "2,2", strokewidth: 1.3, linecolor: "var(--lightGreen)"};
-                // viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-2", lineOptions);
-
             }
 
             gph26.slider.addEventListener('input', function() {
-                gph26.scaleCurve()
+                gph26.addCurve()
 
                 if (gph26.slider.value >= gph26.slider.max) {
                     if (upcApp.revealPoint == 3) {
