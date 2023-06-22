@@ -2227,6 +2227,24 @@
 
             loadAnimation();
 
+
+
+            upcApp.inViewDetection = function(targetDiv, callback) {
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            callback();
+                            observer.unobserve(targetDiv);
+                        }
+                    });
+                });
+
+                observer.observe(targetDiv);
+            }
+
+
+            
+
             upcApp.revealPoint = 0
 
             upcApp.revealSection = function() {
@@ -2259,10 +2277,19 @@
                             gph7.setUpShrinkingRandomWalkReveal()
                             gph8.setUpParabolaCircleCompare()
                             gph9.setUpParabolicPointsDescription([0, 1], [-5, 0], [4, -1])
-                            gph9.interval = setInterval(gph9.nextValue, 1000);
+
+
+                            upcApp.inViewDetection(document.getElementById('parabola-points-description-graphHolder'), function() {
+                                gph9.interval = setInterval(gph9.nextValue, 1000);
+                            });
+                           
 
                             gph10.setUpParabolicDescriptionGraph()
-                            gph10.interval = setInterval(gph10.nextValue, 2100);
+
+                            upcApp.inViewDetection(document.getElementById('parabola-important-dimensions-graphHolder'), function() {
+                                gph10.interval = setInterval(gph10.nextValue, 2100);
+                            });
+                            
 
                             gph11.setUpParabolicIncreasingSlope()
 
@@ -2270,11 +2297,19 @@
 
                             gph13.setUpCuttingRibbonAnimation();
 
-                            gph13.interval = setInterval(gph13.nextValue, 2100);
+                            upcApp.inViewDetection(document.getElementById('cutting-ribbon-animation-graphHolder'), function() {
+                                gph13.interval = setInterval(gph13.nextValue, 2100);
+                            });
+
+                            
 
                             gph14.setUpShrinkingRibbonAnimation();
 
-                            gph14.interval = setInterval(gph14.nextValue, 2100);
+                            upcApp.inViewDetection(document.getElementById('shrinking-ribbon-animation-graphHolder'), function() {
+                                gph14.interval = setInterval(gph14.nextValue, 2100);
+                            });
+
+                            
 
                             gph15.setUpShrinkingLine();
 
@@ -2289,7 +2324,12 @@
                     else if (upcApp.revealPoint == 3) {
                         setTimeout(function() {
                             gph19.setUpSimpleProblemAverageAnimation();
-                            gph19.interval = setInterval(gph19.nextValue, 2100);
+
+                            upcApp.inViewDetection(document.getElementById('simple-problem-average-animation-graphHolder'), function() {
+                                gph19.interval = setInterval(gph19.nextValue, 2100);
+                            });
+
+                            
 
                             gph20.setUpSimpleProblemPointFive();
 
@@ -2298,16 +2338,32 @@
                             gph22.setUpSimpleProblemSizeOneSweep();
 
                             gph23.setUpSimpleProblemSizeOneTwoPoint();
-                            gph23.interval = setInterval(gph23.nextValue, 2100);
+
+                            upcApp.inViewDetection(document.getElementById('simple-problem-size1-2-point-Slider'), function() {
+                                gph23.interval = setInterval(gph23.nextValue, 2100);
+                            });
+
+                            
 
                             gph24.setUpSimpleProblemSizeOneThreePoint();
-                            gph24.interval = setInterval(gph24.nextValue, 2100);
+
+                            upcApp.inViewDetection(document.getElementById('simple-problem-size1-3-point-Slider'), function() {
+                                gph24.interval = setInterval(gph24.nextValue, 2100);
+                            });
+
+                            
 
 
                             gph25.setUpSimpleProblemSizeOneNPoint();
 
                             gph26.setUpSimpleProblemSizeOneTwoPointAdding();
-                            gph26.interval = setInterval(gph26.nextValue, 2100);
+
+                            
+                            upcApp.inViewDetection(document.getElementById('simple-problem-size1-2-point-adding-Slider'), function() {
+                                gph26.interval = setInterval(gph26.nextValue, 2100);
+                            });
+
+                            
 
                         }, 1000);
                         
@@ -8556,7 +8612,13 @@
                     }
                 }
             });
-           
+
+
+
+
+
+
+
             
 
         </script>
