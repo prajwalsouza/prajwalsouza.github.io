@@ -1414,7 +1414,7 @@
                         <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
                             <div class="our-text-block text-center">
                                 <div class="mt-1 pb-1">
-                                    <input type="range" min="0" max="1" value="0.5" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-2-point-adding-Slider">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-2-point-adding-Slider">
                                     <div class="d-block d-sm-none"></div>
                                     
                                     <div>
@@ -6771,7 +6771,9 @@
 
             gph26.addCurve = function() {
                 
-                
+                gph26.scaleX = viewX.linearValue(0, 1, 1, 1/gph26.condition.globalValues.numberOfSamples, parseFloat(gph26.sliderForScalingX.value))
+
+                gph26.scaleY = viewX.linearValue(0, 1, 1, 1/gph26.condition.globalValues.numberOfSamples, parseFloat(gph26.sliderForScalingY.value))
 
                 for (cs = 0; cs < gph26.condition.globalValues.numberOfSamples; cs++) {
                     
@@ -6789,25 +6791,18 @@
 
                     gph26.moveStartY = viewX.linearValue(0, 1, gph26.condition.globalValues.center[1],startXY[1], parseFloat(gph26.slider.value))
 
-                    lineOptions = { x1: gph26.moveStartX, y1: gph26.moveStartY, x2: gph26.moveX, y2: gph26.moveY};
+                    scaledPoints = pointsScaled([[gph26.moveStartX, gph26.moveStartY], [gph26.moveX, gph26.moveY]], gph26.scaleX, gph26.scaleY, gph26.condition.globalValues.center)
+
+                    lineOptions = { x1: scaledPoints[0][0], y1: scaledPoints[0][1], x2: scaledPoints[1][0], y2: scaledPoints[1][1]};
 
                     viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-" + (cs + 1), lineOptions);
 
 
-                    textOptions = {x: (gph26.moveStartX + gph26.moveX)/2 - 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: (gph26.moveStartY + gph26.moveY)/2 + 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"]};
+                    textOptions = {x: (scaledPoints[0][0] + scaledPoints[1][0])/2 - 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: (scaledPoints[0][1] + scaledPoints[1][1])/2 + 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"]};
                     viewX.updateText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-" + (cs + 1), textOptions);
 
 
                 }
-
-                // textOptions = {x: gph26.moveX + (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"]};
-                
-                // viewX.updateText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-2", textOptions);
-
-                // gph26.locations = [[gph26.moveX + 0.5,  0.5], [gph26.moveX + 1, 1]]
-
-                // lineOptions = { x1: gph26.moveX + 0.5, y1: 0.5, x2: gph26.moveX + 1, y2: 1};
-                // viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-2", lineOptions);
 
             }
 
@@ -6889,8 +6884,7 @@
                 if (gph26.slider.value > gph26.slider.max) {
                     gph26.slider.value = 0
                 }
-                // gph26.addCurve()
-                gph26.scaleCurve()
+                gph26.addCurve()
             }
 
 
@@ -6955,7 +6949,7 @@
             gph26.sliderForScalingX = document.getElementById("simple-problem-size1-2-point-scaling-along-x-Slider");
 
             gph26.sliderForScalingX.addEventListener('input', function() {
-                gph26.scaleCurve()
+                gph26.addCurve()
 
                 if (gph26.sliderForScalingX.value >= gph26.sliderForScalingX.max && gph26.sliderForScalingY.value >= gph26.sliderForScalingY.max) {
                     if (upcApp.revealPoint == 4) {
@@ -6965,7 +6959,7 @@
             });
 
             gph26.sliderForScalingY.addEventListener('input', function() {
-                gph26.scaleCurve()
+                gph26.addCurve()
 
                 if (gph26.sliderForScalingX.value >= gph26.sliderForScalingX.max && gph26.sliderForScalingY.value >= gph26.sliderForScalingY.max) {
                     if (upcApp.revealPoint == 4) {
