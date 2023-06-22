@@ -1,0 +1,343 @@
+Where is the Parabola? The Parabolic Constant Mystery
+Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello
+
+Where is the Parabola?
+The Parabolic Constant Mystery
+Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello
+
+Let us start with a innocent looking problem. Picture a unit square, a perfect little 1x1 entity. Now, pick a point Q at random along the square's boundary. What do you think is the average distance between this chosen point Q and the very heart of our square, the center C?
+
+Surprisingly, the answer is approximately 0.5738967... a peculiar figure, isn't it? This number equals P/4 where P is known as Universal Parabolic Constant. The value is around 2.295587149... Hold on a second - a Parabolic Constant? But our question was about squares, wasn't it? Where does the parabola come in?
+
+This might seem like a co-incidence. But, we look for a circle when π pops up in various places right? Just check 3B1B :P So, why not dig a little deeper. And if we explore a little more, there are other seemingly unrelated math problems where you see this number show up.
+
+So, What do you think is the average distance between any two points inside a unit square? Take a guess. :D
+
+0.8
+Move the slider to choose your answer... and also, the points A and B above are draggable. :)
+
+Check
+Continue
+It is about 0.52140. To be more precise, it is.
+
+\(\color{#e3a0cd}{8\left(0.0416{\color{#ffffff}{P}}-0.030473\right)}\)
+And exactly, it is
+
+\(\color{#e3a0cd}{8\left(\frac{\color{#ffffff}{P}}{24}-\frac{\sqrt{2}}{30}+\frac{1}{60}\right)}\)
+
+Yep. Strange combination of numbers. There's a P there.
+There's many more instances where we see this. But, mostly involving a unit square.
+
+Center-Point Distance Corner-Perimeter Distance
+
+Here is a slightly similar problem.
+What do you think is the average distance between the center and any point 'inside' the unit square?
+
+Take a guess. :D
+
+0.8
+PointB above is draggable. :)
+
+Check
+Continue
+It is about 0.38259785 ... To be exact, it is.
+
+\(\color{#e3a0cd}{\frac{\color{#ffffff}{P}}{6}}\)
+
+Yep. There's a P here too.
+Here is another problem. Try to guess this one.
+What do you think is the average distance between a corner and a point on the unit square?
+
+Take a guess. :D
+
+0.8
+PointB above is draggable. :)
+
+Check
+Continue
+It is about 0.76519571... To be exact, it is.
+
+\(\color{#e3a0cd}{\frac{\color{#ffffff}{P}}{3}}\)
+
+There's a P here too.
+Let's branch out a little and delve into a problem unrelated to the unit square. A problem related to Shrinking Random Walk appeared in Tom Yuster's April 2017 Math Horizons piece (pp. 32-33)
+
+Consider a drunkard walking in a plane that starts at the origin and moves only in the east and north directions. He randomly chooses a direction and takes a step. The walk is such that the length of the first step must be √2, the length of the second step must be √2/2, the length of the third step must be √2/4, and so on.
+
+0.8
+There are infinitely many steps. But, you can choose how many steps to show. :)
+
+Imagine the endless steps taken by the drunkard, how far would you expect to be from the starting point, the origin? Let's denote this distance as D. But, what about the average value of D? How could we possibly calculate that?
+This problem might seem to be a departure from our discussion about the unit square. Still, it maintains a common thread: the concept of averages. (Note that the length of the path is √2 + √2/2 + ... , and we are not referring to that)
+
+So, how about we roll up our sleeves and crunch some numbers? Let's simulate the Drunkard's Walk, taking about 30 steps, and observe where we end up. From there, we can compute the distance, D, from the origin. To get an approximation of D's average value, we'll repeat this process a few times.
+
+Add another trial
+After looking at these values, what do you think is the average value?
+
+
+0.8
+Check
+Continue
+The answer is 2.295587149... Yes. It is P. It's here too.
+This problem doesn't seem to have a square, but still deals with concept of averages.
+
+But, why? What does this have to do with the parabola we've been discussing? Could it be linked to a concept you're already familiar with?
+Here's a hint. The drunkard destiny isn't that random after all. It's about the final point after large iterations . (where the drunkard lands after infinitely many steps)
+
+2 trials
+Well. More trails? :)
+
+Does it look familiar now? i hope we got your attention and excited about the problem.
+
+So, what is the Universal Parabolic Constant?
+
+Let's start with something familiar, what is pi?
+If you take any circle and divide a part of it's curve, the half circumference/perimeter, by the radius of the circle, we get a value that is a constant. It's pi. This seems to be the case of parabolas too.
+
+Circle
+
+\(π = \frac{\text{Enclosing Arc}}{Radius}\)
+
+
+
+= 2.2123 Parabola
+
+\(P = \frac{\text{Enclosing Arc}}{Radius}\)
+
+
+
+= 3.1545
+
+0.8
+Radius
+
+
+In fact, the universal parabolic constant 2.295587... is an irrational number and is equal to \(√2 + ln(1+√2)\).
+If you give me the radius of a circle, I can tell you the circumference. If you give me the "radius" of a parabola, I can tell you the enclosing arc length.
+
+Enclosing Arc = Universal Parabolic Constant x Radius
+
+This is true for an asteroid's parabolic trajectory, or for a tiny parabolic satellite dish, - there's a parabola in there, with our universal parabolic constant winking back at us.
+
+You see, these constants are the universal translators, making sense of the circles and parabolas, no matter where we find them. Whether it's a black hole's space-time distortion or the edge of a penny, these constants underlie the geometry. Even the atomic radius, described as an electron cloud around an atom, links back to these beautiful constants.
+
+But what does radius and center of a parabola even mean?
+First, what is a parabola?
+How to cook a parabola?
+Take a fixed point F. Take a line L. Then, then pick a point Q such that the distance between this point Q and F is the same as the distance between this point Q and the line L.
+Parabola is a set of points that are at the same distance from a fixed point (F), as the perpendicular distance from a fixed line (L).
+
+1
+Move the slider to see more points that obey the same distance rule.
+
+Before we go ahead and tell you what Parabolic constant exactly is. Here's some more things about the parabola.
+The fixed point is called the Focus, usually denoted F. If we go by the definition, one of the special points is the vertex of the parabola (let's say C), which has the smallest distance (let's say a) from the fixed line L. There are two more interesting points on the parabola, the ones that cut the parabola if we draw a line M parallel to the fixed line L, passing through the focus F.
+
+The points are G and H drawn below.
+
+Next
+
+
+This point H associated with a distance of 2a is going to be important later.
+The line FH, equivalent to half the latus rectum of the parabola, is something akin to its 'radius'.
+Latus rectum (GH) is sort of equivalent to the diameter and is equal to 4a.
+
+And remember this. HB has length a units and CB has length 2a units.
+For example: If HB has length 0.5 units and CB is 1 unit.
+
+Keep in mind that arc GCH is the enclosed arc of the parabola, and the line FH can be likened to its 'radius'. With this understanding, we can see how the Universal Parabolic Constant, P, acts as the ratio of the arc GCH to FH. Thus, we can write:
+
+Arc \(\color{#a585ff}{GCH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#ff7a7a}FH\)
+
+If we represent the length of the enclosing arc GCH as P x 2a, and the arc CH as P x a, we have a clear relationship between these parts of the parabola and the UPC. In other words, we find that:
+
+Arc \(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#e3a0cd}a\)
+
+Which, substituting the value of the UPC, gives us:
+
+Arc \(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}2.292334..\color{#737373} \times \color{#e3a0cd}a\)
+
+Here's another interesting property of the parabola. This might be obvious if you have encountered it in calculus, otherwise, take our word for it.
+
+Consider the equation of a line
+\(\color{#737373}{y = \color{#ffffff}{m}\color{#61bdff}{x}}\)
+
+Taking one of the simplest parabolas, we see that
+\(\color{#737373}{y = x^2 = \color{#ffffff}{x}\color{#61bdff}{x}}\)
+
+Meaning it seems like the steepness (slope, to be precise) of the curve at a given point increases as you move future away from the origin along the x axis. (steepness increases with the value of x) How do we know that? Well its simple to illustrate, just draw a line that touched the curve at the point of interest, (tangent, as an arrow here) and see the steepness of this line increase with increase in the x coordinate of the point of interest.
+
+The parabola can be thought of a curve whose slope changes (linearly) with the position of the x coordinate. Also, notice that a tangent drawn to the parabola at the point H, makes a 45 degree angle with the x axis. Or in more precise terms, the slope of the parabola at the point H (x = 2a) is 1 (corresponding to an angle of 45 degrees).
+
+0.8
+Value of the x co-ordinate
+
+For those among you, who want a serious proof that the slope is indeed equal to 1 at point H. Here's some calculus
+
+The equation of the parabola, with latus rectum 2a is given by
+
+\({y = x^2/4a}\)
+
+
+The points C and H here are at (0,0) and (2a, a) respectively.
+
+Because when
+1. \(y = 0 \) when \(x = 0 \) (the vertex C)
+2. \(y = a \) when \(x = 2a \) (our point H)
+
+
+Now, differentiate the equation of the parabola to get the slope at any point (x,y) on the parabola.
+
+\(dy/dx = x/2a \)
+
+So, at H, where x = 2a, \(dy/dx = 2a/2a\) = 1, so the slope is 1, and hence,
+
+At H, the tangent makes a 45 degree angle with the x axis.
+
+Moving on.
+
+A small detour. The Division of lines.
+
+12/4 is 3. That's simple division.
+Okay, so here's a question. I have a piece of ribbon whose length is 12. Can you find a method such that I get a piece of ribbon whose length is 3?
+
+I give you the big ribbon. Do something to this. And give me back the chotu ribbon.
+
+A straightforward method?
+
+1. Break the ribbon evenly into 4 pieces.
+2. Keep one piece.
+
+Next
+
+This method is good. But there is another approach that might be more useful for us.
+
+Shrinking the line segment, by a factor of 4.
+
+Next
+
+This method is actually a little better for curves.
+
+How do you perform the same operation for curves? How to divide a curve of length L to get a identical curve of length L/n? (where n is a number).
+Let's start with a line..
+
+
+Shrinking along x
+
+
+Shrinking along y
+
+Scaling down along both x and y by a factor of 4, will give us the line segment we want. It's length is 3.. which is 12/4.
+
+This can be done with any curve. Let it be a curve of length 20. And we want to divide it by 4. But we also want to preserve the shape of the curve..
+
+
+Shrinking along x
+
+
+Shrinking along y
+
+
+Continue
+So, now you know how to divide a curve. What's next? Be patient. It will all make sense.
+
+What is average?
+
+The problem is about average value, right? So, what is average?
+
+How does one calculate average?
+
+One approach is to go through all possible cases. Add them and then divide by the number of cases. For example, What is the average value (expected value) of a die roll?
+
+\(\color{#a585ff}{A} \color{#737373}= \frac{\color{#e3a0cd}{1} \color{#4a76e5}+ \color{#e3a0cd}{2} \color{#4a76e5}+ \color{#e3a0cd}{3} \color{#4a76e5}+ \color{#e3a0cd}{4} \color{#4a76e5}+ \color{#e3a0cd}{5} \color{#4a76e5}+ \color{#e3a0cd}{6}}{\color{#ff7a7a}{6}} \)
+
+If there are 9 people in the room, all with height 6 ft, what is the average height?
+\( \color{#a585ff}{A} \color{#737373}= \frac{ \color{#e3a0cd}6 \color{#4a76e5}+ \color{#e3a0cd}6 \color{#4a76e5}+ \color{#e3a0cd}6 \color{#4a76e5}+ \color{#e3a0cd}6 \color{#4a76e5}+ \color{#e3a0cd}6 \color{#4a76e5}+ \color{#e3a0cd}6 \color{#4a76e5}+ \color{#e3a0cd}6 \color{#4a76e5}+ \color{#e3a0cd}6 \color{#4a76e5}+ \color{#e3a0cd}6} {\color{#ff7a7a}{9}} \)
+
+But here is something interesting.
+
+What is the average of the following numbers?
+1, 6, 2, 2, 6, 2, 1, 1, 6
+
+If you carefully rearrange,
+
+\( \color{#a585ff}A \color{#737373}= \frac{\color{#ccc161}1 + 2 + 6 + \color{#adff7a}1 + 2 + 6 + \color{#ccc161}1 + 2 + 6}{\color{#ff7a7a}9} \)
+
+
+the average can simply be...
+
+\( \color{#a585ff}A \color{#737373}= \frac{ \color{#ccc161}1 + 2 + 6}{\color{#ff7a7a} 3} \)
+
+Instead of taking the average of all 9 numbers, we can take the average of 1, 2, 6 because they repeat.
+If you have 10 people with average height of 6 foot, getting 10 more identical people (whose average is obviously 6 foot because they are identical), doesn't change the average height of the total.
+This is because these groups are identical, and due to symmetry, we can ignore these repeating numbers during calculations.
+
+Average for 1, 2, 6, 1, 2, 6, 1, 2, 6
+is the same as
+Average for 1, 2, 6, 1, 2, 6, 1, 2, 6, 1, 2, 6, 1, 2, 6, 1, 2, 6, 1, 2, 6, 1, 2, 6, 1, 2, 6
+is the same as
+Average for 1, 2, 6
+
+
+
+So, when asked, What is the average distance between a point Q on the square the center C? There is a chance to simplify the problem by re framing the question due to repetition of the points that lie on the perimeter of the square. What is the average distance between the point C and a point on the line AB?
+
+Sounds like there is a fixed line and a fixed point. :P And no sight of parabola yet. Wait for a while .
+Let's see where we will take us in a minute or two.
+
+The simpler problem
+
+Now the bare bone of problem to solve is that If there is a line of height 0.5, standing at a distance of 0.5 from point C, what is the average distance between a point C and a point on the line?
+
+To make our calculations easier, let's lengthen the side of the square by 2, so the distance CB is 1. So, now the problem is If there is a line of height 1, standing at a distance of 1 from point C, what is the average distance between a point C and a point on the line?
+
+One approach to calculating average is to sweep through all possible cases. Add them and then divide by the number of points. If we take every single point on the line once, add the distances and divide by the number of points taken while calculating , that should work? But, how to take every single point while calculating the mean. There are infinitely many points here. Infinitely many cases.
+
+B A
+Let's take only a few points, instances first. How about 2 points? The easy ones. A and B.
+
+In this case, numerically the average for two lengths is
+
+\( \color{#a585ff}A_{\color{#ff7a7a}2} \color{#737373}= \frac{ \color{#e3a0cd}CB \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 2} \)
+
+\( \color{#a585ff}A_{\color{#ff7a7a}2} \color{#737373}= \frac{ \color{#e3a0cd}1 \color{#737373}+ \color{#adff7a}\sqrt{2}}{\color{#ff7a7a} 2} \color{#737373}= \frac{ \color{#e3a0cd}1 \color{#737373}+ \color{#adff7a} 1.414..}{\color{#ff7a7a} 2} = \color{#ffffff} 1.207..\)
+
+CA is square root of 2 by Pythagoras theorem.
+
+Now, how about 3? If we evenly divide the line into two, we can get three points. A, B and a midpoint E.
+
+In this case, numerically the average for three lengths is
+
+\( \color{#a585ff}A_{\color{#ff7a7a}3} \color{#737373}= \frac{\color{#e3a0cd}CB \color{#737373}+ \color{#e7d9b6}CE \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 3} \)
+
+\( \color{#a585ff}A_{\color{#ff7a7a}3} \color{#737373}= \frac{ \color{#e3a0cd}1 \color{#737373}+ \color{#e7d9b6}\frac{\sqrt{5}}{2}\color{#737373}+ \color{#adff7a}\sqrt{2}}{\color{#ff7a7a} 3} \color{#737373}= \frac{ \color{#e3a0cd}1 \color{#737373}+ \color{#e7d9b6}1.118.. \color{#737373}+ \color{#adff7a} 1.414..}{\color{#ff7a7a} 3} = \color{#ffffff} 1.1773..\)
+
+CA is square root of 5 divided by 2 by Pythagoras theorem.
+
+Our goal is to find the average distance, and we need to sweep through all instances. So.. we are trying to find \( \color{#a585ff}A_{\color{#ff7a7a}n} \) as \(n\) becomes infinity.
+
+Now, how about 4? or 5... or n points, If we evenly divide the line into 3 parts, we can get average for 4 points. (cases)
+If divided into 4 parts, we can get average for 5 points. If divided into (n - 1) parts, we can get average for n points (cases).
+
+So, you might be asking. This looks good. Numerically, we can add all of them and then divide by the number of points. Do it for infinitely many points.
+But how is this related to the parabola? Where is it?
+
+Can you see it?
+
+There is a parabola somewhere in there.
+Let's start with the simplest approximate average, that takes just 2 points. Remember the answer to this?
+
+Add Scale down Continue
+Drag the slider to move the green line CA.
+\( \color{#a585ff}A_{\color{#ff7a7a}2} \color{#737373}= \frac{ \color{#e3a0cd}CB \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 2} = \frac{1 \color{#ffffff}+\color{#737373} \sqrt{2}}{2} \)
+
+How do we take average? Add and then Divide.
+
+The first step is to add the cases lengths. How do you add CA and CB? How do you add lines?
+To add, CA and CB, we can lay them next to each other. Now the whole curve, green line + pink line represents our sum.
+Drag the slider to move the curve/line.
+
+The next step? Divide. Adding curves was easy. But how do we divide a curve by 2? Remember? Shrinking along both axes?
+
+Continue

@@ -85,6 +85,8 @@
                 background: hsla(198, 0%, 40%, 1);
             }
 
+            
+
 
             .commonButtonTrial {
                 border: 1px solid hsla(var(--lightPinkH), 100%, 70%, 0.2);
@@ -100,6 +102,37 @@
                 color: black !important;
                 background: var(--lightPink);
             }
+
+            .menuTopButton {
+                border: 1px solid hsla(198, 100%, 60%, 0.2);
+                color: hsla(198, 100%, 60%, 1);
+                background: hsla(43, 100%, 60%, 0);
+                cursor: pointer;
+                border-radius: 14px;
+                font-size: small;
+            }
+
+            .menuTopButton:hover {
+                border: 1px solid hsla(43, 100%, 70%, 0) !important;
+                color: white !important;
+                background: hsla(198, 0%, 40%, 1);
+            }
+
+            .menuTopButtonSelected {
+                border: 1px solid hsla(198, 100%, 60%, 0.2);
+                color: hsla(198, 100%, 90%, 1);
+                background: hsla(198, 80%, 30%, 1);
+                cursor: pointer;
+                border-radius: 14px;
+                font-size: small;
+            }
+
+            .menuTopButtonSelected:hover {
+                border: 1px solid hsla(43, 100%, 70%, 0) !important;
+                color: white !important;
+                background: hsla(198, 0%, 40%, 1);
+            }
+
 
 
             a:hover {
@@ -1369,15 +1402,15 @@
                     <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
                         <div class="our-text-block text-center">
                             <!-- <span id="reveal-4-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Pick points</span> -->
-                            <span class="commonButton reveal-4 hidden-element revealable p-2 pl-4 pr-4 mt-1 btn-ignus">Add</span>
-                            <span class="commonButton reveal-4 hidden-element revealable p-2 pl-4 pr-4 mt-1 btn-ignus">Scale down</span>
-                            <span id="reveal-5-continueButton" class="commonButton reveal-4 hidden-element revealable p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</span>
+                            <span class="menuTopButton reveal-4 hidden-element revealable p-1 pl-3 pr-3 mt-1 btn-ignus" id="gph26-menu-add" onclick="gph26.selectedMenu = 'Add'; gph26.handleMenuSelect();">Add</span>
+                            <span class="menuTopButtonSelected reveal-4 hidden-element revealable p-1 pl-3 pr-3 mt-1 btn-ignus" id="gph26-menu-scale" onclick="gph26.selectedMenu = 'Scale'; gph26.handleMenuSelect();">Scale down</span>
+                            <span id="reveal-5-continueButton" class="commonButton reveal-4 hidden-element revealable p-1 pl-3 pr-3 mt-1 btn-ignus">Continue</span>
                             
                         </div>
                         
                     </div>
 
-                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-3 revealable">
+                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-3 revealable" id="gph26-section-add">
                         <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
                             <div class="our-text-block text-center">
                                 <div class="mt-1 pb-1">
@@ -1395,7 +1428,7 @@
                             <div class="our-text-block text-center">
                                 <p class="mt-1">
                                      
-                                    <div>
+                                    <div style="font-size: larger;">
                                         \( \color{#a585ff}A_{\color{#ff7a7a}2} \color{#737373}= \frac{ \color{#e3a0cd}CB \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 2} = \frac{1 \color{#ffffff}+\color{#737373} \sqrt{2}}{2} \)
                                     </div><br/>
     
@@ -1426,13 +1459,47 @@
                         </div>
 
                     </div>
-                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-4 revealable" >
+                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-4 revealable" id="gph26-section-scale">
+                        <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                            <div class="our-text-block text-center">
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-2-point-scaling-along-x-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-2-point-scaling-along-x-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-2-point-scaling-along-x-Slider" style="min-width: 100px;" >Scale down along X direction.</label>
+                                    </div>
+                                </div>
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-2-point-scaling-along-y-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-2-point-scaling-along-y-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-2-point-scaling-along-y-Slider" style="min-width: 100px;" >Scale down along Y direction.</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+                                     
+                                    <div style="font-size: larger;">
+                                        \( \color{#a585ff}A_{\color{#ff7a7a}2} \color{#737373}= \frac{ \color{#e3a0cd}CB \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 2}\color{#737373} =  \color{#ffffff}\frac{\color{#737373}1 + \sqrt{2}}{\color{#737373}2} \)
+                                    </div><br/>
+    
+                                </p>
+                            </div>
+                        </div>
                         <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-4 revealable">
                             <div class="our-text-block text-center">
                                 <p class="mt-2">
-                                    The next step? Divide. 
+                                    The next step? Divide. How do you divide a line? <br/>
                                     Adding curves was easy. But how do we divide a curve by 2? Remember? Shrinking along both axes?
-    
+                                    
+
+                                    Drag the slider to scale down along both x and y axes.
     
                                 </p>
                             </div>
@@ -1652,7 +1719,11 @@
                 }
                 else if (upcApp.revealPoint == 4) {
                     setTimeout(function() {
+                        gph26.selectedMenu = "Scale"
+                        gph26.handleMenuSelect();
 
+                        gph26.slider.value = gph26.slider.max
+                        gph26.nextValue();
                     }, 1000);
                     
                 }
@@ -6566,7 +6637,7 @@
                 textOptions = {x: 0.5 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)", opacity: 0.4};
                 viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-center-C-label", textOptions);
 
-
+                
 
 
 
@@ -6613,6 +6684,10 @@
                 // textOptions = {x: 0.75, y: 0.5 - 0.15, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--writingGrey)", opacity: 1};
                 // viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-unit-length2-label", textOptions);
 
+                rectOptions = { x: 0.5, y: 1, w: 1, h: 0.5, stroke: "var(--lightYellow)", strokewidth: 2, rectcolor: "hsla(190, 100%, 50%, 0)", strokedasharray: "3, 4", opacity: 0};
+
+                viewX.addRectangle("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-rect", rectOptions);
+
 
 
 
@@ -6640,6 +6715,15 @@
 
                 textOptions = {x: (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], text: "sqrt(2)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightGreen)", opacity: 1};
                 viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-2", textOptions);
+
+
+
+
+                lineOptions = { x1: 0.5, y1: 0.5, x2: 1, y2: 0.5, strokedasharray: "2,2", strokewidth: 1.3, linecolor: "var(--lightPink)", opacity: 0};
+                viewX.addLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-placeholder-1", lineOptions);
+                lineOptions = { x1: 0.5, y1: 0.5, x2: 1, y2: 1, strokedasharray: "2,2", strokewidth: 1.3, linecolor: "var(--lightGreen)", opacity: 0};
+                viewX.addLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-placeholder-2", lineOptions);
+
 
 
             }
@@ -6670,13 +6754,73 @@
                 textOptions = {x: gph26.moveX + (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"]};
                 viewX.updateText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-2", textOptions);
 
-                lineOptions = { x1: gph26.moveX + 0.5, y1: 0.5, x2: gph26.moveX + 1, y2: 1, strokedasharray: "2,2", strokewidth: 1.3, linecolor: "var(--lightGreen)"};
+                gph26.locations = [[gph26.moveX + 0.5,  0.5], [gph26.moveX + 1, 1]]
+
+                // lineOptions = { x1: gph26.moveX + 0.5, y1: 0.5, x2: gph26.moveX + 1, y2: 1};
+                // viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-2", lineOptions);
+
+            }
+
+            gph26.scaleCurve = function() {
+                gph26.scaleX = viewX.linearValue(0, 1, 1, 0.5, parseFloat(gph26.sliderForScalingX.value))
+                gph26.scaleY = viewX.linearValue(0, 1, 1, 0.5, parseFloat(gph26.sliderForScalingY.value))
+                
+                gph26.maxX = viewX.linearValue(0, 1, 0, 0.5, parseFloat(gph26.slider.max))
+
+                gph26.moveX = viewX.linearValue(0, 1, 0, 0.5, parseFloat(gph26.slider.value))
+                gph26.locations = [[gph26.moveX + 0.5,  0.5], [gph26.moveX + 1, 1]]
+
+
+                if (gph26.selectedMenu == 'Scale') {
+                    lineOptions = {opacity: 0.2};
+                    viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-placeholder-1", lineOptions);
+
+                    lineOptions = {opacity: 0.2, x1: gph26.maxX + 0.5, y1: 0.5, x2: gph26.maxX + 1, y2: 1};
+                    viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-placeholder-2", lineOptions);
+
+                    rectOptions = {opacity: 0.2};
+
+                    viewX.updateRectangle("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-rect", rectOptions);
+
+                }
+                else if (gph26.selectedMenu == 'Add') {
+                    rectOptions = {opacity: 0};
+
+                    viewX.updateRectangle("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-rect", rectOptions);
+
+                    lineOptions = {opacity: 0};
+                    viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-placeholder-1", lineOptions);
+
+                    lineOptions = {opacity: 0};
+                    viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-placeholder-2", lineOptions);
+                }
+
+                rectOptions = { x: 0.5, y: 0.5 + 0.5*gph26.scaleY, w: 1*gph26.scaleX, h: 0.5*gph26.scaleY};
+
+                viewX.updateRectangle("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-rect", rectOptions);
+                
+
+                gph26.scaledLocations = pointsScaled(gph26.locations, gph26.scaleX, gph26.scaleY, [0.5, 0.5])
+
+                lineOptions = { x1: gph26.scaledLocations[0][0], y1: gph26.scaledLocations[0][1], x2: gph26.scaledLocations[1][0], y2: gph26.scaledLocations[1][1]};
                 viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-2", lineOptions);
+
+                // textOptions = {x: gph26.scaleX + (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"]};
+                // viewX.updateText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-2", textOptions);
+
+                // lineOptions = { x1: gph26.scaleX + 0.5, y1: 0.5, x2: gph26.scaleX + 1, y2: 1, strokedasharray: "2,2", strokewidth: 1.3, linecolor: "var(--lightGreen)"};
+                // viewX.updateLine("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-line-2", lineOptions);
 
             }
 
             gph26.slider.addEventListener('input', function() {
-                gph26.addCurve()
+                gph26.scaleCurve()
+
+                if (gph26.slider.value >= gph26.slider.max) {
+                    if (upcApp.revealPoint == 3) {
+                        upcApp.revealSection()
+                    }
+                }
             });
 
             function pauseAutoplaygph26() {
@@ -6689,10 +6833,12 @@
             gph26.nextValue = function() {
                 gph26.slider.value = parseInt(gph26.slider.value) + 0.001
 
+                
                 if (gph26.slider.value > gph26.slider.max) {
                     gph26.slider.value = 0
                 }
-                gph26.addCurve()
+                // gph26.addCurve()
+                gph26.scaleCurve()
             }
 
 
@@ -6708,6 +6854,71 @@
             gph26.continueButtonA.addEventListener('click', function() {
                 if (upcApp.revealPoint == 4) {
                     upcApp.revealSection()
+                }
+            });
+
+            gph26.selectedMenu = 'Add'
+            gph26.handleMenuSelect = function() {
+                document.getElementById('gph26-menu-add').classList.remove('menuTopButtonSelected')
+                document.getElementById('gph26-menu-scale').classList.remove('menuTopButtonSelected')
+                document.getElementById('gph26-menu-add').classList.remove('menuTopButton')
+                document.getElementById('gph26-menu-scale').classList.remove('menuTopButton')
+
+                 if (gph26.selectedMenu == 'Add') {
+                    document.getElementById('gph26-menu-add').classList.add('menuTopButtonSelected')
+                    document.getElementById('gph26-menu-scale').classList.add('menuTopButton')
+
+                    document.getElementById("gph26-section-add").style.display = "block";
+                    document.getElementById("gph26-section-scale").style.display = "none";
+                 }
+                 else if (gph26.selectedMenu == 'Scale') {
+                    document.getElementById('gph26-menu-scale').classList.add('menuTopButtonSelected')
+                    document.getElementById('gph26-menu-add').classList.add('menuTopButton')
+
+                    document.getElementById("gph26-section-add").style.display = "none";
+                    document.getElementById("gph26-section-scale").style.display = "block";
+                 }
+            }
+
+            gph26.handleMenuSelect();
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(280, 0%, 20%, 0.7)",
+                trackFillColor: "var(--lightPurple)",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "var(--lightPurple)",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "simple-problem-size1-2-point-scaling-along-y-Slider");
+
+            gph26.sliderForScalingY = document.getElementById("simple-problem-size1-2-point-scaling-along-y-Slider");
+
+            viewX.generateSliderStyles(sliderProperties, "simple-problem-size1-2-point-scaling-along-x-Slider");
+
+            gph26.sliderForScalingX = document.getElementById("simple-problem-size1-2-point-scaling-along-x-Slider");
+
+            gph26.sliderForScalingX.addEventListener('input', function() {
+                gph26.scaleCurve()
+
+                if (gph26.sliderForScalingX.value >= gph26.sliderForScalingX.max && gph26.sliderForScalingY.value >= gph26.sliderForScalingY.max) {
+                    if (upcApp.revealPoint == 4) {
+                        upcApp.revealSection()
+                    }
+                }
+            });
+
+            gph26.sliderForScalingY.addEventListener('input', function() {
+                gph26.scaleCurve()
+
+                if (gph26.sliderForScalingX.value >= gph26.sliderForScalingX.max && gph26.sliderForScalingY.value >= gph26.sliderForScalingY.max) {
+                    if (upcApp.revealPoint == 4) {
+                        upcApp.revealSection()
+                    }
                 }
             });
 
