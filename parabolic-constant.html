@@ -1890,13 +1890,13 @@
                                 <p class="mt-1">
                                      
                                     <div style="font-size: larger;">
-                                        \( \color{#a585ff}A_{\color{#ff7a7a}4} \color{#737373}=  \frac{ \color{#e3a0cd}CB}{\color{#ff7a7a} 4} \color{#737373}+ \frac{ \color{#ffbe8f}CQ}{\color{#ff7a7a} 4} \color{#737373}+ \frac{ \color{#ffbe8f}CK}{\color{#ff7a7a} 4} \color{#737373}+ \frac{\color{#adff7a}CA}{\color{#ff7a7a} 4} = \frac{1 \color{#ffffff}+ \color{#737373} \frac{\sqrt{10}}{3} \color{#ffffff}+ \color{#737373} \frac{\sqrt{13}}{3} \color{#ffffff}+\color{#737373} \sqrt{2}}{4} \)
+                                        \( \color{#a585ff}A_{\color{#ff7a7a}n} \color{#737373}=  \frac{ \color{#e3a0cd}CB}{\color{#ff7a7a} n} \color{#737373}+ \frac{ \color{#ffbe8f}CQ_1}{\color{#ff7a7a} n} \color{#737373}+ ... \color{#737373}+ \frac{\color{#adff7a}CA}{\color{#ff7a7a} n} = \frac{1 \color{#ffffff}+ ... +\color{#737373} \sqrt{2}}{n} \)
 
 
                                     </div><br/>
     
                                     <p>
-                                       In this case, we first divide each line segment by 4 and then add. 
+                                       In this case, we first divide each line segment by n and then add them. 
                                     </p>
         
     
@@ -1908,7 +1908,7 @@
                                 <p class="mt-1">
                                      
                                     <div style="font-size: larger;">
-                                        \( \color{#a585ff}A_{\color{#ff7a7a}4} \color{#737373}= \color{#ffffff} \frac{\color{#737373}1 \color{#ffffff}}{\color{#737373} 4} \color{#737373}+ \color{#ffffff} \frac{\color{#737373} \frac{\sqrt{10}}{3} \color{#ffffff}}{\color{#737373} 4} \color{#737373}+ \color{#ffffff} \frac{\color{#737373} \frac{\sqrt{13}}{3} \color{#ffffff}}{\color{#737373} 4} \color{#737373}+ \color{#ffffff} \frac{\color{#737373} \sqrt{2} \color{#ffffff}}{\color{#737373} 4} \)
+                                        \( \color{#a585ff}A_{\color{#ff7a7a}n} \color{#737373}= \color{#ffffff} \frac{\color{#737373}1 \color{#ffffff}}{\color{#737373} n} \color{#737373}+ \color{#ffffff} \frac{\color{#737373} \sqrt{1 + {(\frac{1}{n})}^2} \color{#ffffff}}{\color{#737373} n} \color{#737373}+ \color{#ffffff} \frac{\color{#737373} \sqrt{1 + {(\frac{2}{n})}^2} \color{#ffffff}}{\color{#737373} n} \color{#737373}+ ...+ \color{#ffffff} \frac{\color{#737373} \sqrt{2} \color{#ffffff}}{\color{#737373} n} \)
                                     </div><br/>
     
                                 </p>
@@ -1929,7 +1929,7 @@
                                     <div class="d-block d-sm-none"></div>
                                     
                                     <div>
-                                        <label id="simple-problem-size1-N-point-adding-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-N-point-adding-Slider" style="min-width: 100px;" >Drag the slider to move the lines CA, CQ, and CK.</label>
+                                        <label id="simple-problem-size1-N-point-adding-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-N-point-adding-Slider" style="min-width: 100px;" >Drag the slider to move the curves/lines. </label>
                                     </div>
                                 </div>
                             </div>
@@ -1943,13 +1943,15 @@
                             <div class="our-text-block text-center">
                                 <p class="mt-1">
     
-                                    Now, we add the small segments which are scaled down (CA/4, CK/4, CQ/4 and CB/4). <br/><br/>Like earlier, to add, <span class="p-lightGreen">CA</span>, <span class="p-lightOrange">CK</span>,<span class="p-lightOrange">CQ</span> and <span class="p-lightPink">CB</span>, we can lay them next to each other. Now the whole curve, <span class="p-lightGreen">green line</span>+ <span class="p-lightOrange">orange lines</span> + <span class="p-lightPink">pink line</span> represents our sum.<br/>
+                                    Now, we add the small segments which are scaled down.  <br/><br/>Like earlier, to add, <span class="p-lightGreen">CA</span>, <span class="p-lightOrange">CQ<sub>1</sub></span>, <span class="p-lightOrange">CQ<sub>2</sub></span>, ... and <span class="p-lightPink">CB</span>, we can lay them next to each other. Now the whole curve, <span class="p-lightGreen">green line</span>+ <span class="p-lightOrange">orange lines</span> + <span class="p-lightPink">pink line</span> represents our sum.<br/>
     
                                     Drag the slider to move the curves/lines. <br/><br/><br/>
 
-                                    The final curve made by scaled segments, represents our sum \( \color{#a585ff}A_{\color{#ff7a7a}4} \). 
+                                    The final curve made by scaled segments, represents our sum \( \color{#a585ff}A_{\color{#ff7a7a}n} \). 
 
-                                    Looks more familiar uh?
+                                   With move points it's beginning to look like something uh? Say it with us. It's a Parabola!. :P
+
+                                   At infinitely many points, this should be a parabola.
                                 </p>
                             </div>
                         </div>
@@ -1958,6 +1960,166 @@
                     <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-10 revealable">
                         <div class="our-text-block text-center">
                             <span id="reveal-11-continueButton" class="commonButton p-2 pl-4 pr-4 mt-4 btn-ignus">Continue</span>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-4">
+                                Well. It's a <b class="p-White">Parabola</b>. :P <br/> <br/>
+                                
+                            </p>
+                        </div>
+                    </div>
+
+                    
+                    <div  class="hidden-element reveal-11 revealable" id="extender-section-3" style="max-height: 100px; overflow: hidden; position: relative;">
+                        <div style="position: absolute; background: linear-gradient(to bottom, transparent, var(--generalBackground)); pointer-events: none; z-index: 1;" class="w-100 h-100" id="extender-section-3-cover"></div>
+                        <div style="position: absolute; bottom: 0px; height: 30px; " class="w-100 text-center dragDownExtension" onclick="upcApp.extendSection(3)">
+                            <span><i id="extender-section-3-chevron-down" class="fa fa-angle-double-down" style="font-size: 23px;"></i></span>
+                        </div>
+                        
+                        <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                            <div class="our-text-block text-center pb-1">
+                                <p>
+                                    Wait. Back up, before that.. <br/><br/>
+
+                                    How do we know that  the final point, always lands at the midpoint of AB? <br/><br/>
+
+
+                                    <span class="p-lightPurple">X coordinate of the midpoint.</span><br/>
+                                    Let's just look at our adding and dividing curves operation. 
+                                    <br/><br/>
+
+                                    First Adding. When we place the curves next to each other, each segment spans 1 unit in the x direction. Hence, the unscaled (scaled down) version of the curve spans n units in the x direction. <br/> 
+
+                                    When it was 2 points, it spans 2 units in the x direction. When it was 3 points, it spans 3 units in the x direction. 
+
+                                    So, when it is n points, it spans n units in the x direction. <br/><br/>
+
+                                    When we scale down by a factor n, the x coordinate of the final point should be 1 which is that of line AB here. <br/><br/>
+
+                                    <span class="p-lightPurple">Y coordinate of the midpoint.</span><br/>
+                                    Again, similar operation. 
+                                    <br/><br/>
+
+                                    First Adding. When we place the curves next to each other, the unscaled (scaled down) version of the curve spans different lengths in the y direction. <br/>
+
+                                    In the case of 2 points, the basic segment CB spans 0 units, CA spans 1 unit. And hence, totally spanning 0 + 1 units in the y direction. <br/> (which when scaled down by 2... gave us 0.5, the midpoint of line AB)
+                                    <br/><br/>
+                                    In the case of 3 points, the basic segment CB spans 0 units, CQ<sub>1</sub> spans 1/2 units and CA spans 1 unit. And hence, totally spanning 0 + (1/2) + 1 units = 1.5 in the y direction. <br/>(which when scaled down by 3... gave us 0.5, the midpoint of line AB)
+                                    <br/><br/>
+                                    In the case of n points, the basic segment CB spans 0 units, CQ<sub>1</sub> spans 1/(n - 1) units, CQ<sub>2</sub> spans 2/(n - 1) units and soon on, with the final segment, CA spanning 1 unit. <br/><br/>
+                                    
+                                    And hence, totally spanning <br/><br/>
+                                    <b>
+                                        \(S = 0 + \frac{1}{n - 1} + \frac{2}{n - 1} + \frac{3}{n - 1} + ... + \frac{n - 2}{n - 1} + \frac{n - 1}{n - 1} \)
+                                    </b> <br/><br/>
+                                    <b>
+                                        \( = \frac{1}{n - 1}(1 + 2 + 3 + ... + (n - 2) + (n - 1)) \)
+                                    </b> <br/><br/>Since, 
+                                    Sum of natural numbers upto n is <b>\(\frac{n(n + 1)}{2}\)</b> <br/><br/>
+                                    Sum of natural numbers upto n - 1 is <b>\(\frac{(n - 1)(n - 1 + 1)}{2} = \frac{(n - 1)(n)}{2}\)</b> <br/><br/>
+                                    substituting that, <br/><br/>
+                                    <b>
+                                        \(S = \frac{1}{n - 1}(\frac{(n - 1)(n)}{2}) \)
+                                    </b> <br/><br/>
+                                    <b>
+                                        \(= (\frac{n}{2}) \)
+                                    </b> <br/><br/>
+                                   
+                                    So, now we know that it spans n/2 in the y direction when added (unscaled) for n points. (That is...  for 2 points its 2/2.. and 3 points it is 3/2 as we saw earlier)<br/><br/>
+
+                                    So, when scaled down by a factor of n.. n/2 scales down to 1/2. <br/><br/> Making the y coordinate of the final point in the curve to be 1/2, which is that of line AB. <br/><br/>
+
+                                    
+    
+                                   
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-4">
+                                But how do we know it is a parabola? I mean.. there are characteristics to look for. 
+
+                                <br/><br/>
+                                The <span class="p-lightGreen">last segment </span>(corresponding to unscaled <span class="p-lightGreen">CA</span>) added to the curve which is currently at the midpoint is always at the 45 degree angle. Each segment increases it's slope linearly. Reminds me of some familiar curve. 
+
+                                The midpoint on the line segment AB, could be our point of interest H?
+
+                                <br/><br/><br/>
+
+                                Also, remember this?<br/>
+                                <span class="p-lightPink">HB</span> has length <span class="p-lightPink">a</span> units then, <span class="p-lightBlue">CB</span> has length <span class="p-lightBlue">2a</span> units.<br/>
+                                HB is a and CB is 2a. If HB is 0.5 and CB is 1. 
+                                <br/>
+                                CB is indeed 1 here and midpoint H of AB (length 1), hence HB = 0.5. 
+
+
+
+                                <br/><br/><br/>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                If this is the Parabola and the curve indeed always lands at the midpoint H of AB, <br/>
+
+                                Remember? <br/>
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#e3a0cd}a\)</span><br>
+
+                                Then, the length of the arc CH in our parabola is P times a, where a is the distance HB, which equals 0.5 in our case. <br/>
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#e3a0cd}0.5\)</span><br/>
+                                So, our calculated average, represented by
+                                <br/><br/>
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \frac{\color{#ffffff}P\color{#737373}}{\color{#e3a0cd}2}\)</span><br>
+
+                                <br/><br/>
+                                Wait. That's doesn't seem right. <br/> What we wanted was <span class="p-White"> \(P/4\) </span>, not <span class="p-White"> \(P/2\) </span> <br/><br/>
+
+                                This is due to the scale of our square - its side length is 2. The origin problem has a side length of 1. <br/>
+
+                                If we considered a square of side length 1, where CB equals 1/2 and hence, HB (or a), equals 1/4, then for this square, <br/>
+
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#e3a0cd}\frac{1}{4}\)</span><br> <br/>
+                                <b style="font-size: xx-large;" class="p-White">
+                                    <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \frac{\color{#ffffff}P\color{#737373}}{\color{#e3a0cd}4}\)</span>
+                                </b>
+                                <br>
+
+                                <br/>as initially calculated.
+
+                                <br/> <br/> <br/>
+
+                                Going ahead, we can predict the average distance for any square, <br/>
+                                For square of side 1, it is P/4 and for side 2, it is P/2..
+                                In general, for a square whose side as length L, the average distance between it's center and a point on it's perimeter is <br/><br/>
+
+                                <b style="font-size: x-large;" class="p-White">
+                                    \(\color{#ffffff}\frac{P}{4}\color{#737373} \times \color{#e3a0cd}L\)
+                                </b>
+                                <br> 
+
+
+                                <br/><br/><br/>
+
+
+                                In summary, we began with an apparently innocent problem concerning the average distance in a unit square and the unrelated issue of a drunkard's random walk. Intriguingly, we demonstrated their equivalence.<br/><br/>
+
+                                The  Universal Parabolic Constant (UPC), which cropped up consistently, led us tackle this through the  geometric proof . We employed the idea of geometric averages and examined points on a line, calculating the lengths between the center and sampled points. By laying these line segments side by side and scaling down the resulting curve proportionally to the number of points sampled, a parabola astonishingly emerged.<br/><br/>
+
+                                Through this exploration, we hoped to show how the study of mathematics is not about isolated concepts, but an interconnected symphony of ideas.<br/><br/>
+
+
+                                <br/><br/><br/>
+                            </p>
                         </div>
                     </div>
 
@@ -8111,13 +8273,31 @@
                 gph29.samples[0].distanceLabel = "1"
 
                 for (cs = 0; cs < gph29.condition.globalValues.numberOfSamples; cs++) {
+
+                    if (gph29.condition.globalValues.numberOfSamples > 7) {
+                        
+                        gapFactor = viewX.linearValue(7, 30, 0.2, 0.01, parseFloat(gph29.slider.value))
+                        fontFactor = upcApp.graphFontSizeLarge*viewX.linearValue(7, 30, 1, 0.3, parseFloat(gph29.slider.value))
+                        pointFactor = viewX.linearValue(7, 30, 1, 0.3, parseFloat(gph29.slider.value))
+                    }
+                    else {
+                        gapFactor = 0.2
+                        fontFactor = upcApp.graphFontSizeLarge
+                        pointFactor = 1
+                    }
+                    
+
                     lineOptions = { x1: gph29.condition.globalValues.center[0], y1: gph29.condition.globalValues.center[1], x2: gph29.samples[cs].point[0], y2: gph29.samples[cs].point[1], strokedasharray: "2,2", strokewidth: 1.3, linecolor: gph29.samples[cs].color};
                     viewX.addLine("simple-problem-size1-N-point-adding-graph", "simple-problem-size1-N-point-adding-distance-line-" + (cs + 1), lineOptions);
 
-                    pointOptions = { x: gph29.samples[cs].point[0], y: gph29.samples[cs].point[1], pointsize: upcApp.graphPointSize, pointcolor: gph29.samples[cs].color, opacity: 1};
+                    pointOptions = { x: gph29.samples[cs].point[0], y: gph29.samples[cs].point[1], pointsize: upcApp.graphPointSize*pointFactor, pointcolor: gph29.samples[cs].color, opacity: 1};
                     viewX.addPoint("simple-problem-size1-N-point-adding-graph", "simple-problem-size1-N-point-adding-" + (cs + 1), pointOptions);
 
-                    textOptions = {x: gph29.samples[cs].point[0] + 0.2*gph29.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: gph29.samples[cs].point[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2*gph29.condition.globalValues.sideLength, text: gph29.samples[cs].name,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph29.samples[cs].color, opacity: 0.5};
+                   
+
+
+
+                    textOptions = {x: gph29.samples[cs].point[0] + gapFactor*gph29.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: gph29.samples[cs].point[1] - upcApp.parabolicCircleGraph["point-label-gap"]*gapFactor*gph29.condition.globalValues.sideLength, text: gph29.samples[cs].name,  textAlign: "center",  fontSize: fontFactor, fontFamily: "Raleway",   textcolor: gph29.samples[cs].color, opacity: 0.5};
                     viewX.addText("simple-problem-size1-N-point-adding-graph", "simple-problem-size1-N-point-adding-label-" + (cs + 1), textOptions);
 
                     textOptions = {x: (gph29.samples[cs].point[0] + gph29.condition.globalValues.center[0])/2 - 0.2*gph29.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: (gph29.samples[cs].point[1] + gph29.condition.globalValues.center[1])/2 + 0.2*gph29.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], text:gph29.samples[cs].distanceLabel,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph29.samples[cs].color, opacity: 1};
@@ -8126,8 +8306,10 @@
                     lineOptions = { x1: 0.5, y1: 0.5, x2: gph29.samples[cs].point[0], y2: gph29.samples[cs].point[1], strokedasharray: "2,2", strokewidth: 1.3, linecolor: gph29.samples[cs].color, opacity: 0};
                     viewX.addLine("simple-problem-size1-N-point-adding-graph", "simple-problem-size1-N-point-adding-distance-line-placeholder-" + (cs + 1), lineOptions);
 
-                    pointOptions = { x: gph29.samples[cs].point[0], y: gph29.samples[cs].point[1], pointsize: upcApp.graphPointSize, pointcolor: gph29.samples[cs].color, opacity: 0};
+                    pointOptions = { x: gph29.samples[cs].point[0], y: gph29.samples[cs].point[1], pointsize: upcApp.graphPointSize*pointFactor, pointcolor: gph29.samples[cs].color, opacity: 0};
                     viewX.addPoint("simple-problem-size1-N-point-adding-graph", "simple-problem-size1-N-point-adding-placeholder-" + (cs + 1), pointOptions);
+
+
                 }
             }
 
@@ -8146,6 +8328,7 @@
             viewX.generateSliderStyles(sliderProperties, "simple-problem-size1-N-point-selections-Slider");
 
             gph29.slider = document.getElementById("simple-problem-size1-N-point-selections-Slider");
+            gph29.sliderInfo = document.getElementById("simple-problem-size1-N-point-selections-SliderInfo");
 
             gph29.slider.step = 1
             gph29.slider.min = 3
@@ -8192,8 +8375,7 @@
 
                     viewX.updateLine("simple-problem-size1-N-point-adding-graph", "simple-problem-size1-N-point-adding-distance-line-" + (cs + 1), lineOptions);
 
-                    if (gph29.condition.globalValues.numberOfSamples < 8 || gph29.sliderAdding.value > 0.4) {
-                        console.log("nnn")
+                    if ((gph29.condition.globalValues.numberOfSamples < 8 && gph29.sliderForScalingX.value < 0.2 && gph29.sliderForScalingY.value < 0.2) || (gph29.sliderAdding.value > 0.4 && gph29.sliderForScalingX.value < 0.5 && gph29.sliderForScalingY.value < 0.5)) {
                         nameToUse = viewX.distF(scaledPoints[0], scaledPoints[1]).toFixed(2)
                     }
                     else {
@@ -8245,7 +8427,7 @@
                 gph29.setUpSimpleProblemSizeOneNPointAdding()
                 gph29.addCurve()
 
-                
+                gph29.sliderInfo.innerHTML = "Sampled " + gph29.slider.value + " point" + (gph29.slider.value > 1 ? "s" : "")
             });
 
 
@@ -8276,17 +8458,17 @@
             }
 
 
-            gph29.continueButton = document.getElementById("reveal-8-continueButton");
+            gph29.continueButton = document.getElementById("reveal-10-continueButton");
 
             gph29.continueButton.addEventListener('click', function() {
-                if (upcApp.revealPoint == 7) {
+                if (upcApp.revealPoint == 9) {
                     upcApp.revealSection()
                 }
             });
 
-            gph29.continueButtonA = document.getElementById("reveal-9-continueButton");
+            gph29.continueButtonA = document.getElementById("reveal-11-continueButton");
             gph29.continueButtonA.addEventListener('click', function() {
-                if (upcApp.revealPoint == 8) {
+                if (upcApp.revealPoint == 10) {
                     upcApp.revealSection()
                 }
             });
@@ -8332,15 +8514,21 @@
 
             gph29.sliderForScalingY = document.getElementById("simple-problem-size1-N-point-scaling-along-y-Slider");
 
+            gph29.sliderForScalingYInfo = document.getElementById("simple-problem-size1-N-point-scaling-along-y-SliderInfo");
+
             viewX.generateSliderStyles(sliderProperties, "simple-problem-size1-N-point-scaling-along-x-Slider");
 
             gph29.sliderForScalingX = document.getElementById("simple-problem-size1-N-point-scaling-along-x-Slider");
 
+            gph29.sliderForScalingXInfo = document.getElementById("simple-problem-size1-N-point-scaling-along-x-SliderInfo");
+
             gph29.sliderForScalingX.addEventListener('input', function() {
                 gph29.addCurve()
 
+                gph29.sliderForScalingXInfo.innerHTML = "Scaling down along x by a factor of " + (1/gph29.scaleX).toFixed(2)
+
                 if (gph29.sliderForScalingX.value >= gph29.sliderForScalingX.max && gph29.sliderForScalingY.value >= gph29.sliderForScalingY.max) {
-                    if (upcApp.revealPoint == 7) {
+                    if (upcApp.revealPoint == 9) {
                         upcApp.revealSection()
                     }
                 }
@@ -8349,8 +8537,10 @@
             gph29.sliderForScalingY.addEventListener('input', function() {
                 gph29.addCurve()
 
+                gph29.sliderForScalingYInfo.innerHTML = "Scaling down along y by a factor of " + (1/gph29.scaleY).toFixed(2)
+
                 if (gph29.sliderForScalingX.value >= gph29.sliderForScalingX.max && gph29.sliderForScalingY.value >= gph29.sliderForScalingY.max) {
-                    if (upcApp.revealPoint == 7) {
+                    if (upcApp.revealPoint == 9) {
                         upcApp.revealSection()
                     }
                 }
