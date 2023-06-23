@@ -1,0 +1,183 @@
+
+:root {
+    --generalBackground: hsl(0,0%,5%); /*#0e0e0e*/
+    --lightYellow:  hsl(43, 51%, 81%); /*#e7d9b6*/
+    --brightYellow:  hsl(54, 51%, 59%); /*#ccc161*/
+    --lightPurple:  hsl(256, 100%, 76%); /*#a585ff*/
+    --lightOrange:  rgb(255, 190, 143); /*#ffbe8f*/
+    --lightGreen: hsl(97, 100%, 74%);  /*#adff7a*/
+    --lightRed: hsl(0, 100%, 74%); /*#ff7a7a*/
+    --lightPinkH:  320; 
+    --lightPinkS:  55%;
+    --lightPinkL:  76%;
+    --lightPink:  hsl(320, 55%, 76%); /*#e3a0cd*/
+    --lightBlue:  hsl(205, 100%, 69%); /*#61bdff*/
+    --writingGrey: hsl(0,0%,45%); /*#737373*/
+    --darkBlue: hsl(223, 75%, 60%); /*#4a76e5*/
+}
+
+
+#upc-header {
+    transition: opacity 0.4s;
+}
+
+.hidden-element {
+    display: none !important;
+}
+
+.revealable {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.commonSlider {
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+}
+
+.commonButton {
+    border: 1px solid hsla(198, 100%, 70%, 0.2);
+    color: hsla(198, 100%, 70%, 1);
+    background: hsla(43, 100%, 70%, 0);
+    cursor: pointer;
+    border-radius: 14px;
+    font-size: small;
+}
+
+.commonButton:hover {
+    border: 1px solid hsla(43, 100%, 70%, 0) !important;
+    color: white !important;
+    background: hsla(198, 0%, 40%, 1);
+}
+
+
+
+
+.commonButtonTrial {
+    border: 1px solid hsla(var(--lightPinkH), 100%, 70%, 0.2);
+    color: hsla(var(--lightPinkH), 100%, 70%, 1);
+    background: hsla(43, 100%, 70%, 0);
+    cursor: pointer;
+    border-radius: 9px;
+    font-size: small;
+}
+
+.commonButtonTrial:hover {
+    border: 1px solid hsla(43, 100%, 70%, 0) !important;
+    color: black !important;
+    background: var(--lightPink);
+}
+
+.menuTopButton {
+    border: 1px solid hsla(198, 100%, 60%, 0.2);
+    color: hsla(198, 100%, 60%, 1);
+    background: hsla(43, 100%, 60%, 0);
+    cursor: pointer;
+    border-radius: 14px;
+    font-size: small;
+}
+
+.menuTopButton:hover {
+    border: 1px solid hsla(43, 100%, 70%, 0) !important;
+    color: white !important;
+    background: hsla(198, 0%, 40%, 1);
+}
+
+.menuTopButtonSelected {
+    border: 1px solid hsla(198, 100%, 60%, 0.2);
+    color: hsla(198, 100%, 90%, 1);
+    background: hsla(198, 80%, 30%, 1);
+    cursor: pointer;
+    border-radius: 14px;
+    font-size: small;
+}
+
+.menuTopButtonSelected:hover {
+    border: 1px solid hsla(43, 100%, 70%, 0) !important;
+    color: white !important;
+    background: hsla(198, 0%, 40%, 1);
+}
+
+
+
+a:hover {
+    color: white;
+}
+
+p {
+    color: var(--writingGrey);
+    font-family: Nunito;
+}
+
+.p-lightYellow {
+    color: var(--lightYellow);
+}
+
+.p-lightPurple {
+    color: var(--lightPurple);
+}
+
+.p-lightPink {
+    color: var(--lightPink);
+}
+
+.p-lightBlue {
+    color: var(--lightBlue);
+}
+
+.p-darkBlue {
+    color: var(--darkBlue);
+}
+
+.p-White {
+    color: white;
+}
+
+.p-lightOrange {
+    color: var(--lightOrange);
+}
+
+.p-lightGreen {
+    color: var(--lightGreen);
+}
+
+.p-lightRed {
+    color: var(--lightRed);
+}
+
+.p-brightYellow {
+    color: var(--brightYellow);
+}
+
+
+
+
+
+.our-text-block {
+    max-width: 1000px;
+    width: 100%;
+}
+
+
+
+
+.dragDownExtension {
+    color: hsla(198, 0%, 54%, 1);
+    cursor: pointer;
+    z-index: 1;
+}
+
+.dragDownExtension:hover {
+    color: white
+}
+
+.inActiveSectionButton {
+    filter: saturate(0.5) contrast(0.4);
+}
+
+.inActiveSectionButton:hover {
+    filter: none
+}
+
+

@@ -33,190 +33,8 @@
 			  }
 		</script>
 
-        <style type="text/css">
+        <link rel="stylesheet" href="/css/universal-parabolic-constant/universal-parabolic-constant.css"/>
 
-            :root {
-                --generalBackground: hsl(0,0%,5%); /*#0e0e0e*/
-                --lightYellow:  hsl(43, 51%, 81%); /*#e7d9b6*/
-                --brightYellow:  hsl(54, 51%, 59%); /*#ccc161*/
-                --lightPurple:  hsl(256, 100%, 76%); /*#a585ff*/
-                --lightOrange:  rgb(255, 190, 143); /*#ffbe8f*/
-                --lightGreen: hsl(97, 100%, 74%);  /*#adff7a*/
-                --lightRed: hsl(0, 100%, 74%); /*#ff7a7a*/
-                --lightPinkH:  320; 
-                --lightPinkS:  55%;
-                --lightPinkL:  76%;
-                --lightPink:  hsl(320, 55%, 76%); /*#e3a0cd*/
-                --lightBlue:  hsl(205, 100%, 69%); /*#61bdff*/
-                --writingGrey: hsl(0,0%,45%); /*#737373*/
-                --darkBlue: hsl(223, 75%, 60%); /*#4a76e5*/
-			}
-            
-
-
-
-            .hidden-element {
-                display: none !important;
-            }
-
-            .revealable {
-                opacity: 0;
-                transition: opacity 0.4s ease-in-out;
-            }
-
-            .commonSlider {
-                appearance: none;
-                -webkit-appearance: none;
-                outline: none;
-            }
-
-            .commonButton {
-                border: 1px solid hsla(198, 100%, 70%, 0.2);
-                color: hsla(198, 100%, 70%, 1);
-                background: hsla(43, 100%, 70%, 0);
-                cursor: pointer;
-                border-radius: 14px;
-                font-size: small;
-            }
-
-            .commonButton:hover {
-                border: 1px solid hsla(43, 100%, 70%, 0) !important;
-                color: white !important;
-                background: hsla(198, 0%, 40%, 1);
-            }
-
-            
-
-
-            .commonButtonTrial {
-                border: 1px solid hsla(var(--lightPinkH), 100%, 70%, 0.2);
-                color: hsla(var(--lightPinkH), 100%, 70%, 1);
-                background: hsla(43, 100%, 70%, 0);
-                cursor: pointer;
-                border-radius: 9px;
-                font-size: small;
-            }
-
-            .commonButtonTrial:hover {
-                border: 1px solid hsla(43, 100%, 70%, 0) !important;
-                color: black !important;
-                background: var(--lightPink);
-            }
-
-            .menuTopButton {
-                border: 1px solid hsla(198, 100%, 60%, 0.2);
-                color: hsla(198, 100%, 60%, 1);
-                background: hsla(43, 100%, 60%, 0);
-                cursor: pointer;
-                border-radius: 14px;
-                font-size: small;
-            }
-
-            .menuTopButton:hover {
-                border: 1px solid hsla(43, 100%, 70%, 0) !important;
-                color: white !important;
-                background: hsla(198, 0%, 40%, 1);
-            }
-
-            .menuTopButtonSelected {
-                border: 1px solid hsla(198, 100%, 60%, 0.2);
-                color: hsla(198, 100%, 90%, 1);
-                background: hsla(198, 80%, 30%, 1);
-                cursor: pointer;
-                border-radius: 14px;
-                font-size: small;
-            }
-
-            .menuTopButtonSelected:hover {
-                border: 1px solid hsla(43, 100%, 70%, 0) !important;
-                color: white !important;
-                background: hsla(198, 0%, 40%, 1);
-            }
-
-
-
-            a:hover {
-                color: white;
-            }
-
-            p {
-                color: var(--writingGrey);
-                font-family: Nunito;
-            }
-
-            .p-lightYellow {
-                color: var(--lightYellow);
-            }
-            
-            .p-lightPurple {
-                color: var(--lightPurple);
-            }
-
-            .p-lightPink {
-                color: var(--lightPink);
-            }
-
-            .p-lightBlue {
-                color: var(--lightBlue);
-            }
-
-            .p-darkBlue {
-                color: var(--darkBlue);
-            }
-
-            .p-White {
-                color: white;
-            }
-
-            .p-lightOrange {
-                color: var(--lightOrange);
-            }
-
-            .p-lightGreen {
-                color: var(--lightGreen);
-            }
-
-            .p-lightRed {
-                color: var(--lightRed);
-            }
-
-            .p-brightYellow {
-                color: var(--brightYellow);
-            }
-
-
-
-        
-
-            .our-text-block {
-                max-width: 1000px;
-                width: 100%;
-            }
-
-            
-
-
-            .dragDownExtension {
-                color: hsla(198, 0%, 54%, 1);
-                cursor: pointer;
-                z-index: 1;
-            }
-
-            .dragDownExtension:hover {
-                color: white
-            }
-
-            .inActiveSectionButton {
-                filter: saturate(0.5) contrast(0.4);
-            }
-
-            .inActiveSectionButton:hover {
-                filter: none
-            }
-
-
-
-		</style>
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFFCG66EJ"></script>
         <script>
@@ -233,10 +51,12 @@
 		<div id="containAll" class="p-sm-3 p-1">
             <div style="border: 1px solid hsl(0,0%,2%); border-radius: 10px; background: var(--generalBackground); ">
                 
-                <header style="position: fixed; font-family: Raleway; overflow: hidden;" class="d-none">
-                    <div style="background-image: linear-gradient(to bottom, var(--generalBackground), transparent); color: hsl(0,0%,20%); font-size: small; " class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center">
-                        <b>Where is the Parabola? The Parabolic Constant Mystery</b><br/>
-                         <p style="font-size:x-small">Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello</p>
+                <header id="upc-header" class="pr-2 pr-sm-3" style="position: fixed;font-family: Raleway;overflow: hidden;width: calc(100%);top: 0;z-index: 3;">
+                    <div style="background-image: linear-gradient(to bottom, var(--generalBackground),var(--generalBackground), transparent);color: hsl(0,0%,20%);font-size: small;height: 131px;" class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center w-100 w-md-0">
+                        <span style="cursor: pointer;"> 
+                            <b id="currentMenuName" style="color:hsla(198, 0%, 37%, 1)">What's the problem?</b><br class="d-inline-block d-md-none"/>
+                            <span style="font-size:x-small">The Parabolic Constant Mystery</span>
+                        </span>
                     </div>
                     
                 </header>
@@ -1089,7 +909,7 @@
                     <div class="w-100 pl-4 pt-5 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
                         <div class="our-text-block text-center pt-4">
                             <p class="p-White" style="font-size: large; font-family: Raleway;">
-                                <b>What is average?</b>
+                                <b id="whatIsAverage-section">What is average?</b>
                             </p>
                         </div>
                     </div>
@@ -2312,6 +2132,67 @@
 
         </script>
 
+        <script>
+            window.addEventListener('scroll', function(e) {
+                if (window.scrollY < 900) {
+                    document.getElementById('upc-header').style.display = "none";
+                }
+                else if (window.scrollY >= 900 && window.scrollY < 1500) {
+                    document.getElementById('upc-header').style.display = "block";
+                    document.getElementById('upc-header').style.opacity = viewX.linearValue(900, 1500, 0, 1, window.scrollY)
+                }
+                else {
+                    document.getElementById('upc-header').style.display = "block";
+                    document.getElementById('upc-header').style.opacity = 1
+                }
+
+  
+            });
+
+            document.getElementById('upc-header').style.display = "none";
+
+
+            
+            upcApp.menuHighlightDetection = function(targetDiv) {
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            document.getElementById('currentMenuName').innerText = nameMenuMaps[entry.target.id]
+                        }
+                    });
+                });
+
+                observer.observe(targetDiv);
+            }
+
+            nameMenuMaps = {
+                'upc-measurement-graphHolder': 'What is the problem?',
+                'distance-between-any-two-points-graphHolder': 'Distance between any two points',
+                'random-shrinking-walk-graphHolder': 'Random shrinking walk',
+                'random-shrinking-walk-reveal-graphHolder': 'Random shrinking walk',
+                'parabola-circle-compare-graphHolder': 'What is the universal parabolic constant?',
+                'parabola-points-description-graphHolder': 'What is a parabola?',
+                'parabola-increasing-slope-graphHolder': 'What is a parabola?',
+                'cutting-ribbon-graphHolder': 'How to divide lines?',
+                'shrinking-curve-animation-graphHolder': 'How to divide lines?',
+                'whatIsAverage-section': 'What is average?',
+                'simple-problem-average-animation-graphHolder': 'What is average?',
+                'simple-problem-description-size05-graphHolder': 'The simpler problem',
+                'simple-problem-size1-n-point-graphHolder': 'The simpler problem',
+                'simple-problem-size1-2-point-adding-graphHolder': 'Can you see it?'
+
+
+            }
+
+            for (divIndex  = 0; divIndex < Object.keys(nameMenuMaps).length; divIndex++) {
+                divName = Object.keys(nameMenuMaps)[divIndex]
+                menuName = nameMenuMaps[divName]
+
+                upcApp.menuHighlightDetection(document.getElementById(divName))
+            }
+
+
+        </script>
 
 
 
