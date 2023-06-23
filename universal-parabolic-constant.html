@@ -1,0 +1,2320 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Where is the Parabola? - The Universal Parabolic Constant Mystery</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta charset="UTF-8">
+        <meta name="description" content="Explore the mysteries of the Universal Parabolic Constant with Manas Shetty, Prajwal DSouza, Sparsha Kumari and Vinton Adrian Rebello. Dive into a journey of understanding average distances, shrinking random walks, and the unexpected links between parabolas and squares. Discover the complexities of curve length division and the elegance of parabolic arcs. A perfect resource for those intrigued by the fascinating world of mathematical problem-solving.">
+        <meta name="keywords" content="plots.js, prajwalsouza, Prajwal DSouza, template">
+        <meta name="author" content="Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+		<!-- Some times used library for icons -->
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/prajwalsouza/IgnusTheme@1.3/ignus-theme.css">
+        <script src="https://cdn.jsdelivr.net/gh/prajwalsouza/IgnusTheme@1.3/ignus-theme.js"></script>
+
+
+		<link rel="icon" href="square.png">
+		
+		<script type="application/ld+json">
+			{
+			  "@type": "blog",
+			  "name": "Where is the Parabola? - The Universal Parabolic Constant Mystery",
+			  "author": "Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello",
+			  "description": "Explore the mysteries of the Universal Parabolic Constant with Manas Shetty, Prajwal DSouza, Sparsha Kumari and Vinton Adrian Rebello. Dive into a journey of understanding average distances, shrinking random walks, and the unexpected links between parabolas and squares. Discover the complexities of curve length division and the elegance of parabolic arcs. A perfect resource for those intrigued by the fascinating world of mathematical problem-solving."
+			  }
+		</script>
+
+        <style type="text/css">
+
+            :root {
+                --generalBackground: hsl(0,0%,5%); /*#0e0e0e*/
+                --lightYellow:  hsl(43, 51%, 81%); /*#e7d9b6*/
+                --brightYellow:  hsl(54, 51%, 59%); /*#ccc161*/
+                --lightPurple:  hsl(256, 100%, 76%); /*#a585ff*/
+                --lightOrange:  rgb(255, 190, 143); /*#ffbe8f*/
+                --lightGreen: hsl(97, 100%, 74%);  /*#adff7a*/
+                --lightRed: hsl(0, 100%, 74%); /*#ff7a7a*/
+                --lightPinkH:  320; 
+                --lightPinkS:  55%;
+                --lightPinkL:  76%;
+                --lightPink:  hsl(320, 55%, 76%); /*#e3a0cd*/
+                --lightBlue:  hsl(205, 100%, 69%); /*#61bdff*/
+                --writingGrey: hsl(0,0%,45%); /*#737373*/
+                --darkBlue: hsl(223, 75%, 60%); /*#4a76e5*/
+			}
+            
+
+
+
+            .hidden-element {
+                display: none !important;
+            }
+
+            .revealable {
+                opacity: 0;
+                transition: opacity 0.4s ease-in-out;
+            }
+
+            .commonSlider {
+                appearance: none;
+                -webkit-appearance: none;
+                outline: none;
+            }
+
+            .commonButton {
+                border: 1px solid hsla(198, 100%, 70%, 0.2);
+                color: hsla(198, 100%, 70%, 1);
+                background: hsla(43, 100%, 70%, 0);
+                cursor: pointer;
+                border-radius: 14px;
+                font-size: small;
+            }
+
+            .commonButton:hover {
+                border: 1px solid hsla(43, 100%, 70%, 0) !important;
+                color: white !important;
+                background: hsla(198, 0%, 40%, 1);
+            }
+
+            
+
+
+            .commonButtonTrial {
+                border: 1px solid hsla(var(--lightPinkH), 100%, 70%, 0.2);
+                color: hsla(var(--lightPinkH), 100%, 70%, 1);
+                background: hsla(43, 100%, 70%, 0);
+                cursor: pointer;
+                border-radius: 9px;
+                font-size: small;
+            }
+
+            .commonButtonTrial:hover {
+                border: 1px solid hsla(43, 100%, 70%, 0) !important;
+                color: black !important;
+                background: var(--lightPink);
+            }
+
+            .menuTopButton {
+                border: 1px solid hsla(198, 100%, 60%, 0.2);
+                color: hsla(198, 100%, 60%, 1);
+                background: hsla(43, 100%, 60%, 0);
+                cursor: pointer;
+                border-radius: 14px;
+                font-size: small;
+            }
+
+            .menuTopButton:hover {
+                border: 1px solid hsla(43, 100%, 70%, 0) !important;
+                color: white !important;
+                background: hsla(198, 0%, 40%, 1);
+            }
+
+            .menuTopButtonSelected {
+                border: 1px solid hsla(198, 100%, 60%, 0.2);
+                color: hsla(198, 100%, 90%, 1);
+                background: hsla(198, 80%, 30%, 1);
+                cursor: pointer;
+                border-radius: 14px;
+                font-size: small;
+            }
+
+            .menuTopButtonSelected:hover {
+                border: 1px solid hsla(43, 100%, 70%, 0) !important;
+                color: white !important;
+                background: hsla(198, 0%, 40%, 1);
+            }
+
+
+
+            a:hover {
+                color: white;
+            }
+
+            p {
+                color: var(--writingGrey);
+                font-family: Nunito;
+            }
+
+            .p-lightYellow {
+                color: var(--lightYellow);
+            }
+            
+            .p-lightPurple {
+                color: var(--lightPurple);
+            }
+
+            .p-lightPink {
+                color: var(--lightPink);
+            }
+
+            .p-lightBlue {
+                color: var(--lightBlue);
+            }
+
+            .p-darkBlue {
+                color: var(--darkBlue);
+            }
+
+            .p-White {
+                color: white;
+            }
+
+            .p-lightOrange {
+                color: var(--lightOrange);
+            }
+
+            .p-lightGreen {
+                color: var(--lightGreen);
+            }
+
+            .p-lightRed {
+                color: var(--lightRed);
+            }
+
+            .p-brightYellow {
+                color: var(--brightYellow);
+            }
+
+
+
+        
+
+            .our-text-block {
+                max-width: 1000px;
+                width: 100%;
+            }
+
+            
+
+
+            .dragDownExtension {
+                color: hsla(198, 0%, 54%, 1);
+                cursor: pointer;
+                z-index: 1;
+            }
+
+            .dragDownExtension:hover {
+                color: white
+            }
+
+            .inActiveSectionButton {
+                filter: saturate(0.5) contrast(0.4);
+            }
+
+            .inActiveSectionButton:hover {
+                filter: none
+            }
+
+
+
+		</style>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFFCG66EJ"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-MNFFCG66EJ');
+        </script>
+      
+
+	</head>
+	<body style='margin:0px; display: block;'>
+		<div id="containAll" class="p-sm-3 p-1">
+            <div style="border: 1px solid hsl(0,0%,2%); border-radius: 10px; background: var(--generalBackground); ">
+                
+                <header style="position: fixed; font-family: Raleway; overflow: hidden;" class="d-none">
+                    <div style="background-image: linear-gradient(to bottom, var(--generalBackground), transparent); color: hsl(0,0%,20%); font-size: small; " class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center">
+                        <b>Where is the Parabola? The Parabolic Constant Mystery</b><br/>
+                         <p style="font-size:x-small">Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello</p>
+                    </div>
+                    
+                </header>
+
+                <main>
+                    <div class="w-100 text-center text-ignus pt-5 mt-3 pb-4" style="font-family: Raleway;">
+                        <div class="pl-3 pr-3">
+                            <b style="font-size: x-large;">Where is the Parabola? </b><br/>
+                            <b style="font-size: large; color: gray">The Parabolic Constant Mystery</b><br/>
+                            <p style="font-size: medium; color: hsl(0,0%,30%)">Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello</p>
+                        </div>
+                    </div>
+    
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" id="gph1-starting-block">
+                            <p>Let us start with a innocent looking problem. Picture a <span class="p-lightYellow">unit square</span>, a perfect little 1x1 entity. Now, pick a point <span class="p-lightPurple">Q</span> at random along the square's boundary. What do you think is the <span class="p-lightPink">average distance</span> between this chosen <span class="p-lightPurple">point Q</span> and the very heart of our square, the <span class="p-lightBlue">center C</span>? </p>
+                        </div>
+                        
+                    </div>
+    
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="upc-measurement-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+    
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" id="gph1-explaining-block">
+                            <p>Surprisingly, the answer is approximately <span class="p-lightPink" id="parameter-measured-parabolic-constant-by-4">0.5738967</span>... a peculiar figure, isn't it? This number equals <span class="p-White" >P</span>/4 where <span class="p-White" >P</span> is known as <span class="p-White" >Universal Parabolic Constant</span>. The value is around <span class="p-White" >2.295587149...</span> Hold on a second - a Parabolic Constant? But our question was about squares, wasn't it? <span class="p-White" >Where does the parabola come in? </span></p>
+                        </div>
+                    </div>
+    
+                    
+    
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center">
+                            <p>This might seem like a co-incidence. But, we look for a circle when <span class="p-White" > π</span>  pops up in various places right? Just check <a class="p-lightBlue" href="https://www.youtube.com/watch?v=HEfHFsfGXjs" target="_blank" >3B1B</a> :P  So, why not dig a little deeper. And if we explore a little more, there are other seemingly unrelated math problems where you see this number show up. </p>
+                        </div>
+                    </div>
+    
+                    
+    
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="distance-between-any-two-points-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+    
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center">
+                            <p>
+                                
+                                So, What do you think is the average <span class="p-lightPink" >distance </span>between any two points inside a <span class="p-lightYellow" >unit square</span>? Take a guess. :D
+                            </p>
+                            <div class="mt-5">
+                                <input type="range" min="0" max="2" value="0.8" step="0.001"  class="commonSlider mb-3" id="distance-between-any-two-points-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="distance-between-any-two-points-SliderLabel" class="p-lightPink pl-sm-3 pl-0" for="distance-between-any-two-points-Slider" style="min-width: 100px;" >0.8</label>
+                                <div>
+                                    <p id="distance-between-any-two-points-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
+                                        Move the <span class='p-lightPink'>slider</span> to choose your answer...  and also, the points <span class="p-lightBlue">A</span> and <span class="p-lightPurple">B</span> above are draggable. :)
+                                    </p>
+                                    
+                                    <div id="gph2-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
+                                    <div id="reveal-1-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+    
+                                </div>
+                            </div>
+                            
+    
+                        </div>
+                    </div>
+    
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-5">
+                                It is about  <span class="p-lightPink" >0.52140.</span> To be more precise, it is. <br/><br/>
+                                
+                                <span class="p-lightPink" >
+                                    \(\color{#e3a0cd}{8\left(0.0416{\color{#ffffff}{P}}-0.030473\right)}\)
+                                </span><br/>
+
+                                And exactly, it is
+
+                                <div style="font-size: 25px;">
+                                    \(\color{#e3a0cd}{8\left(\frac{\color{#ffffff}{P}}{24}-\frac{\sqrt{2}}{30}+\frac{1}{60}\right)}\)
+                                </div>
+                                
+                                
+                                <br/>
+                                <p>
+                                Yep. Strange combination of numbers. There's a <span class="p-White" >P</span> there. <br/>
+
+                                There's many more instances where we see this. But, mostly involving a unit square.</p>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" onclick="upcApp.chooseSection(1, 1)" id="rotatingSectionButton-1-1"> Center-Point Distance</span>
+                                <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus inActiveSectionButton" onclick="upcApp.chooseSection(1, 2)" id="rotatingSectionButton-1-2"> Corner-Perimeter Distance</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="hidden-element reveal-1 revealable" id="extender-section-1" style="max-height: 100px; overflow: hidden; position: relative;">
+                        <div style="position: absolute; background: linear-gradient(to bottom, transparent, var(--generalBackground)); pointer-events: none; z-index: 1;" class="w-100 h-100" id="extender-section-1-cover"></div>
+                        <div style="position: absolute; bottom: 0px; height: 30px; " class="w-100 text-center dragDownExtension" onclick="upcApp.extendSection(1)">
+                            <span><i id="extender-section-1-chevron-down" class="fa fa-angle-double-down" style="font-size: 23px;"></i></span>
+                        </div>
+                        
+                        <div id="rotatingSection-1-1" class="rotatingSection-1">
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                                <div class="our-text-block text-center pb-1">
+                                    <p>
+                                        Here is a slightly similar problem. <br/>
+                                        What do you think is the average <span class="p-lightPink" >distance </span>between the <span class="p-lightBlue" >center</span> and <span class="p-lightPurple" >any point</span> 'inside' the <span class="p-lightYellow" >unit square</span>?
+                                       
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center rotatingSectionGraph-1-1" id="rotatingSectionGraph-1-1-1" style="position: absolute; left: 200vw;">
+                                <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                                    <div id="distance-between-center-and-any-point-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                                <div class="our-text-block text-center">
+                                    <p>
+                                        Take a guess. :D
+                                    </p>
+                                    <div class="mt-1 pb-2">
+                                        <input type="range" min="0" max="1" value="0.2" step="0.001"  class="commonSlider mb-3" id="distance-between-center-and-point-inside-Slider">
+                                        <div class="d-block d-sm-none"></div>
+                                        <label id="distance-between-center-and-point-inside-SliderLabel" class="p-lightPink pl-sm-3 pl-0" for="distance-between-center-and-point-inside-Slider" style="min-width: 100px;" >0.8</label>
+                                        <div>
+                                            <p id="distance-between-center-and-point-inside-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
+                                                Point<span class="p-lightPurple">B</span> above is draggable. :)
+                                            </p>
+                                            
+                                            <div id="gph3-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
+                                            <div id="reveal-sub-section-1-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+            
+                                        </div>
+                                    </div>
+                                    
+            
+                                </div>
+                            </div>
+                            <div class="w-100 pl-4 pr-4 pb-5 pl-sm-5 pr-sm-5 d-flex justify-content-center reveal-sub-section-1 revealable">
+                                <div class="mt-2 text-center">
+                                    <p>
+                                        It is about <span class="p-lightPink">0.38259785</span> ... To be exact, it is.
+                                    </p>
+                                    
+                                    <div class="p-lightPink" style="font-size: 25px;">
+                                        \(\color{#e3a0cd}{\frac{\color{#ffffff}{P}}{6}}\)
+                                    </div>
+                                
+                                
+                                    <br />
+                                    <p>
+                                        Yep. There's a <span class="p-White">P</span> here too. <br />
+                                    </p>
+                                </div>
+                                
+
+                            </div>
+                            
+                        </div>
+                        <div id="rotatingSection-1-2" class="rotatingSection-1" style="display: none">
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center ">
+                                <div class="our-text-block text-center pb-1">
+                                    <p>
+                                        Here is another problem. Try to guess this one.<br/>
+                                        What do you think is the average <span class="p-lightPink" >distance </span>between a <span class="p-lightBlue" >corner</span> and <span class="p-lightPurple" >a point</span> on the <span class="p-lightYellow" >unit square</span>?
+                                       
+                                    </p>
+                                
+                                </div>
+                            </div>
+                            <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center rotatingSectionGraph-1-2" id="rotatingSectionGraph-1-2-1" style="position: absolute; left: 200vw;">
+                                <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                                    <div id="distance-between-corner-and-point-on-square-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                                <div class="our-text-block text-center">
+                                    <p>
+                                        Take a guess. :D
+                                    </p>
+                                    <div class="mt-1 pb-2">
+                                        <input type="range" min="0" max="2" value="0.2" step="0.001"  class="commonSlider mb-3" id="distance-between-corner-and-point-Slider">
+                                        <div class="d-block d-sm-none"></div>
+                                        <label id="distance-between-corner-and-point-SliderLabel" class="p-lightPink pl-sm-3 pl-0" for="distance-between-corner-and-point-Slider" style="min-width: 100px;" >0.8</label>
+                                        <div>
+                                            <p id="distance-between-corner-and-point-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
+                                                Point<span class="p-lightPurple">B</span> above is draggable. :)
+                                            </p>
+                                            
+                                            <div id="gph4-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
+                                            <div id="reveal-sub-section-2-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+                                        </div>
+                                    </div>
+                                    
+            
+                                </div>
+                            </div>
+                            <div class="w-100 pl-4 pr-4 pb-5 pl-sm-5 pr-sm-5 d-flex justify-content-center reveal-sub-section-2 revealable">
+                                <div class="mt-2 text-center">
+                                    <p>
+                                        It is about <span class="p-lightPink">0.76519571</span>...  To be exact, it is.
+                                    </p>
+                                    
+                                    <div class="p-lightPink" style="font-size: 25px;">
+                                        \(\color{#e3a0cd}{\frac{\color{#ffffff}{P}}{3}}\)
+                                    </div>
+                                
+                                    <br />
+                                    <p>
+                                        There's a <span class="p-White">P</span> here too. <br />
+                                    </p>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                        
+                    </div>
+    
+                    
+    
+                    <div  class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                Let's branch out a little and delve into a problem unrelated to the unit square. A problem related to <span class="p-lightPurple" >Shrinking Random Walk</span> appeared in Tom Yuster's April 2017 Math Horizons piece (pp. 32-33)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                Consider a drunkard walking in a plane that starts at the <span class="p-White" >origin</span> and moves only in the east and north directions. He randomly chooses a direction and takes a step. The walk is such that the length of the <span class="p-lightOrange" >first step must be √2</span>, the length of the <span class="p-brightYellow" >second step must be √2/2</span>, the length of the <span class="p-lightGreen" >third step must be √2/4</span>, and <span class="p-lightBlue" >so on</span>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center" style="height: 500px; width: 100%; position: relative;">
+                            <div id="random-shrinking-walk-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                            
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="30" value="1" step="1"  class="commonSlider mb-3" id="random-shrinking-walk-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="random-shrinking-walk-SliderLabel" class="p-lightBlue pl-sm-3 pl-0" for="random-shrinking-walk-Slider" style="min-width: 100px;" >0.8</label>
+                                <div>
+                                    <p id="random-shrinking-walk-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
+                                        There are infinitely many steps. But, you can choose how many steps to show. :)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p>
+                                Imagine the endless steps taken by the drunkard, how far would you expect to be from the starting point,  <span class="p-White">the origin</span>? Let's denote this distance as <span class="p-lightPink">D</span>. But, what about the average value of <span class="p-lightPink">D</span>? How could we possibly calculate that?<br/>
+                                This problem might seem to be a departure from our discussion about the unit square. Still, it maintains a common thread: the concept of averages.
+                                (Note that the length of the path is <span class="p-brightYellow">√2</span> + <span class="p-lightOrange">√2/2</span> + ... , and we are not referring to that) <br/><br/>
+
+                                So, how about we roll up our sleeves and crunch some numbers? Let's simulate the Drunkard's Walk, taking about 30 steps, and observe where we end up. From there, we can compute the distance, <span class="p-lightPink">D</span>, from the origin. To get an approximation of <span class="p-lightPink">D</span>'s average value, we'll repeat this process a few times.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center" style="height: 500px; width: 100%; position: relative;">
+                            <div id="random-shrinking-walk-trials-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p id="random-shrinking-walk-trials-info-for-trial">
+                                
+                            </p>
+                            <p id="random-shrinking-walk-trials-holder">
+                                
+                            </p>
+                            <p id="random-shrinking-walk-trials-average-statement">
+                                
+                            </p>
+                            <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" onclick="gph6.addNewWalk()"> Add another trial</span>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-2 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                After looking at these values, what do you think is the average value?
+                            </p><br/>
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="4" value="0.2" step="0.001"  class="commonSlider mb-3" id="random-shrinking-walk-distance-answer-Slider">
+                                    <label id="random-shrinking-walk-distance-answer-SliderLabel" class="p-lightPink pl-sm-3 pl-0" for="random-shrinking-walk-distance-answer-Slider" style="min-width: 100px;" >0.8</label>
+                                    <div>
+                                        <p id="random-shrinking-walk-distance-answer-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
+                                        </p>
+                                        <div id="gph6-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
+                                        <div id="reveal-2-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+        
+                                    </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p>
+                                The answer is <span class="p-White">2.295587149</span>...
+                                Yes. It is <span class="p-White">P</span>. It's here too. 
+                                <br/>
+                                This problem doesn't seem to have a square, but still deals with  concept of averages. 
+                                <br/><br/>
+                                But, why? What does this have to do with the parabola we've been discussing? Could it be linked to a concept you're already familiar with?
+                                <br/>
+                                Here's a hint. The drunkard destiny isn't that random after all. It's about the <span class="p-lightPurple">final point</span> after large iterations . (where the drunkard lands after infinitely many steps)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 500px; width: 100%; position: relative;">
+                            <div id="random-shrinking-walk-reveal-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%; overflow: hidden;"></div>
+                            
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="1" max="200" value="2" step="1"  class="commonSlider mb-3" id="random-shrinking-walk-reveal-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="random-shrinking-walk-reveal-SliderLabel" class="p-lightBlue pl-sm-3 pl-0" for="random-shrinking-walk-reveal-Slider" style="min-width: 100px;" >2 trials</label>
+                                <div>
+                                    <p id="random-shrinking-walk-reveal-SliderInfo" class="text-small-ignus" style="color:hsla(198, 0%, 47%, 1)">
+                                        Well. More trails? :)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p>
+                                Does it look familiar now? i hope we got your attention and excited about the problem. 
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p class="p-White" style="font-size: large; font-family: Raleway;">
+                                <b>So, what is the Universal Parabolic Constant?</b>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p>
+                                Let's start with something familiar, what is pi?<br/>
+                                If you take any circle and divide a part of it's curve, the <span class="p-lightPink">half circumference/perimeter</span>, by the <span class="p-lightBlue">radius</span> of the circle, we get a value that is a constant. It's pi. This seems to be the case of parabolas too. 
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 600px; width: 100%; position: relative;">
+                            <div id="parabola-circle-compare-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-1 pl-sm-4 pt-0 pr-sm-4 pr-1 d-flex justify-content-center hidden-element reveal-2 revealable" style="overflow: hidden;">
+                        <div class="our-text-block text-center pt-4">
+                            <p class="d-inline-flex">
+                                <span class="mr-3 mr-sm-5">
+                                    <span class="p-lightPink">Circle</span><br/><br/>
+                                    <span class="p-lightPink text-large-ignus">
+                                        \(π = \frac{\text{Enclosing Arc}}{Radius}\)
+                                    </span><br/><br/>
+                                    <span>
+                                        <span id="parabola-circle-compare-circle-equation-with-values" class="text-large-ignus"> </span>
+                                        <!-- =
+                                        <span class="p-lightPink" id="parabola-circle-compare-circlearc-value">2.334445</span>/<span class="p-lightBlue" id="parabola-circle-compare-parabolaradius-value">1.2</span> -->
+                                    </span><br/><br/>
+                                    <span>
+                                        = <b id="parabola-circle-compare-pi-value">2.2123</b>
+                                    </span>
+                                </span>
+                                <span>
+                                    <span class="p-lightPurple">Parabola</span><br/><br/>
+                                    <span class="p-lightPurple  text-large-ignus">
+                                        \(P = \frac{\text{Enclosing Arc}}{Radius}\)
+                                    </span><br/><br/>
+                                    <span>
+                                        <span id="parabola-circle-compare-parabola-equation-with-values" class="text-large-ignus"> </span>
+                                    </span><br/><br/>
+                                    <!-- <span>
+                                        = <span class="p-lightPurple" id="parabola-circle-compare-parabolaarc-value">2.334445</span>/<span class="p-lightBlue" id="parabola-circle-compare-circleradius-value">1.2</span>
+                                    </span><br/> -->
+                                    <span>
+                                        = <b class="p-White" id="parabola-circle-compare-upc-value">3.1545</b>
+                                    </span>
+                                </span>
+                                 
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0.4" max="4" value="2" step="0.001"  class="commonSlider mb-3" id="parabola-circle-compare-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="parabola-circle-compare-SliderLabel" class="p-lightBlue pl-sm-3 pl-0" for="parabola-circle-compare-Slider" style="min-width: 100px;" >0.8</label>
+                                <div>
+                                    <p id="parabola-circle-compare-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
+                                        Radius
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p>
+                                <br/>
+                                In fact, the universal parabolic constant <span class="p-White">2.295587...</span> is an irrational number and is equal to <span class="p-White">\(√2 + ln(1+√2)\)</span>.
+                                <br/>
+                                If you give me the radius of a circle, I can tell you the circumference. If you give me the <span class="p-lightBlue">"radius"</span> of a parabola, I can tell you the <span class="p-lightPurple">enclosing arc length</span>.
+                                <br/><br/>
+                                <b>
+                                    <span class="p-lightPurple">Enclosing Arc</span> = <span class="p-White">Universal Parabolic Constant</span> x <span class="p-lightBlue">Radius</span>
+                                </b>
+                                
+                                <br/><br/>
+                                This is true for an asteroid's parabolic trajectory, or for a tiny parabolic satellite dish, - there's a parabola in there, with our universal parabolic constant winking back at us. 
+
+                                <br/><br/>
+                                You see, these constants are the universal translators, making sense of the <span class="p-lightPink">circles</span> and <span class="p-lightPurple">parabolas</span>, no matter where we find them.
+
+                                Whether it's a black hole's space-time distortion or the edge of a penny, these constants underlie the geometry. Even the atomic radius, described as an electron cloud around an atom, links back to these beautiful constants.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p>
+                                But what does  <span class="p-lightBlue">radius</span> and <span class="p-brightYellow">center</span> of a parabola even mean?<br/>
+                                First, what is a parabola?<br/>
+                                How to cook a parabola? <br/>Take a fixed <span class="p-brightYellow">point F</span>. Take a <span class="p-lightGreen">line L</span>. Then, then pick a point Q such that the <span class="p-lightPink">distance</span> between this point Q and F is the same as the <span class="p-lightPink">distance</span> between this point Q and the line L.<br/>
+                                Parabola is a set of <span class="p-lightPurple">points</span> that are at the same <span class="p-lightPink">distance</span> from a <span class="p-brightYellow">fixed point (F)</span>, as the <span class="p-lightPink">perpendicular distance</span> from a <span class="p-lightGreen">fixed line (L)</span>.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 600px; width: 100%; position: relative;">
+                            <div id="parabola-points-description-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="1" max="100" value="1" step="1"  class="commonSlider mb-3" id="parabola-points-description-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="parabola-points-description-SliderLabel" class="p-lightPurple pl-sm-3 pl-0" for="parabola-points-description-Slider" style="min-width: 100px;" >1</label>
+                                <div>
+                                    <p id="parabola-points-description-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
+                                        Move the <span class="p-lightPurple">slider</span> to see more <span class="p-lightPurple">points</span> that obey the <span class=" text-ignus p-lightPink">same distance</span> rule.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p>
+                                Before we go ahead and tell you what Parabolic constant exactly is. Here's some more things about the parabola. <br/>
+                                The fixed point is called the <span class="p-brightYellow">Focus</span>, usually denoted <span class="p-brightYellow">F</span>. If we go by the definition, one of the special points is the <span class="p-lightPurple">vertex</span> of the parabola (let's say <span class="p-lightPurple">C</span>), which has the smallest distance (let's say <span class="p-lightPink">a</span>) from the <span class="p-lightGreen">fixed line L</span>. There are two more <span class="p-lightPurple">interesting points</span> on the parabola, the ones that cut the parabola if we draw a <span class="p-lightOrange">line M</span> parallel to the <span class="p-lightGreen">fixed line L</span>, passing through the <span class="p-brightYellow">focus F</span>.<br/><br/>
+
+                                The points are <span class="p-lightPurple">G</span> and <span class="p-lightPurple">H</span> drawn below. 
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 600px; width: 100%; position: relative;">
+                            <div id="parabola-important-dimensions-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-3 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="100" value="1" step="1"  class="commonSlider mb-3" id="parabola-important-dimensions-Slider">
+                                <span id="reveal-sub-section-2-continueButton" class="commonButton p-2 pl-4 pr-4 ml-3 btn-ignus" onclick="gph10.nextValue(); pauseAutoplaygph10();">Next</span>
+                               <br/><br/>
+                               <p>
+                                    <label id="parabola-important-dimensions-SliderInfo" for="parabola-important-dimensions-Slider" style="min-width: 100px;" ></label>
+                                    
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-5">
+
+
+                                This point <span class="p-lightPurple">H</span> associated with a distance of <span class="p-lightBlue">2a</span> is going to be important later.<br/>
+                                The line <span class="p-lightRed">FH</span>, equivalent to half the <span class="p-lightRed">latus rectum</span> of the parabola, is something akin to its 'radius'.<br/>
+                                <span class="p-lightRed">Latus rectum</span> (<span class="p-lightRed">GH</span>) is sort of equivalent to the diameter and is equal to <span class="p-lightRed">4a</span>.
+                                <br/><br/>
+                                And remember this. <span class="p-lightPink">HB</span> has length <span class="p-lightPink">a</span> units and <span class="p-lightBlue">CB</span> has length <span class="p-lightBlue">2a</span> units.<br/>
+                                For example: If <span class="p-lightPink">HB</span> has length <span class="p-lightPink">0.5</span> units and <span class="p-lightBlue">CB</span> is <span class="p-lightBlue">1</span> unit.<br/><br/>
+
+                                Keep in mind that arc <span class="p-lightPurple">GCH</span> is the enclosed arc of the parabola, and the line <span class="p-lightRed">FH</span> can be likened to its 'radius'. With this understanding, we can see how the Universal Parabolic Constant, <span class="p-White">P</span>, acts as the ratio of the arc <span class="p-lightPurple">GCH</span> to <span class="p-lightRed">FH</span>. Thus, we can write:<br><br>
+
+              
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{GCH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#ff7a7a}FH\)</span>
+                                
+                                <br><br>
+                                If we represent the length of the enclosing arc <span class="p-lightPurple">GCH</span> as <span class="p-White">P</span> x <span class="p-lightBlue">2a</span>, and the arc <span class="p-lightPurple">CH</span> as <span class="p-White">P</span> x <span class="p-lightPink">a</span>, we have a clear relationship between these parts of the parabola and the UPC. In other words, we find that:<br><br>
+
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#e3a0cd}a\)</span><br><br>
+
+                                Which, substituting the value of the UPC, gives us:<br>
+                   
+                                <br>
+
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}2.292334..\color{#737373} \times \color{#e3a0cd}a\)</span>
+                                
+                                
+                            </p>
+                        </div>
+                    </div>
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-5">
+
+                                Here's another interesting property of the parabola. This might be obvious if you have encountered it in calculus, otherwise, take our word for it.<br><br>
+
+                                Consider the equation of a line<br>
+                                <span>
+                                        \(\color{#737373}{y = \color{#ffffff}{m}\color{#61bdff}{x}}\)
+                                </span><br><br>
+                                
+                                Taking one of the simplest parabolas, we see that<br>
+
+                                <span>
+                                    \(\color{#737373}{y = x^2 = \color{#ffffff}{x}\color{#61bdff}{x}}\)
+                                </span><br><br>
+                                
+                                Meaning it seems like the <span class="p-White">steepness </span> (<span class="p-White">slope</span>, to be precise) of the curve at a given point increases as you move future away from the origin along the x axis. (steepness increases with the value of <span class="p-lightBlue">x</span>)
+                                How do we know that? Well its simple to illustrate, just draw a <span class="p-White">line</span> that touched the curve at the <span class="p-lightPurple">point of interest</span>, (<span class="p-White">tangent</span>, as an arrow here) and see the steepness of this line increase with increase in the <span class="p-lightBlue">x coordinate</span> of the <span class="p-lightPurple">point of interest</span>. 
+
+                                <br/><br/>
+                                The parabola can be thought of a curve whose <span class="p-White">slope</span> changes (linearly) with the position of the <span class="p-lightBlue">x</span> coordinate. Also, notice that a tangent drawn to the parabola at the point <span class="p-lightPurple">H</span>, makes a <span class="p-lightOrange">45 degree angle</span> with the x axis. Or in more precise terms, the  <span class="p-White">slope</span> of the parabola at the point  <span class="p-lightPurple">H</span> (x = 2a) is  <span class="p-White">1</span> (corresponding to an angle of <span class="p-lightOrange">45 degrees</span>). 
+                                
+                            </p>
+                        </div>
+                    </div>
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 600px; width: 100%; position: relative;">
+                            <div id="parabola-increasing-slope-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+                     
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0.01" max="2" value="1.2" step="0.001"  class="commonSlider mb-3" id="parabola-increasing-slope-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="parabola-increasing-slope-SliderLabel" class="p-lightBlue pl-sm-3 pl-0" for="parabola-increasing-slope-Slider" style="min-width: 100px;" >0.8</label>
+                                <div>
+                                    <p id="parabola-increasing-slope-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
+                                        Value of the <span class="p-lightBlue">x co-ordinate</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="hidden-element reveal-2 revealable" id="extender-section-2" style="max-height: 100px; overflow: hidden; position: relative;">
+                        <div style="position: absolute; background: linear-gradient(to bottom, transparent, var(--generalBackground)); pointer-events: none; z-index: 1;" class="w-100 h-100" id="extender-section-2-cover"></div>
+                        <div style="position: absolute; bottom: 0px; height: 30px; " class="w-100 text-center dragDownExtension" onclick="upcApp.extendSection(2)">
+                            <span><i id="extender-section-2-chevron-down" class="fa fa-angle-double-down" style="font-size: 23px;"></i></span>
+                        </div>
+                        
+                        <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                            <div class="our-text-block text-center pb-1">
+                                <p>
+                                    For those among you, who want a serious proof that the slope is indeed equal to 1 at point H. Here's some calculus<br/><br/>
+
+                                    The equation of the parabola, with latus rectum 2a is given by 
+                                    <div class="p-White">
+                                            \({y = x^2/4a}\)
+                                    </div>
+                                    
+                                    </br></br>
+                                    <p>
+                                        The points <span class="p-lightPurple">C</span> and <span class="p-lightPurple">H</span> here are at (0,0) and (2a, a) respectively. <br/><br/>
+                                        Because when<br/>
+                                        1. <span>\(y = 0 \)</span> when <span>\(x = 0 \)</span> (the vertex C)<br/>
+                                        2. <span>\(y = a \)</span> when <span>\(x = 2a \)</span> (our point H)<br/><br/><br/>
+        
+                                        Now, differentiate the equation of the parabola to get the slope at any point (x,y) on the parabola.<br/><br/>
+                                        <span>\(dy/dx = x/2a \)</span><br/><br/>
+        
+                                        So, at H, where x = 2a, \(dy/dx = 2a/2a\) = 1, so the slope is 1, and hence, <br/><br/><span class="p-White">At H, the tangent makes a 45 degree angle with the x axis. </span><br/><br/> 
+                                    </p>
+    
+                                   
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-5">
+
+                                Moving on.
+                                
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="w-100 pl-4 pt-5 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p class="p-White" style="font-size: large; font-family: Raleway;">
+                                <b>A small detour. The Division of lines.</b>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+
+                                <span class="p-lightPurple">12</span>/<span class="p-lightOrange">4</span> is <span class="p-lightBlue">3</span>. That's simple division. <br/>
+                                Okay, so  here's a question. I have a <span class="p-lightPurple">piece of ribbon</span> whose length is <span class="p-lightPurple">12</span>. Can you find a method such that I get a <span class="p-lightBlue">piece of ribbon</span> whose length is <span class="p-lightBlue">3</span>?<br/><br/>
+                                I give you the <span class="p-lightPurple">big ribbon</span>. Do something to this. And give me back the <span class="p-lightPurple">chotu ribbon</span>. 
+
+
+                                
+                            </p>
+                        </div>
+                    </div>
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 150px; width: 100%; position: relative;">
+                            <div id="cutting-ribbon-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                    
+                                A straightforward method? <br/><br/>
+                                1. Break the <span class="p-lightPurple">ribbon</span> evenly into <span class="p-lightOrange">4</span> pieces. <br/>
+                                2. Keep <span class="p-lightBlue">one piece</span>.  
+
+
+                                
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 150px; width: 100%; position: relative;">
+                            <div id="cutting-ribbon-animation-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="5" value="0" step="1"  class="commonSlider mb-3" id="cutting-ribbon-animation-Slider">
+                                <span id="reveal-sub-section-2-continueButton" class="commonButton p-2 pl-4 pr-4 ml-3 btn-ignus" onclick="gph13.nextValue(); pauseAutoplaygph13();">Next</span>
+                               <br/>
+                                <p>
+                                    <label id="cutting-ribbon-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="cutting-ribbon-animation-Slider" style="min-width: 100px;" ></label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2 mb-5 pb-5">
+                                    
+                                This method is good. But there is another approach that might be more useful for us.<br/><br/>
+                                Shrinking the  <span class="p-lightPurple">line segment</span>, by a factor of <span class="p-lightOrange">4</span>.  
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 150px; width: 100%; position: relative;">
+                            <div id="shrinking-ribbon-animation-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="4" value="0" step="1"  class="commonSlider mb-3" id="shrinking-ribbon-animation-Slider">
+                                <span id="reveal-sub-section-2-continueButton" class="commonButton p-2 pl-4 pr-4 ml-3 btn-ignus" onclick="gph14.nextValue(); pauseAutoplaygph14();">Next</span>
+                               <br/>
+                                <p>
+                                    <label id="shrinking-ribbon-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-ribbon-animation-Slider" style="min-width: 100px;" ></label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                This method is actually a little better for curves. <br/><br/>How do you perform the same operation for curves? How to divide a curve of length L to get a identical curve of length L/n? (where n is a number). <br/>
+                                Let's start with a line..  
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 250px; width: 100%; position: relative;">
+                            <div id="shrinking-line-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 250px; width: 100%; position: relative;">
+                            <div id="shrinking-line-animation-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center d-inline-flex justify-content-center">
+                            <span class="mt-1 pb-2">
+                                <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-line-x-animation-Slider">
+                               <br/>
+                                <p>
+                                    <label id="shrinking-line-x-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-line-x-animation-Slider" style="min-width: 100px;" >Shrinking along x</label>
+                                </p>
+                            </span>
+                            <span class="mt-1 pb-2 ml-4">
+                                <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-line-y-animation-Slider">
+                               <br/>
+                                <p>
+                                    <label id="shrinking-line-y-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-line-y-animation-Slider" style="min-width: 100px;" >Shrinking along y</label>
+                                </p>
+                            </span>
+                        </div>
+                    </div>
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                    
+                                Scaling down along both x and y by a factor of <span class="p-lightOrange">4</span>, will give us the <span class="p-lightBlue">line segment</span> we want. It's length is <span class="p-lightBlue">3</span>.. which is <span class="p-lightPurple">12</span>/<span class="p-lightOrange">4</span>.
+
+                                <br/><br/>
+                                This can be done with any curve. Let it be a <span class="p-lightPurple">curve</span> of length 20. And we want to divide it by <span class="p-lightOrange">4</span>. But we also want to preserve the shape of the curve.. <br/><br/> 
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 250px; width: 100%; position: relative;">
+                            <div id="shrinking-curve-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center" style="height: 250px; width: 100%; position: relative;">
+                            <div id="shrinking-curve-animation-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center d-inline-flex justify-content-center">
+                            <span class="mt-1 pb-2">
+                                <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-curve-x-animation-Slider">
+                               <br/>
+                                <p>
+                                    <label id="shrinking-curve-x-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-curve-x-animation-Slider" style="min-width: 100px;" >Shrinking along x</label>
+                                </p>
+                            </span>
+                            <span class="mt-1 pb-2 ml-4">
+                                <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-curve-y-animation-Slider">
+                               <br/>
+                                <p>
+                                    <label id="shrinking-curve-y-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-curve-y-animation-Slider" style="min-width: 100px;" >Shrinking along y</label>
+                                </p>
+                            </span>
+                            <br/>
+                        </div>
+
+                        
+                        
+                    </div>
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
+                        <div class="our-text-block text-center">
+                            <div id="reveal-3-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+                        </div>
+                        
+                    </div>
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2 mb-5 pb-5">
+                                    
+                                So, now you know how to <span class="p-lightOrange">divide</span> a curve. What's next? Be patient. It will all make sense. 
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-5 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p class="p-White" style="font-size: large; font-family: Raleway;">
+                                <b>What is average?</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                    
+                                The problem is about average value, right? So, what is average? <br/><br/>
+                                
+                                How does one calculate average? <br/><br/>
+                                One approach is to go through <span class="p-lightPink">all possible cases</span>. <span class="p-darkBlue">Add</span> <span class="p-lightPink">them</span> and then divide by the <span class="p-lightRed">number of cases</span>. For example, What is the <span class="p-lightPurple">average value (expected value)</span> of a die roll? <br/><br/>
+
+                                 \(\color{#a585ff}{A} \color{#737373}= \frac{\color{#e3a0cd}{1} \color{#4a76e5}+ \color{#e3a0cd}{2} \color{#4a76e5}+ \color{#e3a0cd}{3} \color{#4a76e5}+ \color{#e3a0cd}{4} \color{#4a76e5}+ \color{#e3a0cd}{5} \color{#4a76e5}+ \color{#e3a0cd}{6}}{\color{#ff7a7a}{6}} \)
+                                <br/><br/>
+
+                                <p>
+        
+                                    If there are <span class="p-lightRed">9</span> people in the room, all with height <span class="p-lightPink">6 ft</span>, what is the average height?
+                                    <br/>
+                                    <p>
+                                        \( \color{#a585ff}{A} \color{#737373}= \frac{ \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6  \color{#4a76e5}+  \color{#e3a0cd}6} {\color{#ff7a7a}{9}} \)
+                                    </p>
+                                    <p>
+                                        But here is something interesting. 
+                                        <br/><br/>
+                                        What is the average of the following numbers? 
+                                        <br/>
+                                        <span class="p-White">1, 6, 2, 2, 6, 2, 1, 1, 6</span>
+
+                                        <br/><br/>
+                                        If you carefully rearrange, 
+                                    </p>
+                                    <p>
+                                        \(  \color{#a585ff}A \color{#737373}= \frac{\color{#ccc161}1 + 2 + 6 + \color{#adff7a}1 + 2 + 6 + \color{#ccc161}1 + 2 + 6}{\color{#ff7a7a}9} \)
+                                    </p>
+                                    <br/>
+                                    
+                                    <p>
+                                        the average can simply be... <br/><br/>
+                                        \( \color{#a585ff}A \color{#737373}= \frac{ \color{#ccc161}1 + 2 + 6}{\color{#ff7a7a} 3} \)
+                                    </p>
+                                    <p>
+                                        Instead of taking the average of all <span class="p-lightRed">9</span> numbers, we can take the average of <span class="p-brightYellow">1, 2, 6</span> because they repeat. <br/>
+                                        If you have <span class="p-brightYellow">10 people</span> with average height of <span class="p-lightPink">6</span> foot, getting <span class="p-lightGreen">10</span> more identical people (whose average is obviously <span class="p-lightPink">6</span> foot because they are identical), doesn't change the average height of the total. <br/>
+                                        This is because these groups are identical, and due to symmetry, we can ignore these repeating numbers during calculations.<br/><br/>
+                                    </p>
+                                    <p>
+                                        <span class="p-lightPurple">Average</span> for <span class="p-brightYellow">1, 2, 6</span>, <span class="p-lightGreen">1, 2, 6</span>, <span class="p-brightYellow">1, 2, 6</span><br/>
+                                        is the same as <br/>
+                                        <span class="p-lightPurple">Average</span> for <span class="p-brightYellow">1, 2, 6</span>, <span class="p-lightGreen">1, 2, 6</span>, <span class="p-brightYellow">1, 2, 6</span>, <span class="p-lightGreen">1, 2, 6</span>, <span class="p-brightYellow">1, 2, 6</span>, <span class="p-lightGreen">1, 2, 6</span>, <span class="p-brightYellow">1, 2, 6</span>, <span class="p-lightGreen">1, 2, 6</span>, <span class="p-brightYellow">1, 2, 6</span><br/>
+                                        is the same as <br/>
+                                        <span class="p-lightPurple">Average</span> for <span class="p-brightYellow">1, 2, 6</span>
+                                    </p>
+                                    <br/><br/>
+                                    <p>
+                                        So, when asked, What is the <span class="p-lightPink">average distance</span> between a point <span class="p-lightPurple">Q</span> on the square the center <span class="p-lightBlue">C</span>? There is a chance to simplify the problem by re framing the question due to repetition of the points that lie on the perimeter of the square. What is the <span class="p-lightPink">average distance</span> between the point <span class="p-lightBlue">C</span> and a point on the line <span class="p-brightYellow">AB</span>? 
+                                    </p>
+                                </p>
+
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-average-animation-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="width: 100%; position: relative;">
+                            <input type="range" min="0.01" max="13" value="1" step="1"  class="commonSlider mb-3" id="simple-problem-average-animation-Slider">
+                            <div class="d-block d-sm-none"></div>
+                            
+                            <div>
+                                <label id="simple-problem-average-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="simple-problem-average-animation-Slider" style="min-width: 100px;" ></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                Sounds like there is a fixed line and a fixed point. :P And no sight of parabola yet. Wait for a while . <br/>
+                                Let's see where we will take us in a minute or two.
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-5 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p class="p-White" style="font-size: large; font-family: Raleway;">
+                                <b>The simpler problem</b>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                Now the bare bone of problem to solve is that If there is a line of height 0.5, standing at a distance of 0.5 from point C, what is the average distance between a point C and a point on the line?
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-description-size05-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                To make our calculations easier, let's lengthen the side of the square by 2, so the distance CB is 1. 
+                                So, now the problem is If there is a line of height 1, standing at a distance of 1 from point C, what is the average distance between a point C and a point on the line? 
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-description-size1-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                One approach to calculating average is to sweep through all possible cases. Add them and then divide by the number of points. If we take every single point on the line once, add the distances and divide by the number of points taken while calculating , that should work? But, how to take every single point while calculating the mean. There are infinitely many points here. Infinitely many cases.
+
+                            </p>
+                        </div>
+                    </div>
+  
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-size1-sweep-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <label id="simple-problem-size1-sweep-SliderLabel2" class="p-White pr-sm-1 pr-0" for="simple-problem-size1-sweep-Slider" style="min-width: 100px;" >B</label>
+                                <input type="range" min="0" max="1" value="0.5" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-sweep-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="simple-problem-size1-sweep-SliderLabel1" class="p-White pl-sm-1 pl-0" for="simple-problem-size1-sweep-Slider" style="min-width: 100px;" >A</label>
+                                <div>
+                                    <p id="simple-problem-size1-sweep-SliderInfo" class="text-ignus p-lightBlue" style="color:hsla(198, 0%, 47%, 1)">
+                                        
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                Let's take only a few points, instances first. How about 2 points? The easy ones. A and B. 
+                            </p>
+                        </div>
+                    </div>
+
+                      
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-size1-2-point-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="1" value="0.5" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-2-point-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                
+                                <div>
+                                    <label id="simple-problem-size1-2-point-SliderInfo" class="p-White pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-2-point-Slider" style="min-width: 100px;" ></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                    
+                                In this case, numerically the average for <span class="p-lightRed">two</span> lengths is <br/><br/>
+                                
+                                <div>
+                                    \( \color{#a585ff}A_{\color{#ff7a7a}2} \color{#737373}= \frac{ \color{#e3a0cd}CB \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 2} \)
+                                </div><br/>
+                                <div>
+                                    \( \color{#a585ff}A_{\color{#ff7a7a}2} \color{#737373}= \frac{ \color{#e3a0cd}1 \color{#737373}+ \color{#adff7a}\sqrt{2}}{\color{#ff7a7a} 2} \color{#737373}= \frac{ \color{#e3a0cd}1 \color{#737373}+ \color{#adff7a} 1.414..}{\color{#ff7a7a} 2}  =  \color{#ffffff} 1.207..\)
+                                </div><br/>
+                                <p>
+                                    <span class="p-lightGreen">CA</span> is <span class="p-lightGreen">square root of 2</span> by Pythagoras theorem.<br/><br/>
+                                    Now, how about <span class="p-lightRed">3</span>? If we evenly divide the line into two, we can get three points. A, B and a midpoint E.
+                                </p>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-size1-3-point-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="1" value="0.5" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-3-point-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                
+                                <div>
+                                    <label id="simple-problem-size1-3-point-SliderInfo" class="p-White pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-3-point-Slider" style="min-width: 100px;" ></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                    
+                                In this case, numerically the average for <span class="p-lightRed">three</span> lengths is <br/><br/>
+                                
+                                <div>
+                                    \( \color{#a585ff}A_{\color{#ff7a7a}3} \color{#737373}= \frac{\color{#e3a0cd}CB \color{#737373}+ \color{#e7d9b6}CE \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 3} \)
+                                </div><br/>
+                                <div>
+                                    \( \color{#a585ff}A_{\color{#ff7a7a}3} \color{#737373}= \frac{ \color{#e3a0cd}1 \color{#737373}+ \color{#e7d9b6}\frac{\sqrt{5}}{2}\color{#737373}+ \color{#adff7a}\sqrt{2}}{\color{#ff7a7a} 3} \color{#737373}= \frac{ \color{#e3a0cd}1 \color{#737373}+ \color{#e7d9b6}1.118.. \color{#737373}+ \color{#adff7a} 1.414..}{\color{#ff7a7a} 3}  =  \color{#ffffff} 1.1773..\)
+                                </div><br/>
+                                <p>
+                                    <span class="p-lightGreen">CA</span> is <span class="p-lightGreen">square root of 5 divided by 2</span> by Pythagoras theorem.<br/><br/>
+
+                                    Our goal is to find the average distance, and we need to sweep through all instances. So.. we are trying to find \( \color{#a585ff}A_{\color{#ff7a7a}n} \) as \(n\) becomes infinity. <br/><br/>
+                                    Now, how about <span class="p-lightRed">4</span>? or <span class="p-lightRed">5</span>... or <span class="p-lightRed">n</span> points, If we evenly divide the line into 3 parts, we can get average for <span class="p-lightRed">4</span> points. (cases)
+                                    <br/>
+                                    If divided into 4 parts, we can get average for <span class="p-lightRed">5</span> points. If divided into (n - 1) parts, we can get average for <span class="p-lightRed">n</span> points (cases).
+                                </p>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-size1-n-point-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="1" value="0.5" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-n-point-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                
+                                <div>
+                                    <label id="simple-problem-size1-n-point-SliderInfo" class="p-White pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-n-point-Slider" style="min-width: 100px;" ></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="3" max="10" value="4" step="1"  class="commonSlider mb-3" id="simple-problem-size1-n-point-selection-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                
+                                <div>
+                                    <label id="simple-problem-size1-n-point-selection-SliderInfo" class="p-White pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-n-point-selection-Slider" style="min-width: 100px;" ></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                 
+                                So, you might be asking. This looks good. Numerically, we can add all of them and then divide by the number of points. Do it for infinitely many points.<br/>
+                                But how is this related to the parabola? Where is it?
+                            </p>
+                        </div>
+                    </div>
+                    <div class="w-100 pl-4 pt-5 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center pt-4">
+                            <p class="p-White" style="font-size: large; font-family: Raleway;">
+                                <b>Can you see it?</b>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                 
+                                There is a parabola somewhere in there. <br/> Let's start with the simplest approximate average, that takes just 2 points. Remember the answer to this? 
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-size1-2-point-adding-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <!-- <span id="reveal-4-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Pick points</span> -->
+                            <span class="menuTopButton reveal-4 hidden-element revealable p-1 pl-3 pr-3 mt-1 btn-ignus" id="gph26-menu-add" onclick="gph26.selectedMenu = 'Add'; gph26.handleMenuSelect();">Add</span>
+                            <span class="menuTopButtonSelected reveal-4 hidden-element revealable p-1 pl-3 pr-3 mt-1 btn-ignus" id="gph26-menu-scale" onclick="gph26.selectedMenu = 'Scale'; gph26.handleMenuSelect();">Scale down</span>
+
+                            
+                        </div>
+                        
+                    </div>
+
+                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-3 revealable" id="gph26-section-add">
+                        <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                            <div class="our-text-block text-center">
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-2-point-adding-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-2-point-adding-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-2-point-adding-Slider" style="min-width: 100px;" >Drag the slider to move the green line CA.</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+                                     
+                                    <div style="font-size: larger;">
+                                        \( \color{#a585ff}A_{\color{#ff7a7a}2} \color{#737373}= \frac{ \color{#e3a0cd}CB \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 2} = \frac{1 \color{#ffffff}+\color{#737373} \sqrt{2}}{2} \)
+                                    </div><br/>
+    
+                                    <p>
+                                        How do we take average? Add and then Divide. 
+                                    </p>
+        
+    
+                                </p>
+                            </div>
+                        </div>
+    
+    
+    
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+    
+                                    The first step is to add the cases lengths. 
+                                    How do you add CA and CB? How do you add lines? <br/>
+                                    To add, CA and CB, we can lay them next to each other.  Now the whole curve, green line + pink line represents our sum.<br/>
+    
+                                    Drag the slider to move the curve/line. 
+        
+    
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-4 revealable" id="gph26-section-scale">
+                        <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                            <div class="our-text-block text-center">
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-2-point-scaling-along-x-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-2-point-scaling-along-x-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-2-point-scaling-along-x-Slider" style="min-width: 100px;" >Scale down along X direction.</label>
+                                    </div>
+                                </div>
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-2-point-scaling-along-y-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-2-point-scaling-along-y-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-2-point-scaling-along-y-Slider" style="min-width: 100px;" >Scale down along Y direction.</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+                                     
+                                    <div style="font-size: larger;">
+                                        \( \color{#a585ff}A_{\color{#ff7a7a}2} \color{#737373}= \frac{ \color{#e3a0cd}CB \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 2}\color{#737373} =  \color{#ffffff}\frac{\color{#737373}1 + \sqrt{2}}{\color{#737373}2} \)
+                                    </div><br/>
+    
+                                </p>
+                            </div>
+                        </div>
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-4 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-2">
+                                    The next step? Divide. How do you divide a line? <br/>
+                                    Adding curves was easy. But how do we divide a curve by 2? Remember? Shrinking along both axes?
+                                    
+
+                                    Drag the slider to scale down along both x and y axes.
+                                    <br/>
+                                    <br/>
+
+                                    The length of the curve that's scaled down \( \frac{ \color{#e3a0cd}CB}{\color{#ff7a7a} 2} \color{#737373}+ \frac{\color{#adff7a}CA}{\color{#ff7a7a} 2} \)
+                                    <br/>
+                                    represents the sum \( \color{#a585ff}A_{\color{#ff7a7a}2} \)
+
+                                    <br/><br/>
+
+                                    The length of this curve represents the average distance for those 2 points
+                                    <br/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-3 revealable">
+                        <div class="our-text-block text-center">
+                            <span id="reveal-4-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</span>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-4 revealable">
+                        <div class="our-text-block text-center">
+                            <span id="reveal-5-continueButton" class="commonButton p-2 pl-4 pr-4 mt-4 btn-ignus">Continue</span>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-5 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+                                This is just 2 points/cases, we need to consider more points  in order to get an accurate answer. How about 3 now?
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-5 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-size1-3-point-adding-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-5 revealable">
+                        <div class="our-text-block text-center">
+                            <!-- <span id="reveal-6-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Pick points</span> -->
+                            <span class="menuTopButton reveal-6 hidden-element revealable p-1 pl-3 pr-3 mt-1 btn-ignus" id="gph27-menu-add" onclick="gph27.selectedMenu = 'Add'; gph27.handleMenuSelect();">Add</span>
+                            <span class="menuTopButtonSelected reveal-6 hidden-element revealable p-1 pl-3 pr-3 mt-1 btn-ignus" id="gph27-menu-scale" onclick="gph27.selectedMenu = 'Scale'; gph27.handleMenuSelect();">Scale down</span>
+
+                            
+                        </div>
+                        
+                    </div>
+
+                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-5 revealable" id="gph27-section-add">
+                        <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-5 revealable">
+                            <div class="our-text-block text-center">
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-3-point-adding-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-3-point-adding-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-3-point-adding-Slider" style="min-width: 100px;" >Drag the slider to move the lines CA and CQ.</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-5 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+                                     
+                                    <div style="font-size: larger;">
+                                        \( \color{#a585ff}A_{\color{#ff7a7a}3} \color{#737373}= \frac{ \color{#e3a0cd}CB \color{#737373}+ \color{#ffbe8f}CQ \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 3} = \frac{1 \color{#ffffff}+ \color{#737373} \frac{\sqrt{5}}{2} \color{#ffffff}+\color{#737373} \sqrt{2}}{3} \)
+                                    </div><br/>
+    
+                                    <p>
+                                        Now, you know the drill. Add and then Divide. 
+                                    </p>
+        
+    
+                                </p>
+                            </div>
+                        </div>
+    
+    
+    
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-5 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+    
+                                    The first step is to add the lengths from each case (CA, CQ and CB). Like earlier, 
+                                    To add, <span class="p-lightGreen">CA</span>, <span class="p-lightOrange">CQ</span> and <span class="p-lightPink">CB</span>, we can lay them next to each other. Now the whole curve, <span class="p-lightGreen">green line</span>+ <span class="p-lightOrange">orange line</span> + <span class="p-lightPink">pink line</span> represents our sum.<br/>
+    
+                                    Drag the slider to move the curves/lines. 
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-6 revealable" id="gph27-section-scale">
+                        <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-5 revealable">
+                            <div class="our-text-block text-center">
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-3-point-scaling-along-x-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-3-point-scaling-along-x-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-3-point-scaling-along-x-Slider" style="min-width: 100px;" >Scale down along X direction.</label>
+                                    </div>
+                                </div>
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-3-point-scaling-along-y-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-3-point-scaling-along-y-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-3-point-scaling-along-y-Slider" style="min-width: 100px;" >Scale down along Y direction.</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-5 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+                                     
+                                    <div style="font-size: larger;">
+                                        \( \color{#a585ff}A_{\color{#ff7a7a}3} \color{#737373}= \frac{ \color{#e3a0cd}CB \color{#737373}+ \color{#ffbe8f}CQ \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 3} = \color{#ffffff} \frac{\color{#737373}1 + \frac{\sqrt{5}}{2} +\color{#737373} \sqrt{2}  \color{#ffffff}}{\color{#737373} 3} \)
+                                    </div><br/>
+    
+                                </p>
+                            </div>
+                        </div>
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-6 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-2">
+                                    The next step? Divide. How do we divide a curve by 3? 
+                                    <br/>Time to shrink the curve along both axes by a factor of 3. 
+                                    Drag the slider to scale down along both x and y axes.
+                                    <br/>
+                                    <br/>
+
+                                    The length of the curve that's scaled down \( \frac{ \color{#e3a0cd}CB}{\color{#ff7a7a} 3} \color{#737373}+ \frac{ \color{#ffbe8f}CQ}{\color{#ff7a7a} 3} \color{#737373}+ \frac{\color{#adff7a}CA}{\color{#ff7a7a} 3} \)
+                                    <br/>
+                                    represents the sum \( \color{#a585ff}A_{\color{#ff7a7a}3} \)
+
+                                    <br/><br/>
+
+                                    The length of this curve represents the average distance for those 3 points. 
+                                    <br/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-5 revealable">
+                        <div class="our-text-block text-center">
+                            <span id="reveal-6-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</span>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-6 revealable">
+                        <div class="our-text-block text-center">
+                            <span id="reveal-7-continueButton" class="commonButton p-2 pl-4 pr-4 mt-4 btn-ignus">Continue</span>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-7 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-2">
+
+                                Sounds a little familiar?
+
+
+                                Also, notice that we can scale down the curves first and then add them too. Divide each segment/case by 3 and them add them together. 
+
+                                <p>
+                                    \( \frac{ \color{#e3a0cd}CB \color{#737373}+ \color{#ffbe8f}CQ \color{#737373}+ \color{#adff7a}CA}{\color{#ff7a7a} 3} \)
+
+                                    <br/><br/>
+
+                                    \( \frac{ \color{#e3a0cd}CB}{\color{#ff7a7a} 3} \color{#737373}+ \frac{ \color{#ffbe8f}CQ}{\color{#ff7a7a} 3} \color{#737373}+ \frac{\color{#adff7a}CA}{\color{#ff7a7a} 3} \)
+                                    <br/><br/><br/>
+
+                                    Let's do it the other way round now. <br/>For 3 points, 
+                                    we sample 3 points. Break line into 2. Take distances to 3 points. Divide each of them by 3. Add them together.<br/><br/>
+                                    
+                                    Now, How about 4 points or more? <br/>
+                                    Sample. Break line AB into 3. Take distances to 4 points. Divide each of them by 4. Add them together. 
+                                </p>
+
+                                
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-7 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-size1-4-point-adding-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-7 revealable">
+                        <div class="our-text-block text-center">
+                            <!-- <span id="reveal-6-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Pick points</span> -->
+                            <span class="menuTopButtonSelected reveal-8 hidden-element revealable p-1 pl-3 pr-3 mt-1 btn-ignus" id="gph28-menu-scale" onclick="gph28.selectedMenu = 'Scale'; gph28.handleMenuSelect();">Scale down</span>
+                            
+                            <span class="menuTopButton reveal-8 hidden-element revealable p-1 pl-3 pr-3 mt-1 btn-ignus" id="gph28-menu-add" onclick="gph28.selectedMenu = 'Add'; gph28.handleMenuSelect();">Add</span>
+
+
+                            
+                        </div>
+                        
+                    </div>
+
+                    
+                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-7 revealable" id="gph28-section-scale">
+                        <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-7 revealable">
+                            <div class="our-text-block text-center">
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-4-point-scaling-along-x-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-4-point-scaling-along-x-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-4-point-scaling-along-x-Slider" style="min-width: 100px;" >Scale down along X direction.</label>
+                                    </div>
+                                </div>
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-4-point-scaling-along-y-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-4-point-scaling-along-y-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-4-point-scaling-along-y-Slider" style="min-width: 100px;" >Scale down along Y direction.</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-7 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+                                     
+                                    <div style="font-size: larger;">
+                                        \( \color{#a585ff}A_{\color{#ff7a7a}4} \color{#737373}=  \frac{ \color{#e3a0cd}CB}{\color{#ff7a7a} 4} \color{#737373}+ \frac{ \color{#ffbe8f}CQ}{\color{#ff7a7a} 4} \color{#737373}+ \frac{ \color{#ffbe8f}CK}{\color{#ff7a7a} 4} \color{#737373}+ \frac{\color{#adff7a}CA}{\color{#ff7a7a} 4} = \frac{1 \color{#ffffff}+ \color{#737373} \frac{\sqrt{10}}{3} \color{#ffffff}+ \color{#737373} \frac{\sqrt{13}}{3} \color{#ffffff}+\color{#737373} \sqrt{2}}{4} \)
+
+
+                                    </div><br/>
+    
+                                    <p>
+                                       In this case, we first divide each line segment by 4 and then add. 
+                                    </p>
+        
+    
+                                </p>
+                            </div>
+                        </div>
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-7 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+                                     
+                                    <div style="font-size: larger;">
+                                        \( \color{#a585ff}A_{\color{#ff7a7a}4} \color{#737373}= \color{#ffffff} \frac{\color{#737373}1 \color{#ffffff}}{\color{#737373} 4} \color{#737373}+ \color{#ffffff} \frac{\color{#737373} \frac{\sqrt{10}}{3} \color{#ffffff}}{\color{#737373} 4} \color{#737373}+ \color{#ffffff} \frac{\color{#737373} \frac{\sqrt{13}}{3} \color{#ffffff}}{\color{#737373} 4} \color{#737373}+ \color{#ffffff} \frac{\color{#737373} \sqrt{2} \color{#ffffff}}{\color{#737373} 4} \)
+                                    </div><br/>
+    
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-7 revealable">
+                        <div class="our-text-block text-center">
+                            <span id="reveal-8-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</span>
+                        </div>
+                    </div>
+                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-8 revealable" id="gph28-section-add">
+                        <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-8 revealable">
+                            <div class="our-text-block text-center">
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-4-point-adding-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-4-point-adding-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-4-point-adding-Slider" style="min-width: 100px;" >Drag the slider to move the lines CA, CQ, and CK.</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        
+    
+    
+    
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-8 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+    
+                                    Now, we add the small segments which are scaled down (CA/4, CK/4, CQ/4 and CB/4). <br/><br/>Like earlier, to add, <span class="p-lightGreen">CA</span>, <span class="p-lightOrange">CK</span>,<span class="p-lightOrange">CQ</span> and <span class="p-lightPink">CB</span>, we can lay them next to each other. Now the whole curve, <span class="p-lightGreen">green line</span>+ <span class="p-lightOrange">orange lines</span> + <span class="p-lightPink">pink line</span> represents our sum.<br/>
+    
+                                    Drag the slider to move the curves/lines. <br/><br/><br/>
+
+                                    The final curve made by scaled segments, represents our sum \( \color{#a585ff}A_{\color{#ff7a7a}4} \). 
+
+                                    Looks more familiar uh?
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-8 revealable">
+                        <div class="our-text-block text-center">
+                            <span id="reveal-9-continueButton" class="commonButton p-2 pl-4 pr-4 mt-4 btn-ignus">Continue</span>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-9 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-4">
+                                Starting to look familiar, uh?
+                                <br/>
+
+                                So. the algorithm for 4 points was. <br/>
+                                Sample : 4 points, by breaking the line into 3 pieces. <br/>
+                                Divide : Divide each segment by 4.<br/>
+                                Add : Add the 4 segments together by laying them together.<br/><br/><br/>
+
+                                Now.. let's do this for n points. 
+                                Sample : n points, by breaking the line into n - 1 pieces. <br/>
+                                Divide : Divide each segment by n.<br/>
+                                Add : Add the n segments together by laying them together.<br/>
+                            </p>
+                        </div>
+                    </div>
+
+                    
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-9 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="simple-problem-size1-N-point-adding-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-9 revealable">
+                        <div class="our-text-block text-center">
+                            <!-- <span id="reveal-6-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Pick points</span> -->
+                            <span class="menuTopButtonSelected reveal-10 hidden-element revealable p-1 pl-3 pr-3 mt-1 btn-ignus" id="gph29-menu-scale" onclick="gph29.selectedMenu = 'Scale'; gph29.handleMenuSelect();">Scale down</span>
+                            
+                            <span class="menuTopButton reveal-10 hidden-element revealable p-1 pl-3 pr-3 mt-1 btn-ignus" id="gph29-menu-add" onclick="gph29.selectedMenu = 'Add'; gph29.handleMenuSelect();">Add</span>
+
+
+                            
+                        </div>
+                        
+                    </div>
+
+                    
+                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-9 revealable" id="gph29-section-scale">
+                        <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-9 revealable">
+                            <div class="our-text-block text-center">
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-N-point-selections-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-N-point-selections-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-N-point-selections-Slider" style="min-width: 100px;" >Sample N number of points..</label>
+                                    </div>
+                                </div>
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-N-point-scaling-along-x-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-N-point-scaling-along-x-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-N-point-scaling-along-x-Slider" style="min-width: 100px;" >Scale down along X direction.</label>
+                                    </div>
+                                </div>
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-N-point-scaling-along-y-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-N-point-scaling-along-y-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-N-point-scaling-along-y-Slider" style="min-width: 100px;" >Scale down along Y direction.</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-9 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+                                     
+                                    <div style="font-size: larger;">
+                                        \( \color{#a585ff}A_{\color{#ff7a7a}n} \color{#737373}=  \frac{ \color{#e3a0cd}CB}{\color{#ff7a7a} n} \color{#737373}+ \frac{ \color{#ffbe8f}CQ_1}{\color{#ff7a7a} n} \color{#737373}+ ... \color{#737373}+ \frac{\color{#adff7a}CA}{\color{#ff7a7a} n} = \frac{1 \color{#ffffff}+ ... +\color{#737373} \sqrt{2}}{n} \)
+
+
+                                    </div><br/>
+    
+                                    <p>
+                                       In this case, we first divide each line segment by n and then add them. 
+                                    </p>
+        
+    
+                                </p>
+                            </div>
+                        </div>
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-9 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+                                     
+                                    <div style="font-size: larger;">
+                                        \( \color{#a585ff}A_{\color{#ff7a7a}n} \color{#737373}= \color{#ffffff} \frac{\color{#737373}1 \color{#ffffff}}{\color{#737373} n} \color{#737373}+ \color{#ffffff} \frac{\color{#737373} \sqrt{1 + {(\frac{1}{n})}^2} \color{#ffffff}}{\color{#737373} n} \color{#737373}+ \color{#ffffff} \frac{\color{#737373} \sqrt{1 + {(\frac{2}{n})}^2} \color{#ffffff}}{\color{#737373} n} \color{#737373}+ ...+ \color{#ffffff} \frac{\color{#737373} \sqrt{2} \color{#ffffff}}{\color{#737373} n} \)
+                                    </div><br/>
+    
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-9 revealable">
+                        <div class="our-text-block text-center">
+                            <span id="reveal-10-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</span>
+                        </div>
+                    </div>
+                    <div class="w-100 pl-0 pt-0 pr-0 hidden-element reveal-10 revealable" id="gph29-section-add">
+                        <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-10 revealable">
+                            <div class="our-text-block text-center">
+                                <div class="mt-1 pb-1">
+                                    <input type="range" min="0" max="1" value="0" step="0.001"  class="commonSlider mb-3" id="simple-problem-size1-N-point-adding-Slider">
+                                    <div class="d-block d-sm-none"></div>
+                                    
+                                    <div>
+                                        <label id="simple-problem-size1-N-point-adding-SliderInfo" class="pl-sm-1 pl-0 text-ignus" for="simple-problem-size1-N-point-adding-Slider" style="min-width: 100px;" >Drag the slider to move the curves/lines. </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        
+    
+    
+    
+                        <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-10 revealable">
+                            <div class="our-text-block text-center">
+                                <p class="mt-1">
+    
+                                    Now, we add the small segments which are scaled down.  <br/><br/>Like earlier, to add, <span class="p-lightGreen">CA</span>, <span class="p-lightOrange">CQ<sub>1</sub></span>, <span class="p-lightOrange">CQ<sub>2</sub></span>, ... and <span class="p-lightPink">CB</span>, we can lay them next to each other. Now the whole curve, <span class="p-lightGreen">green line</span>+ <span class="p-lightOrange">orange lines</span> + <span class="p-lightPink">pink line</span> represents our sum.<br/>
+    
+                                    Drag the slider to move the curves/lines. <br/><br/><br/>
+
+                                    The final curve made by scaled segments, represents our sum \( \color{#a585ff}A_{\color{#ff7a7a}n} \). 
+
+                                   With move points it's beginning to look like something uh? Say it with us. It's a Parabola!. :P
+
+                                   At infinitely many points, this should be a parabola.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-10 revealable">
+                        <div class="our-text-block text-center">
+                            <span id="reveal-11-continueButton" class="commonButton p-2 pl-4 pr-4 mt-4 btn-ignus">Continue</span>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-4">
+                                Well. It's a <b class="p-White">Parabola</b>. :P <br/> <br/>
+                                
+                            </p>
+                        </div>
+                    </div>
+
+                    
+                    <div  class="hidden-element reveal-11 revealable" id="extender-section-3" style="max-height: 100px; overflow: hidden; position: relative;">
+                        <div style="position: absolute; background: linear-gradient(to bottom, transparent, var(--generalBackground)); pointer-events: none; z-index: 1;" class="w-100 h-100" id="extender-section-3-cover"></div>
+                        <div style="position: absolute; bottom: 0px; height: 30px; " class="w-100 text-center dragDownExtension" onclick="upcApp.extendSection(3)">
+                            <span><i id="extender-section-3-chevron-down" class="fa fa-angle-double-down" style="font-size: 23px;"></i></span>
+                        </div>
+                        
+                        <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                            <div class="our-text-block text-center pb-1">
+                                <p>
+                                    Wait. Back up, before that.. <br/><br/>
+
+                                    How do we know that  the final point, always lands at the midpoint of AB? <br/><br/>
+
+
+                                    <span class="p-lightPurple">X coordinate of the midpoint.</span><br/>
+                                    Let's just look at our adding and dividing curves operation. 
+                                    <br/><br/>
+
+                                    First Adding. When we place the curves next to each other, each segment spans 1 unit in the x direction. Hence, the unscaled (scaled down) version of the curve spans n units in the x direction. <br/> 
+
+                                    When it was 2 points, it spans 2 units in the x direction. When it was 3 points, it spans 3 units in the x direction. 
+
+                                    So, when it is n points, it spans n units in the x direction. <br/><br/>
+
+                                    When we scale down by a factor n, the x coordinate of the final point should be 1 which is that of line AB here. <br/><br/>
+
+                                    <span class="p-lightPurple">Y coordinate of the midpoint.</span><br/>
+                                    Again, similar operation. 
+                                    <br/><br/>
+
+                                    First Adding. When we place the curves next to each other, the unscaled (scaled down) version of the curve spans different lengths in the y direction. <br/>
+
+                                    In the case of 2 points, the basic segment CB spans 0 units, CA spans 1 unit. And hence, totally spanning 0 + 1 units in the y direction. <br/> (which when scaled down by 2... gave us 0.5, the midpoint of line AB)
+                                    <br/><br/>
+                                    In the case of 3 points, the basic segment CB spans 0 units, CQ<sub>1</sub> spans 1/2 units and CA spans 1 unit. And hence, totally spanning 0 + (1/2) + 1 units = 1.5 in the y direction. <br/>(which when scaled down by 3... gave us 0.5, the midpoint of line AB)
+                                    <br/><br/>
+                                    In the case of n points, the basic segment CB spans 0 units, CQ<sub>1</sub> spans 1/(n - 1) units, CQ<sub>2</sub> spans 2/(n - 1) units and soon on, with the final segment, CA spanning 1 unit. <br/><br/>
+                                    
+                                    And hence, totally spanning <br/><br/>
+                                    <b>
+                                        \(S = 0 + \frac{1}{n - 1} + \frac{2}{n - 1} + \frac{3}{n - 1} + ... + \frac{n - 2}{n - 1} + \frac{n - 1}{n - 1} \)
+                                    </b> <br/><br/>
+                                    <b>
+                                        \( = \frac{1}{n - 1}(1 + 2 + 3 + ... + (n - 2) + (n - 1)) \)
+                                    </b> <br/><br/>Since, 
+                                    Sum of natural numbers upto n is <b>\(\frac{n(n + 1)}{2}\)</b> <br/><br/>
+                                    Sum of natural numbers upto n - 1 is <b>\(\frac{(n - 1)(n - 1 + 1)}{2} = \frac{(n - 1)(n)}{2}\)</b> <br/><br/>
+                                    substituting that, <br/><br/>
+                                    <b>
+                                        \(S = \frac{1}{n - 1}(\frac{(n - 1)(n)}{2}) \)
+                                    </b> <br/><br/>
+                                    <b>
+                                        \(= (\frac{n}{2}) \)
+                                    </b> <br/><br/>
+                                   
+                                    So, now we know that it spans n/2 in the y direction when added (unscaled) for n points. (That is...  for 2 points its 2/2.. and 3 points it is 3/2 as we saw earlier)<br/><br/>
+
+                                    So, when scaled down by a factor of n.. n/2 scales down to 1/2. <br/><br/> Making the y coordinate of the final point in the curve to be 1/2, which is that of line AB. <br/><br/>
+
+                                    
+    
+                                   
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-4">
+                                But how do we know it is a parabola? I mean.. there are characteristics to look for. 
+
+                                <br/><br/>
+                                The <span class="p-lightGreen">last segment </span>(corresponding to unscaled <span class="p-lightGreen">CA</span>) added to the curve which is currently at the midpoint is always at the 45 degree angle. Each segment increases it's slope linearly. Reminds me of some familiar curve. 
+                                <br/>
+                                The midpoint on the line segment AB, could be our point of interest H?
+
+                                <br/><br/><br/>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="pointH-reveal-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="1" value="0.5" step="0.001"  class="commonSlider mb-3" id="pointH-reveal-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                
+                                <div>
+                                    <label id="pointH-reveal-SliderInfo" class="p-White pl-sm-1 pl-0 text-ignus" for="pointH-reveal-Slider" style="min-width: 100px;" ></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-4">
+
+                                Also, remember this?<br/>
+                                <span class="p-lightPink">HB</span> has length <span class="p-lightPink">a</span> units then, <span class="p-lightBlue">CB</span> has length <span class="p-lightBlue">2a</span> units.<br/>
+                                HB is a and CB is 2a. If HB is 0.5 and CB is 1. 
+                                <br/>
+                                CB is indeed 1 here and midpoint H of AB (length 1), hence HB = 0.5. 
+
+
+
+                                <br/><br/><br/>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                If this is the Parabola and the curve indeed always lands at the midpoint H of AB, <br/>
+
+                                Remember? <br/>
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#e3a0cd}a\)</span><br>
+
+                                Then, the length of the arc CH in our parabola is P times a, where a is the distance HB, which equals 0.5 in our case. <br/>
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#e3a0cd}0.5\)</span><br/>
+                                So, our calculated average, represented by
+                                <br/><br/>
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \frac{\color{#ffffff}P\color{#737373}}{\color{#e3a0cd}2}\)</span><br>
+
+                                <br/><br/>
+                                Wait. That's doesn't seem right. <br/> What we wanted was <span class="p-White"> \(P/4\) </span>, not <span class="p-White"> \(P/2\) </span> <br/><br/>
+
+                                This is due to the scale of our square - its side length is 2. The origin problem has a side length of 1. <br/>
+
+                                If we considered a square of side length 1, where CB equals 1/2 and hence, HB (or a), equals 1/4, then for this square, <br/>
+
+                                <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#e3a0cd}\frac{1}{4}\)</span><br> <br/>
+                                <b style="font-size: xx-large;" class="p-White">
+                                    <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \frac{\color{#ffffff}P\color{#737373}}{\color{#e3a0cd}4}\)</span>
+                                </b>
+                                <br>
+
+                                <br/>as initially calculated.
+
+                                <br/> <br/> <br/>
+
+                                Going ahead, we can predict the average distance for any square, <br/>
+                                For square of side 1, it is P/4 and for side 2, it is P/2..
+                                In general, for a square whose side as length L, the average distance between it's center and a point on it's perimeter is <br/><br/>
+
+                                <b style="font-size: x-large;" class="p-White">
+                                    \(\color{#ffffff}\frac{P}{4}\color{#737373} \times \color{#e3a0cd}L\)
+                                </b>
+                                <br> 
+
+
+                                <br/><br/><br/>
+
+
+                                In summary, we began with an apparently innocent problem concerning the average distance in a unit square and the unrelated issue of a drunkard's random walk. Intriguingly, we demonstrated their equivalence.<br/><br/>
+
+                                The  Universal Parabolic Constant (UPC), which cropped up consistently, led us tackle this through the  geometric proof . We employed the idea of geometric averages and examined points on a line, calculating the lengths between the center and sampled points. By laying these line segments side by side and scaling down the resulting curve proportionally to the number of points sampled, a parabola astonishingly emerged.<br/><br/>
+
+                                Through this exploration, we hoped to show how the study of mathematics is not about isolated concepts, but an interconnected symphony of ideas.<br/><br/>
+
+
+                                <br/><br/><br/>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    
+                    <div class="w-100 pt-5 pb-5"></div>
+                    <div class="w-100 pt-5 pb-5"></div>
+                </main>
+
+                <div style="position: fixed; height: 100%; width: 100vw; pointer-events: none; bottom: 0px; left: 0px;" id="lottie-popper"></div>
+
+
+            </div>
+
+            
+			
+		</div>
+
+        <!-- <audio id="backgroundMusic" src="assets/audio/grant-piano.mp3"></audio> -->
+        <audio id="warmerMusic" src="assets/audio/state-change_confirm-up.ogg"></audio>
+        <audio id="colderMusic" src="assets/audio/state-change_confirm-down.ogg"></audio>
+
+		<script type="text/javascript">		
+			darkmode = true
+
+			if (darkmode) {
+				document.body.style.background = 'black'
+			}
+		</script>
+
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/viewX@latest/viewx.js"></script>  -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+
+        <script type="text/javascript" src="JS/viewx.js"></script> 
+
+        <script>
+            ignusTheme.baseHue = 201;
+            ignusTheme.baseLightness = 70;
+            ignusTheme.setUp();
+
+            MathJax = {
+                loader: {load: ['[tex]/color']},
+                options: {
+                    enableMenu: false
+                }
+            };
+        </script>
+
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/input/tex/extensions/color.js" charset="UTF-8"></script>
+
+        <script src="/JS/universal-parabolic-constant/universal-parabolic-constant.js"></script>
+
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+
+        <script>
+
+            const firebaseConfig = {
+                apiKey: "AIzaSyB5RWSdCAumPvg78h53pjdI1Xvg5cx5Urk",
+                authDomain: "parabolic-constant.firebaseapp.com",
+                projectId: "parabolic-constant",
+                storageBucket: "parabolic-constant.appspot.com",
+                messagingSenderId: "1095465366835",
+                appId: "1:1095465366835:web:2a4ad7759ad5948aab7a46"
+            };
+          
+            // Initialize Firebase
+            const app = firebase.initializeApp(firebaseConfig);
+
+            var database = firebase.database();
+
+            function uniqueIDGen() {
+                sevenZBit = 78364164096;
+                randomString = sevenZBit + parseInt(Math.random() * sevenZBit * 35)
+                dateStringGen = new Date().getTime().toString(36)
+                return (dateStringGen + "-" + randomString.toString(36))
+            }
+
+            upcApp.sessionID = uniqueIDGen()
+            var currentDate = new Date();
+
+
+
+            function getUserDetails() {
+                // Retrieve user agent
+                var userAgent = navigator.userAgent;
+
+                // Retrieve screen resolution
+                var screenWidth = window.screen.width;
+                var screenHeight = window.screen.height;
+
+                // Retrieve browser dimensions
+                var browserWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                var browserHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+                // Retrieve user's preferred language
+                var preferredLanguage = navigator.language;
+
+                // Return an object with all the user details
+                return {
+                    userAgent: userAgent,
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
+                    browserWidth: browserWidth,
+                    browserHeight: browserHeight,
+                    preferredLanguage: preferredLanguage
+                };
+            }
+
+            dataToBeSaved = {}
+
+
+            function saveData() {
+                dataToBeSaved = {}
+
+                
+
+
+                dataToBeSaved.interactions = upcApp.interactions
+                dataToBeSaved.dateTimeString = currentDate.toString()
+                dataToBeSaved.id = upcApp.sessionID
+                dataToBeSaved.graph6Trials = gph6.trialsAdded
+                var userDetails = getUserDetails();
+                dataToBeSaved.userDetails = userDetails;
+
+                database.ref('sessions/' + upcApp.sessionID).set(dataToBeSaved)
+                    .then(function() {
+                        // console.log("Data saved successfully.");
+                    })
+                    .catch(function(error) {
+                        // console.log("Error writing data:", error);
+                    });
+            }
+
+
+            if (window.location.href != "http://127.0.0.1:5500/universal-parabolic-constant.html") {
+                upcApp.interactionNumber += 1
+                dateTimeNow = new Date()
+                upcApp.interactions[upcApp.interactionNumber] = {
+                    dateTime : dateTimeNow.toString(),
+                    "type": "page load"
+                }
+
+                saveData()
+            }
+
+
+          
+
+
+            
+
+
+        </script>
+
+
+
+
+	</body>
+<html>
+
