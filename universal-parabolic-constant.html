@@ -48,10 +48,10 @@
 
 	</head>
 	<body style='margin:0px; display: block;'>
-		<div id="containAll" class="p-sm-3 p-1">
-            <div style="border: 1px solid hsla(0,0%,0%, 0); border-radius: 10px; background: var(--generalBackground);">
+		<div id="containAll" class="p-sm-3 p-1" style=" overflow: hidden; ">
+            <div style="border: 1px solid hsla(0,0%,0%, 0); border-radius: 10px; background: var(--generalBackground); ">
                 
-                <header id="upc-header" class="pr-2 pr-sm-3" style="position: fixed;font-family: Raleway;overflow: hidden; width: calc(100%);top: 0; z-index: 3; opacity: 0;" onclick="upcApp.headerClick()">
+                <header id="upc-header" class="pr-2 pr-sm-3" style="position: fixed;font-family: Raleway; overflow: hidden; width: calc(100%); top: 0; z-index: 3; opacity: 0;" onclick="upcApp.headerClick()">
                     <div style="background-image: linear-gradient(to bottom, var(--generalBackground),var(--generalBackground), transparent);color: hsl(0,0%,20%);font-size: small;min-height: 131px;" class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center">
                         <span style="cursor: pointer;"> 
                             <b id="currentMenuName" style="color:hsla(198, 0%, 37%, 1)">What's the problem?</b><br class="d-inline-block d-md-none"/>
@@ -828,7 +828,7 @@
                     </div>
 
                     <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
-                        <div class="our-text-block text-center d-inline-flex justify-content-center">
+                        <div class="our-text-block text-center d-block d-sm-inline-flex justify-content-center">
                             <span class="mt-1 pb-2">
                                 <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-line-x-animation-Slider">
                                <br/>
@@ -836,6 +836,7 @@
                                     <label id="shrinking-line-x-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-line-x-animation-Slider" style="min-width: 100px;" >Shrinking along x</label>
                                 </p>
                             </span>
+                            <div class="d-block d-sm-none"></div>
                             <span class="mt-1 pb-2 ml-4">
                                 <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-line-y-animation-Slider">
                                <br/>
@@ -871,7 +872,7 @@
                     </div>
 
                     <div class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
-                        <div class="our-text-block text-center d-inline-flex justify-content-center">
+                        <div class="our-text-block text-center d-block d-sm-inline-flex justify-content-center">
                             <span class="mt-1 pb-2">
                                 <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-curve-x-animation-Slider">
                                <br/>
@@ -879,6 +880,7 @@
                                     <label id="shrinking-curve-x-animation-SliderInfo" class="pl-sm-3 pl-0 text-small-ignus" for="shrinking-curve-x-animation-Slider" style="min-width: 100px;" >Shrinking along x</label>
                                 </p>
                             </span>
+                            <div class="d-block d-sm-none"></div>
                             <span class="mt-1 pb-2 ml-4">
                                 <input type="range" min="1" max="4" value="0" step="0.1"  class="commonSlider mb-3" id="shrinking-curve-y-animation-Slider">
                                <br/>

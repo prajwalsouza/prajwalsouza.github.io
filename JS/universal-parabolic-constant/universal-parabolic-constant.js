@@ -26,6 +26,11 @@ upcApp.handleLayoutStyles = function() {
 
     upcApp.parabolicCircleGraph["point-label-gap"] = 0.2
 
+
+    upcApp.parabolaIncreasingSlopeGraph = {}
+
+    upcApp.parabolaIncreasingSlopeGraph["point-label-gap"] = 0.2
+
     if (window.innerWidth < 580) {
         upcApp.graphFontSizeSmall = 3.6;
         upcApp.graphFontSizeLarge = 5;
@@ -41,6 +46,8 @@ upcApp.handleLayoutStyles = function() {
         upcApp.parabolicImportantDimensionsGraph["ymin"] = -3
 
         upcApp.parabolicCircleGraph["point-label-gap"] = 0.4
+
+        upcApp.parabolaIncreasingSlopeGraph["point-label-gap"] = 0.2
 
 
         document.getElementById('parabola-circle-compare-graphHolder-Enclosure').style.height = "400px";
@@ -2806,7 +2813,7 @@ gph11.setUpParabolicIncreasingSlope = function() {
     viewX.addPoint("parabola-increasing-slope-graph", "parabola-increasing-slope-vertex", pointOptions);
 
 
-    textOptions = {x: gph11.theParabola.vertex[0] + upcApp.parabolicCircleGraph["point-label-gap"]/2, y: gph11.theParabola.vertex[1] - upcApp.parabolicCircleGraph["point-label-gap"]/2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.6, fontFamily: "Nunito",   textcolor: "var(--lightPurple)", opacity: 0.5};
+    textOptions = {x: gph11.theParabola.vertex[0] + upcApp.parabolaIncreasingSlopeGraph["point-label-gap"]/2, y: gph11.theParabola.vertex[1] - upcApp.parabolaIncreasingSlopeGraph["point-label-gap"]/2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.6, fontFamily: "Nunito",   textcolor: "var(--lightPurple)", opacity: 0.5};
     viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-vertex-label", textOptions);
 
     gph11.xValue = gph11.slider.value
@@ -2816,7 +2823,7 @@ gph11.setUpParabolicIncreasingSlope = function() {
     gph11.slopeAngle = Math.atan(gph11.slope) * (180 / Math.PI)
     gph11.point = [gph11.xValue, gph11.yValue]
 
-    textOptions = {x: gph11.xValue + upcApp.parabolicCircleGraph["point-label-gap"], y: 0 - upcApp.parabolicCircleGraph["point-label-gap"], text: "x = " + gph11.xValue,  textAlign: "left",  fontSize: upcApp.graphFontSizeLarge*0.62, fontFamily: "Nunito",   textcolor: "var(--lightBlue)", opacity: 0.6};
+    textOptions = {x: gph11.xValue + upcApp.parabolaIncreasingSlopeGraph["point-label-gap"], y: 0 - upcApp.parabolaIncreasingSlopeGraph["point-label-gap"], text: "x = " + gph11.xValue,  textAlign: "left",  fontSize: upcApp.graphFontSizeLarge*0.62, fontFamily: "Nunito",   textcolor: "var(--lightBlue)", opacity: 0.6};
     viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-xvalue-text", textOptions);
 
     
@@ -2826,7 +2833,7 @@ gph11.setUpParabolicIncreasingSlope = function() {
     pointOptions = { x: gph11.xValue, y: gph11.yValue, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
     viewX.addPoint("parabola-increasing-slope-graph", "parabola-increasing-slope-pointOnParabola", pointOptions);
 
-    textOptions = {x: gph11.xValue + upcApp.parabolicCircleGraph["point-label-gap"], y: gph11.yValue - upcApp.parabolicCircleGraph["point-label-gap"], text: "(" + gph11.xValue + ", 2.345)",  textAlign: "left",  fontSize: upcApp.graphFontSizeLarge*0.6, fontFamily: "Nunito",   textcolor: "var(--writingGrey)"};
+    textOptions = {x: gph11.xValue + upcApp.parabolaIncreasingSlopeGraph["point-label-gap"], y: gph11.yValue - upcApp.parabolaIncreasingSlopeGraph["point-label-gap"], text: "(" + gph11.xValue + ", 2.345)",  textAlign: "left",  fontSize: upcApp.graphFontSizeLarge*0.6, fontFamily: "Nunito",   textcolor: "var(--writingGrey)"};
     viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-pointOnParabola-description", textOptions);
 
     gph11.deltaForTangent = viewX.rotatedVec([3, 0], gph11.slopeAngle)
@@ -2854,11 +2861,11 @@ gph11.setUpParabolicIncreasingSlope = function() {
     pointOptions = { x:  gph11.theParabola.latusRectumPointRight[0], y:  gph11.theParabola.latusRectumPointRight[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)', opacity: 0.5};
     viewX.addPoint("parabola-increasing-slope-graph", "parabola-increasing-slope-H", pointOptions);
 
-    textOptions = {x:  gph11.theParabola.latusRectumPointRight[0] + upcApp.parabolicCircleGraph["point-label-gap"]/2, y:  gph11.theParabola.latusRectumPointRight[1] - upcApp.parabolicCircleGraph["point-label-gap"]/2, text: "H",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.6, fontFamily: "Nunito",   textcolor: "var(--lightPurple)", opacity: 1};
+    textOptions = {x:  gph11.theParabola.latusRectumPointRight[0] + upcApp.parabolaIncreasingSlopeGraph["point-label-gap"]/2, y:  gph11.theParabola.latusRectumPointRight[1] - upcApp.parabolaIncreasingSlopeGraph["point-label-gap"]/2, text: "H",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.6, fontFamily: "Nunito",   textcolor: "var(--lightPurple)", opacity: 1};
     viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-H-label", textOptions);
 
 
-    textOptions = {x: gph11.xValue - 4.5*upcApp.parabolicCircleGraph["point-label-gap"], y: gph11.yValue + upcApp.parabolicCircleGraph["point-label-gap"], text: "Steepness : " + gph11.slope.toFixed(2),  textAlign: "right",  fontSize: upcApp.graphFontSizeLarge*0.6, fontFamily: "Nunito",   textcolor: "white", opacity: 0.5};
+    textOptions = {x: gph11.xValue - 4.5*upcApp.parabolaIncreasingSlopeGraph["point-label-gap"], y: gph11.yValue + upcApp.parabolaIncreasingSlopeGraph["point-label-gap"], text: "Steepness : " + gph11.slope.toFixed(2),  textAlign: "right",  fontSize: upcApp.graphFontSizeLarge*0.6, fontFamily: "Nunito",   textcolor: "white", opacity: 0.5};
     viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-steepness-label", textOptions);
 
 
@@ -2876,7 +2883,7 @@ gph11.setUpParabolicIncreasingSlope = function() {
     viewX.addPath("parabola-increasing-slope-graph", "parabola-increasing-slope-angle", pathOptions);
 
 
-    textOptions = {x: gph11.xValue + 2*upcApp.parabolicCircleGraph["point-label-gap"], y: gph11.yValue, text: gph11.slopeAngle.toFixed(2) + " deg",  textAlign: "left",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightOrange)", opacity: 1};
+    textOptions = {x: gph11.xValue + 2*upcApp.parabolaIncreasingSlopeGraph["point-label-gap"], y: gph11.yValue, text: gph11.slopeAngle.toFixed(2) + " deg",  textAlign: "left",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightOrange)", opacity: 1};
     viewX.addText("parabola-increasing-slope-graph", "parabola-increasing-slope-angle-label", textOptions);
 
     gph11.updateParabolicIncreasingSlope()
@@ -2901,7 +2908,7 @@ gph11.updateParabolicIncreasingSlope = function() {
     gph11.slopeAngle = (Math.atan(gph11.slope)) * (180 / Math.PI)
     gph11.point = [gph11.xValue, gph11.yValue]
 
-    textOptions = {x: gph11.xValue + upcApp.parabolicCircleGraph["point-label-gap"]/2, y: upcApp.parabolicCircleGraph["ymin"]/5, text: "x = " + gph11.xValue};
+    textOptions = {x: gph11.xValue + upcApp.parabolaIncreasingSlopeGraph["point-label-gap"]/2, y: upcApp.parabolicCircleGraph["ymin"]/5, text: "x = " + gph11.xValue};
     viewX.updateText("parabola-increasing-slope-graph", "parabola-increasing-slope-xvalue-text", textOptions);
     
     lineOptions = { x1: gph11.xValue, y1: defaultGraphOptions["ymax"]*2, x2: gph11.xValue, y2: defaultGraphOptions["ymin"]}; 
@@ -2909,10 +2916,10 @@ gph11.updateParabolicIncreasingSlope = function() {
 
     viewX.updatePointXY("parabola-increasing-slope-graph", "parabola-increasing-slope-pointOnParabola", gph11.xValue, gph11.yValue);
 
-    textOptions = {x: gph11.xValue + upcApp.parabolicCircleGraph["point-label-gap"]/2, y: gph11.yValue - upcApp.parabolicCircleGraph["point-label-gap"]/2, text: "(" + gph11.xValue.toFixed(2) + ", " + gph11.yValue.toFixed(2) + ")"};
+    textOptions = {x: gph11.xValue + upcApp.parabolaIncreasingSlopeGraph["point-label-gap"]/2, y: gph11.yValue - upcApp.parabolaIncreasingSlopeGraph["point-label-gap"]/2, text: "(" + gph11.xValue.toFixed(2) + ", " + gph11.yValue.toFixed(2) + ")"};
     viewX.updateText("parabola-increasing-slope-graph", "parabola-increasing-slope-pointOnParabola-description", textOptions);
 
-    textOptions = {x: gph11.xValue - 4.5*upcApp.parabolicCircleGraph["point-label-gap"], y: gph11.yValue + upcApp.parabolicCircleGraph["point-label-gap"], text: "Steepness : " + gph11.slope.toFixed(1) + " (" + gph11.slopeAngle.toFixed(1) + "°)"};
+    textOptions = {x: gph11.xValue - 4.5*upcApp.parabolaIncreasingSlopeGraph["point-label-gap"], y: gph11.yValue + upcApp.parabolaIncreasingSlopeGraph["point-label-gap"], text: "Steepness : " + gph11.slope.toFixed(1) + " (" + gph11.slopeAngle.toFixed(1) + "°)"};
     viewX.updateText("parabola-increasing-slope-graph", "parabola-increasing-slope-steepness-label", textOptions);
 
     gph11.arrowDelta = viewX.rotatedVec([0.2, 0], gph11.slopeAngle)
@@ -2945,7 +2952,7 @@ gph11.updateParabolicIncreasingSlope = function() {
         toUpdateAnglePoints = gph11.anglePoints(gph11.slopeAngle, angleLocation, 0.2, 20)
     }
     
-    textOptions = {x: angleLocation[0] + 1.5*upcApp.parabolicCircleGraph["point-label-gap"], y: angleLocation[1], text: gph11.slopeAngle.toFixed(2) + "°"};
+    textOptions = {x: angleLocation[0] + 1.5*upcApp.parabolaIncreasingSlopeGraph["point-label-gap"], y: angleLocation[1], text: gph11.slopeAngle.toFixed(2) + "°"};
     viewX.updateText("parabola-increasing-slope-graph", "parabola-increasing-slope-angle-label", textOptions);
 
     viewX.updatePathPoints("parabola-increasing-slope-graph", "parabola-increasing-slope-angle", toUpdateAnglePoints);
