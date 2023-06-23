@@ -217,7 +217,15 @@
 
 
 		</style>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFFCG66EJ"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
+            gtag('config', 'G-MNFFCG66EJ');
+        </script>
       
 
 	</head>
@@ -2206,6 +2214,9 @@
 
             upcApp = {}
 
+            upcApp.interactions = {}
+            upcApp.interactionNumber = 1
+
             upcApp.handleLayoutStyles = function() {
                 upcApp.graphFontSizeSmall = 2.8;
                 upcApp.graphFontSizeLarge = 4;
@@ -2284,6 +2295,17 @@
                     document.getElementById('reveal-' + upcApp.revealPoint + "-continueButton").style.display = "none";
 
                     upcApp.revealGap = 10
+
+                    upcApp.interactionNumber += 1
+                    dateTimeNow = new Date()
+                    upcApp.interactions[upcApp.interactionNumber] = {
+                        dateTime : dateTimeNow.toString(),
+                        "type": "reveal",
+                        "point": upcApp.revealPoint
+                    }
+
+                    saveData()
+
 
                     if (upcApp.revealPoint == 1) {
                         setTimeout(function() {
@@ -3005,6 +3027,18 @@
                     }
                 }
                 gph2.lastError = currentError;
+
+                upcApp.interactionNumber += 1
+                dateTimeNow = new Date()
+                upcApp.interactions[upcApp.interactionNumber] = {
+                    dateTime : dateTimeNow.toString(),
+                    "type": "answer for distance between two points",
+                    "answer": gph2.slider.value
+                }
+
+                saveData()
+
+
             };
 
 
@@ -3139,6 +3173,16 @@
                     }
                 }
                 gph3.lastError = currentError;
+
+                upcApp.interactionNumber += 1
+                dateTimeNow = new Date()
+                upcApp.interactions[upcApp.interactionNumber] = {
+                    dateTime : dateTimeNow.toString(),
+                    "type": "answer for distance between center and any point inside",
+                    "answer": gph3.slider.value
+                }
+
+                saveData()
             };
 
 
@@ -3274,6 +3318,16 @@
                     }
                 }
                 gph4.lastError = currentError;
+
+                upcApp.interactionNumber += 1
+                dateTimeNow = new Date()
+                upcApp.interactions[upcApp.interactionNumber] = {
+                    dateTime : dateTimeNow.toString(),
+                    "type": "answer for distance between corner and point on square",
+                    "answer": gph4.slider.value
+                }
+
+                saveData()
             };
 
 
@@ -3632,6 +3686,16 @@
                     }
                 }
                 gph6.lastError = currentError;
+
+                upcApp.interactionNumber += 1
+                dateTimeNow = new Date()
+                upcApp.interactions[upcApp.interactionNumber] = {
+                    dateTime : dateTimeNow.toString(),
+                    "type": "answer for random walk distance",
+                    "answer": gph6.slider.value
+                }
+
+                saveData()
             };
 
 
@@ -8903,6 +8967,111 @@
             
 
         </script>
+
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+
+        <script>
+
+            const firebaseConfig = {
+                apiKey: "AIzaSyB5RWSdCAumPvg78h53pjdI1Xvg5cx5Urk",
+                authDomain: "parabolic-constant.firebaseapp.com",
+                projectId: "parabolic-constant",
+                storageBucket: "parabolic-constant.appspot.com",
+                messagingSenderId: "1095465366835",
+                appId: "1:1095465366835:web:2a4ad7759ad5948aab7a46"
+            };
+          
+            // Initialize Firebase
+            const app = firebase.initializeApp(firebaseConfig);
+
+            var database = firebase.database();
+
+            function uniqueIDGen() {
+                sevenZBit = 78364164096;
+                randomString = sevenZBit + parseInt(Math.random() * sevenZBit * 35)
+                dateStringGen = new Date().getTime().toString(36)
+                return (dateStringGen + "-" + randomString.toString(36))
+            }
+
+            upcApp.sessionID = uniqueIDGen()
+            var currentDate = new Date();
+
+
+
+            function getUserDetails() {
+                // Retrieve user agent
+                var userAgent = navigator.userAgent;
+
+                // Retrieve screen resolution
+                var screenWidth = window.screen.width;
+                var screenHeight = window.screen.height;
+
+                // Retrieve browser dimensions
+                var browserWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                var browserHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+                // Retrieve user's preferred language
+                var preferredLanguage = navigator.language;
+
+                // Return an object with all the user details
+                return {
+                    userAgent: userAgent,
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
+                    browserWidth: browserWidth,
+                    browserHeight: browserHeight,
+                    preferredLanguage: preferredLanguage
+                };
+            }
+
+            dataToBeSaved = {}
+
+
+            function saveData() {
+                dataToBeSaved = {}
+
+                
+
+
+                dataToBeSaved.interactions = upcApp.interactions
+                dataToBeSaved.dateTimeString = currentDate.toString()
+                dataToBeSaved.id = upcApp.sessionID
+                var userDetails = getUserDetails();
+                dataToBeSaved.userDetails = userDetails;
+
+                database.ref('sessions/' + upcApp.sessionID).set(dataToBeSaved)
+                    .then(function() {
+                        console.log("Data saved successfully.");
+                    })
+                    .catch(function(error) {
+                        console.log("Error writing data:", error);
+                    });
+            }
+
+
+            if (window.location.href != "http://127.0.0.1:5500/parabolic-constant.html") {
+                upcApp.interactionNumber += 1
+                dateTimeNow = new Date()
+                upcApp.interactions[upcApp.interactionNumber] = {
+                    dateTime : dateTimeNow.toString(),
+                    "type": "page load"
+                }
+
+                saveData()
+            }
+
+
+          
+
+
+            
+
+
+        </script>
+
+
 
 
 	</body>
