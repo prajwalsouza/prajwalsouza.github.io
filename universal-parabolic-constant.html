@@ -51,12 +51,14 @@
 		<div id="containAll" class="p-sm-3 p-1">
             <div style="border: 1px solid hsla(0,0%,0%, 0); border-radius: 10px; background: var(--generalBackground); ">
                 
-                <header id="upc-header" class="pr-2 pr-sm-3" style="position: fixed;font-family: Raleway;overflow: hidden;width: calc(100%);top: 0;z-index: 3; opacity: 0;">
-                    <div style="background-image: linear-gradient(to bottom, var(--generalBackground),var(--generalBackground), transparent);color: hsl(0,0%,20%);font-size: small;height: 131px;" class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center w-100 w-md-0">
+                <header id="upc-header" class="pr-2 pr-sm-3" style="position: fixed;font-family: Raleway;overflow: hidden;width: calc(100%);top: 0;z-index: 3; opacity: 0;" onclick="upcApp.headerClick()">
+                    <div style="background-image: linear-gradient(to bottom, var(--generalBackground),var(--generalBackground), transparent);color: hsl(0,0%,20%);font-size: small;min-height: 131px;" class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center w-100 w-md-0">
                         <span style="cursor: pointer;"> 
                             <b id="currentMenuName" style="color:hsla(198, 0%, 37%, 1)">What's the problem?</b><br class="d-inline-block d-md-none"/>
                             <span style="font-size:x-small">The Parabolic Constant Mystery</span>
                         </span>
+                        <br/>
+                        <span id="upc-menus" style="display: none;"></span>
                     </div>
                     
                 </header>
@@ -2146,18 +2148,30 @@
                     document.body.style.background = "var(--generalBackground)"
                 }
 
+                // upcApp.renderMenus()
   
             });
 
             document.getElementById('upc-header').style.display = "none";
-
+            
+            document.getElementById('upc-menus').style.display = "none"
 
             
             upcApp.menuHighlightDetection = function(targetDiv) {
                 const observer = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            document.getElementById('currentMenuName').innerText = nameMenuMaps[entry.target.id]
+                            document.getElementById('upc-menus').style.display = "none"
+                            allMenuState = document.getElementById('upc-menus').style.display
+                            if (allMenuState == "none") {
+                                document.getElementById('currentMenuName').innerText = nameMenuMaps[entry.target.id].name
+                            }
+                            
+                            nameMenuMaps[entry.target.id].revealed = true;
+                            upcApp.currentMenuSelected = nameMenuMaps[entry.target.id].name
+                            upcApp.renderMenus()
+
+                            
                         }
                     });
                 });
@@ -2166,20 +2180,20 @@
             }
 
             nameMenuMaps = {
-                'upc-measurement-graphHolder': 'What is the problem?',
-                'distance-between-any-two-points-graphHolder': 'Distance between any two points',
-                'random-shrinking-walk-graphHolder': 'Random shrinking walk',
-                'random-shrinking-walk-reveal-graphHolder': 'Random shrinking walk',
-                'parabola-circle-compare-graphHolder': 'What is the universal parabolic constant?',
-                'parabola-points-description-graphHolder': 'What is a parabola?',
-                'parabola-increasing-slope-graphHolder': 'What is a parabola?',
-                'cutting-ribbon-graphHolder': 'How to divide lines?',
-                'shrinking-curve-animation-graphHolder': 'How to divide lines?',
-                'whatIsAverage-section': 'What is average?',
-                'simple-problem-average-animation-graphHolder': 'What is average?',
-                'simple-problem-description-size05-graphHolder': 'The simpler problem',
-                'simple-problem-size1-n-point-graphHolder': 'The simpler problem',
-                'simple-problem-size1-2-point-adding-graphHolder': 'Can you see it?'
+                'upc-measurement-graphHolder': {name: 'What is the problem?', revealed: false},
+                'distance-between-any-two-points-graphHolder': {name: 'Distance between any two points', revealed: false},
+                'random-shrinking-walk-graphHolder': {name: 'Random shrinking walk', revealed: false},
+                'random-shrinking-walk-reveal-graphHolder': {name: 'Random shrinking walk', revealed: false},
+                'parabola-circle-compare-graphHolder': {name: 'What is the universal parabolic constant?', revealed: false},
+                'parabola-points-description-graphHolder': {name: 'What is a parabola?', revealed: false},
+                'parabola-increasing-slope-graphHolder': {name: 'What is a parabola?', revealed: false},
+                'cutting-ribbon-graphHolder': {name: 'How to divide lines?', revealed: false},
+                'shrinking-curve-animation-graphHolder': {name: 'How to divide lines?', revealed: false},
+                'whatIsAverage-section': {name: 'What is average?', revealed: false},
+                'simple-problem-average-animation-graphHolder': {name: 'What is average?', revealed: false},
+                'simple-problem-description-size05-graphHolder': {name: 'The simpler problem', revealed: false},
+                'simple-problem-size1-n-point-graphHolder': {name: 'The simpler problem', revealed: false},
+                'simple-problem-size1-2-point-adding-graphHolder': {name: 'Can you see it?', revealed: false}
 
 
             }
@@ -2189,6 +2203,53 @@
                 menuName = nameMenuMaps[divName]
 
                 upcApp.menuHighlightDetection(document.getElementById(divName))
+            }
+
+            upcApp.scrollToDiv = function(divName) {
+                document.getElementById(divName).scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+
+                upcApp.currentMenuSelected = nameMenuMaps[divName].name
+                upcApp.headerClick();
+            }
+
+            upcApp.headerClick = function() {
+                allMenuState = document.getElementById('upc-menus').style.display
+                if (allMenuState != "none") {
+                    document.getElementById('upc-menus').style.display = "none"
+                    document.getElementById('currentMenuName').innerText = upcApp.currentMenuSelected
+                    console.log(upcApp.currentMenuSelected)
+                }
+                else {
+                    document.getElementById('upc-menus').style.display = "block"
+                    document.getElementById('currentMenuName').innerText = ""
+                }
+
+                upcApp.renderMenus()
+                
+            }
+
+            upcApp.renderMenus = function() {
+                menuInnerHTML = ""
+                menusAdded = {}
+
+                // document.getElementById('currentMenuName').innerText = ""
+                for (divIndex  = 0; divIndex < Object.keys(nameMenuMaps).length; divIndex++) {
+                    divName = Object.keys(nameMenuMaps)[divIndex]
+                    menuOptions = nameMenuMaps[divName]
+                    // console.log(typeof(menusAdded[menuOptions]), menuOptions)
+                    if (menuOptions.revealed && typeof(menusAdded[menuOptions.name]) == 'undefined') {
+                        // console.log(upcApp.currentMenuSelected, menuOptions.name)
+                        menuColor = upcApp.currentMenuSelected == menuOptions.name ? "darkgrey" : "grey";
+                        tagType = upcApp.currentMenuSelected == menuOptions.name ? "b" : "span";
+                        // console.log(menuColor)
+                        menuInnerHTML += "<" + tagType + " class='pl-0 p-0 text-small-ignus' onclick='upcApp.scrollToDiv(\"" + divName + "\")' style='color: " + menuColor + "; cursor: pointer;'>" + menuOptions.name + "</" + tagType + "><br/>"
+                        menusAdded[menuOptions.name] = divName
+                    }
+                }
+
+                document.getElementById('upc-menus').innerHTML = menuInnerHTML
+
+                
             }
 
 
