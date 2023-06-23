@@ -49,9 +49,9 @@
 	</head>
 	<body style='margin:0px; display: block;'>
 		<div id="containAll" class="p-sm-3 p-1">
-            <div style="border: 1px solid hsl(0,0%,2%); border-radius: 10px; background: var(--generalBackground); ">
+            <div style="border: 1px solid hsla(0,0%,0%, 0); border-radius: 10px; background: var(--generalBackground); ">
                 
-                <header id="upc-header" class="pr-2 pr-sm-3" style="position: fixed;font-family: Raleway;overflow: hidden;width: calc(100%);top: 0;z-index: 3;">
+                <header id="upc-header" class="pr-2 pr-sm-3" style="position: fixed;font-family: Raleway;overflow: hidden;width: calc(100%);top: 0;z-index: 3; opacity: 0;">
                     <div style="background-image: linear-gradient(to bottom, var(--generalBackground),var(--generalBackground), transparent);color: hsl(0,0%,20%);font-size: small;height: 131px;" class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center w-100 w-md-0">
                         <span style="cursor: pointer;"> 
                             <b id="currentMenuName" style="color:hsla(198, 0%, 37%, 1)">What's the problem?</b><br class="d-inline-block d-md-none"/>
@@ -2090,38 +2090,35 @@
 
 
             function saveData() {
-                dataToBeSaved = {}
+                if (window.location.href != "http://127.0.0.1:5500/universal-parabolic-constant.html") {
+                    dataToBeSaved = {}
 
-                
+                    dataToBeSaved.interactions = upcApp.interactions
+                    dataToBeSaved.dateTimeString = currentDate.toString()
+                    dataToBeSaved.id = upcApp.sessionID
+                    dataToBeSaved.graph6Trials = gph6.trialsAdded
+                    var userDetails = getUserDetails();
+                    dataToBeSaved.userDetails = userDetails;
 
-
-                dataToBeSaved.interactions = upcApp.interactions
-                dataToBeSaved.dateTimeString = currentDate.toString()
-                dataToBeSaved.id = upcApp.sessionID
-                dataToBeSaved.graph6Trials = gph6.trialsAdded
-                var userDetails = getUserDetails();
-                dataToBeSaved.userDetails = userDetails;
-
-                database.ref('sessions/' + upcApp.sessionID).set(dataToBeSaved)
-                    .then(function() {
-                        // console.log("Data saved successfully.");
-                    })
-                    .catch(function(error) {
-                        // console.log("Error writing data:", error);
-                    });
-            }
-
-
-            if (window.location.href != "http://127.0.0.1:5500/universal-parabolic-constant.html") {
-                upcApp.interactionNumber += 1
-                dateTimeNow = new Date()
-                upcApp.interactions[upcApp.interactionNumber] = {
-                    dateTime : dateTimeNow.toString(),
-                    "type": "page load"
+                    database.ref('sessions/' + upcApp.sessionID).set(dataToBeSaved)
+                        .then(function() {
+                            // console.log("Data saved successfully.");
+                        })
+                        .catch(function(error) {
+                            // console.log("Error writing data:", error);
+                        });
                 }
-
-                saveData()
             }
+
+
+            upcApp.interactionNumber += 1
+            dateTimeNow = new Date()
+            upcApp.interactions[upcApp.interactionNumber] = {
+                dateTime : dateTimeNow.toString(),
+                "type": "page load"
+            }
+
+            saveData()
 
 
           
@@ -2136,14 +2133,17 @@
             window.addEventListener('scroll', function(e) {
                 if (window.scrollY < 900) {
                     document.getElementById('upc-header').style.display = "none";
+                    document.body.style.background = "black"
                 }
                 else if (window.scrollY >= 900 && window.scrollY < 1500) {
                     document.getElementById('upc-header').style.display = "block";
                     document.getElementById('upc-header').style.opacity = viewX.linearValue(900, 1500, 0, 1, window.scrollY)
+                    document.body.style.background = "var(--generalBackground)"
                 }
                 else {
                     document.getElementById('upc-header').style.display = "block";
                     document.getElementById('upc-header').style.opacity = 1
+                    document.body.style.background = "var(--generalBackground)"
                 }
 
   

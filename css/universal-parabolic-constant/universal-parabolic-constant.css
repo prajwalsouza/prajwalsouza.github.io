@@ -21,6 +21,10 @@
     transition: opacity 0.4s;
 }
 
+body {
+    transition: background 0.4s;
+}
+
 .hidden-element {
     display: none !important;
 }
