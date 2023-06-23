@@ -17,6 +17,13 @@ upcApp.handleLayoutStyles = function() {
     upcApp.parabolicCircleGraph["xmin"] = -1
     upcApp.parabolicCircleGraph["ymin"] = -1
 
+    upcApp.parabolicImportantDimensionsGraph = {}
+    upcApp.parabolicImportantDimensionsGraph["xmax"] = 1
+    upcApp.parabolicImportantDimensionsGraph["ymax"] = 4
+    upcApp.parabolicImportantDimensionsGraph["xmin"] = -1
+    upcApp.parabolicImportantDimensionsGraph["ymin"] = -1
+    
+
     upcApp.parabolicCircleGraph["point-label-gap"] = 0.2
 
     if (window.innerWidth < 580) {
@@ -24,11 +31,20 @@ upcApp.handleLayoutStyles = function() {
         upcApp.graphFontSizeLarge = 5;
         upcApp.graphPointSize = 2.1;
         upcApp.parabolicCircleGraph["xmax"] = 1
-        upcApp.parabolicCircleGraph["ymax"] = 10
+        upcApp.parabolicCircleGraph["ymax"] = 5
         upcApp.parabolicCircleGraph["xmin"] = -1
         upcApp.parabolicCircleGraph["ymin"] = -1
 
+        upcApp.parabolicImportantDimensionsGraph["xmax"] = 1
+        upcApp.parabolicImportantDimensionsGraph["ymax"] = 8
+        upcApp.parabolicImportantDimensionsGraph["xmin"] = -1
+        upcApp.parabolicImportantDimensionsGraph["ymin"] = -3
+
         upcApp.parabolicCircleGraph["point-label-gap"] = 0.4
+
+
+        document.getElementById('parabola-circle-compare-graphHolder-Enclosure').style.height = "400px";
+        document.getElementById('parabola-important-dimensions-graphHolder-Enclosure').style.width = "400px";
     }
 }
 
@@ -2335,10 +2351,10 @@ gph9.slider.addEventListener('input', function() {
 gph10 = {}
 gph10.setUpParabolicDescriptionGraph = function() {
     gph10.graphH = document.getElementById('parabola-important-dimensions-graphHolder')
-    defaultGraphOptions["xmax"] = upcApp.parabolicCircleGraph["xmax"]
-    defaultGraphOptions["ymax"] = upcApp.parabolicCircleGraph["ymax"]
-    defaultGraphOptions["xmin"] = upcApp.parabolicCircleGraph["xmin"]
-    defaultGraphOptions["ymin"] = upcApp.parabolicCircleGraph["ymin"]
+    defaultGraphOptions["xmax"] = upcApp.parabolicImportantDimensionsGraph["xmax"]
+    defaultGraphOptions["ymax"] = upcApp.parabolicImportantDimensionsGraph["ymax"]
+    defaultGraphOptions["xmin"] = upcApp.parabolicImportantDimensionsGraph["xmin"]
+    defaultGraphOptions["ymin"] = upcApp.parabolicImportantDimensionsGraph["ymin"]
     
     // if (window.innerWidth >= 1000) {
     //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
