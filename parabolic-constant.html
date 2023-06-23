@@ -3519,6 +3519,7 @@
                 
             }
             
+            gph6.trialsAdded = 0
             gph6.maxWalkedSteps = 12
             gph6.trials = []
             gph6.trialDisplayed = 0
@@ -3623,6 +3624,10 @@
                 gph6.trialsDistances.push(viewX.distF([0, 0], gph6.walkedPoints[gph6.walkedPoints.length - 1]))
                 gph6.trialDisplayed = gph6.trials.length - 1
                 gph6.displayTrial()
+
+                gph6.trialsAdded += 1
+
+                saveData()
                 
             }
 
@@ -9038,6 +9043,7 @@
                 dataToBeSaved.interactions = upcApp.interactions
                 dataToBeSaved.dateTimeString = currentDate.toString()
                 dataToBeSaved.id = upcApp.sessionID
+                dataToBeSaved.graph6Trials = gph6.trialsAdded
                 var userDetails = getUserDetails();
                 dataToBeSaved.userDetails = userDetails;
 
