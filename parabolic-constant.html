@@ -2048,10 +2048,37 @@
 
                                 <br/><br/>
                                 The <span class="p-lightGreen">last segment </span>(corresponding to unscaled <span class="p-lightGreen">CA</span>) added to the curve which is currently at the midpoint is always at the 45 degree angle. Each segment increases it's slope linearly. Reminds me of some familiar curve. 
-
+                                <br/>
                                 The midpoint on the line segment AB, could be our point of interest H?
 
                                 <br/><br/><br/>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="pointH-reveal-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-0 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center">
+                            <div class="mt-1 pb-2">
+                                <input type="range" min="0" max="1" value="0.5" step="0.001"  class="commonSlider mb-3" id="pointH-reveal-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                
+                                <div>
+                                    <label id="pointH-reveal-SliderInfo" class="p-White pl-sm-1 pl-0 text-ignus" for="pointH-reveal-Slider" style="min-width: 100px;" ></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-4">
 
                                 Also, remember this?<br/>
                                 <span class="p-lightPink">HB</span> has length <span class="p-lightPink">a</span> units then, <span class="p-lightBlue">CB</span> has length <span class="p-lightBlue">2a</span> units.<br/>
@@ -2065,7 +2092,6 @@
                             </p>
                         </div>
                     </div>
-
 
                     <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
                         <div class="our-text-block text-center">
@@ -2437,6 +2463,15 @@
 
                             // gph29.slider.value = gph29.slider.max
                             gph29.nextValue();
+
+
+                        }, 1000);
+                        
+                    }
+                    else if (upcApp.revealPoint == 11) {
+                        setTimeout(function() {
+
+                            gph30.setUpPointHRevealGraph();
 
                         }, 1000);
                         
@@ -8614,7 +8649,253 @@
             });
 
 
+            
+            // graph 30 : pointH, CH and our curve
+            
+            gph30 = {}
+            gph30.setUpPointHRevealGraph = function() {
+                gph30.graphH = document.getElementById('pointH-reveal-graphHolder')
+                defaultGraphOptions["xmax"] = upcApp.parabolicCircleGraph["xmax"]
+                defaultGraphOptions["ymax"] = upcApp.parabolicCircleGraph["ymax"]/1.3
+                defaultGraphOptions["xmin"] = upcApp.parabolicCircleGraph["xmin"]/6
+                defaultGraphOptions["ymin"] = upcApp.parabolicCircleGraph["ymin"]/5
+                
+                // if (window.innerWidth >= 1000) {
+                //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
+                //     defaultGraphOptions["xmajorgridlinesvisibility"] = "yes"
+                // }
 
+            
+                viewX.addGraph(gph30.graphH, "pointH-reveal-graph", defaultGraphOptions)
+
+               
+
+                defaultGraphOptions["ymajorgridlinesvisibility"] = "no"
+                defaultGraphOptions["xmajorgridlinesvisibility"] = "no"
+
+                gph30.theParabola = parabolaPoints([0, 1], [-3, -1], [3, -1], -4, 4, 100)
+                gph30.thePoints = gph30.theParabola.points
+
+
+                lineOptions = { x1: 2, y1: 0, x2: 2, y2: 2, strokewidth: 4, linecolor: "var(--brightYellow)", opacity: 0.5};
+                viewX.addLine("pointH-reveal-graph", "pointH-reveal-AB-line", lineOptions);
+                
+                pointOptions = { x:  2, y:  2, pointsize: upcApp.graphPointSize*0.8, pointcolor: 'white'};
+                viewX.addPoint("pointH-reveal-graph", "pointH-reveal-APoint", pointOptions);
+
+                textOptions = {x:  2 + upcApp.parabolicCircleGraph["point-label-gap"], y:  2 - upcApp.parabolicCircleGraph["point-label-gap"], text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "white"};
+                viewX.addText("pointH-reveal-graph", "pointH-reveal-APoint-label", textOptions);
+
+                
+                lineOptions = { x1: -3, y1: 0, x2: 3, y2: 0, strokewidth: 0.6, linecolor: "hsla(0, 0%, 40%, 0.7)"}; 
+                viewX.addLine("pointH-reveal-graph", "pointH-reveal-theXAxis", lineOptions);
+
+                lineOptions = { x1: 0, y1: 5, x2: 0, y2: -3, strokewidth: 0.6, linecolor: "hsla(0, 0%, 40%, 0.7)"}; 
+                viewX.addLine("pointH-reveal-graph", "pointH-reveal-theYAxis", lineOptions);
+
+                var pathOptions = {
+                    points: gph30.thePoints,
+                    strokewidth: 0.3,
+                    pathcolor: "var(--lightPurple)",
+                    pathfillcolor: "none",
+                    opacity: 0.2
+                };
+                pathElementDetails = viewX.addPath("pointH-reveal-graph", "pointH-reveal-parabola", pathOptions);
+
+
+                gph30.cHParabola = parabolaPoints([0, 1], [-3, -1], [3, -1], 0, 1, 40)
+                gph30.cHPoints = gph30.cHParabola.points
+
+                var pathOptions = {
+                    points: gph30.cHPoints,
+                    strokewidth: 2,
+                    pathcolor: "var(--lightPurple)",
+                    pathfillcolor: "none",
+                    opacity: 0.4
+                };
+                pathElementDetails = viewX.addPath("pointH-reveal-graph", "pointH-reveal-CH-curve-parabola", pathOptions);
+
+                midFC = viewX.scalarMultiplyVec(0.5, viewX.addVec(gph30.theParabola.focus, gph30.theParabola.vertex))
+                
+
+                pointOptions = { x:  gph30.theParabola.vertex[0], y:  gph30.theParabola.vertex[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("pointH-reveal-graph", "pointH-reveal-vertex", pointOptions);
+
+                textOptions = {x: gph30.theParabola.vertex[0] + upcApp.parabolicCircleGraph["point-label-gap"], y: gph30.theParabola.vertex[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)"};
+                viewX.addText("pointH-reveal-graph", "pointH-reveal-vertex-label", textOptions);
+
+                pointOptions = { x:  gph30.theParabola.focus[0], y:  gph30.theParabola.focus[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--brightYellow)'};
+                viewX.addPoint("pointH-reveal-graph", "pointH-reveal-focus", pointOptions);
+
+                textOptions = {x:  gph30.theParabola.focus[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  gph30.theParabola.focus[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "F",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--brightYellow)"};
+                viewX.addText("pointH-reveal-graph", "pointH-reveal-focus-label", textOptions);
+
+                pointOptions = { x:  gph30.theParabola.latusRectumPointLeft[0], y:  gph30.theParabola.latusRectumPointLeft[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)', opacity: 0.2};
+                viewX.addPoint("pointH-reveal-graph", "pointH-reveal-G", pointOptions);
+
+                textOptions = {x:  gph30.theParabola.latusRectumPointLeft[0] - upcApp.parabolicCircleGraph["point-label-gap"], y:  gph30.theParabola.latusRectumPointLeft[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "G",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)", opacity: 0.2};
+                viewX.addText("pointH-reveal-graph", "pointH-reveal-G-label", textOptions);
+
+                pointOptions = { x:  gph30.theParabola.latusRectumPointRight[0], y:  gph30.theParabola.latusRectumPointRight[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+                viewX.addPoint("pointH-reveal-graph", "pointH-reveal-H", pointOptions);
+
+                textOptions = {x:  gph30.theParabola.latusRectumPointRight[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  gph30.theParabola.latusRectumPointRight[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "H",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)"};
+                viewX.addText("pointH-reveal-graph", "pointH-reveal-H-label", textOptions);
+
+                BPoint = viewX.addVec(gph30.theParabola.latusRectumPointRight, viewX.subtractVec(gph30.theParabola.vertex, gph30.theParabola.focus))
+
+                pointOptions = { x:  BPoint[0], y:  BPoint[1], pointsize: upcApp.graphPointSize*0.8, pointcolor: 'white'};
+                viewX.addPoint("pointH-reveal-graph", "pointH-reveal-BPoint", pointOptions);
+
+                textOptions = {x:  BPoint[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  BPoint[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "white"};
+                viewX.addText("pointH-reveal-graph", "pointH-reveal-BPoint-label", textOptions);
+
+
+                sideShiftDirection = viewX.scalarMultiplyVec(gph30.theParabola.a*0.5, viewX.directionVec(gph30.theParabola.focus, gph30.theParabola.latusRectumPointRight))
+
+                var arrowOptions = {
+                    from: viewX.subtractVec(viewX.addVec(gph30.theParabola.latusRectumPointRight, sideShiftDirection), [0, 0.01]),
+                    to: viewX.addVec(viewX.addVec(BPoint, sideShiftDirection), [0, 0.01]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightPink)"
+                };
+                arrow = viewX.addArrow("pointH-reveal-graph", "pointH-reveal-HB-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    to: viewX.subtractVec(viewX.addVec(gph30.theParabola.latusRectumPointRight, sideShiftDirection), [0, 0.01]),
+                    from: viewX.addVec(viewX.addVec(BPoint, sideShiftDirection), [0, 0.01]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightPink)"
+                };
+
+                arrow = viewX.addArrow("pointH-reveal-graph", "pointH-reveal-HB-arrow-2", arrowOptions);
+
+                midHB = viewX.scalarMultiplyVec(0.5, viewX.addVec(gph30.theParabola.latusRectumPointRight, BPoint))
+
+                midHBShifted = viewX.addVec(midHB, sideShiftDirection)
+                textOptions = {x:  midHBShifted[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  midHBShifted[1], text: "a = 0.5",  textAlign: "left",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+                viewX.addText("pointH-reveal-graph", "pointH-reveal-HB-label", textOptions);
+
+
+
+                var arrowOptions = {
+                    from: viewX.addVec(gph30.theParabola.latusRectumPointRight, [0, 0.3]),
+                    to: viewX.addVec(gph30.theParabola.focus, [0, 0.3]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightBlue)"
+                };
+                arrow = viewX.addArrow("pointH-reveal-graph", "pointH-reveal-HF-arrow-1", arrowOptions);
+
+                var arrowOptions = {
+                    to: viewX.addVec(gph30.theParabola.latusRectumPointRight, [0, 0.3]),
+                    from: viewX.addVec(gph30.theParabola.focus, [0, 0.3]),
+                    strokewidth: 0.4,
+                    arrowcolor: "var(--lightBlue)"
+                };
+
+                arrow = viewX.addArrow("pointH-reveal-graph", "pointH-reveal-HF-arrow-2", arrowOptions);
+
+                midHF = viewX.scalarMultiplyVec(0.5, viewX.addVec(gph30.theParabola.latusRectumPointRight, gph30.theParabola.focus))
+
+                midHFShifted = viewX.addVec(midHF, [0, 0.3])
+                textOptions = {x:  midHFShifted[0], y:  midHFShifted[1] +  upcApp.parabolicCircleGraph["point-label-gap"], text: "2a = 1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightBlue)"};
+                viewX.addText("pointH-reveal-graph", "pointH-reveal-HF-label", textOptions);
+
+
+                gph30.sampleNPoints();
+
+
+            }
+
+
+            
+            gph30.sampleNPoints = function() {
+                
+                gph30.condition = gph26.generateSampleData(parseInt(gph30.slider.value), [0, 0], 4)
+
+                gph30.samples = gph30.condition.samples
+
+                gph30.samples[gph30.condition.globalValues.numberOfSamples - 1].color = "var(--lightGreen)"
+                gph30.samples[gph30.condition.globalValues.numberOfSamples - 1].name = "A"
+                gph30.samples[0].name = "B"
+                gph30.samples[gph30.condition.globalValues.numberOfSamples - 1].distanceLabel = "√2"
+                gph30.samples[0].distanceLabel = "1"
+
+                for (cs = 0; cs < gph30.condition.globalValues.numberOfSamples; cs++) {
+
+                    if (gph30.condition.globalValues.numberOfSamples > 7) {
+                        
+                        gapFactor = viewX.linearValue(7, 30, 0.2, 0.01, parseFloat(gph30.slider.value))
+                        fontFactor = upcApp.graphFontSizeLarge*viewX.linearValue(7, 30, 1, 0.3, parseFloat(gph30.slider.value))
+                        pointFactor = viewX.linearValue(7, 30, 1, 0.3, parseFloat(gph30.slider.value))
+                    }
+                    else {
+                        gapFactor = 0.2
+                        fontFactor = upcApp.graphFontSizeLarge
+                        pointFactor = 1
+                    }
+                    
+
+                    previousPT = gph30.condition.globalValues.center
+                    if (cs != 0) {
+                        previousPT = gph30.samples[cs - 1].finalPoint
+                    }
+
+                    lineOptions = { x1: previousPT[0], y1: previousPT[1], x2: gph30.samples[cs].finalPoint[0], y2: gph30.samples[cs].finalPoint[1],  strokewidth: 4, linecolor: gph30.samples[cs].color};
+                    viewX.addLine("pointH-reveal-graph", "pointH-reveal-distance-line-" + (cs + 1), lineOptions);
+
+                }
+            }
+
+
+            var sliderProperties = {
+                minwidth: '200px',
+                width: '50%',
+                height: 5,
+                trackColor: "hsla(10, 0%, 20%, 0.7)",
+                trackFillColor: "white",
+                thumbWidth: 15,
+                thumbHeight: 15,
+                thumbColor: "white",
+                opacity: 0.7
+            };
+
+            viewX.generateSliderStyles(sliderProperties, "pointH-reveal-Slider");
+
+            gph30.slider = document.getElementById("pointH-reveal-Slider");
+            gph30.sliderLabel = document.getElementById("pointH-reveal-SliderInfo");
+
+            gph30.slider.value = 3
+            gph30.slider.step = 1
+            gph30.slider.min = 2
+            gph30.slider.max = 30
+
+            gph30.sliderLabel.innerHTML = "Number of points : " + gph30.slider.value
+
+            gph30.slider.addEventListener('input', function() {
+                gph30.sliderLabel.innerHTML = "Number of points : " + gph30.slider.value
+
+                viewX.removeGraph("pointH-reveal-graph")
+                gph30.setUpPointHRevealGraph()
+
+            });
+
+            function pauseAutoplaygph30() {
+                clearInterval(gph30.interval);
+            }
+
+            gph30.slider.addEventListener('mouseover', pauseAutoplaygph30);
+            gph30.slider.addEventListener('touchstart', pauseAutoplaygph30);
+
+            gph30.nextValue = function() {
+                gph30.slider.value = parseInt(gph30.slider.value) + 1
+                if (gph30.slider.value == gph30.slider.max) {
+                    gph30.slider.value = 1
+                }
+                // gph30.sliderLabel.innerHTML = gph30.messageOfSteps[parseInt(gph30.slider.value)]
+            }
+
+            
 
 
 
