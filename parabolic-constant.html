@@ -9043,10 +9043,10 @@
 
                 database.ref('sessions/' + upcApp.sessionID).set(dataToBeSaved)
                     .then(function() {
-                        console.log("Data saved successfully.");
+                        // console.log("Data saved successfully.");
                     })
                     .catch(function(error) {
-                        console.log("Error writing data:", error);
+                        // console.log("Error writing data:", error);
                     });
             }
 
