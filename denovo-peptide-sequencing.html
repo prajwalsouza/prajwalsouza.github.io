@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Where is the Parabola? - The Universal Parabolic Constant Mystery</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta charset="UTF-8">
+        <meta name="description" content="Explore the mysteries of the Universal Parabolic Constant with Manas Shetty, Prajwal DSouza, Sparsha Kumari and Vinton Adrian Rebello. Dive into a journey of understanding average distances, shrinking random walks, and the unexpected links between parabolas and squares. Discover the complexities of curve length division and the elegance of parabolic arcs. A perfect resource for those intrigued by the fascinating world of mathematical problem-solving.">
+        <meta name="keywords" content="plots.js, prajwalsouza, Prajwal DSouza, template">
+        <meta name="author" content="Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+		<!-- Some times used library for icons -->
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/prajwalsouza/IgnusTheme@1.3/ignus-theme.css">
+        <script src="https://cdn.jsdelivr.net/gh/prajwalsouza/IgnusTheme@1.3/ignus-theme.js"></script>
+
+
+		<link rel="icon" href="square.png">
+		
+		<script type="application/ld+json">
+			{
+			  "@type": "blog",
+			  "name": "Where is the Parabola? - The Universal Parabolic Constant Mystery",
+			  "author": "Manas Shetty, Prajwal DSouza, Sparsha Kumari, Vinton Adrian Rebello",
+			  "description": "Explore the mysteries of the Universal Parabolic Constant with Manas Shetty, Prajwal DSouza, Sparsha Kumari and Vinton Adrian Rebello. Dive into a journey of understanding average distances, shrinking random walks, and the unexpected links between parabolas and squares. Discover the complexities of curve length division and the elegance of parabolic arcs. A perfect resource for those intrigued by the fascinating world of mathematical problem-solving."
+			  }
+		</script>
+
+        <link rel="stylesheet" href="/css/universal-parabolic-constant/universal-parabolic-constant.css"/>
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFFCG66EJ"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-MNFFCG66EJ');
+        </script>
+      
+
+	</head>
+	<body style='margin:0px; display: block;'>
+		<div id="containAll" class="p-sm-3 p-1" style=" overflow: hidden; ">
+            <div style="border: 1px solid hsla(0,0%,0%, 0); border-radius: 10px; background: var(--generalBackground); ">
+                
+                <header id="upc-header" class="pr-2 pr-sm-3" style="position: fixed;font-family: Raleway; overflow: hidden; width: calc(100%); top: 0; z-index: 3; opacity: 0;" onclick="upcApp.headerClick()">
+                    <div style="background-image: linear-gradient(to bottom, var(--generalBackground),var(--generalBackground), transparent);color: hsl(0,0%,20%);font-size: small;min-height: 131px;" class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center">
+                        <span style="cursor: pointer;"> 
+                            <b id="currentMenuName" style="color:hsla(198, 0%, 37%, 1)">What's the problem?</b><br class="d-inline-block d-md-none"/>
+                            <span style="font-size:x-small">The Parabolic Constant Mystery</span>
+                        </span>
+                        <br/>
+                        <span id="upc-menus" style="display: none;"></span>
+                    </div>
+                    
+                </header>
+
+                <main>
+                    <div class="w-100 text-center text-ignus pt-5 mt-3 pb-4" style="font-family: Raleway;">
+                        <div class="pl-3 pr-3">
+                            <b style="font-size: x-large;">Peptide De Novo Sequencing </b><br/>
+                            <b style="font-size: large; color: gray">What are the ingredients of that delicious pizza?</b><br/>
+                            <p style="font-size: medium; color: hsl(0,0%,30%)">Aditi Sharrma, Prajwal DSouza</p>
+                        </div>
+                    </div>
+    
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" id="gph1-starting-block">
+                            <p>Proteins, the mighty microscopic marvels present in what we eat, hence, what we are.  In milkshakes, ice creams, … your hair, your skin… you. These molecular machines are present in all living things, from viruses to the dog that barked at you the other day. They are so essential that they keep the grand show of life going. Proteins are like the ultimate multi-taskers of the cellular world. They're the tiny construction workers, dutiful soldiers, speedy messengers, vigilant guards and the skilled repair crew that keep our bodies running smoothly day in, day out. </p>
+                        </div>
+                        
+                    </div>
+    
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="upc-measurement-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+    
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" id="gph1-explaining-block">
+                            <p>They're crafted by our cells using the blueprints written in our DNA. Heard of the genetic code in the DNA? This code is like a huge library, stuffed with cookbooks. These cookbooks contain genes, which are like recipes for whipping up every protein your body needs. And there are at least 10000 different proteins keeping you alive. </p>
+                        </div>
+                    </div>
+    
+                    
+    
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center">
+                            <p>This might seem like a co-incidence. But, we look for a circle when <span class="p-White" > π</span>  pops up in various places right? Just check <a class="p-lightBlue" href="https://www.youtube.com/watch?v=HEfHFsfGXjs" target="_blank" >3B1B</a> :P  So, why not dig a little deeper. And if we explore a little more, there are other seemingly unrelated math problems where you see this number show up. </p>
+                        </div>
+                    </div>
+    
+                    
+    
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                            <div id="distance-between-any-two-points-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+    
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center">
+                            <p>
+                                
+                                So, What do you think is the average <span class="p-lightPink" >distance </span>between any two points inside a <span class="p-lightYellow" >unit square</span>? Take a guess. :D
+                            </p>
+                            <div class="mt-5">
+                                <input type="range" min="0" max="2" value="0.8" step="0.001"  class="commonSlider mb-3" id="distance-between-any-two-points-Slider">
+                                <div class="d-block d-sm-none"></div>
+                                <label id="distance-between-any-two-points-SliderLabel" class="p-lightPink pl-sm-3 pl-0" for="distance-between-any-two-points-Slider" style="min-width: 100px;" >0.8</label>
+                                <div>
+                                    <p id="distance-between-any-two-points-SliderInfo" class="text-small-ignus" style="color: hsl(0deg 0% 100%);">
+                                        Move the <span class='p-lightPink'>slider</span> to choose your answer...  and also, the points <span class="p-lightBlue">A</span> and <span class="p-lightPurple">B</span> above are draggable. :)
+                                    </p>
+                                    
+                                    <div id="gph2-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
+                                    <div id="reveal-1-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+    
+                                </div>
+                            </div>
+                            
+    
+                        </div>
+                    </div>
+    
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p class="mt-5">
+                                It is about  <span class="p-lightPink" >0.52140.</span> To be more precise, it is. <br/><br/>
+                                
+                                <span class="p-lightPink" >
+                                    \(\color{#e3a0cd}{8\left(0.0416{\color{#ffffff}{P}}-0.030473\right)}\)
+                                </span><br/>
+
+                                And exactly, it is
+
+                                <div style="font-size: 25px;">
+                                    \(\color{#e3a0cd}{8\left(\frac{\color{#ffffff}{P}}{24}-\frac{\sqrt{2}}{30}+\frac{1}{60}\right)}\)
+                                </div>
+                                
+                                
+                                <br/>
+                                <p>
+                                Yep. Strange combination of numbers. There's a <span class="p-White" >P</span> there. <br/>
+
+                                There's many more instances where we see this. But, mostly involving a unit square.</p>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" onclick="upcApp.chooseSection(1, 1)" id="rotatingSectionButton-1-1"> Center-Point Distance</span>
+                                <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus inActiveSectionButton" onclick="upcApp.chooseSection(1, 2)" id="rotatingSectionButton-1-2"> Corner-Perimeter Distance</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="hidden-element reveal-1 revealable" id="extender-section-1" style="max-height: 100px; overflow: hidden; position: relative;">
+                        <div style="position: absolute; background: linear-gradient(to bottom, transparent, var(--generalBackground)); pointer-events: none; z-index: 1;" class="w-100 h-100" id="extender-section-1-cover"></div>
+                        <div style="position: absolute; bottom: 0px; height: 30px; " class="w-100 text-center dragDownExtension" onclick="upcApp.extendSection(1)">
+                            <span><i id="extender-section-1-chevron-down" class="fa fa-angle-double-down" style="font-size: 23px;"></i></span>
+                        </div>
+                        
+                        <div id="rotatingSection-1-1" class="rotatingSection-1">
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                                <div class="our-text-block text-center pb-1">
+                                    <p>
+                                        Here is a slightly similar problem. <br/>
+                                        What do you think is the average <span class="p-lightPink" >distance </span>between the <span class="p-lightBlue" >center</span> and <span class="p-lightPurple" >any point</span> 'inside' the <span class="p-lightYellow" >unit square</span>?
+                                       
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center rotatingSectionGraph-1-1" id="rotatingSectionGraph-1-1-1" style="position: absolute; left: 200vw;">
+                                <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                                    <div id="distance-between-center-and-any-point-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                                <div class="our-text-block text-center">
+                                    <p>
+                                        Take a guess. :D
+                                    </p>
+                                    <div class="mt-1 pb-2">
+                                        <input type="range" min="0" max="1" value="0.2" step="0.001"  class="commonSlider mb-3" id="distance-between-center-and-point-inside-Slider">
+                                        <div class="d-block d-sm-none"></div>
+                                        <label id="distance-between-center-and-point-inside-SliderLabel" class="p-lightPink pl-sm-3 pl-0" for="distance-between-center-and-point-inside-Slider" style="min-width: 100px;" >0.8</label>
+                                        <div>
+                                            <p id="distance-between-center-and-point-inside-SliderInfo" class="text-small-ignus" style="color: hsl(0deg 0% 100%);">
+                                                Point<span class="p-lightPurple">B</span> above is draggable. :)
+                                            </p>
+                                            
+                                            <div id="gph3-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
+                                            <div id="reveal-sub-section-1-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+            
+                                        </div>
+                                    </div>
+                                    
+            
+                                </div>
+                            </div>
+                            <div class="w-100 pl-4 pr-4 pb-5 pl-sm-5 pr-sm-5 d-flex justify-content-center reveal-sub-section-1 revealable">
+                                <div class="mt-2 text-center">
+                                    <p>
+                                        It is about <span class="p-lightPink">0.38259785</span> ... To be exact, it is.
+                                    </p>
+                                    
+                                    <div class="p-lightPink" style="font-size: 25px;">
+                                        \(\color{#e3a0cd}{\frac{\color{#ffffff}{P}}{6}}\)
+                                    </div>
+                                
+                                
+                                    <br />
+                                    <p>
+                                        Yep. There's a <span class="p-White">P</span> here too. <br />
+                                    </p>
+                                </div>
+                                
+
+                            </div>
+                            
+                        </div>
+                        <div id="rotatingSection-1-2" class="rotatingSection-1" style="display: none">
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center ">
+                                <div class="our-text-block text-center pb-1">
+                                    <p>
+                                        Here is another problem. Try to guess this one.<br/>
+                                        What do you think is the average <span class="p-lightPink" >distance </span>between a <span class="p-lightBlue" >corner</span> and <span class="p-lightPurple" >a point</span> on the <span class="p-lightYellow" >unit square</span>?
+                                       
+                                    </p>
+                                
+                                </div>
+                            </div>
+                            <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center rotatingSectionGraph-1-2" id="rotatingSectionGraph-1-2-1" style="position: absolute; left: 200vw;">
+                                <div class="our-text-block text-center" style="height: 400px; width: 100%; position: relative;">
+                                    <div id="distance-between-corner-and-point-on-square-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                                <div class="our-text-block text-center">
+                                    <p>
+                                        Take a guess. :D
+                                    </p>
+                                    <div class="mt-1 pb-2">
+                                        <input type="range" min="0" max="2" value="0.2" step="0.001"  class="commonSlider mb-3" id="distance-between-corner-and-point-Slider">
+                                        <div class="d-block d-sm-none"></div>
+                                        <label id="distance-between-corner-and-point-SliderLabel" class="p-lightPink pl-sm-3 pl-0" for="distance-between-corner-and-point-Slider" style="min-width: 100px;" >0.8</label>
+                                        <div>
+                                            <p id="distance-between-corner-and-point-SliderInfo" class="text-small-ignus" style="color: hsl(0deg 0% 100%);">
+                                                Point<span class="p-lightPurple">B</span> above is draggable. :)
+                                            </p>
+                                            
+                                            <div id="gph4-checkAnswerButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" style="border: 1px solid hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 0.2); color: hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), 1);">Check</div>
+                                            <div id="reveal-sub-section-2-continueButton" class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus">Continue</div>
+                                        </div>
+                                    </div>
+                                    
+            
+                                </div>
+                            </div>
+                            <div class="w-100 pl-4 pr-4 pb-5 pl-sm-5 pr-sm-5 d-flex justify-content-center reveal-sub-section-2 revealable">
+                                <div class="mt-2 text-center">
+                                    <p>
+                                        It is about <span class="p-lightPink">0.76519571</span>...  To be exact, it is.
+                                    </p>
+                                    
+                                    <div class="p-lightPink" style="font-size: 25px;">
+                                        \(\color{#e3a0cd}{\frac{\color{#ffffff}{P}}{3}}\)
+                                    </div>
+                                
+                                    <br />
+                                    <p>
+                                        There's a <span class="p-White">P</span> here too. <br />
+                                    </p>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                        
+                    </div>
+    
+                    
+    
+                    <div  class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                Let's branch out a little and delve into a problem unrelated to the unit square. A problem related to <span class="p-lightPurple" >Shrinking Random Walk</span> appeared in Tom Yuster's April 2017 Math Horizons piece (pp. 32-33)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div  class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center">
+                            <p>
+                                Consider a drunkard walking in a plane that starts at the <span class="p-White" >origin</span> and moves only in the east and north directions. He randomly chooses a direction and takes a step. The walk is such that the length of the <span class="p-lightOrange" >first step must be √2</span>, the length of the <span class="p-brightYellow" >second step must be √2/2</span>, the length of the <span class="p-lightGreen" >third step must be √2/4</span>, and <span class="p-lightBlue" >so on</span>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-1 revealable">
+                        <div class="our-text-block text-center" style="height: 500px; width: 100%; position: relative;">
+                            <div id="random-shrinking-walk-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                            
+                        </div>
+                    </div>
+
+
+
+                    
+                    <div class="w-100 pt-5 pb-5"></div>
+                    <div class="w-100 pt-5 pb-5"></div>
+                </main>
+
+                <div style="position: fixed; height: 100%; width: 100vw; pointer-events: none; bottom: 0px; left: 0px; z-index: 5;" id="lottie-popper"></div>
+
+
+            </div>
+
+            
+			
+		</div>
+
+        <!-- <audio id="backgroundMusic" src="assets/audio/grant-piano.mp3"></audio> -->
+        <audio id="warmerMusic" src="assets/audio/state-change_confirm-up.ogg"></audio>
+        <audio id="colderMusic" src="assets/audio/state-change_confirm-down.ogg"></audio>
+
+		<script type="text/javascript">		
+			darkmode = true
+
+			if (darkmode) {
+				document.body.style.background = 'black'
+			}
+		</script>
+
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/viewX@latest/viewx.js"></script>  -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+
+        <script type="text/javascript" src="JS/viewx.js"></script> 
+
+        <script>
+            ignusTheme.baseHue = 201;
+            ignusTheme.baseLightness = 70;
+            ignusTheme.setUp();
+
+            MathJax = {
+                loader: {load: ['[tex]/color']},
+                options: {
+                    enableMenu: false
+                }
+            };
+        </script>
+
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/input/tex/extensions/color.js" charset="UTF-8"></script>
+
+        <script src="/JS/universal-parabolic-constant/denovo-peptide-sequencing.js"></script>
+
+        <!-- Firebase SDK -->
+        <!-- <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script> -->
+
+        <script>
+
+            // const firebaseConfig = {
+            //     apiKey: "AIzaSyB5RWSdCAumPvg78h53pjdI1Xvg5cx5Urk",
+            //     authDomain: "parabolic-constant.firebaseapp.com",
+            //     projectId: "parabolic-constant",
+            //     storageBucket: "parabolic-constant.appspot.com",
+            //     messagingSenderId: "1095465366835",
+            //     appId: "1:1095465366835:web:2a4ad7759ad5948aab7a46"
+            // };
+          
+            // // Initialize Firebase
+            // const app = firebase.initializeApp(firebaseConfig);
+
+            // var database = firebase.database();
+
+            function uniqueIDGen() {
+                sevenZBit = 78364164096;
+                randomString = sevenZBit + parseInt(Math.random() * sevenZBit * 35)
+                dateStringGen = new Date().getTime().toString(36)
+                return (dateStringGen + "-" + randomString.toString(36))
+            }
+
+            upcApp.sessionID = uniqueIDGen()
+            var currentDate = new Date();
+
+
+
+            function getUserDetails() {
+                // Retrieve user agent
+                var userAgent = navigator.userAgent;
+
+                // Retrieve screen resolution
+                var screenWidth = window.screen.width;
+                var screenHeight = window.screen.height;
+
+                // Retrieve browser dimensions
+                var browserWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                var browserHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+                // Retrieve user's preferred language
+                var preferredLanguage = navigator.language;
+
+                // Return an object with all the user details
+                return {
+                    userAgent: userAgent,
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
+                    browserWidth: browserWidth,
+                    browserHeight: browserHeight,
+                    preferredLanguage: preferredLanguage
+                };
+            }
+
+            dataToBeSaved = {}
+
+
+            // function saveData() {
+            //     if (window.location.href != "http://127.0.0.1:5500/universal-parabolic-constant.html") {
+            //         dataToBeSaved = {}
+
+            //         dataToBeSaved.interactions = upcApp.interactions
+            //         dataToBeSaved.dateTimeString = currentDate.toString()
+            //         dataToBeSaved.id = upcApp.sessionID
+            //         dataToBeSaved.graph6Trials = gph6.trialsAdded
+            //         var userDetails = getUserDetails();
+            //         dataToBeSaved.userDetails = userDetails;
+
+            //         database.ref('sessions/' + upcApp.sessionID).set(dataToBeSaved)
+            //             .then(function() {
+            //                 // console.log("Data saved successfully."); 
+            //             })
+            //             .catch(function(error) {
+            //                 // console.log("Error writing data:", error);
+            //             });
+            //     }
+            // }
+
+
+            upcApp.interactionNumber += 1
+            dateTimeNow = new Date()
+            upcApp.interactions[upcApp.interactionNumber] = {
+                dateTime : dateTimeNow.toString(),
+                "type": "page load"
+            }
+
+            // saveData()
+
+
+          
+
+
+            
+
+
+        </script>
+
+        <script>
+            window.addEventListener('scroll', function(e) {
+                if (window.scrollY < 900) {
+                    document.getElementById('upc-header').style.display = "none";
+                    document.body.style.background = "black"
+                }
+                else if (window.scrollY >= 900 && window.scrollY < 1500) {
+                    document.getElementById('upc-header').style.display = "block";
+                    document.getElementById('upc-header').style.opacity = viewX.linearValue(900, 1500, 0, 1, window.scrollY)
+                    document.body.style.background = "var(--generalBackground)"
+                }
+                else {
+                    document.getElementById('upc-header').style.display = "block";
+                    document.getElementById('upc-header').style.opacity = 1
+                    document.body.style.background = "var(--generalBackground)"
+                }
+
+                // upcApp.renderMenus()
+  
+            });
+
+            document.getElementById('upc-header').style.display = "none";
+            
+            document.getElementById('upc-menus').style.display = "none"
+
+            
+            upcApp.menuHighlightDetection = function(targetDiv) {
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            document.getElementById('upc-menus').style.display = "none"
+                            allMenuState = document.getElementById('upc-menus').style.display
+                            if (allMenuState == "none") {
+                                document.getElementById('currentMenuName').innerText = nameMenuMaps[entry.target.id].name
+                            }
+                            
+                            nameMenuMaps[entry.target.id].revealed = true;
+                            upcApp.currentMenuSelected = nameMenuMaps[entry.target.id].name
+                            upcApp.renderMenus()
+
+                            
+                        }
+                    });
+                });
+
+                observer.observe(targetDiv);
+            }
+
+            nameMenuMaps = {
+                'upc-measurement-graphHolder': {name: 'What is the problem?', revealed: false},
+                'distance-between-any-two-points-graphHolder': {name: 'Distance between any two points', revealed: false},
+                'random-shrinking-walk-graphHolder': {name: 'Random shrinking walk', revealed: false},
+                'random-shrinking-walk-reveal-graphHolder': {name: 'Random shrinking walk', revealed: false},
+                'parabola-circle-compare-graphHolder': {name: 'What is the universal parabolic constant?', revealed: false},
+                'parabola-points-description-graphHolder': {name: 'What is a parabola?', revealed: false},
+                'parabola-increasing-slope-graphHolder': {name: 'What is a parabola?', revealed: false},
+                'cutting-ribbon-graphHolder': {name: 'How to divide lines?', revealed: false},
+                'shrinking-curve-animation-graphHolder': {name: 'How to divide lines?', revealed: false},
+                'whatIsAverage-section': {name: 'What is average?', revealed: false},
+                'simple-problem-average-animation-graphHolder': {name: 'What is average?', revealed: false},
+                'simple-problem-description-size05-graphHolder': {name: 'The simpler problem', revealed: false},
+                'simple-problem-size1-n-point-graphHolder': {name: 'The simpler problem', revealed: false},
+                'simple-problem-size1-2-point-adding-graphHolder': {name: 'Can you see it?', revealed: false}
+
+
+            }
+
+            for (divIndex  = 0; divIndex < Object.keys(nameMenuMaps).length; divIndex++) {
+                divName = Object.keys(nameMenuMaps)[divIndex]
+                menuName = nameMenuMaps[divName]
+
+                upcApp.menuHighlightDetection(document.getElementById(divName))
+            }
+
+            upcApp.scrollToDiv = function(divName) {
+                document.getElementById(divName).scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+
+                upcApp.currentMenuSelected = nameMenuMaps[divName].name
+                upcApp.headerClick();
+            }
+
+            upcApp.headerClick = function() {
+                allMenuState = document.getElementById('upc-menus').style.display
+                if (allMenuState != "none") {
+                    document.getElementById('upc-menus').style.display = "none"
+                    document.getElementById('currentMenuName').innerText = upcApp.currentMenuSelected
+                    // console.log(upcApp.currentMenuSelected)
+                }
+                else {
+                    document.getElementById('upc-menus').style.display = "block"
+                    document.getElementById('currentMenuName').innerText = ""
+                }
+
+                upcApp.renderMenus()
+                
+            }
+
+            upcApp.renderMenus = function() {
+                menuInnerHTML = ""
+                menusAdded = {}
+
+                // document.getElementById('currentMenuName').innerText = ""
+                for (divIndex  = 0; divIndex < Object.keys(nameMenuMaps).length; divIndex++) {
+                    divName = Object.keys(nameMenuMaps)[divIndex]
+                    menuOptions = nameMenuMaps[divName]
+                    // console.log(typeof(menusAdded[menuOptions]), menuOptions)
+                    if (menuOptions.revealed && typeof(menusAdded[menuOptions.name]) == 'undefined') {
+                        // console.log(upcApp.currentMenuSelected, menuOptions.name)
+                        menuColor = upcApp.currentMenuSelected == menuOptions.name ? "darkgrey" : "grey";
+                        tagType = upcApp.currentMenuSelected == menuOptions.name ? "b" : "span";
+                        // console.log(menuColor)
+                        menuInnerHTML += "<" + tagType + " class='pl-0 p-0 text-small-ignus' onclick='upcApp.scrollToDiv(\"" + divName + "\")' style='color: " + menuColor + "; cursor: pointer;'>" + menuOptions.name + "</" + tagType + "><br/>"
+                        menusAdded[menuOptions.name] = divName
+                    }
+                }
+
+                document.getElementById('upc-menus').innerHTML = menuInnerHTML
+
+                
+            }
+
+
+        </script>
+
+
+
+	</body>
+<html>
+

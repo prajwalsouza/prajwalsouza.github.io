@@ -117,7 +117,7 @@ upcApp.revealSection = function() {
             "point": upcApp.revealPoint
         }
 
-        saveData()
+        // saveData()
 
 
         if (upcApp.revealPoint == 1) {
@@ -849,7 +849,7 @@ gph2.checkAnswer = function() {
         "answer": gph2.slider.value
     }
 
-    saveData()
+    // saveData()
 
 
 };
@@ -995,7 +995,7 @@ gph3.checkAnswer = function() {
         "answer": gph3.slider.value
     }
 
-    saveData()
+    // saveData()
 };
 
 
@@ -1140,7 +1140,7 @@ gph4.checkAnswer = function() {
         "answer": gph4.slider.value
     }
 
-    saveData()
+    // saveData()
 };
 
 
@@ -1440,7 +1440,7 @@ gph6.addNewWalk = function() {
 
     gph6.trialsAdded += 1
 
-    saveData()
+    // saveData()
     
 }
 
@@ -1513,7 +1513,7 @@ gph6.checkAnswer = function() {
         "answer": gph6.slider.value
     }
 
-    saveData()
+    // saveData()
 };
 
 
