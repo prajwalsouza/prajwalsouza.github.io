@@ -50,8 +50,8 @@ upcApp.handleLayoutStyles = function() {
         upcApp.parabolaIncreasingSlopeGraph["point-label-gap"] = 0.2
 
 
-        document.getElementById('parabola-circle-compare-graphHolder-Enclosure').style.height = "400px";
-        document.getElementById('parabola-important-dimensions-graphHolder-Enclosure').style.width = "400px";
+        // document.getElementById('parabola-circle-compare-graphHolder-Enclosure').style.height = "400px";
+        // document.getElementById('parabola-important-dimensions-graphHolder-Enclosure').style.width = "400px";
     }
 }
 
