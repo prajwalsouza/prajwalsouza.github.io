@@ -131,7 +131,7 @@
                         </div>
                     </div>
 
-                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center pb-3">
                         <div class="our-text-block text-center pt-4">
                             <p class="p-White" style="font-size: large; font-family: Raleway;">
                                 <b>So, What is de novo sequencing?</b>
@@ -181,7 +181,7 @@
                         </div>
                         
                     </div>
-                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center pb-3">
                         <div class="our-text-block text-center pt-4">
                             <p class="p-White" style="font-size: large; font-family: Raleway;">
                                 <b>So, how do we do it? </b>
@@ -279,7 +279,7 @@
 
                                 Let's say we've got our hands on a peptide called CAT (not the furry creature 🐱 but a peptide whose amino acid sequence is C, A, and then T). In fact, let's say we have a whole pile of them, like a giant CAT party 🎉. But before we can start the weighing party, we've got to break them into smaller parts. Kind of like smashing a piñata 🎊. And we have some pretty fancy ways to do this (imagine sophisticated scientific pinata smashers like CID, ETD etc.).
                                 <br/><br/>
-                                When we bash our CAT peptide piñata, it can break into two pieces: a C piece (like a candy 🍬) and an AT piece (like a toy 🧸).
+                                When we bash our CAT peptide, it can break into C, CA pieces.
 
                                 <br/><br/>
 
@@ -322,13 +322,13 @@
                         <div class="our-text-block text-center" id="gph1-starting-block">
                             <p>
 
-                                So, let's say, we've got our CAT peptide broken into C and CA parts. Now, when we feed these pieces into our trusty mass spectrometer to weigh, we should see two distinct signals 📈📉. One corresponds to the smaller 'C' piece and another to the larger 'CA' piece.
+                                So, let's say, we've got our CAT peptide broken into <span class="p-White">C</span> and <span class="p-White">CA</span> parts. Now, when we feed these pieces into our trusty mass spectrometer to weigh, we should see two distinct signals 📈📉. One corresponds to the smaller <span class="p-White">C</span> piece and another to the larger <span class="p-White">CA</span> piece.
                                 <br/><br/>
 
                                 But hold on, what about the whole, unbroken CAT peptide? Well, it can still hang around in our sample, giving us a third signal 📊.
                                 <br/><br/>
 
-                                So, in the end, we've got three peaks on our mass spectrometer's readout, one for each of the 'C', 'CA', and the intact 'CAT'.
+                                So, in the end, we've got three peaks on our mass spectrometer's readout, one for each of the <span class="p-White">C</span>, <span class="p-White">CA</span>, and the intact <span class="p-White">CAT</span>.
 
 
                                 <br/><br/>
@@ -352,6 +352,157 @@
                         </div>
                         
                     </div>
+
+
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" id="gph1-starting-block">
+                            <p>
+
+                                For example, talking about CAT, we know that amino acid C weighs about 103 giving us a peak at 103. Similarly, we know that A weighs about 70, so the mass of CA must be 103 + 70 = 173, where we see the second peak. The mass of amino acid T is about 100, giving us another peak from CAT, at 103 + 70 + 100 = 273. 
+                                <br/><br/>
+
+                                The same process happens with a peptide called ADITI. The peak at 300 is due to ADI, and as T is about 100, we get a peak at 400 corresponding to ADIT. 
+
+                                <br/><br/>
+
+                                
+                            
+                            </p>
+                        </div>
+                        
+                    </div>
+
+                    <div class="w-100 pt-5 pb-5 pl-4 pr-4 pl-sm-5 pr-sm-5 d-md-flex d-none justify-content-center">
+                        <div class="our-text-block text-center">
+                            <img src="/assets/images/denovo-blog/aditi-basic.png" width="100%">
+                        </div>
+                        
+                    </div>
+                    <div class="w-100 pt-5 pb-5 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex d-md-none justify-content-center">
+                        <div class="our-text-block text-center">
+                            <img src="/assets/images/denovo-blog/aditi-basic-vertical.png" width="100%">
+                        </div>
+                        
+                    </div>
+
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" id="gph1-starting-block">
+                            <p>
+
+                                The values can be generated for any sequence. Here's a tool to try it out yourself. (use b ions checkbox only in the tool, this will be explained in detail later) <br/> <br/>
+
+                                <a href="http://db.systemsbiology.net:8080/proteomicsToolkit/FragIonServlet.html" target="_blank">Fragment Ion Calculator - systemsbiology.net</a>
+            
+                                <br/><br/>
+
+                                But let's go back to CAT..  Let's say, you didn't know this was CAT peptide and we told you that this peptide had three amino acids. Can you figure out the amino acid sequence? Are you ready to perform De Novo Sequencing?
+
+                            
+                            </p>
+                        </div>
+                        
+                    </div>
+
+                    <div class="w-100 pl-4 pt-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center pb-3">
+                        <div class="our-text-block text-center pt-4">
+                            <p class="p-White" style="font-size: large; font-family: Raleway;">
+                                <b>Let's do De Novo Sequencing </b>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" id="gph1-starting-block">
+                            <p>
+
+                                So, you have taken an unknown peptide, smashed it and then sent it into the mass spectrometer. The mass spectrometer has spit out a spectra with three humps. Time to figure out what was in the sample. <br/>To begin, let's just call the unknown peptide X<sub>1</sub> X<sub>2</sub> X<sub>3</sub>. 
+
+                            
+                            </p>
+                        </div>
+                        
+                    </div>
+
+                    
+
+
+                    <div class="w-100 pt-5 pb-5 pl-4 pr-4 pl-sm-5 pr-sm-5 d-md-flex d-none justify-content-center">
+                        <div class="our-text-block text-center">
+                            <img src="/assets/images/denovo-blog/cat-denovo-basic.png" width="100%">
+                        </div>
+                        
+                    </div>
+                    <div class="w-100 pt-5 pb-5 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex d-md-none justify-content-center">
+                        <div class="our-text-block text-center">
+                            <img src="/assets/images/denovo-blog/cat-denovo-basic-vertical.png" width="100%">
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" id="gph1-starting-block">
+                            <p>
+
+                                The furthest peak must be from the largest mass, X<sub>1</sub> X<sub>2</sub> X<sub>3</sub> itself, the unbroken peptide.  <br/><br/>
+                                
+                                So, X<sub>1</sub> X<sub>2</sub> X<sub>3</sub> weighs 273. This cannot directly tell us anything, as we know the masses of amino acids only. And yes, we are approximating here for simplicity. 
+
+
+                            
+                            </p>
+                        </div>
+                        
+                    </div>
+
+                    
+                    <div class="w-100 pt-5 pb-5 pl-4 pr-4 pl-sm-5 pr-sm-5 d-md-flex d-none justify-content-center">
+                        <div class="our-text-block text-center">
+                            <img src="/assets/images/denovo-blog/animo-acid-list.png" width="100%">
+                        </div>
+                        
+                    </div>
+                    <div class="w-100 pt-5 pb-5 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex d-md-none justify-content-center">
+                        <div class="our-text-block text-center">
+                            <img src="/assets/images/denovo-blog/animo-acid-list-vertical.png" width="100%">
+                        </div>
+                        
+                    </div>
+
+                    <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="our-text-block text-center" id="gph1-starting-block">
+                            <p>
+
+                                One can see that the peak for the smallest mass is 103 which should be the smallest fragment. So in our case, X<sub>1</sub> is the smallest fragment and must have a mass of 103. This is a single amino acid. But which is it? This is when you go through the amino acid list. C is an amino acid with a mass of 103, so <span class="p-lightBlue">X<sub>1</sub></span> must be <span class="p-lightBlue">C</span>. <br/><br/>
+
+                                The next peak is at 173 and it must be from <span class="p-lightBlue">X<sub>1</sub></span> X<sub>2</sub>. So, <span class="p-lightBlue">X<sub>1</sub></span> X<sub>2</sub> weighs 173. <br/><br/>
+
+                                This tells us that X<sub>2</sub> must be an amino acid with a weight 70. Go through the amino acid list, there is an amino acid corresponding to 70, it's A, Alanine. So, <span class="p-lightOrange">X<sub>2</sub></span> must be <span class="p-lightOrange">A</span>. And finally, the peak at 273 must be from the whole peptide <span class="p-lightBlue">X<sub>1</sub></span> <span class="p-lightOrange">X<sub>2</sub></span> X<sub>3</sub>, so since <span class="p-lightBlue">X<sub>1</sub></span> <span class="p-lightOrange">X<sub>2</sub></span>  is 173, X<sub>3</sub> must be an amino acid with mass 100.. Which our list tells us, <span class="p-lightPink">X<sub>3</sub></span> must be <span class="p-lightPink">T</span>.  
+                            
+                            </p>
+                        </div>
+                        
+                    </div>
+
+                    <div class="w-100 pt-5 pb-5 pl-4 pr-4 pl-sm-5 pr-sm-5 d-md-flex d-none justify-content-center">
+                        <div class="our-text-block text-center">
+                            <img src="/assets/images/denovo-blog/cat-denovo-calc-basic.png" width="100%">
+                        </div>
+                        
+                    </div>
+                    <div class="w-100 pt-5 pb-5 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex d-md-none justify-content-center">
+                        <div class="our-text-block text-center">
+                            <img src="/assets/images/denovo-blog/cat-denovo-calc-basic-vertical.png" width="100%">
+                        </div>
+                        
+                    </div>
+
+
+
+
+
+
+
                    
 
 
