@@ -332,106 +332,6 @@ defaultGraphOptions = {
 
 // Code by GPT-4
 
-function pickAPointOnSquare(givenPointOnPlane) {
-    A = givenPointOnPlane;
-    let center = [0.5, 0.5];
-
-    // Compute the vector from center to A
-    let vec = [A[0] - center[0], A[1] - center[1]];
-
-    // Normalize the vector
-    let dist = Math.sqrt(vec[0]*vec[0] + vec[1]*vec[1]);
-    let normVec = [vec[0]/dist, vec[1]/dist];
-
-    // The maximum length from the center to the edge of the square
-    let maxDist = Math.min(Math.abs(0.5 / normVec[0]), Math.abs(0.5 / normVec[1]));
-
-    // Compute the intersection point
-    let intersectionPoint = [center[0] + maxDist * normVec[0], center[1] + maxDist * normVec[1]];
-
-    return intersectionPoint;
-}
-
-function calculateAverageOfPoints(points) {
-    if (!Array.isArray(points)) {
-        throw new Error("Points must be an array.");
-    }
-
-    if (points.length === 0) {
-        throw new Error("Points array must not be empty.");
-    }
-
-    distanceValue = []
-
-    for (i = 0; i < points.length; i++) {
-        distanceValue.push(viewX.distF([0.5, 0.5], points[i]))
-    }
-
-    const sum = distanceValue.reduce((total, point) => total + point, 0);
-    const average = sum / distanceValue.length;
-
-    return average;
-}
-
-function removeRandomPoint(points) {
-    if (!Array.isArray(points)) {
-        throw new Error("Points must be an array.");
-    }
-
-    if (points.length === 0) {
-        throw new Error("Points array must not be empty.");
-    }
-
-    const randomIndex = Math.floor(Math.random() * points.length);
-    const removedPoint = points.splice(randomIndex, 1)[0];
-
-    return removedPoint;
-}
-
-function removeMaxOrMinPoint(points) {
-    if (!Array.isArray(points)) {
-        throw new Error("Points must be an array.");
-    }
-
-    if (points.length === 0) {
-        throw new Error("Points array must not be empty.");
-    }
-
-    const removeDirection = ['max', 'min'][Math.floor(Math.random() * ['max', 'min'].length)];
-
-    currentAverage = calculateAverageOfPoints(points);
-    if (removeDirection === 'max') {
-        const maxPoint = points.reduce((max, point) => {
-            if (viewX.distF([0.5, 0.5], point) > viewX.distF([0.5, 0.5], max)) {
-                return point;
-            }
-
-            return max;
-        }, points[0]);
-
-        const maxIndex = points.indexOf(maxPoint);
-        const removedPoint = points.splice(maxIndex, 1)[0];
-        // console.log(removeDirection, removedPoint)
-        return removedPoint;
-    }
-    else {
-        const minPoint = points.reduce((min, point) => {
-            if (viewX.distF([0.5, 0.5], point) < viewX.distF([0.5, 0.5], min)) {
-                return point;
-            }
-
-            return min;
-        }, points[0]);
-
-        const minIndex = points.indexOf(minPoint);
-        const removedPoint = points.splice(minIndex, 1)[0];
-
-        // console.log(removeDirection, removedPoint)
-        return removedPoint;
-    }
-    
-}
-
 
 gph0  = {}
 
@@ -443,742 +343,330 @@ gph0.initialSetup = function() {
 gph0.initialSetup();
 
 
-// Code For 1st Graph : upc-measurement-graph
-
+// Code For 1st Graph : the simple drag-drop
 
 gph1 = {}
 
-gph1.displayAverage = function(value) {
-    str1 = value.toString()
-    str2 = (upc/4).toString()
-    theHTML = ""
-    streak = 'unbroken'
-    for (let i = 0; i < str1.length; i++) {
-        if (str1[i] == str2[i] && streak == 'unbroken') {
-            theHTML += str1[i]
-        }
-        else {
-            streak = 'broken'
-            theHTML += "<span style='color: hsl(var(--lightPinkH), 20%, 47%);'>" + str1[i] + "</span>";
-        }
-    }
-    return theHTML
-}
-
-gph1.onMoveOverParagraph = function() {
-    document.getElementById('gph1-explaining-block').addEventListener('mousemove', function(e) {
-        document.getElementById('parameter-measured-parabolic-constant-by-4').innerHTML = gph1.displayAverage(upc/4)
-    })
-}
-
-gph1.onMoveOverParagraph();
-
-gph1.sampledPointsOnSquare = []
-
-function upcMeasurementSetup() {
-    graphH = document.getElementById('upc-measurement-graphHolder')
-    viewX.addGraph(graphH, "upc-measurement-graph", defaultGraphOptions)
-
-    graphH.addEventListener("mousemove", viewX.getCoordinatesOfEvent("upc-measurement-graph", "upcMeasurementGraphMouseMove"))
-    
-
-    rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.4, rectcolor: "hsla(190, 100%, 50%, 0)"};
-
-    viewX.addRectangle("upc-measurement-graph", "upc-measurement-unit-square", rectOptions);
-
-    pointOnSquare = pickAPointOnSquare([0.7, 0.6])
-    gph1.sampledPointsOnSquare.push(pointOnSquare)
-    averageSoFar = calculateAverageOfPoints(gph1.sampledPointsOnSquare)
-    document.getElementById("parameter-measured-parabolic-constant-by-4").innerHTML = gph1.displayAverage(averageSoFar)
-
-    distanceText = viewX.distF([0.5, 0.5], pointOnSquare).toFixed(3);
-    
-    lineOptions = { x1: 0.5, y1: 0.5, x2: pointOnSquare[0], y2:pointOnSquare[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"};
-    viewX.addLine("upc-measurement-graph", "upc-measurement-distance-line", lineOptions);
-
-    pointOptions = { x: 0.5, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
-    viewX.addPoint("upc-measurement-graph", "upc-measurement-center-C", pointOptions);
-    textOptions = {x: 0.5 + 0.05, y: 0.5 - 0.08, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
-    viewX.addText("upc-measurement-graph", "upc-measurement-center-C-label", textOptions);
-
-    pointOptions = { x: pointOnSquare[0], y: pointOnSquare[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
-    viewX.addPoint("upc-measurement-graph", "upc-measurement-randomPoint-Q", pointOptions);
-    textOptions = {x: pointOnSquare[0] + 0.05, y: pointOnSquare[1] - 0.08, text: "Q",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
-    viewX.addText("upc-measurement-graph", "upc-measurement-randomPoint-Q-label", textOptions);
-
-    textOptions = {x: (0.5 + pointOnSquare[0])/2, y: (0.5 + pointOnSquare[1])/2, text: distanceText,  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
-    viewX.addText("upc-measurement-graph", "upc-measurement-distance-label", textOptions);
-}
-
-upcMeasurementSetup()
-
-function upcMeasurement(givenPointOnPlane) {
-    
-    pointOnSquare = pickAPointOnSquare(givenPointOnPlane)
-    gph1.sampledPointsOnSquare.push(pointOnSquare)
-    
-    if (gph1.sampledPointsOnSquare.length > 1000) {
-        removeRandomPoint(gph1.sampledPointsOnSquare)
-    }
-
-    averageSoFar = calculateAverageOfPoints(gph1.sampledPointsOnSquare)
-
-    
-    document.getElementById("parameter-measured-parabolic-constant-by-4").innerHTML = gph1.displayAverage(averageSoFar)
-
-    lineOptions = {x2: pointOnSquare[0], y2:pointOnSquare[1]};
-    viewX.updateLine("upc-measurement-graph", "upc-measurement-distance-line", lineOptions);
-
-    viewX.updatePointXY("upc-measurement-graph", "upc-measurement-randomPoint-Q", pointOnSquare[0], pointOnSquare[1]);
-
-    textOptions = {x: pointOnSquare[0] + 0.05, y: pointOnSquare[1] - 0.08};
-    viewX.updateText("upc-measurement-graph", "upc-measurement-randomPoint-Q-label", textOptions);
-
-    distanceText = viewX.distF([0.5, 0.5], pointOnSquare).toFixed(3);
-
-    textOptions = {x: (0.5 + pointOnSquare[0])/2 + 0.05, y: (0.5 + pointOnSquare[1])/2 - 0.08, text: distanceText};
-    viewX.updateText("upc-measurement-graph", "upc-measurement-distance-label", textOptions);
-}
-
-function upcMeasurementGraphMouseMove() {
-    if (gph1.sampledPointsOnSquare.length > 10) {
-        clearInterval(gph1.loopinterval)
-    }
-    givenPointOnPlane = viewX.cursorCoordinates["upc-measurement-graph"]
-    upcMeasurement(givenPointOnPlane)
-}
-
-function upcRandomMeasurement() {
-    index = viewX.randomChoice([0, 1, 2, 3])
-    startingPoints = [[0,0], [1,0], [1,1], [0,1]]
-    startingPoint = startingPoints[index]
-
-    translateDirections = [[1,0], [0,1], [-1,0], [0,-1]]
-    translateDistance = Math.random()
-    translateVector = [translateDistance*translateDirections[index][0], translateDistance*translateDirections[index][1]]
-    givenPointOnPlane = viewX.addVec(startingPoint, translateVector);
-
-    // givenPointOnPlane = [Math.cos(2*Math.PI*Math.random()), Math.sin(2*Math.PI*Math.random())]
-    
-    upcMeasurement(givenPointOnPlane)
-}
-
-
-gph1.loopinterval = setInterval(frame, 500);
-gph1.animLoopCount = 1
-
-function frame() {
-    gph1.animLoopCount = gph1.animLoopCount + 1
-    if (gph1.sampledPointsOnSquare.length < 5) {
-        if (gph1.animLoopCount % 5 == 0) {
-            upcRandomMeasurement()
-        }
-    }
-    else if (gph1.sampledPointsOnSquare.length < 20 && gph1.sampledPointsOnSquare.length >= 5) {
-        if (gph1.animLoopCount % 2 == 0) {
-            upcRandomMeasurement()
-        }
-    }
-    else {
-        if (gph1.animLoopCount % 1 == 0) {
-            upcRandomMeasurement()
-        }
-    }
-
-    
-}
-
-
-// Code For 2st Graph : distance-between-two-points
-
-gph2 = {}
-
-gph2.setUpDistanceBetweenTwoPoints = function() {
-    gph2.graphH2 = document.getElementById('distance-between-any-two-points-graphHolder')
-    viewX.addGraph(gph2.graphH2, "distance-between-any-two-points-graph", defaultGraphOptions)
+gph1.setUpSimpleDragDropPlay = function() {
+    gph1.graphH = document.getElementById('animo-acid-dragdrop-graphHolder')
+    viewX.addGraph(gph1.graphH, "distance-between-any-two-points-graph", defaultGraphOptions)
 
     rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.4, rectcolor: "hsla(190, 100%, 50%, 0)"};
 
     viewX.addRectangle("distance-between-any-two-points-graph", "distance-between-any-two-points-square", rectOptions);
 
-    gph2.pointA = [0.2, 0.4]
-    gph2.pointB = [0.8, 0.7]
+    gph1.pointA = [0.2, 0.4]
+    gph1.pointB = [0.8, 0.7]
 
-    gph2.distanceText = viewX.distF(gph2.pointA, gph2.pointB).toFixed(3);
+    gph1.distanceText = viewX.distF(gph1.pointA, gph1.pointB).toFixed(3);
 
-    lineOptions = { x1: gph2.pointA[0], y1: gph2.pointA[1], x2: gph2.pointB[0], y2:gph2.pointB[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"}; 
+    lineOptions = { x1: gph1.pointA[0], y1: gph1.pointA[1], x2: gph1.pointB[0], y2:gph1.pointB[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"}; 
     viewX.addLine("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-line", lineOptions);
     
-    pointOptions = {x: gph2.pointA[0], y: gph2.pointA[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
+    pointOptions = {x: gph1.pointA[0], y: gph1.pointA[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
     viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A", pointOptions);
-    pointOptions = {x: gph2.pointA[0], y: gph2.pointA[1], pointsize: upcApp.graphPointSize*3, pointcolor: 'transparent', draggability: "yes", runFunctionDuringDrag: "gph2.onPointDrag()"};
+    pointOptions = {x: gph1.pointA[0], y: gph1.pointA[1], pointsize: upcApp.graphPointSize*3, pointcolor: 'transparent', draggability: "yes", runFunctionDuringDrag: "gph1.onPointDrag()"};
     viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A-dragger", pointOptions);
-    textOptions = {x: gph2.pointA[0] + 0.05, y: gph2.pointA[1] - 0.08, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+    textOptions = {x: gph1.pointA[0] + 0.05, y: gph1.pointA[1] - 0.08, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
     viewX.addText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A-label", textOptions);
 
-    pointOptions = { x: gph2.pointB[0], y: gph2.pointB[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
+    pointOptions = { x: gph1.pointB[0], y: gph1.pointB[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
     viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B", pointOptions);
-    pointOptions = { x: gph2.pointB[0], y: gph2.pointB[1], pointsize: upcApp.graphPointSize*3, pointcolor: 'transparent', draggability: "yes", runFunctionDuringDrag: "gph2.onPointDrag()"};
+    pointOptions = { x: gph1.pointB[0], y: gph1.pointB[1], pointsize: upcApp.graphPointSize*3, pointcolor: 'transparent', draggability: "yes", runFunctionDuringDrag: "gph1.onPointDrag()"};
     viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B-dragger", pointOptions);
-    textOptions = {x: gph2.pointB[0] + 0.05, y: gph2.pointB[1] - 0.08, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
+    textOptions = {x: gph1.pointB[0] + 0.05, y: gph1.pointB[1] - 0.08, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
     viewX.addText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B-label", textOptions);
 
-    textOptions = {x: (gph2.pointA[0] + gph2.pointB[0])/2, y: (gph2.pointA[1] + gph2.pointB[1])/2, text: gph2.distanceText,  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+    textOptions = {x: (gph1.pointA[0] + gph1.pointB[0])/2, y: (gph1.pointA[1] + gph1.pointB[1])/2, text: gph1.distanceText,  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
     viewX.addText("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-label", textOptions);
 }
 
 
-gph2.setUpDistanceBetweenTwoPoints();
+gph1.setUpSimpleDragDropPlay();
 
-gph2.onPointDrag = function() {
+gph1.onPointDrag = function() {
     
-    gph2.movedLocationA = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-A-dragger"][1]
+    gph1.movedLocationA = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-A-dragger"][1]
 
-    gph2.movedLocationB = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-B-dragger"][1]
+    gph1.movedLocationB = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-B-dragger"][1]
 
-    gph2.point1 = [gph2.movedLocationA.x, gph2.movedLocationA.y]
-    gph2.point2 = [gph2.movedLocationB.x, gph2.movedLocationB.y]
+    gph1.point1 = [gph1.movedLocationA.x, gph1.movedLocationA.y]
+    gph1.point2 = [gph1.movedLocationB.x, gph1.movedLocationB.y]
 
-    gph2.distanceText = viewX.distF(gph2.point1, gph2.point2).toFixed(3);
+    gph1.distanceText = viewX.distF(gph1.point1, gph1.point2).toFixed(3);
 
-    lineOptions = { x1: gph2.point1[0], y1: gph2.point1[1], x2: gph2.point2[0], y2:gph2.point2[1]}; 
+    lineOptions = { x1: gph1.point1[0], y1: gph1.point1[1], x2: gph1.point2[0], y2:gph1.point2[1]}; 
     viewX.updateLine("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-line", lineOptions);
     
-    viewX.updatePointXY("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A", gph2.point1[0], gph2.point1[1]);
-    viewX.updatePointXY("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B", gph2.point2[0], gph2.point2[1]);
+    viewX.updatePointXY("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A", gph1.point1[0], gph1.point1[1]);
+    viewX.updatePointXY("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B", gph1.point2[0], gph1.point2[1]);
 
-    textOptions = {x: gph2.point1[0] + 0.05, y: gph2.point1[1] - 0.08};
+    textOptions = {x: gph1.point1[0] + 0.05, y: gph1.point1[1] - 0.08};
     viewX.updateText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A-label", textOptions);
 
-    textOptions = {x: gph2.point2[0] + 0.05, y: gph2.point2[1] - 0.08};
+    textOptions = {x: gph1.point2[0] + 0.05, y: gph1.point2[1] - 0.08};
     viewX.updateText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B-label", textOptions);
 
-    textOptions = {x: (gph2.point1[0] + gph2.point2[0])/2, y: (gph2.point1[1] + gph2.point2[1])/2, text: gph2.distanceText};
+    textOptions = {x: (gph1.point1[0] + gph1.point2[0])/2, y: (gph1.point1[1] + gph1.point2[1])/2, text: gph1.distanceText};
     viewX.updateText("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-label", textOptions);
 
-    "=\\frac{\\color{#e3a0cd}{" + (gph8.slider.value*Math.PI).toFixed(4) + "}}{\\color{#61bdff}{" + gph8.slider.value  + "}}}\\)"
 
 }
 
-var sliderProperties = {
-    minwidth: '200px',
-    width: '50%',
-    height: 5,
-    trackColor: "hsla(280, 0%, 20%, 0.7)",
-    trackFillColor: "var(--lightPink)",
-    thumbWidth: 15,
-    thumbHeight: 15,
-    thumbColor: "var(--lightPink)",
-    opacity: 0.7
-};
+// var sliderProperties = {
+//     minwidth: '200px',
+//     width: '50%',
+//     height: 5,
+//     trackColor: "hsla(280, 0%, 20%, 0.7)",
+//     trackFillColor: "var(--lightPink)",
+//     thumbWidth: 15,
+//     thumbHeight: 15,
+//     thumbColor: "var(--lightPink)",
+//     opacity: 0.7
+// };
 
-viewX.generateSliderStyles(sliderProperties, "distance-between-any-two-points-Slider");
-
-gph2.correctAnswer = 0.52140
-gph2.acceptableError = 0.02
-
-gph2.slider = document.getElementById("distance-between-any-two-points-Slider");
-gph2.sliderLabel = document.getElementById("distance-between-any-two-points-SliderLabel");
-gph2.sliderInfo = document.getElementById("distance-between-any-two-points-SliderInfo");
-
-gph2.slider.value = Math.random()*1
-gph2.sliderLabel.innerHTML = gph2.slider.value
-
-gph2.slider.addEventListener('input', function() {
-    gph2.sliderLabel.innerHTML = gph2.slider.value
-    gph2.sliderInfo.innerHTML = "Move the <span class='p-lightPink'>slider</span> to choose your answer...  and also, the points <span class='p-lightBlue'>A</span> and <span class='p-lightPurple'>B</span> above are draggable. :)"
-});
+// viewX.generateSliderStyles(sliderProperties, "distance-between-any-two-points-Slider");
 
 
-gph2.checkAnswerButton = document.getElementById("gph2-checkAnswerButton");
-gph2.checkAnswerButton.addEventListener('click', function() {
-    gph2.checkAnswer()
-});
 
-gph2.lastError = null;
-gph2.checkAnswer = function() {
-    let currentError = Math.abs(parseFloat(gph2.slider.value) - gph2.correctAnswer);
-    if (currentError < gph2.acceptableError) {
-        gph2.sliderInfo.innerHTML = "Correct! 🎉 The answer you gave is less than " + gph2.acceptableError + " away from the actual value.";
-        upcApp.anim.show();
-        upcApp.anim.goToAndPlay(0);
-        upcApp.anim.setSpeed(2)
-        upcApp.anim.play();
-        if (upcApp.revealPoint == 0) {
-            upcApp.revealSection()
-        }
+
+
+
+gph1.aminoAcid = {
+    "A": {
+        "name": "Alanine",
+        "residue_mass": 71.03711,
+        "short_name": "Ala"
+    },
+    "R": {
+        "name": "Arginine",
+        "residue_mass": 156.10111,
+        "short_name": "Arg"
+    },
+    "N": {
+        "name": "Asparagine",
+        "residue_mass": 114.04293,
+        "short_name": "Asn"
+    },
+    "D": {
+        "name": "Aspartic acid",
+        "residue_mass": 115.02694,
+        "short_name": "Asp"
+    },
+    "C": {
+        "name": "Cysteine",
+        "residue_mass": 103.00919,
+        "short_name": "Cys"
+    },
+    "E": {
+        "name": "Glutamic acid",
+        "residue_mass": 129.04259,
+        "short_name": "Glu"
+    },
+    "Q": {
+        "name": "Glutamine",
+        "residue_mass": 128.05858,
+        "short_name": "Gln"
+    },
+    "G": {
+        "name": "Glycine",
+        "residue_mass": 57.02146,
+        "short_name": "Gly"
+    },
+    "H": {
+        "name": "Histidine",
+        "residue_mass": 137.05891,
+        "short_name": "His"
+    },
+    "I": {
+        "name": "Isoleucine",
+        "residue_mass": 113.08406,
+        "short_name": "Ile"
+    },
+    "L": {
+        "name": "Leucine",
+        "residue_mass": 113.08406,
+        "short_name": "Leu"
+    },
+    "K": {
+        "name": "Lysine",
+        "residue_mass": 128.09496,
+        "short_name": "Lys"
+    },
+    "M": {
+        "name": "Methionine",
+        "residue_mass": 131.04049,
+        "short_name": "Met"
+    },
+    "F": {
+        "name": "Phenylalanine",
+        "residue_mass": 147.06841,
+        "short_name": "Phe"
+    },
+    "P": {
+        "name": "Proline",
+        "residue_mass": 97.05276,
+        "short_name": "Pro"
+    },
+    "S": {
+        "name": "Serine",
+        "residue_mass": 87.03203,
+        "short_name": "Ser"
+    },
+    "T": {
+        "name": "Threonine",
+        "residue_mass": 101.04768,
+        "short_name": "Thr"
+    },
+    "W": {
+        "name": "Tryptophan",
+        "residue_mass": 186.07931,
+        "short_name": "Trp"
+    },
+    "Y": {
+        "name": "Tyrosine",
+        "residue_mass": 163.06333,
+        "short_name": "Tyr"
+    },
+    "V": {
+        "name": "Valine",
+        "residue_mass": 99.06841,
+        "short_name": "Val"
     }
-    else {
-        if (gph2.lastError === null) {
-            gph2.sliderInfo.innerHTML = "Keep trying!";
-        } else if (currentError < gph2.lastError) {
-            gph2.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
-            document.getElementById("warmerMusic").play();
-        } else if (currentError > gph2.lastError) {
-            gph2.sliderInfo.innerHTML = "Colder! 😃 ";
-            document.getElementById("colderMusic").play();
-        }
-    }
-    gph2.lastError = currentError;
-
-    upcApp.interactionNumber += 1
-    dateTimeNow = new Date()
-    upcApp.interactions[upcApp.interactionNumber] = {
-        dateTime : dateTimeNow.toString(),
-        "type": "answer for distance between two points",
-        "answer": gph2.slider.value
-    }
-
-    // saveData()
-
-
-};
-
-
-gph2.continueButton = document.getElementById("reveal-1-continueButton");
-
-gph2.continueButton.addEventListener('click', function() {
-    if (upcApp.revealPoint == 0) {
-        upcApp.revealSection()
-    }
-});
-
-
-// Code For Graph 3 : distance between center and any point inside
-
-gph3 = {}
-
-gph3.setUpDistanceBetweenCenterAndAnyPointInside = function() {
-    defaultGraphOptions["xmax"] = 1.1
-    defaultGraphOptions["xmin"] = -0.1
-    defaultGraphOptions["ymax"] = 1.1
-    defaultGraphOptions["ymin"] = -0.1
-    defaultGraphOptions["scrollZoom"] = "no"
-    
-    gph3.graphH = document.getElementById('distance-between-center-and-any-point-graphHolder')
-    viewX.addGraph(gph3.graphH, "distance-between-center-and-any-point-graph", defaultGraphOptions)
-
-    rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.4, rectcolor: "hsla(190, 100%, 50%, 0)"};
-
-    viewX.addRectangle("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-square", rectOptions);
-
-    gph3.pointA = [0.5, 0.5]
-    gph3.pointB = [0.8, 0.7]
-
-    gph3.distanceText = viewX.distF(gph3.pointA, gph3.pointB).toFixed(3);
-
-    lineOptions = { x1: gph3.pointA[0], y1: gph3.pointA[1], x2: gph3.pointB[0], y2:gph3.pointB[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"}; 
-    viewX.addLine("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-distance-line", lineOptions);
-    
-    pointOptions = {x: gph3.pointA[0], y: gph3.pointA[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
-    viewX.addPoint("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-A", pointOptions);
-    textOptions = {x: gph3.pointA[0] + 0.05, y: gph3.pointA[1] - 0.08, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
-    viewX.addText("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-A-label", textOptions);
-
-    pointOptions = { x: gph3.pointB[0], y: gph3.pointB[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
-    viewX.addPoint("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-B", pointOptions);
-    pointOptions = { x: gph3.pointB[0], y: gph3.pointB[1], pointsize: upcApp.graphPointSize*3, pointcolor: 'transparent', draggability: "yes", runFunctionDuringDrag: "gph3.onPointDrag()"};
-    viewX.addPoint("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-B-dragger", pointOptions);
-    textOptions = {x: gph3.pointB[0] + 0.05, y: gph3.pointB[1] - 0.08, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
-    viewX.addText("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-B-label", textOptions);
-
-    textOptions = {x: (gph3.pointA[0] + gph3.pointB[0])/2, y: (gph3.pointA[1] + gph3.pointB[1])/2, text: gph3.distanceText,  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
-    viewX.addText("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-distance-label", textOptions);
 }
 
-gph3.onPointDrag = function() {
-    gph3.movedLocationB = viewX.graphData["distance-between-center-and-any-point-graph"].pointData["distance-between-center-and-any-point-point-B-dragger"][1]
+gph1.generateMZValuesForPeptide = function(peptideName, conditions) {
+    spectralValues = {}
 
-    gph3.point1 = [0.5, 0.5]
-    gph3.point2 = [gph3.movedLocationB.x, gph3.movedLocationB.y]
+    spectralValues.peptideName = peptideName
+    spectralValues.b_ions = {}
 
-    gph3.distanceText = viewX.distF(gph3.point1, gph3.point2).toFixed(3);
-
-    lineOptions = { x1: gph3.point1[0], y1: gph3.point1[1], x2: gph3.point2[0], y2:gph3.point2[1]}; 
-    viewX.updateLine("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-distance-line", lineOptions);
-    
-    viewX.updatePointXY("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-B", gph3.point2[0], gph3.point2[1]);
-
-
-    textOptions = {x: gph3.point2[0] + 0.05, y: gph3.point2[1] - 0.08};
-    viewX.updateText("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-point-B-label", textOptions);
-
-    textOptions = {x: (gph3.point1[0] + gph3.point2[0])/2, y: (gph3.point1[1] + gph3.point2[1])/2, text: gph3.distanceText};
-    viewX.updateText("distance-between-center-and-any-point-graph", "distance-between-center-and-any-point-distance-label", textOptions);
-}
-
-
-var sliderProperties = {
-    minwidth: '200px',
-    width: '50%',
-    height: 5,
-    trackColor: "hsla(280, 0%, 20%, 0.7)",
-    trackFillColor: "var(--lightPink)",
-    thumbWidth: 15,
-    thumbHeight: 15,
-    thumbColor: "var(--lightPink)",
-    opacity: 0.7
-};
-
-viewX.generateSliderStyles(sliderProperties, "distance-between-center-and-point-inside-Slider");
-
-gph3.correctAnswer = upc/6
-gph3.acceptableError = 0.02
-
-gph3.slider = document.getElementById("distance-between-center-and-point-inside-Slider");
-gph3.sliderLabel = document.getElementById("distance-between-center-and-point-inside-SliderLabel");
-gph3.sliderInfo = document.getElementById("distance-between-center-and-point-inside-SliderInfo");
-
-gph3.slider.value = Math.random()*1
-gph3.sliderLabel.innerHTML = gph3.slider.value
-
-gph3.slider.addEventListener('input', function() {
-    gph3.sliderLabel.innerHTML = gph3.slider.value
-    gph3.sliderInfo.innerHTML = "Point <span class='p-lightPurple'>B</span> above is draggable. :)"
-});
-
-
-gph3.checkAnswerButton = document.getElementById("gph3-checkAnswerButton");
-gph3.checkAnswerButton.addEventListener('click', function() {
-    gph3.checkAnswer()
-});
-
-gph3.lastError = null;
-gph3.checkAnswer = function() {
-    let currentError = Math.abs(parseFloat(gph3.slider.value) - gph3.correctAnswer);
-    if (currentError < gph3.acceptableError) {
-        gph3.sliderInfo.innerHTML = "Correct! 🎉 The answer you gave is less than " + gph3.acceptableError + " away from the actual value.";
-        upcApp.anim.show();
-        upcApp.anim.goToAndPlay(0);
-        upcApp.anim.setSpeed(2)
-        upcApp.anim.play();
-        upcApp.revealSubSection(1);
-    }
-    else {
-        if (gph3.lastError === null) {
-            gph3.sliderInfo.innerHTML = "Keep trying!";
-        } else if (currentError < gph3.lastError) {
-            gph3.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
-            document.getElementById("warmerMusic").play();
-        } else if (currentError > gph3.lastError) {
-            gph3.sliderInfo.innerHTML = "Colder! 😃 ";
-            document.getElementById("colderMusic").play();
-        }
-    }
-    gph3.lastError = currentError;
-
-    upcApp.interactionNumber += 1
-    dateTimeNow = new Date()
-    upcApp.interactions[upcApp.interactionNumber] = {
-        dateTime : dateTimeNow.toString(),
-        "type": "answer for distance between center and any point inside",
-        "answer": gph3.slider.value
+    if (typeof conditions == 'undefined') {
+        conditions = {}
     }
 
-    // saveData()
-};
-
-
-
-gph3.continueButton = document.getElementById("reveal-sub-section-1-continueButton");
-
-gph3.continueButton.addEventListener('click', function() {
-        upcApp.revealSubSection(1)
-});
-
-
-// Code For Graph 4 : distance between corner and point on square
-
-gph4 = {}
-
-gph4.setUpDistanceBetweenCornerAnyPointOnSquare = function() {
-
-    defaultGraphOptions["xmax"] = 1.1
-    defaultGraphOptions["xmin"] = -0.1
-    defaultGraphOptions["ymax"] = 1.1
-    defaultGraphOptions["ymin"] = -0.1
-    defaultGraphOptions["scrollZoom"] = "no"
-
-    gph4.graphH = document.getElementById('distance-between-corner-and-point-on-square-graphHolder')
-    viewX.addGraph(gph4.graphH, "distance-between-corner-and-point-on-square-graph", defaultGraphOptions)
-
-
-    gph4.graphH.addEventListener("mousemove", viewX.getCoordinatesOfEvent("distance-between-corner-and-point-on-square-graph", "gph4graphMouseMove"))
-
-    rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.4, rectcolor: "hsla(190, 100%, 50%, 0)"};
-
-    viewX.addRectangle("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-square", rectOptions);
-
-    gph4.pointA = [0, 0]
-    gph4.pointB = [0.8, 0.7]
-
-    gph4.distanceText = viewX.distF(gph4.pointA, gph4.pointB).toFixed(3);
-
-    lineOptions = { x1: gph4.pointA[0], y1: gph4.pointA[1], x2: gph4.pointB[0], y2:gph4.pointB[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"}; 
-    viewX.addLine("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-distance-line", lineOptions);
-    
-    pointOptions = {x: gph4.pointA[0], y: gph4.pointA[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
-    viewX.addPoint("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-A", pointOptions);
-    textOptions = {x: gph4.pointA[0] + 0.05, y: gph4.pointA[1] - 0.08, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
-    viewX.addText("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-A-label", textOptions);
-
-    pointOptions = { x: gph4.pointB[0], y: gph4.pointB[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
-    viewX.addPoint("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-B", pointOptions);
-    textOptions = {x: gph4.pointB[0] + 0.05, y: gph4.pointB[1] - 0.08, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
-    viewX.addText("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-B-label", textOptions);
-
-    textOptions = {x: (gph4.pointA[0] + gph4.pointB[0])/2, y: (gph4.pointA[1] + gph4.pointB[1])/2, text: gph4.distanceText,  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
-    viewX.addText("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-distance-label", textOptions);
-}
-
-function gph4graphMouseMove() {
-    givenPointOnPlane = viewX.cursorCoordinates["distance-between-corner-and-point-on-square-graph"]
-    pointOnSquare = pickAPointOnSquare(givenPointOnPlane)
-
-    gph4.point1 = [0, 0]
-    gph4.point2 = pointOnSquare
-
-    gph4.distanceText = viewX.distF(gph4.point1, gph4.point2).toFixed(3);
-
-    lineOptions = { x1: gph4.point1[0], y1: gph4.point1[1], x2: gph4.point2[0], y2:gph4.point2[1]}; 
-    viewX.updateLine("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-distance-line", lineOptions);
-    
-    viewX.updatePointXY("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-B", gph4.point2[0], gph4.point2[1]);
-
-
-    textOptions = {x: gph4.point2[0] + 0.05, y: gph4.point2[1] - 0.08};
-    viewX.updateText("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-point-B-label", textOptions);
-
-    textOptions = {x: (gph4.point1[0] + gph4.point2[0])/2, y: (gph4.point1[1] + gph4.point2[1])/2, text: gph4.distanceText};
-    viewX.updateText("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-distance-label", textOptions);
-}
-
-var sliderProperties = {
-    minwidth: '200px',
-    width: '50%',
-    height: 5,
-    trackColor: "hsla(280, 0%, 20%, 0.7)",
-    trackFillColor: "var(--lightPink)",
-    thumbWidth: 15,
-    thumbHeight: 15,
-    thumbColor: "var(--lightPink)",
-    opacity: 0.7
-};
-
-viewX.generateSliderStyles(sliderProperties, "distance-between-corner-and-point-Slider");
-
-gph4.correctAnswer = upc/3
-gph4.acceptableError = 0.02
-
-gph4.slider = document.getElementById("distance-between-corner-and-point-Slider");
-gph4.sliderLabel = document.getElementById("distance-between-corner-and-point-SliderLabel");
-gph4.sliderInfo = document.getElementById("distance-between-corner-and-point-SliderInfo");
-
-gph4.slider.value = Math.random()*2
-gph4.sliderLabel.innerHTML = gph4.slider.value
-
-gph4.slider.addEventListener('input', function() {
-    gph4.sliderLabel.innerHTML = gph4.slider.value
-    gph4.sliderInfo.innerHTML = "Point <span class='p-lightPurple'>B</span> above is draggable. :)"
-});
-
-
-gph4.checkAnswerButton = document.getElementById("gph4-checkAnswerButton");
-gph4.checkAnswerButton.addEventListener('click', function() {
-    gph4.checkAnswer()
-});
-
-gph4.lastError = null;
-gph4.checkAnswer = function() {
-    let currentError = Math.abs(parseFloat(gph4.slider.value) - gph4.correctAnswer);
-    if (currentError < gph4.acceptableError) {
-        gph4.sliderInfo.innerHTML = "Correct! 🎉 The answer you gave is less than " + gph4.acceptableError + " away from the actual value.";
-        upcApp.anim.show();
-        upcApp.anim.goToAndPlay(0);
-        upcApp.anim.setSpeed(2)
-        upcApp.anim.play();
-        upcApp.revealSubSection(2);
-    }
-    else {
-        if (gph4.lastError === null) {
-            gph4.sliderInfo.innerHTML = "Keep trying!";
-        } else if (currentError < gph4.lastError) {
-            gph4.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
-            document.getElementById("warmerMusic").play();
-        } else if (currentError > gph4.lastError) {
-            gph4.sliderInfo.innerHTML = "Colder! 😃 ";
-            document.getElementById("colderMusic").play();
-        }
-    }
-    gph4.lastError = currentError;
-
-    upcApp.interactionNumber += 1
-    dateTimeNow = new Date()
-    upcApp.interactions[upcApp.interactionNumber] = {
-        dateTime : dateTimeNow.toString(),
-        "type": "answer for distance between corner and point on square",
-        "answer": gph4.slider.value
+    if (typeof conditions['charge'] == 'undefined') {
+        conditions['charge'] = 1
     }
 
-    // saveData()
-};
+    n_terminal_mass = 1.007825
+    c_terminal_mass = 17.00274 + 1.007825 + 1.007825
 
+    spectralValues.b_ion_init = n_terminal_mass/conditions['charge']
+    spectralValues.y_ion_init = c_terminal_mass/conditions['charge']
 
-gph4.continueButton = document.getElementById("reveal-sub-section-2-continueButton");
-
-gph4.continueButton.addEventListener('click', function() {
-        upcApp.revealSubSection(2)
-});
-
-// graph 5 : shrinking random walk
-
-gph5 = {}
-
-gph5.walkedPoints = []
-gph5.generateWalk = function(uptoNumber) {
-    for (let i = 0; i < gph5.walkedPoints.length; i++) {
-        viewX.removePoint("random-shrinking-walk-graph", "random-shrinking-walk-point-" + i)
-        viewX.removeLine("random-shrinking-walk-graph", "random-shrinking-walk-line-segment-" + i)
-        viewX.removePoint("random-shrinking-walk-graph", "random-shrinking-walk-point-final")
-        viewX.removeText("random-shrinking-walk-graph", "random-shrinking-walk-point-final-label")
-        viewX.removeLine("random-shrinking-walk-graph", "random-shrinking-walk-distance-line-segment")
-    }
-
-    if (gph5.walkedPoints.length < uptoNumber) {
-        for (let i = gph5.walkedPoints.length + 1; i <= uptoNumber; i++) {
-            stepLengthAtStep = Math.sqrt(2)/Math.pow(2, i - 1)
-            stepDirection = viewX.randomChoice([[0, 1], [1, 0]])
-            previousPoint = [0, 0]
-            if (gph5.walkedPoints.length != 0) {
-                previousPoint = gph5.walkedPoints[i - 2]
+    for (aindex = 0; aindex < peptideName.length; aindex++) {
+        aminoAcid = peptideName[aindex].toString().toUpperCase()
+        
+        if (typeof gph1.aminoAcid[aminoAcid] != 'undefined') {
+            if (aindex == 0)   {
+                spectralValues.b_ions[aindex] = {
+                    "mzValue" : (gph1.aminoAcid[aminoAcid].residue_mass + n_terminal_mass)/conditions['charge'],
+                    "name" : "b" + (aindex + 1),
+                    "intensity": 1,
+                    "residue": aminoAcid
+                }
             }
-            newPoint = [previousPoint[0] + stepLengthAtStep*stepDirection[0], previousPoint[1] + stepLengthAtStep*stepDirection[1]]
-            gph5.walkedPoints.push(newPoint)
-        }
-    }
-    else {
-        gph5.walkedPoints = gph5.walkedPoints.slice(0, uptoNumber)
-    }
-}
-
-
-gph5.drawShrinkingRandomWalkPath = function() {
-    
-    
-    for (let i = 0; i < gph5.walkedPoints.length; i++) {
-        if (i < 3) {
-            pointColor = ["var(--lightOrange)","var(--brightYellow)","var(--lightGreen)","var(--lightBlue)"][i]
-        }
-        else if (i >= 3) {
-            pointColor = "var(--lightBlue)"
-        }
-
-        if (i < 4) {
-            sizeToUse = upcApp.graphPointSize/(i + 1)
+            else if (aindex == peptideName.length - 1) {
+                spectralValues.b_ions[aindex] = {
+                    "mzValue" : (gph1.aminoAcid[aminoAcid].residue_mass + spectralValues.b_ions[aindex - 1].mzValue)/conditions['charge'],
+                    "name" : "b" + (aindex + 1),
+                    "intensity": 1,
+                    "residue": aminoAcid
+                }
+            }
+            else {
+                spectralValues.b_ions[aindex] = {
+                    "mzValue" : (gph1.aminoAcid[aminoAcid].residue_mass + spectralValues.b_ions[aindex - 1].mzValue)/conditions['charge'],
+                    "name" : "b" + (aindex + 1),
+                    "intensity": 1,
+                    "residue": aminoAcid
+                }
+            }
         }
         else {
-            sizeToUse = upcApp.graphPointSize/4
+            console.error("No amino acid", aminoAcid, "found in the database.")
         }
-        pointOptions = { x: gph5.walkedPoints[i][0] , y: gph5.walkedPoints[i][1], pointsize: sizeToUse, pointcolor: pointColor};
-        viewX.addPoint("random-shrinking-walk-graph", "random-shrinking-walk-point-" + i, pointOptions);
-        previousPoint = [0, 0]
-        if (i != 0) {
-            previousPoint = gph5.walkedPoints[i - 1]
-        }
-        lineOptions = { x1: previousPoint[0], y1: previousPoint[1], x2: gph5.walkedPoints[i][0], y2: gph5.walkedPoints[i][1], strokewidth: 0.7/(i + 1), linecolor: pointColor}; 
-        viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-line-segment-" + i, lineOptions);
+    }
 
-        if (i == gph5.walkedPoints.length - 1) {
-            pointOptions = { x: gph5.walkedPoints[i][0] , y: gph5.walkedPoints[i][1], pointsize: upcApp.graphPointSize/(i + 1), pointcolor: "var(--lightPurple)"};
-            viewX.addPoint("random-shrinking-walk-graph", "random-shrinking-walk-point-final", pointOptions);
-
-            textOptions = {x: gph5.walkedPoints[i][0] + 0.4, y: gph5.walkedPoints[i][1] - 0.2, text: "Drunkard",  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
-            viewX.addText("random-shrinking-walk-graph", "random-shrinking-walk-point-final-label", textOptions);
-        }
-
+    spectralValues.y_ions = {}
+    for (aindex = peptideName.length - 1; aindex >= 0; aindex--) {
+        aminoAcid = peptideName[aindex].toString().toUpperCase()
         
+        currentIndex = (aindex - peptideName.length)*(-1)
+        if (typeof gph1.aminoAcid[aminoAcid] != 'undefined') {
+            if (aindex == peptideName.length - 1) {
+                spectralValues.y_ions[aindex] = {
+                    "mzValue" : (gph1.aminoAcid[aminoAcid].residue_mass + c_terminal_mass)/conditions['charge'],
+                    "name" : "y" + currentIndex,
+                    "intensity": 1,
+                    "residue": aminoAcid
+                }
+            }
+            else {
+                spectralValues.y_ions[aindex] = {
+                    "mzValue" : (gph1.aminoAcid[aminoAcid].residue_mass + spectralValues.y_ions[aindex + 1].mzValue)/conditions['charge'],
+                    "name" : "y" + currentIndex,
+                    "intensity": 1,
+                    "residue": aminoAcid
+                }
+            }
+        }
+        else {
+            console.error("No amino acid", aminoAcid, "found in the database.")
+        }
     }
 
-    if (gph5.walkedPoints.length > 3) {
-        lineOptions = { x1: 0, y1: 0, x2: gph5.walkedPoints[gph5.walkedPoints.length - 1][0], y2: gph5.walkedPoints[gph5.walkedPoints.length - 1][1], strokewidth: 0.7, strokedasharray: "4, 4", linecolor: "hsla(var(--lightPinkH), var(--lightPinkS), var(--lightPinkL), " + (gph5.walkedPoints.length/30) + ")"};
-        viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-distance-line-segment", lineOptions);
-    }
+    spectralValues.conditions = conditions
+    return spectralValues
 }
 
-gph5.setUpShrinkingRandomWalk = function() {
-    gph5.graphH = document.getElementById('random-shrinking-walk-graphHolder')
-    defaultGraphOptions["xmax"] = 2*1.414 + 1
-    defaultGraphOptions["ymax"] = 2*1.414
-    defaultGraphOptions["xmin"] = -1
-    defaultGraphOptions["ymin"] = -1
+specValues = gph1.generateMZValuesForPeptide("ADITI")
 
-    // defaultGraphOptions["scrollZoom"] = 'yes'
-    // defaultGraphOptions["draggability"] = 'yes'
+gph1.matchValues = function(fittingAminoAcid, fittingStart, spectralValues) {
+    fittingEnd = fittingStart + (gph1.aminoAcid[fittingAminoAcid].residue_mass/spectralValues.conditions['charge'])
 
-    viewX.addGraph(gph5.graphH, "random-shrinking-walk-graph", defaultGraphOptions)
+    allowedError = 0.02
+    startingMatch = []
 
-    lineOptions = { x1: -0.5, y1: 0, x2: 2*1.414, y2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
-    viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-y-axis-line", lineOptions);
+    if (Math.abs(spectralValues.b_ion_init - fittingStart) < allowedError) {
+        startingMatch.push({"mzValue": spectralValues.b_ion_init, "name": "b0", "intensity": 0, "residue": "N/A"})
+    }
 
-    lineOptions = { y1: -0.5, x1: 0, y2: 2*1.414, x2:0, strokewidth: 0.7, linecolor: "hsla(0, 0%, 66%,0.2)"}; 
-    viewX.addLine("random-shrinking-walk-graph", "random-shrinking-walk-x-axis-line", lineOptions);
+    for (var ionIndex in spectralValues.b_ions) {
+        ion = spectralValues.b_ions[ionIndex]
+        if (Math.abs(ion.mzValue - fittingStart) < allowedError) {
+            startingMatch.push(ion)
+        }
+    }
 
-    pointOptions = { x: 0, y: 0, pointsize: upcApp.graphPointSize, pointcolor: 'white'};
-    viewX.addPoint("random-shrinking-walk-graph", "random-shrinking-walk-origin", pointOptions);
 
-    textOptions = {x: 0 + 0.3, y: 0 - 0.2, text: "(0, 0)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.8, fontFamily: "Nunito",   textcolor: "white"};
-    viewX.addText("random-shrinking-walk-graph", "random-shrinking-walk-origin-label", textOptions);
+    endingMatch = []
+
     
-}
-
-gph5.setAtValue = function(toSetSliderAt) {
-    gph5.slider.value = toSetSliderAt
-    gph5.sliderLabel.innerHTML = gph5.slider.value + " step" + (gph5.slider.value == 1 ? "" : "s")
-    gph5.generateWalk(gph5.slider.value)
-    gph5.drawShrinkingRandomWalkPath()
-    gph5.sliderInfo.innerHTML = "There's a lot of steps in this walk. Let's just look at the first " + gph5.slider.value + " step" + (gph5.slider.value == 1 ? "" : "s") +  ". :)"
-}
-var sliderProperties = {
-    minwidth: '200px',
-    width: '50%',
-    height: 5,
-    trackColor: "hsla(10, 0%, 20%, 0.7)",
-    trackFillColor: "var(--lightBlue)",
-    thumbWidth: 15,
-    thumbHeight: 15,
-    thumbColor: "var(--lightBlue)",
-    opacity: 0.7
-};
-
-viewX.generateSliderStyles(sliderProperties, "random-shrinking-walk-Slider");
-
-gph5.slider = document.getElementById("random-shrinking-walk-Slider");
-gph5.sliderLabel = document.getElementById("random-shrinking-walk-SliderLabel");
-gph5.sliderInfo = document.getElementById("random-shrinking-walk-SliderInfo");
-
-gph5.slider.value = 1
-gph5.sliderLabel.innerHTML = gph5.slider.value + " step" + (gph5.slider.value == 1 ? "" : "s")
-
-gph5.slider.addEventListener('input', function() {
-    gph5.setAtValue(gph5.slider.value)
-});
-
-function pauseAutoplay() {
-    clearInterval(gph5.interval);
-}
-
-gph5.slider.addEventListener('mouseover', pauseAutoplay);
-gph5.slider.addEventListener('touchstart', pauseAutoplay);
-
-gph5.nextValue = function() {
-    if (gph5.slider.value < 30) {
-        gph5.slider.value = parseInt(gph5.slider.value) + 1
+    for (var ionIndex in spectralValues.b_ions) {
+        end_ion = spectralValues.b_ions[ionIndex]
+        if (Math.abs(end_ion.mzValue - fittingEnd) < allowedError) {
+            endingMatch.push(end_ion)
+        }
     }
-    else {
-        gph5.slider.value = 1
+
+
+
+    fullMatch = {}
+
+    if (startingMatch.length > 0 && endingMatch.length > 0) {
+        fullMatch = {
+            'start': startingMatch[0].mzValue,
+            'end': endingMatch[0].mzValue,
+            'residue': endingMatch[0].residue
+        }
     }
-    
-    gph5.setAtValue(gph5.slider.value)
+
+    return fullMatch
+
 }
 
+matchFound = gph1.matchValues("D", 72.03, specValues)
 
+console.log(matchFound)
