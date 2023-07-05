@@ -347,90 +347,6 @@ gph0.initialSetup();
 
 gph1 = {}
 
-gph1.setUpSimpleDragDropPlay = function() {
-    gph1.graphH = document.getElementById('animo-acid-dragdrop-graphHolder')
-    viewX.addGraph(gph1.graphH, "distance-between-any-two-points-graph", defaultGraphOptions)
-
-    rectOptions = { x: 0, y: 1, w: 1, h: 1, stroke: "var(--lightYellow)", strokewidth: 0.4, rectcolor: "hsla(190, 100%, 50%, 0)"};
-
-    viewX.addRectangle("distance-between-any-two-points-graph", "distance-between-any-two-points-square", rectOptions);
-
-    gph1.pointA = [0.2, 0.4]
-    gph1.pointB = [0.8, 0.7]
-
-    gph1.distanceText = viewX.distF(gph1.pointA, gph1.pointB).toFixed(3);
-
-    lineOptions = { x1: gph1.pointA[0], y1: gph1.pointA[1], x2: gph1.pointB[0], y2:gph1.pointB[1], strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--lightPink)"}; 
-    viewX.addLine("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-line", lineOptions);
-    
-    pointOptions = {x: gph1.pointA[0], y: gph1.pointA[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
-    viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A", pointOptions);
-    pointOptions = {x: gph1.pointA[0], y: gph1.pointA[1], pointsize: upcApp.graphPointSize*3, pointcolor: 'transparent', draggability: "yes", runFunctionDuringDrag: "gph1.onPointDrag()"};
-    viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A-dragger", pointOptions);
-    textOptions = {x: gph1.pointA[0] + 0.05, y: gph1.pointA[1] - 0.08, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
-    viewX.addText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A-label", textOptions);
-
-    pointOptions = { x: gph1.pointB[0], y: gph1.pointB[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
-    viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B", pointOptions);
-    pointOptions = { x: gph1.pointB[0], y: gph1.pointB[1], pointsize: upcApp.graphPointSize*3, pointcolor: 'transparent', draggability: "yes", runFunctionDuringDrag: "gph1.onPointDrag()"};
-    viewX.addPoint("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B-dragger", pointOptions);
-    textOptions = {x: gph1.pointB[0] + 0.05, y: gph1.pointB[1] - 0.08, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPurple)"};
-    viewX.addText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B-label", textOptions);
-
-    textOptions = {x: (gph1.pointA[0] + gph1.pointB[0])/2, y: (gph1.pointA[1] + gph1.pointB[1])/2, text: gph1.distanceText,  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
-    viewX.addText("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-label", textOptions);
-}
-
-
-gph1.setUpSimpleDragDropPlay();
-
-gph1.onPointDrag = function() {
-    
-    gph1.movedLocationA = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-A-dragger"][1]
-
-    gph1.movedLocationB = viewX.graphData["distance-between-any-two-points-graph"].pointData["distance-between-any-two-points-point-B-dragger"][1]
-
-    gph1.point1 = [gph1.movedLocationA.x, gph1.movedLocationA.y]
-    gph1.point2 = [gph1.movedLocationB.x, gph1.movedLocationB.y]
-
-    gph1.distanceText = viewX.distF(gph1.point1, gph1.point2).toFixed(3);
-
-    lineOptions = { x1: gph1.point1[0], y1: gph1.point1[1], x2: gph1.point2[0], y2:gph1.point2[1]}; 
-    viewX.updateLine("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-line", lineOptions);
-    
-    viewX.updatePointXY("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A", gph1.point1[0], gph1.point1[1]);
-    viewX.updatePointXY("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B", gph1.point2[0], gph1.point2[1]);
-
-    textOptions = {x: gph1.point1[0] + 0.05, y: gph1.point1[1] - 0.08};
-    viewX.updateText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-A-label", textOptions);
-
-    textOptions = {x: gph1.point2[0] + 0.05, y: gph1.point2[1] - 0.08};
-    viewX.updateText("distance-between-any-two-points-graph", "distance-between-any-two-points-point-B-label", textOptions);
-
-    textOptions = {x: (gph1.point1[0] + gph1.point2[0])/2, y: (gph1.point1[1] + gph1.point2[1])/2, text: gph1.distanceText};
-    viewX.updateText("distance-between-any-two-points-graph", "distance-between-any-two-points-distance-label", textOptions);
-
-
-}
-
-// var sliderProperties = {
-//     minwidth: '200px',
-//     width: '50%',
-//     height: 5,
-//     trackColor: "hsla(280, 0%, 20%, 0.7)",
-//     trackFillColor: "var(--lightPink)",
-//     thumbWidth: 15,
-//     thumbHeight: 15,
-//     thumbColor: "var(--lightPink)",
-//     opacity: 0.7
-// };
-
-// viewX.generateSliderStyles(sliderProperties, "distance-between-any-two-points-Slider");
-
-
-
-
-
 
 gph1.aminoAcid = {
     "A": {
@@ -574,6 +490,8 @@ gph1.generateMZValuesForPeptide = function(peptideName, conditions) {
                     "intensity": 1,
                     "residue": aminoAcid
                 }
+
+                spectralValues.b_max = spectralValues.b_ions[aindex].mzValue
             }
             else {
                 spectralValues.b_ions[aindex] = {
@@ -610,6 +528,10 @@ gph1.generateMZValuesForPeptide = function(peptideName, conditions) {
                     "intensity": 1,
                     "residue": aminoAcid
                 }
+
+                if (aindex == 0) {
+                    spectralValues.y_max = spectralValues.y_ions[aindex].mzValue
+                }
             }
         }
         else {
@@ -621,12 +543,10 @@ gph1.generateMZValuesForPeptide = function(peptideName, conditions) {
     return spectralValues
 }
 
-specValues = gph1.generateMZValuesForPeptide("ADITI")
-
 gph1.matchValues = function(fittingAminoAcid, fittingStart, spectralValues) {
     fittingEnd = fittingStart + (gph1.aminoAcid[fittingAminoAcid].residue_mass/spectralValues.conditions['charge'])
 
-    allowedError = 0.02
+    allowedError = 1
     startingMatch = []
 
     if (Math.abs(spectralValues.b_ion_init - fittingStart) < allowedError) {
@@ -667,6 +587,241 @@ gph1.matchValues = function(fittingAminoAcid, fittingStart, spectralValues) {
 
 }
 
-matchFound = gph1.matchValues("D", 72.03, specValues)
+// matchFound = gph1.matchValues("D", 72.03, specValues)
 
-console.log(matchFound)
+// console.log(matchFound)
+
+gph1.game = {}
+gph1.game.blockDefault = {}
+
+
+gph1.addBlocks = function() {
+    peptideBlocksOptionsToAdd = Object.keys(gph1.aminoAcid).reverse().join("")
+
+    for (addIndex = 0; addIndex < peptideBlocksOptionsToAdd.length; addIndex++) {
+        letterToAdd = peptideBlocksOptionsToAdd[addIndex]
+        gph1.addBlock(letterToAdd, gph1.game.blockDefault[letterToAdd])
+    }
+}
+
+gph1.game.blocks = {}
+gph1.game.blockID = 1
+
+gph1.addBlock = function(letterToAdd, positionProperties) {
+    gph1.game.blockID = gph1.game.blockID + 1
+
+    if (typeof gph1.aminoAcid[letterToAdd] != 'undefined') {
+        gph1.game.blocks[gph1.game.blockID] = {}
+        
+        gph1.game.blocks[gph1.game.blockID].x = positionProperties.x
+        gph1.game.blocks[gph1.game.blockID].y = positionProperties.y
+        gph1.game.blocks[gph1.game.blockID].w = positionProperties.w
+        gph1.game.blocks[gph1.game.blockID].h = positionProperties.h
+
+        gph1.game.blocks[gph1.game.blockID].color = positionProperties.colorByMass
+
+        gph1.game.blocks[gph1.game.blockID].aminoAcid = letterToAdd
+
+        peptideBlockOptions = {x: gph1.game.blocks[gph1.game.blockID].x, y: gph1.game.blocks[gph1.game.blockID].y, w: gph1.game.blocks[gph1.game.blockID].w, h:gph1.game.blocks[gph1.game.blockID].h, strokewidth: 0, stroke: "transparent", rectcolor: "hsla(" + gph1.game.blocks[gph1.game.blockID].color + ", 100%, 80%, 0.2)"};
+        viewX.addRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-" + gph1.game.blockID, peptideBlockOptions);
+
+        textOptions = {x: gph1.game.blocks[gph1.game.blockID].x + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - 0.01 - 0.015, text: letterToAdd,  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall*0.7, fontFamily: "Gaegu",   textcolor: "white"};
+
+        viewX.addText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-label-" + gph1.game.blockID, textOptions);
+
+        pointOptions = {x: gph1.game.blocks[gph1.game.blockID].x  + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - (gph1.game.blocks[gph1.game.blockID].h/2), pointsize: upcApp.graphPointSize, pointcolor: "hsla(" + gph1.game.blocks[gph1.game.blockID].color + ", 100%, 80%, 0.2)", draggability: "yes", runFunctionDuringDrag: "gph1.onPointDrag()", runFunctionOnDragEnd: "gph1.onPointDragEnd()"};
+        viewX.addPoint("amino-acid-drag-drop-graph", "amino-acid-drag-drop-dragpoint-" + gph1.game.blockID, pointOptions);
+
+        textOptions = {x: gph1.game.blocks[gph1.game.blockID].x + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - gph1.game.blocks[gph1.game.blockID].h - 0.03, text: gph1.game.blockDefault[letterToAdd]['representingMass'].toFixed(2),  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall*0.6, fontFamily: "Gaegu",  textcolor: "white", opacity: 0};
+
+        viewX.addText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-datalabel-" + gph1.game.blockID, textOptions);
+
+    }
+    
+}
+
+
+gph1.moveBlock = function(blockID) {
+
+    peptideBlockOptions = {x: gph1.game.blocks[blockID].x, y: gph1.game.blocks[blockID].y};
+    viewX.updateRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-" + blockID, peptideBlockOptions);
+
+    textOptions = {x: gph1.game.blocks[blockID].x + (gph1.game.blocks[blockID].w/2), y: gph1.game.blocks[blockID].y - 0.01 - 0.015};
+
+    viewX.updateText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-label-" + blockID, textOptions);
+
+    pointOptions = {x: gph1.game.blocks[blockID].x  + (gph1.game.blocks[blockID].w/2), y: gph1.game.blocks[blockID].y - (gph1.game.blocks[blockID].h/2)};
+    viewX.updatePointXY("amino-acid-drag-drop-graph", "amino-acid-drag-drop-dragpoint-" + blockID, pointOptions.x, pointOptions.y);
+
+    textOptions = {x: gph1.game.blocks[blockID].x + (gph1.game.blocks[blockID].w/2), y: gph1.game.blocks[blockID].y - gph1.game.blocks[blockID].h - 0.03, opacity: 0.6};
+
+    viewX.updateText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-datalabel-" + blockID, textOptions);
+
+    
+}
+
+gph1.setUpSimpleDragDropPlay = function() {
+    gph1.graphH = document.getElementById('animo-acid-dragdrop-graphHolder')
+    viewX.addGraph(gph1.graphH, "amino-acid-drag-drop-graph", defaultGraphOptions)
+
+    var arrowOptions = {
+        from: [0, 0],
+        to: [1.1, 0],
+        strokewidth: 0.4,
+        arrowcolor: "var(--writingGrey)"
+    };
+    arrow = viewX.addArrow("amino-acid-drag-drop-graph", "spectra-x-axis-arrow", arrowOptions);
+
+
+    
+    gph1.specValues = gph1.generateMZValuesForPeptide("ADITI")
+
+
+    allAminoAcids = Object.keys(gph1.aminoAcid).reverse().join("")
+
+    aminoAcidMasses = Object.values(gph1.aminoAcid).map(obj => obj.residue_mass)
+    maxAminoAcidMass = Math.max(...aminoAcidMasses)
+    minAminoAcidMass = Math.min(...aminoAcidMasses)
+
+    blockXPositioning = 0
+    rowNumber = 0.7
+
+    
+    for (addIndex = 0; addIndex < allAminoAcids.length; addIndex++) {
+        letterToAdd = allAminoAcids[addIndex]
+
+        if (typeof gph1.aminoAcid[letterToAdd] != 'undefined') {
+            gph1.game.blockDefault[letterToAdd] = {}
+            spacer = 0.05
+            expectedWidth = gph1.aminoAcid[letterToAdd].residue_mass/gph1.specValues.b_max
+            
+            colorPositionByPosition = 180 + Object.keys(gph1.aminoAcid).indexOf(letterToAdd)*180/Object.keys(gph1.aminoAcid).length
+            colorPositionByMass = viewX.linearValue(minAminoAcidMass, maxAminoAcidMass, 180, 430, gph1.aminoAcid[letterToAdd].residue_mass)
+
+            gph1.game.blockDefault[letterToAdd]['colorByMass'] = colorPositionByMass
+            gph1.game.blockDefault[letterToAdd]['colorByPosition'] = colorPositionByPosition
+            gph1.game.blockDefault[letterToAdd]['x'] = blockXPositioning
+            gph1.game.blockDefault[letterToAdd]['y'] = rowNumber
+            gph1.game.blockDefault[letterToAdd]['w'] = expectedWidth
+            gph1.game.blockDefault[letterToAdd]['h'] = 0.035
+
+            gph1.game.blockDefault[letterToAdd]['representingMass'] = gph1.aminoAcid[letterToAdd].residue_mass
+
+            blockXPositioning = expectedWidth + blockXPositioning + spacer
+
+            if (blockXPositioning > 1) {
+                blockXPositioning = 0
+                rowNumber = rowNumber + 0.06
+            }
+            
+        }
+    }
+
+    currentMark = gph1.specValues.b_ion_init/gph1.specValues.b_max
+    lineOptions = { x1: gph1.specValues.b_ion_init/gph1.specValues.b_max, y1: 0.6, x2: gph1.specValues.b_ion_init/gph1.specValues.b_max, y2: 0.01, strokedasharray: "4,4", strokewidth: 0.7, linecolor: "hsla(0, 0%, 80%, 0.4)"}; 
+    viewX.addLine("amino-acid-drag-drop-graph", "amino-acid-drag-drop-line-b_ion_init", lineOptions);
+
+
+    textOptions = {x: currentMark, y: -0.05, text: gph1.specValues.b_ion_init.toFixed(2),  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall*0.9, fontFamily: "Gaegu",   textcolor: "hsla(0, 0%, 80%, 0.4)"};
+    viewX.addText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-label-b_ion_init", textOptions);
+
+    for (var ionIndex in gph1.specValues.b_ions) {
+        ion = gph1.specValues.b_ions[ionIndex]
+        scaledMZ = ion.mzValue/gph1.specValues.b_max
+
+        rectOptions = {x: currentMark, y: 0.4, w: ion.mzValue/gph1.specValues.b_max - currentMark, h: 0.035, strokewidth: 0, rectcolor: "hsla(0, 0%, 0%, 0.5)", stroke: "transparent"};
+        currentMark = ion.mzValue/gph1.specValues.b_max
+
+        viewX.addRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-dropLocation-" + ion.name, rectOptions);
+
+
+        lineOptions = { x1: scaledMZ, y1: 0.6, x2: scaledMZ, y2: 0.2, strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--writingGrey)"}; 
+        viewX.addLine("amino-acid-drag-drop-graph", "amino-acid-drag-drop-line-" + ion.name, lineOptions);
+
+        bar_width = 0.01
+        rectOptions = {x: scaledMZ - (bar_width/2), y: 0.01 + 0.17, w: bar_width, h: 0.17, strokewidth: 0, rectcolor: "var(--lightGreen)"};
+
+        viewX.addRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-intensity-" + ion.name, rectOptions);
+
+        textOptions = {x: scaledMZ, y: -0.05, text: ion.mzValue.toFixed(1),  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall*0.9, fontFamily: "Gaegu",   textcolor: "white"};
+        viewX.addText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-mz-label-" + ion.name, textOptions);
+
+        
+    }
+    
+    // peptideBlocksOptionsToAdd = "ADITI" + Object.keys(gph1.aminoAcid).join("")
+    // peptideBlocksOptionsToAdd = Object.keys(gph1.aminoAcid).reverse().join("")
+
+    // peptideBlocksOptionsToAdd = viewX.shuffle(peptideBlocksOptionsToAdd.split("")).join("")
+
+    gph1.addBlocks()
+    
+
+}
+
+
+gph1.setUpSimpleDragDropPlay();
+
+gph1.onPointDragEnd = function() {
+    gph1.movingPointID = viewX.currentMovingPoint.id
+    gph1.movingBlockID = gph1.movingPointID.split("-").slice(-1)[0]
+
+    gph1.movedPoint = viewX.graphData["amino-acid-drag-drop-graph"].pointData["amino-acid-drag-drop-dragpoint-" + gph1.movingBlockID][1]
+
+    gph1.game.blocks[gph1.movingBlockID].x = gph1.movedPoint.x - (gph1.game.blocks[gph1.movingBlockID].w/2)
+    gph1.game.blocks[gph1.movingBlockID].y = gph1.movedPoint.y + (gph1.game.blocks[gph1.movingBlockID].h/2)
+
+    if (gph1.movedPoint.y > 0.6) {
+        textOptions = {opacity: 0};
+    }
+    else {
+        textOptions = {opacity: 1};
+    }
+
+
+    viewX.updateText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-datalabel-" + gph1.movingBlockID, textOptions);
+
+    if (gph1.movedPoint.y < 0.6) {
+        currentMatch = gph1.matchValues(gph1.game.blocks[gph1.movingBlockID].aminoAcid, gph1.game.blocks[gph1.movingBlockID].x*gph1.specValues.b_max, gph1.specValues)
+
+        console.log(currentMatch)
+
+        console.log(gph1.game.blocks[gph1.movingBlockID].aminoAcid, gph1.game.blocks[gph1.movingBlockID].x*gph1.specValues.b_max)
+    }
+
+
+
+
+}
+
+gph1.onPointDrag = function() {
+    gph1.movingPointID = viewX.currentMovingPoint.id
+    gph1.movingBlockID = gph1.movingPointID.split("-").slice(-1)[0]
+
+    gph1.movedPoint = viewX.graphData["amino-acid-drag-drop-graph"].pointData["amino-acid-drag-drop-dragpoint-" + gph1.movingBlockID][1]
+
+    gph1.game.blocks[gph1.movingBlockID].x = gph1.movedPoint.x - (gph1.game.blocks[gph1.movingBlockID].w/2)
+    gph1.game.blocks[gph1.movingBlockID].y = gph1.movedPoint.y + (gph1.game.blocks[gph1.movingBlockID].h/2)
+
+    gph1.moveBlock(gph1.movingBlockID)
+
+}
+
+// var sliderProperties = {
+//     minwidth: '200px',
+//     width: '50%',
+//     height: 5,
+//     trackColor: "hsla(280, 0%, 20%, 0.7)",
+//     trackFillColor: "var(--lightPink)",
+//     thumbWidth: 15,
+//     thumbHeight: 15,
+//     thumbColor: "var(--lightPink)",
+//     opacity: 0.7
+// };
+
+// viewX.generateSliderStyles(sliderProperties, "distance-between-any-two-points-Slider");
+
+
+
+
+
