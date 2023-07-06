@@ -93,7 +93,24 @@ upcApp.inViewDetection = function(targetDiv, callback) {
 }
 
 
-
+function findClosestEntry(value, array) {
+    // Set initial values
+    let closestEntry = array[0];
+    let minDifference = Math.abs(value - closestEntry);
+  
+    // Iterate through the array
+    for (let i = 1; i < array.length; i++) {
+      let difference = Math.abs(value - array[i]);
+  
+      // Update closestEntry if the current entry is closer to the value
+      if (difference < minDifference) {
+        closestEntry = array[i];
+        minDifference = difference;
+      }
+    }
+  
+    return closestEntry;
+  }
 
 upcApp.revealPoint = 0
 
@@ -629,7 +646,7 @@ gph1.addBlock = function(letterToAdd, positionProperties) {
 
         viewX.addText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-label-" + gph1.game.blockID, textOptions);
 
-        pointOptions = {x: gph1.game.blocks[gph1.game.blockID].x  + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - (gph1.game.blocks[gph1.game.blockID].h/2), pointsize: upcApp.graphPointSize, pointcolor: "hsla(" + gph1.game.blocks[gph1.game.blockID].color + ", 100%, 80%, 0.2)", draggability: "yes", runFunctionDuringDrag: "gph1.onPointDrag()", runFunctionOnDragEnd: "gph1.onPointDragEnd()"};
+        pointOptions = {x: gph1.game.blocks[gph1.game.blockID].x  + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - (gph1.game.blocks[gph1.game.blockID].h/2), pointsize: upcApp.graphPointSize, pointcolor: "hsla(" + gph1.game.blocks[gph1.game.blockID].color + ", 100%, 80%, 0)", draggability: "yes", runFunctionDuringDrag: "gph1.onPointDrag()", runFunctionOnDragEnd: "gph1.onPointDragEnd()"};
         viewX.addPoint("amino-acid-drag-drop-graph", "amino-acid-drag-drop-dragpoint-" + gph1.game.blockID, pointOptions);
 
         textOptions = {x: gph1.game.blocks[gph1.game.blockID].x + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - gph1.game.blocks[gph1.game.blockID].h - 0.03, text: gph1.game.blockDefault[letterToAdd]['representingMass'].toFixed(2),  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall*0.6, fontFamily: "Gaegu",  textcolor: "white", opacity: 0};
@@ -781,12 +798,45 @@ gph1.onPointDragEnd = function() {
 
     viewX.updateText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-datalabel-" + gph1.movingBlockID, textOptions);
 
+
+
+
     if (gph1.movedPoint.y < 0.6) {
+        snapToLineBy = 0.05
+
+        valuesToSnapTo = []
+        valuesToSnapTo.push(gph1.specValues.b_ion_init/gph1.specValues.b_max)
+        for (var ionIndex in gph1.specValues.b_ions) {
+            ion = gph1.specValues.b_ions[ionIndex]
+            valuesToSnapTo.push(ion.mzValue/gph1.specValues.b_max)
+        }
+
+        closestValueForStart = findClosestEntry(gph1.game.blocks[gph1.movingBlockID].x, valuesToSnapTo)
+        closestValueForEnd = findClosestEntry(gph1.game.blocks[gph1.movingBlockID].x + gph1.game.blocks[gph1.movingBlockID].w, valuesToSnapTo)
+        
+        if (Math.abs(closestValueForStart - gph1.game.blocks[gph1.movingBlockID].x) < snapToLineBy) {
+            gph1.game.blocks[gph1.movingBlockID].x = closestValueForStart
+        }
+        else if (Math.abs(closestValueForEnd - (gph1.game.blocks[gph1.movingBlockID].x + gph1.game.blocks[gph1.movingBlockID].w)) < snapToLineBy) {
+            gph1.game.blocks[gph1.movingBlockID].x = closestValueForEnd - gph1.game.blocks[gph1.movingBlockID].w
+        }
+
+
+        gph1.moveBlock(gph1.movingBlockID)
+
+
         currentMatch = gph1.matchValues(gph1.game.blocks[gph1.movingBlockID].aminoAcid, gph1.game.blocks[gph1.movingBlockID].x*gph1.specValues.b_max, gph1.specValues)
 
         console.log(currentMatch)
 
-        console.log(gph1.game.blocks[gph1.movingBlockID].aminoAcid, gph1.game.blocks[gph1.movingBlockID].x*gph1.specValues.b_max)
+        if (currentMatch['residue'] == gph1.game.blocks[gph1.movingBlockID].aminoAcid) {
+            console.log("Match Found")
+            // gph1.game.blocks[gph1.movingBlockID].x = currentMatch['start']*gph1.specValues.b_max
+            gph1.game.blocks[gph1.movingBlockID].y = 0.4
+            gph1.moveBlock(gph1.movingBlockID)
+        }
+
+        // console.log(gph1.game.blocks[gph1.movingBlockID].aminoAcid, gph1.game.blocks[gph1.movingBlockID].x*gph1.specValues.b_max)
     }
 
 
