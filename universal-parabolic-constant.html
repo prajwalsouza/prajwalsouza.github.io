@@ -1836,14 +1836,222 @@
                         </div>
                     </div>
 
-                    
-                    <div  class="hidden-element reveal-11 revealable" id="extender-section-3" style="max-height: 100px; overflow: hidden; position: relative;">
+                    <!-- class="hidden-element reveal-11 revealable"  -->
+                    <div class="hidden-element reveal-11 revealable"  id="extender-section-3" style="max-height: 100px; overflow: hidden; position: relative;">
                         <div style="position: absolute; background: linear-gradient(to bottom, transparent, var(--generalBackground)); pointer-events: none; z-index: 1;" class="w-100 h-100" id="extender-section-3-cover"></div>
                         <div style="position: absolute; bottom: 0px; height: 30px; " class="w-100 text-center dragDownExtension" onclick="upcApp.extendSection(3)">
                             <span><i id="extender-section-3-chevron-down" class="fa fa-angle-double-down" style="font-size: 23px;"></i></span>
                         </div>
                         
-                        <div class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                        <div class="w-100  pb-5 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center">
+                            <div class="our-text-block text-center pb-1">
+                                <p>
+                                    Wait. Back up, before that.. <br/><br/>
+
+                                    How do we know that it is a Parabola for sure?
+
+                                    <br/><br/>
+
+                                    If we look at the final curve, it must obey the equation of a parabola, which is <br/><br/>
+                                    
+                                    <b>
+                                        $$ y = \frac{x^2}{4a}  $$
+                                    </b>
+
+                                    the point that obeys this equation is of the form,
+
+                                    <b>
+                                        $$ \left(x, \frac{x^2}{4a}\right) $$
+                                    </b>
+                                    <br/><br/>
+
+                                    The goal is to show that if I pick any point on that curve, when we sample large number of points (that is \( n \to \infty \) ). It must obey that equation. <br/><br/>
+
+                                    Let's start simple, if we had just picked <span class="p-lightRed">3</span> points, <span class="p-lightRed">n = 3</span>. Then, each line segment (C<span class="p-lightPink">Q<sub>1</sub></span>, C<span class="p-lightPink">Q<sub>2</sub></span> and C<span class="p-lightPink">Q<sub>3</sub></span>) added to the curve would contribute a point when scaled down.  <br/><br/>
+
+                                    <span class="w-100 pb-3 pt-3 d-md-flex d-none justify-content-center">
+                                        <span class="our-text-block text-center">
+                                            <img src="/assets/images/universal-parabolic-constant/proof-img1.png" width="100%">
+                                        </span>
+                                        
+                                    </span>
+                                    <span class="w-100 pb-3 pt-3 d-flex d-md-none justify-content-center">
+                                        <span class="our-text-block text-center">
+                                            <img src="/assets/images/universal-parabolic-constant/proof-img1-vertical.png" width="100%">
+                                        </span>
+                                        
+                                    </span>
+
+                                    What we want is the final coordinates of the point <span class="p-lightPink">Q<sub>1</sub></span>, <span class="p-lightPink">Q<sub>2</sub></span> and <span class="p-lightPink">Q<sub>3</sub></span>. This is easy to do. And yes, C is the origin. <br/>
+                                    
+                                    There are two steps here. Add and Scale down. 
+                                    So.. any point <span class="p-lightPink">Q</span> will hold different coordinates in each of these changes. 
+
+                                    <br/><br/>
+
+                                    <span class="w-100 pb-3 pt-3 d-md-flex d-none justify-content-center">
+                                        <span class="our-text-block text-center">
+                                            <img src="/assets/images/universal-parabolic-constant/proof-img2.png" width="100%">
+                                        </span>
+                                        
+                                    </span>
+                                    <span class="w-100 pb-3 pt-3 d-flex d-md-none justify-content-center">
+                                        <span class="our-text-block text-center">
+                                            <img src="/assets/images/universal-parabolic-constant/proof-img2-vertical.png" width="100%">
+                                        </span>
+                                        
+                                    </span>
+
+                                    <b>Before Adding the segments. </b><br/>
+                                    All the points are on the line AB. So, the x coordinate of all the points is 1. The y coordinate, is a fraction of the length of the line AB. Remember, for <span class="p-lightRed">n</span> points, we divide the line into <span class="p-lightOrange">n - 1 segments</span>. So, the length of each segment is <span class="p-lightOrange">1/(n - 1)</span>. So, for <span class="p-lightRed">3</span> points, the distance between each point is <span class="p-lightOrange">1/(<span class="p-lightRed">3</span> - 1)</span> which is <span class="p-lightOrange">1/2</span>. <br/>
+                                    So,<span class="p-lightPink">Q<sub>1</sub></span> has coordinates of (1, 0), <span class="p-lightPink">Q<sub>2</sub></span> has coordinates of (1, <span class="p-lightOrange">0.5</span>) and finally <span class="p-lightPink">Q<sub>3</sub></span> has (1, <span class="p-lightOrange">1</span>).<br/>
+
+
+                                    <span class="w-100 pb-3 pt-3 d-md-flex d-none justify-content-center">
+                                        <span class="our-text-block text-center">
+                                            <img src="/assets/images/universal-parabolic-constant/proof-img3.png" width="100%">
+                                        </span>
+                                        
+                                    </span>
+                                    <span class="w-100 pb-3 pt-3 d-flex d-md-none justify-content-center">
+                                        <span class="our-text-block text-center">
+                                            <img src="/assets/images/universal-parabolic-constant/proof-img3-vertical.png" width="100%">
+                                        </span>
+                                        
+                                    </span>
+
+                                    <b>On Adding the segments. </b><br/>
+                                    When the segments are added and moved, the x and y coordinates change. For x coordinates, it is easy. Every point, moves to a multiple of 1. So, <span class="p-lightPink">Q<sub>1</sub></span> stays at <span class="p-lightPink">x = 1</span>. <span class="p-lightPink">Q<sub>2</sub></span> moves to x = 2 and <span class="p-lightPink">Q<sub>3</sub></span> moves to x = 3. <br/>
+
+                                    For y coordinates, it is a little more complicated. <br/>
+
+                                    <span class="p-lightPink">Q<sub>1</sub></span> remains where it is at y = 0. But <span class="p-lightPink">Q<sub>2</sub></span> gets a one multiple of <span class="p-lightOrange">half</span> So, it moves to y = 0.5. And <span class="p-lightPink">Q<sub>3</sub></span> gets a two multiple of <span class="p-lightOrange">half</span> which is <span class="p-lightOrange" style="filter: brightness(0.7) saturate(2);">1</span> from earlier (remember <span class="p-lightPink">Q<sub>3</sub></span> was at a height of 1). But, also the additional <span class="p-lightOrange">0.5</span> from the previous <span class="p-lightPink">Q<sub>2</sub></span> because of addition, giving y = <span class="p-lightOrange">0.5</span> + <span class="p-lightOrange" style="filter: brightness(0.7) saturate(2);">1</span> = 1.5. <br/>
+
+
+                                    
+                                    <span class="w-100 pb-3 pt-3 d-md-flex d-none justify-content-center">
+                                        <span class="our-text-block text-center">
+                                            <img src="/assets/images/universal-parabolic-constant/proof-img4.png" width="100%">
+                                        </span>
+                                        
+                                    </span>
+                                    <span class="w-100 pb-3 pt-3 d-flex d-md-none justify-content-center">
+                                        <span class="our-text-block text-center">
+                                            <img src="/assets/images/universal-parabolic-constant/proof-img4-vertical.png" width="100%">
+                                        </span>
+                                        
+                                    </span>
+
+
+                                    <b>After Scaling down. </b><br/>
+
+                                    Now, we scale down the curve by a factor of <span class="p-lightRed">3</span>. So, the x coordinates of all the points are divided by <span class="p-lightRed">3</span>. So, <span class="p-lightPink">Q<sub>1</sub></span> goes to <span class="p-lightPink">x = 1/3</span>. <span class="p-lightPink">Q<sub>2</sub></span> moves to x = 2/<span class="p-lightRed">3</span> and <span class="p-lightPink">Q<sub>3</sub></span> moves to x = 3/<span class="p-lightRed">3</span> = 1. <br/>
+                                    
+                                    The same happens to y coordinates from earlier. 
+                                    <span class="p-lightPink">Q<sub>1</sub></span> goes from y = 0 to y = 0/<span class="p-lightRed">3</span> = 0 (I mean, stays along y). <span class="p-lightPink">Q<sub>2</sub></span> goes from y = 0.5 to y = 0.5/<span class="p-lightRed">3</span>. And <span class="p-lightPink">Q<sub>3</sub></span> goes from y = 1.5 to y = 1.5/<span class="p-lightRed">3</span> = 0.5. <br/>
+
+                                    In more jargon, there is a pattern and the final coordinates look like this. <br/><br/>
+                                    <span class="p-lightPink">Q<sub>1</sub></span>, the <span class="p-lightPink">1st</span> point is at (<span class="p-lightPink">1</span>/<span class="p-lightRed">3</span>, 0). <br/>
+                                    
+
+                                    <span class="p-lightPink">Q<sub>2</sub></span>, the <span class="p-lightPink">2nd</span> point is at (<span class="p-lightPink">2</span>/<span class="p-lightRed">3</span>, 0.5/<span class="p-lightRed">3</span>) or <br/>
+
+                                    $$ \left( \frac{2}{3}, \frac{1}{3}\cdot (1) \cdot \frac{1}{3 - 1} \right)  $$
+
+                                    and <span class="p-lightPink">Q<sub>3</sub></span>, the <span class="p-lightPink">3rd</span> point is at (1, 0.5) or (<span class="p-lightPink">3</span>/<span class="p-lightRed">3</span>, 1.5/<span class="p-lightRed">3</span>) or <br/>
+
+                                    $$ \left( \frac{3}{3}, \frac{1}{3}\cdot (1 + 2) \cdot \frac{1}{3 - 1} \right)  $$
+
+
+                                    <br/><br/><br/>
+                                    
+                                    There is a pattern here and we can say that if n was <span class="p-lightRed">4</span>, (this is, we sampled <span class="p-lightRed">4</span> points and divided the main line AB into 3 segments)<br/><br/>
+                                    For n = <span class="p-lightRed">4</span>, <span class="p-lightPink">Q<sub>1</sub></span>, the <span class="p-lightPink">1st</span> point is at (<span class="p-lightPink">1</span>/<span class="p-lightRed">4</span>, 0). <br/>
+                                    
+
+                                    <span class="p-lightPink">Q<sub>2</sub></span>, the <span class="p-lightPink">2nd</span> point is at (<span class="p-lightPink">2</span>/<span class="p-lightRed">4</span>, 0.33/<span class="p-lightRed">4</span>) or <br/>
+
+                                    $$ \left( \frac{2}{4}, \frac{1}{4}\cdot (1) \cdot \frac{1}{4 - 1} \right)  $$<br/>
+                                    
+
+                                    <span class="p-lightPink">Q<sub>3</sub></span>, the <span class="p-lightPink">3rd</span> point is at (<span class="p-lightPink">3</span>/<span class="p-lightRed">4</span>, 1/<span class="p-lightRed">4</span>) or <br/>
+
+                                    $$ \left( \frac{3}{4}, \frac{1}{4}\cdot (1 + 2) \cdot \frac{1}{4 - 1} \right)  $$
+
+                                    and <span class="p-lightPink">Q<sub>4</sub></span>, the <span class="p-lightPink">4th</span> point (final point) is at (1, 0.5) or (<span class="p-lightPink">4</span>/<span class="p-lightRed">4</span>, 2/<span class="p-lightRed">4</span>) or <br/>
+
+                                    $$ \left( \frac{4}{4}, \frac{1}{4}\cdot (1 + 2 + 3) \cdot \frac{1}{4 - 1} \right)  $$
+
+                                    <br/><br/>
+                                    In general for n = <span class="p-lightRed">4</span>, <br/>
+                                    The <span class="p-lightPink">k</span>th point, <span class="p-lightPink">Q<sub>k</sub></span> is at <br/>
+
+                                    $$ \left( \frac{k}{4}, \frac{1}{4}\cdot (1 + 2 + .. + (k - 1)) \cdot \frac{1}{4 - 1} \right)  $$
+
+                                    <br/><br/>
+                                    And one can verify that for any <span class="p-lightRed">n</span>,<br/>
+                                    The <span class="p-lightPink">k</span>th point, <span class="p-lightPink">Q<sub>k</sub></span> is at <br/>
+                                    $$ \left( \frac{k}{n}, \frac{1}{n} \cdot (1 + 2 + .. + (k - 1)) \cdot \frac{1}{n - 1} \right)  $$
+
+                                    which can be simplified to sum of k - 1 terms to be (k - 1)k/2, hence, 
+
+                                    $$ \left( \frac{k}{n}, \frac{1}{n} \cdot \left(\frac{(k - 1)k}{2}\right) \cdot \frac{1}{n - 1} \right)  $$
+
+                                    So, on simplifying, 
+                                    When we sample n points, 
+                                    the <span class="p-lightPink">k</span>th point, <span class="p-lightPink">Q<sub>k</sub></span> is at <br/>
+
+
+                                    $$ \left( \frac{k}{n}, \frac{1}{2} \cdot \frac{k}{n} \cdot \frac{k - 1}{n - 1} \right)  $$
+
+                                    Now, it should make sense, why the final point is always at y = 0.5, 
+
+                                    for the nth point, 
+
+                                    $$ \left( \frac{n}{n}, \frac{1}{2} \cdot \frac{n}{n} \cdot \frac{n - 1}{n - 1} \right)  $$
+
+                                    giving us,
+
+                                    $$ \left( 1, 0.5 \right)  $$ <br/><br/>
+
+
+                                    What we care about is if when we sample large number of points (that is \( n \to \infty \) ), the points, obey the equation of the parabola. 
+
+                                    <br/><br/>
+                                    I think, we can agree that, when  \( n \to \infty \) 
+
+                                    $$ \frac{k - 1}{n - 1} \thickapprox  \frac{k}{n} $$
+
+                                    So, when \( n \to \infty \), the <span class="p-lightPink">k</span>th point is given by,
+
+                                    $$ \left( \frac{k}{n}, \frac{1}{2} \cdot \frac{k}{n} \cdot \frac{k}{n} \right)  $$
+
+                                    or 
+
+                                    $$ \left( \frac{k}{n}, \frac{1}{2} \cdot \left(\frac{k}{n}\right)^2 \right)  $$
+
+                                    if we take x = k/n, then 
+
+                                    $$ \left(x, \frac{1}{2} \cdot \left(x\right)^2 \right)  $$
+
+                                    or 
+
+                                    $$ \left(x, \frac{x^2}{4 \cdot 0.5} \right)  $$
+
+                                    which is what we wanted. IT IS A PARABOLA! :D <br/><br/> And... this gives us 
+                                    \( a = 0.5. \) Yay!  :D <br/><br/>
+                                    
+
+                                    Also, since a = 0.5, the point H is always at (2a, a), so the final point is the point H at (1, 0.5).
+
+                                    
+
+
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="w-100 pl-4 pb-5 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center" style="display: none !important;">
                             <div class="our-text-block text-center pb-1">
                                 <p>
                                     Wait. Back up, before that.. <br/><br/>
@@ -1908,12 +2116,13 @@
                     <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
                         <div class="our-text-block text-center">
                             <p class="mt-4">
-                                But how do we know it is a parabola? I mean.. there are characteristics to look for. 
+                                There are characteristics to look for that show that it is a parabola. 
 
                                 <br/><br/>
                                 The <span class="p-lightGreen">last segment </span>(corresponding to unscaled <span class="p-lightGreen">CA</span>) added to the curve which is currently at the midpoint is always at the 45 degree angle. Each segment increases it's slope linearly. Reminds me of some familiar curve. 
                                 <br/>
-                                The midpoint on the line segment AB, could be our point of interest H?
+                                The midpoint on the line segment AB, could be our point of interest H? 
+                                (Yes, it is, as proven in the previous extendable section. :P)
 
                                 <br/><br/><br/>
                             </p>
@@ -1960,7 +2169,7 @@
                     <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-11 revealable">
                         <div class="our-text-block text-center">
                             <p>
-                                If this is the Parabola and the curve indeed always lands at the midpoint H of AB, <br/>
+                                If this is the Parabola (Yes, it is, as proven in the previous extendable section. :P) and the curve indeed always lands at the midpoint H of AB, <br/>
 
                                 Remember? <br/>
                                 <b>Arc</b> <span class="p-lightPurple">\(\color{#a585ff}{CH}\color{#737373} = \color{#ffffff}P\color{#737373} \times \color{#e3a0cd}a\)</span><br>
