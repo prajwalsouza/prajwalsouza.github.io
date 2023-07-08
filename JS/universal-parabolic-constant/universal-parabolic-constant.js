@@ -31,6 +31,20 @@ upcApp.handleLayoutStyles = function() {
 
     upcApp.parabolaIncreasingSlopeGraph["point-label-gap"] = 0.2
 
+    upcApp.shrinkingLineGraph = {}
+    upcApp.shrinkingLineGraph["ymin"] = -6
+    upcApp.shrinkingLineGraph["ymax"] = 3
+
+    upcApp.shrinkingCurveGraph = {}
+    upcApp.shrinkingCurveGraph["ymin"] = -0.5
+    upcApp.shrinkingCurveGraph["ymax"] = 1.5
+    upcApp.shrinkingCurveGraph["xmax"] = 4
+    upcApp.shrinkingCurveGraph["xmin"] = -2
+
+    upcApp.averageSymmetryReveal = {}
+    upcApp.averageSymmetryReveal["ymin"] = -0.1
+    upcApp.averageSymmetryReveal["ymax"] = 1.1
+
     if (window.innerWidth < 580) {
         upcApp.graphFontSizeSmall = 3.6;
         upcApp.graphFontSizeLarge = 5;
@@ -48,6 +62,17 @@ upcApp.handleLayoutStyles = function() {
         upcApp.parabolicCircleGraph["point-label-gap"] = 0.4
 
         upcApp.parabolaIncreasingSlopeGraph["point-label-gap"] = 0.2
+
+        upcApp.shrinkingLineGraph["ymin"] = -8
+        upcApp.shrinkingLineGraph["ymax"] = 5
+
+        upcApp.shrinkingCurveGraph["ymin"] = -1.3
+        upcApp.shrinkingCurveGraph["ymax"] = 2
+        upcApp.shrinkingCurveGraph["xmax"] = 3
+        upcApp.shrinkingCurveGraph["xmin"] = 0
+
+        upcApp.averageSymmetryReveal["ymin"] = -0.2
+        upcApp.averageSymmetryReveal["ymax"] = 1.2
 
 
         document.getElementById('parabola-circle-compare-graphHolder-Enclosure').style.height = "400px";
@@ -3411,9 +3436,9 @@ gph15 = {}
 gph15.setUpShrinkingLine = function() {
     gph15.graphH = document.getElementById('shrinking-line-graphHolder')
     defaultGraphOptions["xmax"] = 10
-    defaultGraphOptions["ymax"] = 3
+    defaultGraphOptions["ymax"] = upcApp.shrinkingLineGraph["ymax"]
     defaultGraphOptions["xmin"] = -8
-    defaultGraphOptions["ymin"] = -6
+    defaultGraphOptions["ymin"] = upcApp.shrinkingLineGraph["ymin"]
     
     // if (window.innerWidth >= 1000) {
     //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
@@ -3450,9 +3475,9 @@ gph16 = {}
 gph16.setUpShrinkingLineAnimation = function() {
     gph16.graphH = document.getElementById('shrinking-line-animation-graphHolder')
     defaultGraphOptions["xmax"] = 10
-    defaultGraphOptions["ymax"] = 3
+    defaultGraphOptions["ymax"] = upcApp.shrinkingLineGraph["ymax"]
     defaultGraphOptions["xmin"] = -8
-    defaultGraphOptions["ymin"] = -6
+    defaultGraphOptions["ymin"] = upcApp.shrinkingLineGraph["ymin"]
     
     // if (window.innerWidth >= 1000) {
     //     defaultGraphOptions["ymajorgridlinesvisibility"] = "yes"
@@ -3560,10 +3585,10 @@ gph16.slidery.addEventListener('input', function() {
 gph17 = {}
 gph17.setUpShrinkingCurve = function() {
     gph17.graphH = document.getElementById('shrinking-curve-graphHolder')
-    defaultGraphOptions["xmax"] = 5
-    defaultGraphOptions["ymax"] = 1.5
-    defaultGraphOptions["xmin"] = -1
-    defaultGraphOptions["ymin"] = -0.5
+    defaultGraphOptions["xmax"] = upcApp.shrinkingCurveGraph["xmax"] + 1 
+    defaultGraphOptions["ymax"] = upcApp.shrinkingCurveGraph["ymax"]
+    defaultGraphOptions["xmin"] = upcApp.shrinkingCurveGraph["xmin"] + 1 
+    defaultGraphOptions["ymin"] = upcApp.shrinkingCurveGraph["ymin"]
 
 
     gph17.curvePathPoints = [[0, 0], [0.1, 0.2], [0.2, 0.4], [0.3, 0.6], [0.5, 0.8], [0.7, 0.95], [1, 1], [1.1, 0.97], [1.4, 0.8], [1.6, 0.5], [1.7, 0.4], [1.8, 0.35], [1.9, 0.39], [2.1, 0.5], [2.6, 0.9], [3, 1.3]]
@@ -3604,10 +3629,10 @@ gph17.setUpShrinkingCurve = function() {
 gph18 = {}
 gph18.setUpShrinkingCurveAnimation = function() {
     gph18.graphH = document.getElementById('shrinking-curve-animation-graphHolder')
-    defaultGraphOptions["xmax"] = 4
-    defaultGraphOptions["ymax"] = 1.5
-    defaultGraphOptions["xmin"] = -2
-    defaultGraphOptions["ymin"] = -0.5
+    defaultGraphOptions["xmax"] = upcApp.shrinkingCurveGraph["xmax"]
+    defaultGraphOptions["ymax"] = upcApp.shrinkingCurveGraph["ymax"]
+    defaultGraphOptions["xmin"] = upcApp.shrinkingCurveGraph["xmin"]
+    defaultGraphOptions["ymin"] = upcApp.shrinkingCurveGraph["ymin"]
     
 
 
@@ -3732,9 +3757,9 @@ gph19 = {}
 gph19.setUpSimpleProblemAverageAnimation = function() {
     gph19.graphH = document.getElementById('simple-problem-average-animation-graphHolder')
     defaultGraphOptions["xmax"] = 1.1
-    defaultGraphOptions["ymax"] = 1.1
+    defaultGraphOptions["ymax"] = upcApp.averageSymmetryReveal["ymax"]
     defaultGraphOptions["xmin"] = -0.1
-    defaultGraphOptions["ymin"] = -0.1
+    defaultGraphOptions["ymin"] = upcApp.averageSymmetryReveal["ymin"]
     
     viewX.addGraph(gph19.graphH, "simple-problem-average-animation-graph", defaultGraphOptions)
 
