@@ -384,23 +384,45 @@ upcApp.revealSubSection = function(sectionNumber) {
 }
 
 upcApp.extendSection = function(sectionNumber) {
-    currentMaxHeight = document.getElementById('extender-section-' + sectionNumber + '').style.maxHeight
-    if (currentMaxHeight == "100px") {
-        document.getElementById('extender-section-' + sectionNumber + '').style.maxHeight = "none";
-        document.getElementById('extender-section-' + sectionNumber + '').style.overflow = "visible";
-        document.getElementById('extender-section-' + sectionNumber + '').style.height = "auto";
-        document.getElementById('extender-section-' + sectionNumber + '-cover').style.display = "none";
-        document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-angle-double-up");
-        document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-angle-double-down");
+    if (sectionNumber != 'preface') {
+        currentMaxHeight = document.getElementById('extender-section-' + sectionNumber + '').style.maxHeight
+        if (currentMaxHeight == "100px") {
+            document.getElementById('extender-section-' + sectionNumber + '').style.maxHeight = "none";
+            document.getElementById('extender-section-' + sectionNumber + '').style.overflow = "visible";
+            document.getElementById('extender-section-' + sectionNumber + '').style.height = "auto";
+            document.getElementById('extender-section-' + sectionNumber + '-cover').style.display = "none";
+            document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-angle-double-up");
+            document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-angle-double-down");
+        }
+        else {
+            document.getElementById('extender-section-' + sectionNumber + '').style.maxHeight = "100px";
+            document.getElementById('extender-section-' + sectionNumber + '').style.overflow = "hidden";
+            document.getElementById('extender-section-' + sectionNumber + '').style.height = "100px";
+            document.getElementById('extender-section-' + sectionNumber + '-cover').style.display = "block";
+            document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-angle-double-up");
+            document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-angle-double-down");
+        }
     }
     else {
-        document.getElementById('extender-section-' + sectionNumber + '').style.maxHeight = "100px";
-        document.getElementById('extender-section-' + sectionNumber + '').style.overflow = "hidden";
-        document.getElementById('extender-section-' + sectionNumber + '').style.height = "100px";
-        document.getElementById('extender-section-' + sectionNumber + '-cover').style.display = "block";
-        document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.remove("fa-angle-double-up");
-        document.getElementById('extender-section-' + sectionNumber + "-chevron-down").classList.add("fa-angle-double-down");
+        currentMaxHeight = document.getElementById('extender-section-preface' + '').style.maxHeight
+        if (currentMaxHeight == "50px") {
+            document.getElementById('extender-section-preface' + '').style.maxHeight = "none";
+            document.getElementById('extender-section-preface' + '').style.overflow = "visible";
+            document.getElementById('extender-section-preface' + '').style.height = "auto";
+            document.getElementById('extender-section-preface' + '-cover').style.display = "none";
+            document.getElementById('extender-section-preface' + "-chevron-down").classList.add("fa-angle-double-up");
+            document.getElementById('extender-section-preface' + "-chevron-down").classList.remove("fa-angle-double-down");
+        }
+        else {
+            document.getElementById('extender-section-preface' + '').style.maxHeight = "50px";
+            document.getElementById('extender-section-preface' + '').style.overflow = "hidden";
+            document.getElementById('extender-section-preface' + '').style.height = "50px";
+            document.getElementById('extender-section-preface' + '-cover').style.display = "block";
+            document.getElementById('extender-section-preface' + "-chevron-down").classList.remove("fa-angle-double-up");
+            document.getElementById('extender-section-preface' + "-chevron-down").classList.add("fa-angle-double-down");
+        }
     }
+    
     
 }
 
@@ -2936,7 +2958,7 @@ gph11.updateParabolicIncreasingSlope = function() {
     textOptions = {x: gph11.xValue + upcApp.parabolaIncreasingSlopeGraph["point-label-gap"]/2, y: upcApp.parabolicCircleGraph["ymin"]/5, text: "x = " + gph11.xValue};
     viewX.updateText("parabola-increasing-slope-graph", "parabola-increasing-slope-xvalue-text", textOptions);
     
-    lineOptions = { x1: gph11.xValue, y1: defaultGraphOptions["ymax"]*2, x2: gph11.xValue, y2: defaultGraphOptions["ymin"]}; 
+    lineOptions = { x1: gph11.xValue, y1: upcApp.parabolicCircleGraph["ymax"]*2, x2: gph11.xValue, y2: upcApp.parabolicCircleGraph["ymin"]}; 
     viewX.updateLine("parabola-increasing-slope-graph", "parabola-increasing-slope-xline", lineOptions);
 
     viewX.updatePointXY("parabola-increasing-slope-graph", "parabola-increasing-slope-pointOnParabola", gph11.xValue, gph11.yValue);
