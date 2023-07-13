@@ -4,6 +4,24 @@ upc = 2.2955871493926380
 
 upcApp = {}
 
+
+// upcApp.dataBlocks = {
+//     "collection-1-block-1-data-1": {
+//         "content" : '<p>Let us start with a innocent looking problem. Picture a <span class="p-lightYellow">unit square</span>, a perfect little 1x1 entity. Now, pick a point <span class="p-lightPurple">Q</span> at random along the square\'s boundary. What do you think is the <span class="p-lightPink">average distance</span> between this chosen <span class="p-lightPurple">point Q</span> and the very heart of our square, the <span class="p-lightBlue">center C</span>? </p>'
+//     },
+//     "collection-1-block-1-data-2": {
+//         "content": '<p> The average distance is the typical or middle value obtained when you add up all the distances between any two points then divide by the number of distances you added together. It\'s a way of finding a \'common\' or \'usual\' distance in a group of different distances.</p>'
+//     },
+//     "collection-1-block-2-data-1": {
+//         "content": 'Surprisingly, the answer is approximately <span class="p-lightPink" id="parameter-measured-parabolic-constant-by-4">0.5738967</span>... a peculiar figure, isn\'t it? This number equals <span class="p-White" >P</span>/4 where <span class="p-White" >P</span> is known as <span class="p-White" >Universal Parabolic Constant</span>. The value is around <span class="p-White" >2.295587149...</span> Hold on a second - a Parabolic Constant? But our question was about squares, wasn\'t it? <span class="p-White" >Where does the parabola come in? </span>'
+//     }
+// }
+
+// upcApp.addDataBlock = function(blockID) {
+//     document.getElementById(blockID) = upcApp.dataBlocks[blockID].content
+// }
+
+
 upcApp.interactions = {}
 upcApp.interactionNumber = 1
 
