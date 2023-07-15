@@ -2457,6 +2457,16 @@ viewX.removeArrow = function(graphname, arrowname) {
 	}
 }
 
+viewX.removeRectangle = function(graphname, rectname) {
+	if (typeof viewX.graphData[graphname].rectData[rectname] != 'undefined') {
+		rectElement = document.getElementById(graphname + '-rect-' + rectname)
+		
+		rectElement.outerHTML = "";
+		delete viewX.graphData.objectType[rectname]
+		delete viewX.graphData[graphname].rectData[rectname]
+	}
+}
+
 viewX.removeGraph = function(graphname) {
 	graphElement = document.getElementById(graphname)
 	graphElement.outerHTML = "";

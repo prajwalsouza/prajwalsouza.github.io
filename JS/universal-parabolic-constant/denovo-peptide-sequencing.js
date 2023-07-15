@@ -563,17 +563,19 @@ gph1.generateMZValuesForPeptide = function(peptideName, conditions) {
 gph1.matchValues = function(fittingAminoAcid, fittingStart, spectralValues) {
     fittingEnd = fittingStart + (gph1.aminoAcid[fittingAminoAcid].residue_mass/spectralValues.conditions['charge'])
 
-    allowedError = 1
+    allowedError = 0.01
     startingMatch = []
 
     if (Math.abs(spectralValues.b_ion_init - fittingStart) < allowedError) {
-        startingMatch.push({"mzValue": spectralValues.b_ion_init, "name": "b0", "intensity": 0, "residue": "N/A"})
+        startingMatch.push({"mzValue": spectralValues.b_ion_init, "name": "b0", "intensity": 0, "residue": "N/A", "start_ion": -1})
     }
 
     for (var ionIndex in spectralValues.b_ions) {
         ion = spectralValues.b_ions[ionIndex]
         if (Math.abs(ion.mzValue - fittingStart) < allowedError) {
+            ion['index'] = ionIndex
             startingMatch.push(ion)
+            
         }
     }
 
@@ -584,6 +586,7 @@ gph1.matchValues = function(fittingAminoAcid, fittingStart, spectralValues) {
     for (var ionIndex in spectralValues.b_ions) {
         end_ion = spectralValues.b_ions[ionIndex]
         if (Math.abs(end_ion.mzValue - fittingEnd) < allowedError) {
+            end_ion['index'] = ionIndex
             endingMatch.push(end_ion)
         }
     }
@@ -595,7 +598,9 @@ gph1.matchValues = function(fittingAminoAcid, fittingStart, spectralValues) {
     if (startingMatch.length > 0 && endingMatch.length > 0) {
         fullMatch = {
             'start': startingMatch[0].mzValue,
+            'start_index': startingMatch[0].index,
             'end': endingMatch[0].mzValue,
+            'end_index': endingMatch[0].index,
             'residue': endingMatch[0].residue
         }
     }
@@ -617,6 +622,9 @@ gph1.addBlocks = function() {
 
     for (addIndex = 0; addIndex < peptideBlocksOptionsToAdd.length; addIndex++) {
         letterToAdd = peptideBlocksOptionsToAdd[addIndex]
+
+        gph1.game.hasBlockInStagingArea[letterToAdd] = ''
+
         gph1.addBlock(letterToAdd, gph1.game.blockDefault[letterToAdd])
     }
 }
@@ -624,10 +632,16 @@ gph1.addBlocks = function() {
 gph1.game.blocks = {}
 gph1.game.blockID = 1
 
+gph1.game.hasBlockInStagingArea = {}
+gph1.game.solved = {}
+
 gph1.addBlock = function(letterToAdd, positionProperties) {
     gph1.game.blockID = gph1.game.blockID + 1
 
-    if (typeof gph1.aminoAcid[letterToAdd] != 'undefined') {
+    if (typeof gph1.aminoAcid[letterToAdd] != 'undefined' && gph1.game.hasBlockInStagingArea[letterToAdd] == '') {
+
+        gph1.game.hasBlockInStagingArea[letterToAdd] = gph1.game.blockID
+        
         gph1.game.blocks[gph1.game.blockID] = {}
         
         gph1.game.blocks[gph1.game.blockID].x = positionProperties.x
@@ -658,12 +672,55 @@ gph1.addBlock = function(letterToAdd, positionProperties) {
 }
 
 
-gph1.moveBlock = function(blockID) {
+gph1.removeBlock = function(blockIDValue) {
+
+    if (typeof gph1.aminoAcid[letterToAdd] != 'undefined') {
+        gph1.game.blocks[blockIDValue] = {}
+        
+        viewX.removeRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-" +  blockIDValue);
+        viewX.removeText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-label-" + blockIDValue);
+        viewX.removePoint("amino-acid-drag-drop-graph", "amino-acid-drag-drop-dragpoint-" + blockIDValue);
+        viewX.removeText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-datalabel-" + blockIDValue);
+
+    }
+    
+}
+
+
+gph1.moveBlock = function(blockID, coloringDetails) {
+    letterToAdd =  gph1.game.blocks[blockID].aminoAcid
+    
+
+    for (var position_value in gph1.game.solved) {
+        if (gph1.game.solved[position_value] == blockID) {
+            gph1.game.solved[position_value] = ''
+        }
+    }
 
     peptideBlockOptions = {x: gph1.game.blocks[blockID].x, y: gph1.game.blocks[blockID].y};
+
+    if (typeof coloringDetails != 'undefined') {
+        peptideBlockOptions['rectcolor'] = "hsla(" + gph1.game.blockDefault[letterToAdd]['colorByMass'] + ", 100%, 80%, " + coloringDetails['block_opacity'] + ")"
+    }
+    else {
+        peptideBlockOptions['rectcolor'] = "hsla(" + gph1.game.blockDefault[letterToAdd]['colorByMass'] + ", 100%, 80%, 0.2)"
+    }
+
+
     viewX.updateRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-" + blockID, peptideBlockOptions);
 
+
     textOptions = {x: gph1.game.blocks[blockID].x + (gph1.game.blocks[blockID].w/2), y: gph1.game.blocks[blockID].y - 0.01 - 0.015};
+
+    if (typeof coloringDetails != 'undefined') {
+        textOptions['textcolor'] = "black"
+        textOptions['fontweight'] = "bold"
+    }               
+    else {
+        textOptions['textcolor'] = "white"
+        textOptions['fontweight'] = "normal"
+    }
+
 
     viewX.updateText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-label-" + blockID, textOptions);
 
@@ -673,6 +730,21 @@ gph1.moveBlock = function(blockID) {
     textOptions = {x: gph1.game.blocks[blockID].x + (gph1.game.blocks[blockID].w/2), y: gph1.game.blocks[blockID].y - gph1.game.blocks[blockID].h - 0.03, opacity: 0.6};
 
     viewX.updateText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-datalabel-" + blockID, textOptions);
+
+    
+    if (gph1.game.blocks[blockID].y < 0.6) {
+        if (gph1.game.hasBlockInStagingArea[letterToAdd] == blockID) {
+            gph1.game.hasBlockInStagingArea[letterToAdd] = ''
+            gph1.addBlock(letterToAdd, gph1.game.blockDefault[letterToAdd])
+        }
+
+    }
+    else {
+        if (gph1.game.hasBlockInStagingArea[letterToAdd] != blockID) {
+            gph1.removeBlock(gph1.game.hasBlockInStagingArea[letterToAdd])
+            gph1.game.hasBlockInStagingArea[letterToAdd] = blockID
+        }
+    }
 
     
 }
@@ -692,6 +764,12 @@ gph1.setUpSimpleDragDropPlay = function() {
 
     
     gph1.specValues = gph1.generateMZValuesForPeptide("ADITI")
+    gph1.game.solved = {}
+
+    gph1.currentPeptide = "ADITI"
+    for (l = 0; l < gph1.currentPeptide.length; l++) {
+        gph1.game.solved[l] = ''
+    }
 
 
     allAminoAcids = Object.keys(gph1.aminoAcid).reverse().join("")
@@ -827,16 +905,39 @@ gph1.onPointDragEnd = function() {
 
         currentMatch = gph1.matchValues(gph1.game.blocks[gph1.movingBlockID].aminoAcid, gph1.game.blocks[gph1.movingBlockID].x*gph1.specValues.b_max, gph1.specValues)
 
-        console.log(currentMatch)
 
         if (currentMatch['residue'] == gph1.game.blocks[gph1.movingBlockID].aminoAcid) {
-            console.log("Match Found")
+            console.log("Perfect Match Found")
             // gph1.game.blocks[gph1.movingBlockID].x = currentMatch['start']*gph1.specValues.b_max
-            gph1.game.blocks[gph1.movingBlockID].y = 0.4
-            gph1.moveBlock(gph1.movingBlockID)
+
+        }
+
+        if (typeof currentMatch['start'] != 'undefined' && typeof currentMatch['end'] != 'undefined') {
+            console.log("Match Found")
+            if (gph1.game.solved[currentMatch['end_index']] == '') {
+                gph1.game.blocks[gph1.movingBlockID].y = 0.4
+                gph1.moveBlock(gph1.movingBlockID, {"block_opacity": 1})
+                gph1.game.solved[currentMatch['end_index']] = gph1.movingBlockID
+            }
         }
 
         // console.log(gph1.game.blocks[gph1.movingBlockID].aminoAcid, gph1.game.blocks[gph1.movingBlockID].x*gph1.specValues.b_max)
+    }
+
+    
+    console.log(gph1.game.solved)
+
+
+    solvedCount = 0
+    for (var position_value in gph1.game.solved){
+        if (gph1.game.solved[position_value] != '') {
+            solvedCount = solvedCount + 1
+        }
+    }
+
+
+    if (solvedCount == Object.keys(gph1.game.solved).length) {
+        console.log("All Solved")
     }
 
 
