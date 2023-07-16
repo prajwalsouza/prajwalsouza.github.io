@@ -52,7 +52,7 @@
 		<div id="containAll" class="p-sm-3 p-1" style=" overflow: hidden; ">
             <div style="border: 1px solid hsla(0,0%,0%, 0); border-radius: 10px; background: var(--generalBackground); ">
                 
-                <header id="upc-header" class="pr-2 pr-sm-3" style="position: fixed;font-family: Raleway; overflow: hidden; width: calc(100%); top: 0; z-index: 3; opacity: 0;" onclick="upcApp.headerClick()">
+                <header id="upc-header" class="pr-2 pr-sm-3" style="position: fixed;font-family: Raleway; overflow: hidden; width: calc(100%); top: 0; z-index: 3; opacity: 0;" onclick="denovoApp.headerClick()">
                     <div style="background-image: linear-gradient(to bottom, var(--generalBackground),var(--generalBackground), transparent);color: hsl(0,0%,20%);font-size: small;min-height: 131px;" class="text-ignus p-4 pl-5 pr-5 p-md-3 pl-md-4 pr-md-4 text-md-left text-center">
                         <span style="cursor: pointer;"> 
                             <b id="currentMenuName" style="color:hsla(198, 0%, 37%, 1)">What's the problem?</b><br class="d-inline-block d-md-none"/>
@@ -660,15 +660,15 @@
                     <div  class="w-100 pl-4 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-1 revealable">
                         <div class="our-text-block text-center">
                             <p>
-                                <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" onclick="upcApp.chooseSection(1, 1)" id="rotatingSectionButton-1-1"> Center-Point Distance</span>
-                                <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus inActiveSectionButton" onclick="upcApp.chooseSection(1, 2)" id="rotatingSectionButton-1-2"> Corner-Perimeter Distance</span>
+                                <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus" onclick="denovoApp.chooseSection(1, 1)" id="rotatingSectionButton-1-1"> Center-Point Distance</span>
+                                <span class="commonButton p-2 pl-4 pr-4 mt-1 btn-ignus inActiveSectionButton" onclick="denovoApp.chooseSection(1, 2)" id="rotatingSectionButton-1-2"> Corner-Perimeter Distance</span>
                             </p>
                         </div>
                     </div>
 
                     <div  class="hidden-element reveal-1 revealable" id="extender-section-1" style="max-height: 100px; overflow: hidden; position: relative;">
                         <div style="position: absolute; background: linear-gradient(to bottom, transparent, var(--generalBackground)); pointer-events: none; z-index: 1;" class="w-100 h-100" id="extender-section-1-cover"></div>
-                        <div style="position: absolute; bottom: 0px; height: 30px; " class="w-100 text-center dragDownExtension" onclick="upcApp.extendSection(1)">
+                        <div style="position: absolute; bottom: 0px; height: 30px; " class="w-100 text-center dragDownExtension" onclick="denovoApp.extendSection(1)">
                             <span><i id="extender-section-1-chevron-down" class="fa fa-angle-double-down" style="font-size: 23px;"></i></span>
                         </div>
                         
@@ -915,7 +915,7 @@
                 return (dateStringGen + "-" + randomString.toString(36))
             }
 
-            upcApp.sessionID = uniqueIDGen()
+            denovoApp.sessionID = uniqueIDGen()
             var currentDate = new Date();
 
 
@@ -953,14 +953,14 @@
             //     if (window.location.href != "http://127.0.0.1:5500/universal-parabolic-constant.html") {
             //         dataToBeSaved = {}
 
-            //         dataToBeSaved.interactions = upcApp.interactions
+            //         dataToBeSaved.interactions = denovoApp.interactions
             //         dataToBeSaved.dateTimeString = currentDate.toString()
-            //         dataToBeSaved.id = upcApp.sessionID
+            //         dataToBeSaved.id = denovoApp.sessionID
             //         dataToBeSaved.graph6Trials = gph6.trialsAdded
             //         var userDetails = getUserDetails();
             //         dataToBeSaved.userDetails = userDetails;
 
-            //         database.ref('sessions/' + upcApp.sessionID).set(dataToBeSaved)
+            //         database.ref('sessions/' + denovoApp.sessionID).set(dataToBeSaved)
             //             .then(function() {
             //                 // console.log("Data saved successfully."); 
             //             })
@@ -971,9 +971,9 @@
             // }
 
 
-            upcApp.interactionNumber += 1
+            denovoApp.interactionNumber += 1
             dateTimeNow = new Date()
-            upcApp.interactions[upcApp.interactionNumber] = {
+            denovoApp.interactions[denovoApp.interactionNumber] = {
                 dateTime : dateTimeNow.toString(),
                 "type": "page load"
             }
@@ -1006,7 +1006,7 @@
                     document.body.style.background = "var(--generalBackground)"
                 }
 
-                // upcApp.renderMenus()
+                // denovoApp.renderMenus()
   
             });
 
@@ -1015,7 +1015,7 @@
             document.getElementById('upc-menus').style.display = "none"
 
             
-            upcApp.menuHighlightDetection = function(targetDiv) {
+            denovoApp.menuHighlightDetection = function(targetDiv) {
                 const observer = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -1026,8 +1026,8 @@
                             }
                             
                             nameMenuMaps[entry.target.id].revealed = true;
-                            upcApp.currentMenuSelected = nameMenuMaps[entry.target.id].name
-                            upcApp.renderMenus()
+                            denovoApp.currentMenuSelected = nameMenuMaps[entry.target.id].name
+                            denovoApp.renderMenus()
 
                             
                         }
@@ -1047,33 +1047,33 @@
                 divName = Object.keys(nameMenuMaps)[divIndex]
                 menuName = nameMenuMaps[divName]
 
-                upcApp.menuHighlightDetection(document.getElementById(divName))
+                denovoApp.menuHighlightDetection(document.getElementById(divName))
             }
 
-            upcApp.scrollToDiv = function(divName) {
+            denovoApp.scrollToDiv = function(divName) {
                 document.getElementById(divName).scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
 
-                upcApp.currentMenuSelected = nameMenuMaps[divName].name
-                upcApp.headerClick();
+                denovoApp.currentMenuSelected = nameMenuMaps[divName].name
+                denovoApp.headerClick();
             }
 
-            upcApp.headerClick = function() {
+            denovoApp.headerClick = function() {
                 allMenuState = document.getElementById('upc-menus').style.display
                 if (allMenuState != "none") {
                     document.getElementById('upc-menus').style.display = "none"
-                    document.getElementById('currentMenuName').innerText = upcApp.currentMenuSelected
-                    // console.log(upcApp.currentMenuSelected)
+                    document.getElementById('currentMenuName').innerText = denovoApp.currentMenuSelected
+                    // console.log(denovoApp.currentMenuSelected)
                 }
                 else {
                     document.getElementById('upc-menus').style.display = "block"
                     document.getElementById('currentMenuName').innerText = ""
                 }
 
-                upcApp.renderMenus()
+                denovoApp.renderMenus()
                 
             }
 
-            upcApp.renderMenus = function() {
+            denovoApp.renderMenus = function() {
                 menuInnerHTML = ""
                 menusAdded = {}
 
@@ -1083,11 +1083,11 @@
                     menuOptions = nameMenuMaps[divName]
                     // console.log(typeof(menusAdded[menuOptions]), menuOptions)
                     if (menuOptions.revealed && typeof(menusAdded[menuOptions.name]) == 'undefined') {
-                        // console.log(upcApp.currentMenuSelected, menuOptions.name)
-                        menuColor = upcApp.currentMenuSelected == menuOptions.name ? "darkgrey" : "grey";
-                        tagType = upcApp.currentMenuSelected == menuOptions.name ? "b" : "span";
+                        // console.log(denovoApp.currentMenuSelected, menuOptions.name)
+                        menuColor = denovoApp.currentMenuSelected == menuOptions.name ? "darkgrey" : "grey";
+                        tagType = denovoApp.currentMenuSelected == menuOptions.name ? "b" : "span";
                         // console.log(menuColor)
-                        menuInnerHTML += "<" + tagType + " class='pl-0 p-0 text-small-ignus' onclick='upcApp.scrollToDiv(\"" + divName + "\")' style='color: " + menuColor + "; cursor: pointer;'>" + menuOptions.name + "</" + tagType + "><br/>"
+                        menuInnerHTML += "<" + tagType + " class='pl-0 p-0 text-small-ignus' onclick='denovoApp.scrollToDiv(\"" + divName + "\")' style='color: " + menuColor + "; cursor: pointer;'>" + menuOptions.name + "</" + tagType + "><br/>"
                         menusAdded[menuOptions.name] = divName
                     }
                 }

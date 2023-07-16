@@ -1,53 +1,50 @@
 
-upc = 2.2955871493926380
+denovoApp = {}
 
+denovoApp.interactions = {}
+denovoApp.interactionNumber = 1
 
-upcApp = {}
+denovoApp.handleLayoutStyles = function() {
+    denovoApp.graphFontSizeSmall = 2.8;
+    denovoApp.graphFontSizeLarge = 4;
+    denovoApp.graphPointSize = 1.3;
+    denovoApp.parabolicCircleGraph = {}
+    denovoApp.parabolicCircleGraph["xmax"] = 1
+    denovoApp.parabolicCircleGraph["ymax"] = 4
+    denovoApp.parabolicCircleGraph["xmin"] = -1
+    denovoApp.parabolicCircleGraph["ymin"] = -1
 
-upcApp.interactions = {}
-upcApp.interactionNumber = 1
-
-upcApp.handleLayoutStyles = function() {
-    upcApp.graphFontSizeSmall = 2.8;
-    upcApp.graphFontSizeLarge = 4;
-    upcApp.graphPointSize = 1.3;
-    upcApp.parabolicCircleGraph = {}
-    upcApp.parabolicCircleGraph["xmax"] = 1
-    upcApp.parabolicCircleGraph["ymax"] = 4
-    upcApp.parabolicCircleGraph["xmin"] = -1
-    upcApp.parabolicCircleGraph["ymin"] = -1
-
-    upcApp.parabolicImportantDimensionsGraph = {}
-    upcApp.parabolicImportantDimensionsGraph["xmax"] = 1
-    upcApp.parabolicImportantDimensionsGraph["ymax"] = 4
-    upcApp.parabolicImportantDimensionsGraph["xmin"] = -1
-    upcApp.parabolicImportantDimensionsGraph["ymin"] = -1
+    denovoApp.parabolicImportantDimensionsGraph = {}
+    denovoApp.parabolicImportantDimensionsGraph["xmax"] = 1
+    denovoApp.parabolicImportantDimensionsGraph["ymax"] = 4
+    denovoApp.parabolicImportantDimensionsGraph["xmin"] = -1
+    denovoApp.parabolicImportantDimensionsGraph["ymin"] = -1
     
 
-    upcApp.parabolicCircleGraph["point-label-gap"] = 0.2
+    denovoApp.parabolicCircleGraph["point-label-gap"] = 0.2
 
 
-    upcApp.parabolaIncreasingSlopeGraph = {}
+    denovoApp.parabolaIncreasingSlopeGraph = {}
 
-    upcApp.parabolaIncreasingSlopeGraph["point-label-gap"] = 0.2
+    denovoApp.parabolaIncreasingSlopeGraph["point-label-gap"] = 0.2
 
     if (window.innerWidth < 580) {
-        upcApp.graphFontSizeSmall = 3.6;
-        upcApp.graphFontSizeLarge = 5;
-        upcApp.graphPointSize = 2.1;
-        upcApp.parabolicCircleGraph["xmax"] = 1
-        upcApp.parabolicCircleGraph["ymax"] = 5
-        upcApp.parabolicCircleGraph["xmin"] = -1
-        upcApp.parabolicCircleGraph["ymin"] = -1
+        denovoApp.graphFontSizeSmall = 3.6;
+        denovoApp.graphFontSizeLarge = 5;
+        denovoApp.graphPointSize = 2.1;
+        denovoApp.parabolicCircleGraph["xmax"] = 1
+        denovoApp.parabolicCircleGraph["ymax"] = 5
+        denovoApp.parabolicCircleGraph["xmin"] = -1
+        denovoApp.parabolicCircleGraph["ymin"] = -1
 
-        upcApp.parabolicImportantDimensionsGraph["xmax"] = 1
-        upcApp.parabolicImportantDimensionsGraph["ymax"] = 8
-        upcApp.parabolicImportantDimensionsGraph["xmin"] = -1
-        upcApp.parabolicImportantDimensionsGraph["ymin"] = -3
+        denovoApp.parabolicImportantDimensionsGraph["xmax"] = 1
+        denovoApp.parabolicImportantDimensionsGraph["ymax"] = 8
+        denovoApp.parabolicImportantDimensionsGraph["xmin"] = -1
+        denovoApp.parabolicImportantDimensionsGraph["ymin"] = -3
 
-        upcApp.parabolicCircleGraph["point-label-gap"] = 0.4
+        denovoApp.parabolicCircleGraph["point-label-gap"] = 0.4
 
-        upcApp.parabolaIncreasingSlopeGraph["point-label-gap"] = 0.2
+        denovoApp.parabolaIncreasingSlopeGraph["point-label-gap"] = 0.2
 
 
         // document.getElementById('parabola-circle-compare-graphHolder-Enclosure').style.height = "400px";
@@ -55,9 +52,9 @@ upcApp.handleLayoutStyles = function() {
     }
 }
 
-upcApp.handleLayoutStyles()
+denovoApp.handleLayoutStyles()
 
-upcApp.anim = {}
+denovoApp.anim = {}
 
 function loadAnimation() {
     var animationData = {
@@ -68,10 +65,10 @@ function loadAnimation() {
         path: 'https://assets7.lottiefiles.com/packages/lf20_C51Bca6c0m.json' 
     };
 
-    upcApp.anim = bodymovin.loadAnimation(animationData);
+    denovoApp.anim = bodymovin.loadAnimation(animationData);
 
-    upcApp.anim.addEventListener('complete', function() {
-        upcApp.anim.hide();
+    denovoApp.anim.addEventListener('complete', function() {
+        denovoApp.anim.hide();
     });
 }
 
@@ -79,7 +76,7 @@ loadAnimation();
 
 
 
-upcApp.inViewDetection = function(targetDiv, callback) {
+denovoApp.inViewDetection = function(targetDiv, callback) {
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -112,97 +109,97 @@ function findClosestEntry(value, array) {
     return closestEntry;
   }
 
-upcApp.revealPoint = 0
+denovoApp.revealPoint = 0
 
-upcApp.revealSection = function() {
-    upcApp.revealPoint = upcApp.revealPoint + 1
-    toRevealElements = document.getElementsByClassName('reveal-' + upcApp.revealPoint)
+denovoApp.revealSection = function() {
+    denovoApp.revealPoint = denovoApp.revealPoint + 1
+    toRevealElements = document.getElementsByClassName('reveal-' + denovoApp.revealPoint)
 
     if (toRevealElements.length == 0) {
         return
     }
     else {
-        document.getElementById('reveal-' + upcApp.revealPoint + "-continueButton").style.display = "none";
+        document.getElementById('reveal-' + denovoApp.revealPoint + "-continueButton").style.display = "none";
 
-        upcApp.revealGap = 10
+        denovoApp.revealGap = 10
 
-        upcApp.interactionNumber += 1
+        denovoApp.interactionNumber += 1
         dateTimeNow = new Date()
-        upcApp.interactions[upcApp.interactionNumber] = {
+        denovoApp.interactions[denovoApp.interactionNumber] = {
             dateTime : dateTimeNow.toString(),
             "type": "reveal",
-            "point": upcApp.revealPoint
+            "point": denovoApp.revealPoint
         }
 
         // saveData()
 
 
-        if (upcApp.revealPoint == 1) {
+        if (denovoApp.revealPoint == 1) {
             setTimeout(function() {
-                upcApp.chooseSection(1, 1);
+                denovoApp.chooseSection(1, 1);
                 gph5.setUpShrinkingRandomWalk();
                 gph5.interval = setInterval(gph5.nextValue, 1000);
 
             }, 1000);
         }
-        else if (upcApp.revealPoint == 2) {
+        else if (denovoApp.revealPoint == 2) {
             setTimeout(function() {
 
             }, 1000);
             
         }
-        else if (upcApp.revealPoint == 3) {
+        else if (denovoApp.revealPoint == 3) {
             setTimeout(function() {
                 
 
             }, 1000);
             
         }
-        else if (upcApp.revealPoint == 4) {
+        else if (denovoApp.revealPoint == 4) {
             setTimeout(function() {
 
             }, 1000);
             
         }
-        else if (upcApp.revealPoint == 5) {
-            setTimeout(function() {
-
-
-            }, 1000);
-            
-        }
-        else if (upcApp.revealPoint == 6) {
+        else if (denovoApp.revealPoint == 5) {
             setTimeout(function() {
 
 
             }, 1000);
             
         }
-        else if (upcApp.revealPoint == 7) {
+        else if (denovoApp.revealPoint == 6) {
+            setTimeout(function() {
+
+
+            }, 1000);
+            
+        }
+        else if (denovoApp.revealPoint == 7) {
             setTimeout(function() {
 
             }, 1000);
             
         }
-        else if (upcApp.revealPoint == 8) {
+        else if (denovoApp.revealPoint == 8) {
             setTimeout(function() {
 
             }, 1000);
             
         }
-        else if (upcApp.revealPoint == 9) {
+        else if (denovoApp.revealPoint == 9) {
             setTimeout(function() {
 
             }, 1000);
             
         }
-        else if (upcApp.revealPoint == 10) {
+        else if (denovoApp.revealPoint == 10) {
             setTimeout(function() {
 
             }, 1000);
             
         }
-        else if (upcApp.revealPoint == 11) {
+        else if (denovoApp.revealPoint == 11) {
             setTimeout(function() {
 
             }, 1000);
@@ -221,7 +218,7 @@ upcApp.revealSection = function() {
                         }
                     }
                     
-                }, 50 + index*upcApp.revealGap);
+                }, 50 + index*denovoApp.revealGap);
             })(i);
         }
 
@@ -230,12 +227,12 @@ upcApp.revealSection = function() {
 }
 
 
-upcApp.revealSubSectionLib = {}
-upcApp.revealSubSectionLib[1] = false
-upcApp.revealSubSectionLib[2] = false
+denovoApp.revealSubSectionLib = {}
+denovoApp.revealSubSectionLib[1] = false
+denovoApp.revealSubSectionLib[2] = false
 
-upcApp.revealSubSection = function(sectionNumber) {
-    if (upcApp.revealSubSectionLib[sectionNumber] == false) {
+denovoApp.revealSubSection = function(sectionNumber) {
+    if (denovoApp.revealSubSectionLib[sectionNumber] == false) {
         toRevealElements = document.getElementsByClassName('reveal-sub-section-' + sectionNumber)
         document.getElementById('reveal-sub-section-' + sectionNumber + "-continueButton").style.display = "none";
 
@@ -247,7 +244,7 @@ upcApp.revealSubSection = function(sectionNumber) {
                     if (index == 0) {
                         toRevealElements[index].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
                     }
-                }, 50 + index*upcApp.revealGap);
+                }, 50 + index*denovoApp.revealGap);
             })(i);
         }
     }
@@ -255,7 +252,7 @@ upcApp.revealSubSection = function(sectionNumber) {
 
 }
 
-upcApp.extendSection = function(sectionNumber) {
+denovoApp.extendSection = function(sectionNumber) {
     currentMaxHeight = document.getElementById('extender-section-' + sectionNumber + '').style.maxHeight
     if (currentMaxHeight == "100px") {
         document.getElementById('extender-section-' + sectionNumber + '').style.maxHeight = "none";
@@ -276,7 +273,7 @@ upcApp.extendSection = function(sectionNumber) {
     
 }
 
-upcApp.chooseSection = function(rotatingSectionIndex, rotateToSection) {
+denovoApp.chooseSection = function(rotatingSectionIndex, rotateToSection) {
     numberOfSections = document.getElementsByClassName('rotatingSection-' + rotatingSectionIndex).length
     for (s = 1; s <= numberOfSections; s++) {
         document.getElementById('rotatingSectionButton-' + rotatingSectionIndex + '-' + s).classList.add("inActiveSectionButton");
@@ -613,9 +610,6 @@ gph1.matchValues = function(fittingAminoAcid, fittingStart, spectralValues) {
 
 // console.log(matchFound)
 
-gph1.game = {}
-gph1.game.blockDefault = {}
-
 
 gph1.addBlocks = function() {
     peptideBlocksOptionsToAdd = Object.keys(gph1.aminoAcid).reverse().join("")
@@ -629,11 +623,6 @@ gph1.addBlocks = function() {
     }
 }
 
-gph1.game.blocks = {}
-gph1.game.blockID = 1
-
-gph1.game.hasBlockInStagingArea = {}
-gph1.game.solved = {}
 
 gph1.addBlock = function(letterToAdd, positionProperties) {
     gph1.game.blockID = gph1.game.blockID + 1
@@ -654,16 +643,20 @@ gph1.addBlock = function(letterToAdd, positionProperties) {
         gph1.game.blocks[gph1.game.blockID].aminoAcid = letterToAdd
 
         peptideBlockOptions = {x: gph1.game.blocks[gph1.game.blockID].x, y: gph1.game.blocks[gph1.game.blockID].y, w: gph1.game.blocks[gph1.game.blockID].w, h:gph1.game.blocks[gph1.game.blockID].h, strokewidth: 0, stroke: "transparent", rectcolor: "hsla(" + gph1.game.blocks[gph1.game.blockID].color + ", 100%, 80%, 0.2)"};
-        viewX.addRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-" + gph1.game.blockID, peptideBlockOptions);
+        addedBlockRect = viewX.addRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-" + gph1.game.blockID, peptideBlockOptions);
 
-        textOptions = {x: gph1.game.blocks[gph1.game.blockID].x + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - 0.01 - 0.015, text: letterToAdd,  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall*0.7, fontFamily: "Gaegu",   textcolor: "white"};
+        // addedBlockRect[0].innerHTML = "/assets/images/denovo-blog/test.svg"
+
+        // console.log(addedBlockRect[0].style)
+
+        textOptions = {x: gph1.game.blocks[gph1.game.blockID].x + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - 0.01 - 0.015, text: letterToAdd,  textAlign: "center",  fontSize: denovoApp.graphFontSizeSmall*0.7, fontFamily: "Gaegu",   textcolor: "white"};
 
         viewX.addText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-label-" + gph1.game.blockID, textOptions);
 
-        pointOptions = {x: gph1.game.blocks[gph1.game.blockID].x  + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - (gph1.game.blocks[gph1.game.blockID].h/2), pointsize: upcApp.graphPointSize, pointcolor: "hsla(" + gph1.game.blocks[gph1.game.blockID].color + ", 100%, 80%, 0)", draggability: "yes", runFunctionDuringDrag: "gph1.onPointDrag()", runFunctionOnDragEnd: "gph1.onPointDragEnd()"};
+        pointOptions = {x: gph1.game.blocks[gph1.game.blockID].x  + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - (gph1.game.blocks[gph1.game.blockID].h/2), pointsize: denovoApp.graphPointSize, pointcolor: "hsla(" + gph1.game.blocks[gph1.game.blockID].color + ", 100%, 80%, 0)", draggability: "yes", runFunctionDuringDrag: "gph1.onPointDrag()", runFunctionOnDragEnd: "gph1.onPointDragEnd()"};
         viewX.addPoint("amino-acid-drag-drop-graph", "amino-acid-drag-drop-dragpoint-" + gph1.game.blockID, pointOptions);
 
-        textOptions = {x: gph1.game.blocks[gph1.game.blockID].x + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - gph1.game.blocks[gph1.game.blockID].h - 0.03, text: gph1.game.blockDefault[letterToAdd]['representingMass'].toFixed(2),  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall*0.6, fontFamily: "Gaegu",  textcolor: "white", opacity: 0};
+        textOptions = {x: gph1.game.blocks[gph1.game.blockID].x + (gph1.game.blocks[gph1.game.blockID].w/2), y: gph1.game.blocks[gph1.game.blockID].y - gph1.game.blocks[gph1.game.blockID].h - 0.03, text: gph1.game.blockDefault[letterToAdd]['representingMass'].toFixed(2),  textAlign: "center",  fontSize: denovoApp.graphFontSizeSmall*0.6, fontFamily: "Gaegu",  textcolor: "white", opacity: 0};
 
         viewX.addText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-peptide-block-datalabel-" + gph1.game.blockID, textOptions);
 
@@ -749,7 +742,19 @@ gph1.moveBlock = function(blockID, coloringDetails) {
     
 }
 
-gph1.setUpSimpleDragDropPlay = function() {
+gph1.setUpSimpleDragDropPlay = function(sequenceChosen) {
+
+    gph1.game = {}
+    gph1.game.blockDefault = {}
+    
+    gph1.game.blocks = {}
+    gph1.game.blockID = 1
+
+    gph1.game.hasBlockInStagingArea = {}
+    gph1.game.solved = {}
+
+
+
     gph1.graphH = document.getElementById('animo-acid-dragdrop-graphHolder')
     viewX.addGraph(gph1.graphH, "amino-acid-drag-drop-graph", defaultGraphOptions)
 
@@ -763,10 +768,10 @@ gph1.setUpSimpleDragDropPlay = function() {
 
 
     
-    gph1.specValues = gph1.generateMZValuesForPeptide("ADITI")
+    gph1.specValues = gph1.generateMZValuesForPeptide(sequenceChosen)
     gph1.game.solved = {}
 
-    gph1.currentPeptide = "ADITI"
+    gph1.currentPeptide = sequenceChosen
     for (l = 0; l < gph1.currentPeptide.length; l++) {
         gph1.game.solved[l] = ''
     }
@@ -817,7 +822,7 @@ gph1.setUpSimpleDragDropPlay = function() {
     viewX.addLine("amino-acid-drag-drop-graph", "amino-acid-drag-drop-line-b_ion_init", lineOptions);
 
 
-    textOptions = {x: currentMark, y: -0.05, text: gph1.specValues.b_ion_init.toFixed(2),  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall*0.9, fontFamily: "Gaegu",   textcolor: "hsla(0, 0%, 80%, 0.4)"};
+    textOptions = {x: currentMark, y: -0.05, text: gph1.specValues.b_ion_init.toFixed(2),  textAlign: "center",  fontSize: denovoApp.graphFontSizeSmall*0.9, fontFamily: "Gaegu",   textcolor: "hsla(0, 0%, 80%, 0.4)"};
     viewX.addText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-label-b_ion_init", textOptions);
 
     for (var ionIndex in gph1.specValues.b_ions) {
@@ -838,7 +843,7 @@ gph1.setUpSimpleDragDropPlay = function() {
 
         viewX.addRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-intensity-" + ion.name, rectOptions);
 
-        textOptions = {x: scaledMZ, y: -0.05, text: ion.mzValue.toFixed(1),  textAlign: "center",  fontSize: upcApp.graphFontSizeSmall*0.9, fontFamily: "Gaegu",   textcolor: "white"};
+        textOptions = {x: scaledMZ, y: -0.05, text: ion.mzValue.toFixed(1),  textAlign: "center",  fontSize: denovoApp.graphFontSizeSmall*0.9, fontFamily: "Gaegu",   textcolor: "white"};
         viewX.addText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-mz-label-" + ion.name, textOptions);
 
         
@@ -850,12 +855,14 @@ gph1.setUpSimpleDragDropPlay = function() {
     // peptideBlocksOptionsToAdd = viewX.shuffle(peptideBlocksOptionsToAdd.split("")).join("")
 
     gph1.addBlocks()
+
+    
     
 
 }
 
 
-gph1.setUpSimpleDragDropPlay();
+gph1.setUpSimpleDragDropPlay('ADITI');
 
 gph1.onPointDragEnd = function() {
     gph1.movingPointID = viewX.currentMovingPoint.id
@@ -938,6 +945,18 @@ gph1.onPointDragEnd = function() {
 
     if (solvedCount == Object.keys(gph1.game.solved).length) {
         console.log("All Solved")
+        denovoApp.anim.show();
+        denovoApp.anim.goToAndPlay(0);
+        denovoApp.anim.setSpeed(2)
+        denovoApp.anim.play();
+
+        choices = {
+            "level0": ["ADITI", "CAT"],
+            "level1": ["PEPTIDE"]
+        }
+        
+        viewX.removeGraph('amino-acid-drag-drop-graph')
+        gph1.setUpSimpleDragDropPlay(choices['level0'][parseInt(Math.random()*choices['level0'].length)]);
     }
 
 
