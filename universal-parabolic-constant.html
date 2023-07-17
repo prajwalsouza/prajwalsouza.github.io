@@ -2394,6 +2394,10 @@
                             basicsData.sessions += 1
                         }
 
+                        basicsData.lastSession = upcApp.sessionID
+                        basicsData.lastSessionDate = currentDate.toString()
+                        basicsData.lastSessionUserDetails = getUserDetails()
+
                         database.ref('basics/').set(basicsData)
                             .then(function() {
                                 // console.log("Data saved successfully.");
@@ -2408,7 +2412,7 @@
                 }
             }
 
-            saveBasics()
+            
 
             
 
@@ -2421,6 +2425,8 @@
             }
 
             saveData()
+
+            saveBasics()
 
 
           
