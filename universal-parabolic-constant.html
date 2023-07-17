@@ -2376,6 +2376,41 @@
             }
 
 
+            function saveBasics() {
+                if (window.location.href == "https://prajwalsouza.github.io/universal-parabolic-constant") {
+                    // Read the variable from the database
+                    database.ref('basics').once('value')
+                    .then(function(snapshot) {
+                        // Retrieve the value from the snapshot
+                        var variableValue = snapshot.val();
+
+                        basicsData = variableValue
+
+                        if (basicsData == null) {
+                            basicsData = {}
+                            basicsData.sessions = 0
+                        }
+                        else {
+                            basicsData.sessions += 1
+                        }
+
+                        database.ref('basics/').set(basicsData)
+                            .then(function() {
+                                // console.log("Data saved successfully.");
+                            })
+                            .catch(function(error) {
+                                // console.log("Error writing data:", error);
+                            });
+                    })
+                    .catch(function(error) {
+                        console.error('Error reading basics:', error);
+                    });
+                }
+            }
+
+            
+
+
             upcApp.interactionNumber += 1
             dateTimeNow = new Date()
             upcApp.interactions[upcApp.interactionNumber] = {
