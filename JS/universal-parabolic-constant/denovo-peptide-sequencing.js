@@ -954,9 +954,12 @@ gph1.onPointDragEnd = function() {
             "level0": ["ADITI", "CAT"],
             "level1": ["PEPTIDE"]
         }
+
+        setTimeout(function() {
         
-        viewX.removeGraph('amino-acid-drag-drop-graph')
-        gph1.setUpSimpleDragDropPlay(choices['level0'][parseInt(Math.random()*choices['level0'].length)]);
+            viewX.removeGraph('amino-acid-drag-drop-graph')
+            gph1.setUpSimpleDragDropPlay(choices['level0'][parseInt(Math.random()*choices['level0'].length)]);
+        }, 2000);
     }
 
 
