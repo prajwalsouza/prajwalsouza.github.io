@@ -846,9 +846,20 @@ gph1.setUpSimpleDragDropPlay = function(sequenceChosen) {
         textOptions = {x: scaledMZ, y: -0.05, text: ion.mzValue.toFixed(1),  textAlign: "center",  fontSize: denovoApp.graphFontSizeSmall*0.9, fontFamily: "Gaegu",   textcolor: "white"};
         viewX.addText("amino-acid-drag-drop-graph", "amino-acid-drag-drop-mz-label-" + ion.name, textOptions);
 
+
+        
+
         
     }
+
+    rectOptions = {x: scaledMZ - (bar_width/2), y: 0.01 + 0.17, w: 0.5, h: 0.17, strokewidth: 0, rectcolor: "var(--lightGreen)"};
+
     
+
+    graphAdded = document.getElementById("amino-acid-drag-drop-graph")
+    graphAdded.innerHTML = graphAdded.innerHTML + '<defs><pattern id="imga1" patternUnits="objectBoundingBox" width="100%" height="100%">  <image href="assets/images/denovo-blog/test.svg" x="10" y="0" width="10" height="10" /></pattern></defs>'
+    rectElem = viewX.addRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-weird", rectOptions)[0];
+    rectElem.style.fill = "url(#imga1)"
     // peptideBlocksOptionsToAdd = "ADITI" + Object.keys(gph1.aminoAcid).join("")
     // peptideBlocksOptionsToAdd = Object.keys(gph1.aminoAcid).reverse().join("")
 
