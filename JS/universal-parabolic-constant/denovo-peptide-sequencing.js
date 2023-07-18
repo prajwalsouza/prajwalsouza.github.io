@@ -1526,7 +1526,7 @@ gph2.setUpMainGame = function(sequenceChosen) {
 }
 
 
-gph2.setUpMainGame('ADITI');
+gph2.setUpMainGame('PEPTIDE');
 
 gph2.onPointDragEnd = function() {
     gph2.movingPointID = viewX.currentMovingPoint.id
