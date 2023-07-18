@@ -856,10 +856,10 @@ gph1.setUpSimpleDragDropPlay = function(sequenceChosen) {
 
     
 
-    graphAdded = document.getElementById("amino-acid-drag-drop-graph")
-    graphAdded.innerHTML = graphAdded.innerHTML + '<defs><pattern id="imga1" patternUnits="objectBoundingBox" width="100%" height="100%">  <image href="assets/images/denovo-blog/test.svg" x="10" y="0" width="10" height="10" /></pattern></defs>'
-    rectElem = viewX.addRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-weird", rectOptions)[0];
-    rectElem.style.fill = "url(#imga1)"
+    // graphAdded = document.getElementById("amino-acid-drag-drop-graph")
+    // graphAdded.innerHTML = graphAdded.innerHTML + '<defs><pattern id="imga1" patternUnits="objectBoundingBox" width="100%" height="100%">  <image href="assets/images/denovo-blog/test.svg" x="10" y="0" width="10" height="10" /></pattern></defs>'
+    // rectElem = viewX.addRectangle("amino-acid-drag-drop-graph", "amino-acid-drag-drop-weird", rectOptions)[0];
+    // rectElem.style.fill = "url(#imga1)"
     // peptideBlocksOptionsToAdd = "ADITI" + Object.keys(gph1.aminoAcid).join("")
     // peptideBlocksOptionsToAdd = Object.keys(gph1.aminoAcid).reverse().join("")
 
@@ -1006,6 +1006,657 @@ gph1.onPointDrag = function() {
 // viewX.generateSliderStyles(sliderProperties, "distance-between-any-two-points-Slider");
 
 
+
+
+
+
+// Code For 1st Graph : the simple drag-drop
+
+gph2 = {}
+
+
+gph2.aminoAcid = {
+    "A": {
+        "name": "Alanine",
+        "residue_mass": 71.03711,
+        "short_name": "Ala"
+    },
+    "R": {
+        "name": "Arginine",
+        "residue_mass": 156.10111,
+        "short_name": "Arg"
+    },
+    "N": {
+        "name": "Asparagine",
+        "residue_mass": 114.04293,
+        "short_name": "Asn"
+    },
+    "D": {
+        "name": "Aspartic acid",
+        "residue_mass": 115.02694,
+        "short_name": "Asp"
+    },
+    "C": {
+        "name": "Cysteine",
+        "residue_mass": 103.00919,
+        "short_name": "Cys"
+    },
+    "E": {
+        "name": "Glutamic acid",
+        "residue_mass": 129.04259,
+        "short_name": "Glu"
+    },
+    "Q": {
+        "name": "Glutamine",
+        "residue_mass": 128.05858,
+        "short_name": "Gln"
+    },
+    "G": {
+        "name": "Glycine",
+        "residue_mass": 57.02146,
+        "short_name": "Gly"
+    },
+    "H": {
+        "name": "Histidine",
+        "residue_mass": 137.05891,
+        "short_name": "His"
+    },
+    "I": {
+        "name": "Isoleucine",
+        "residue_mass": 113.08406,
+        "short_name": "Ile"
+    },
+    "L": {
+        "name": "Leucine",
+        "residue_mass": 113.08406,
+        "short_name": "Leu"
+    },
+    "K": {
+        "name": "Lysine",
+        "residue_mass": 128.09496,
+        "short_name": "Lys"
+    },
+    "M": {
+        "name": "Methionine",
+        "residue_mass": 131.04049,
+        "short_name": "Met"
+    },
+    "F": {
+        "name": "Phenylalanine",
+        "residue_mass": 147.06841,
+        "short_name": "Phe"
+    },
+    "P": {
+        "name": "Proline",
+        "residue_mass": 97.05276,
+        "short_name": "Pro"
+    },
+    "S": {
+        "name": "Serine",
+        "residue_mass": 87.03203,
+        "short_name": "Ser"
+    },
+    "T": {
+        "name": "Threonine",
+        "residue_mass": 101.04768,
+        "short_name": "Thr"
+    },
+    "W": {
+        "name": "Tryptophan",
+        "residue_mass": 186.07931,
+        "short_name": "Trp"
+    },
+    "Y": {
+        "name": "Tyrosine",
+        "residue_mass": 163.06333,
+        "short_name": "Tyr"
+    },
+    "V": {
+        "name": "Valine",
+        "residue_mass": 99.06841,
+        "short_name": "Val"
+    }
+}
+
+gph2.generateMZValuesForPeptide = function(peptideName, conditions) {
+    spectralValues = {}
+
+    spectralValues.peptideName = peptideName
+    spectralValues.b_ions = {}
+
+    if (typeof conditions == 'undefined') {
+        conditions = {}
+    }
+
+    if (typeof conditions['charge'] == 'undefined') {
+        conditions['charge'] = 1
+    }
+
+    n_terminal_mass = 1.007825
+    c_terminal_mass = 17.00274 + 1.007825 + 1.007825
+
+    spectralValues.b_ion_init = n_terminal_mass/conditions['charge']
+    spectralValues.y_ion_init = c_terminal_mass/conditions['charge']
+
+    for (aindex = 0; aindex < peptideName.length; aindex++) {
+        aminoAcid = peptideName[aindex].toString().toUpperCase()
+        
+        if (typeof gph2.aminoAcid[aminoAcid] != 'undefined') {
+            if (aindex == 0)   {
+                spectralValues.b_ions[aindex] = {
+                    "mzValue" : (gph2.aminoAcid[aminoAcid].residue_mass + n_terminal_mass)/conditions['charge'],
+                    "name" : "b" + (aindex + 1),
+                    "intensity": 1,
+                    "residue": aminoAcid
+                }
+            }
+            else if (aindex == peptideName.length - 1) {
+                spectralValues.b_ions[aindex] = {
+                    "mzValue" : (gph2.aminoAcid[aminoAcid].residue_mass + spectralValues.b_ions[aindex - 1].mzValue)/conditions['charge'],
+                    "name" : "b" + (aindex + 1),
+                    "intensity": 1,
+                    "residue": aminoAcid
+                }
+
+                spectralValues.b_max = spectralValues.b_ions[aindex].mzValue
+            }
+            else {
+                spectralValues.b_ions[aindex] = {
+                    "mzValue" : (gph2.aminoAcid[aminoAcid].residue_mass + spectralValues.b_ions[aindex - 1].mzValue)/conditions['charge'],
+                    "name" : "b" + (aindex + 1),
+                    "intensity": 1,
+                    "residue": aminoAcid
+                }
+            }
+        }
+        else {
+            console.error("No amino acid", aminoAcid, "found in the database.")
+        }
+    }
+
+    spectralValues.y_ions = {}
+    for (aindex = peptideName.length - 1; aindex >= 0; aindex--) {
+        aminoAcid = peptideName[aindex].toString().toUpperCase()
+        
+        currentIndex = (aindex - peptideName.length)*(-1)
+        if (typeof gph2.aminoAcid[aminoAcid] != 'undefined') {
+            if (aindex == peptideName.length - 1) {
+                spectralValues.y_ions[aindex] = {
+                    "mzValue" : (gph2.aminoAcid[aminoAcid].residue_mass + c_terminal_mass)/conditions['charge'],
+                    "name" : "y" + currentIndex,
+                    "intensity": 1,
+                    "residue": aminoAcid
+                }
+            }
+            else {
+                spectralValues.y_ions[aindex] = {
+                    "mzValue" : (gph2.aminoAcid[aminoAcid].residue_mass + spectralValues.y_ions[aindex + 1].mzValue)/conditions['charge'],
+                    "name" : "y" + currentIndex,
+                    "intensity": 1,
+                    "residue": aminoAcid
+                }
+
+                if (aindex == 0) {
+                    spectralValues.y_max = spectralValues.y_ions[aindex].mzValue
+                }
+            }
+        }
+        else {
+            console.error("No amino acid", aminoAcid, "found in the database.")
+        }
+    }
+
+    spectralValues.conditions = conditions
+    return spectralValues
+}
+
+gph2.matchValues = function(fittingAminoAcid, fittingStart, spectralValues) {
+    fittingEnd = fittingStart + (gph2.aminoAcid[fittingAminoAcid].residue_mass/spectralValues.conditions['charge'])
+
+    allowedError = 0.01
+    startingMatch = []
+
+    if (Math.abs(spectralValues.b_ion_init - fittingStart) < allowedError) {
+        startingMatch.push({"mzValue": spectralValues.b_ion_init, "name": "b0", "intensity": 0, "residue": "N/A", "start_ion": -1})
+    }
+
+    for (var ionIndex in spectralValues.b_ions) {
+        ion = spectralValues.b_ions[ionIndex]
+        if (Math.abs(ion.mzValue - fittingStart) < allowedError) {
+            ion['index'] = ionIndex
+            startingMatch.push(ion)
+            
+        }
+    }
+
+
+    endingMatch = []
+
+    
+    for (var ionIndex in spectralValues.b_ions) {
+        end_ion = spectralValues.b_ions[ionIndex]
+        if (Math.abs(end_ion.mzValue - fittingEnd) < allowedError) {
+            end_ion['index'] = ionIndex
+            endingMatch.push(end_ion)
+        }
+    }
+
+
+
+    fullMatch = {}
+
+    if (startingMatch.length > 0 && endingMatch.length > 0) {
+        fullMatch = {
+            'start': startingMatch[0].mzValue,
+            'start_index': startingMatch[0].index,
+            'end': endingMatch[0].mzValue,
+            'end_index': endingMatch[0].index,
+            'residue': endingMatch[0].residue
+        }
+    }
+
+    return fullMatch
+
+}
+
+// matchFound = gph2.matchValues("D", 72.03, specValues)
+
+// console.log(matchFound)
+
+
+gph2.addBlocks = function() {
+    peptideBlocksOptionsToAdd = Object.keys(gph2.aminoAcid).reverse().join("")
+
+    for (addIndex = 0; addIndex < peptideBlocksOptionsToAdd.length; addIndex++) {
+        letterToAdd = peptideBlocksOptionsToAdd[addIndex]
+
+        gph2.game.hasBlockInStagingArea[letterToAdd] = ''
+
+        gph2.addBlock(letterToAdd, gph2.game.blockDefault[letterToAdd])
+    }
+}
+
+
+gph2.addBlock = function(letterToAdd, positionProperties) {
+    gph2.game.blockID = gph2.game.blockID + 1
+
+    if (typeof gph2.aminoAcid[letterToAdd] != 'undefined' && gph2.game.hasBlockInStagingArea[letterToAdd] == '') {
+
+        gph2.game.hasBlockInStagingArea[letterToAdd] = gph2.game.blockID
+        
+        gph2.game.blocks[gph2.game.blockID] = {}
+        
+        gph2.game.blocks[gph2.game.blockID].x = positionProperties.x
+        gph2.game.blocks[gph2.game.blockID].y = positionProperties.y
+        gph2.game.blocks[gph2.game.blockID].w = positionProperties.w
+        gph2.game.blocks[gph2.game.blockID].h = positionProperties.h
+
+        gph2.game.blocks[gph2.game.blockID].color = positionProperties.colorByMass
+
+        gph2.game.blocks[gph2.game.blockID].aminoAcid = letterToAdd
+
+        peptideBlockOptions = {x: gph2.game.blocks[gph2.game.blockID].x, y: gph2.game.blocks[gph2.game.blockID].y, w: gph2.game.blocks[gph2.game.blockID].w, h:gph2.game.blocks[gph2.game.blockID].h, strokewidth: 0, stroke: "transparent", rectcolor: "hsla(" + gph2.game.blocks[gph2.game.blockID].color + ", 100%, 80%, 0.2)"};
+        addedBlockRect = viewX.addRectangle("main-game-graph", "main-game-peptide-block-" + gph2.game.blockID, peptideBlockOptions);
+
+        // addedBlockRect[0].innerHTML = "/assets/images/denovo-blog/test.svg"
+
+        // console.log(addedBlockRect[0].style)
+
+        textOptions = {x: gph2.game.blocks[gph2.game.blockID].x + (gph2.game.blocks[gph2.game.blockID].w/2), y: gph2.game.blocks[gph2.game.blockID].y - 0.01 - 0.015, text: letterToAdd,  textAlign: "center",  fontSize: denovoApp.graphFontSizeSmall*0.7, fontFamily: "Gaegu",   textcolor: "white"};
+
+        viewX.addText("main-game-graph", "main-game-peptide-block-label-" + gph2.game.blockID, textOptions);
+
+        pointOptions = {x: gph2.game.blocks[gph2.game.blockID].x  + (gph2.game.blocks[gph2.game.blockID].w/2), y: gph2.game.blocks[gph2.game.blockID].y - (gph2.game.blocks[gph2.game.blockID].h/2), pointsize: denovoApp.graphPointSize, pointcolor: "hsla(" + gph2.game.blocks[gph2.game.blockID].color + ", 100%, 80%, 0)", draggability: "yes", runFunctionDuringDrag: "gph2.onPointDrag()", runFunctionOnDragEnd: "gph2.onPointDragEnd()"};
+        viewX.addPoint("main-game-graph", "main-game-dragpoint-" + gph2.game.blockID, pointOptions);
+
+        textOptions = {x: gph2.game.blocks[gph2.game.blockID].x + (gph2.game.blocks[gph2.game.blockID].w/2), y: gph2.game.blocks[gph2.game.blockID].y - gph2.game.blocks[gph2.game.blockID].h - 0.03, text: gph2.game.blockDefault[letterToAdd]['representingMass'].toFixed(2),  textAlign: "center",  fontSize: denovoApp.graphFontSizeSmall*0.6, fontFamily: "Gaegu",  textcolor: "white", opacity: 0};
+
+        viewX.addText("main-game-graph", "main-game-peptide-block-datalabel-" + gph2.game.blockID, textOptions);
+
+    }
+    
+}
+
+
+gph2.removeBlock = function(blockIDValue) {
+
+    if (typeof gph2.aminoAcid[letterToAdd] != 'undefined') {
+        gph2.game.blocks[blockIDValue] = {}
+        
+        viewX.removeRectangle("main-game-graph", "main-game-peptide-block-" +  blockIDValue);
+        viewX.removeText("main-game-graph", "main-game-peptide-block-label-" + blockIDValue);
+        viewX.removePoint("main-game-graph", "main-game-dragpoint-" + blockIDValue);
+        viewX.removeText("main-game-graph", "main-game-peptide-block-datalabel-" + blockIDValue);
+
+    }
+    
+}
+
+
+gph2.moveBlock = function(blockID, coloringDetails) {
+    letterToAdd =  gph2.game.blocks[blockID].aminoAcid
+    
+
+    for (var position_value in gph2.game.solved) {
+        if (gph2.game.solved[position_value] == blockID) {
+            gph2.game.solved[position_value] = ''
+        }
+    }
+
+    peptideBlockOptions = {x: gph2.game.blocks[blockID].x, y: gph2.game.blocks[blockID].y};
+
+    if (typeof coloringDetails != 'undefined') {
+        peptideBlockOptions['rectcolor'] = "hsla(" + gph2.game.blockDefault[letterToAdd]['colorByMass'] + ", 100%, 80%, " + coloringDetails['block_opacity'] + ")"
+    }
+    else {
+        peptideBlockOptions['rectcolor'] = "hsla(" + gph2.game.blockDefault[letterToAdd]['colorByMass'] + ", 100%, 80%, 0.2)"
+    }
+
+
+    viewX.updateRectangle("main-game-graph", "main-game-peptide-block-" + blockID, peptideBlockOptions);
+
+
+    textOptions = {x: gph2.game.blocks[blockID].x + (gph2.game.blocks[blockID].w/2), y: gph2.game.blocks[blockID].y - 0.01 - 0.015};
+
+    if (typeof coloringDetails != 'undefined') {
+        textOptions['textcolor'] = "black"
+        textOptions['fontweight'] = "bold"
+    }               
+    else {
+        textOptions['textcolor'] = "white"
+        textOptions['fontweight'] = "normal"
+    }
+
+
+    viewX.updateText("main-game-graph", "main-game-peptide-block-label-" + blockID, textOptions);
+
+    pointOptions = {x: gph2.game.blocks[blockID].x  + (gph2.game.blocks[blockID].w/2), y: gph2.game.blocks[blockID].y - (gph2.game.blocks[blockID].h/2)};
+    viewX.updatePointXY("main-game-graph", "main-game-dragpoint-" + blockID, pointOptions.x, pointOptions.y);
+
+    textOptions = {x: gph2.game.blocks[blockID].x + (gph2.game.blocks[blockID].w/2), y: gph2.game.blocks[blockID].y - gph2.game.blocks[blockID].h - 0.03, opacity: 0.6};
+
+    viewX.updateText("main-game-graph", "main-game-peptide-block-datalabel-" + blockID, textOptions);
+
+    
+    if (gph2.game.blocks[blockID].y < 0.6) {
+        if (gph2.game.hasBlockInStagingArea[letterToAdd] == blockID) {
+            gph2.game.hasBlockInStagingArea[letterToAdd] = ''
+            gph2.addBlock(letterToAdd, gph2.game.blockDefault[letterToAdd])
+        }
+
+    }
+    else {
+        if (gph2.game.hasBlockInStagingArea[letterToAdd] != blockID) {
+            gph2.removeBlock(gph2.game.hasBlockInStagingArea[letterToAdd])
+            gph2.game.hasBlockInStagingArea[letterToAdd] = blockID
+        }
+    }
+
+    
+}
+
+gph2.setUpMainGame = function(sequenceChosen) {
+
+    gph2.game = {}
+    gph2.game.blockDefault = {}
+    
+    gph2.game.blocks = {}
+    gph2.game.blockID = 1
+
+    gph2.game.hasBlockInStagingArea = {}
+    gph2.game.solved = {}
+
+
+
+    gph2.graphH = document.getElementById('main-game-graphHolder')
+    viewX.addGraph(gph2.graphH, "main-game-graph", defaultGraphOptions)
+
+    var arrowOptions = {
+        from: [0, 0],
+        to: [1.1, 0],
+        strokewidth: 0.4,
+        arrowcolor: "var(--writingGrey)"
+    };
+    arrow = viewX.addArrow("main-game-graph", "spectra-x-axis-arrow", arrowOptions);
+
+
+    
+    gph2.specValues = gph2.generateMZValuesForPeptide(sequenceChosen)
+    gph2.game.solved = {}
+
+    gph2.currentPeptide = sequenceChosen
+    for (l = 0; l < gph2.currentPeptide.length; l++) {
+        gph2.game.solved[l] = ''
+    }
+
+
+    allAminoAcids = Object.keys(gph2.aminoAcid).reverse().join("")
+
+    aminoAcidMasses = Object.values(gph2.aminoAcid).map(obj => obj.residue_mass)
+    maxAminoAcidMass = Math.max(...aminoAcidMasses)
+    minAminoAcidMass = Math.min(...aminoAcidMasses)
+
+    blockXPositioning = 0
+    rowNumber = 0.7
+
+    
+    for (addIndex = 0; addIndex < allAminoAcids.length; addIndex++) {
+        letterToAdd = allAminoAcids[addIndex]
+
+        if (typeof gph2.aminoAcid[letterToAdd] != 'undefined') {
+            gph2.game.blockDefault[letterToAdd] = {}
+            spacer = 0.05
+            expectedWidth = gph2.aminoAcid[letterToAdd].residue_mass/gph2.specValues.b_max
+            
+            colorPositionByPosition = 180 + Object.keys(gph2.aminoAcid).indexOf(letterToAdd)*180/Object.keys(gph2.aminoAcid).length
+            colorPositionByMass = viewX.linearValue(minAminoAcidMass, maxAminoAcidMass, 180, 430, gph2.aminoAcid[letterToAdd].residue_mass)
+
+            gph2.game.blockDefault[letterToAdd]['colorByMass'] = colorPositionByMass
+            gph2.game.blockDefault[letterToAdd]['colorByPosition'] = colorPositionByPosition
+            gph2.game.blockDefault[letterToAdd]['x'] = blockXPositioning
+            gph2.game.blockDefault[letterToAdd]['y'] = rowNumber
+            gph2.game.blockDefault[letterToAdd]['w'] = expectedWidth
+            gph2.game.blockDefault[letterToAdd]['h'] = 0.035
+
+            gph2.game.blockDefault[letterToAdd]['representingMass'] = gph2.aminoAcid[letterToAdd].residue_mass
+
+            blockXPositioning = expectedWidth + blockXPositioning + spacer
+
+            if (blockXPositioning > 1) {
+                blockXPositioning = 0
+                rowNumber = rowNumber + 0.06
+            }
+            
+        }
+    }
+
+    currentMark = gph2.specValues.b_ion_init/gph2.specValues.b_max
+    lineOptions = { x1: gph2.specValues.b_ion_init/gph2.specValues.b_max, y1: 0.6, x2: gph2.specValues.b_ion_init/gph2.specValues.b_max, y2: 0.01, strokedasharray: "4,4", strokewidth: 0.7, linecolor: "hsla(0, 0%, 80%, 0.4)"}; 
+    viewX.addLine("main-game-graph", "main-game-line-b_ion_init", lineOptions);
+
+
+    textOptions = {x: currentMark, y: -0.05, text: gph2.specValues.b_ion_init.toFixed(2),  textAlign: "center",  fontSize: denovoApp.graphFontSizeSmall*0.9, fontFamily: "Gaegu",   textcolor: "hsla(0, 0%, 80%, 0.4)"};
+    viewX.addText("main-game-graph", "main-game-label-b_ion_init", textOptions);
+
+    for (var ionIndex in gph2.specValues.b_ions) {
+        ion = gph2.specValues.b_ions[ionIndex]
+        scaledMZ = ion.mzValue/gph2.specValues.b_max
+
+        rectOptions = {x: currentMark, y: 0.4, w: ion.mzValue/gph2.specValues.b_max - currentMark, h: 0.035, strokewidth: 0, rectcolor: "hsla(0, 0%, 0%, 0.5)", stroke: "transparent"};
+        currentMark = ion.mzValue/gph2.specValues.b_max
+
+        viewX.addRectangle("main-game-graph", "main-game-dropLocation-" + ion.name, rectOptions);
+
+
+        lineOptions = { x1: scaledMZ, y1: 0.6, x2: scaledMZ, y2: 0.2, strokedasharray: "4,4", strokewidth: 0.7, linecolor: "var(--writingGrey)"}; 
+        viewX.addLine("main-game-graph", "main-game-line-" + ion.name, lineOptions);
+
+        bar_width = 0.01
+        rectOptions = {x: scaledMZ - (bar_width/2), y: 0.01 + 0.17, w: bar_width, h: 0.17, strokewidth: 0, rectcolor: "var(--lightGreen)"};
+
+        viewX.addRectangle("main-game-graph", "main-game-intensity-" + ion.name, rectOptions);
+
+        textOptions = {x: scaledMZ, y: -0.05, text: ion.mzValue.toFixed(1),  textAlign: "center",  fontSize: denovoApp.graphFontSizeSmall*0.9, fontFamily: "Gaegu",   textcolor: "white"};
+        viewX.addText("main-game-graph", "main-game-mz-label-" + ion.name, textOptions);
+
+
+        
+
+        
+    }
+
+    rectOptions = {x: scaledMZ - (bar_width/2), y: 0.01 + 0.17, w: 0.5, h: 0.17, strokewidth: 0, rectcolor: "var(--lightGreen)"};
+
+    
+
+    // graphAdded = document.getElementById("main-game-graph")
+    // graphAdded.innerHTML = graphAdded.innerHTML + '<defs><pattern id="imga1" patternUnits="objectBoundingBox" width="100%" height="100%">  <image href="assets/images/denovo-blog/test.svg" x="10" y="0" width="10" height="10" /></pattern></defs>'
+    // rectElem = viewX.addRectangle("main-game-graph", "main-game-weird", rectOptions)[0];
+    // rectElem.style.fill = "url(#imga1)"
+    // peptideBlocksOptionsToAdd = "ADITI" + Object.keys(gph2.aminoAcid).join("")
+    // peptideBlocksOptionsToAdd = Object.keys(gph2.aminoAcid).reverse().join("")
+
+    // peptideBlocksOptionsToAdd = viewX.shuffle(peptideBlocksOptionsToAdd.split("")).join("")
+
+    gph2.addBlocks()
+
+    
+    
+
+}
+
+
+gph2.setUpMainGame('ADITI');
+
+gph2.onPointDragEnd = function() {
+    gph2.movingPointID = viewX.currentMovingPoint.id
+    gph2.movingBlockID = gph2.movingPointID.split("-").slice(-1)[0]
+
+    gph2.movedPoint = viewX.graphData["main-game-graph"].pointData["main-game-dragpoint-" + gph2.movingBlockID][1]
+
+    gph2.game.blocks[gph2.movingBlockID].x = gph2.movedPoint.x - (gph2.game.blocks[gph2.movingBlockID].w/2)
+    gph2.game.blocks[gph2.movingBlockID].y = gph2.movedPoint.y + (gph2.game.blocks[gph2.movingBlockID].h/2)
+
+    if (gph2.movedPoint.y > 0.6) {
+        textOptions = {opacity: 0};
+    }
+    else {
+        textOptions = {opacity: 1};
+    }
+
+
+    viewX.updateText("main-game-graph", "main-game-peptide-block-datalabel-" + gph2.movingBlockID, textOptions);
+
+
+
+
+    if (gph2.movedPoint.y < 0.6) {
+        snapToLineBy = 0.05
+
+        valuesToSnapTo = []
+        valuesToSnapTo.push(gph2.specValues.b_ion_init/gph2.specValues.b_max)
+        for (var ionIndex in gph2.specValues.b_ions) {
+            ion = gph2.specValues.b_ions[ionIndex]
+            valuesToSnapTo.push(ion.mzValue/gph2.specValues.b_max)
+        }
+
+        closestValueForStart = findClosestEntry(gph2.game.blocks[gph2.movingBlockID].x, valuesToSnapTo)
+        closestValueForEnd = findClosestEntry(gph2.game.blocks[gph2.movingBlockID].x + gph2.game.blocks[gph2.movingBlockID].w, valuesToSnapTo)
+        
+        if (Math.abs(closestValueForStart - gph2.game.blocks[gph2.movingBlockID].x) < snapToLineBy) {
+            gph2.game.blocks[gph2.movingBlockID].x = closestValueForStart
+        }
+        else if (Math.abs(closestValueForEnd - (gph2.game.blocks[gph2.movingBlockID].x + gph2.game.blocks[gph2.movingBlockID].w)) < snapToLineBy) {
+            gph2.game.blocks[gph2.movingBlockID].x = closestValueForEnd - gph2.game.blocks[gph2.movingBlockID].w
+        }
+
+
+        gph2.moveBlock(gph2.movingBlockID)
+
+
+        currentMatch = gph2.matchValues(gph2.game.blocks[gph2.movingBlockID].aminoAcid, gph2.game.blocks[gph2.movingBlockID].x*gph2.specValues.b_max, gph2.specValues)
+
+
+        if (currentMatch['residue'] == gph2.game.blocks[gph2.movingBlockID].aminoAcid) {
+            console.log("Perfect Match Found")
+            // gph2.game.blocks[gph2.movingBlockID].x = currentMatch['start']*gph2.specValues.b_max
+
+        }
+
+        if (typeof currentMatch['start'] != 'undefined' && typeof currentMatch['end'] != 'undefined') {
+            console.log("Match Found")
+            if (gph2.game.solved[currentMatch['end_index']] == '') {
+                gph2.game.blocks[gph2.movingBlockID].y = 0.4
+                gph2.moveBlock(gph2.movingBlockID, {"block_opacity": 1})
+                gph2.game.solved[currentMatch['end_index']] = gph2.movingBlockID
+            }
+        }
+
+        // console.log(gph2.game.blocks[gph2.movingBlockID].aminoAcid, gph2.game.blocks[gph2.movingBlockID].x*gph2.specValues.b_max)
+    }
+
+    
+    console.log(gph2.game.solved)
+
+
+    solvedCount = 0
+    for (var position_value in gph2.game.solved){
+        if (gph2.game.solved[position_value] != '') {
+            solvedCount = solvedCount + 1
+        }
+    }
+
+
+    if (solvedCount == Object.keys(gph2.game.solved).length) {
+        console.log("All Solved")
+        denovoApp.anim.show();
+        denovoApp.anim.goToAndPlay(0);
+        denovoApp.anim.setSpeed(2)
+        denovoApp.anim.play();
+
+        choices = {
+            "level0": ["ADITI", "CAT"],
+            "level1": ["PEPTIDE"]
+        }
+
+        setTimeout(function() {
+        
+            viewX.removeGraph('main-game-graph')
+            gph2.setUpMainGame(choices['level0'][parseInt(Math.random()*choices['level0'].length)]);
+        }, 2000);
+    }
+
+
+
+
+}
+
+gph2.onPointDrag = function() {
+    gph2.movingPointID = viewX.currentMovingPoint.id
+    gph2.movingBlockID = gph2.movingPointID.split("-").slice(-1)[0]
+
+    gph2.movedPoint = viewX.graphData["main-game-graph"].pointData["main-game-dragpoint-" + gph2.movingBlockID][1]
+
+    gph2.game.blocks[gph2.movingBlockID].x = gph2.movedPoint.x - (gph2.game.blocks[gph2.movingBlockID].w/2)
+    gph2.game.blocks[gph2.movingBlockID].y = gph2.movedPoint.y + (gph2.game.blocks[gph2.movingBlockID].h/2)
+
+    gph2.moveBlock(gph2.movingBlockID)
+
+}
+
+// var sliderProperties = {
+//     minwidth: '200px',
+//     width: '50%',
+//     height: 5,
+//     trackColor: "hsla(280, 0%, 20%, 0.7)",
+//     trackFillColor: "var(--lightPink)",
+//     thumbWidth: 15,
+//     thumbHeight: 15,
+//     thumbColor: "var(--lightPink)",
+//     opacity: 0.7
+// };
+
+// viewX.generateSliderStyles(sliderProperties, "distance-between-any-two-points-Slider");
 
 
 
