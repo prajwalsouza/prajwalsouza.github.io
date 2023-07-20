@@ -1095,7 +1095,7 @@ gph4.setUpDistanceBetweenCornerAnyPointOnSquare = function() {
     viewX.addRectangle("distance-between-corner-and-point-on-square-graph", "distance-between-corner-and-point-on-square-square", rectOptions);
 
     gph4.pointA = [0, 0]
-    gph4.pointB = [0.8, 0.7]
+    gph4.pointB = [1, 0.7]
 
     gph4.distanceText = viewX.distF(gph4.pointA, gph4.pointB).toFixed(3);
 
@@ -1164,7 +1164,7 @@ gph4.sliderLabel.innerHTML = gph4.slider.value
 
 gph4.slider.addEventListener('input', function() {
     gph4.sliderLabel.innerHTML = gph4.slider.value
-    gph4.sliderInfo.innerHTML = "Point <span class='p-lightPurple'>B</span> above is draggable. :)"
+    gph4.sliderInfo.innerHTML = "Click/Tap to move Point <span class='p-lightPurple'>B</span>. :)"
 });
 
 
@@ -1591,7 +1591,7 @@ gph6.continueButton.addEventListener('click', function() {
 });
 
 
-    // graph 7 : shrinking random walk - the parabola
+// graph 7 : shrinking random walk - the parabola
 
 gph7 = {}
 
