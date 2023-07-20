@@ -4642,7 +4642,7 @@ gph23.setUpSimpleProblemSizeOneTwoPoint = function() {
 
 
 
-    textOptions = {x: 1 + 0.15, y: 0.75, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--writingGrey)", opacity: 1};
+    textOptions = {x: 1 + 0.15, y: 0.75, text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Nunito",   textcolor: "var(--writingGrey)", opacity: 1};
     viewX.addText("simple-problem-size1-2-point-graph", "simple-problem-size1-2-point-unit-length-label", textOptions);
 
     
@@ -4710,7 +4710,7 @@ gph23.setUpSimpleProblemSizeOneTwoPoint = function() {
     textOptions = {x: 1 + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: 1 - upcApp.simpleProblemPointFive["point-label-gap"]*0.2, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightGreen)", opacity: 1};
     viewX.addText("simple-problem-size1-2-point-graph", "simple-problem-size1-2-point-label-2", textOptions);
 
-    textOptions = {x: (1 + 0.5)/2 - 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], text: "sqrt(2)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightGreen)", opacity: 1};
+    textOptions = {x: (1 + 0.5)/2 - 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], text: "sqrt(2)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Nunito",   textcolor: "var(--lightGreen)", opacity: 1};
     viewX.addText("simple-problem-size1-2-point-graph", "simple-problem-size1-2-point-distance-text-label-2", textOptions);
 
     gph23.animationGenerator(); 
@@ -4780,14 +4780,14 @@ gph23.animationGenerator = function() {
 
 gph23.messageOfSteps = [
         'Shall we begin? :)',
-        'Let\'s pick point B. ',
-        'Let\'s pick point B. ',
-        'It is at a distance of 1 unit from C. ',
+        'Let\'s pick point <span class="p-lightPink">B</span>. ',
+        'Let\'s pick point <span class="p-lightPink">B</span>. ',
+        'It is at a distance of 1 unit from <span class="p-lightBlue">C</span>. ',
         'CB = 1 ',
-        'Now let\'s pick point A. ',
-        'That\'s point A. ',
-        'It is at a distance of sqaure root of 2 from C. By Pythagoras theorem ',
-        'So.. CA = 1.414...'
+        'Now let\'s pick point <span class="p-lightGreen">A</span>. ',
+        'That\'s point <span class="p-lightGreen">A</span>. ',
+        'It is at a distance of <span class="p-lightGreen">square root of 2</span> from <span class="p-lightBlue">C</span> by Pythagoras theorem ',
+        'So.. <span class="p-lightGreen">CA = 1.414...</span>'
     ]
 
 gph23.slider.step = 1
@@ -4823,10 +4823,10 @@ gph23.nextValue = function() {
 gph24 = {}
 gph24.setUpSimpleProblemSizeOneThreePoint = function() {
     gph24.graphH = document.getElementById('simple-problem-size1-3-point-graphHolder')
-    defaultGraphOptions["xmax"] = 1.1
-    defaultGraphOptions["ymax"] = 1.1
-    defaultGraphOptions["xmin"] = 0.4
-    defaultGraphOptions["ymin"] = 0.4
+    defaultGraphOptions["xmax"] = upcApp.simpleProblemPointFive["xmax"]
+    defaultGraphOptions["ymax"] = upcApp.simpleProblemPointFive["ymax"]
+    defaultGraphOptions["xmin"] =  upcApp.simpleProblemPointFive["xmin"]
+    defaultGraphOptions["ymin"] = upcApp.simpleProblemPointFive["ymin"]
     
     viewX.addGraph(gph24.graphH, "simple-problem-size1-3-point-graph", defaultGraphOptions)
 
@@ -4844,12 +4844,12 @@ gph24.setUpSimpleProblemSizeOneThreePoint = function() {
 
     pointOptions = { x: 0.5, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
     viewX.addPoint("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-center-C", pointOptions);
-    textOptions = {x: 0.5 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+    textOptions = {x: 0.5 + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: 0.5 - upcApp.simpleProblemPointFive["point-label-gap"]*0.2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
     viewX.addText("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-center-C-label", textOptions);
 
 
 
-    textOptions = {x: 1 + 0.15, y: 0.75 - (1/8), text: "1/2",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--writingGrey)", opacity: 1};
+    textOptions = {x: 1 + 0.15, y: 0.75 - (1/8), text: "1/2",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Nunito",   textcolor: "var(--writingGrey)", opacity: 1};
     viewX.addText("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-unit-length-side-1-label", textOptions);
     
     var arrowOptions = {
@@ -4871,7 +4871,7 @@ gph24.setUpSimpleProblemSizeOneThreePoint = function() {
     arrow = viewX.addArrow("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-unit-length-side-1-arrow-2", arrowOptions);
 
 
-    textOptions = {x: 1 + 0.15, y: 0.75 + (1/8), text: "1/2",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--writingGrey)", opacity: 1};
+    textOptions = {x: 1 + 0.15, y: 0.75 + (1/8), text: "1/2",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Nunito",   textcolor: "var(--writingGrey)", opacity: 1};
     viewX.addText("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-unit-length-side-2-label", textOptions);
     
     var arrowOptions = {
@@ -4925,10 +4925,10 @@ gph24.setUpSimpleProblemSizeOneThreePoint = function() {
     pointOptions = { x: 1, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPink)', opacity: 1};
     viewX.addPoint("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-1", pointOptions);
 
-    textOptions = {x: 1 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 1};
+    textOptions = {x: 1 + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: 0.5 - upcApp.simpleProblemPointFive["point-label-gap"]*0.2, text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 1};
     viewX.addText("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-label-1", textOptions);
 
-    textOptions = {x: (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (0.5 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 1};
+    textOptions = {x: (1 + 0.5)/2 - 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: (0.5 + 0.5)/2 + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], text: "1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 1};
     viewX.addText("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-distance-text-label-1", textOptions);
 
 
@@ -4938,10 +4938,10 @@ gph24.setUpSimpleProblemSizeOneThreePoint = function() {
     pointOptions = { x: 1, y: 1, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightGreen)', opacity: 1};
     viewX.addPoint("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-3", pointOptions);
 
-    textOptions = {x: 1 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 1 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightGreen)", opacity: 1};
+    textOptions = {x: 1 + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: 1 - upcApp.simpleProblemPointFive["point-label-gap"]*0.2, text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightGreen)", opacity: 1};
     viewX.addText("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-label-3", textOptions);
 
-    textOptions = {x: (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], text: "sqrt(2)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightGreen)", opacity: 1};
+    textOptions = {x: (1 + 0.5)/2 - 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: (1 + 0.5)/2 + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], text: "sqrt(2)",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Nunito",   textcolor: "var(--lightGreen)", opacity: 1};
     viewX.addText("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-distance-text-label-3", textOptions);
 
 
@@ -4951,10 +4951,10 @@ gph24.setUpSimpleProblemSizeOneThreePoint = function() {
     pointOptions = { x: 1, y: 0.75, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightYellow)', opacity: 1};
     viewX.addPoint("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-2", pointOptions);
 
-    textOptions = {x: 1 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.75 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "E",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightYellow)", opacity: 1};
+    textOptions = {x: 1 + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: 0.75 - upcApp.simpleProblemPointFive["point-label-gap"]*0.2, text: "E",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightYellow)", opacity: 1};
     viewX.addText("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-label-2", textOptions);
 
-    textOptions = {x: (1 + 0.5)/2 - 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: (0.75 + 0.5)/2 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], text: "sqrt(5)/2",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightYellow)", opacity: 1};
+    textOptions = {x: (1 + 0.5)/2 - 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: (0.75 + 0.5)/2 + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], text: "sqrt(5)/2",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Nunito",   textcolor: "var(--lightYellow)", opacity: 1};
     viewX.addText("simple-problem-size1-3-point-graph", "simple-problem-size1-3-point-distance-text-label-2", textOptions);
 
     gph24.animationGenerator(); 
@@ -5071,10 +5071,10 @@ gph24.nextValue = function() {
 gph25 = {}
 gph25.setUpSimpleProblemSizeOneNPoint = function() {
     gph25.graphH = document.getElementById('simple-problem-size1-n-point-graphHolder')
-    defaultGraphOptions["xmax"] = 1.1
-    defaultGraphOptions["ymax"] = 1.1
-    defaultGraphOptions["xmin"] = 0.4
-    defaultGraphOptions["ymin"] = 0.4
+    defaultGraphOptions["xmax"] = upcApp.simpleProblemPointFive["xmax"]
+    defaultGraphOptions["ymax"] = upcApp.simpleProblemPointFive["ymax"]
+    defaultGraphOptions["xmin"] =  upcApp.simpleProblemPointFive["xmin"]
+    defaultGraphOptions["ymin"] = upcApp.simpleProblemPointFive["ymin"]
     
     viewX.addGraph(gph25.graphH, "simple-problem-size1-n-point-graph", defaultGraphOptions)
 
@@ -5092,7 +5092,7 @@ gph25.setUpSimpleProblemSizeOneNPoint = function() {
 
     pointOptions = { x: 0.5, y: 0.5, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)'};
     viewX.addPoint("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-center-C", pointOptions);
-    textOptions = {x: 0.5 + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: 0.5 - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
+    textOptions = {x: 0.5 + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: 0.5 - upcApp.simpleProblemPointFive["point-label-gap"]*0.2, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)"};
     viewX.addText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-center-C-label", textOptions);
 
     var arrowOptions = {
@@ -5158,11 +5158,11 @@ gph25.additionalSetup = function() {
         pointOptions = { x: pointPlacement[0], y: pointPlacement[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPink)', opacity: 1};
         viewX.addPoint("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-" + (p + 1), pointOptions);
 
-        textOptions = {x: pointPlacement[0] + 0.2*upcApp.parabolicCircleGraph["point-label-gap"], y: pointPlacement[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2, text: "Q" + (p + 1),  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.8, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 0.5};
+        textOptions = {x: pointPlacement[0] + 0.2*upcApp.simpleProblemPointFive["point-label-gap"], y: pointPlacement[1] - upcApp.simpleProblemPointFive["point-label-gap"]*0.2, text: "Q" + (p + 1),  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.8, fontFamily: "Raleway",   textcolor: "var(--lightPink)", opacity: 0.5};
         viewX.addText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-label-" + (p + 1), textOptions);
 
     
-        textOptions = {x: (pointPlacement[0] + 0.5)/2 - 0.1*upcApp.parabolicCircleGraph["point-label-gap"], y: (pointPlacement[1] + 0.5)/2 + 0.1*upcApp.parabolicCircleGraph["point-label-gap"], text: (viewX.distF(pointPlacement, [0.5, 0.5])*2).toFixed(2),  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)", opacity: 0.5};
+        textOptions = {x: (pointPlacement[0] + 0.5)/2 - 0.1*upcApp.simpleProblemPointFive["point-label-gap"], y: (pointPlacement[1] + 0.5)/2 + 0.1*upcApp.simpleProblemPointFive["point-label-gap"], text: (viewX.distF(pointPlacement, [0.5, 0.5])*2).toFixed(2),  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)", opacity: 0.5};
         viewX.addText("simple-problem-size1-n-point-graph", "simple-problem-size1-n-point-distance-text-label-" + (p + 1), textOptions);
     }
 
@@ -5399,7 +5399,7 @@ gph26.setUpSimpleProblemSizeOneTwoPointAdding = function() {
     pointOptions = { x: 1, y: 1, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)', opacity: 1};
     viewX.addPoint("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-center-C", pointOptions);
 
-    textOptions = {x: 1 + 0.4*upcApp.parabolicCircleGraph["point-label-gap"], y: 1 - upcApp.parabolicCircleGraph["point-label-gap"]*0.5, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)", opacity: 0.4};
+    textOptions = {x: 1 + 0.4*upcApp.simpleProblemPointFive["point-label-gap"], y: 1 - upcApp.simpleProblemPointFive["point-label-gap"]*0.5, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)", opacity: 0.4};
     viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-center-C-label", textOptions);
 
     
@@ -5452,10 +5452,10 @@ gph26.setUpSimpleProblemSizeOneTwoPointAdding = function() {
         pointOptions = { x: gph26.samples[cs].point[0], y: gph26.samples[cs].point[1], pointsize: upcApp.graphPointSize, pointcolor: gph26.samples[cs].color, opacity: 1};
         viewX.addPoint("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-" + (cs + 1), pointOptions);
 
-        textOptions = {x: gph26.samples[cs].point[0] + 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: gph26.samples[cs].point[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2*gph26.condition.globalValues.sideLength, text: gph26.samples[cs].name,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph26.samples[cs].color, opacity: 0.5};
+        textOptions = {x: gph26.samples[cs].point[0] + 0.2*gph26.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], y: gph26.samples[cs].point[1] - upcApp.simpleProblemPointFive["point-label-gap"]*0.2*gph26.condition.globalValues.sideLength, text: gph26.samples[cs].name,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph26.samples[cs].color, opacity: 0.5};
         viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-label-" + (cs + 1), textOptions);
 
-        textOptions = {x: (gph26.samples[cs].point[0] + gph26.condition.globalValues.center[0])/2 - 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: (gph26.samples[cs].point[1] + gph26.condition.globalValues.center[1])/2 + 0.2*gph26.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], text:gph26.samples[cs].distanceLabel,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph26.samples[cs].color, opacity: 1};
+        textOptions = {x: (gph26.samples[cs].point[0] + gph26.condition.globalValues.center[0])/2 - 0.2*gph26.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], y: (gph26.samples[cs].point[1] + gph26.condition.globalValues.center[1])/2 + 0.2*gph26.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], text:gph26.samples[cs].distanceLabel,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph26.samples[cs].color, opacity: 1};
         viewX.addText("simple-problem-size1-2-point-adding-graph", "simple-problem-size1-2-point-adding-distance-text-label-" + (cs + 1), textOptions);
 
         lineOptions = { x1: 0.5, y1: 0.5, x2: gph26.samples[cs].point[0], y2: gph26.samples[cs].point[1], strokedasharray: "2,2", strokewidth: 1.3, linecolor: gph26.samples[cs].color, opacity: 0};
@@ -5695,7 +5695,7 @@ gph27.setUpSimpleProblemSizeOneThreePointAdding = function() {
     pointOptions = { x: 1, y: 1, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)', opacity: 1};
     viewX.addPoint("simple-problem-size1-3-point-adding-graph", "simple-problem-size1-3-point-adding-center-C", pointOptions);
 
-    textOptions = {x: 1 + 0.4*upcApp.parabolicCircleGraph["point-label-gap"], y: 1 - upcApp.parabolicCircleGraph["point-label-gap"]*0.5, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)", opacity: 0.4};
+    textOptions = {x: 1 + 0.4*upcApp.simpleProblemPointFive["point-label-gap"], y: 1 - upcApp.simpleProblemPointFive["point-label-gap"]*0.5, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)", opacity: 0.4};
     viewX.addText("simple-problem-size1-3-point-adding-graph", "simple-problem-size1-3-point-adding-center-C-label", textOptions);
 
     
@@ -5752,10 +5752,10 @@ gph27.setUpSimpleProblemSizeOneThreePointAdding = function() {
         pointOptions = { x: gph27.samples[cs].point[0], y: gph27.samples[cs].point[1], pointsize: upcApp.graphPointSize, pointcolor: gph27.samples[cs].color, opacity: 1};
         viewX.addPoint("simple-problem-size1-3-point-adding-graph", "simple-problem-size1-3-point-adding-" + (cs + 1), pointOptions);
 
-        textOptions = {x: gph27.samples[cs].point[0] + 0.2*gph27.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: gph27.samples[cs].point[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2*gph27.condition.globalValues.sideLength, text: gph27.samples[cs].name,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph27.samples[cs].color, opacity: 0.5};
+        textOptions = {x: gph27.samples[cs].point[0] + 0.2*gph27.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], y: gph27.samples[cs].point[1] - upcApp.simpleProblemPointFive["point-label-gap"]*0.2*gph27.condition.globalValues.sideLength, text: gph27.samples[cs].name,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph27.samples[cs].color, opacity: 0.5};
         viewX.addText("simple-problem-size1-3-point-adding-graph", "simple-problem-size1-3-point-adding-label-" + (cs + 1), textOptions);
 
-        textOptions = {x: (gph27.samples[cs].point[0] + gph27.condition.globalValues.center[0])/2 - 0.2*gph27.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: (gph27.samples[cs].point[1] + gph27.condition.globalValues.center[1])/2 + 0.2*gph27.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], text:gph27.samples[cs].distanceLabel,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph27.samples[cs].color, opacity: 1};
+        textOptions = {x: (gph27.samples[cs].point[0] + gph27.condition.globalValues.center[0])/2 - 0.2*gph27.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], y: (gph27.samples[cs].point[1] + gph27.condition.globalValues.center[1])/2 + 0.2*gph27.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], text:gph27.samples[cs].distanceLabel,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph27.samples[cs].color, opacity: 1};
         viewX.addText("simple-problem-size1-3-point-adding-graph", "simple-problem-size1-3-point-adding-distance-text-label-" + (cs + 1), textOptions);
 
         lineOptions = { x1: 0.5, y1: 0.5, x2: gph27.samples[cs].point[0], y2: gph27.samples[cs].point[1], strokedasharray: "2,2", strokewidth: 1.3, linecolor: gph27.samples[cs].color, opacity: 0};
@@ -5996,7 +5996,7 @@ gph28.setUpSimpleProblemSizeOneFourPointAdding = function() {
     pointOptions = { x: 1, y: 1, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)', opacity: 1};
     viewX.addPoint("simple-problem-size1-4-point-adding-graph", "simple-problem-size1-4-point-adding-center-C", pointOptions);
 
-    textOptions = {x: 1 + 0.4*upcApp.parabolicCircleGraph["point-label-gap"], y: 1 - upcApp.parabolicCircleGraph["point-label-gap"]*0.5, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)", opacity: 0.4};
+    textOptions = {x: 1 + 0.4*upcApp.simpleProblemPointFive["point-label-gap"], y: 1 - upcApp.simpleProblemPointFive["point-label-gap"]*0.5, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)", opacity: 0.4};
     viewX.addText("simple-problem-size1-4-point-adding-graph", "simple-problem-size1-4-point-adding-center-C-label", textOptions);
 
     
@@ -6055,10 +6055,10 @@ gph28.setUpSimpleProblemSizeOneFourPointAdding = function() {
         pointOptions = { x: gph28.samples[cs].point[0], y: gph28.samples[cs].point[1], pointsize: upcApp.graphPointSize, pointcolor: gph28.samples[cs].color, opacity: 1};
         viewX.addPoint("simple-problem-size1-4-point-adding-graph", "simple-problem-size1-4-point-adding-" + (cs + 1), pointOptions);
 
-        textOptions = {x: gph28.samples[cs].point[0] + 0.2*gph28.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: gph28.samples[cs].point[1] - upcApp.parabolicCircleGraph["point-label-gap"]*0.2*gph28.condition.globalValues.sideLength, text: gph28.samples[cs].name,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph28.samples[cs].color, opacity: 0.5};
+        textOptions = {x: gph28.samples[cs].point[0] + 0.2*gph28.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], y: gph28.samples[cs].point[1] - upcApp.simpleProblemPointFive["point-label-gap"]*0.2*gph28.condition.globalValues.sideLength, text: gph28.samples[cs].name,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph28.samples[cs].color, opacity: 0.5};
         viewX.addText("simple-problem-size1-4-point-adding-graph", "simple-problem-size1-4-point-adding-label-" + (cs + 1), textOptions);
 
-        textOptions = {x: (gph28.samples[cs].point[0] + gph28.condition.globalValues.center[0])/2 - 0.2*gph28.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: (gph28.samples[cs].point[1] + gph28.condition.globalValues.center[1])/2 + 0.2*gph28.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], text:gph28.samples[cs].distanceLabel,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph28.samples[cs].color, opacity: 1};
+        textOptions = {x: (gph28.samples[cs].point[0] + gph28.condition.globalValues.center[0])/2 - 0.2*gph28.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], y: (gph28.samples[cs].point[1] + gph28.condition.globalValues.center[1])/2 + 0.2*gph28.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], text:gph28.samples[cs].distanceLabel,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph28.samples[cs].color, opacity: 1};
         viewX.addText("simple-problem-size1-4-point-adding-graph", "simple-problem-size1-4-point-adding-distance-text-label-" + (cs + 1), textOptions);
 
         lineOptions = { x1: 0.5, y1: 0.5, x2: gph28.samples[cs].point[0], y2: gph28.samples[cs].point[1], strokedasharray: "2,2", strokewidth: 1.3, linecolor: gph28.samples[cs].color, opacity: 0};
@@ -6298,7 +6298,7 @@ gph29.setUpSimpleProblemSizeOneNPointAdding = function() {
     pointOptions = { x: 1, y: 1, pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightBlue)', opacity: 1};
     viewX.addPoint("simple-problem-size1-N-point-adding-graph", "simple-problem-size1-N-point-adding-center-C", pointOptions);
 
-    textOptions = {x: 1 + 0.4*upcApp.parabolicCircleGraph["point-label-gap"], y: 1 - upcApp.parabolicCircleGraph["point-label-gap"]*0.5, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)", opacity: 0.4};
+    textOptions = {x: 1 + 0.4*upcApp.simpleProblemPointFive["point-label-gap"], y: 1 - upcApp.simpleProblemPointFive["point-label-gap"]*0.5, text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: "var(--lightBlue)", opacity: 0.4};
     viewX.addText("simple-problem-size1-N-point-adding-graph", "simple-problem-size1-N-point-adding-center-C-label", textOptions);
 
     
@@ -6375,10 +6375,10 @@ gph29.sampleNPoints = function() {
 
 
 
-        textOptions = {x: gph29.samples[cs].point[0] + gapFactor*gph29.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: gph29.samples[cs].point[1] - upcApp.parabolicCircleGraph["point-label-gap"]*gapFactor*gph29.condition.globalValues.sideLength, text: gph29.samples[cs].name,  textAlign: "center",  fontSize: fontFactor, fontFamily: "Raleway",   textcolor: gph29.samples[cs].color, opacity: 0.5};
+        textOptions = {x: gph29.samples[cs].point[0] + gapFactor*gph29.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], y: gph29.samples[cs].point[1] - upcApp.simpleProblemPointFive["point-label-gap"]*gapFactor*gph29.condition.globalValues.sideLength, text: gph29.samples[cs].name,  textAlign: "center",  fontSize: fontFactor, fontFamily: "Raleway",   textcolor: gph29.samples[cs].color, opacity: 0.5};
         viewX.addText("simple-problem-size1-N-point-adding-graph", "simple-problem-size1-N-point-adding-label-" + (cs + 1), textOptions);
 
-        textOptions = {x: (gph29.samples[cs].point[0] + gph29.condition.globalValues.center[0])/2 - 0.2*gph29.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], y: (gph29.samples[cs].point[1] + gph29.condition.globalValues.center[1])/2 + 0.2*gph29.condition.globalValues.sideLength*upcApp.parabolicCircleGraph["point-label-gap"], text:gph29.samples[cs].distanceLabel,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph29.samples[cs].color, opacity: 1};
+        textOptions = {x: (gph29.samples[cs].point[0] + gph29.condition.globalValues.center[0])/2 - 0.2*gph29.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], y: (gph29.samples[cs].point[1] + gph29.condition.globalValues.center[1])/2 + 0.2*gph29.condition.globalValues.sideLength*upcApp.simpleProblemPointFive["point-label-gap"], text:gph29.samples[cs].distanceLabel,  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge, fontFamily: "Raleway",   textcolor: gph29.samples[cs].color, opacity: 1};
         viewX.addText("simple-problem-size1-N-point-adding-graph", "simple-problem-size1-N-point-adding-distance-text-label-" + (cs + 1), textOptions);
 
         lineOptions = { x1: 0.5, y1: 0.5, x2: gph29.samples[cs].point[0], y2: gph29.samples[cs].point[1], strokedasharray: "2,2", strokewidth: 1.3, linecolor: gph29.samples[cs].color, opacity: 0};
@@ -6659,7 +6659,7 @@ gph30.setUpPointHRevealGraph = function() {
     pointOptions = { x:  2, y:  2, pointsize: upcApp.graphPointSize*0.8, pointcolor: 'white'};
     viewX.addPoint("pointH-reveal-graph", "pointH-reveal-APoint", pointOptions);
 
-    textOptions = {x:  2 + upcApp.parabolicCircleGraph["point-label-gap"], y:  2 - upcApp.parabolicCircleGraph["point-label-gap"], text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "white"};
+    textOptions = {x:  2 + upcApp.parabolicImportantDimensionsGraph["point-label-gap"], y:  2 - upcApp.parabolicImportantDimensionsGraph["point-label-gap"], text: "A",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "white"};
     viewX.addText("pointH-reveal-graph", "pointH-reveal-APoint-label", textOptions);
 
     
@@ -6697,25 +6697,25 @@ gph30.setUpPointHRevealGraph = function() {
     pointOptions = { x:  gph30.theParabola.vertex[0], y:  gph30.theParabola.vertex[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
     viewX.addPoint("pointH-reveal-graph", "pointH-reveal-vertex", pointOptions);
 
-    textOptions = {x: gph30.theParabola.vertex[0] + upcApp.parabolicCircleGraph["point-label-gap"], y: gph30.theParabola.vertex[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)"};
+    textOptions = {x: gph30.theParabola.vertex[0] + upcApp.parabolicImportantDimensionsGraph["point-label-gap"], y: gph30.theParabola.vertex[1] - upcApp.parabolicImportantDimensionsGraph["point-label-gap"], text: "C",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)"};
     viewX.addText("pointH-reveal-graph", "pointH-reveal-vertex-label", textOptions);
 
     pointOptions = { x:  gph30.theParabola.focus[0], y:  gph30.theParabola.focus[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--brightYellow)'};
     viewX.addPoint("pointH-reveal-graph", "pointH-reveal-focus", pointOptions);
 
-    textOptions = {x:  gph30.theParabola.focus[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  gph30.theParabola.focus[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "F",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--brightYellow)"};
+    textOptions = {x:  gph30.theParabola.focus[0] + upcApp.parabolicImportantDimensionsGraph["point-label-gap"], y:  gph30.theParabola.focus[1] - upcApp.parabolicImportantDimensionsGraph["point-label-gap"], text: "F",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--brightYellow)"};
     viewX.addText("pointH-reveal-graph", "pointH-reveal-focus-label", textOptions);
 
     pointOptions = { x:  gph30.theParabola.latusRectumPointLeft[0], y:  gph30.theParabola.latusRectumPointLeft[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)', opacity: 0.2};
     viewX.addPoint("pointH-reveal-graph", "pointH-reveal-G", pointOptions);
 
-    textOptions = {x:  gph30.theParabola.latusRectumPointLeft[0] - upcApp.parabolicCircleGraph["point-label-gap"], y:  gph30.theParabola.latusRectumPointLeft[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "G",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)", opacity: 0.2};
+    textOptions = {x:  gph30.theParabola.latusRectumPointLeft[0] - upcApp.parabolicImportantDimensionsGraph["point-label-gap"], y:  gph30.theParabola.latusRectumPointLeft[1] - upcApp.parabolicImportantDimensionsGraph["point-label-gap"], text: "G",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)", opacity: 0.2};
     viewX.addText("pointH-reveal-graph", "pointH-reveal-G-label", textOptions);
 
     pointOptions = { x:  gph30.theParabola.latusRectumPointRight[0], y:  gph30.theParabola.latusRectumPointRight[1], pointsize: upcApp.graphPointSize, pointcolor: 'var(--lightPurple)'};
     viewX.addPoint("pointH-reveal-graph", "pointH-reveal-H", pointOptions);
 
-    textOptions = {x:  gph30.theParabola.latusRectumPointRight[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  gph30.theParabola.latusRectumPointRight[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "H",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)"};
+    textOptions = {x:  gph30.theParabola.latusRectumPointRight[0] + upcApp.parabolicImportantDimensionsGraph["point-label-gap"], y:  gph30.theParabola.latusRectumPointRight[1] - upcApp.parabolicImportantDimensionsGraph["point-label-gap"], text: "H",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPurple)"};
     viewX.addText("pointH-reveal-graph", "pointH-reveal-H-label", textOptions);
 
     BPoint = viewX.addVec(gph30.theParabola.latusRectumPointRight, viewX.subtractVec(gph30.theParabola.vertex, gph30.theParabola.focus))
@@ -6723,7 +6723,7 @@ gph30.setUpPointHRevealGraph = function() {
     pointOptions = { x:  BPoint[0], y:  BPoint[1], pointsize: upcApp.graphPointSize*0.8, pointcolor: 'white'};
     viewX.addPoint("pointH-reveal-graph", "pointH-reveal-BPoint", pointOptions);
 
-    textOptions = {x:  BPoint[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  BPoint[1] - upcApp.parabolicCircleGraph["point-label-gap"], text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "white"};
+    textOptions = {x:  BPoint[0] + upcApp.parabolicImportantDimensionsGraph["point-label-gap"], y:  BPoint[1] - upcApp.parabolicImportantDimensionsGraph["point-label-gap"], text: "B",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "white"};
     viewX.addText("pointH-reveal-graph", "pointH-reveal-BPoint-label", textOptions);
 
 
@@ -6749,7 +6749,7 @@ gph30.setUpPointHRevealGraph = function() {
     midHB = viewX.scalarMultiplyVec(0.5, viewX.addVec(gph30.theParabola.latusRectumPointRight, BPoint))
 
     midHBShifted = viewX.addVec(midHB, sideShiftDirection)
-    textOptions = {x:  midHBShifted[0] + upcApp.parabolicCircleGraph["point-label-gap"], y:  midHBShifted[1], text: "a = 0.5",  textAlign: "left",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
+    textOptions = {x:  midHBShifted[0] + upcApp.parabolicImportantDimensionsGraph["point-label-gap"], y:  midHBShifted[1], text: "a = 0.5",  textAlign: "left",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightPink)"};
     viewX.addText("pointH-reveal-graph", "pointH-reveal-HB-label", textOptions);
 
 
@@ -6774,7 +6774,7 @@ gph30.setUpPointHRevealGraph = function() {
     midHF = viewX.scalarMultiplyVec(0.5, viewX.addVec(gph30.theParabola.latusRectumPointRight, gph30.theParabola.focus))
 
     midHFShifted = viewX.addVec(midHF, [0, 0.3])
-    textOptions = {x:  midHFShifted[0], y:  midHFShifted[1] +  upcApp.parabolicCircleGraph["point-label-gap"], text: "2a = 1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightBlue)"};
+    textOptions = {x:  midHFShifted[0], y:  midHFShifted[1] +  upcApp.parabolicImportantDimensionsGraph["point-label-gap"], text: "2a = 1",  textAlign: "center",  fontSize: upcApp.graphFontSizeLarge*0.7, fontFamily: "Nunito",   textcolor: "var(--lightBlue)"};
     viewX.addText("pointH-reveal-graph", "pointH-reveal-HF-label", textOptions);
 
 
