@@ -632,7 +632,7 @@
                                 <div class="d-block d-sm-none"></div>
                                 <label id="parabola-points-description-SliderLabel" class="p-lightPurple pl-sm-3 pl-0" for="parabola-points-description-Slider" style="min-width: 100px;" >1</label>
                                 <div>
-                                    <p id="parabola-points-description-SliderInfo" class="text-ignus p-lightBlue" style="color: hsl(0deg 0% 100%);">
+                                    <p id="parabola-points-description-SliderInfo" class="text-ignus p-lightBlue" style="color: hsl(0deg 0% 50%);">
                                         Move the <span class="p-lightPurple">slider</span> to see more <span class="p-lightPurple">points</span> that obey the <span class=" text-ignus p-lightPink">same distance</span> rule.
                                     </p>
                                 </div>
@@ -653,9 +653,26 @@
                     </div>
 
                     <div class="w-100 pl-0 pr-0 pl-sm-5 pr-sm-5 d-flex justify-content-center  hidden-element reveal-2 revealable">
-                        <div id="parabola-important-dimensions-graphHolder-Enclosure" class="our-text-block text-center" style="height: 600px; width: 100%; position: relative;">
-                            <div id="parabola-important-dimensions-graphHolder" style="display: inline-block; position: relative; width: 100%; height: 100%;"></div>
+                        <div class="hs-container-outer-ignus w-100">
+                            <div class="d-none d-sm-flex hs-container-left-button-ignus" onclick="ignusTheme.hsMoveLeft('#theHS-parabola-important-dimensions', 70)">
+                                <i class="fa fa-angle-left"></i>
+                            </div>
+                            <div class="d-none d-sm-flex hs-container-right-button-ignus" onclick="ignusTheme.hsMoveRight('#theHS-parabola-important-dimensions', 70)">
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                            <div id="theHS-parabola-important-dimensions" class="hs-container-inner-ignus d-inline-flex justify-content-center">
+                                <div class="hs-container-element-ignus ml-5 ml-sm-0 pl-5 pl-sm-0">
+
+                                    <div id="parabola-important-dimensions-graphHolder" style="display: inline-block; position: relative; height: 600px; width: 100%; min-width: 800px;"></div>
+                                </div>
+                                
+                            </div>
                         </div>
+                        <!-- <div id="parabola-important-dimensions-graphHolder-Enclosure" class="our-text-block text-center" style="height: 600px; width: 100%; position: relative;">
+
+                            
+                            
+                        </div> -->
                     </div>
 
                     <div  class="w-100 pl-4 pt-3 pr-4 pl-sm-5 pr-sm-5 d-flex justify-content-center hidden-element reveal-2 revealable">
