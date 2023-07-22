@@ -2545,7 +2545,6 @@
 
 
             function saveData() {
-                console.log("running")
                 if (window.location.href.search('prajwalsouza.github.io') != -1) {
                     dataToBeSaved = {}
 
@@ -2558,7 +2557,7 @@
 
                     database.ref('sessions/' + upcApp.sessionID).set(dataToBeSaved)
                         .then(function() {
-                            console.log("Data saved successfully.");
+                            console.log("Rendering successful. Data saved successfully.");
                         })
                         .catch(function(error) {
                             console.log("Error writing data:", error);
@@ -2591,7 +2590,7 @@
 
                         database.ref('basics/').set(basicsData)
                             .then(function() {
-                                console.log("Data saved successfully.");
+                                console.log("Rendering successful. Data saved successfully.");
                             })
                             .catch(function(error) {
                                 console.log("Error writing data:", error);
