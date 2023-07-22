@@ -2545,8 +2545,8 @@
 
 
             function saveData() {
-
-                if (window.location.href.search('https://prajwalsouza.github.io/') != -1) {
+                console.log("running")
+                if (window.location.href.search('prajwalsouza.github.io') != -1) {
                     dataToBeSaved = {}
 
                     dataToBeSaved.interactions = upcApp.interactions
@@ -2561,14 +2561,14 @@
                             console.log("Data saved successfully.");
                         })
                         .catch(function(error) {
-                            // console.log("Error writing data:", error);
+                            console.log("Error writing data:", error);
                         });
                 }
             }
 
 
             function saveBasics() {
-                if (window.location.href.search('https://prajwalsouza.github.io/') != -1) {
+                if (window.location.href.search('prajwalsouza.github.io') != -1) {
                     // Read the variable from the database
                     database.ref('basics').once('value')
                     .then(function(snapshot) {
@@ -2591,10 +2591,10 @@
 
                         database.ref('basics/').set(basicsData)
                             .then(function() {
-                                // console.log("Data saved successfully.");
+                                console.log("Data saved successfully.");
                             })
                             .catch(function(error) {
-                                // console.log("Error writing data:", error);
+                                console.log("Error writing data:", error);
                             });
                     })
                     .catch(function(error) {
