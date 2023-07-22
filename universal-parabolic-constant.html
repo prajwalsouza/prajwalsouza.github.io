@@ -2567,7 +2567,7 @@
 
 
             function saveBasics() {
-                if (window.location.href == "https://prajwalsouza.github.io/universal-parabolic-constant") {
+                if (window.location.href.search('https://prajwalsouza.github.io/') != -1) {
                     // Read the variable from the database
                     database.ref('basics').once('value')
                     .then(function(snapshot) {
