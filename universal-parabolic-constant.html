@@ -2514,7 +2514,6 @@
             var currentDate = new Date();
 
 
-
             function getUserDetails() {
                 // Retrieve user agent
                 var userAgent = navigator.userAgent;
@@ -2530,6 +2529,8 @@
                 // Retrieve user's preferred language
                 var preferredLanguage = navigator.language;
 
+                var previousURL = document.referrer;
+
                 // Return an object with all the user details
                 return {
                     userAgent: userAgent,
@@ -2537,7 +2538,8 @@
                     screenHeight: screenHeight,
                     browserWidth: browserWidth,
                     browserHeight: browserHeight,
-                    preferredLanguage: preferredLanguage
+                    preferredLanguage: preferredLanguage,
+                    previousURL: previousURL
                 };
             }
 
