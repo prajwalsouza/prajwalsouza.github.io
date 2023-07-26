@@ -889,7 +889,14 @@ var sliderProperties = {
 viewX.generateSliderStyles(sliderProperties, "distance-between-any-two-points-Slider");
 
 gph2.correctAnswer = 0.52140
-gph2.acceptableError = 0.02
+
+if (window.innerWidth < 580) {
+    gph2.acceptableError = 0.15
+}
+else {
+    gph2.acceptableError = 0.09
+}
+
 
 gph2.slider = document.getElementById("distance-between-any-two-points-Slider");
 gph2.sliderLabel = document.getElementById("distance-between-any-two-points-SliderLabel");
@@ -1037,7 +1044,13 @@ var sliderProperties = {
 viewX.generateSliderStyles(sliderProperties, "distance-between-center-and-point-inside-Slider");
 
 gph3.correctAnswer = upc/6
-gph3.acceptableError = 0.02
+
+if (window.innerWidth < 580) {
+    gph3.acceptableError = 0.1
+}
+else {
+    gph3.acceptableError = 0.05
+}
 
 gph3.slider = document.getElementById("distance-between-center-and-point-inside-Slider");
 gph3.sliderLabel = document.getElementById("distance-between-center-and-point-inside-SliderLabel");
@@ -1182,7 +1195,13 @@ var sliderProperties = {
 viewX.generateSliderStyles(sliderProperties, "distance-between-corner-and-point-Slider");
 
 gph4.correctAnswer = upc/3
-gph4.acceptableError = 0.02
+
+if (window.innerWidth < 580) {
+    gph4.acceptableError = 0.1
+}
+else {
+    gph4.acceptableError = 0.05
+}
 
 gph4.slider = document.getElementById("distance-between-corner-and-point-Slider");
 gph4.sliderLabel = document.getElementById("distance-between-corner-and-point-SliderLabel");
@@ -1554,7 +1573,12 @@ var sliderProperties = {
 viewX.generateSliderStyles(sliderProperties, "random-shrinking-walk-distance-answer-Slider");
 
 gph6.correctAnswer = upc
-gph6.acceptableError = 0.04
+if (window.innerWidth < 580) {
+    gph6.acceptableError = 0.14
+}
+else {
+    gph6.acceptableError = 0.08
+}
 
 gph6.slider = document.getElementById("random-shrinking-walk-distance-answer-Slider");
 gph6.sliderLabel = document.getElementById("random-shrinking-walk-distance-answer-SliderLabel");

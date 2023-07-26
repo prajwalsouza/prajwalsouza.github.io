@@ -455,7 +455,7 @@
 					psn1 = neuronlibraryuid[neuron1uid][6]
 					psn2 = neuronlibraryuid[neuron2uid][6]
 					currentvalue = initvalue
-					clr = 'hsla(0,0%,0%,' + sigmoid(initvalue)*0.15 + ')'
+					clr = 'hsla(0,0%,0%,' + sigmoid(initvalue)*0.3 + ')'
 					size = 0.05 + sigmoid(initvalue)*0.05
 					drawLine(weightsSvg,psn1[0] + '%',psn1[1] + '%',psn2[0] + '%',psn2[1] + '%', clr, size, uid)
 					weightlibrary.push([uid, neuron1uid, neuron2uid, initvalue, color, size, currentvalue])
@@ -586,8 +586,8 @@
 			
 		}
 
-		simulatedFeedForward(5)
-		// clustered(100)
+		// simulatedFeedForward(5)
+		clustered(100)
 
 		
 
