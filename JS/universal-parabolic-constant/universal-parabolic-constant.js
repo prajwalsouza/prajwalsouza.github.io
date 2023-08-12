@@ -933,10 +933,10 @@ gph2.checkAnswer = function() {
         if (gph2.lastError === null) {
             gph2.sliderInfo.innerHTML = "Keep trying!";
         } else if (currentError < gph2.lastError) {
-            gph2.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
+            gph2.sliderInfo.innerHTML = "Warmer! 🔥 Getting closer to the answer. ";
             document.getElementById("warmerMusic").play();
         } else if (currentError > gph2.lastError) {
-            gph2.sliderInfo.innerHTML = "Colder! 😃 ";
+            gph2.sliderInfo.innerHTML = "Colder! 😃 Going far away from the answer.";
             document.getElementById("colderMusic").play();
         }
     }
@@ -1085,10 +1085,10 @@ gph3.checkAnswer = function() {
         if (gph3.lastError === null) {
             gph3.sliderInfo.innerHTML = "Keep trying!";
         } else if (currentError < gph3.lastError) {
-            gph3.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
+            gph3.sliderInfo.innerHTML = "Warmer! 🔥 Getting closer to the answer. ";
             document.getElementById("warmerMusic").play();
         } else if (currentError > gph3.lastError) {
-            gph3.sliderInfo.innerHTML = "Colder! 😃 ";
+            gph3.sliderInfo.innerHTML = "Colder! 😃 Going far away from the answer.";
             document.getElementById("colderMusic").play();
         }
     }
@@ -1236,10 +1236,10 @@ gph4.checkAnswer = function() {
         if (gph4.lastError === null) {
             gph4.sliderInfo.innerHTML = "Keep trying!";
         } else if (currentError < gph4.lastError) {
-            gph4.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
+            gph4.sliderInfo.innerHTML = "Warmer! 🔥 Getting closer to the answer. ";
             document.getElementById("warmerMusic").play();
         } else if (currentError > gph4.lastError) {
-            gph4.sliderInfo.innerHTML = "Colder! 😃 ";
+            gph4.sliderInfo.innerHTML = "Colder! 😃 Going far away from the answer.";
             document.getElementById("colderMusic").play();
         }
     }
@@ -1614,10 +1614,10 @@ gph6.checkAnswer = function() {
         if (gph6.lastError === null) {
             gph6.sliderInfo.innerHTML = "Keep trying!";
         } else if (currentError < gph6.lastError) {
-            gph6.sliderInfo.innerHTML = "Warmer! 🔥 Getting better.";
+            gph6.sliderInfo.innerHTML = "Warmer! 🔥 Getting closer to the answer. ";
             document.getElementById("warmerMusic").play();
         } else if (currentError > gph6.lastError) {
-            gph6.sliderInfo.innerHTML = "Colder! 😃 ";
+            gph6.sliderInfo.innerHTML = "Colder! 😃 Going far away from the answer.";
             document.getElementById("colderMusic").play();
         }
     }
