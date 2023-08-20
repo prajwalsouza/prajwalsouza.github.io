@@ -891,10 +891,10 @@ viewX.generateSliderStyles(sliderProperties, "distance-between-any-two-points-Sl
 gph2.correctAnswer = 0.52140
 
 if (window.innerWidth < 580) {
-    gph2.acceptableError = 0.15
+    gph2.acceptableError = 0.4
 }
 else {
-    gph2.acceptableError = 0.09
+    gph2.acceptableError = 0.2
 }
 
 
@@ -1046,10 +1046,10 @@ viewX.generateSliderStyles(sliderProperties, "distance-between-center-and-point-
 gph3.correctAnswer = upc/6
 
 if (window.innerWidth < 580) {
-    gph3.acceptableError = 0.1
+    gph3.acceptableError = 0.17
 }
 else {
-    gph3.acceptableError = 0.05
+    gph3.acceptableError = 0.09
 }
 
 gph3.slider = document.getElementById("distance-between-center-and-point-inside-Slider");
@@ -1197,10 +1197,10 @@ viewX.generateSliderStyles(sliderProperties, "distance-between-corner-and-point-
 gph4.correctAnswer = upc/3
 
 if (window.innerWidth < 580) {
-    gph4.acceptableError = 0.1
+    gph4.acceptableError = 0.15
 }
 else {
-    gph4.acceptableError = 0.05
+    gph4.acceptableError = 0.09
 }
 
 gph4.slider = document.getElementById("distance-between-corner-and-point-Slider");
