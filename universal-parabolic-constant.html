@@ -2629,6 +2629,19 @@
             saveBasics()
 
 
+            setInterval(function() {
+                var breathDate = new Date();
+                breathDateString = breathDate.toString()
+                database.ref('sessions/' + upcApp.sessionID + '/breathing').set(breathDateString)
+                .then(function() {
+                    console.log("breathing");
+                })
+                .catch(function(error) {
+                    console.log("Error writing breath:", error);
+                });
+            }, 10000)
+
+
           
 
 
