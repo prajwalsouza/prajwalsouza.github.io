@@ -2630,15 +2630,17 @@
 
 
             setInterval(function() {
-                var breathDate = new Date();
-                breathDateString = breathDate.toString()
-                database.ref('sessions/' + upcApp.sessionID + '/breathing').set(breathDateString)
-                .then(function() {
-                    console.log("breathing");
-                })
-                .catch(function(error) {
-                    console.log("Error writing breath:", error);
-                });
+                if (window.location.href.search('prajwalsouza.github.io') != -1) {
+                    var breathDate = new Date();
+                    breathDateString = breathDate.toString()
+                    database.ref('sessions/' + upcApp.sessionID + '/breathing').set(breathDateString)
+                    .then(function() {
+                        console.log("breathing");
+                    })
+                    .catch(function(error) {
+                        console.log("Error writing breath:", error);
+                    });
+                }
             }, 10000)
 
 
