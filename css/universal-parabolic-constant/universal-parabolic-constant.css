@@ -17,6 +17,28 @@
 }
 
 
+.moving-gradient-text {
+    background: linear-gradient(90deg, hsla(270, 100%, 80%, 1), hsla(198, 100%, 80%, 1), hsla(270, 0%, 80%, 1), hsla(270, 0%, 80%, 1), hsla(270, 100%, 80%, 1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-animation 2s ease infinite;
+  }
+  
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0px 50%;
+    }
+    50% {
+      background-position: 100px 50%;
+    }
+    100% {
+      background-position: 0px 50%;
+    }
+  }
+  
+
+  
+
 #upc-header {
     transition: opacity 0.4s;
 }
