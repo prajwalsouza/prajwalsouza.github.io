@@ -1,0 +1,2569 @@
+:root {
+    --success-hue: 100;
+    --success-lightness: 50%;
+    --danger-hue: 0;
+    --danger-lightness: 60%;
+    --warning-hue: 40;
+    --warning-lightness: 60%;
+    --info-hue: 270;
+    --info-lightness: 60%;
+}
+
+
+a {
+	text-decoration: none !important;
+}
+
+body::-webkit-scrollbar {
+    width: 6px;
+}
+
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 0px 10px hsla(var(--base-hue), 0%, 30%, 0.5);
+    box-shadow: inset 0 0 0px 10px hsla(var(--base-hue), 0%, 30%, 0.5);
+    background-color: hsla(var(--base-hue), 100%, 10%, 0);
+    border-radius: 30px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: hsla(var(--base-hue), 30%, 10%, 0.6);
+    border-radius: 50px;
+}
+
+
+/* Body Background */
+.faint-primary-background-ignus {
+    background-color: hsla(var(--base-hue), 20%, 10%, 1);
+}
+
+
+/* Buttons */
+
+.btn-ignus {
+    display: inline-block;
+    font-weight: normal;
+    font-family: Nunito;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 5px 15px;
+    font-size: 13px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 0px solid transparent;
+    outline: none;
+    font-weight: bold;
+}
+
+.btn-ignus:focus {
+    border: 0px solid transparent;
+    outline: none;
+}
+
+.btn-ignus:hover {
+    border: 0px solid transparent;
+    outline: none;
+}
+
+.btn-white-ignus {
+    color: black;
+    box-shadow: var(--small-shadows);
+    background: white;
+}
+
+.btn-white-ignus:hover {
+    color: #fff;
+    background-color: hsla(0, 100%, 0%, 1);
+    outline: none;
+}
+
+.btn-primary-ignus {
+    color: var(--textcolor-for-colored-background);
+    background-color: hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+}
+
+.btn-primary-ignus:hover {
+    color: var(--textcolor-for-colored-background-on-hover);
+    background-color: hsla(0, 100%, 0%, 1);
+    outline: none;
+}
+
+
+.btn-success-ignus {
+    color: white;
+    background-color: hsla(var(--success-hue), 100%, var(--success-lightness), 1);
+}
+
+.btn-success-ignus:hover {
+    color: #fff;
+    background-color: hsla(0, 100%, 0%, 1);
+    outline: none;
+}
+
+.btn-danger-ignus {
+    color: white;
+    background-color: hsla(var(--danger-hue), 100%, var(--danger-lightness), 1);
+}
+
+.btn-danger-ignus:hover {
+    color: #fff;
+    background-color: hsla(0, 100%, 0%, 1);
+    outline: none;
+}
+
+.btn-ignus {
+    color: white;
+    background-color: hsla(0, 0%, 30%, 1);
+}
+
+.btn-white-ignus {
+    color: black;
+    box-shadow: var(--small-shadows);
+    background: white;
+}
+
+.btn-primary-ignus {
+    color: var(--textcolor-for-colored-background);
+    background-color: hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+}
+
+.btn-success-ignus {
+    color: white;
+    background-color: hsla(var(--success-hue), 100%, var(--success-lightness), 1);
+}
+
+.btn-danger-ignus {
+    color: white;
+    background-color: hsla(var(--danger-hue), 100%, var(--danger-lightness), 1);
+}
+
+
+
+.btn-warning-ignus {
+    color: black;
+    background-color: hsla(var(--warning-hue), 100%, var(--warning-lightness), 1);
+}
+
+.btn-warning-ignus:hover {
+    color: #fff;
+    background-color: hsla(0, 100%, 0%, 1);
+    outline: none;
+}
+
+
+.btn-info-ignus {
+    color: white;
+    background-color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+}
+
+.btn-info-ignus:hover {
+    color: #fff;
+    background-color: hsla(0, 100%, 0%, 1);
+    outline: none;
+}
+
+.btn-dark-ignus {
+    color: white;
+    background-color: hsla(0, 0%, 2%, 1);
+}
+
+.btn-dark-ignus:hover {
+    color: #fff;
+    background-color: hsla(0, 0%, 20%, 1);
+    outline: none;
+}
+
+
+
+/* Lighter Buttons */
+
+.btn-light-primary-ignus {
+    color: var(--textcolor-for-reading);
+    background-color: hsla(var(--base-hue), 100%, 95%, 1);
+}
+
+.btn-light-primary-ignus:hover {
+    color: var(--textcolor-for-colored-background);
+    background-color: hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+    outline: none;
+}
+
+
+.btn-light-success-ignus {
+    color: hsla(var(--success-hue), 100%, 40%, 1);
+    background-color: hsla(var(--success-hue), 100%, 97%, 1);
+}
+
+.btn-light-success-ignus:hover {
+    color: #fff;
+    background-color: hsla(var(--success-hue), 100%, var(--success-lightness), 1);
+    outline: none;
+}
+
+.btn-light-danger-ignus {
+    color: hsla(var(--danger-hue), 100%, 40%, 1);;
+    background-color: hsla(var(--danger-hue), 100%, 97%, 1);
+}
+
+.btn-light-danger-ignus:hover {
+    color: #fff;
+    background-color: hsla(var(--danger-hue), 100%, var(--danger-lightness), 1);
+    outline: none;
+}
+
+
+.btn-light-warning-ignus {
+    color: hsla(var(--warning-hue), 100%, 46%, 1);
+    background-color: hsla(var(--warning-hue), 100%, 97%, 1);
+}
+
+.btn-light-warning-ignus:hover {
+    color: black;
+    background-color: hsla(var(--warning-hue), 100%, var(--warning-lightness), 1);
+    outline: none;
+}
+
+
+.btn-light-info-ignus {
+    color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+    background-color: hsla(var(--info-hue), 100%, 97%, 1);
+}
+
+.btn-light-info-ignus:hover {
+    color: white;
+    background-color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+    outline: none;
+}
+
+.btn-light-dark-ignus {
+    color: black;
+    background-color: hsla(0, 0%, 90%, 1);
+}
+
+.btn-light-dark-ignus:hover {
+    color: #fff;
+    background-color: hsla(0, 0%, 20%, 1);
+    outline: none;
+}
+
+
+
+/* Hover Buttons */
+
+.btn-hover-primary-ignus {
+    color: var(--textcolor-for-reading);
+    background-color: transparent;
+}
+
+.btn-hover-primary-ignus:hover {
+    background-color: hsla(var(--base-hue), 100%, 94%, 1);
+    outline: none;
+}
+
+
+.btn-hover-success-ignus {
+    color: hsla(var(--success-hue), 100%, 40%, 1);
+    background-color: transparent;
+}
+
+.btn-hover-success-ignus:hover {
+    background-color: hsla(var(--success-hue), 100%, 94%, 1);
+    outline: none;
+}
+
+.btn-hover-danger-ignus {
+    color: hsla(var(--danger-hue), 100%, 40%, 1);
+    background-color: transparent;
+}
+
+.btn-hover-danger-ignus:hover {
+    background-color: hsla(var(--danger-hue), 100%, 94%, 1);
+    outline: none;
+}
+
+
+.btn-hover-warning-ignus {
+    color: hsla(var(--warning-hue), 100%, 46%, 1);
+    background-color: transparent;
+}
+
+.btn-hover-warning-ignus:hover {
+    background-color: hsla(var(--warning-hue), 100%, 97%, 1);
+    outline: none;
+}
+
+
+.btn-hover-info-ignus {
+    color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+    background-color: transparent;
+}
+
+.btn-hover-info-ignus:hover {
+    background-color: hsla(var(--info-hue), 100%, 97%, 1);
+    outline: none;
+}
+
+.btn-hover-dark-ignus {
+    color: black;
+    background-color: transparent;
+}
+
+.btn-hover-dark-ignus:hover {
+    background-color: hsla(0, 0%, 90%, 1);
+    outline: none;
+}
+
+/* Outline Buttons */
+
+.btn-outline-primary-ignus {
+    border: 1px solid hsla(var(--base-hue), 100%, 50%, 1);
+    color: var(--textcolor-for-reading);
+    background-color: hsla(var(--base-hue), 100%, 100%, 1);
+}
+
+.btn-outline-primary-ignus:hover {
+    color: var(--textcolor-for-colored-background);
+    background-color: hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+    outline: none;
+    border: 1px solid transparent;
+}
+
+
+.btn-outline-success-ignus {
+    color: hsla(var(--success-hue), 100%, 40%, 1);
+    border: 1px solid hsla(var(--success-hue), 100%, 40%, 1);
+    background-color: hsla(var(--success-hue), 100%, 100%, 1);
+}
+
+.btn-outline-success-ignus:hover {
+    color: #fff;
+    background-color: hsla(var(--success-hue), 100%, var(--success-lightness), 1);
+    outline: none;
+    border: 1px solid transparent;
+}
+
+.btn-outline-danger-ignus {
+    color: hsla(var(--danger-hue), 100%, 40%, 1);
+    border: 1px solid hsla(var(--danger-hue), 100%, 40%, 1);
+    background-color: hsla(var(--danger-hue), 100%, 100%, 1);
+}
+
+.btn-outline-danger-ignus:hover {
+    color: #fff;
+    background-color: hsla(var(--danger-hue), 100%, var(--danger-lightness), 1);
+    outline: none;
+    border: 1px solid transparent;
+}
+
+
+.btn-outline-warning-ignus {
+    border: 1px solid hsla(var(--warning-hue), 100%, 46%, 1);
+    color: hsla(var(--warning-hue), 100%, 46%, 1);
+    background-color: hsla(var(--warning-hue), 100%, 100%, 1);
+}
+
+.btn-outline-warning-ignus:hover {
+    color: black;
+    background-color: hsla(var(--warning-hue), 100%, var(--warning-lightness), 1);
+    outline: none;
+    border: 1px solid transparent;
+}
+
+
+.btn-outline-info-ignus {
+    border: 1px solid hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+    color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+    background-color: hsla(var(--info-hue), 100%, 100%, 1);
+}
+
+.btn-outline-info-ignus:hover {
+    color: white;
+    background-color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+    outline: none;
+    border: 1px solid transparent;
+}
+
+.btn-outline-dark-ignus {
+    border: 1px solid black;
+    color: black;
+    background-color: hsla(0, 0%, 100%, 1);
+}
+
+.btn-outline-dark-ignus:hover {
+    color: #fff;
+    background-color: hsla(0, 0%, 20%, 1);
+    outline: none;
+    border: 1px solid transparent;
+}
+
+
+/* Vertical Line Buttons */
+
+.btn-vertical-line-primary-ignus {
+    border-radius: 0px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-right: 2px solid hsla(var(--base-hue), 100%, 50%, 1);
+    color: var(--textcolor-for-reading);
+    background-color: hsla(var(--base-hue), 100%, 100%, 1);
+}
+
+.btn-vertical-line-primary-ignus:hover {
+    color: black;
+    outline: none;
+    border-right: 2px solid black;
+}
+
+
+.btn-vertical-line-success-ignus {
+    color: hsla(var(--success-hue), 100%, 40%, 1);
+    border-radius: 0px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-right: 2px solid hsla(var(--success-hue), 100%, 40%, 1);
+    background-color: hsla(var(--success-hue), 100%, 100%, 1);
+}
+
+.btn-vertical-line-success-ignus:hover {
+    color: black;
+    outline: none;
+    border-right: 2px solid black;
+}
+
+.btn-vertical-line-danger-ignus {
+    color: hsla(var(--danger-hue), 100%, 40%, 1);
+    border-radius: 0px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-right: 2px solid hsla(var(--danger-hue), 100%, 40%, 1);
+    background-color: hsla(var(--danger-hue), 100%, 100%, 1);
+}
+
+.btn-vertical-line-danger-ignus:hover {
+    color: black;
+    outline: none;
+    border-right: 2px solid black;
+}
+
+
+.btn-vertical-line-warning-ignus {
+    border-radius: 0px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-right: 2px solid hsla(var(--warning-hue), 100%, 46%, 1);
+    color: hsla(var(--warning-hue), 100%, 46%, 1);
+    background-color: hsla(var(--warning-hue), 100%, 100%, 1);
+}
+
+.btn-vertical-line-warning-ignus:hover {
+    color: black;
+    outline: none;
+    border-right: 2px solid black;
+}
+
+
+.btn-vertical-line-info-ignus {
+    border-radius: 0px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-right: 2px solid hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+    color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+    background-color: hsla(var(--info-hue), 100%, 100%, 1);
+}
+
+.btn-vertical-line-info-ignus:hover {
+    color: black;
+    outline: none;
+    border-right: 2px solid black;
+}
+
+.btn-vertical-line-dark-ignus {
+    border-radius: 0px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-right: 2px solid black;
+    color: black;
+    background-color: hsla(0, 0%, 100%, 1);
+}
+
+.btn-vertical-line-dark-ignus:hover {
+    color: black;
+    outline: none;
+    border-right: 2px solid black;
+}
+
+/* Cards */
+
+.card-ignus {
+	min-height: 40px;
+    width: 100%;
+	margin-top: 20px;
+	background-color: white;
+	padding: 27px 27px;
+	border-radius: 10px;
+    box-shadow: 5px 5px 22px 2px hsl(0deg 0% 94%);
+    font-family: Nunito;
+}
+
+.card-head-ignus {
+	min-height: 30px;
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 4px;
+}
+
+.card-title-ignus {
+    font-size: 18px;
+	font-family: Nunito;
+}
+
+.card-body-ignus {
+    margin-top: 2px;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.card-body-inner-ignus {
+    position: relative;
+    overflow-y: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: Nunito;
+}
+
+
+.card-body-inner-ignus::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-body-inner-ignus::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 0px 10px hsla(198, 100%, 100%, 1);
+	box-shadow: inset 0 0 0px 10px hsla(198, 100%, 100%, 1);
+    background-color: hsla(198, 100%, 50%, 0);
+    border-radius: 30px;
+}
+
+.card-body-inner-ignus::-webkit-scrollbar-thumb {
+    background-color: hsla(198, 100%, 0%, 1);
+    border-radius: 50px;
+}
+
+.vertical-line-card-ignus {
+    width: 100%;
+    padding: 10px 20px;
+    border-left: 2px solid hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+    font-family: Nunito;
+    min-height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.bottom-anchored-card-ignus {
+	min-height: 40px;
+    width: 100%;
+	margin-top: 20px;
+	background-color: white;
+	padding: 27px 27px;
+	border-radius: 10px;
+    box-shadow: var(--large-shadows);
+    font-family: Nunito;
+    display: flex;
+    align-items: flex-end;
+}
+
+.simple-card-ignus {
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.circle-xs-ignus {
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+}
+
+.circle-sm-ignus {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.circle-md-ignus {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+.circle-lg-ignus {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+
+/* Scrollbars (do not work in firefox) */
+
+.scrollbar-ignus::-webkit-scrollbar {
+    width: 6px;
+    height: 8px;
+}
+
+.scrollbar-ignus::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 0px 10px hsla(198, 0%, 0%, 1);
+	box-shadow: inset 0 0 0px 10px hsla(198, 0%, 0%, 1);
+    background-color: hsla(198, 100%, 50%, 0);
+    border-radius: 30px;
+}
+
+.scrollbar-ignus::-webkit-scrollbar-thumb {
+    background-color: hsla(198, 0%, 70%, 1);
+    border-radius: 50px;
+}
+
+.no-scrollbar-ignus::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+/* Vertical Container */
+
+.vertical-top-gradient-ignus {
+    position: absolute;
+    height: 14px;
+	background-image: linear-gradient(to top, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, 1));
+	width: 100%;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.vertical-bottom-gradient-ignus {
+    position: absolute;
+    height: 14px;
+	background-image: linear-gradient(to top, hsla(0, 0%, 100%, 1), hsla(0, 0%, 100%, 0));
+	width: 100%;
+    bottom: 0;
+	pointer-events: none;
+	z-index: 1;
+}
+
+
+.vs-container-outer-ignus {
+    position: relative;
+}
+
+.vs-container-inner-ignus {
+    position: relative;
+    overflow-y: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+.vs-container-inner-ignus::-webkit-scrollbar {
+    width: 6px;
+}
+
+.vs-container-inner-ignus::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 0px 10px hsla(198, 100%, 100%, 1);
+	box-shadow: inset 0 0 0px 10px hsla(198, 100%, 100%, 1);
+    background-color: hsla(198, 100%, 50%, 0);
+    border-radius: 30px;
+}
+
+.vs-container-inner-ignus::-webkit-scrollbar-thumb {
+    background-color: hsla(198, 0%, 70%, 1);
+    border-radius: 50px;
+}
+
+.title-text-ignus {
+	font-size: 18px;
+}
+
+.text-grey-ignus {
+	color: hsla(198, 0%, 60%, 1);
+}
+
+.text-dark-grey-ignus {
+	color: hsla(198, 0%, 40%, 1);
+}
+
+
+.text-ignus {
+	font-size: 14px;
+    font-family: Nunito;
+}
+
+.text-small-ignus {
+	font-size: 12px;
+    font-family: Nunito;
+}
+
+.text-large-ignus {
+	font-size: 18px;
+    font-family: Nunito;
+}
+
+
+
+.text-colored-ignus {
+    color: var(--textcolor-for-reading);
+}
+
+.text-centered-ignus {
+    text-align: center;
+    width: 100%;
+}
+
+
+/* Horizontal Scroll */
+
+.hs-container-element-ignus {
+    white-space: normal;
+    display: inline-block;
+}
+
+.hs-container-left-button-ignus {
+	font-size: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	height: 100%;
+	width: 50px;
+	color:hsla(0, 0%, 25%, 0.4);
+	cursor: pointer;
+	z-index: 1;
+    background: linear-gradient(to right, white, hsla(0, 0%, 0%, 0));
+}
+
+.hs-container-right-button-ignus {
+	font-size: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	height: 100%;
+	width: 50px;
+	color:hsla(0, 0%, 25%, 0.4);
+	cursor: pointer;
+	right: 0px;
+	z-index: 1;
+    background: linear-gradient(to left, white, hsla(0, 0%, 0%, 0));
+}
+
+
+.hs-container-inner-ignus {
+	overflow-x: auto;
+	white-space: nowrap;
+    position: relative;
+    width: 100%;
+    display: inline-flex;
+    scrollbar-width: none;
+    scrollbar-height: none;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.hs-container-inner-ignus::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+.hs-container-outer-ignus {
+    position: relative;
+}
+
+
+/* Tables */
+
+.table-ignus {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: hsla(0, 0%, 20%, 1);
+    background-color: transparent;
+    width: 94%;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-family: Nunito;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.table-ignus thead th, .table-ignus thead td {
+    font-weight: 600;
+    font-size: 14px;
+    border-bottom-width: 1px;
+    padding: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.table-ignus thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid hsla(0, 0%, 92%, 1);
+    font-weight: bold;
+}
+
+.table-ignus th, .table-ignus td {
+    vertical-align: top;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid hsla(0, 0%, 92%, 1);
+    font-size: 14px;
+}
+
+
+.table-striped-ignus {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: hsla(0, 0%, 20%, 1);
+    background-color: transparent;
+    width: 94%;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-family: Nunito;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.table-striped-ignus tbody tr:nth-of-type(odd) {
+    background-color: hsla(0, 0%, 96%, 1);
+}
+
+.table-striped-ignus thead th {
+    vertical-align: bottom;
+    border-bottom: 0px solid hsla(0, 0%, 92%, 1);
+    font-weight: bold;
+}
+
+.table-striped-ignus th, .table-striped-ignus td {
+    vertical-align: top;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 0px solid hsla(0, 0%, 92%, 1);
+    font-size: 14px;
+}
+
+
+.table-borderless-ignus {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: hsla(0, 0%, 20%, 1);
+    background-color: transparent;
+    width: 94%;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-family: Nunito;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.table-borderless-ignus thead th {
+    vertical-align: bottom;
+    border-bottom: 0px solid hsla(0, 0%, 92%, 1);
+    font-weight: bold;
+}
+
+.table-borderless-ignus th, .table-borderless-ignus td {
+    vertical-align: top;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 0px solid hsla(0, 0%, 92%, 1);
+    font-size: 14px;
+}
+
+.table-hover-ignus tbody tr:hover {
+    background: hsla(0, 0%, 98%, 1);
+}
+
+
+/* overlays */
+.overlay-ignus-visible {
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+.fullscreen-overlay-outer-ignus {
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: hsla(0, 0%, 0%, 0.1);
+    visibility: hidden;
+    pointer-events: none;
+    transition: visibility 0.3s;
+}
+
+.fullscreen-overlay-ignus {
+    border-radius: 15px;
+    pointer-events: auto;
+    background: white;
+    margin-left: 5%;
+    width: 90%;
+    overflow: auto;
+    padding: 20px 30px;
+    min-height: 100px;
+    height: 90vh;
+    max-height: 90vh;
+    position: relative;
+    margin-top: 5vh;
+}
+
+
+.fullscreen-overlay-inner-ignus {
+    background: transparent;
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+}
+
+
+
+
+.directional-overlay-outer-ignus {
+    z-index: 100;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: hsla(0, 0%, 0%, 0.1);
+    visibility: hidden;
+    pointer-events: none;
+    transition: visibility 0.3s;
+}
+
+.directional-overlay-inner-ignus {
+    background: transparent;
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+}
+
+
+.bottom-overlay-positioning-ignus {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.bottom-overlay-padding-ignus {
+    border-radius: 15px 15px 0px 0px;
+    pointer-events: auto;
+    background: white;
+    width: 100%;
+    padding: 20px 30px;
+    /* min-height: 100px; */
+    max-height: 90vh;
+    position: relative;
+}
+
+.bottom-overlay-ignus {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    max-height: calc(90vh - 40px);
+    max-width: calc(100vw - 60px);
+}
+
+
+.left-overlay-positioning-ignus {
+    position: absolute;
+    height: 100%;
+}
+
+.left-overlay-padding-ignus {
+    border-radius: 0px 15px 15px 0px;
+    pointer-events: auto;
+    background: white;
+    height: 100%;
+    overflow: auto;
+    padding: 20px 30px;
+    /* min-width: 100px; */
+    max-width: 90vw;
+    position: relative;
+}
+
+.left-overlay-ignus {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    max-height: calc(100vh - 40px);
+    max-width: calc(90vw - 60px);
+}
+
+.right-overlay-positioning-ignus {
+    position: absolute;
+    right: 0px;
+    height: 100%;
+}
+
+.right-overlay-padding-ignus {
+    border-radius: 15px 0px 0px 15px;
+    pointer-events: auto;
+    background: white;
+    height: 100%;
+    overflow: auto;
+    padding: 20px 30px;
+    /* min-width: 100px; */
+    max-width: 90vw;
+    position: relative;
+}
+
+.right-overlay-ignus {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    max-height: calc(100vh - 40px);
+    max-width: calc(90vw - 60px);
+}
+
+.top-overlay-positioning-ignus {
+    position: absolute;
+    width: 100%;
+}
+
+.top-overlay-padding-ignus {
+    border-radius: 0px 0px 15px 15px;
+    pointer-events: auto;
+    background: white;
+    width: 100%;
+    overflow: auto;
+    padding: 20px 30px;
+    /* min-height: 100px; */
+    max-height: 90vw;
+    position: relative;
+}
+
+.top-overlay-ignus {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    max-height: calc(90vh - 40px);
+    max-width: calc(100vw - 60px);
+}
+
+
+/* forms */
+
+.form-label-ignus {
+    font-family: Nunito;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: hsla(0, 0%, 60%, 1)
+}
+
+.input-underlined-ignus {
+    font-family: Nunito;
+    font-weight: bold;
+    border: 0px solid hsla(0, 0%, 80%, 1);
+    border-bottom: 1px solid hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+    border-radius: 0px;
+    outline: none;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    padding-left: 10px;
+    padding-top: 4px;
+    padding-right: 30px;
+    padding-bottom: 4px;
+}
+
+.input-underlined-ignus::-webkit-input-placeholder {
+    color: hsla(0, 0%, 70%, 1);
+}
+.input-underlined-ignus::placeholder {
+    color: hsla(0, 0%, 70%, 1);
+}
+
+
+.input-underlined-ignus:invalid {
+    border-color: hsla(var(--danger-hue), 100%, 50%, 1);
+}
+
+
+.input-box-ignus {
+    font-family: Nunito;
+    font-weight: bold;
+    border: 1px solid hsla(0, 0%, 90%, 1);
+    border-radius: 10px;
+    outline: none;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    background-color: hsla(0, 0%, 99%, 0);
+}
+
+.input-box-ignus::-webkit-input-placeholder {
+    color: hsla(0, 0%, 70%, 1);
+}
+.input-box-ignus::placeholder {
+    color: hsla(0, 0%, 70%, 1);
+}
+
+input[type="datetime-local"] {
+    font-size: 13.5px;
+}
+
+
+.select-box-ignus {
+    font-family: Nunito;
+    font-weight: bold;
+    border: 1px solid hsla(0, 0%, 90%, 1);
+    border-radius: 10px;
+    outline: none;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    background-color: hsla(0, 0%, 97%, 0);
+    font-size: 14px;
+}
+
+.select-underlined-ignus {
+    font-family: Nunito;
+    font-weight: bold;
+    border: 0px solid hsla(0, 0%, 80%, 1);
+    border-bottom: 1px solid hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+    border-radius: 0px;
+    outline: none;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    background-color: hsla(0, 0%, 97%, 0);
+    font-size: 14px;
+}
+
+.input-textarea-ignus {
+    font-family: Nunito;
+    font-weight: bold;
+    border: 1px solid hsla(0, 0%, 90%, 1);
+    border-radius: 10px;
+    outline: none;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    background-color: hsla(0, 0%, 99%, 0);
+}
+
+.input-box-color-ignus {
+    min-width: 200px;
+    font-family: Nunito;
+    font-weight: bold;
+    border: 1px solid hsla(0, 0%, 90%, 1);
+    border-radius: 10px;
+    outline: none;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    padding-left: 20px;
+    padding-top: 6px;
+    padding-right: 30px;
+    padding-bottom: 6px;
+    height: 30px;
+    min-height: 30px;
+    background-color: hsla(0, 0%, 99%, 0);
+}
+
+.slider-ignus {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 4px;
+    background: hsla(0, 0%, 90%, 1);
+    outline: none;
+}
+  
+.slider-ignus:hover {
+    opacity: 1;
+}
+
+.slider-ignus::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+    cursor: pointer;
+}
+  
+.slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+    cursor: pointer;
+}
+
+
+/* Texts */
+
+.info-text-ignus {
+    font-family: Nunito;
+    color: hsla(0, 0%, 50%, 1);
+    font-size: 13px;
+}
+
+.error-text-ignus {
+    font-family: Nunito;
+    color: hsla(var(--danger-hue), 100%, var(--danger-lightness), 1);
+    font-size: 13px;
+}
+
+
+/* profile */
+
+.profile-photo-small-ignus {
+    background-size: cover;
+    width: 47px;
+    height: 43px;
+    background-color: black;
+    border-radius: 8px;
+}
+
+/* icons - font awesome */
+
+.icon-small-ignus {
+    font-size: 16px !important;
+}
+
+
+/* disabled state  */
+
+.disabled-state-ignus {
+    filter: grayscale(1) opacity(0.6);
+    pointer-events: none;
+    cursor: default;
+}
+
+.enabled-state-ignus {
+    filter: none;
+    pointer-events: auto;
+}
+
+/* demo elements */
+
+.demo-card {
+    width: 220px; 
+    height: 150px; 
+    background: url('https://images.pexels.com/photos/3975635/pexels-photo-3975635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 20px;
+    box-shadow: var(--small-shadows);
+    border-radius: 20px;
+    filter: saturate(1);
+}
+
+.demo-card:hover {
+    filter: saturate(0);
+}
+
+
+.demo-card2 {
+    width: 100%; 
+    height: 120px; 
+    background: url('https://images.pexels.com/photos/3975635/pexels-photo-3975635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 20px;
+    box-shadow: var(--small-shadows);
+    border-radius: 20px;
+    filter: saturate(1);
+}
+
+.demo-card2:hover {
+    filter: saturate(0);
+}
+
+.demo-profile-pic {
+    background: url('https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-size: cover;
+}
+
+.demo-profile-pic-2 {
+    background: url('https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-size: cover;
+}
+
+.demo-profile-pic-3 {
+    background: url('https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-size: cover;
+}
+
+.demo-profile-pic-4 {
+    background: url('https://images.pexels.com/photos/1167134/pexels-photo-1167134.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-size: cover;
+}
+
+.demo-profile-pic-5 {
+    background: url('https://images.pexels.com/photos/774095/pexels-photo-774095.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-size: cover;
+}
+
+.demo-profile-pic-6 {
+    background: url('https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-size: cover;
+}
+
+
+/* icons */
+.primary-gradient-text-ignus {
+    background-image: linear-gradient(to left top, hsla(var(--base-hue), 100%, 50%, 1), hsla(var(--secondary-hue), 100%, 50%, 1));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+}
+
+
+@media screen and (min-width: 576px) and (max-width: 767px) {
+
+	
+
+}
+
+@media screen and (max-width: 576px) {
+    .hs-container-inner-ignus {
+        padding-left: 10px;
+    }
+}
+
+
+@media screen and (min-width: 400px) and (max-width: 526px) {
+
+
+}
+
+@media screen and (min-width: 200px) and (max-width: 400px) {
+
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --success-hue: 144;
+        --success-lightness: 40%;
+        --danger-hue: 0;
+        --danger-lightness: 50%;
+        --warning-hue: 40;
+        --warning-lightness: 50%;
+        --info-hue: 270;
+        --info-lightness: 50%;
+
+        --generalBackground: hsla(0, 0%, 6%, 1);
+    }
+
+    a {
+        text-decoration: none !important;
+        color: #fff;
+    }
+
+    body::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    body::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 0px 10px hsla(var(--base-hue), 0%, 70%, 0.2);
+        box-shadow: inset 0 0 0px 10px hsla(var(--base-hue), 0%, 70%, 0.2);
+        background-color: hsla(var(--base-hue), 0%, 10%, 0.2);
+        border-radius: 30px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: hsla(var(--base-hue), 70%, 70%, 0.2);
+        border-radius: 50px;
+    }
+
+    /* Body Background */
+    .faint-primary-background-ignus {
+        background-color: hsla(var(--base-hue), 20%, 15%, 1);
+    }
+
+    /* Buttons */
+
+    .btn-ignus {
+        display: inline-block;
+        font-weight: normal;
+        font-family: Nunito;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        padding: 5px 15px;
+        font-size: 13px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border: 0px solid transparent;
+        outline: none;
+        font-weight: bold;
+    }
+
+    .btn-ignus:focus {
+        border: 0px solid transparent;
+        outline: none;
+    }
+
+    .btn-ignus:hover {
+        border: 0px solid transparent;
+        outline: none;
+    }
+
+    .btn-white-ignus {
+        color: white;
+        box-shadow: var(--small-shadows);
+        background: hsla(0, 0%, 25%, 1);
+    }
+
+    .btn-white-ignus:hover {
+        color: #000;
+        background-color: hsla(0, 100%, 100%, 1);
+        outline: none;
+    }
+
+    .btn-primary-ignus {
+        color: var(--textcolor-for-colored-background);
+        background-color: hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+    }
+
+    .btn-primary-ignus:hover {
+        color: var(--textcolor-for-colored-background-on-hover);
+        background-color: hsla(0, 100%, 100%, 1);
+        outline: none;
+    }
+
+    .btn-success-ignus {
+        color: white;
+        background-color: hsla(var(--success-hue), 100%, var(--success-lightness), 1);
+    }
+
+    .btn-success-ignus:hover {
+        color: #000;
+        background-color: hsla(0, 100%, 100%, 1);
+        outline: none;
+    }
+
+    .btn-danger-ignus {
+        color: white;
+        background-color: hsla(var(--danger-hue), 100%, var(--danger-lightness), 1);
+    }
+
+    .btn-danger-ignus:hover {
+        color: #000;
+        background-color: hsla(0, 100%, 100%, 1);
+        outline: none;
+    }
+
+    .btn-warning-ignus {
+        color: white;
+        background-color: hsla(var(--warning-hue), 100%, var(--warning-lightness), 1);
+    }
+
+    .btn-warning-ignus:hover {
+        color: #000;
+        background-color: hsla(0, 100%, 100%, 1);
+        outline: none;
+    }
+
+    .btn-info-ignus {
+        color: white;
+        background-color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+    }
+
+    .btn-info-ignus:hover {
+        color: #000;
+        background-color: hsla(0, 100%, 100%, 1);
+        outline: none;
+    }
+
+    .btn-dark-ignus {
+        color: white;
+        background-color: hsla(0, 0%, 98%, 1);
+    }
+
+    .btn-dark-ignus:hover {
+        color: #000;
+        background-color: hsla(0, 0%, 80%, 1);
+        outline: none;
+    }
+
+    /* Lighter Buttons */
+
+    .btn-light-primary-ignus {
+        color: var(--textcolor-for-reading);
+        background-color: hsla(var(--base-hue), 100%, 90%, 1);
+    }
+
+    .btn-light-primary-ignus:hover {
+        color: var(--textcolor-for-colored-background);
+        background-color: hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+        outline: none;
+    }
+
+    .btn-light-success-ignus {
+        color: hsla(var(--success-hue), 100%, 40%, 1);
+        background-color: hsla(var(--success-hue), 100%, 95%, 1);
+    }
+
+    .btn-light-success-ignus:hover {
+        color: #000;
+        background-color: hsla(var(--success-hue), 100%, var(--success-lightness), 1);
+        outline: none;
+    }
+
+    .btn-light-danger-ignus {
+        color: hsla(var(--danger-hue), 100%, 40%, 1);
+        ;
+        background-color: hsla(var(--danger-hue), 100%, 95%, 1);
+    }
+
+    .btn-light-danger-ignus:hover {
+        color: #000;
+        background-color: hsla(var(--danger-hue), 100%, var(--danger-lightness), 1);
+        outline: none;
+    }
+
+    .btn-light-warning-ignus {
+        color: hsla(var(--warning-hue), 100%, 46%, 1);
+        background-color: hsla(var(--warning-hue), 100%, 95%, 1);
+    }
+
+    .btn-light-warning-ignus:hover {
+        color: hsla(var(--warning-hue), 100%, 10%, 1);
+        background-color: hsla(var(--warning-hue), 100%, var(--warning-lightness), 1);
+        outline: none;
+    }
+
+    .btn-light-info-ignus {
+        color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+        background-color: hsla(var(--info-hue), 100%, 95%, 1);
+    }
+
+    .btn-light-info-ignus:hover {
+        color: #000;
+        background-color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+        outline: none;
+    }
+
+    .btn-light-dark-ignus {
+        color: hsla(0, 0%, 15%, 1);
+        background-color: hsla(0, 0%, 85%, 1);
+    }
+
+    .btn-light-dark-ignus:hover {
+        color: hsla(0, 0%, 100%, 1);
+        background-color: hsla(0, 0%, 20%, 1);
+        outline: none;
+    }
+
+    /* Hover Buttons */
+
+    .btn-hover-primary-ignus {
+        color: var(--textcolor-for-reading);
+        background-color: transparent;
+    }
+
+    .btn-hover-primary-ignus:hover {
+        background-color: hsla(var(--base-hue), 100%, 10%, 1);
+        outline: none;
+    }
+
+    .btn-hover-success-ignus {
+        color: hsla(var(--success-hue), 100%, 40%, 1);
+        background-color: transparent;
+    }
+
+    .btn-hover-success-ignus:hover {
+        background-color: hsla(var(--success-hue), 100%, 10%, 1);
+        outline: none;
+    }
+
+    .btn-hover-danger-ignus {
+        color: hsla(var(--danger-hue), 100%, 40%, 1);
+        background-color: transparent;
+    }
+
+    .btn-hover-danger-ignus:hover {
+        background-color: hsla(var(--danger-hue), 100%, 10%, 1);
+        outline: none;
+    }
+
+    .btn-hover-warning-ignus {
+        color: hsla(var(--warning-hue), 100%, 46%, 1);
+        background-color: transparent;
+    }
+
+    .btn-hover-warning-ignus:hover {
+        background-color: hsla(var(--warning-hue), 100%, 95%, 1);
+        outline: none;
+    }
+
+    .btn-hover-info-ignus {
+        color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+        background-color: transparent;
+    }
+
+    .btn-hover-info-ignus:hover {
+        background-color: hsla(var(--info-hue), 100%, 95%, 1);
+        outline: none;
+    }
+
+    .btn-hover-dark-ignus {
+        color: hsla(0, 0%, 98%, 1);
+        background-color: transparent;
+    }
+
+    .btn-hover-dark-ignus:hover {
+        background-color: hsla(0, 0%, 30%, 1);
+        outline: none;
+    }
+
+
+    /* Outline Buttons */
+    .btn-outline-primary-ignus {
+        border: 1px solid hsla(var(--base-hue), 100%, 50%, 1);
+        color: var(--textcolor-for-reading);
+        background-color: transparent;
+    }
+
+    .btn-outline-primary-ignus:hover {
+        color: var(--textcolor-for-colored-background);
+        background-color: hsla(var(--base-hue), 100%, 10%, 1);
+        outline: none;
+        border: 1px solid transparent;
+    }
+
+    .btn-outline-success-ignus {
+        color: hsla(var(--success-hue), 100%, 40%, 1);
+        border: 1px solid hsla(var(--success-hue), 100%, 40%, 1);
+        background-color: transparent;
+    }
+
+    .btn-outline-success-ignus:hover {
+        color: #fff;
+        background-color: hsla(var(--success-hue), 100%, var(--success-lightness), 1);
+        outline: none;
+        border: 1px solid transparent;
+    }
+
+    .btn-outline-danger-ignus {
+        color: hsla(var(--danger-hue), 100%, 40%, 1);
+        border: 1px solid hsla(var(--danger-hue), 100%, 40%, 1);
+        background-color: transparent;
+    }
+
+    .btn-outline-danger-ignus:hover {
+        color: #fff;
+        background-color: hsla(var(--danger-hue), 100%, var(--danger-lightness), 1);
+        outline: none;
+        border: 1px solid transparent;
+    }
+
+    .btn-outline-warning-ignus {
+        border: 1px solid hsla(var(--warning-hue), 100%, 46%, 1);
+        color: hsla(var(--warning-hue), 100%, 46%, 1);
+        background-color: transparent;
+    }
+
+    .btn-outline-warning-ignus:hover {
+        color: black;
+        background-color: hsla(var(--warning-hue), 100%, 95%, 1);
+        outline: none;
+        border: 1px solid transparent;
+    }
+
+    .btn-outline-info-ignus {
+        border: 1px solid hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+        color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+        background-color: transparent;
+    }
+
+    .btn-outline-info-ignus:hover {
+        color: white;
+        background-color: hsla(var(--info-hue), 100%, 95%, 1);
+        outline: none;
+        border: 1px solid transparent;
+    }
+
+    .btn-outline-dark-ignus {
+        border: 1px solid white;
+        color: hsla(0, 0%, 98%, 1);
+        background-color: transparent;
+    }
+
+    .btn-outline-dark-ignus:hover {
+        color: #fff;
+        background-color: hsla(0, 0%, 30%, 1);
+        outline: none;
+        border: 1px solid transparent;
+    }
+
+    /* Vertical Line Buttons (Dark Mode) */
+
+    .btn-vertical-line-primary-ignus-dark {
+        border-radius: 0px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-right: 2px solid hsla(var(--base-hue), 100%, 50%, 1);
+        color: var(--textcolor-for-reading);
+        background-color: hsla(0, 0%, 20%, 1);
+    }
+
+    .btn-vertical-line-primary-ignus-dark:hover {
+        color: white;
+        outline: none;
+        border-right: 2px solid white;
+    }
+
+
+    .btn-vertical-line-success-ignus-dark {
+        color: hsla(var(--success-hue), 100%, 40%, 1);
+        border-radius: 0px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-right: 2px solid hsla(var(--success-hue), 100%, 40%, 1);
+        background-color: hsla(0, 0%, 20%, 1);
+    }
+
+    .btn-vertical-line-success-ignus-dark:hover {
+        color: white;
+        outline: none;
+        border-right: 2px solid white;
+    }
+
+    .btn-vertical-line-danger-ignus-dark {
+        color: hsla(var(--danger-hue), 100%, 40%, 1);
+        border-radius: 0px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-right: 2px solid hsla(var(--danger-hue), 100%, 40%, 1);
+        background-color: hsla(0, 0%, 20%, 1);
+    }
+
+    .btn-vertical-line-danger-ignus-dark:hover {
+        color: white;
+        outline: none;
+        border-right: 2px solid white;
+    }
+
+
+    .btn-vertical-line-warning-ignus-dark {
+        border-radius: 0px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-right: 2px solid hsla(var(--warning-hue), 100%, 46%, 1);
+        color: hsla(var(--warning-hue), 100%, 46%, 1);
+        background-color: hsla(0, 0%, 20%, 1);
+    }
+
+    .btn-vertical-line-warning-ignus-dark:hover {
+        color: white;
+        outline: none;
+        border-right: 2px solid white;
+    }
+
+
+    .btn-vertical-line-info-ignus-dark {
+        border-radius: 0px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-right: 2px solid hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+        color: hsla(var(--info-hue), 100%, var(--info-lightness), 1);
+        background-color: hsla(0, 0%, 20%, 1);
+    }
+
+    .btn-vertical-line-info-ignus-dark:hover {
+        color: white;
+        outline: none;
+        border-right: 2px solid white;
+    }
+
+    .btn-vertical-line-dark-ignus-dark {
+        border-radius: 0px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-right: 2px solid white;
+        color: white;
+        background-color: hsla(0, 0%, 20%, 1);
+    }
+
+    .btn-vertical-line-dark-ignus-dark:hover {
+        color: white;
+        outline: none;
+        border-right: 2px solid white;
+    }
+
+    /* Cards */
+    .card-ignus {
+        min-height: 40px;
+        width: 100%;
+        margin-top: 20px;
+        background-color: var(--generalBackground);
+        padding: 27px 27px;
+        border-radius: 10px;
+        box-shadow: 5px 5px 16px 5px hsl(0deg 0% 3%);
+        font-family: Nunito;
+    }
+
+    .card-head-ignus {
+        min-height: 30px;
+        width: 100%;
+        margin-top: 2px;
+        margin-bottom: 4px;
+    }
+
+    .card-title-ignus {
+        font-size: 18px;
+        font-family: Nunito;
+    }
+
+    .card-body-ignus {
+        margin-top: 2px;
+        margin-bottom: 8px;
+        position: relative;
+    }
+
+    .card-body-inner-ignus {
+        position: relative;
+        overflow-y: auto;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-family: Nunito;
+    }
+
+    .card-body-inner-ignus::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .card-body-inner-ignus::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 0px 10px hsla(198, 100%, 100%, 1);
+        box-shadow: inset 0 0 0px 10px hsla(198, 100%, 100%, 1);
+        background-color: hsla(198, 100%, 50%, 0);
+        border-radius: 30px;
+    }
+
+    .card-body-inner-ignus::-webkit-scrollbar-thumb {
+        background-color: hsla(198, 100%, 0%, 1);
+        border-radius: 50px;
+    }
+
+    .vertical-line-card-ignus {
+        width: 100%;
+        padding: 10px 20px;
+        border-left: 2px solid hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+        font-family: Nunito;
+        min-height: 40px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .bottom-anchored-card-ignus {
+        min-height: 40px;
+        width: 100%;
+        margin-top: 20px;
+        background-color: white;
+        padding: 27px 27px;
+        border-radius: 10px;
+        box-shadow: var(--large-shadows);
+        font-family: Nunito;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .simple-card-ignus {
+        width: 100%;
+        padding: 10px 20px;
+    }
+
+    .circle-xs-ignus {
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+    }
+
+    .circle-sm-ignus {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+
+    .circle-md-ignus {
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+    }
+
+    .circle-lg-ignus {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Scrollbars (do not work in firefox) */
+
+    .scrollbar-ignus::-webkit-scrollbar {
+        width: 6px;
+        height: 8px;
+    }
+
+    .scrollbar-ignus::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 0px 10px hsla(198, 0%, 0%, 1);
+        box-shadow: inset 0 0 0px 10px hsla(198, 0%, 0%, 1);
+        background-color: hsla(198, 100%, 50%, 0);
+        border-radius: 30px;
+    }
+
+    .scrollbar-ignus::-webkit-scrollbar-thumb {
+        background-color: hsla(198, 100%, 70%, 1);
+        border-radius: 50px;
+    }
+
+    .no-scrollbar-ignus::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+    }
+
+    .dark .scrollbar-ignus::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 0px 10px hsla(0, 0%, 100%, 1);
+        box-shadow: inset 0 0 0px 10px hsla(0, 0%, 100%, 1);
+        background-color: hsla(0, 0%, 10%, 0);
+    }
+
+    .dark .scrollbar-ignus::-webkit-scrollbar-thumb {
+        background-color: hsla(0, 0%, 40%, 1);
+    }
+
+    /* Vertical Container */
+
+    .vertical-top-gradient-ignus {
+        position: absolute;
+        height: 14px;
+        background-image: linear-gradient(to top, hsla(0, 0%, 0%, 0), var(--generalBackground));
+        width: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .vertical-bottom-gradient-ignus {
+        position: absolute;
+        height: 14px;
+        background-image: linear-gradient(to top, var(--generalBackground), hsla(0, 0%, 0%, 0));
+        width: 100%;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .vs-container-outer-ignus {
+        position: relative;
+        background-color: hsla(0, 0%, 10%, 1);
+    }
+
+    .vs-container-inner-ignus {
+        position: relative;
+        overflow-y: auto;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .vs-container-inner-ignus::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .vs-container-inner-ignus::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 0px 10px hsla(198, 0%, 0%, 1);
+        box-shadow: inset 0 0 0px 10px hsla(198, 0%, 0%, 1);
+        background-color: hsla(198, 100%, 50%, 0);
+        border-radius: 30px;
+    }
+
+    .vs-container-inner-ignus::-webkit-scrollbar-thumb {
+        background-color: hsla(198, 100%, 70%, 1);
+        border-radius: 50px;
+    }
+
+    /* Text Styles */
+    .title-text-ignus {
+        font-size: 18px;
+        color: #f2f2f2;
+    }
+
+    .text-grey-ignus {
+        color: #b3b3b3;
+    }
+
+    .text-dark-grey-ignus {
+        color: #d9d9d9;
+    }
+
+    .text-ignus {
+        font-size: 14px;
+        font-family: Nunito, sans-serif;
+        color: #f2f2f2;
+    }
+
+    .text-small-ignus {
+        font-size: 12px;
+        font-family: Nunito, sans-serif;
+        color: #f2f2f2;
+    }
+
+    .text-large-ignus {
+        font-size: 18px;
+        font-family: Nunito, sans-serif;
+        color: #f2f2f2;
+    }
+
+    .text-colored-ignus {
+        color: var(--textcolor-for-reading);
+    }
+
+    .text-centered-ignus {
+        text-align: center;
+        width: 100%;
+        color: #f2f2f2;
+    }
+
+    /* Horizontal Scroll */
+
+    .hs-container-element-ignus {
+        white-space: normal;
+        display: inline-block;
+    }
+
+    .hs-container-left-button-ignus {
+        font-size: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        height: 100%;
+        width: 50px;
+        color: hsla(0, 0%, 75%, 0.6);
+        cursor: pointer;
+        z-index: 1;
+        background: linear-gradient(to right, var(--generalBackground), hsla(0, 0%, 0%, 0));
+        -webkit-mask-image: radial-gradient(ellipse at 0% 50%, var(--generalBackground) 30%, rgba(0,0,0,0) 70%);
+        mask-image: radial-gradient(ellipse at 0% 50%, var(--generalBackground) 30%, rgba(0,0,0,0) 70%);
+    }
+
+    .hs-container-right-button-ignus {
+        font-size: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        height: 100%;
+        width: 50px;
+        color: hsla(0, 0%, 75%, 0.6);
+        cursor: pointer;
+        right: 0px;
+        z-index: 1;
+        background: linear-gradient(to left, var(--generalBackground), hsla(0, 0%, 0%, 0));
+        -webkit-mask-image: radial-gradient(ellipse at 100% 50%, var(--generalBackground) 30%, rgba(0,0,0,0) 70%);
+        mask-image: radial-gradient(ellipse at 100% 50%, var(--generalBackground) 30%, rgba(0,0,0,0) 70%);
+    }
+
+
+    .hs-container-inner-ignus {
+        overflow-x: auto;
+        white-space: nowrap;
+        position: relative;
+        width: 100%;
+        display: inline-flex;
+        scrollbar-width: none;
+        scrollbar-height: none;
+        padding-left: 50px;
+        padding-right: 50px;
+        background-color: var(--generalBackground);
+    }
+
+    .hs-container-inner-ignus::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+    }
+
+    .hs-container-outer-ignus {
+        position: relative;
+    }
+
+    /* Tables */
+
+    .table-ignus {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        color: hsla(0, 0%, 80%, 1);
+        background-color: hsla(198, 20%, 20%, 1);
+        width: 94%;
+        margin-left: 3%;
+        margin-right: 3%;
+        font-family: Nunito;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .table-ignus thead th,
+    .table-ignus thead td {
+        font-weight: 600;
+        font-size: 14px;
+        border-bottom-width: 1px;
+        padding: 3px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .table-ignus thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid hsla(0, 0%, 52%, 1);
+        font-weight: bold;
+    }
+
+    .table-ignus th,
+    .table-ignus td {
+        vertical-align: top;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid hsla(0, 0%, 52%, 1);
+        font-size: 14px;
+    }
+
+
+    .table-striped-ignus {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        color: hsla(0, 0%, 80%, 1);
+        background-color: hsla(198, 20%, 20%, 1);
+        width: 94%;
+        margin-left: 3%;
+        margin-right: 3%;
+        font-family: Nunito;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .table-striped-ignus tbody tr:nth-of-type(odd) {
+        background-color: hsla(0, 0%, 40%, 1);
+    }
+
+    .table-striped-ignus thead th {
+        vertical-align: bottom;
+        border-bottom: 0px solid hsla(0, 0%, 52%, 1);
+        font-weight: bold;
+    }
+
+    .table-striped-ignus th,
+    .table-striped-ignus td {
+        vertical-align: top;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 0px solid hsla(0, 0%, 52%, 1);
+        font-size: 14px;
+    }
+
+
+    .table-borderless-ignus {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        color: hsla(0, 0%, 80%, 1);
+        background-color: hsla(198, 20%, 20%, 1);
+        width: 94%;
+        margin-left: 3%;
+        margin-right: 3%;
+        font-family: Nunito;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .table-borderless-ignus thead th {
+        vertical-align: bottom;
+        border-bottom: 0px solid hsla(0, 0%, 52%, 1);
+        font-weight: bold;
+    }
+
+    .table-borderless-ignus th,
+    .table-borderless-ignus td {
+        vertical-align: top;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 0px solid hsla(0, 0%, 52%, 1);
+        font-size: 14px;
+    }
+
+    .table-hover-ignus tbody tr:hover {
+        background: hsla(0, 0%, 98%, 1);
+    }
+
+    .fullscreen-overlay-ignus {
+        background: hsla(0, 0%, 15%, 1);
+        box-shadow: 0px 4px 10px hsla(0, 0%, 0%, 0.7);
+    }
+
+    .fullscreen-overlay-outer-ignus {
+        background: hsla(0, 0%, 0%, 0.7);
+    }
+
+    .directional-overlay-outer-ignus {
+        background: hsla(0, 0%, 0%, 0.7);
+    }
+
+    .bottom-overlay-positioning-ignus {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+    }
+
+    .bottom-overlay-padding-ignus {
+        border-radius: 15px 15px 0px 0px;
+        pointer-events: auto;
+        background: var(--generalBackground);
+        color: var(--text-color);
+        width: 100%;
+        padding: 20px 30px;
+        /* min-height: 100px; */
+        max-height: 90vh;
+        position: relative;
+    }
+
+    .bottom-overlay-ignus {
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+        max-height: calc(90vh - 40px);
+        max-width: calc(100vw - 60px);
+    }
+
+
+    .left-overlay-positioning-ignus {
+        position: absolute;
+        height: 100%;
+    }
+
+    .left-overlay-padding-ignus {
+        border-radius: 0px 15px 15px 0px;
+        pointer-events: auto;
+        background: var(--generalBackground);
+        color: var(--text-color);
+        height: 100%;
+        overflow: auto;
+        padding: 20px 30px;
+        /* min-width: 100px; */
+        max-width: 90vw;
+        position: relative;
+    }
+
+    .left-overlay-ignus {
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+        max-height: calc(100vh - 40px);
+        max-width: calc(90vw - 60px);
+    }
+
+    .right-overlay-positioning-ignus {
+        position: absolute;
+        right: 0px;
+        height: 100%;
+    }
+
+    .right-overlay-padding-ignus {
+        border-radius: 15px 0px 0px 15px;
+        pointer-events: auto;
+        background: var(--generalBackground);
+        color: var(--text-color);
+        height: 100%;
+        overflow: auto;
+        padding: 20px 30px;
+        /* min-width: 100px; */
+        max-width: 90vw;
+        position: relative;
+    }
+
+    .right-overlay-ignus {
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+        max-height: calc(100vh - 40px);
+        max-width: calc(90vw - 60px);
+    }
+
+
+    .top-overlay-positioning-ignus {
+        position: absolute;
+        width: 100%;
+    }
+
+    .top-overlay-padding-ignus {
+        border-radius: 0px 0px 15px 15px;
+        pointer-events: auto;
+        background: var(--background-color);
+        width: 100%;
+        overflow: auto;
+        padding: 20px 30px;
+        /* min-height: 100px; */
+        max-height: 90vw;
+        position: relative;
+    }
+
+    .top-overlay-ignus {
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+        max-height: calc(90vh - 40px);
+        max-width: calc(100vw - 60px);
+        color: var(--textcolor-for-reading);
+    }
+
+
+    /* forms */
+
+    .form-label-ignus {
+        font-family: Nunito;
+        font-weight: bold;
+        font-size: 13px;
+        text-transform: uppercase;
+        color: hsla(0, 0%, 60%, 1)
+    }
+
+    .input-underlined-ignus {
+        font-family: Nunito;
+        font-weight: bold;
+        border: 0px solid hsla(0, 0%, 80%, 1);
+        border-bottom: 1px solid hsla(198, 100%, 50%, 1);
+        border-radius: 0px;
+        outline: none;
+        margin-top: 7px;
+        margin-bottom: 7px;
+        padding-left: 10px;
+        padding-top: 4px;
+        padding-right: 30px;
+        padding-bottom: 4px;
+        background-color: transparent;
+        color: hsla(0, 0%, 80%, 1);
+    }
+
+    .input-underlined-ignus::-webkit-input-placeholder {
+        color: hsla(0, 0%, 70%, 1);
+    }
+
+    .input-underlined-ignus::placeholder {
+        color: hsla(0, 0%, 70%, 1);
+    }
+
+
+    .input-underlined-ignus:invalid {
+        border-color: hsla(356, 100%, 50%, 1);
+    }
+
+
+    .input-box-ignus {
+        font-family: Nunito;
+        font-weight: bold;
+        border: 1px solid hsla(0, 0%, 40%, 1);
+        border-radius: 10px;
+        outline: none;
+        margin-top: 7px;
+        margin-bottom: 7px;
+        padding-left: 20px;
+        padding-top: 10px;
+        padding-right: 30px;
+        padding-bottom: 10px;
+        background-color: hsla(198, 0%, 20%, 1);
+        color: hsla(0, 0%, 80%, 1);
+    }
+
+    .input-box-ignus::-webkit-input-placeholder {
+        color: hsla(0, 0%, 70%, 1);
+    }
+
+    .input-box-ignus::placeholder {
+        color: hsla(0, 0%, 70%, 1);
+    }
+
+    input[type="datetime-local"] {
+        font-size: 13.5px;
+        color: hsla(0, 0%, 80%, 1);
+        background-color: hsla(198, 0%, 20%, 1);
+        border: 1px solid hsla(0, 0%, 40%, 1);
+    }
+
+    :root {
+        --background-color: hsla(0, 0%, 10%, 1);
+        --text-color: hsla(0, 0%, 90%, 1);
+        --base-hue: 220;
+        --base-lightness: 60%;
+      }
+      
+      .select-box-ignus {
+        font-family: Nunito;
+        font-weight: bold;
+        border: 1px solid hsla(0, 0%, 60%, 1);
+        border-radius: 10px;
+        outline: none;
+        margin-top: 7px;
+        margin-bottom: 7px;
+        padding-left: 20px;
+        padding-top: 10px;
+        padding-right: 30px;
+        padding-bottom: 10px;
+        background-color: hsla(0, 0%, 15%, 0);
+        font-size: 14px;
+        color: var(--text-color);
+      }
+      
+      .select-underlined-ignus {
+        font-family: Nunito;
+        font-weight: bold;
+        border: 0px solid hsla(0, 0%, 80%, 1);
+        border-bottom: 1px solid hsla(var(--base-hue), 100%, var(--base-lightness), 1);
+        border-radius: 0px;
+        outline: none;
+        margin-top: 7px;
+        margin-bottom: 7px;
+        padding-left: 20px;
+        padding-top: 10px;
+        padding-right: 30px;
+        padding-bottom: 10px;
+        background-color: hsla(0, 0%, 15%, 0);
+        font-size: 14px;
+        color: var(--text-color);
+      }
+      
+      .input-textarea-ignus {
+        font-family: Nunito;
+        font-weight: bold;
+        border: 1px solid hsla(0, 0%, 60%, 1);
+        border-radius: 10px;
+        outline: none;
+        margin-top: 7px;
+        margin-bottom: 7px;
+        padding-left: 20px;
+        padding-top: 10px;
+        padding-right: 30px;
+        padding-bottom: 10px;
+        background-color: hsla(0, 0%, 20%, 0);
+        color: var(--text-color);
+      }
+      
+      .input-box-color-ignus {
+        min-width: 200px;
+        font-family: Nunito;
+        font-weight: bold;
+        border: 1px solid hsla(0, 0%, 60%, 1);
+        border-radius: 10px;
+        outline: none;
+        margin-top: 7px;
+        margin-bottom: 7px;
+        padding-left: 20px;
+        padding-top: 6px;
+        padding-right: 30px;
+        padding-bottom: 6px;
+        height: 30px;
+        min-height: 30px;
+        background-color: hsla(0, 0%, 20%, 0);
+        color: var(--text-color);
+      }
+      
+      .slider-ignus {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 4px;
+        border-radius: 4px;
+        background: hsla(0, 0%, 60%, 1);
+        outline: none;
+      }
+      
+      .slider-ignus:hover {
+        opacity: 1;
+      }
+      
+      .slider-ignus::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px;
+        height: 14px;
+      }
+      
+      :root {
+        --text-color: hsla(0, 0%, 90%, 1);
+      }
+      
+      /* Texts */
+      .info-text-ignus {
+        font-family: Nunito;
+        color: hsla(0, 0%, 50%, 1);
+        font-size: 13px;
+        color: var(--text-color);
+      }
+      
+      .error-text-ignus {
+        font-family: Nunito;
+        color: hsla(var(--danger-hue), 100%, var(--danger-lightness), 1);
+        font-size: 13px;
+        color: var(--text-color);
+      }
+      
+      /* Profile */
+      .profile-photo-small-ignus {
+        background-size: cover;
+        width: 47px;
+        height: 43px;
+        background-color: var(--text-color);
+        border-radius: 8px;
+      }
+      
+      /* Icons - Font Awesome */
+      .icon-small-ignus {
+        font-size: 16px !important;
+        color: var(--text-color);
+      }
+
+      .primary-gradient-text-ignus {
+        background-image: linear-gradient(to left top, hsla(var(--base-hue), 100%, 70%, 1), hsla(var(--secondary-hue), 100%, 70%, 1));
+      }
+      
+
+}

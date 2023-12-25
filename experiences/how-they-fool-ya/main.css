@@ -1,0 +1,51 @@
+:root {
+    --themeColorHue: 270;
+    --sideMenuColor: hsla(0, 0%, 2%, 0.8);
+    --mainSpaceColor: hsla(0, 0%, 8%, 1);
+}
+
+
+body {
+    background-color: black;
+    
+}
+
+#main-inner-box {
+    /* border: 1px solid hsl(0,0%,2%);  */
+    background: var(--generalBackground); 
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+}
+
+main {
+    z-index: 1;
+    position: relative;
+}
+
+
+
+
+
+
+
+@media (max-width: 400px) {
+
+    :root {
+        --themeColorHue: 270;
+        --sideMenuColor: hsla(0, 0%, 0%, 0.1);
+        --mainSpaceColor: hsla(0, 0%, 0%, 1);
+    }
+}
+
+
+@media (min-width: 401px) and (max-width: 768px) {
+
+
+}
+
+@media (prefers-color-scheme: light) {
+
+            
+}
+

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="theMainController"  id="main-controller-html">
+	<head>
+		<title>How they fool ya - Grant Sanderson, featuring Paterson Primes.</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta charset="UTF-8">
+        <meta name="description" content="A interactive visualization based on Grant's parody of Hallelujah, How they fool ya.">
+        <meta name="keywords" content="math, animations">
+        <meta name="author" content="Prajwal DSouza, Scqqco Hqbvztus Mwmfdodsn, Zqmyprahi MGjcio Mwmfdodsn">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="icon" href="/assets/Images/icon.svg">
+		
+		<script type="application/ld+json">
+			{
+			  "@type": "app",
+			  "name": "How they fool ya - Grant Sanderson, featuring Paterson Primes.",
+			  "author": "Prajwal DSouza, Scqqco Hqbvztus Mwmfdodsn, Zqmyprahi MGjcio Mwmfdodsn.",
+			  "description": "A interactive visualization based on Grant's parody of Hallelujah, How they fool ya.."
+			  }
+		</script>
+
+		<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
+		<!-- Some times used library for icons -->
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="ignus-theme.css">
+        <script src="ignus-theme.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="main.css">
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFFCG66EJ"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-MNFFCG66EJ');
+        </script>
+
+
+	</head>
+	<body style='margin:0px; display: block;'>
+		<div id="containAll" class="p-sm-3 p-1">
+            <div id="seekbar" style="position: absolute; bottom: calc(2px); z-index: 100; left: 0px;">
+                <div id="seekbar-inner">
+                    <div id="seekbar-inner-inner" style="height: 2px; width: 99vw; "></div>
+                </div>
+            </div>
+            <div id="main-inner-box" style="border-radius: 10px; min-height: 100vh;">
+                <div id="mainDisplay"></div>
+                <div class="pb-5 mb-5">
+                    <div class="text-large-ignus text-ignus p-5 pb-md-2 pb-5" style="font-family: Gaegu; font-size: x-large;">
+                        How they fool ya! - by Grant Sanderson, 3Blue1Brown. 
+                        <div style="font-size: medium; color: grey;">Hi. The interactive above (not a video) based on 🎥<a href="https://www.youtube.com/watch?v=NOCsdhzo6Jg" style="color: hsla(198, 50%, 70%, 1);" target="blank"> How They Fool Ya (live) | Math parody of Hallelujah</a> 🎶, so you can interact with some the objects, circles, equations that appear here.. This is made with <a href='https://github.com/prajwalsouza/RhyformJS' style='color: hsla(270, 50%, 70%, 1);' target='blank'>Rhyform.js </a>💜. Below are the difference scenes you can skip to. Since this is not a video, having a player/seek bar is hard. However, we can display an estimate time of how long each scene is. <br/> There are more interactive visualizations below, one about Paterson Primes, you can know more about them from Grant himself at  🎥<a href="https://www.youtube.com/watch?v=jhObLT1Lrfo" style="color: hsla(198, 50%, 70%, 1);" target="blank"> Paterson Primes (with 3Blue1Brown) - Numberphile</a> and the circle segmentation visualization from the video.</div>
+                    </div>
+                    <div class="hs-container-outer-ignus p-0 p-md-5 pl-2 pl-md-0 pt-0 pt-md-0">
+                        <div class="d-none d-sm-flex hs-container-left-button-ignus" onclick="ignusTheme.hsMoveLeft('#theHS', 70)">
+                            <i class="fa fa-angle-left"></i>
+                        </div>
+                        <div class="d-none d-sm-flex hs-container-right-button-ignus" onclick="ignusTheme.hsMoveRight('#theHS', 70)">
+                            <i class="fa fa-angle-right"></i>
+                        </div>
+                        <div id="theHS" class="hs-container-inner-ignus pl-4 ml-1">
+                            <div class="hs-container-element-ignus"><div class="btn-ignus sceneButton" onClick="intro()">Introduction </div></div>
+                            <div class="hs-container-element-ignus"><div class="btn-ignus sceneButton" onClick="circleScene()">Circle Scene</div></div>
+                            <div class="hs-container-element-ignus"><div class="btn-ignus sceneButton" onClick="borweinIntegralScene()">Borwein Integral Scene</div></div>
+                            <div class="hs-container-element-ignus"><div class="btn-ignus sceneButton" onClick="primeModulo4Scene()">Paterson Prime Scene</div></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="pt-5 pb-5">
+
+            </div>
+            <div class="pt-5 pb-5"  id="interactive1-inner-box" style="border-radius: 10px; min-height: 100vh;">
+                <div id="interactive1"></div>
+                
+            </div>
+            <div class="p-5 pt-1">
+                <div style='font-family: Gaegu; color: hsla(0, 0%, 40%, 1); font-size: small;'>For the visualization above, beyond 25 points, drawing the circle and segments isn't possible due to large number of lines in HTML, the page becomes unresponsive Hence, we restrict drawing. Try values higher than 40 points at your own risk, computing without drawing itself takes minutes at those values. </div>
+            </div>
+            <div class="pt-5 mt-5 pt-md-0 mt-md-0" style="overflow: hidden;">
+                <div class="pt-5 pb-5 pt-md-0 pb-5"></div>
+                <div class="pt-5 pb-5 mt-5 pt-md-0 mt-md-0"  id="interactive2-inner-box" style="border-radius: 10px; min-height: 100vh; ">
+                    <div id="interactive2"></div>
+                    
+                </div>  
+                <div class="d-md-none p-5 d-block"></div>
+                <div class="d-md-none p-5 d-block"></div>
+                <div class="d-md-none p-5 d-block"></div>
+                <div class="text-center">
+                    <div class="btn-ignus sceneButton" onClick="allowMorePoints()">Allow more points </div>
+                    <div class="text-ignus p-3" style="color:hsla(0, 0%, 29%, 1); font-family: Gaegu; ">For the spiral visualization, if you are willing to push the limits of your browser/RAM. :)</div>
+                </div>
+            </div>
+            <div class="p-5"></div>
+            <div class="pt-4 p-md-5 p-2" id="mainVideo">
+                <div class="p-3" style="font-size: large; color:hsla(0, 0%, 89%, 1); font-family: Gaegu; ">🎥<a href="https://www.youtube.com/watch?v=NOCsdhzo6Jg" style="color: hsla(198, 50%, 70%, 1);" target="blank"> How They Fool Ya (live) | Math parody of Hallelujah</a> 🎶</div>
+                <div>
+                <iframe width="100%" height="100%" style="min-height: 600px;" src="https://www.youtube-nocookie.com/embed/NOCsdhzo6Jg?si=Z90h721K2c8JqLw-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="p-5"></div>
+            
+        </div>
+
+        
+
+        
+        <style>
+            .sceneButton {
+                color: hsla(198, 100%, 79%, 1);
+                background: none;
+                border: 1px solid hsla(198, 50%, 79%, 0.2);
+                font-family: Gaegu;
+                font-size: large;
+            }
+
+            .sceneButton:hover {
+                color: black;
+                background: hsla(198, 100%, 79%, 1);
+                border: 1px solid hsla(198, 50%, 79%, 0);
+            }
+        </style>
+
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+        
+        <script>
+
+            ignusTheme.baseHue = 198
+            ignusTheme.setUp()
+
+            // Fix the viewX dimension issues for phones,
+
+            if (window.innerWidth < 768) {
+                // hvalue = document.getElementById("main-inner-box").getBoundingClientRect().height
+                document.getElementById("mainDisplay").style.height = window.innerHeight + "px";
+                document.getElementById("mainDisplay").style.width = window.innerHeight + "px";
+
+                document.getElementById('interactive2-inner-box').style.width = window.innerHeight + "px";
+
+                // console.log(document.getElementById("mainDisplay").style.height, document.getElementById("mainDisplay").style.width)
+                // console.log(hvalue, hMainDisplayValue)
+                // document.getElementById("mainDisplay").style.height = hvalue + "px"
+                // document.getElementById("mainDisplay").style.width = 
+            }
+
+
+
+            MathJax = {
+                
+                loader: {load: ['[tex]/color']},
+                svg: {
+                    fontCache: 'local'
+                },
+                options: {
+                    enableMenu: false
+                }
+            };
+
+
+        </script>
+
+        <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/input/tex/extensions/color.js" charset="UTF-8"></script>
+
+        
+        <script src="potrace.js"></script>
+        <!-- <script src="../../js/main.js"></script> -->
+        <script type="text/javascript" src="viewx.js"></script> 
+        <script type="text/javascript" src="rhyform2.js"></script> 
+        <script type="text/javascript" src="how-they-fool-ya.js"></script> 
+    </body>
+</html>
