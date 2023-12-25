@@ -3398,6 +3398,7 @@ async function loadUlamSpiralInteractivePart() {
 
     visualizationScenes.ulamInteractiveScene.play()
 
+    // playSpiralLoop()
 }
 
 async function generateSpiralPart(N) {
@@ -3520,12 +3521,15 @@ async function generateSpiralPart(N) {
     }
 
 
-    
-    if (ulamInteractiveData.maxNSoFar > ulamInteractiveData.N) {
-        for (let i = ulamInteractiveData.N; i < ulamInteractiveData.maxNSoFar; i++) {
-            if (ulamInteractiveData.points[i] != null) {
-                ulamInteractiveData.points[i].set.opacity(0)
-                // console.log('set')
+    if (ulamInteractiveData.previousN != null) {
+        if (ulamInteractiveData.previousN > ulamInteractiveData.N) {
+            if (ulamInteractiveData.maxNSoFar > ulamInteractiveData.N) {
+                for (let i = ulamInteractiveData.N; i < ulamInteractiveData.maxNSoFar; i++) {
+                    if (ulamInteractiveData.points[i] != null) {
+                        ulamInteractiveData.points[i].set.opacity(0)
+                        // console.log('set')
+                    }
+                }
             }
         }
     }
@@ -3535,6 +3539,7 @@ async function generateSpiralPart(N) {
         ulamInteractiveData.maxNSoFar = parseInt(ulamInteractiveData.N)
     }
     
+    ulamInteractiveData.previousN = ulamInteractiveData.N
 
     
     ulamInteractiveData.currentPointSizeSliderValue = parseFloat(ulamInteractiveData.pointSizeSlider.value)
@@ -3549,8 +3554,17 @@ async function generateSpiralPart(N) {
 
 
 function playSpiralLoop() {
+
     
     
+    document.getElementById('interactive2').scrollIntoView({behavior: 'smooth', block: 'start'});
+
+    vulturesPineapple = rhyform.createAudio('vultures-pineapple.mp3')
+    vulturesPineapple.element.play()
+
+    document.getElementById('play-spiral-loop').innerHTML = '<i class="fa fa-stop mr-2"></i>Stop playing animation'
+    document.getElementById('play-spiral-loop').setAttribute('onclick', 'stopSpiralLoop()')
+
     ulamInteractiveData.loopValue = 10
 
     ulamInteractiveData.loop = setInterval(() => {
@@ -3570,10 +3584,10 @@ function playSpiralLoop() {
         else {
             if (ulamInteractiveData.loopValue % 5 == 0) {
                 if (ulamInteractiveData.loopValue < 100000) {
-                    ulamInteractiveData.pointSizeSlider.set.value(viewX.linearValue(40000, 100000, 0.2, 0.02, ulamInteractiveData.loopValue))
+                    ulamInteractiveData.pointSizeSlider.set.value(viewX.linearValue(40000, 100000, 0.2, 0.05, ulamInteractiveData.loopValue))
                 }
                 else {
-                    ulamInteractiveData.pointSizeSlider.set.value(0.02)
+                    ulamInteractiveData.pointSizeSlider.set.value(0.05)
                 }
             }
             ulamInteractiveData.loopValue = ulamInteractiveData.loopValue + parseInt(Math.sqrt(ulamInteractiveData.loopValue*10))
@@ -3588,6 +3602,14 @@ function playSpiralLoop() {
 
     }, 10);
 
+}
+
+function stopSpiralLoop() {
+    clearInterval(ulamInteractiveData.loop)
+    vulturesPineapple.element.pause()
+
+    document.getElementById('play-spiral-loop').innerHTML = '<i class="fa fa-play mr-2"></i>Play zoom out sequence'
+    document.getElementById('play-spiral-loop').setAttribute('onclick', 'playSpiralLoop()')
 }
 
 function allowMorePoints() {
