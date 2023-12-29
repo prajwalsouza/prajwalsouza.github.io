@@ -2086,36 +2086,45 @@ function nthPrime(n) {
     return primes[primes.length - 1]
 }
 
-
 function isPrime(n) {
-    // faster prime check algorithm
-
-
-    if (n == 1) {
-        return false
-    }
-    else if (n == 2) {
-        return true
+    if (ulamInteractiveData.pointIsPrime[n] != null) {
+        return ulamInteractiveData.pointIsPrime[n];
     }
 
-    var isPrime = true
+    if (n <= 1) {
+        return false;
+    }
+    if (n <= 3) {
+        return true;
+    }
+    if (n % 2 == 0 || n % 3 == 0) {
+        return false;
+    }
 
-    for (let i = 2; i <= Math.sqrt(n); i++) {
-        if (n % i == 0) {
-            isPrime = false
-            break
+    let sqrtN = Math.sqrt(n);
+    for (let i = 5; i <= sqrtN; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) {
+            ulamInteractiveData.pointIsPrime[n] = false;
+            return false;
         }
     }
 
-    return isPrime
+    ulamInteractiveData.pointIsPrime[n] = true;
+    return true;
 }
+
 
 function primeModuloBaseIsPrimeInBase10(prime, base) {
     // returns true if prime in base is also prime in base 10
 
-    primeInBase10 = parseInt(prime.toString(base))
+    if (ulamInteractiveData.pointIsPrimeModuloBaseIsPrimeInBase10[prime] == null) {
+        primeInBase10 = isPrime(parseInt(prime.toString(base)))
+    }
+    else {
+        primeInBase10 = ulamInteractiveData.pointIsPrimeModuloBaseIsPrimeInBase10[prime]
+    }
 
-    return isPrime(primeInBase10)
+    return primeInBase10
 }
 
 async function loadCircleInteractivePart() {
@@ -3235,6 +3244,8 @@ async function loadUlamSpiralInteractivePart() {
 
     ulamInteractiveData.legend = {}
 
+    ulamInteractiveData.plotPaterson = false
+
     ulamInteractiveData.legend.pattersonPrimeDot = rhyform.createPoint().place.at(x=-8, y=-8).loadWith.size(0.6).loadWith.color('hsla(198, 100%, 70%, 1)').addTag('pattersonPrimeInteractive').addTag('ulamLegendCircle')
 
     ulamInteractiveData.legend.pattersonPrimeText = rhyform.createText("Paterson Primes").place.rightOf(ulamInteractiveData.legend.pattersonPrimeDot, atDistance=0.4).loadWith.fontSize("15px").loadWith.color('hsla(198, 100%, 80%, 1)').addTag('pattersonPrimeInteractive').loadWith.width(5)
@@ -3391,7 +3402,9 @@ async function loadUlamSpiralInteractivePart() {
     ulamInteractiveData.pointSize = 0.2
 
     ulamInteractiveData.points = {}
-    ulamInteractiveData.pointData = {}
+    ulamInteractiveData.pointIsPrime = {}
+    ulamInteractiveData.pointIsPrimeModuloBaseIsPrimeInBase10 = {}
+
 
 
     generateSpiralPart(400)
@@ -3400,6 +3413,8 @@ async function loadUlamSpiralInteractivePart() {
 
     // playSpiralLoop()
 }
+
+patersonBase = 4
 
 async function generateSpiralPart(N) {
 
@@ -3445,13 +3460,26 @@ async function generateSpiralPart(N) {
                 if (ulamInteractiveData.point.isPrime) {
                     ulamInteractiveData.pointCoordinates = [ulamInteractiveData.ulamSpiralCoordinates[i][0]*ulamInteractiveData.pointDistanceDelta,  ulamInteractiveData.ulamSpiralCoordinates[i][1]*ulamInteractiveData.pointDistanceDelta]
 
+
+
                     ulamInteractiveData.points[i].set.position(x=ulamInteractiveData.pointCoordinates[0] - visualization.ulamSpiralInteractive.mainSpiral.center.x, y=ulamInteractiveData.pointCoordinates[1] - visualization.ulamSpiralInteractive.mainSpiral.center.y)
 
                     if (ulamInteractiveData.currentPointSizeSliderValue != parseFloat(ulamInteractiveData.pointSizeSlider.value)) {
                         ulamInteractiveData.points[i].set.size(parseFloat(ulamInteractiveData.pointSizeSlider.value))
                     }
 
-                    ulamInteractiveData.points[i].set.opacity(1)
+                    if (ulamInteractiveData.plotPaterson) {
+                        if (primeModuloBaseIsPrimeInBase10(i, patersonBase)) {
+                            ulamInteractiveData.points[i].set.opacity(1)
+                        }
+                        else {
+                            ulamInteractiveData.points[i].set.opacity(0)
+                        }
+                    }
+                    else {
+                        ulamInteractiveData.points[i].set.opacity(1)
+                    }
+
                 }
                 else {
                     ulamInteractiveData.points[i].set.opacity(0)
@@ -3475,45 +3503,67 @@ async function generateSpiralPart(N) {
                 ulamInteractiveData.point.isPrime = isPrime(i)
 
                 if (ulamInteractiveData.point.isPrime) {
-                    ulamInteractiveData.pointCoordinates = [ulamInteractiveData.ulamSpiralCoordinates[i][0]*ulamInteractiveData.pointDistanceDelta,  ulamInteractiveData.ulamSpiralCoordinates[i][1]*ulamInteractiveData.pointDistanceDelta]
+                    // console.log(i, primeModuloBaseIsPrimeInBase10(i, patersonBase), parseInt(i.toString(4)))
+                    if (primeModuloBaseIsPrimeInBase10(i, patersonBase)) {
+                        ulamInteractiveData.pointCoordinates = [ulamInteractiveData.ulamSpiralCoordinates[i][0]*ulamInteractiveData.pointDistanceDelta,  ulamInteractiveData.ulamSpiralCoordinates[i][1]*ulamInteractiveData.pointDistanceDelta]
 
-                    ulamInteractiveData.points[i] = rhyform.createPoint().place.at(x=ulamInteractiveData.pointCoordinates[0] - visualization.ulamSpiralInteractive.mainSpiral.center.x, y=ulamInteractiveData.pointCoordinates[1] - visualization.ulamSpiralInteractive.mainSpiral.center.y).loadWith.size(parseFloat(ulamInteractiveData.pointSizeSlider.value)).loadWith.color('hsla(0,0%,50%, 0.1)').addTag('ulamPoints').addTag('ulamPoint-' + i)
+                        ulamInteractiveData.points[i] = rhyform.createPoint().place.at(x=ulamInteractiveData.pointCoordinates[0] - visualization.ulamSpiralInteractive.mainSpiral.center.x, y=ulamInteractiveData.pointCoordinates[1] - visualization.ulamSpiralInteractive.mainSpiral.center.y).loadWith.size(parseFloat(ulamInteractiveData.pointSizeSlider.value)).loadWith.color('hsla(0,0%,50%, 0.1)').addTag('ulamPoints').addTag('ulamPoint-' + i)
+                        
+                        ulamInteractiveData.points[i].loadWith.color('hsla(198, 100%, 70%, 1)')
 
-                    // ulamInteractiveData.point = {}
-                    // ulamInteractiveData.point.isPrime = isPrime(i)
+                        
+                        ulamInteractiveData.points[i].set.opacity(1)
+                    }
+                    else {
+                        if (ulamInteractiveData.plotPaterson == false) {
+                            ulamInteractiveData.pointCoordinates = [ulamInteractiveData.ulamSpiralCoordinates[i][0]*ulamInteractiveData.pointDistanceDelta,  ulamInteractiveData.ulamSpiralCoordinates[i][1]*ulamInteractiveData.pointDistanceDelta]
 
-                    if (ulamInteractiveData.point.isPrime) {
-                        // console.log(i, primeModuloBaseIsPrimeInBase10(i, 4), parseInt(i.toString(4)))
-                        if (primeModuloBaseIsPrimeInBase10(i, 4)) {
-                            ulamInteractiveData.points[i].loadWith.color('hsla(198, 100%, 70%, 1)')
-                        }
-                        else {
+                            ulamInteractiveData.points[i] = rhyform.createPoint().place.at(x=ulamInteractiveData.pointCoordinates[0] - visualization.ulamSpiralInteractive.mainSpiral.center.x, y=ulamInteractiveData.pointCoordinates[1] - visualization.ulamSpiralInteractive.mainSpiral.center.y).loadWith.size(parseFloat(ulamInteractiveData.pointSizeSlider.value)).loadWith.color('hsla(0,0%,50%, 0.1)').addTag('ulamPoints').addTag('ulamPoint-' + i)
+
                             ulamInteractiveData.points[i].loadWith.color('hsla(40, 100%, 70%, 0.5)')
+
+                            
+                            ulamInteractiveData.points[i].set.opacity(1)
                         }
                     }
 
-                    ulamInteractiveData.points[i].set.opacity(1)
                 }           
             }
             else {
-                ulamInteractiveData.pointCoordinates = [ulamInteractiveData.ulamSpiralCoordinates[i][0]*ulamInteractiveData.pointDistanceDelta,  ulamInteractiveData.ulamSpiralCoordinates[i][1]*ulamInteractiveData.pointDistanceDelta]
 
-                ulamInteractiveData.points[i] = rhyform.createPoint().place.at(x=ulamInteractiveData.pointCoordinates[0] - visualization.ulamSpiralInteractive.mainSpiral.center.x, y=ulamInteractiveData.pointCoordinates[1] - visualization.ulamSpiralInteractive.mainSpiral.center.y).loadWith.size(parseFloat(ulamInteractiveData.pointSizeSlider.value)).loadWith.color('hsla(0,0%,50%, 0.1)').addTag('ulamPoints').addTag('ulamPoint-' + i)
 
                 ulamInteractiveData.point = {}
                 ulamInteractiveData.point.isPrime = isPrime(i)
 
                 if (ulamInteractiveData.point.isPrime) {
-                    // console.log(i, primeModuloBaseIsPrimeInBase10(i, 4), parseInt(i.toString(4)))
-                    if (primeModuloBaseIsPrimeInBase10(i, 4)) {
+                    // console.log(i, primeModuloBaseIsPrimeInBase10(i, patersonBase), parseInt(i.toString(4)))
+                    if (primeModuloBaseIsPrimeInBase10(i, patersonBase)) {
+                        ulamInteractiveData.pointCoordinates = [ulamInteractiveData.ulamSpiralCoordinates[i][0]*ulamInteractiveData.pointDistanceDelta,  ulamInteractiveData.ulamSpiralCoordinates[i][1]*ulamInteractiveData.pointDistanceDelta]
+
+                        ulamInteractiveData.points[i] = rhyform.createPoint().place.at(x=ulamInteractiveData.pointCoordinates[0] - visualization.ulamSpiralInteractive.mainSpiral.center.x, y=ulamInteractiveData.pointCoordinates[1] - visualization.ulamSpiralInteractive.mainSpiral.center.y).loadWith.size(parseFloat(ulamInteractiveData.pointSizeSlider.value)).loadWith.color('hsla(0,0%,50%, 0.1)').addTag('ulamPoints').addTag('ulamPoint-' + i)
+        
+
                         ulamInteractiveData.points[i].loadWith.color('hsla(198, 100%, 70%, 1)')
+
+                        
+                        ulamInteractiveData.points[i].set.opacity(1)
                     }
                     else {
-                        ulamInteractiveData.points[i].loadWith.color('hsla(40, 100%, 70%, 0.5)')
+
+                        if (ulamInteractiveData.plotPaterson == false) {
+                            ulamInteractiveData.pointCoordinates = [ulamInteractiveData.ulamSpiralCoordinates[i][0]*ulamInteractiveData.pointDistanceDelta,  ulamInteractiveData.ulamSpiralCoordinates[i][1]*ulamInteractiveData.pointDistanceDelta]
+
+                            ulamInteractiveData.points[i] = rhyform.createPoint().place.at(x=ulamInteractiveData.pointCoordinates[0] - visualization.ulamSpiralInteractive.mainSpiral.center.x, y=ulamInteractiveData.pointCoordinates[1] - visualization.ulamSpiralInteractive.mainSpiral.center.y).loadWith.size(parseFloat(ulamInteractiveData.pointSizeSlider.value)).loadWith.color('hsla(0,0%,50%, 0.1)').addTag('ulamPoints').addTag('ulamPoint-' + i)
+            
+                            
+
+                            ulamInteractiveData.points[i].loadWith.color('hsla(40, 100%, 70%, 0.5)')
+                            
+                            ulamInteractiveData.points[i].set.opacity(1)
+                        }
                     }
                 }
                 
-                ulamInteractiveData.points[i].set.opacity(1)
 
             }
         
@@ -3615,3 +3665,21 @@ function stopSpiralLoop() {
 function allowMorePoints() {
     ulamInteractiveData.numberOfPointsSlider.set.max(parseInt(ulamInteractiveData.numberOfPointsSlider.max)*2)
 }
+
+function togglePlotPaterson() {
+    if (ulamInteractiveData.plotPaterson) {
+        ulamInteractiveData.plotPaterson = false
+        ulamInteractiveData.legend.regularPrimeDot.set.opacity(1)
+        ulamInteractiveData.legend.regularPrimeText.set.opacity(1)
+        document.getElementById('plot-only-paterson').innerHTML = 'Plot only Paterson Primes'
+    }
+    else {
+        ulamInteractiveData.plotPaterson = true
+        ulamInteractiveData.legend.regularPrimeDot.set.opacity(0.1)
+        ulamInteractiveData.legend.regularPrimeText.set.opacity(0.1)
+        document.getElementById('plot-only-paterson').innerHTML = 'Plot all Primes'
+    }
+
+    generateSpiralPart(ulamInteractiveData.numberOfPointsSlider.value)
+}
+
