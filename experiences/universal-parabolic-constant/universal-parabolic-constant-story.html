@@ -113,6 +113,9 @@
             var mainScene = rhyform.createScene('The universal parabolic constant mystery');
             mainScene.selectSpace(space);
 
+            mainScene.createSeekBar().addTag('main')
+            mainScene.seekBar.show()
+
 
 
             var introText = rhyform.createText("Consider a unit square. Pick a random point Q on its boundary. If the center of the unit square is C. What is the 'average' distance between the center C and this random point Q on the boundary? ").place.at(x = -8, y = 7).loadWith.fontSize("large").loadWith.width(11)
