@@ -48,6 +48,58 @@
     <script>
 
 
+        function numericalDerivative(f, h) {
+            return function(t) {
+                return (f(t + h) - f(t - h)) / (2 * h);
+            };
+        }
+
+        function curveLength(derivFunc, a, b, stepSize) {
+            let length = 0;
+            for(let t = a; t <= b; t += stepSize) {
+                const magnitude = derivFunc(t);
+                length += magnitude * stepSize;
+            }
+            return length;
+        }
+
+        function segmentCurve(x, y, z, a, b, n, stepSize, h) {
+            const xPrime = numericalDerivative(x, h);
+            const yPrime = numericalDerivative(y, h);
+            const zPrime = numericalDerivative(z, h);
+
+            const derivFunc = t => {
+                const dx = xPrime(t);
+                const dy = yPrime(t);
+                const dz = zPrime(t);
+                return Math.sqrt(dx*dx + dy*dy + dz*dz);
+            };
+            
+            const S = curveLength(derivFunc, a, b, stepSize);
+            const segmentLength = S / n;
+            let currentLength = 0;
+            let t = a;
+            const points = [[x(a), y(a), z(a)]];
+
+            while (t <= b) {
+                const magnitude = derivFunc(t);
+                currentLength += magnitude * stepSize;
+                
+                if (currentLength >= segmentLength) {
+                    points.push([x(t), y(t), z(t)]);
+                    currentLength = 0;  // or "currentLength -= segmentLength" for more accuracy
+                }
+
+                t += stepSize;
+            }
+
+            // add for t = b
+            points.push([x(b), y(b), z(b)]);
+
+            return points;
+        }
+
+
         // Define the main space for drawing, the area where the scene takes place
         var space = rhyform.createSpaceInElement('#mainDisplay', name = "educationSpace");
         space.camera.setBounds({ x: -10, y: -10, width: 20, height: 20 });
@@ -63,7 +115,7 @@
 
 
 
-            var introText = rhyform.createText("Consider a unit square. Pick a random point Q on its boundary. If the center of the unit square is C. What is the 'average' distance between the center C and this random pointQ on the boundary? ").place.at(x = -8, y = 7).loadWith.fontSize("large");
+            var introText = rhyform.createText("Consider a unit square. Pick a random point Q on its boundary. If the center of the unit square is C. What is the 'average' distance between the center C and this random point Q on the boundary? ").place.at(x = -8, y = 7).loadWith.fontSize("large").loadWith.width(11)
             introText.write().startNextImmediately();
 
             // Create 4 points for the square 
@@ -76,10 +128,6 @@
            
 
             var originLabel = rhyform.createText("C").place.below(originPoint, 0.3).loadWith.fontSize("large");
-
-
-            music = rhyform.createAudio('https://cdn.jsdelivr.net/gh/prajwalsouza/RhyformJS@main/images/shooting-stars-142600.mp3')
-            music.play()
 
 
 
@@ -103,10 +151,14 @@
 
             // lines
 
+            squareLinesCreated = []
+
             for (var i = 0; i < 4; i++) {
                 var squareLine = rhyform.createLine(squarePointsCreated[i], squarePointsCreated[(i + 1) % 4]).addTag('square');
 
                 squareLine.draw(lengthPerSecond = 7).startNextImmediately();
+
+                squareLinesCreated.push(squareLine)
             }
 
             originPoint.show();
@@ -134,6 +186,12 @@
 
             var centerToRandomPointLine = rhyform.createLine(originPoint, randomPoint1).addTag('centerToRandomPointLine').loadWith.color('hsla(198, 100%, 60%, 1)').loadWith.thickness(1);
             centerToRandomPointLine.draw(lengthPerSecond = 7)
+
+
+            
+
+            music = rhyform.createAudio('https://cdn.jsdelivr.net/gh/prajwalsouza/RhyformJS@main/images/shooting-stars-142600.mp3')
+            music.play()
 
 
 
@@ -200,67 +258,687 @@
 
             }
 
+            // hide final distance 
+
+            distanceLabel.hide().startNextImmediately();
 
 
+            // the average distance turn out to be the universal parabolic constant/4
 
-            // var point1Label = rhyform.createText("Q").place.below(point1, 0.5).loadWith.fontSize("large");
-            // point1Label.show()
+            var universalParabolicConstant = 2.29558714939
+            var averageDistance = universalParabolicConstant/4
 
-            // Create a point to represent the opposite side of the triangle
-            // var oppPoint = rhyform.createPoint().place.at(x = 5, y = 3).loadWith.size(0.3).addTag('points');
-            // oppPoint.show().startNextImmediately();
+            // mention this in continuing text
 
-            // Create a line to represent the base of the triangle
+            var averageDistanceText = rhyform.createText("The average distance turn out to be " + averageDistance.toFixed(8) + "... And guess what, this is exactly the universal parabolic constant (P) divided by 4. ").place.below(introText, 2).loadWith.fontSize("large");
+
+            console.log(averageDistanceText)
+
+            averageDistanceText.write()
+
+
+            // add text 'we can simplify the problem, by asking a simpler question, since sides are symmetric, what is the average distance between the center and the a side of the square?'
+
+            var simplerQuestionText = rhyform.createText("We can simplify the problem, by asking a simpler question, since sides are symmetric, what is the average distance between the center and the a side of the square?").place.below(averageDistanceText, 2).loadWith.fontSize("large");
+
+            simplerQuestionText.write()
+
+
+            // hide everything
+
+            introText.hide().startNextImmediately();
+            originPoint.hide().startNextImmediately();
+            originLabel.hide().startNextImmediately();
+            for (var i = 0; i < 4; i++) {
+                // squarePointsCreated[i].hide().startNextImmediately();
+                squareLinesCreated[i].hide().startNextImmediately();
+
+            }
+            randomPoint1.hide().startNextImmediately();
+            randomPoint1Label.hide().startNextImmediately();
+            centerToRandomPointLine.hide().startNextImmediately();
+            distanceLabel.hide().startNextImmediately();
+            averageDistanceText.hide().startNextImmediately();
             
-            // var baseLine = rhyform.createLine(originPoint, adjPoint).addTag('base');
-            // baseLine.draw(lengthPerSecond = 7).startNextImmediately();
+            rhyform.wait(1)
 
-            // // Create a text label for the base of the triangle
-            // var baseLabel = rhyform.createText("a").place.below(baseLine, 0.5).loadWith.fontSize("large");
-            // baseLabel.show() 
+            // hide final text
 
+            simplerQuestionText.hide().startNextImmediately();
 
-            // // Create a line to represent the perpendicular side of the triangle
-            // var perpendicularLine = rhyform.createLine(adjPoint, oppPoint).addTag('perpendicular');
-            // perpendicularLine.draw(lengthPerSecond = 7).startNextImmediately();
-
-            // // Create a text label for the perpendicular side of the triangle
-            // var perpendicularLabel = rhyform.createText("b").place.rightOf(perpendicularLine, 0.5).loadWith.fontSize("large");
-            // perpendicularLabel.show();
-
-            // // Create a line to represent the hypotenuse of the triangle
-            // var hypotenuseLine = rhyform.createLine(originPoint, oppPoint).addTag('hypotenuse');
-            // hypotenuseLine.draw(lengthPerSecond = 7).startNextImmediately();
-
-            // // Create a text label for the hypotenuse of the triangle
-            // var hypotenuseLabel = rhyform.createText("c").place.above(hypotenuseLine, -0.3).loadWith.fontSize("large");
-            // hypotenuseLabel.show();
-
-            // var baseTriangleCurve = rhyform.createCurve(points = [originPoint, adjPoint, oppPoint, originPoint]).addTag('baseTriangle');
-            // baseTriangleCurve.loadWith.fillColor('hsla(198, 100%, 60%, 1)').loadWith.color('transparent')
-            // baseTriangleCurve.show().startNextImmediately();
-
-
-            // // Maybe some music for the scene, once the triangle is loaded?
-            // // The music plays only if the user has interactive with the scene, or the webpage. Or asking user to click on the screen to start is sometimes a good idea. 
             
+            var title = rhyform.createText("So, here is a story about averages. :) ").place.at(x=6, y=-5).loadWith.width(5).loadWith.fontSize('16px').loadWith.color('grey');
+            title.write();
+
+            var pointC = rhyform.createPoint().addTag('C').loadWith.size(0.35).loadWith.color('white');
+            var labelC = rhyform.createText('C').addTag('C').place.nextTo(pointC);
+            // rhyform.animate.showElementsWithTag('C');
+            var aboutC = rhyform.createText("To simplify, consider a the point  \\(C\\).").addTag('C').place.rightOf(labelC, atDistance=2);
+
+            var pointA = rhyform.createPoint().addTag('L').place.at(x=7, y=0);
+            var pointB = rhyform.createPoint().addTag('L').place.at(x=7, y=7);
+            var lineL = rhyform.createLine(pointA, pointB).addTag('L')
+            var labelL = rhyform.createText('L').addTag('L').place.nextTo(lineL);
+            var aboutL = rhyform.createText("Consider a line. <br/> Let's call it  \\(L\\).").addTag('L').place.rightOf(lineL, atDistance=1);
 
 
 
-            // introText.hide()
-            // pythagorasTheorem = rhyform.createText("The Pythagorean Theorem states that the square of the hypotenuse of a right angled triangle is equal to the sum of the squares of the other two sides. $$a^2 + b^2 = c^2$$ ").place.below(introText).loadWith.fontSize("large");
 
-            // pythagorasTheorem.write(lettersPerSecond = 40)
+            // x = function(t) {
+            //     return 7;
+            // }
+            // y = function(t) {
+            //     return t;
+            // }
+            // z = function(t) {
+            //     return 0;
+            // }
+            // parametricFunctionArray = [x, y, z]
+            // curvePoints = viewX.parametricCurvePoints(parametricFunctionArray, tLower = 0, tUpper = 7, numberOfPoints = 1000)
+
+            // smoothCurvePointsToRender = [];
+            // for (let i = 0; i < curvePoints.length; i++) {
+            //     point = curvePoints[i];
+            //     p = rhyform.createPoint().place.at(x=point[0], y=point[1], z=point[2])
+            //     smoothCurvePointsToRender.push(p);
+            // }
+
+            // smoothCurve = rhyform.createCurve(points=smoothCurvePointsToRender)
+            // smoothCurve.show()
+
+            // x = function(t) {
+            //     return 7 - 2*Math.cos(t**2 - 4*t);
+            // }
+            // y = function(t) {
+            //     return t**2 - 4*t;
+            // }
+
+            // parametricFunctionArray = [x, y]
+            // curvePoints = viewX.parametricCurvePoints(parametricFunctionArray, tLower = 0, tUpper = 1, numberOfPoints = 10)
+            // smoothCurve.change.points(curvePoints, inSeconds=5)
 
 
-            // pythagorasEquation = await rhyform.generateEquation(expression = "a^2 + b^2", at = { x: 2, y: 6 }, color = 'hsla(198, 100%, 70%, 1)', fontSize = 2)
 
-            // pythagorasEquation.show()
 
-            // await pythagorasEquation.change.expression("a^2 + b^2 = c^2")
+
+            pointC.show();
+            aboutC.write();
+            // // rhyform.animate.showElement(aboutC);
+            labelC.show();
+            lineL.drawFromPoint(pointA, lengthPerSecond=2).startNextImmediately();
+            aboutC.hide();
+
+            aboutL.write();
+            labelL.show();
+            aboutL.hide();
+
+            var questionText = rhyform.createText("<span style='color: grey'>The question now is, </span>what is the average distance between point  \\(C\\) and points on the line \\(L\\)?").place.above(pointC, 10).place.leftOf(pointC, 8).loadWith.width(6);
+
+            questionText.write();
+
+            var answerText = rhyform.createText("One approach to solving this problem involves taking some points on the line \\(L\\) and then computing average for these points. It will be an approximate average. ").place.below(pointC, 2).place.leftOf(pointC, 8).loadWith.width(8)
+
+            answerText.write();
+            questionText.hide();
+
+
+            N = 6
+            samplingText = "For example, if we could sample \\(L\\) at " + N + " point" + (N > 1 ? "s" : "") + ".";
+            var samplePointsText = rhyform.createText(samplingText).addTag('samplingText').place.rightOf(lineL, atDistance=2);
+
+            samplePointsText.write();
+
+
+            function numericalDerivative(f, h) {
+                return function(t) {
+                    return (f(t + h) - f(t - h)) / (2 * h);
+                };
+            }
+
+            function curveLength(derivFunc, a, b, stepSize) {
+                let length = 0;
+                for(let t = a; t <= b; t += stepSize) {
+                    const magnitude = derivFunc(t);
+                    length += magnitude * stepSize;
+                }
+                return length;
+            }
+
+            function segmentCurve(x, y, z, a, b, n, stepSize, h) {
+                const xPrime = numericalDerivative(x, h);
+                const yPrime = numericalDerivative(y, h);
+                const zPrime = numericalDerivative(z, h);
+
+                const derivFunc = t => {
+                    const dx = xPrime(t);
+                    const dy = yPrime(t);
+                    const dz = zPrime(t);
+                    return Math.sqrt(dx*dx + dy*dy + dz*dz);
+                };
+                
+                const S = curveLength(derivFunc, a, b, stepSize);
+                const segmentLength = S / n;
+                let currentLength = 0;
+                let t = a;
+                const points = [[x(a), y(a), z(a)]];
+
+                while (t <= b) {
+                    const magnitude = derivFunc(t);
+                    currentLength += magnitude * stepSize;
+                    
+                    if (currentLength >= segmentLength) {
+                        points.push([x(t), y(t), z(t)]);
+                        currentLength = 0;  // or "currentLength -= segmentLength" for more accuracy
+                    }
+
+                    t += stepSize;
+                }
+
+                // add for t = b
+                points.push([x(b), y(b), z(b)]);
+
+                return points;
+            }
+
+
+            x = t =>7;
+            y = t => t;
+            z = t => 0;
+
+            smoothCurvePoints = segmentCurve(x, y, z, 0, 7, 1000, 0.01, 0.001);
+            smoothCurvePointsToRender = [];
+            for (let i = 0; i < smoothCurvePoints.length; i++) {
+                point = smoothCurvePoints[i];
+                p = rhyform.createPoint().place.at(x=point[0], y=point[1], z=point[2]).loadWith.color('red');
+                smoothCurvePointsToRender.push(p);
+            }
+
+
+            smoothCurve = rhyform.createCurve(points=smoothCurvePointsToRender)
+            smoothCurve.show()
+
+            // smoothCurve.change.points([[1, 2], [2, 3]])
+
+            x = t =>7;
+            y = t => t;
+            z = t => 0;
+
+            points = segmentCurve(x, y, z, 0, 7, N - 1, 0.01, 0.001);
+            sampledPoints = [];
+            for (let i = 0; i < points.length; i++) {
+                point = points[i];
+                p = rhyform.createPoint().place.at(x=point[0], y=point[1], z=point[2]).loadWith.color('hsla(210, 70%, 50%, 1)');
+                p.show(inSeconds=0.1);
+                sampledPoints.push(p);
+            }
+
+
+            var moreText = rhyform.createText("And then we can take distances to these points. The goal is to get the average value of these distances. (preferably for more and more points)").place.above(pointC, atDistance=6).place.leftOf(pointC, atDistance=6).loadWith.width(6).loadWith.color('grey');
+
+            moreText.write(lengthPerSecond=30);
+
+            linesAdded = [];
+
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                lineToCurve = rhyform.createLine(pointC, sampledPoint).loadWith.color('hsla(210, 30%, 30%, 0.4)').loadWith.thickness(2);
+                lineAnimation = lineToCurve.drawFromPoint(pointC, lengthPerSecond=2)
+                linesAdded.push(lineToCurve);
+                if (i != sampledPoints.length - 1) {
+                    lineAnimation.startNextImmediately();
+                }
+            }
+
+            samplePointsText.hide();
+
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                sampledPoint.hide(inSeconds=0.4).startNextImmediately();
+            }
+
+            moreText.hide();
+            answerText.hide();
+
+
+            var scalingDownText = rhyform.createText("Now, how do we compute the average of these distances geometrically? Averaging involves adding these line segments and then scaling them down to mimic division. The order of the operation doesn't matter. <span style='color: hsla(190, 50%, 50%, 1)'>$$ \\text{Avg} = \\frac{d_{1} + d_{2} + \\dots }{N} = \\frac{d_{1}}{N} + \\frac{d_{2}}{N} + \\dots $$</span>   So... let's divide these line segments first. That is, scale them down by a factor of " + N + ".").place.above(pointC, atDistance=6).place.leftOf(pointC, atDistance=7).loadWith.width(6).loadWith.color('grey');
+
+            scalingDownText.write(lengthPerSecond=30);
+
+
+            scaledDownPointVectors = [];
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                directionVector = viewX.subtractVec([sampledPoint.coordinates.x, sampledPoint.coordinates.y], [pointC.coordinates.x, pointC.coordinates.y])
+
+                scaledVector = viewX.scalarMultiplyVec(1/N, directionVector)
+
+                scaledPointVector = viewX.addVec([pointC.coordinates.x, pointC.coordinates.y], scaledVector)
+
+                scaledDownPointVectors.push(scaledPointVector)
+                scaledPoint = rhyform.createPoint().place.at(x=scaledPointVector[0], y=scaledPointVector[1], z=0)
+
+                linesAdded[i].change.point2(scaledPoint, inSeconds=2).startNextImmediately();
+            }
+
+            scalingDownText.hide()
+
+            var addingSegmentText = rhyform.createText("Now we take these " + N + " segments and add them up to get the average.").place.above(pointC, atDistance=6).place.leftOf(pointC, atDistance=7).loadWith.width(6).loadWith.color('grey');
+
+            addingSegmentText.write(lengthPerSecond=30);
+
+            vectorSum = [0, 0];
+
+            vectorSum = viewX.addVec(vectorSum, scaledDownPointVectors[0])
+
+            oldVectorSum = JSON.parse(JSON.stringify(vectorSum))
+
+            for (let i = 1; i < scaledDownPointVectors.length; i++) {
+                scaledDownPointVector = scaledDownPointVectors[i];
+
+                vectorSum = viewX.addVec(vectorSum, scaledDownPointVector)
+
+                firstPoint = rhyform.createPoint().place.at(x=oldVectorSum[0], y=oldVectorSum[1], z=0)
+
+                secondPoint = rhyform.createPoint().place.at(x=vectorSum[0], y=vectorSum[1], z=0)
+                oldVectorSum = JSON.parse(JSON.stringify(vectorSum))
+
+                linesAdded[i].change.points(firstPoint, secondPoint, inSeconds=4/N)
+            }
+
+
+            var finalCurveText = rhyform.createText("The length of the this curve is the approximate average. <br/> <span style='color: grey;'>To get a better approximation of the average, we need to take more points. :) </span> Let's take more points now. ").place.below(pointC, atDistance=2).place.leftOf(pointC, atDistance=5).loadWith.width(6).loadWith.color('white');
+
+            finalCurveText.write(lengthPerSecond=30);
+
+            addingSegmentText.hide();
+
+            for (let i = 0; i < scaledDownPointVectors.length; i++) {
+                linesAdded[i].hide(inSeconds=0.1).startNextImmediately();
+            }
+
+            smoothCurve.hide().startNextImmediately()
+            labelL.hide().startNextImmediately()
+            lineL.hide().startNextImmediately()
+
+            finalCurveText.hide()
+
+
+
+            N = 20
+
+            x = t =>7;
+            y = t => t;
+            z = t => 0;
+
+            smoothCurvePoints = segmentCurve(x, y, z, 0, 7, 1000, 0.01, 0.001);
+            smoothCurvePointsToRender = [];
+            for (let i = 0; i < smoothCurvePoints.length; i++) {
+                point = smoothCurvePoints[i];
+                p = rhyform.createPoint().place.at(x=point[0], y=point[1], z=point[2]).loadWith.color('red');
+                smoothCurvePointsToRender.push(p);
+            }
+
+
+            smoothCurve = rhyform.createCurve(points=smoothCurvePointsToRender)
+            smoothCurve.show()
+
+            x = t =>7;
+            y = t => t;
+            z = t => 0;
+
+            points = segmentCurve(x, y, z, 0, 7, N - 1, 0.01, 0.001);
+            sampledPoints = [];
+            for (let i = 0; i < points.length; i++) {
+                point = points[i];
+                p = rhyform.createPoint().place.at(x=point[0], y=point[1], z=point[2]).loadWith.color('hsla(210, 70%, 50%, 1)');
+                p.show(inSeconds=0.1);
+                sampledPoints.push(p);
+            }
+
+
+            linesAdded = [];
+
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                lineToCurve = rhyform.createLine(pointC, sampledPoint).loadWith.color('hsla(210, 70%, 50%, 0.7)').loadWith.thickness(1.2);
+                lineAnimation = lineToCurve.drawFromPoint(pointC, lengthPerSecond=2)
+                linesAdded.push(lineToCurve);
+                if (i != sampledPoints.length - 1) {
+                    lineAnimation.startNextImmediately();
+                }
+            }
+
+            samplePointsText.hide();
+
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                sampledPoint.hide(inSeconds=0.4).startNextImmediately();
+            }
+
+            moreText.hide();
+            answerText.hide();
+
+
+            var scalingDownText = rhyform.createText("Scaling them down by a factor of " + N + ".").place.above(pointC, atDistance=6).place.leftOf(pointC, atDistance=7).loadWith.width(6).loadWith.color('grey');
+
+            scalingDownText.write(lengthPerSecond=30);
+
+
+            scaledDownPointVectors = [];
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                directionVector = viewX.subtractVec([sampledPoint.coordinates.x, sampledPoint.coordinates.y], [pointC.coordinates.x, pointC.coordinates.y])
+
+                scaledVector = viewX.scalarMultiplyVec(1/N, directionVector)
+
+                scaledPointVector = viewX.addVec([pointC.coordinates.x, pointC.coordinates.y], scaledVector)
+
+                scaledDownPointVectors.push(scaledPointVector)
+                scaledPoint = rhyform.createPoint().place.at(x=scaledPointVector[0], y=scaledPointVector[1], z=0)
+
+                linesAdded[i].change.point2(scaledPoint, inSeconds=2).startNextImmediately();
+            }
+
+            scalingDownText.hide()
+
+            var addingSegmentText = rhyform.createText("Adding " + N + " segments to get the average. ").place.above(pointC, atDistance=6).place.leftOf(pointC, atDistance=7).loadWith.width(6).loadWith.color('grey');
+
+            addingSegmentText.write(lengthPerSecond=30);
+
+            vectorSum = [0, 0];
+
+            vectorSum = viewX.addVec(vectorSum, scaledDownPointVectors[0])
+
+            oldVectorSum = JSON.parse(JSON.stringify(vectorSum))
+
+            for (let i = 1; i < scaledDownPointVectors.length; i++) {
+                scaledDownPointVector = scaledDownPointVectors[i];
+
+                vectorSum = viewX.addVec(vectorSum, scaledDownPointVector)
+
+                firstPoint = rhyform.createPoint().place.at(x=oldVectorSum[0], y=oldVectorSum[1], z=0)
+
+                secondPoint = rhyform.createPoint().place.at(x=vectorSum[0], y=vectorSum[1], z=0)
+                oldVectorSum = JSON.parse(JSON.stringify(vectorSum))
+
+                linesAdded[i].change.points(firstPoint, secondPoint, inSeconds=4/N)
+            }
+
+
+            var finalCurveText = rhyform.createText("This should be a better average :) One can simply measure the length of this curve to calculate the average.. and Yes. It's a Parabola! 😋").place.below(pointC, atDistance=2).place.leftOf(pointC, atDistance=5).loadWith.width(6).loadWith.color('white');
+
+            finalCurveText.write(lengthPerSecond=30);
+
+
+
+
+
+            addingSegmentText.hide();
+
+            for (let i = 0; i < scaledDownPointVectors.length; i++) {
+                linesAdded[i].hide(inSeconds=0.1).startNextImmediately();
+            }
+
+            smoothCurve.hide().startNextImmediately()
+            labelL.hide().startNextImmediately()
+            lineL.hide().startNextImmediately()
+
+            finalCurveText.hide()
+
+
+
+            var newAdventure = rhyform.createText("What about other problems? <br/>What about average distance between the center C of a circle and the points on its circumference?").place.below(pointC, atDistance=2).place.rightOf(pointC, atDistance=6).loadWith.width(6).loadWith.color('white');
+
+            newAdventure.write(lengthPerSecond=30);
+
+
+
+
+
+
+            N = 14
+
+            x = t => 5*Math.cos(t);
+            y = t => 5*Math.sin(t);
+            z = t => 0;
+
+            smoothCurvePoints = segmentCurve(x, y, z, 0, 2*Math.PI, 1000, 0.01, 0.001);
+            smoothCurvePointsToRender = [];
+            for (let i = 0; i < smoothCurvePoints.length; i++) {
+                point = smoothCurvePoints[i];
+                p = rhyform.createPoint().place.at(x=point[0], y=point[1], z=point[2]).loadWith.color('red');
+                smoothCurvePointsToRender.push(p);
+            }
+
+
+            smoothCurve = rhyform.createCurve(points=smoothCurvePointsToRender)
+            smoothCurve.show()
+
+            x = t => 5*Math.cos(t);
+            y = t => 5*Math.sin(t);
+            z = t => 0;
+
+            points = segmentCurve(x, y, z, 0, 2*Math.PI*(N - 1)/N, N - 1, 0.01, 0.001);
+            sampledPoints = [];
+            for (let i = 0; i < points.length; i++) {
+                point = points[i];
+                p = rhyform.createPoint().place.at(x=point[0], y=point[1], z=point[2]).loadWith.color('hsla(40, 70%, 50%, 1)');
+                p.show(inSeconds=0.1);
+                sampledPoints.push(p);
+            }
+
+
+            linesAdded = [];
+
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                lineToCurve = rhyform.createLine(pointC, sampledPoint).loadWith.color('hsla(40, 40%, 50%, 0.6)').loadWith.thickness(1.1);
+                lineAnimation = lineToCurve.drawFromPoint(pointC, lengthPerSecond=2)
+                linesAdded.push(lineToCurve);
+                if (i != sampledPoints.length - 1) {
+                    lineAnimation.startNextImmediately();
+                }
+            }
+
+            samplePointsText.hide();
+
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                sampledPoint.hide(inSeconds=0.4).startNextImmediately();
+            }
+
+            moreText.hide();
+            answerText.hide();
+
+
+            var scalingDownText = rhyform.createText("Scaling them down by a factor of " + N + ".").place.above(pointC, atDistance=6).place.leftOf(pointC, atDistance=7).loadWith.width(6).loadWith.color('grey');
+
+            scalingDownText.write(lengthPerSecond=30);
+
+
+            scaledDownPointVectors = [];
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                directionVector = viewX.subtractVec([sampledPoint.coordinates.x, sampledPoint.coordinates.y], [pointC.coordinates.x, pointC.coordinates.y])
+
+                scaledVector = viewX.scalarMultiplyVec(1/N, directionVector)
+
+                scaledPointVector = viewX.addVec([pointC.coordinates.x, pointC.coordinates.y], scaledVector)
+
+                scaledDownPointVectors.push(scaledPointVector)
+                scaledPoint = rhyform.createPoint().place.at(x=scaledPointVector[0], y=scaledPointVector[1], z=0)
+
+                linesAdded[i].change.point2(scaledPoint, inSeconds=2).startNextImmediately();
+            }
+
+            scalingDownText.hide()
+
+            var addingSegmentText = rhyform.createText("Adding " + N + " segments to get the average.").place.above(pointC, atDistance=6).place.leftOf(pointC, atDistance=7).loadWith.width(6).loadWith.color('grey');
+
+            addingSegmentText.write(lengthPerSecond=30);
+
+            vectorSum = [0, 0];
+
+            vectorSum = viewX.addVec(vectorSum, scaledDownPointVectors[0])
+
+            oldVectorSum = JSON.parse(JSON.stringify(vectorSum))
+
+            for (let i = 1; i < scaledDownPointVectors.length; i++) {
+                scaledDownPointVector = scaledDownPointVectors[i];
+
+                vectorSum = viewX.addVec(vectorSum, scaledDownPointVector)
+
+                firstPoint = rhyform.createPoint().place.at(x=oldVectorSum[0], y=oldVectorSum[1], z=0)
+
+                secondPoint = rhyform.createPoint().place.at(x=vectorSum[0], y=vectorSum[1], z=0)
+                oldVectorSum = JSON.parse(JSON.stringify(vectorSum))
+
+                linesAdded[i].change.points(firstPoint, secondPoint, inSeconds=4/N)
+            }
+
+
+            var finalCurveText = rhyform.createText("The length of that curve should be close to the average distance :) That is, the average distance between center of the circle and it's circumference, and it should have length of the radius. ").place.above(pointC, atDistance=2).place.rightOf(pointC, atDistance=7).loadWith.width(6).loadWith.color('white');
+
+            finalCurveText.write(lengthPerSecond=30);
+
+            newAdventure.hide();
+
+            addingSegmentText.hide(inSeconds=5);
+
+            for (let i = 0; i < scaledDownPointVectors.length; i++) {
+                linesAdded[i].hide(inSeconds=0.1).startNextImmediately();
+            }
+
+            smoothCurve.hide().startNextImmediately()
+
+            finalCurveText.hide()
+
+
+
+
+            var newAdventure = rhyform.createText("Let's try a different problem. <br/>What about average distance between a point C on the circumference of a circle and other points?").place.below(pointC, atDistance=2).place.rightOf(pointC, atDistance=6).loadWith.width(6).loadWith.color('white');
+
+            newAdventure.write(lengthPerSecond=30);
+
+
+            N = 14
+
+            x = t => 3*Math.cos(t) - 3;
+            y = t => 3*Math.sin(t);
+            z = t => 0;
+
+            smoothCurvePoints = segmentCurve(x, y, z, 0, 2*Math.PI, 1000, 0.01, 0.001);
+            smoothCurvePointsToRender = [];
+            for (let i = 0; i < smoothCurvePoints.length; i++) {
+                point = smoothCurvePoints[i];
+                p = rhyform.createPoint().place.at(x=point[0], y=point[1], z=point[2]).loadWith.color('red');
+                smoothCurvePointsToRender.push(p);
+            }
+
+
+            smoothCurve = rhyform.createCurve(points=smoothCurvePointsToRender)
+            smoothCurve.show()
+
+            x = t => 3*Math.cos(t) - 3;
+            y = t => 3*Math.sin(t);
+            z = t => 0;
+
+            points = segmentCurve(x, y, z, 0, 2*Math.PI*(N - 1)/N, N - 1, 0.01, 0.001);
+            sampledPoints = [];
+            for (let i = 0; i < points.length; i++) {
+                point = points[i];
+                p = rhyform.createPoint().place.at(x=point[0], y=point[1], z=point[2]).loadWith.color('hsla(40, 70%, 50%, 1)');
+                p.show(inSeconds=0.1);
+                sampledPoints.push(p);
+            }
+
+
+            linesAdded = [];
+
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                lineToCurve = rhyform.createLine(pointC, sampledPoint).loadWith.color('hsla(40, 40%, 50%, 0.6)').loadWith.thickness(2.3);
+                lineAnimation = lineToCurve.drawFromPoint(pointC, lengthPerSecond=2)
+                linesAdded.push(lineToCurve);
+                if (i != sampledPoints.length - 1) {
+                    lineAnimation.startNextImmediately();
+                }
+            }
+
+            samplePointsText.hide();
+
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                sampledPoint.hide(inSeconds=0.4).startNextImmediately();
+            }
+
+            moreText.hide();
+            answerText.hide();
+
+
+            var scalingDownText = rhyform.createText("Scaling them down by a factor of " + N + ".").place.above(pointC, atDistance=6).place.leftOf(pointC, atDistance=7).loadWith.width(6).loadWith.color('grey');
+
+            scalingDownText.write(lengthPerSecond=30);
+
+
+            scaledDownPointVectors = [];
+            for (let i = 0; i < sampledPoints.length; i++) {
+                sampledPoint = sampledPoints[i];
+                directionVector = viewX.subtractVec([sampledPoint.coordinates.x, sampledPoint.coordinates.y], [pointC.coordinates.x, pointC.coordinates.y])
+
+                scaledVector = viewX.scalarMultiplyVec(1/N, directionVector)
+
+                scaledPointVector = viewX.addVec([pointC.coordinates.x, pointC.coordinates.y], scaledVector)
+
+                scaledDownPointVectors.push(scaledPointVector)
+                scaledPoint = rhyform.createPoint().place.at(x=scaledPointVector[0], y=scaledPointVector[1], z=0)
+
+                linesAdded[i].change.point2(scaledPoint, inSeconds=2).startNextImmediately();
+            }
+
+            scalingDownText.hide()
+
+            var addingSegmentText = rhyform.createText("Adding " + N + " segments to get the average.").place.above(pointC, atDistance=6).place.leftOf(pointC, atDistance=7).loadWith.width(6).loadWith.color('grey');
+
+            addingSegmentText.write(lengthPerSecond=30);
+
+            vectorSum = [0, 0];
+
+            vectorSum = viewX.addVec(vectorSum, scaledDownPointVectors[0])
+
+            oldVectorSum = JSON.parse(JSON.stringify(vectorSum))
+
+            for (let i = 1; i < scaledDownPointVectors.length; i++) {
+                scaledDownPointVector = scaledDownPointVectors[i];
+
+                vectorSum = viewX.addVec(vectorSum, scaledDownPointVector)
+
+                firstPoint = rhyform.createPoint().place.at(x=oldVectorSum[0], y=oldVectorSum[1], z=0)
+
+                secondPoint = rhyform.createPoint().place.at(x=vectorSum[0], y=vectorSum[1], z=0)
+                oldVectorSum = JSON.parse(JSON.stringify(vectorSum))
+
+                linesAdded[i].change.points(firstPoint, secondPoint, inSeconds=4/N)
+            }
+
+
+            var finalCurveText = rhyform.createText("The length of that curve should be close to the average distance :) That is, the average distance between a point on the circumference and other points on the circumference. <br/> One can simple measure the length of this curve to get the average. Looks like a Cycloid? 😊 ").place.above(pointC, atDistance=2).place.rightOf(pointC, atDistance=2).loadWith.width(6).loadWith.color('white');
+
+
+            newAdventure.hide().startNextImmediately();
+            finalCurveText.write(lengthPerSecond=30);
+            addingSegmentText.hide();
+
+
+            title.hide();
+
+            thankyouText = rhyform.createText("Thank you for watching! 💜").place.at(x=2, y=-3).loadWith.color('white').loadWith.width(6);
+
+            thankyouText.write(lengthPerSecond=30);
 
             // Start rendering the scene
             mainScene.play();
+
 
         }
 
@@ -270,14 +948,12 @@
                 console.log("MathJax is loaded")
                 clearInterval(checkIfMathJaxIsLoaded);
 
-
                 loadMainScene();
             }
-        }, 0);
+        }, 2);
 
 
     </script>
 </body>
 
 </html>
-
