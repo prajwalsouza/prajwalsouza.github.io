@@ -1,1 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>The Universal Parabolic Constant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Nanum+Pen+Script&display=swap"
+        rel="stylesheet">
+
+    <!-- Some times used library for icons -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+
+<body style='margin:0px; display: block; background: black;'>
+    <div id="containAll" class="p-sm-3 p-1">
+        <div id="main-inner-box" style="min-height: 100vh;">
+            <div id="mainDisplay"></div>
+        </div>
+    </div>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        // MathJax is important that it is renderered in svg mode.
+
+        MathJax = {
+
+            loader: { load: ['[tex]/color'] },
+            svg: {
+                fontCache: 'local'
+            },
+            options: {
+                enableMenu: false
+            }
+        };
+
+    </script>
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/input/tex/extensions/color.js" charset="UTF-8"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/kilobtye/potrace@master/potrace.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/viewX@main/viewx.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/RhyformJS@main/rhyform.js"></script>
+
+    <script>
+
+
+        // Define the main space for drawing, the area where the scene takes place
+        var space = rhyform.createSpaceInElement('#mainDisplay', name = "educationSpace");
+        space.camera.setBounds({ x: -10, y: -10, width: 20, height: 20 });
+
+        // Set the common font to be used as default, unless overridden
+        rhyform.font = "Gaegu";
+
+        async function loadMainScene() {
+
+            // Define a new educational scene
+            var mainScene = rhyform.createScene('The universal parabolic constant mystery');
+            mainScene.selectSpace(space);
+
+
+
+            var introText = rhyform.createText("Consider a unit square. Pick a random point Q on its boundary. If the center of the unit square is C. What is the 'average' distance between the center C and this random pointQ on the boundary? ").place.at(x = -8, y = 7).loadWith.fontSize("large");
+            introText.write().startNextImmediately();
+
+            // Create 4 points for the square 
+
+            internalSize = 5
+            translated = [3, 0]
+
+            // Create a point to represent the origin
+            var originPoint = rhyform.createPoint().place.at(x = translated[0], y = translated[1]).loadWith.size(0.3).addTag('points');
+           
+
+            var originLabel = rhyform.createText("C").place.below(originPoint, 0.3).loadWith.fontSize("large");
+
+
+            music = rhyform.createAudio('https://cdn.jsdelivr.net/gh/prajwalsouza/RhyformJS@main/images/shooting-stars-142600.mp3')
+            music.play()
+
+
+
+            var squarePoints = []
+        
+            for (var i = 0; i < 4; i++) {
+                squarePoints.push({
+                    x: translated[0] + internalSize*Math.cos(i * (Math.PI / 2) + Math.PI / 4),
+                    y: translated[1] + internalSize*Math.sin(i * (Math.PI / 2) + Math.PI / 4)
+                })
+            }
+
+            // Create a lines to represent the side of the square
+
+            var squarePointsCreated = []
+            for (var i = 0; i < 4; i++) {
+                var squarePoint = rhyform.createPoint().place.at(x = squarePoints[i].x, y = squarePoints[i].y).loadWith.size(0.3).addTag('points');
+
+                squarePointsCreated.push(squarePoint)
+            }
+
+            // lines
+
+            for (var i = 0; i < 4; i++) {
+                var squareLine = rhyform.createLine(squarePointsCreated[i], squarePointsCreated[(i + 1) % 4]).addTag('square');
+
+                squareLine.draw(lengthPerSecond = 7).startNextImmediately();
+            }
+
+            originPoint.show();
+            originLabel.show();
+
+            rhyform.wait(1)
+
+
+            // Create a point to represent the random point on the boundary
+
+            randomSide = Math.floor(Math.random() * 4)
+            var randomPoint = {
+                x: squarePoints[randomSide].x + Math.random() * (squarePoints[(randomSide + 1) % 4].x - squarePoints[randomSide].x),
+                y: squarePoints[randomSide].y + Math.random() * (squarePoints[(randomSide + 1) % 4].y - squarePoints[randomSide].y)
+            }
+
+            var randomPoint1 = rhyform.createPoint().place.at(x = randomPoint.x, y = randomPoint.y).loadWith.size(0.3).addTag('points');
+            randomPoint1.show()
+
+            var randomPoint1Label = rhyform.createText("Q").place.nextTo(randomPoint1).loadWith.fontSize("large");
+            randomPoint1Label.show().startNextImmediately();
+
+
+            // draw the line from the center to the random point
+
+            var centerToRandomPointLine = rhyform.createLine(originPoint, randomPoint1).addTag('centerToRandomPointLine').loadWith.color('hsla(198, 100%, 60%, 1)').loadWith.thickness(1);
+            centerToRandomPointLine.draw(lengthPerSecond = 7)
+
+
+
+            // compute distance and place distance label on the line
+
+            var distance = Math.sqrt((randomPoint.x - translated[0]) ** 2 + (randomPoint.y - translated[1]) ** 2)
+
+            distance = distance/internalSize
+
+            // get midpoint and place label below midpoint
+
+            var midPoint = [(randomPoint.x + translated[0])/2, (randomPoint.y + translated[1])/2]
+            // create a point at the midpoint
+
+            var midPointObject = rhyform.createPoint().place.at(x = midPoint[0], y = midPoint[1]).loadWith.size(0.3).addTag('points');
+
+            var distanceLabel = rhyform.createText(distance.toFixed(4)).place.below(midPointObject, 0.1).loadWith.fontSize("large");
+
+            distanceLabel.show()
+
+            // console.log(distanceLabel)
+
+            rhyform.wait(1).startNextImmediately()
+
+            // repeat random selection 3 more times ,hiding the previous random point and line
+
+            for (var i = 0; i < 3; i++) {
+                randomPoint1.hide().startNextImmediately();
+                randomPoint1Label.hide().startNextImmediately();
+                centerToRandomPointLine.hide().startNextImmediately();
+                distanceLabel.hide().startNextImmediately();
+
+                randomSide = Math.floor(Math.random() * 4)
+                var randomPoint = {
+                    x: squarePoints[randomSide].x + Math.random() * (squarePoints[(randomSide + 1) % 4].x - squarePoints[randomSide].x),
+                    y: squarePoints[randomSide].y + Math.random() * (squarePoints[(randomSide + 1) % 4].y - squarePoints[randomSide].y)
+                }
+
+                var randomPoint1 = rhyform.createPoint().place.at(x = randomPoint.x, y = randomPoint.y).loadWith.size(0.3).addTag('points');
+                randomPoint1.show()
+
+                var randomPoint1Label = rhyform.createText("Q").place.nextTo(randomPoint1).loadWith.fontSize("large");
+                randomPoint1Label.show().startNextImmediately();
+
+                var centerToRandomPointLine = rhyform.createLine(originPoint, randomPoint1).addTag('centerToRandomPointLine').loadWith.color('hsla(198, 100%, 60%, 1)').loadWith.thickness(1);
+                centerToRandomPointLine.draw(lengthPerSecond = 7)
+
+                var distance = Math.sqrt((randomPoint.x - translated[0]) ** 2 + (randomPoint.y - translated[1]) ** 2)
+
+                distance = distance/internalSize
+
+                // get midpoint and place label below midpoint
+
+                var midPoint = [(randomPoint.x + translated[0])/2, (randomPoint.y + translated[1])/2]
+                // create a point at the midpoint
+
+                var midPointObject = rhyform.createPoint().place.at(x = midPoint[0], y = midPoint[1]).loadWith.size(0.3).addTag('points');
+
+                var distanceLabel = rhyform.createText(distance.toFixed(4)).place.above(midPointObject, 0.1).loadWith.fontSize("large");
+
+                distanceLabel.show()
+
+                rhyform.wait(1)
+
+            }
+
+
+
+
+            // var point1Label = rhyform.createText("Q").place.below(point1, 0.5).loadWith.fontSize("large");
+            // point1Label.show()
+
+            // Create a point to represent the opposite side of the triangle
+            // var oppPoint = rhyform.createPoint().place.at(x = 5, y = 3).loadWith.size(0.3).addTag('points');
+            // oppPoint.show().startNextImmediately();
+
+            // Create a line to represent the base of the triangle
+            
+            // var baseLine = rhyform.createLine(originPoint, adjPoint).addTag('base');
+            // baseLine.draw(lengthPerSecond = 7).startNextImmediately();
+
+            // // Create a text label for the base of the triangle
+            // var baseLabel = rhyform.createText("a").place.below(baseLine, 0.5).loadWith.fontSize("large");
+            // baseLabel.show() 
+
+
+            // // Create a line to represent the perpendicular side of the triangle
+            // var perpendicularLine = rhyform.createLine(adjPoint, oppPoint).addTag('perpendicular');
+            // perpendicularLine.draw(lengthPerSecond = 7).startNextImmediately();
+
+            // // Create a text label for the perpendicular side of the triangle
+            // var perpendicularLabel = rhyform.createText("b").place.rightOf(perpendicularLine, 0.5).loadWith.fontSize("large");
+            // perpendicularLabel.show();
+
+            // // Create a line to represent the hypotenuse of the triangle
+            // var hypotenuseLine = rhyform.createLine(originPoint, oppPoint).addTag('hypotenuse');
+            // hypotenuseLine.draw(lengthPerSecond = 7).startNextImmediately();
+
+            // // Create a text label for the hypotenuse of the triangle
+            // var hypotenuseLabel = rhyform.createText("c").place.above(hypotenuseLine, -0.3).loadWith.fontSize("large");
+            // hypotenuseLabel.show();
+
+            // var baseTriangleCurve = rhyform.createCurve(points = [originPoint, adjPoint, oppPoint, originPoint]).addTag('baseTriangle');
+            // baseTriangleCurve.loadWith.fillColor('hsla(198, 100%, 60%, 1)').loadWith.color('transparent')
+            // baseTriangleCurve.show().startNextImmediately();
+
+
+            // // Maybe some music for the scene, once the triangle is loaded?
+            // // The music plays only if the user has interactive with the scene, or the webpage. Or asking user to click on the screen to start is sometimes a good idea. 
+            
+
+
+
+            // introText.hide()
+            // pythagorasTheorem = rhyform.createText("The Pythagorean Theorem states that the square of the hypotenuse of a right angled triangle is equal to the sum of the squares of the other two sides. $$a^2 + b^2 = c^2$$ ").place.below(introText).loadWith.fontSize("large");
+
+            // pythagorasTheorem.write(lettersPerSecond = 40)
+
+
+            // pythagorasEquation = await rhyform.generateEquation(expression = "a^2 + b^2", at = { x: 2, y: 6 }, color = 'hsla(198, 100%, 70%, 1)', fontSize = 2)
+
+            // pythagorasEquation.show()
+
+            // await pythagorasEquation.change.expression("a^2 + b^2 = c^2")
+
+            // Start rendering the scene
+            mainScene.play();
+
+        }
+
+        // Check if MathJax is loaded, this is needed because the code above relies on MathJax.typeset function. 
+        var checkIfMathJaxIsLoaded = setInterval(function () {
+            if (MathJax.typeset) {
+                console.log("MathJax is loaded")
+                clearInterval(checkIfMathJaxIsLoaded);
+
+
+                loadMainScene();
+            }
+        }, 0);
+
+
+    </script>
+</body>
+
+</html>
 
