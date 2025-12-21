@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PDF Text Remover</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600&family=Raleway:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      :root {
+        --accent-hue: 270;
+        --accent: hsl(var(--accent-hue), 75%, 58%);
+        --accent-strong: hsl(var(--accent-hue), 70%, 48%);
+        --accent-muted: hsla(var(--accent-hue), 75%, 58%, 0.16);
+        --page-bg: #05060a;
+        --surface: #10131f;
+        --surface-soft: rgba(255, 255, 255, 0.05);
+        --surface-lift: rgba(255, 255, 255, 0.08);
+        --text: #f7f8fc;
+        --muted: rgba(247, 248, 252, 0.65);
+        --stroke: rgba(247, 248, 252, 0.08);
+        --shadow: 0 30px 65px rgba(4, 8, 20, 0.65);
+        --inverse: #0f172a;
+        --erase-color: rgba(3, 4, 8, 0.92);
+        --erase-label: hsla(var(--accent-hue), 80%, 80%, 0.85);
+      }
+
+      [data-theme='light'] {
+        --page-bg: #f5f6fb;
+        --surface: #ffffff;
+        --surface-soft: rgba(15, 23, 42, 0.04);
+        --surface-lift: rgba(15, 23, 42, 0.06);
+        --text: #0f172a;
+        --muted: #64748b;
+        --stroke: rgba(15, 23, 42, 0.08);
+        --shadow: 0 35px 70px rgba(15, 23, 42, 0.12);
+        --inverse: #f8fafc;
+        --erase-color: rgba(248, 249, 253, 0.95);
+        --erase-label: hsla(var(--accent-hue), 60%, 30%, 0.85);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Nunito', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont,
+          sans-serif;
+        background: radial-gradient(circle at top, rgba(255, 255, 255, 0.04), transparent 40%),
+          var(--page-bg);
+        color: var(--text);
+        min-height: 100vh;
+        padding-bottom: 4rem;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .app-shell {
+        width: min(1200px, 92vw);
+        margin: 0 auto;
+        padding: 3rem 0 5rem;
+      }
+
+      .app-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .title-block h1 {
+        font-family: 'Raleway', 'Nunito', sans-serif;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        letter-spacing: -0.02em;
+        margin: 0.4rem 0 0.35rem;
+      }
+
+      .title-block p {
+        color: var(--muted);
+        margin: 0;
+        max-width: 480px;
+        line-height: 1.5;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.35em;
+        font-size: 0.72rem;
+        color: hsla(var(--accent-hue), 70%, 70%, 0.9);
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+
+      button {
+        font-family: inherit;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      }
+
+      .btn {
+        border-radius: 999px;
+        padding: 0.55rem 1.4rem;
+        font-weight: 600;
+        border: 1px solid transparent;
+        background: var(--surface-soft);
+        color: var(--text);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+        background: var(--surface-lift);
+      }
+
+      .btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: var(--inverse);
+        box-shadow: 0 15px 35px hsla(var(--accent-hue), 75%, 45%, 0.35);
+      }
+
+      .btn-primary:hover {
+        background: var(--accent-strong);
+      }
+
+      .btn-ghost {
+        border-color: var(--stroke);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        border-radius: 999px;
+        padding: 0.3rem 0.9rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        background: var(--surface-soft);
+        color: var(--muted);
+      }
+
+      .surface {
+        background: var(--surface);
+        border-radius: 1.5rem;
+        border: 1px solid var(--stroke);
+        padding: clamp(1.2rem, 3vw, 2rem);
+        box-shadow: var(--shadow);
+      }
+
+      .drop-zone {
+        border: 1.5px dashed var(--stroke);
+        border-radius: 1.3rem;
+        padding: clamp(2rem, 4vw, 2.8rem);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        text-align: center;
+        min-height: clamp(220px, 32vw, 320px);
+        background: var(--surface-soft);
+        transition: border 0.2s ease, background 0.2s ease, transform 0.2s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .drop-zone::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          hsla(var(--accent-hue), 75%, 60%, 0.08),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .drop-zone.is-dragging {
+        border-color: var(--accent);
+        background: var(--surface-lift);
+        transform: scale(1.01);
+      }
+
+      .drop-zone.is-dragging::after {
+        opacity: 1;
+      }
+
+      .drop-zone input {
+        position: absolute;
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .drop-zone h2 {
+        font-family: 'Raleway', 'Nunito', sans-serif;
+        margin: 1rem 0 0.4rem;
+        font-size: 1.4rem;
+      }
+
+      .drop-zone p {
+        margin: 0.2rem 0;
+        color: var(--muted);
+      }
+
+      .drop-zone span {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .panel-grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .pages-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
+        margin-top: 1.5rem;
+      }
+
+      .page-card {
+        border-radius: 1.6rem;
+        background: var(--surface);
+        border: 1px solid var(--stroke);
+        padding: 1.25rem;
+        box-shadow: var(--shadow);
+      }
+
+      .page-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        gap: 0.8rem;
+      }
+
+      .page-toolbar .label {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .page-media-frame {
+        position: relative;
+        border-radius: 1.2rem;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: linear-gradient(145deg, var(--surface-soft), transparent);
+        overflow: auto;
+        padding: 0.9rem;
+      }
+
+      [data-theme='light'] .page-media-frame {
+        border-color: rgba(15, 23, 42, 0.08);
+      }
+
+      .page-media {
+        position: relative;
+        border-radius: 0.95rem;
+        overflow: hidden;
+        user-select: none;
+        touch-action: none;
+        margin: 0 auto;
+        transition: width 0.2s ease;
+        background: var(--inverse);
+      }
+
+      .page-media img {
+        width: 100%;
+        height: auto;
+        display: block;
+        pointer-events: none;
+      }
+
+      .selection-layer,
+      .erasure-layer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 3;
+      }
+
+      .erase-block {
+        position: absolute;
+        border-radius: 0.45rem;
+        border: 1.5px solid hsla(var(--accent-hue), 70%, 65%, 0.45);
+        background: var(--erase-color);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+      }
+
+      .erase-block::after {
+        content: 'removed';
+        position: absolute;
+        top: 0.35rem;
+        right: 0.55rem;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--erase-label);
+        font-weight: 700;
+      }
+
+      .selection-overlay {
+        position: absolute;
+        border: 1.5px solid var(--accent);
+        border-radius: 0.4rem;
+        background: hsla(var(--accent-hue), 70%, 55%, 0.18);
+        box-shadow: 0 10px 30px hsla(var(--accent-hue), 70%, 40%, 0.25);
+        z-index: 4;
+      }
+
+      .selection-overlay.pending {
+        pointer-events: auto;
+      }
+
+      .text-layer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .text-hit {
+        position: absolute;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+        background: transparent;
+        pointer-events: auto;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        outline: none;
+        transition: border 0.15s ease, background 0.15s ease;
+      }
+
+      .text-hit:hover,
+      .text-hit:focus-visible {
+        border-color: var(--accent);
+        background: hsla(var(--accent-hue), 70%, 55%, 0.16);
+      }
+
+      .selection-actions {
+        position: absolute;
+        top: 0.35rem;
+        right: 0.35rem;
+        display: inline-flex;
+        gap: 0.2rem;
+        padding: 0.15rem;
+        border-radius: 999px;
+        background: rgba(1, 5, 15, 0.75);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .selection-actions button {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 0.25rem 0.6rem;
+        color: var(--text);
+        font-size: 0.78rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        pointer-events: auto;
+      }
+
+      .selection-actions button:hover {
+        background: var(--accent);
+        color: var(--inverse);
+      }
+
+      .page-removed {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(2px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.4rem;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        font-size: 0.85rem;
+        z-index: 5;
+      }
+
+      .page-removed i {
+        font-size: 1.4rem;
+        margin-bottom: 0.3rem;
+        color: var(--accent);
+      }
+
+      .alert {
+        border-radius: 1rem;
+        padding: 0.8rem 1rem;
+        background: hsla(var(--accent-hue), 80%, 60%, 0.12);
+        border: 1px solid hsla(var(--accent-hue), 80%, 60%, 0.2);
+        color: hsla(var(--accent-hue), 80%, 80%, 0.95);
+        margin-top: 1rem;
+      }
+
+      .status-row {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .status-row strong {
+        color: var(--text);
+      }
+
+      .empty-state {
+        display: grid;
+        gap: 0.4rem;
+        text-align: center;
+        padding: 2rem 0 1rem;
+        color: var(--muted);
+      }
+
+      .zoom-controls {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border-radius: 999px;
+        padding: 0.35rem 0.8rem;
+        background: var(--surface-soft);
+        border: 1px solid var(--stroke);
+      }
+
+      .zoom-controls button {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 999px;
+        border: 1px solid var(--stroke);
+        background: transparent;
+        color: var(--text);
+        font-size: 0.95rem;
+        display: grid;
+        place-items: center;
+      }
+
+      .zoom-controls button:not(:disabled):hover {
+        background: var(--accent);
+        color: var(--inverse);
+        border-color: transparent;
+      }
+      .zoom-controls button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        background: transparent;
+        color: var(--muted);
+      }
+
+      .zoom-readout {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--muted);
+        min-width: 3rem;
+        text-align: center;
+      }
+
+      @media (max-width: 720px) {
+        .app-header {
+          flex-direction: column;
+        }
+
+        .selection-actions {
+          top: 0.35rem;
+          bottom: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"
+      crossorigin
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+
+    <script type="text/babel">
+      const { useState, useEffect, useRef, useMemo, useCallback } = React;
+
+      const clamp = (val, min = 0, max = 1) => Math.min(Math.max(val, min), max);
+
+      const MIN_SELECTION_RATIO = 0.003;
+      const MIN_TEXT_RECT = 0.0008;
+      const MIN_ZOOM = 0.75;
+      const MAX_ZOOM = 2.3;
+      const ZOOM_STEP = 0.15;
+      const BASE_RENDER_SCALE = 1.6;
+      const REDACTION_PREVIEW_FILL = '#fdfdfd';
+      const DOWNLOAD_FALLBACK_NAME = 'pdf-text-remover';
+
+      const sanitizeFileName = (name) =>
+        (name || DOWNLOAD_FALLBACK_NAME)
+          .replace(/\.pdf$/i, '')
+          .replace(/[^a-z0-9\-_]+/gi, '-')
+          .replace(/^-+|-+$/g, '') || DOWNLOAD_FALLBACK_NAME;
+
+
+      const loadImage = (src) =>
+        new Promise((resolve, reject) => {
+          if (!src) {
+            reject(new Error('Missing image source'));
+            return;
+          }
+          const img = new Image();
+          if ('decode' in img) {
+            img.decoding = 'async';
+          }
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+          img.src = src;
+        });
+
+      const rasterizePagePreview = async (pageSnapshot) => {
+        if (!pageSnapshot?.baseImageUrl) {
+          return pageSnapshot?.imageUrl || '';
+        }
+        try {
+          const img = await loadImage(pageSnapshot.baseImageUrl);
+          const canvas = document.createElement('canvas');
+          canvas.width = pageSnapshot.width;
+          canvas.height = pageSnapshot.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          if (pageSnapshot.erasedBlocks?.length) {
+            ctx.fillStyle = REDACTION_PREVIEW_FILL;
+            pageSnapshot.erasedBlocks.forEach((block) => {
+              ctx.fillRect(
+                block.left * canvas.width,
+                block.top * canvas.height,
+                block.width * canvas.width,
+                block.height * canvas.height
+              );
+            });
+          }
+          return canvas.toDataURL('image/png');
+        } catch (error) {
+          console.warn('Failed to rasterize preview', error);
+          return pageSnapshot.imageUrl || pageSnapshot.baseImageUrl;
+        }
+      };
+
+      const normalizeRect = (rect, width, height) => {
+        if (!rect) return null;
+        const left = clamp(rect.left / width, 0, 1);
+        const right = clamp((rect.left + rect.width) / width, 0, 1);
+        const top = clamp(rect.top / height, 0, 1);
+        const bottom = clamp((rect.top + rect.height) / height, 0, 1);
+        return {
+          left,
+          top,
+          width: Math.max(right - left, 0),
+          height: Math.max(bottom - top, 0),
+        };
+      };
+
+      const rectFromDraft = (draft) => {
+        if (!draft) return null;
+        const left = Math.min(draft.startX, draft.currentX);
+        const top = Math.min(draft.startY, draft.currentY);
+        const width = Math.abs(draft.currentX - draft.startX);
+        const height = Math.abs(draft.currentY - draft.startY);
+        return { left, top, width, height };
+      };
+
+      const textItemToRect = (item, viewport) => {
+        if (!item?.transform || !viewport) {
+          return null;
+        }
+        const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+        const x = tx[4];
+        const y = tx[5];
+        const fontHeight = Math.max(Math.hypot(tx[1], tx[3]), 0.5);
+        const width = Math.max((item.width || 0) * viewport.scale, 0);
+        if (!width || !fontHeight) {
+          return null;
+        }
+        return normalizeRect(
+          {
+            left: x,
+            top: y - fontHeight,
+            width,
+            height: fontHeight,
+          },
+          viewport.width,
+          viewport.height
+        );
+      };
+
+      const extractTextRuns = (textContent, viewport) => {
+        if (!textContent?.items || !viewport) return [];
+        const timestamp = Date.now();
+        return textContent.items
+          .map((item, index) => {
+            const rect = textItemToRect(item, viewport);
+            if (!rect || rect.width < MIN_TEXT_RECT || rect.height < MIN_TEXT_RECT) {
+              return null;
+            }
+            return {
+              ...rect,
+              id: `text-${timestamp}-${index}`,
+              text: item.str,
+            };
+          })
+          .filter(Boolean);
+      };
+
+      const rectsOverlap = (a, b) => {
+        if (!a || !b) return false;
+        const ax2 = a.left + a.width;
+        const ay2 = a.top + a.height;
+        const bx2 = b.left + b.width;
+        const by2 = b.top + b.height;
+        return a.left < bx2 && ax2 > b.left && a.top < by2 && ay2 > b.top;
+      };
+
+      const partitionRuns = (runs = [], block, targetId) => {
+        if (!runs?.length || !block) {
+          return { remaining: runs || [], removed: [] };
+        }
+        const removed = [];
+        const remaining = [];
+        runs.forEach((run) => {
+          const shouldRemove = targetId ? run.id === targetId : rectsOverlap(run, block);
+          if (shouldRemove) {
+            removed.push(run);
+          } else {
+            remaining.push(run);
+          }
+        });
+        return { remaining, removed };
+      };
+
+      const mergeRuns = (runs = [], restored) => {
+        if (!restored?.length) return runs;
+        return [...runs, ...restored].sort((a, b) => {
+          const topDiff = (typeof a.top === 'number' ? a.top : 0) -
+            (typeof b.top === 'number' ? b.top : 0);
+          if (topDiff === 0) {
+            return (typeof a.left === 'number' ? a.left : 0) -
+              (typeof b.left === 'number' ? b.left : 0);
+          }
+          return topDiff;
+        });
+      };
+
+      const hueChoices = [40, 190, 270, 320];
+
+      function App() {
+        const initialTheme = window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+
+        const [theme, setTheme] = useState(initialTheme);
+        const [hue] = useState(() => hueChoices[Math.floor(Math.random() * hueChoices.length)]);
+        const [pages, setPages] = useState([]);
+        const [loading, setLoading] = useState(false);
+        const [error, setError] = useState('');
+        const [undoStack, setUndoStack] = useState([]);
+        const [selectionDraft, setSelectionDraft] = useState(null);
+        const [previewScale, setPreviewScale] = useState(1);
+        const [exporting, setExporting] = useState(false);
+        const [exportError, setExportError] = useState('');
+        const [loadedFileName, setLoadedFileName] = useState('');
+        const fileInputRef = useRef(null);
+        const pendingPreviewRef = useRef({});
+
+        useEffect(() => {
+          document.documentElement.style.setProperty('--accent-hue', hue);
+        }, [hue]);
+
+        useEffect(() => {
+          document.documentElement.dataset.theme = theme;
+        }, [theme]);
+
+        const refreshPagePreview = useCallback(
+          (pageSnapshot) => {
+            if (!pageSnapshot?.baseImageUrl) return;
+            const revision = Date.now();
+            pendingPreviewRef.current[pageSnapshot.id] = revision;
+            rasterizePagePreview(pageSnapshot)
+              .then((nextUrl) => {
+                if (pendingPreviewRef.current[pageSnapshot.id] !== revision) return;
+                setPages((prev) =>
+                  prev.map((page) =>
+                    page.id === pageSnapshot.id ? { ...page, imageUrl: nextUrl } : page
+                  )
+                );
+              })
+              .catch((err) => console.warn('Preview refresh failed', err));
+          },
+          [setPages]
+        );
+
+        const handleUndo = useCallback(() => {
+          setUndoStack((stack) => {
+            if (!stack.length) {
+              return stack;
+            }
+            const last = stack[stack.length - 1];
+            let updatedPageSnapshot = null;
+            if (last.type === 'block') {
+              setPages((prev) =>
+                prev.map((page) => {
+                  if (page.id !== last.pageId) return page;
+                  const updated = {
+                    ...page,
+                    erasedBlocks: page.erasedBlocks.filter((block) => block.id !== last.block.id),
+                    textRuns: mergeRuns(page.textRuns || [], last.removedRuns || []),
+                  };
+                  updatedPageSnapshot = updated;
+                  return updated;
+                })
+              );
+            }
+            if (last.type === 'page-remove') {
+              setPages((prev) =>
+                prev.map((page) =>
+                  page.id === last.pageId ? { ...page, removed: false } : page
+                )
+              );
+            }
+            setSelectionDraft(null);
+            if (updatedPageSnapshot) {
+              refreshPagePreview(updatedPageSnapshot);
+            }
+            return stack.slice(0, -1);
+          });
+        }, [refreshPagePreview]);
+
+        useEffect(() => {
+          const handler = (event) => {
+            if (event.key === 'Escape') {
+              setSelectionDraft(null);
+            }
+            if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'z') {
+              event.preventDefault();
+              handleUndo();
+            }
+          };
+          window.addEventListener('keydown', handler);
+          return () => window.removeEventListener('keydown', handler);
+        }, [handleUndo]);
+
+        const startSelection = useCallback((pageId, coords) => {
+          setSelectionDraft({
+            pageId,
+            startX: coords.x,
+            startY: coords.y,
+            currentX: coords.x,
+            currentY: coords.y,
+            mode: 'drawing',
+            targetTextId: null,
+          });
+        }, []);
+
+        const updateSelection = useCallback((coords) => {
+          setSelectionDraft((draft) =>
+            draft && draft.mode === 'drawing'
+              ? { ...draft, currentX: coords.x, currentY: coords.y }
+              : draft
+          );
+        }, []);
+
+        const finalizeSelection = useCallback(() => {
+          setSelectionDraft((draft) => {
+            if (!draft || draft.mode !== 'drawing') return draft;
+            const rect = rectFromDraft(draft);
+            if (
+              !rect ||
+              rect.width < MIN_SELECTION_RATIO ||
+              rect.height < MIN_SELECTION_RATIO
+            ) {
+              return null;
+            }
+            return { ...draft, mode: 'pending' };
+          });
+        }, []);
+
+        const applyPendingSelection = useCallback(
+          (draft) => {
+            const rect = rectFromDraft(draft);
+            if (!rect) return;
+            const block = { ...rect, id: `erase-${Date.now()}` };
+            let undoEntry = null;
+            let updatedPageSnapshot = null;
+            setPages((prev) =>
+              prev.map((page) => {
+                if (page.id !== draft.pageId) return page;
+                const { remaining, removed } = partitionRuns(
+                  page.textRuns || [],
+                  block,
+                  draft.targetTextId
+                );
+                undoEntry = {
+                  type: 'block',
+                  pageId: draft.pageId,
+                  block,
+                  removedRuns: removed,
+                };
+                updatedPageSnapshot = {
+                  ...page,
+                  erasedBlocks: [...page.erasedBlocks, block],
+                  textRuns: remaining,
+                };
+                return updatedPageSnapshot;
+              })
+            );
+            if (undoEntry) {
+              setUndoStack((stack) => [...stack, undoEntry]);
+            }
+            if (updatedPageSnapshot) {
+              refreshPagePreview(updatedPageSnapshot);
+            }
+          },
+          [refreshPagePreview]
+        );
+
+        const handleQuickSelect = useCallback((pageId, rect) => {
+          if (!rect) return;
+          setSelectionDraft({
+            pageId,
+            startX: rect.left,
+            startY: rect.top,
+            currentX: rect.left + rect.width,
+            currentY: rect.top + rect.height,
+            mode: 'pending',
+            targetTextId: rect.id || null,
+          });
+        }, []);
+
+        const cancelSelection = useCallback(() => setSelectionDraft(null), []);
+
+        const confirmSelection = useCallback(() => {
+          setSelectionDraft((draft) => {
+            if (!draft || draft.mode !== 'pending') return draft;
+            applyPendingSelection(draft);
+            return null;
+          });
+        }, [applyPendingSelection]);
+
+        const changeZoom = useCallback((delta) => {
+          setPreviewScale((current) => {
+            const next = parseFloat((current + delta).toFixed(2));
+            return clamp(next, MIN_ZOOM, MAX_ZOOM);
+          });
+        }, []);
+
+        const handleZoomIn = useCallback(() => changeZoom(ZOOM_STEP), [changeZoom]);
+        const handleZoomOut = useCallback(() => changeZoom(-ZOOM_STEP), [changeZoom]);
+        const handleZoomReset = useCallback(() => setPreviewScale(1), []);
+
+        const handleDrop = useCallback(
+          (files) => {
+            if (!files?.length) return;
+            const file = files[0];
+            if (!file.type.toLowerCase().includes('pdf')) {
+              setError('Please choose a PDF file.');
+              setExportError('');
+              return;
+            }
+            loadPdf(file);
+          },
+          [setError, loadPdf]
+        );
+
+        const loadPdf = useCallback(async (file) => {
+          setLoading(true);
+          setPages([]);
+          setError('');
+          setSelectionDraft(null);
+          setUndoStack([]);
+          setPreviewScale(1);
+          setExportError('');
+          pendingPreviewRef.current = {};
+          try {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdfBytes = new Uint8Array(arrayBuffer);
+            const baseName =
+              (file.name && file.name.replace(/\.pdf$/i, '')) || DOWNLOAD_FALLBACK_NAME;
+            setLoadedFileName(baseName);
+            const pdf = await pdfjsLib.getDocument({ data: pdfBytes }).promise;
+            const loadedPages = [];
+            const deviceScale = window.devicePixelRatio || 1;
+            const renderScale = Math.min(3.2, BASE_RENDER_SCALE * deviceScale);
+            for (let i = 1; i <= pdf.numPages; i += 1) {
+              const page = await pdf.getPage(i);
+              const baseViewport = page.getViewport({ scale: 1 });
+              const viewport = page.getViewport({ scale: renderScale });
+              const canvas = document.createElement('canvas');
+              const context = canvas.getContext('2d');
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+              await page.render({ canvasContext: context, viewport }).promise;
+              let textRuns = [];
+              try {
+                const textContent = await page.getTextContent();
+                textRuns = extractTextRuns(textContent, viewport);
+              } catch (textErr) {
+                console.warn('Unable to extract text for page', i, textErr);
+              }
+              const dataUrl = canvas.toDataURL('image/png');
+              loadedPages.push({
+                id: `page-${i}-${Date.now()}`,
+                pageNumber: i,
+                width: viewport.width,
+                height: viewport.height,
+                pdfWidth: baseViewport.width,
+                pdfHeight: baseViewport.height,
+                renderScale,
+                baseImageUrl: dataUrl,
+                imageUrl: dataUrl,
+                textRuns,
+                erasedBlocks: [],
+                removed: false,
+              });
+            }
+            setPages(loadedPages);
+          } catch (err) {
+            console.error(err);
+            setError('Unable to open this PDF. Please try another file.');
+            setLoadedFileName('');
+          } finally {
+            setLoading(false);
+          }
+        }, []);
+
+        const handleExport = useCallback(async () => {
+          if (!pages.length) {
+            setExportError('Load a PDF and remove elements before saving.');
+            return;
+          }
+          if (!window?.PDFLib) {
+            setExportError('PDF engine failed to load. Check your connection and retry.');
+            return;
+          }
+          setExporting(true);
+          setExportError('');
+          try {
+            const { PDFDocument } = PDFLib;
+            const pdfDoc = await PDFDocument.create();
+            for (const pageState of pages) {
+              if (pageState.removed) continue;
+              const rasterUrl = await rasterizePagePreview(pageState);
+              if (!rasterUrl) continue;
+              const embedded = await pdfDoc.embedPng(rasterUrl);
+              const pageWidth = pageState.pdfWidth || pageState.width;
+              const pageHeight = pageState.pdfHeight || pageState.height;
+              const page = pdfDoc.addPage([pageWidth, pageHeight]);
+              page.drawImage(embedded, {
+                x: 0,
+                y: 0,
+                width: pageWidth,
+                height: pageHeight,
+              });
+            }
+            if (!pdfDoc.getPageCount()) {
+              throw new Error('No pages to export.');
+            }
+            const exportedBytes = await pdfDoc.save();
+            const blob = new Blob([exportedBytes], { type: 'application/pdf' });
+            const safeName = sanitizeFileName(loadedFileName);
+            const downloadName = `${safeName || DOWNLOAD_FALLBACK_NAME}-edited.pdf`;
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = downloadName;
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(() => {
+              URL.revokeObjectURL(link.href);
+              link.remove();
+            }, 1000);
+          } catch (err) {
+            console.error(err);
+            setExportError('Unable to export PDF. Please try again.');
+          } finally {
+            setExporting(false);
+          }
+        }, [pages, loadedFileName]);
+
+        const removePage = useCallback((pageId) => {
+          setPages((prev) =>
+            prev.map((page) => (page.id === pageId ? { ...page, removed: true } : page))
+          );
+          setUndoStack((stack) => [...stack, { type: 'page-remove', pageId }]);
+          setSelectionDraft((draft) => (draft?.pageId === pageId ? null : draft));
+        }, []);
+
+        const totalRemovedBlocks = useMemo(
+          () => pages.reduce((sum, page) => sum + page.erasedBlocks.length, 0),
+          [pages]
+        );
+
+        const toggleTheme = () => setTheme((mode) => (mode === 'dark' ? 'light' : 'dark'));
+
+        return (
+          <div className="app-shell">
+            <header className="app-header">
+              <div className="title-block">
+                <p className="eyebrow">Clean Cuts</p>
+                <h1>PDF Text Remover</h1>
+                <p>
+                  Drop any PDF, surgically hide what you don&rsquo;t want seen, undo mistakes, and
+                  download a cleaned copy when you&rsquo;re done.
+                </p>
+              </div>
+              <div className="header-actions">
+                <button className="btn btn-ghost" onClick={toggleTheme}>
+                  <i className={`fa-solid fa-${theme === 'dark' ? 'sun' : 'moon'}`}></i>
+                  {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+                </button>
+                <button className="btn btn-ghost" onClick={handleUndo} disabled={!undoStack.length}>
+                  <i className="fa-solid fa-rotate-left"></i>
+                  Undo
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleExport}
+                  disabled={!pages.length || exporting}
+                >
+                  <i className={`fa-solid ${exporting ? 'fa-circle-notch fa-spin' : 'fa-floppy-disk'}`}></i>
+                  {exporting ? 'Saving…' : 'Save PDF'}
+                </button>
+              </div>
+            </header>
+
+            <section className="surface drop-holder">
+              <DropZone
+                loading={loading}
+                onFiles={handleDrop}
+                error={error}
+                fileInputRef={fileInputRef}
+              />
+              {error && (
+                <div className="alert">
+                  <i className="fa-solid fa-circle-exclamation"></i> {error}
+                </div>
+              )}
+            </section>
+
+            {pages.length > 0 ? (
+              <section className="pages-grid">
+                <div className="status-row">
+                  <ZoomControls
+                    zoom={previewScale}
+                    onZoomIn={handleZoomIn}
+                    onZoomOut={handleZoomOut}
+                    onReset={handleZoomReset}
+                    disabled={!pages.length}
+                  />
+                  <span className="badge">
+                    <i className="fa-solid fa-layer-group"></i>
+                    {pages.length} page{pages.length > 1 ? 's' : ''}
+                  </span>
+                  <span className="badge">
+                    <i className="fa-solid fa-eraser"></i>
+                    {totalRemovedBlocks} redaction{totalRemovedBlocks === 1 ? '' : 's'}
+                  </span>
+                  {pages.some((page) => page.removed) && (
+                    <span className="badge">
+                      <i className="fa-regular fa-file"></i>
+                    {pages.filter((page) => page.removed).length} removed page
+                    {pages.filter((page) => page.removed).length > 1 ? 's' : ''}
+                  </span>
+                  )}
+                </div>
+                {exportError && (
+                  <div className="alert">
+                    <i className="fa-solid fa-circle-exclamation"></i> {exportError}
+                  </div>
+                )}
+
+                {pages.map((page) => (
+                  <PageCard
+                    key={page.id}
+                    page={page}
+                    selectionDraft={selectionDraft}
+                    onStartSelection={startSelection}
+                    onUpdateSelection={updateSelection}
+                    onFinalizeSelection={finalizeSelection}
+                    onConfirmSelection={confirmSelection}
+                    onCancelSelection={cancelSelection}
+                    onRemovePage={removePage}
+                    onQuickSelect={handleQuickSelect}
+                    previewScale={previewScale}
+                  />
+                ))}
+              </section>
+            ) : (
+              <div className="empty-state">
+                <i className="fa-solid fa-border-all" style={{ fontSize: '1.6rem', color: 'var(--accent)' }}></i>
+                <strong>Waiting for your first PDF.</strong>
+                <span>Drag a file above or tap to browse from your desktop.</span>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      function DropZone({ loading, onFiles, error, fileInputRef }) {
+        const [dragging, setDragging] = useState(false);
+
+        const handleClick = () => {
+          if (loading) return;
+          fileInputRef?.current?.click();
+        };
+
+        const handleKeyDown = (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            handleClick();
+          }
+        };
+
+        const handleDragOver = (event) => {
+          event.preventDefault();
+          setDragging(true);
+        };
+
+        const handleDragLeave = (event) => {
+          event.preventDefault();
+          if (event.target === event.currentTarget) {
+            setDragging(false);
+          }
+        };
+
+        const handleDrop = (event) => {
+          event.preventDefault();
+          setDragging(false);
+          onFiles(event.dataTransfer.files);
+        };
+
+        const handleChange = (event) => {
+          onFiles(event.target.files);
+        };
+
+        return (
+          <label
+            className={`drop-zone ${dragging ? 'is-dragging' : ''}`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            onClick={handleClick}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+            role="button"
+            aria-busy={loading}
+          >
+            <input
+              type="file"
+              accept="application/pdf"
+              onChange={handleChange}
+              ref={fileInputRef}
+              disabled={loading}
+            />
+            <i className="fa-solid fa-arrow-up-from-bracket" style={{ fontSize: '1.6rem', color: 'var(--accent)' }}></i>
+            <h2>{loading ? 'Processing your PDF…' : 'Drop PDF here'}</h2>
+            <p>
+              or <span>browse</span> from your files
+            </p>
+            <p style={{ fontSize: '0.85rem' }}>We keep files local. Nothing leaves this tab.</p>
+          </label>
+        );
+      }
+
+      function PageCard({
+        page,
+        selectionDraft,
+        onStartSelection,
+        onUpdateSelection,
+        onFinalizeSelection,
+        onConfirmSelection,
+        onCancelSelection,
+        onRemovePage,
+        onQuickSelect,
+        previewScale,
+      }) {
+        const mediaRef = useRef(null);
+        const isActiveDraft = selectionDraft?.pageId === page.id;
+        const draftRect = isActiveDraft ? rectFromDraft(selectionDraft) : null;
+
+        const toRelative = (event) => {
+          const rect = mediaRef.current.getBoundingClientRect();
+          return {
+            x: clamp((event.clientX - rect.left) / rect.width),
+            y: clamp((event.clientY - rect.top) / rect.height),
+          };
+        };
+
+        const handlePointerDown = (event) => {
+          if (event.button !== 0 || page.removed) return;
+          event.preventDefault();
+          mediaRef.current.setPointerCapture(event.pointerId);
+          onStartSelection(page.id, toRelative(event));
+        };
+
+        const handlePointerMove = (event) => {
+          if (!isActiveDraft || selectionDraft.mode !== 'drawing') return;
+          onUpdateSelection(toRelative(event));
+        };
+
+        const handlePointerUp = (event) => {
+          if (!isActiveDraft || selectionDraft.mode !== 'drawing') return;
+          onUpdateSelection(toRelative(event));
+          onFinalizeSelection();
+          mediaRef.current.releasePointerCapture(event.pointerId);
+        };
+
+        return (
+          <article className="page-card">
+            <div className="page-toolbar">
+              <span className="label">Page {page.pageNumber}</span>
+              <div>
+                <button
+                  className="btn btn-ghost"
+                  onClick={() => onRemovePage(page.id)}
+                  disabled={page.removed}
+                >
+                  <i className="fa-solid fa-trash"></i>
+                  Delete page
+                </button>
+              </div>
+            </div>
+            <div className="page-media-frame">
+              <div
+                className="page-media"
+                ref={mediaRef}
+                style={{ width: `${previewScale * 100}%` }}
+                onPointerDown={handlePointerDown}
+                onPointerMove={handlePointerMove}
+                onPointerUp={handlePointerUp}
+              >
+                <img src={page.imageUrl} alt={`PDF page ${page.pageNumber}`} draggable="false" />
+                {!page.removed && (
+                  <div className="text-layer">
+                    {page.textRuns?.map((run) => (
+                      <button
+                        key={run.id}
+                        type="button"
+                        className="text-hit"
+                        style={{
+                          left: `${run.left * 100}%`,
+                          top: `${run.top * 100}%`,
+                          width: `${run.width * 100}%`,
+                          height: `${run.height * 100}%`,
+                        }}
+                        aria-label={`Select text: ${run.text}`}
+                        title={run.text}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          onQuickSelect(page.id, run);
+                        }}
+                        onPointerDown={(event) => event.stopPropagation()}
+                      ></button>
+                    ))}
+                  </div>
+                )}
+                <div className="erasure-layer">
+                  {page.erasedBlocks.map((block) => (
+                    <div
+                      key={block.id}
+                      className="erase-block"
+                      style={{
+                        left: `${block.left * 100}%`,
+                        top: `${block.top * 100}%`,
+                        width: `${block.width * 100}%`,
+                        height: `${block.height * 100}%`,
+                      }}
+                    ></div>
+                  ))}
+                </div>
+                {isActiveDraft && draftRect && (
+                  <div
+                    className={`selection-overlay ${
+                      selectionDraft.mode === 'pending' ? 'pending' : ''
+                    }`}
+                    style={{
+                      left: `${draftRect.left * 100}%`,
+                      top: `${draftRect.top * 100}%`,
+                      width: `${draftRect.width * 100}%`,
+                      height: `${draftRect.height * 100}%`,
+                    }}
+                    onPointerDown={(event) => event.stopPropagation()}
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    {selectionDraft.mode === 'pending' && (
+                      <div className="selection-actions">
+                        <button
+                          type="button"
+                          onPointerDown={(event) => event.stopPropagation()}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            onConfirmSelection();
+                          }}
+                        >
+                          <i className="fa-solid fa-check"></i>
+                          Remove
+                        </button>
+                        <button
+                          type="button"
+                          onPointerDown={(event) => event.stopPropagation()}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            onCancelSelection();
+                          }}
+                        >
+                          <i className="fa-solid fa-xmark"></i>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {page.removed && (
+                  <div className="page-removed">
+                    <i className="fa-solid fa-ban"></i>
+                    Page removed
+                    <span style={{ letterSpacing: '0.1em', fontSize: '0.65rem' }}>
+                      Undo to restore
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </article>
+        );
+      }
+
+      function ZoomControls({ zoom, onZoomIn, onZoomOut, onReset, disabled }) {
+        const percentage = Math.round(zoom * 100);
+        return (
+          <div className="zoom-controls">
+            <button type="button" onClick={onZoomOut} aria-label="Zoom out" disabled={disabled}>
+              <i className="fa-solid fa-minus"></i>
+            </button>
+            <span className="zoom-readout">{percentage}%</span>
+            <button type="button" onClick={onZoomIn} aria-label="Zoom in" disabled={disabled}>
+              <i className="fa-solid fa-plus"></i>
+            </button>
+            <button type="button" onClick={onReset} aria-label="Reset zoom" disabled={disabled}>
+              <i className="fa-solid fa-rotate-right"></i>
+            </button>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<App />);
+    </script>
+  </body>
+</html>

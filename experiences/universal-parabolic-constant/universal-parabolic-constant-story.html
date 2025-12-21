@@ -48,7 +48,13 @@
         <script>
             // pause play thing
 
-            var playing = false
+            var playing = false;
+            var mainScene = null;
+            var musicAudio = null;
+
+            window.loadMainScene = function () {
+                console.warn('Rhyform is still loading. Please wait a moment before starting the experience.');
+            };
             function pausePlayToggle() {
                 if (playing) {
                     mainScene.play()
@@ -105,11 +111,78 @@
 
     <script src="https://cdn.jsdelivr.net/gh/kilobtye/potrace@master/potrace.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prajwalsouza/viewX@main/viewx.js"></script>
-    <script type="text/javascript" src="/experiences/universal-parabolic-constant/rhyform.js"></script>
+    <script>
+        (function loadRhyformAfterMathJax() {
+            var rhyformRequested = false;
+
+            function isMathJaxReady() {
+                return window.MathJax && typeof MathJax.typesetPromise === 'function';
+            }
+
+            function requestRhyform() {
+                if (rhyformRequested) {
+                    return;
+                }
+                rhyformRequested = true;
+                var script = document.createElement('script');
+                script.src = "/experiences/universal-parabolic-constant/rhyform.js";
+                script.onload = function () {
+                    window.dispatchEvent(new Event('rhyform:ready'));
+                };
+                script.onerror = function (error) {
+                    console.error("Failed to load Rhyform.", error);
+                };
+                document.head.appendChild(script);
+            }
+
+            function waitForMathJax(resolve, reject) {
+                if (isMathJaxReady()) {
+                    resolve();
+                    return;
+                }
+
+                if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
+                    MathJax.startup.promise.then(function () {
+                        if (isMathJaxReady()) {
+                            resolve();
+                        } else {
+                            reject(new Error("MathJax did not expose typesetPromise()."));
+                        }
+                    }).catch(reject);
+                    return;
+                }
+
+                var mathJaxScript = document.getElementById('MathJax-script');
+                if (mathJaxScript && !mathJaxScript.hasAttribute('data-mathjax-listener')) {
+                    mathJaxScript.setAttribute('data-mathjax-listener', 'true');
+                    mathJaxScript.addEventListener('load', function () {
+                        waitForMathJax(resolve, reject);
+                    }, { once: true });
+                    mathJaxScript.addEventListener('error', function (error) {
+                        reject(error);
+                    }, { once: true });
+                    return;
+                }
+
+                setTimeout(function () {
+                    waitForMathJax(resolve, reject);
+                }, 50);
+            }
+
+            new Promise(waitForMathJax)
+                .then(requestRhyform)
+                .catch(function (error) {
+                    console.error("MathJax failed to load before Rhyform.", error);
+                });
+        })();
+    </script>
 
     <script>
-
-        var mainScene = null;
+        (function initWhenRhyformReady() {
+            if (!window.rhyform) {
+                window.addEventListener('rhyform:ready', initWhenRhyformReady, { once: true });
+                return;
+            }
 
         function numericalDerivative(f, h) {
             return function(t) {
@@ -170,9 +243,7 @@
         // Set the common font to be used as default, unless overridden
         rhyform.font = "Gaegu";
 
-        var musicAudio = null;  
-
-        async function loadMainScene() {
+        window.loadMainScene = async function loadMainScene() {
 
             // https://cdn.jsdelivr.net/gh/prajwalsouza/RhyformJS@main/images/shooting-stars-142600.mp3
             // load above music and play in loop
@@ -1093,6 +1164,8 @@
             }
         }, 2);
 
+
+        })();
 
     </script>
 </body>

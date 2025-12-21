@@ -1,0 +1,1303 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PDF Text Remover Lab - Prajwal Souza</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080c3c" />
+  <meta
+    name="description"
+    content="Remove stray text, stamps, and entire PDF pages locally. Draw boxes, undo mistakes, and export a refreshed document without uploading anything."
+  />
+  <meta
+    name="keywords"
+    content="pdf text remover, pdf redaction, remove pdf pages, browser pdf tools, prajwal dsouza"
+  />
+  <meta name="author" content="Prajwal DSouza" />
+  <link rel="icon" href="/Experiments/referencefiles/icon.png" />
+  <meta property="og:title" content="PDF Text Remover Lab" />
+  <meta
+    property="og:description"
+    content="Remove stray text, stamps, and entire PDF pages locally. Draw boxes, undo mistakes, and export a refreshed document without uploading anything."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="https://prajwalsouza.github.io/lab/PDF-Tools/Remove-PDF-Text.html"
+  />
+  <meta
+    property="og:image"
+    content="https://prajwalsouza.github.io/assets/images/universal-parabolic-constant/thumb.jpg"
+  />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PDF Text Remover Lab" />
+  <meta
+    name="twitter:description"
+    content="Remove stray text, stamps, and entire PDF pages locally. Draw boxes, undo mistakes, and export a refreshed document without uploading anything."
+  />
+  <meta
+    name="twitter:image"
+    content="https://prajwalsouza.github.io/assets/images/universal-parabolic-constant/thumb.jpg"
+  />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PDF Text Remover Lab",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "author": {
+        "@type": "Person",
+        "name": "Prajwal Souza"
+      },
+      "description": "Remove stray text, stamps, and entire PDF pages locally. Draw boxes, undo mistakes, and export a refreshed document without uploading anything.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&family=Raleway:wght@500;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- Bootstrap -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- React & Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    // Configure pdf.js worker
+    if (window['pdfjsLib']) {
+      window['pdfjsLib'].GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+  </script>
+
+  <!-- pdf-lib -->
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
+    <style>
+    :root {
+      --accent-h: 212;
+      --radius-card: 28px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 30px 80px rgba(8, 10, 36, 0.35);
+      --shadow-card: 0 18px 40px rgba(8, 10, 36, 0.2);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Nunito', 'Raleway', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: #03030a;
+      color: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+      min-height: 100vh;
+      position: relative;
+      background:
+        radial-gradient(circle at 15% 20%, hsla(var(--accent-h), 80%, 65%, 0.25), transparent 55%),
+        radial-gradient(circle at 80% 0%, hsla(var(--accent-h), 90%, 60%, 0.35), transparent 55%),
+        var(--bg-page, #050216);
+      color: var(--text-main, #f3f6ff);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .app::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 20% 80%, hsla(var(--accent-h), 80%, 50%, 0.08), transparent 50%);
+      z-index: 0;
+    }
+
+    .app.light {
+      --bg-page: hsl(var(--accent-h), 65%, 97%);
+      --bg-panel: hsl(var(--accent-h), 55%, 99%);
+      --bg-card: hsl(var(--accent-h), 50%, 98%);
+      --bg-muted: hsl(var(--accent-h), 45%, 94%);
+      --text-main: hsl(var(--accent-h), 30%, 12%);
+      --text-soft: hsl(var(--accent-h), 14%, 40%);
+      --border-soft: hsla(var(--accent-h), 60%, 45%, 0.2);
+      --border-strong: hsla(var(--accent-h), 70%, 35%, 0.35);
+      --accent-strong: hsl(var(--accent-h), 80%, 52%);
+      --accent-soft: hsla(var(--accent-h), 80%, 52%, 0.12);
+      --danger: hsl(352, 80%, 58%);
+      --danger-soft: hsla(352, 80%, 58%, 0.15);
+    }
+
+    .app.dark {
+      --bg-page: hsl(var(--accent-h), 50%, 8%);
+      --bg-panel: hsl(var(--accent-h), 45%, 10%);
+      --bg-card: hsl(var(--accent-h), 40%, 12%);
+      --bg-muted: hsl(var(--accent-h), 38%, 16%);
+      --text-main: hsl(var(--accent-h), 30%, 96%);
+      --text-soft: hsl(var(--accent-h), 20%, 70%);
+      --border-soft: hsla(var(--accent-h), 70%, 70%, 0.2);
+      --border-strong: hsla(var(--accent-h), 80%, 65%, 0.35);
+      --accent-strong: hsl(var(--accent-h), 85%, 62%);
+      --accent-soft: hsla(var(--accent-h), 80%, 62%, 0.15);
+      --danger: hsl(352, 80%, 62%);
+      --danger-soft: hsla(352, 80%, 62%, 0.18);
+    }
+
+    .page-container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card,
+    .glassy-card {
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-soft);
+      background: linear-gradient(135deg, hsla(var(--accent-h), 50%, 60%, 0.08), rgba(255, 255, 255, 0.02)), var(--bg-card);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(18px);
+      color: inherit;
+    }
+
+    .hero-card {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at 30% 30%, hsla(var(--accent-h), 90%, 75%, 0.25), transparent 45%);
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .hero-card .card-body,
+    .glassy-card .card-body {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-title {
+      font-family: 'Raleway', 'Nunito', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 0.6rem;
+      color: var(--text-main);
+    }
+
+    .hero-copy {
+      font-size: 1rem;
+      color: var(--text-soft);
+      max-width: 620px;
+    }
+
+    .hero-actions {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .command-btn {
+      border: 1px solid var(--border-soft);
+      background: transparent;
+      color: var(--text-main);
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      display: inline-flex;
+      gap: 0.4rem;
+      align-items: center;
+      transition: transform 0.2s ease, border 0.2s ease, background 0.2s ease;
+    }
+
+    .command-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      border-color: var(--border-strong);
+    }
+
+    .command-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .command-btn.primary {
+      background: linear-gradient(130deg, var(--accent-strong), hsl(var(--accent-h), 80%, 65%));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 20px 40px hsla(var(--accent-h), 80%, 45%, 0.25);
+    }
+
+    .command-btn.ghost {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .command-btn.icon-only {
+      width: 48px;
+      height: 48px;
+      justify-content: center;
+      border-radius: 16px;
+    }
+
+    .theme-dial {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      min-width: 180px;
+    }
+
+    .theme-dial label {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .theme-dial input[type='range'] {
+      accent-color: hsl(var(--accent-h), 80%, 60%);
+    }
+
+    .stat-grid {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .stat-chip {
+      border-radius: 22px;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border-soft);
+      background: rgba(255, 255, 255, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .stat-chip .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-soft);
+    }
+
+    .stat-chip .value {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--accent-strong);
+    }
+
+    .stat-chip .hint {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    .glassy-card .card-title {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-main);
+    }
+
+    .glassy-card .card-subtitle {
+      color: var(--text-soft);
+      font-size: 0.92rem;
+    }
+
+    .drop-zone {
+      border: 1.5px dashed var(--border-soft);
+      border-radius: 24px;
+      padding: 2.4rem 1.2rem;
+      text-align: center;
+      background: linear-gradient(145deg, var(--accent-soft), rgba(255, 255, 255, 0.02));
+      transition: border 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    .drop-zone.drag-active {
+      border-color: var(--accent-strong);
+      transform: translateY(-2px);
+    }
+
+    .drop-icon {
+      font-size: 2rem;
+      color: var(--accent-strong);
+    }
+
+    .drop-main-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-top: 0.4rem;
+    }
+
+    .drop-sub-text {
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    .drop-cta {
+      margin-top: 0.8rem;
+      color: var(--accent-strong);
+      font-size: 0.85rem;
+      display: inline-flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .hidden-input {
+      display: none;
+    }
+
+    .hint-list {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+    }
+
+    .hint-list li::before {
+      content: '>';
+      margin-right: 0.6rem;
+      color: var(--accent-strong);
+    }
+
+    .file-meta {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      padding: 0.75rem 1rem;
+      background: var(--bg-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .file-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .file-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .file-badge,
+    .file-badge-soft {
+      border-radius: var(--radius-pill);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.78rem;
+    }
+
+    .file-badge {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-weight: 700;
+    }
+
+    .file-badge-soft {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-soft);
+    }
+
+    .editor-panel .card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .editor-toolbar {
+      border-radius: 20px;
+      border: 1px dashed var(--border-soft);
+      padding: 1rem 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pill {
+      border-radius: var(--radius-pill);
+      padding: 0.4rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .pill-strong {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+    }
+
+    .pill-danger {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .pill-soft {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-soft);
+    }
+
+    .editor-surface {
+      border-radius: 24px;
+      border: 1px solid var(--border-soft);
+      padding: 1rem;
+      min-height: 420px;
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    .empty-state {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .pages-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .page-wrapper {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-card);
+      padding: 1rem;
+    }
+
+    .page-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-index-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.3rem 0.9rem;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .page-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      font-size: 0.78rem;
+    }
+
+    .page-status.deleted {
+      color: var(--danger);
+      border-color: var(--danger);
+    }
+
+    .page-canvas-shell {
+      position: relative;
+      border-radius: 16px;
+      background: #ffffff;
+      overflow: auto;
+      max-height: 720px;
+    }
+
+    .pdf-page {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #ffffff;
+    }
+
+    .redaction-box {
+      position: absolute;
+      border: 2px solid #ffffff;
+      background: #ffffff;
+      mix-blend-mode: multiply;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+      pointer-events: none;
+    }
+
+    .redaction-box.draft {
+      border-style: dashed;
+      background: rgba(255, 255, 255, 0.4);
+      box-shadow: none;
+    }
+
+    .status-footer {
+      border-top: 1px solid var(--border-soft);
+      padding-top: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      color: var(--text-soft);
+    }
+
+    .status-footer strong {
+      color: var(--accent-strong);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      border-radius: 16px;
+      padding: 0.9rem 1.1rem;
+      background: rgba(6, 8, 24, 0.92);
+      color: #f5f6ff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      z-index: 40;
+    }
+
+    .toast i {
+      color: var(--danger);
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+    <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    const createInitialDragState = () => ({
+      active: false,
+      pageIndex: null,
+      startX: 0,
+      startY: 0,
+      currentX: 0,
+      currentY: 0
+    });
+
+    function App() {
+      const [theme, setTheme] = useState('light');
+      const [accentHue, setAccentHue] = useState(212);
+      const [dragOver, setDragOver] = useState(false);
+      const [fileName, setFileName] = useState(null);
+      const [numPages, setNumPages] = useState(0);
+      const [pagesMeta, setPagesMeta] = useState([]);
+      const [loadingPdf, setLoadingPdf] = useState(false);
+      const [dragState, setDragState] = useState(createInitialDragState);
+      const [history, setHistory] = useState([]);
+      const [toast, setToast] = useState(null);
+      const [exporting, setExporting] = useState(false);
+
+      const fileInputRef = useRef(null);
+      const canvasRefs = useRef([]);
+      const pdfRef = useRef(null);
+      const pdfDataRef = useRef(null);
+
+      useEffect(() => {
+        document.documentElement.style.setProperty('--accent-h', accentHue);
+      }, [accentHue]);
+
+      useEffect(() => {
+        if (!toast) return;
+        const id = setTimeout(() => setToast(null), 2800);
+        return () => clearTimeout(id);
+      }, [toast]);
+
+      useEffect(() => {
+        const pdfjsLib = window['pdfjsLib'];
+        if (!pdfjsLib || !pdfRef.current || !numPages) {
+          return;
+        }
+        (async () => {
+          for (let i = 1; i <= numPages; i++) {
+            const canvas = canvasRefs.current[i - 1];
+            if (!canvas) continue;
+            try {
+              const page = await pdfRef.current.getPage(i);
+              const viewport = page.getViewport({ scale: 1 });
+              const ctx = canvas.getContext('2d');
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+              await page.render({ canvasContext: ctx, viewport }).promise;
+            } catch (err) {
+              console.error('Failed to render page', i, err);
+            }
+          }
+        })();
+      }, [numPages]);
+
+      const showToast = (message) => {
+        if (!message) return;
+        setToast(message);
+      };
+
+      const handleThemeToggle = () => {
+        setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+      };
+
+      const handleBrowseClick = () => {
+        if (fileInputRef.current) {
+          fileInputRef.current.click();
+        }
+      };
+
+      const handleDragOver = (event) => {
+        event.preventDefault();
+        setDragOver(true);
+      };
+
+      const handleDragLeave = (event) => {
+        event.preventDefault();
+        setDragOver(false);
+      };
+
+      const loadPdf = async (arrayBuffer) => {
+        const pdfjsLib = window['pdfjsLib'];
+        if (!pdfjsLib) {
+          showToast('pdf.js is unavailable in this browser.');
+          setLoadingPdf(false);
+          return;
+        }
+        try {
+          const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+          const pdf = await loadingTask.promise;
+          pdfRef.current = pdf;
+          setNumPages(pdf.numPages);
+          setPagesMeta(
+            Array.from({ length: pdf.numPages }, (_, index) => ({
+              index,
+              deleted: false,
+              redactions: []
+            }))
+          );
+          canvasRefs.current = new Array(pdf.numPages);
+          setHistory([]);
+          setDragState(createInitialDragState());
+          showToast('PDF ready. Draw boxes to remove text.');
+        } catch (err) {
+          console.error(err);
+          showToast('Could not load PDF. Check console.');
+        } finally {
+          setLoadingPdf(false);
+        }
+      };
+
+      const handleFiles = (files) => {
+        const file = files && files[0];
+        if (!file) return;
+        if (
+          file.type !== 'application/pdf' &&
+          !file.name.toLowerCase().endsWith('.pdf')
+        ) {
+          showToast('Please provide a PDF file.');
+          return;
+        }
+        setFileName(file.name);
+        setLoadingPdf(true);
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const buffer = event.target.result;
+          pdfDataRef.current = buffer;
+          await loadPdf(buffer);
+        };
+        reader.onerror = () => {
+          showToast('Could not read that file.');
+          setLoadingPdf(false);
+        };
+        reader.readAsArrayBuffer(file);
+      };
+
+      const handleDrop = (event) => {
+        event.preventDefault();
+        setDragOver(false);
+        const transfer = event.dataTransfer;
+        const files = transfer && transfer.files;
+        if (files && files.length) {
+          handleFiles(files);
+        }
+        if (transfer) {
+          transfer.clearData();
+        }
+      };
+
+      const handleFileInputChange = (event) => {
+        const { files } = event.target;
+        if (files && files.length) {
+          handleFiles(files);
+        }
+        event.target.value = '';
+      };
+
+      const getRelativePoint = (event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        return {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top
+        };
+      };
+
+      const handleMouseDown = (pageIndex, event) => {
+        const targetMeta = pagesMeta[pageIndex];
+        if (!targetMeta || targetMeta.deleted) return;
+        const point = getRelativePoint(event);
+        setDragState({
+          active: true,
+          pageIndex,
+          startX: point.x,
+          startY: point.y,
+          currentX: point.x,
+          currentY: point.y
+        });
+      };
+
+      const handleMouseMove = (pageIndex, event) => {
+        if (!dragState.active || dragState.pageIndex !== pageIndex) return;
+        const point = getRelativePoint(event);
+        setDragState((prev) => ({
+          ...prev,
+          currentX: point.x,
+          currentY: point.y
+        }));
+      };
+
+      const finalizeSelection = (state) => {
+        if (!state.active || state.pageIndex === null) {
+          setDragState(createInitialDragState());
+          return;
+        }
+        const width = Math.abs(state.currentX - state.startX);
+        const height = Math.abs(state.currentY - state.startY);
+        setDragState(createInitialDragState());
+        if (width < 5 || height < 5) {
+          return;
+        }
+        const box = {
+          x: Math.min(state.startX, state.currentX),
+          y: Math.min(state.startY, state.currentY),
+          width,
+          height
+        };
+        setPagesMeta((prev) =>
+          prev.map((meta) =>
+            meta.index === state.pageIndex
+              ? { ...meta, redactions: [...meta.redactions, box] }
+              : meta
+          )
+        );
+        setHistory((prev) => [
+          ...prev,
+          { type: 'add-redaction', pageIndex: state.pageIndex }
+        ]);
+      };
+
+      const handleMouseUp = (pageIndex, event) => {
+        if (!dragState.active || dragState.pageIndex !== pageIndex) return;
+        const point = getRelativePoint(event);
+        finalizeSelection({ ...dragState, currentX: point.x, currentY: point.y });
+      };
+
+      const handleMouseLeave = (pageIndex) => {
+        if (!dragState.active || dragState.pageIndex !== pageIndex) return;
+        finalizeSelection(dragState);
+      };
+
+      const handlePageDeleteToggle = (pageIndex) => {
+        setPagesMeta((prev) =>
+          prev.map((meta) =>
+            meta.index === pageIndex
+              ? { ...meta, deleted: !meta.deleted }
+              : meta
+          )
+        );
+        setHistory((prev) => [...prev, { type: 'toggle-page', pageIndex }]);
+      };
+
+      const handleUndo = () => {
+        setHistory((prevHist) => {
+          if (!prevHist.length) {
+            showToast('Nothing to undo.');
+            return prevHist;
+          }
+          const updated = [...prevHist];
+          const last = updated.pop();
+          if (last.type === 'add-redaction') {
+            setPagesMeta((prevMeta) =>
+              prevMeta.map((meta) => {
+                if (meta.index !== last.pageIndex || !meta.redactions.length) {
+                  return meta;
+                }
+                return {
+                  ...meta,
+                  redactions: meta.redactions.slice(0, -1)
+                };
+              })
+            );
+          } else if (last.type === 'toggle-page') {
+            setPagesMeta((prevMeta) =>
+              prevMeta.map((meta) =>
+                meta.index === last.pageIndex
+                  ? { ...meta, deleted: !meta.deleted }
+                  : meta
+              )
+            );
+          }
+          return updated;
+        });
+      };
+
+      const handleExport = async () => {
+        if (!pdfDataRef.current || !pdfRef.current || !numPages) {
+          showToast('Load a PDF first.');
+          return;
+        }
+        setExporting(true);
+        try {
+          const { PDFDocument, rgb } = PDFLib;
+          const existingPdfBytes = new Uint8Array(pdfDataRef.current);
+          const srcDoc = await PDFDocument.load(existingPdfBytes);
+          const newDoc = await PDFDocument.create();
+
+          for (let i = 0; i < numPages; i++) {
+            const meta = pagesMeta[i];
+            if (!meta || meta.deleted) continue;
+            const [copiedPage] = await newDoc.copyPages(srcDoc, [i]);
+            newDoc.addPage(copiedPage);
+            const { width, height } = copiedPage.getSize();
+            meta.redactions.forEach((box) => {
+              const y = height - (box.y + box.height);
+              copiedPage.drawRectangle({
+                x: box.x,
+                y,
+                width: box.width,
+                height: box.height,
+                color: rgb(1, 1, 1)
+              });
+            });
+          }
+
+          const pdfBytes = await newDoc.save();
+          const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          const baseName = fileName || 'document';
+          const downloadName = baseName.replace(/\.pdf$/i, '') + '-cleaned.pdf';
+          a.href = url;
+          a.download = downloadName;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          showToast('Exported edited PDF.');
+        } catch (err) {
+          console.error(err);
+          showToast('Failed to export PDF.');
+        } finally {
+          setExporting(false);
+        }
+      };
+
+      const totalRedactions = pagesMeta.reduce(
+        (acc, meta) => acc + meta.redactions.length,
+        0
+      );
+      const deletedPages = pagesMeta.filter((meta) => meta.deleted).length;
+
+      const dragBox = dragState.active
+        ? {
+            x: Math.min(dragState.startX, dragState.currentX),
+            y: Math.min(dragState.startY, dragState.currentY),
+            width: Math.abs(dragState.currentX - dragState.startX),
+            height: Math.abs(dragState.currentY - dragState.startY)
+          }
+        : null;
+
+      return (
+        <div className={'app ' + theme}>
+          <div className="page-container container py-4 py-lg-5">
+            <header className="card hero-card border-0 mb-4">
+              <div className="card-body p-4 p-xl-5">
+                <div className="row g-4 align-items-center">
+                  <div className="col-lg-7">
+                    <p className="eyebrow">Browser-side PDF cleanup</p>
+                    <h1 className="hero-title">PDF Text Remover Lab</h1>
+                    <p className="hero-copy">
+                      Redact typography, stamps, signatures, or entire sheets by drawing boxes,
+                      then export a refreshed PDF without ever sending data to a server.
+                    </p>
+                    <div className="hero-actions">
+                      <div className="btn-cluster">
+                        <button
+                          className="command-btn ghost"
+                          onClick={handleUndo}
+                          title="Undo last action"
+                        >
+                          <i className="fa-solid fa-rotate-left" />
+                          <span>Undo</span>
+                        </button>
+                        <button
+                          className="command-btn primary"
+                          onClick={handleExport}
+                          disabled={!numPages || exporting}
+                        >
+                          <i className="fa-regular fa-file-pdf" />
+                          <span>{exporting ? 'Exporting...' : 'Export PDF'}</span>
+                        </button>
+                      </div>
+                      <div className="d-flex flex-wrap align-items-center gap-3">
+                        <div className="theme-dial">
+                          <label htmlFor="accentHue">Accent hue ({accentHue} deg)</label>
+                          <input
+                            id="accentHue"
+                            type="range"
+                            min="0"
+                            max="360"
+                            value={accentHue}
+                            onChange={(e) =>
+                              setAccentHue(parseInt(e.target.value, 10))
+                            }
+                          />
+                        </div>
+                        <button
+                          className="command-btn icon-only"
+                          onClick={handleThemeToggle}
+                          title="Toggle light or dark"
+                        >
+                          <i
+                            className={
+                              theme === 'light'
+                                ? 'fa-solid fa-moon'
+                                : 'fa-solid fa-sun'
+                            }
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-lg-5">
+                    <div className="stat-grid">
+                      <div className="stat-chip">
+                        <span className="label">Pages loaded</span>
+                        <span className="value">{numPages ? numPages : '--'}</span>
+                        <span className="hint">
+                          {fileName ? 'Source: ' + fileName : 'Waiting for a PDF'}
+                        </span>
+                      </div>
+                      <div className="stat-chip">
+                        <span className="label">Redactions placed</span>
+                        <span className="value">{totalRedactions}</span>
+                        <span className="hint">
+                          {deletedPages} page{deletedPages !== 1 ? 's' : ''} hidden
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </header>
+
+            <div className="row g-4">
+              <div className="col-lg-4">
+                <section className="card glassy-card h-100">
+                  <div className="card-body">
+                    <div className="d-flex flex-wrap justify-content-between gap-3">
+                      <div>
+                        <div className="card-title">
+                          <i className="fa-solid fa-upload" />
+                          Source PDF
+                        </div>
+                        <div className="card-subtitle">
+                          Drop a file into the lab or browse for it manually.
+                        </div>
+                      </div>
+                      <button className="command-btn ghost" onClick={handleBrowseClick}>
+                        <i className="fa-regular fa-folder-open" />
+                        <span>Browse</span>
+                      </button>
+                    </div>
+
+                    <div
+                      className={'drop-zone ' + (dragOver ? 'drag-active' : '')}
+                      onClick={handleBrowseClick}
+                      onDrop={handleDrop}
+                      onDragOver={handleDragOver}
+                      onDragLeave={handleDragLeave}
+                    >
+                      <div className="drop-icon">
+                        <i className="fa-regular fa-file-pdf" />
+                      </div>
+                      <div className="drop-main-text">Drop a PDF to start cleaning</div>
+                      <div className="drop-sub-text">
+                        Runs entirely inside your browser. Files never leave this tab.
+                      </div>
+                      <div className="drop-cta">
+                        <i className="fa-solid fa-arrow-turn-up fa-rotate-90" />
+                        <span>Prefer clicking? Pick a file instead</span>
+                      </div>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="application/pdf"
+                        className="hidden-input"
+                        onChange={handleFileInputChange}
+                      />
+                    </div>
+
+                    <div className="mt-3">
+                      <ul className="hint-list">
+                        <li>Draw a box to white out any visible text or artwork.</li>
+                        <li>Use the page toolbar to hide entire sheets from export.</li>
+                        <li>Undo reverses both redactions and deleted pages.</li>
+                      </ul>
+                    </div>
+
+                    <div className="file-meta mt-3">
+                      <div className="file-name">
+                        <i className="fa-regular fa-circle-dot" />
+                        <span>
+                          {fileName
+                            ? fileName
+                            : loadingPdf
+                            ? 'Loading PDF...'
+                            : 'No file selected yet.'}
+                        </span>
+                      </div>
+                      <div className="file-badges">
+                        {numPages ? (
+                          <>
+                            <span className="file-badge">
+                              {numPages} page{numPages !== 1 ? 's' : ''}
+                            </span>
+                            <span className="file-badge-soft">
+                              {deletedPages} hidden, {totalRedactions} boxes
+                            </span>
+                          </>
+                        ) : (
+                          <span className="file-badge-soft">Ready when you are.</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div className="col-lg-8">
+                <section className="card glassy-card editor-panel">
+                  <div className="card-body">
+                    <div className="editor-toolbar">
+                      <div className="d-flex flex-wrap gap-2">
+                        <span className="pill pill-strong">
+                          <i className="fa-regular fa-hand-pointer" />
+                          Drag to draw redaction boxes
+                        </span>
+                        <span className="pill pill-danger">
+                          <i className="fa-regular fa-rectangle-xmark" />
+                          Hide whole pages from their toolbar
+                        </span>
+                        <span className="pill pill-soft">
+                          <i className="fa-solid fa-shuffle" />
+                          Undo mistakes from the hero bar
+                        </span>
+                      </div>
+                      <span className="pill pill-soft">
+                        <i className="fa-regular fa-circle-dot" />
+                        {theme === 'light' ? 'Light mode' : 'Dark mode'}
+                      </span>
+                    </div>
+
+                    <div className="editor-surface">
+                      {numPages === 0 ? (
+                        <div className="empty-state">
+                          <i className="fa-regular fa-eye-slash" />
+                          <span>Load a PDF to start removing the bits you regret.</span>
+                        </div>
+                      ) : (
+                        <div className="pages-column">
+                          {pagesMeta.map((pageMeta, i) => (
+                            <div key={i} className="page-wrapper">
+                              <div className="page-toolbar">
+                                <div className="page-index-pill">
+                                  <i className="fa-regular fa-file-lines" />
+                                  <span>Page {i + 1}</span>
+                                </div>
+                                <div className="d-flex gap-2 flex-wrap">
+                                  <div
+                                    className={
+                                      'page-status ' +
+                                      (pageMeta.deleted ? 'deleted' : 'active')
+                                    }
+                                  >
+                                    <i
+                                      className={
+                                        pageMeta.deleted
+                                          ? 'fa-solid fa-ban'
+                                          : 'fa-solid fa-circle-check'
+                                      }
+                                    />
+                                    <span>
+                                      {pageMeta.deleted ? 'Hidden' : 'Included'}
+                                    </span>
+                                  </div>
+                                  <button
+                                    className={
+                                      'command-btn ghost' +
+                                      (pageMeta.deleted ? ' text-danger' : '')
+                                    }
+                                    onClick={() =>
+                                      handlePageDeleteToggle(pageMeta.index)
+                                    }
+                                  >
+                                    <i className="fa-regular fa-trash-can" />
+                                    <span>
+                                      {pageMeta.deleted
+                                        ? 'Restore page'
+                                        : 'Delete page'}
+                                    </span>
+                                  </button>
+                                </div>
+                              </div>
+                              {!pageMeta.deleted && (
+                                <div
+                                  className="page-canvas-shell"
+                                  onMouseDown={(e) =>
+                                    handleMouseDown(pageMeta.index, e)
+                                  }
+                                  onMouseMove={(e) =>
+                                    handleMouseMove(pageMeta.index, e)
+                                  }
+                                  onMouseUp={(e) =>
+                                    handleMouseUp(pageMeta.index, e)
+                                  }
+                                  onMouseLeave={() =>
+                                    handleMouseLeave(pageMeta.index)
+                                  }
+                                >
+                                  <canvas
+                                    className="pdf-page"
+                                    ref={(el) => (canvasRefs.current[i] = el)}
+                                  />
+                                  {pageMeta.redactions.map((r, idx) => (
+                                    <div
+                                      key={idx}
+                                      className="redaction-box"
+                                      style={{
+                                        left: r.x + 'px',
+                                        top: r.y + 'px',
+                                        width: r.width + 'px',
+                                        height: r.height + 'px'
+                                      }}
+                                    />
+                                  ))}
+                                  {dragBox &&
+                                    dragState.pageIndex === pageMeta.index && (
+                                      <div
+                                        className="redaction-box draft"
+                                        style={{
+                                          left: dragBox.x + 'px',
+                                          top: dragBox.y + 'px',
+                                          width: dragBox.width + 'px',
+                                          height: dragBox.height + 'px'
+                                        }}
+                                      />
+                                    )}
+                                </div>
+                              )}
+                              {pageMeta.deleted && (
+                                <div className="text-muted small mt-1">
+                                  This page will be removed from the exported PDF.
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="status-footer">
+                      <span>
+                        <i className="fa-regular fa-circle-question" />
+                        {numPages
+                          ? 'Draw boxes to hide elements. Export to bake them into a new PDF.'
+                          : 'Waiting for a PDF. Nothing leaves your browser.'}
+                      </span>
+                      <span>
+                        <strong>{totalRedactions}</strong> box
+                        {totalRedactions !== 1 ? 'es' : ''},{' '}
+                        <strong>{deletedPages}</strong> page
+                        {deletedPages !== 1 ? 's' : ''} removed
+                      </span>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+
+          {toast && (
+            <div className="toast">
+              <i className="fa-solid fa-circle-exclamation" />
+              <div>{toast}</div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
+
+

@@ -3,12 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate branded QR codes with instant preview, color controls, and export tools.">
+  <meta name="keywords" content="QR code generator, QR creator, Prajwal D'Souza, lab tools">
+  <meta name="author" content="Prajwal D'Souza">
+  <meta name="robots" content="index, follow">
   <title>QR Code Generator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFFCG66EJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MNFFCG66EJ');
+  </script>
   <style>
     :root {
       color-scheme: light;
@@ -117,6 +129,7 @@
       padding: 0.2rem;
       width: 100%;
       height: 2.6rem;
+      background: hsla(0, 0%, 100%, 0.92);
     }
 
     .btn-accent {
@@ -154,18 +167,112 @@
       transform: translateY(-1px);
     }
 
-    .info-chip {
+    details.stacked-details {
+      border-radius: 1.25rem;
+      padding: 1rem 1.25rem;
+      background: hsla(0, 0%, 100%, 0.65);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    details.stacked-details summary {
+      cursor: pointer;
+      list-style: none;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      color: var(--muted-text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    details.stacked-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.stacked-details summary::after {
+      content: '+';
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.2);
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      transition: transform 0.2s ease;
+    }
+
+    details.stacked-details[open] summary::after {
+      content: '–';
+    }
+
+    details.stacked-details .details-body {
+      margin-top: 1rem;
+    }
+
+    .palette-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    .palette-chip {
+      border: none;
+      border-radius: 1.2rem;
+      padding: 0.75rem 1rem;
+      min-width: 140px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 14px 30px -20px rgba(15, 23, 42, 0.5);
+      display: flex;
+      flex-direction: column;
       gap: 0.4rem;
-      padding: 0.4rem 0.85rem;
-      border-radius: 999px;
-      background: var(--chip-bg);
-      color: var(--accent);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .palette-chip__colors {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .palette-chip__dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+    }
+
+    .palette-chip small {
       text-transform: uppercase;
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      color: var(--muted-text);
+    }
+
+    .palette-chip strong {
+      font-size: 0.95rem;
+      color: var(--body-text);
+    }
+
+    .palette-chip.active {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px -18px var(--accent-soft);
+      outline: 2px solid var(--accent-soft);
+      background: var(--panel-bg);
+    }
+
+    .link-btn {
+      border: none;
+      background: none;
+      color: var(--accent-strong);
+      font-weight: 600;
+      padding: 0;
+      text-decoration: underline;
+      cursor: pointer;
     }
 
     .qr-artboard {
@@ -248,73 +355,129 @@
         <div class="qr-card card h-100">
           <div class="card-body">
             <form id="qrForm" class="row g-3">
-              <div class="col-12">
-                <label for="text" class="form-label">Content</label>
-                <textarea id="text" class="form-control form-control-lg" placeholder="Paste your link or text here">https://example.com</textarea>
-              </div>
+                <div class="col-12">
+                  <label for="text" class="form-label">Content</label>
+                  <textarea id="text" class="form-control form-control-lg" placeholder="Paste your link or text here">https://example.com</textarea>
+                </div>
 
-              <div class="col-sm-6">
-                <label for="ecc" class="form-label">Error correction</label>
-                <select id="ecc" class="form-select">
-                  <option value="L">Low (L)</option>
-                  <option value="M" selected>Medium (M)</option>
-                  <option value="Q">Quartile (Q)</option>
-                  <option value="H">High (H)</option>
-                </select>
-              </div>
+                <div class="col-sm-6">
+                  <label for="size" class="form-label d-flex justify-content-between align-items-center">
+                    <span>Export size</span>
+                    <span id="sizeValue" class="badge bg-transparent text-muted fw-semibold">360 px</span>
+                  </label>
+                  <input id="size" type="range" class="form-range" min="128" max="2048" step="32" value="360">
+                </div>
 
-              <div class="col-sm-6">
-                <label for="size" class="form-label">Target size (px)</label>
-                <input id="size" type="number" class="form-control" min="128" max="2048" step="16" value="360">
-              </div>
+                <div class="col-12">
+                  <label class="form-label">Palette</label>
+                  <div class="palette-grid" role="group" aria-label="Preset palettes">
+                    <button type="button" class="palette-chip active" data-palette data-dark="#111111" data-eye="#111111" data-bg="#ffffff" aria-pressed="true">
+                      <div class="palette-chip__colors">
+                        <span class="palette-chip__dot" style="background:#111111"></span>
+                        <span class="palette-chip__dot" style="background:#2c2c2c"></span>
+                        <span class="palette-chip__dot" style="background:#ffffff"></span>
+                      </div>
+                      <strong>Classic</strong>
+                      <small>High contrast</small>
+                    </button>
+                    <button type="button" class="palette-chip" data-palette data-dark="#0b3a4e" data-eye="#0b3a4e" data-bg="#e8f6ff" aria-pressed="false">
+                      <div class="palette-chip__colors">
+                        <span class="palette-chip__dot" style="background:#0b3a4e"></span>
+                        <span class="palette-chip__dot" style="background:#145a73"></span>
+                        <span class="palette-chip__dot" style="background:#e8f6ff"></span>
+                      </div>
+                      <strong>Coastal</strong>
+                      <small>Soft blue</small>
+                    </button>
+                    <button type="button" class="palette-chip" data-palette data-dark="#b30f42" data-eye="#b30f42" data-bg="#fff5f8" aria-pressed="false">
+                      <div class="palette-chip__colors">
+                        <span class="palette-chip__dot" style="background:#b30f42"></span>
+                        <span class="palette-chip__dot" style="background:#d83c6c"></span>
+                        <span class="palette-chip__dot" style="background:#fff5f8"></span>
+                      </div>
+                      <strong>Fuchsia</strong>
+                      <small>Playful</small>
+                    </button>
+                    <button type="button" class="palette-chip" data-palette data-dark="#111111" data-eye="#00c48a" data-bg="#101318" aria-pressed="false">
+                      <div class="palette-chip__colors">
+                        <span class="palette-chip__dot" style="background:#111111"></span>
+                        <span class="palette-chip__dot" style="background:#00c48a"></span>
+                        <span class="palette-chip__dot" style="background:#101318"></span>
+                      </div>
+                      <strong>Neon dark</strong>
+                      <small>On black</small>
+                    </button>
+                  </div>
+                  <button type="button" class="link-btn mt-2" id="openColorTuner">Prefer exact brand colors?</button>
+                </div>
 
-              <div class="col-sm-6">
-                <label for="quiet" class="form-label">Quiet zone (modules)</label>
-                <input id="quiet" type="number" class="form-control" min="0" max="16" step="1" value="4">
-              </div>
+                <div class="col-12">
+                  <details id="advancedControls" class="stacked-details">
+                    <summary>Advanced controls</summary>
+                    <div class="details-body row g-3">
+                      <div class="col-md-6">
+                        <label for="ecc" class="form-label">Error correction</label>
+                        <select id="ecc" class="form-select">
+                          <option value="L">Low (L)</option>
+                          <option value="M" selected>Medium (M)</option>
+                          <option value="Q">Quartile (Q)</option>
+                          <option value="H">High (H)</option>
+                        </select>
+                      </div>
 
-              <div class="col-sm-6">
-                <label for="roundness" class="form-label d-flex justify-content-between align-items-center">
-                  <span>Roundness</span>
-                  <span id="roundnessValue" class="badge bg-transparent text-muted fw-semibold">0.20</span>
-                </label>
-                <input id="roundness" type="range" class="form-range" min="0" max="0.45" step="0.05" value="0.20">
-              </div>
+                      <div class="col-md-6">
+                        <label for="quiet" class="form-label">Quiet zone (modules)</label>
+                        <input id="quiet" type="number" class="form-control" min="0" max="16" step="1" value="4">
+                      </div>
 
-              <div class="col-sm-6">
-                <label for="moduleStyle" class="form-label">Module style</label>
-                <select id="moduleStyle" class="form-select">
-                  <option value="square">Squares</option>
-                  <option value="rounded" selected>Rounded</option>
-                  <option value="circle">Circles</option>
-                  <option value="diamond">Diamonds</option>
-                </select>
-              </div>
+                      <div class="col-md-6">
+                        <label for="roundness" class="form-label d-flex justify-content-between align-items-center">
+                          <span>Roundness</span>
+                          <span id="roundnessValue" class="badge bg-transparent text-muted fw-semibold">0.20</span>
+                        </label>
+                        <input id="roundness" type="range" class="form-range" min="0" max="0.45" step="0.05" value="0.20">
+                      </div>
 
-              <div class="col-sm-6">
-                <label for="eyeStyle" class="form-label">Eye style</label>
-                <select id="eyeStyle" class="form-select">
-                  <option value="square">Classic Square</option>
-                  <option value="rounded" selected>Rounded</option>
-                  <option value="circle">Circle</option>
-                  <option value="diamond">Diamond</option>
-                </select>
-              </div>
+                      <div class="col-md-6">
+                        <label for="moduleStyle" class="form-label">Module style</label>
+                        <select id="moduleStyle" class="form-select">
+                          <option value="square">Squares</option>
+                          <option value="rounded" selected>Rounded</option>
+                          <option value="circle">Circles</option>
+                          <option value="diamond">Diamonds</option>
+                        </select>
+                      </div>
 
-              <div class="col-sm-4">
-                <label for="darkColor" class="form-label">Module color</label>
-                <input id="darkColor" type="color" class="form-control form-control-color" value="#111111" title="Module color">
-              </div>
+                      <div class="col-md-6">
+                        <label for="eyeStyle" class="form-label">Eye style</label>
+                        <select id="eyeStyle" class="form-select">
+                          <option value="square">Classic Square</option>
+                          <option value="rounded" selected>Rounded</option>
+                          <option value="circle">Circle</option>
+                          <option value="diamond">Diamond</option>
+                        </select>
+                      </div>
 
-              <div class="col-sm-4">
-                <label for="eyeColor" class="form-label">Eye color</label>
-                <input id="eyeColor" type="color" class="form-control form-control-color" value="#111111" title="Eye color">
-              </div>
-
-              <div class="col-sm-4">
-                <label for="bgColor" class="form-label">Background</label>
-                <input id="bgColor" type="color" class="form-control form-control-color" value="#ffffff" title="Background color">
-              </div>
+                      <div class="col-12">
+                        <p class="form-label mb-2">Custom colors</p>
+                        <div id="customColorGroup" class="row g-3">
+                          <div class="col-sm-4">
+                            <label for="darkColor" class="form-label">Module color</label>
+                            <input id="darkColor" type="color" class="form-control form-control-color" value="#111111" title="Module color">
+                          </div>
+                          <div class="col-sm-4">
+                            <label for="eyeColor" class="form-label">Eye color</label>
+                            <input id="eyeColor" type="color" class="form-control form-control-color" value="#111111" title="Eye color">
+                          </div>
+                          <div class="col-sm-4">
+                            <label for="bgColor" class="form-label">Background</label>
+                            <input id="bgColor" type="color" class="form-control form-control-color" value="#ffffff" title="Background color">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </details>
+                </div>
 
               <div class="col-12">
                 <div class="d-flex flex-wrap gap-2">
@@ -340,16 +503,12 @@
       <div class="col-12 col-lg-7">
         <div class="qr-preview card h-100">
           <div class="card-body d-grid gap-4">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-              <div>
-                <h2 class="h4 fw-semibold mb-1">Live preview</h2>
-                <p class="text-muted small mb-0">Canvas rendering and SVG export stay in sync.</p>
+              <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div>
+                  <h2 class="h4 fw-semibold mb-1">Live preview</h2>
+                  <p class="text-muted small mb-0">Canvas rendering and SVG export stay in sync.</p>
+                </div>
               </div>
-              <span class="info-chip">
-                <i class="fa-solid fa-palette"></i>
-                HSLA Mode
-              </span>
-            </div>
 
             <div class="qr-artboard">
               <canvas id="canvas" class="qr-canvas" aria-label="QR code canvas preview"></canvas>
@@ -375,15 +534,33 @@
       'use strict';
 
       const $ = (id) => document.getElementById(id);
-      const root = document.documentElement;
       const form = $('qrForm');
       const roundnessInput = $('roundness');
       const roundnessIndicator = $('roundnessValue');
+      const sizeInput = $('size');
+      const sizeIndicator = $('sizeValue');
+      const paletteButtons = document.querySelectorAll('[data-palette]');
+      const advancedDetails = $('advancedControls');
+      const customColorGroup = $('customColorGroup');
+      const openColorBtn = $('openColorTuner');
       const autoRender = debounce(renderAll, 160);
-      const hues = [190, 40, 280, 320];
 
-      initPalette();
+      paletteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          applyPaletteFromButton(button);
+        });
+      });
+
+      if (openColorBtn && advancedDetails && customColorGroup) {
+        openColorBtn.addEventListener('click', function () {
+          advancedDetails.open = true;
+          customColorGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+
       updateRoundnessDisplay(roundnessInput.value);
+      updateSizeDisplay(sizeInput.value);
+      syncPaletteButtons();
       renderAll();
 
       form.addEventListener('submit', function (event) {
@@ -394,6 +571,9 @@
       form.addEventListener('input', function (event) {
         if (event.target === roundnessInput) {
           updateRoundnessDisplay(roundnessInput.value);
+        }
+        if (event.target === sizeInput) {
+          updateSizeDisplay(sizeInput.value);
         }
         if (event.target.matches('select, input[type="color"]')) {
           renderAll();
@@ -430,33 +610,37 @@
         }, 1200);
       });
 
-      function initPalette() {
-        const hue = hues[Math.floor(Math.random() * hues.length)];
-        const accent = 'hsla(' + hue + ', 88%, 56%, 1)';
-        const accentStrong = 'hsla(' + hue + ', 88%, 46%, 1)';
-        const accentSoft = 'hsla(' + hue + ', 88%, 92%, 0.55)';
-        const bodyBg = 'linear-gradient(140deg, hsla(' + hue + ', 84%, 97%, 1) 0%, hsla(' + hue + ', 88%, 92%, 1) 100%)';
-        const panelBg = 'hsla(' + hue + ', 90%, 99%, 0.9)';
-        const canvasBg = 'hsla(' + hue + ', 100%, 100%, 1)';
-        const chipBg = 'hsla(' + hue + ', 88%, 90%, 0.38)';
-        const focusRing = 'hsla(' + hue + ', 82%, 60%, 0.32)';
-
-        root.style.setProperty('--accent', accent);
-        root.style.setProperty('--accent-strong', accentStrong);
-        root.style.setProperty('--accent-soft', accentSoft);
-        root.style.setProperty('--body-bg', bodyBg);
-        root.style.setProperty('--panel-bg', panelBg);
-        root.style.setProperty('--canvas-bg', canvasBg);
-        root.style.setProperty('--chip-bg', chipBg);
-        root.style.setProperty('--focus-ring', focusRing);
-
-        $('darkColor').value = hslToHex(hue, 82, 20);
-        $('eyeColor').value = hslToHex(hue, 86, 46);
-        $('bgColor').value = hslToHex(hue, 42, 96);
-      }
-
       function updateRoundnessDisplay(value) {
         roundnessIndicator.textContent = Number(value).toFixed(2);
+      }
+
+      function updateSizeDisplay(value) {
+        sizeIndicator.textContent = Number(value).toFixed(0) + ' px';
+      }
+
+      function applyPaletteFromButton(button) {
+        if (!button) return;
+        paletteButtons.forEach(function (btn) {
+          const isActive = btn === button;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', isActive);
+        });
+        if (button.dataset.dark) {
+          $('darkColor').value = button.dataset.dark;
+        }
+        if (button.dataset.eye) {
+          $('eyeColor').value = button.dataset.eye;
+        }
+        if (button.dataset.bg) {
+          $('bgColor').value = button.dataset.bg;
+        }
+        renderAll();
+      }
+
+      function syncPaletteButtons() {
+        paletteButtons.forEach(function (btn) {
+          btn.setAttribute('aria-pressed', btn.classList.contains('active'));
+        });
       }
 
       function gatherOptions() {
@@ -737,19 +921,6 @@
         };
       }
 
-      function hslToHex(h, s, l) {
-        s /= 100;
-        l /= 100;
-        const k = function (n) { return (n + h / 30) % 12; };
-        const a = s * Math.min(l, 1 - l);
-        const f = function (n) {
-          return l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-        };
-        const toHex = function (x) {
-          return Math.round(x * 255).toString(16).padStart(2, '0');
-        };
-        return '#' + toHex(f(0)) + toHex(f(8)) + toHex(f(4));
-      }
     })();
   </script>
 </body>

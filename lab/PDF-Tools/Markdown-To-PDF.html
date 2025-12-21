@@ -1,0 +1,1262 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Markdown to PDF Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Minimal Markdown to PDF studio with live preview, styling controls, and instant exports.">
+  <meta name="keywords" content="Markdown to PDF, PDF tools, Prajwal D'Souza, Markdown editor, export">
+  <meta name="author" content="Prajwal D'Souza">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@400;500;600&family=Playfair+Display:wght@500;600&family=Raleway:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFFCG66EJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MNFFCG66EJ');
+  </script>
+  <style>
+    :root {
+      font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --accent-hue: 270;
+      --accent: hsl(var(--accent-hue) 75% 60%);
+      --accent-soft: hsla(var(--accent-hue), 80%, 60%, 0.15);
+      --bg: hsl(0 0% 98%);
+      --surface: #fff;
+      --muted: hsl(218 12% 52%);
+      --text: hsl(215 22% 15%);
+      --stage: hsl(225 22% 12%);
+      --stage-light: hsl(225 26% 96%);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body[data-theme='dark'] {
+      --bg: hsl(230 32% 7%);
+      --surface: hsl(230 22% 13%);
+      --muted: hsl(218 14% 75%);
+      --text: hsl(0 0% 98%);
+      --stage-light: hsl(226 22% 15%);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 18px;
+      display: block;
+    }
+
+    .app-shell {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: clamp(1.5rem, 3vw, 3.5rem);
+      display: flex;
+      flex-direction: column;
+      gap: 2.75rem;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .hero-copy {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .hero .eyebrow {
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-family: 'Raleway', 'Nunito', sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      margin: 0 0 0.75rem;
+    }
+
+    .hero p {
+      max-width: 60ch;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .micro-tip {
+      margin-top: 0.65rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details summary::marker {
+      content: '';
+    }
+
+    .micro-tip summary {
+      cursor: pointer;
+      list-style: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .micro-tip summary::before {
+      content: '\2013';
+      display: inline-flex;
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-soft);
+      color: var(--text);
+      font-size: 0.8rem;
+    }
+
+    .micro-tip[open] summary::before {
+      content: '\2013';
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.35rem;
+      font-family: inherit;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    button.primary-btn {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 20px 45px var(--accent-soft);
+    }
+
+    button.soft-btn {
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: none;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    body[data-theme='light'] button.soft-btn {
+      background: rgba(15, 23, 42, 0.05);
+      border-color: rgba(15, 23, 42, 0.1);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(320px, 380px) minmax(0, 1fr);
+      gap: clamp(1.5rem, 3vw, 3rem);
+      align-items: flex-start;
+    }
+
+    @media (max-width: 1024px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 34px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-bar {
+      display: inline-flex;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 999px;
+      padding: 0.25rem;
+      gap: 0.25rem;
+    }
+
+    body[data-theme='dark'] .tab-bar {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .tab-bar button {
+      border-radius: 999px;
+      box-shadow: none;
+      background: transparent;
+      padding: 0.45rem 1.1rem;
+      color: var(--muted);
+    }
+
+    .tab-bar button.active {
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .tab-heading {
+      font-family: 'Raleway', 'Nunito', sans-serif;
+      font-size: 1.15rem;
+      margin: 0;
+    }
+
+    .drop-zone {
+      border: 1.75px dashed rgba(0, 0, 0, 0.15);
+      border-radius: 28px;
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .drop-zone.drag-active {
+      border-color: var(--accent);
+      background: hsla(var(--accent-hue), 80%, 60%, 0.12);
+      color: var(--text);
+    }
+
+    body[data-theme='dark'] .drop-zone {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 420px;
+      border-radius: 28px;
+      padding: 1.35rem;
+      border: none;
+      background: hsla(var(--accent-hue), 32%, 92%, 0.35);
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.6;
+      resize: vertical;
+      outline: 2px solid transparent;
+      transition: outline 0.2s ease, background 0.2s ease;
+    }
+
+    body[data-theme='dark'] textarea {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    textarea:focus {
+      outline: 2px solid var(--accent-soft);
+    }
+
+    .status-strip {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      justify-content: space-between;
+    }
+
+    .status-cluster {
+      display: inline-flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .status-pill {
+      border-radius: 18px;
+      padding: 0.35rem 0.9rem;
+      background: rgba(0, 0, 0, 0.08);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    body[data-theme='dark'] .status-pill {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .status-message {
+      flex: 1;
+      min-width: 180px;
+      text-align: right;
+    }
+
+    @media (max-width: 620px) {
+      .status-strip {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .status-message {
+        text-align: left;
+      }
+    }
+
+    .stats-toggle {
+      font-size: 0.85rem;
+      padding: 0.45rem 1rem;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.06);
+      box-shadow: none;
+    }
+
+    body[data-theme='dark'] .stats-toggle {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.85rem;
+      margin-top: 0.65rem;
+    }
+
+    .stats-card {
+      border-radius: 18px;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.04);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    body[data-theme='dark'] .stats-card {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .stats-card h3 {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .stats-card strong {
+      font-size: 1.4rem;
+      font-family: 'Raleway', 'Nunito', sans-serif;
+    }
+
+    .preview-area {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .preview-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .preview-heading h2 {
+      margin: 0;
+      font-family: 'Raleway', 'Nunito', sans-serif;
+    }
+
+    .preview-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .preview-stage {
+      background: var(--stage-light);
+      border-radius: 42px;
+      padding: clamp(1.5rem, 3vw, 3rem);
+      min-height: 70vh;
+      overflow-y: auto;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+    }
+
+    .preview-stage::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .preview-stage::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    body[data-theme='dark'] .preview-stage::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .pdf-page {
+      width: min(720px, 100%);
+      margin: 0 auto 2rem;
+      background: #fff;
+      color: var(--pdf-body-color, #151728);
+      border-radius: 26px;
+      padding: clamp(1.75rem, 3vw, 3rem);
+      box-shadow: 0 50px 90px rgba(13, 16, 34, 0.35);
+      font-family: var(--pdf-body-font, 'Nunito', 'Segoe UI', sans-serif);
+      line-height: var(--pdf-line-height, 1.6);
+      font-size: calc(1rem * var(--pdf-scale, 1));
+      page-break-inside: avoid;
+    }
+
+    .pdf-page:last-child {
+      margin-bottom: 1rem;
+    }
+
+    .pdf-export-root {
+      background: #fff;
+      padding: 0;
+    }
+
+    .pdf-export-page {
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      margin: 0 auto !important;
+      page-break-after: always;
+      page-break-inside: avoid;
+    }
+
+    .pdf-export-page:last-child {
+      page-break-after: avoid;
+    }
+
+
+    .pdf-page h1,
+    .pdf-page h2,
+    .pdf-page h3,
+    .pdf-page h4,
+    .pdf-page h5,
+    .pdf-page h6 {
+      font-family: var(--pdf-heading-font, 'Raleway', 'Nunito', sans-serif);
+      line-height: 1.2;
+      margin-top: 0;
+      color: var(--pdf-heading-color, #050505);
+    }
+
+    .pdf-page p {
+      margin: 0 0 1rem;
+      color: var(--pdf-body-color, #151728);
+    }
+
+    .pdf-page ul,
+    .pdf-page ol {
+      margin: 0 0 1rem 1rem;
+      padding-left: 0.5rem;
+      list-style-position: outside;
+    }
+
+    .pdf-page blockquote {
+      border-left: 4px solid var(--accent-soft);
+      padding-left: 1rem;
+      color: var(--pdf-blockquote-color, #4a5167);
+      font-style: italic;
+    }
+
+    .pdf-page pre {
+      background: #11131b;
+      color: #fff;
+      padding: 1rem;
+      border-radius: 16px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+    }
+
+    .pdf-page code {
+      background: rgba(0, 0, 0, 0.08);
+      padding: 0.1rem 0.4rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .pdf-page a {
+      color: var(--pdf-link-color, hsl(var(--accent-hue), 70%, 50%));
+      text-decoration: var(--pdf-link-decoration, none);
+      font-weight: 600;
+    }
+
+    .settings-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .settings-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.93rem;
+      color: var(--muted);
+    }
+
+    .settings-field strong {
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .range-field {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .range-field input[type='range'] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .range-field output {
+      font-weight: 600;
+      color: var(--text);
+      min-width: 3rem;
+      text-align: right;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .select-control,
+    .color-control {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .select-control select {
+      border-radius: 18px;
+      padding: 0.5rem 0.9rem;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      background: rgba(0, 0, 0, 0.02);
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text);
+    }
+
+    body[data-theme='dark'] .select-control select {
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .color-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    body[data-theme='dark'] .color-chip {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .color-chip input[type='color'] {
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 50%;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .color-chip span {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .color-chip button {
+      border-radius: 12px;
+      padding: 0.35rem 0.75rem;
+      box-shadow: none;
+      background: transparent;
+      border: 1px dashed rgba(0, 0, 0, 0.18);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    body[data-theme='dark'] .color-chip button {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: var(--muted);
+    }
+
+    .inline-options {
+      display: inline-flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    button.chip-btn {
+      border-radius: 999px;
+      padding: 0.35rem 1.05rem;
+      background: rgba(0, 0, 0, 0.05);
+      border: none;
+      box-shadow: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    button.chip-btn.active {
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    body[data-theme='dark'] button.chip-btn {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .field-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+      <script type="text/babel">
+    const { useState, useEffect, useMemo, useRef } = React;
+
+    const hues = [40, 190, 270, 320];
+    const dividerPattern = /\n-{3,}\n/g;
+    const headingFonts = [
+      { label: 'Raleway', value: "'Raleway', 'Nunito', sans-serif" },
+      { label: 'Space Grotesk', value: "'Space Grotesk', 'Nunito', sans-serif" },
+      { label: 'Playfair Display', value: "'Playfair Display', 'Times New Roman', serif" }
+    ];
+    const bodyFonts = [
+      { label: 'Nunito', value: "'Nunito', 'Inter', sans-serif" },
+      { label: 'Inter', value: "'Inter', 'Nunito', sans-serif" },
+      { label: 'Source Sans 3', value: "'Source Sans 3', 'Nunito', sans-serif" }
+    ];
+
+    const sampleMarkdown = `# Minimal Markdown Spread\nA focused Markdown to PDF lab with generous white space.\n\n## Workflow\n- Drop in a \`.md\` file or type directly.\n- Use \`---\` on a blank line for a new page.\n- Tweak the PDF margin in the Settings tab before exporting.\n\n---\n## Second Page\n### Style cues\n1. Calm typography\n2. Plenty of space\n3. Single hue accents\n\n![Moodboard](https://dummyimage.com/600x220/f0f1f5/151728&text=Markdown+Mockup)\n`;
+
+    if (window.marked && window.marked.setOptions) {
+      window.marked.setOptions({
+        gfm: true,
+        breaks: true,
+        headerIds: false,
+        mangle: false
+      });
+    }
+
+    function hslToHex(h, s, l) {
+      s /= 100;
+      l /= 100;
+      const k = (n) => (n + h / 30) % 12;
+      const a = s * Math.min(l, 1 - l);
+      const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+      const toHex = (value) => Math.round(value * 255).toString(16).padStart(2, '0');
+      return `#${toHex(f(0))}${toHex(f(8))}${toHex(f(4))}`;
+    }
+
+    function hexToRgb(hex) {
+      let normalized = hex.replace('#', '');
+      if (normalized.length === 3) {
+        normalized = normalized
+          .split('')
+          .map((char) => char + char)
+          .join('');
+      }
+      const int = parseInt(normalized, 16);
+      return { r: (int >> 16) & 255, g: (int >> 8) & 255, b: int & 255 };
+    }
+
+    function rgbToHex(r, g, b) {
+      return `#${[r, g, b].map((value) => value.toString(16).padStart(2, '0')).join('')}`;
+    }
+
+    function mixWithWhite(hex, amount = 0.35) {
+      try {
+        const { r, g, b } = hexToRgb(hex);
+        const mix = (channel) => Math.round(channel + (255 - channel) * amount);
+        return rgbToHex(mix(r), mix(g), mix(b));
+      } catch (error) {
+        return '#4a5167';
+      }
+    }
+
+    function compileMarkdownToPages(content) {
+      const parser = window.marked;
+      if (!parser || typeof parser.parse !== 'function') {
+        return ['<p style="color:#999;font-style:italic;">Markdown engine warming upÃ¢â‚¬Â¦</p>'];
+      }
+      const normalized = (content || '').replace(/\r\n/g, '\n');
+      const slices = normalized.split(dividerPattern);
+      return (slices.length ? slices : ['']).map((segment) => {
+        const trimmed = segment.trim();
+        return trimmed ? parser.parse(trimmed) : '<p style="opacity:0.5;">Blank page.</p>';
+      });
+    }
+
+    function MarkdownPdfApp() {
+      const accentHue = useMemo(() => hues[Math.floor(Math.random() * hues.length)], []);
+      const accentHex = useMemo(() => hslToHex(accentHue, 70, 50), [accentHue]);
+      const [theme, setTheme] = useState('dark');
+      const [markdown, setMarkdown] = useState(sampleMarkdown);
+      const [pages, setPages] = useState(() => compileMarkdownToPages(sampleMarkdown));
+      const [dragActive, setDragActive] = useState(false);
+      const [statusMessage, setStatusMessage] = useState('Drop a Markdown file or start typing.');
+      const [activeTab, setActiveTab] = useState('markdown');
+      const [pdfMargin, setPdfMargin] = useState(0.5);
+      const [linkStyle, setLinkStyle] = useState('clean');
+      const [linkColor, setLinkColor] = useState(accentHex);
+      const [headingColor, setHeadingColor] = useState('#050505');
+      const [bodyColor, setBodyColor] = useState('#1a1a1a');
+      const [headingFont, setHeadingFont] = useState(headingFonts[0].value);
+      const [bodyFont, setBodyFont] = useState(bodyFonts[0].value);
+      const [lineHeight, setLineHeight] = useState(1.6);
+      const [fontScale, setFontScale] = useState(0.95);
+      const [statsExpanded, setStatsExpanded] = useState(false);
+      const previewRef = useRef(null);
+      const pageRefs = useRef([]);
+      const fileInputRef = useRef(null);
+
+      useEffect(() => {
+        document.body.dataset.theme = theme;
+        document.body.style.setProperty('--accent-hue', accentHue);
+      }, [theme, accentHue]);
+
+      useEffect(() => {
+        pageRefs.current = pageRefs.current.slice(0, pages.length);
+      }, [pages.length]);
+
+      useEffect(() => {
+        setPages(compileMarkdownToPages(markdown));
+      }, [markdown]);
+
+      const blockquoteColor = useMemo(() => mixWithWhite(bodyColor, 0.35), [bodyColor]);
+
+      const previewStyles = useMemo(
+        () => ({
+          '--pdf-heading-font': headingFont,
+          '--pdf-body-font': bodyFont,
+          '--pdf-heading-color': headingColor,
+          '--pdf-body-color': bodyColor,
+          '--pdf-link-color': linkColor,
+          '--pdf-link-decoration': linkStyle === 'underline' ? 'underline' : 'none',
+          '--pdf-line-height': lineHeight,
+          '--pdf-blockquote-color': blockquoteColor,
+          '--pdf-scale': fontScale
+        }),
+        [headingFont, bodyFont, headingColor, bodyColor, linkColor, linkStyle, lineHeight, blockquoteColor, fontScale]
+      );
+
+      const stats = useMemo(() => {
+        const trimmed = markdown.trim();
+        const words = trimmed ? trimmed.split(/\s+/).length : 0;
+        const characters = trimmed ? trimmed.replace(/\s/g, '').length : 0;
+        const headingsTotal = (trimmed.match(/^#{1,6}\s/mg) || []).length;
+        const linksTotal = (trimmed.match(/\[.+?\]\(.+?\)/g) || []).length;
+        const paragraphs = trimmed ? trimmed.split(/\n\s*\n+/).filter(Boolean).length : 0;
+        const reading = words ? Math.ceil(words / 200) : 0;
+        return { words, characters, headingsTotal, linksTotal, paragraphs, reading };
+      }, [markdown]);
+
+      const statsCards = [
+        { label: 'Characters', value: stats.characters.toLocaleString(), hint: 'no spaces' },
+        { label: 'Paragraphs', value: stats.paragraphs.toLocaleString(), hint: 'blocks' },
+        { label: 'Headings', value: stats.headingsTotal.toLocaleString(), hint: '# h1-h6' },
+        { label: 'Links', value: stats.linksTotal.toLocaleString(), hint: 'markdown links' },
+        {
+          label: 'Reading',
+          value: stats.reading ? `${stats.reading} min` : '< 1 min',
+          hint: '@200 wpm'
+        }
+      ];
+
+      const readMarkdownFile = (file) => {
+        if (!file) return;
+        if (!/\.(md|markdown|txt)$/i.test(file.name)) {
+          setStatusMessage('Please pick a Markdown or text file.');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          setMarkdown(event.target.result || '');
+          setStatusMessage(`Loaded ${file.name}`);
+        };
+        reader.onerror = () => setStatusMessage('Could not read that file.');
+        reader.readAsText(file);
+      };
+
+      const handleDrop = (event) => {
+        event.preventDefault();
+        setDragActive(false);
+        const file = event.dataTransfer.files?.[0];
+        readMarkdownFile(file);
+      };
+
+      const handleDragOver = (event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'copy';
+        setDragActive(true);
+      };
+
+      const handleDragLeave = (event) => {
+        if (event.currentTarget === event.target) {
+          setDragActive(false);
+        }
+      };
+
+      const handleFileInput = (event) => {
+        const file = event.target.files?.[0];
+        readMarkdownFile(file);
+        event.target.value = '';
+      };
+
+      const handleThemeToggle = () => {
+        setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+      };
+
+      const handleExportPdf = () => {
+        if (typeof html2pdf === 'undefined') {
+          setStatusMessage('PDF engine is warming up. Try again in a moment.');
+          return;
+        }
+        const pageNodes = (pageRefs.current || []).filter(Boolean);
+        if (!pageNodes.length) {
+          setStatusMessage('Preview is empty. Add some markdown first.');
+          return;
+        }
+        setStatusMessage('Rendering PDF...');
+
+        const exportWrapper = document.createElement('div');
+        exportWrapper.className = 'pdf-export-root';
+        Object.entries(previewStyles || {}).forEach(([key, value]) => {
+          if (value !== undefined && value !== null) {
+            exportWrapper.style.setProperty(key, value);
+          }
+        });
+        pageNodes.forEach((node) => {
+          const clone = node.cloneNode(true);
+          clone.classList.add('pdf-export-page');
+          exportWrapper.appendChild(clone);
+        });
+
+        const host = document.createElement('div');
+        host.style.position = 'fixed';
+        host.style.top = '-9999px';
+        host.style.left = '-9999px';
+        host.appendChild(exportWrapper);
+        document.body.appendChild(host);
+
+        const cleanup = () => {
+          if (host.parentNode) {
+            host.parentNode.removeChild(host);
+          }
+        };
+
+        html2pdf()
+          .set({
+            margin: pdfMargin,
+            filename: 'markdown-to-pdf.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', letterRendering: true },
+            pagebreak: { mode: ['css', 'avoid-all'] },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+          })
+          .from(exportWrapper)
+          .save()
+          .then(() => {
+            setStatusMessage('PDF downloaded.');
+            cleanup();
+          })
+          .catch(() => {
+            setStatusMessage('Could not export just now.');
+            cleanup();
+          });
+      };      const themeIcon = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      const themeLabel = theme === 'dark' ? 'Light mode' : 'Dark mode';
+      const wordCount = stats.words;
+      const azurePreset = '#00cfff';
+
+      return (
+        <div className="app-shell" style={{ '--accent-hue': accentHue }}>
+          <section className="hero">
+            <div className="hero-copy">
+              <p className="eyebrow">PDF tools &middot; Markdown</p>
+              <h1>Markdown to PDF Canvas</h1>
+              <p>Minimal, flat, and driven by a single hue. Paste notes, tune margins, and export.</p>
+              <details className="micro-tip">
+                <summary>Workflow tips</summary>
+                <p>Use <code>---</code> for page splits. The preview mirrors the PDF exactly.</p>
+              </details>
+            </div>
+            <div className="hero-actions">
+              <button className="primary-btn" onClick={handleExportPdf}>
+                <i className="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
+                Export PDF
+              </button>
+              <button className="soft-btn" onClick={handleThemeToggle}>
+                <i className={themeIcon} aria-hidden="true"></i>
+                {themeLabel}
+              </button>
+            </div>
+          </section>
+
+          <section className="workspace">
+            <section className="card control-card">
+              <div className="tab-bar">
+                <button
+                  className={activeTab === 'markdown' ? 'active' : ''}
+                  onClick={() => setActiveTab('markdown')}
+                >
+                  Markdown
+                </button>
+                <button
+                  className={activeTab === 'settings' ? 'active' : ''}
+                  onClick={() => setActiveTab('settings')}
+                >
+                  Settings
+                </button>
+              </div>
+              {activeTab === 'markdown' ? (
+                <>
+                  <div
+                    className={`drop-zone ${dragActive ? 'drag-active' : ''}`}
+                    onDragOver={handleDragOver}
+                    onDragEnter={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        fileInputRef.current?.click();
+                      }
+                    }}
+                  >
+                    <i className="fa-solid fa-arrow-down-to-line" aria-hidden="true"></i>
+                    <p>Drop or browse a .md file</p>
+                    <small>Supports .md &middot; .markdown &middot; .txt</small>
+                  </div>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".md,.markdown,.txt"
+                    className="sr-only"
+                    onChange={handleFileInput}
+                  />
+                  <label htmlFor="markdown-editor" className="tab-heading">
+                    Paste or type
+                  </label>
+                  <textarea
+                    id="markdown-editor"
+                    value={markdown}
+                    onChange={(event) => setMarkdown(event.target.value)}
+                    placeholder="Start writing in Markdown..."
+                  ></textarea>
+                </>
+              ) : (
+                <div className="settings-stack">
+                  <div className="settings-field">
+                    <strong>PDF Margin</strong>
+                    <span>Adjust for tighter or airier exports.</span>
+                    <div className="range-field">
+                      <input
+                        type="range"
+                        min="0.2"
+                        max="1"
+                        step="0.05"
+                        value={pdfMargin}
+                        onChange={(event) => setPdfMargin(parseFloat(event.target.value))}
+                      />
+                      <output>{pdfMargin.toFixed(2)} in</output>
+                    </div>
+                  </div>
+                  <div className="settings-field">
+                    <strong>Line height</strong>
+                    <span>Control the vertical rhythm for body copy.</span>
+                    <div className="range-field">
+                      <input
+                        type="range"
+                        min="1.2"
+                        max="2"
+                        step="0.05"
+                        value={lineHeight}
+                        onChange={(event) => setLineHeight(parseFloat(event.target.value))}
+                      />
+                      <output>{lineHeight.toFixed(2)}x</output>
+                    </div>
+                  </div>
+                  <div className="settings-field">
+                    <strong>Font scale</strong>
+                    <span>Shrink or enlarge the base type size.</span>
+                    <div className="range-field">
+                      <input
+                        type="range"
+                        min="0.8"
+                        max="1.2"
+                        step="0.05"
+                        value={fontScale}
+                        onChange={(event) => setFontScale(parseFloat(event.target.value))}
+                      />
+                      <output>{Math.round(fontScale * 100)}%</output>
+                    </div>
+                  </div>
+                  <div className="settings-field">
+                    <strong>Fonts</strong>
+                    <span>Pick the voice for headings and text.</span>
+                    <div className="field-grid">
+                      <label className="select-control">
+                        Heading
+                        <select value={headingFont} onChange={(event) => setHeadingFont(event.target.value)}>
+                          {headingFonts.map((font) => (
+                            <option key={font.label} value={font.value}>
+                              {font.label}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className="select-control">
+                        Body
+                        <select value={bodyFont} onChange={(event) => setBodyFont(event.target.value)}>
+                          {bodyFonts.map((font) => (
+                            <option key={font.label} value={font.value}>
+                              {font.label}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                  <div className="settings-field">
+                    <strong>Palette</strong>
+                    <span>Dark grey body copy with crisp headings.</span>
+                    <div className="field-grid">
+                      <label className="color-control">
+                        Heading color
+                        <div className="color-chip">
+                          <input
+                            type="color"
+                            value={headingColor}
+                            onChange={(event) => setHeadingColor(event.target.value)}
+                            aria-label="Heading color"
+                          />
+                          <span title={headingColor}>Custom</span>
+                        </div>
+                      </label>
+                      <label className="color-control">
+                        Text color
+                        <div className="color-chip">
+                          <input
+                            type="color"
+                            value={bodyColor}
+                            onChange={(event) => setBodyColor(event.target.value)}
+                            aria-label="Body color"
+                          />
+                          <span title={bodyColor}>Custom</span>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                  <div className="settings-field">
+                    <strong>Links</strong>
+                    <span>Style, underline, and hue.</span>
+                    <div className="inline-options">
+                      <button
+                        type="button"
+                        className={`chip-btn ${linkStyle === 'clean' ? 'active' : ''}`}
+                        onClick={() => setLinkStyle('clean')}
+                      >
+                        No underline
+                      </button>
+                      <button
+                        type="button"
+                        className={`chip-btn ${linkStyle === 'underline' ? 'active' : ''}`}
+                        onClick={() => setLinkStyle('underline')}
+                      >
+                        Underline
+                      </button>
+                    </div>
+                    <label className="color-control field-note" htmlFor="link-color-input">
+                      <span>Link color</span>
+                      <div className="color-chip">
+                        <input
+                          id="link-color-input"
+                          type="color"
+                          value={linkColor}
+                          onChange={(event) => setLinkColor(event.target.value)}
+                          aria-label="Link color"
+                        />
+                        <span title={linkColor}>Custom</span>
+                        <button type="button" onClick={() => setLinkColor(azurePreset)}>
+                          Neon pop
+                        </button>
+                        <button type="button" onClick={() => setLinkColor(accentHex)}>
+                          Match accent hue
+                        </button>
+                      </div>
+                    </label>
+                  </div>
+                  <details className="micro-tip" open>
+                    <summary>Page styling</summary>
+                    <p>Headings lean on Raleway by default. You can pivot to other families in one tap.</p>
+                  </details>
+                </div>
+              )}
+              <div className="status-strip">
+                <div className="status-cluster">
+                  <span className="status-pill">
+                    <i className="fa-regular fa-file-lines" aria-hidden="true"></i>
+                    {pages.length} page{pages.length === 1 ? '' : 's'}
+                  </span>
+                  <span className="status-pill">
+                    <i className="fa-solid fa-wave-square" aria-hidden="true"></i>
+                    {wordCount} word{wordCount === 1 ? '' : 's'}
+                  </span>
+                  <button
+                    type="button"
+                    className="stats-toggle"
+                    onClick={() => setStatsExpanded((prev) => !prev)}
+                  >
+                    {statsExpanded ? 'Hide stats' : 'More stats'}
+                  </button>
+                </div>
+                <span className="status-message">{statusMessage}</span>
+              </div>
+              {statsExpanded && (
+                <div className="stats-grid">
+                  {statsCards.map((card) => (
+                    <div key={card.label} className="stats-card">
+                      <h3>{card.label}</h3>
+                      <strong>{card.value}</strong>
+                      <span className="field-note">{card.hint}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            <section className="preview-area">
+              <div className="preview-heading">
+                <div>
+                  <h2>Preview</h2>
+                  <p>The rendered pages.</p>
+                </div>
+              </div>
+              <div className="preview-stage" ref={previewRef} style={previewStyles}>
+                {pages.map((page, index) => (
+                  <article
+                    key={index}
+                    className="pdf-page"
+                    ref={(node) => (pageRefs.current[index] = node)}
+                    dangerouslySetInnerHTML={{ __html: page }}
+                  ></article>
+                ))}
+              </div>
+            </section>
+          </section>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<MarkdownPdfApp />);
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="Musical Note EQ"
+        content="Music Note Equalizer is a web application that allows users to play music and adjust the equalizer settings to their liking. THe difference however is that the filters for equalizer are at music note frequencies." />
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="musical eq, music, jovita, mishelle rodrigues" />
+    <meta name="author" content="Xjdrhv Urgcmuzz Zxrmqpiza, Yfvrfog LBcphj" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" href="/assets/Images/icon.png" />
+    <meta name="twitter:card"
+        content="Music Note Equalizer is a web application that allows users to play music and adjust the equalizer settings to their liking. The difference however is that the filters for equalizer are at music note frequencies." />
+    <meta name="twitter:title" content="Musical Note Equalizer" />
+    <meta name="twitter:description"
+        content="Music Note Equalizer is a web application that allows users to play music and adjust the equalizer settings to their liking. The difference however is that the filters for equalizer are at music note frequencies." />
+    <meta name="twitter:image" content="https://jovitamishellerodrigues.com/assets/Images/eq-demo.png" />
+    <meta property="og:title" content="Jovita Mishelle Rodrigues" />
+    <meta property="og:type" content="personal website" />
+    <meta property="og:url" content="https://jovitamishellerodrigues.com/" />
+    <meta property="og:image" content="https://jovitamishellerodrigues.com/assets/Images/eq-demo.png" />
+    <meta property="og:description"
+        content="Music Note Equalizer is a web application that allows users to play music and adjust the equalizer settings to their liking. The difference however is that the filters for equalizer are at music note frequencies." />
+    <script type="application/ld+json">
+      {
+        "@type": "app",
+        "name": "Musical Note EQ - Jovita Mishelle Rodrigues",
+        "author": "Xjdrhv Urgcmuzz Zxrmqpiza, Yfvrfog LBcphj",
+        "description": "Music Note Equalizer is a web application that allows users to play music and adjust the equalizer settings to their liking. The difference however is that the filters for equalizer are at music note frequencies. "
+      }
+    </script>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FSL73CW4X2"></script>
+    <script>
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        (window.dataLayer = window.dataLayer || []),
+            gtag("js", new Date()),
+            gtag("config", "G-FSL73CW4X2");
+    </script>
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Raleway:wght@400;600&display=swap"
+        rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/ignus-theme.css">
+    <script src="/js/ignus-theme.js"></script>
+
+
+    <!-- React - The core React library -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- ReactDOM - Provides DOM-specific methods that can be used at the top level of a web app -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Babel - A JavaScript compiler that lets us use ES6+ and JSX in browsers that don't support it yet -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <title>Musical Note EQ - Jovita Mishelle Rodrigues</title>
+</head>
+<link rel="stylesheet" href="/experiments/musical-eq/styles/style.css" />
+
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="appRoot" class="App m-0 m-md-3 pl-md-5 pl-3 pt-3 pb-3 pr-0 pr-md-3">
+
+    </div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const App = () => {
+
+            const [appTheme, setAppTheme] = useState('Dark');
+            // retrive the theme from local storage
+
+            useEffect(() => {
+                const localTheme = localStorage.getItem('theme');
+                if (localTheme) {
+                    setAppTheme(localTheme);
+                }
+            }, []);
+
+            // save the theme to local storage
+
+            useEffect(() => {
+                localStorage.setItem('theme', appTheme);
+            }, [appTheme]);
+
+            const toggleTheme = () => {
+                setAppTheme(appTheme === 'Light' ? 'Dark' : 'Light');
+            };
+
+
+            const [hasInteracted, setHasInteracted] = useState(false);
+
+            const interactionCount = useRef(0);
+
+            const handleInteraction = () => {
+
+                if (interactionCount.current > 5) {
+                    return;
+                }
+                audioAnalysisRef.current.audioContext.resume()
+                setHasInteracted(true);
+                interactionCount.current += 1;
+                // console.log("User interaction recorded");
+
+                // if (!hasInteracted) {
+                //     setHasInteracted(true);
+                //     audioAnalysisRef.current.audioContext.resume()
+                // }
+            };
+
+            useEffect(() => {
+                window.addEventListener('click', handleInteraction);
+                window.addEventListener('touchstart', handleInteraction);
+                window.addEventListener('keydown', handleInteraction);
+
+                return () => {
+                    window.removeEventListener('click', handleInteraction);
+                    window.removeEventListener('touchstart', handleInteraction);
+                    window.removeEventListener('keydown', handleInteraction);
+                };
+            }, [hasInteracted]);
+
+
+
+            var appV = {
+                songOptions: {
+                    "0": {
+                        "name": "Joker and the Queen",
+                        "url": "experiments/musical-eq/songs/Joker-and-the-Queen.mp3"
+                    },
+                    "1": {
+                        "name": "In The Bleak Midwinter - Jacob Collier",
+                        "url": "experiments/musical-eq/songs/In The Bleak Midwinter - Jacob Collier.mp3"
+                    },
+                    "2": {
+                        "name": "Canon in D",
+                        "url": "experiments/musical-eq/songs/Canon in D - Pachelbel.mp3"
+                    },
+                    "3": {
+                        "name": "Thinking Out Loud",
+                        "url": "experiments/musical-eq/songs/Ed Sheeran - Thinking Out Loud.mp3"
+                    },
+                    "4": {
+                        "name": "Love Story",
+                        "url": "experiments/musical-eq/songs/Taylor Swift - Love Story.mp3"
+                    },
+                },
+                notes: {
+                    "0": "C", "1": "C♯", "2": "D", "3": "E♭", "4": "E", "5": "F", "6": "F♯", "7": "G", "8": "A♭", "9": "A", "10": "B♭", "11": "B"
+                },
+                spectrum: {
+                    eqDisplayType: "Note Chronogram",
+                    eqDisplayTypes: ["Note Chronogram", "Note Octave Spectrum", "Differential Note Chronogram"],
+                    eqDisplayTypeInfo : {
+                        "Note Chronogram": "Displaying the average intensity of the same note across octaves.",
+                        "Note Octave Spectrum": "Displaying the intensity of a note matching the frequency associated with it.",
+                        "Differential Note Chronogram": "Displaying the difference in intensity between the note chronogram and the average chronogram for this song played so far. The more you play the song, better the average calculated."
+                    },
+
+                    notesDisplayedNoteChronogram: {},
+                    notesDisplayedNoteOctaveSpectrum: {},
+                },
+
+                boostSpectrum: {
+                    boostSpectrumType: "Notes",
+                    boostSpectrumTypes: ["Notes", "Note Octaves", "Octaves"],
+                    boostSpectrumTypeInfo : {
+                        "Notes": "Boost/Reduce the intensity of a note across octaves. The filters can affect nearby notes too, as the approach used here is a filter, that only suppresses or boost, but does not eliminate the frequency.",
+                        "Note Octaves": "Boost/Reduce the intensity of a note. The filters can affect nearby notes too, as the approach used here is a filter, that only suppresses or boost, but does not eliminate the frequency.",
+                        "Octaves": "Boost/Reduce the intensity of all notes in that octave. The filters can affect nearby notes too, as the approach used here is a filter, that only suppresses or boost, but does not eliminate the frequency."
+                    },
+
+                    boostForNoteChronogram: {},
+                    boostForNoteOctaveChronogram: {},
+                    boostForOctaves: {},
+                }
+                
+            }
+
+            // set up for noteChronogramType
+
+            for (var i = 0; i < 12; i++) {
+
+                // change color of the note chronogram if note is black
+                var backgroundColorPrevious = (i === 1 || i === 3 || i === 6 || i === 8 || i === 10) ? "chronogramNotePreviousBlack" : "chronogramNotePreviousWhite";
+
+                var backgroundColor = (i === 1 || i === 3 || i === 6 || i === 8 || i === 10) ? "chronogramNoteBlack" : "chronogramNoteWhite";
+
+
+                appV.spectrum.notesDisplayedNoteChronogram[i] = {
+                    "name": appV.notes[i],
+                    "spectrumValue": 50,
+                    "spectrumValuePrevious": 50,
+                    "backgroundColorForPreviousClass": backgroundColorPrevious,
+                    "backgroundColorClass": backgroundColor
+                }
+
+                appV.boostSpectrum.boostForNoteChronogram[i] = {
+                    "boostValue": 0,
+                    "name": appV.notes[i],
+                    "sliderKnobColor": "hsla(var(--themeColorHue), 70%, 70%, 0.8)",
+                    "sliderTrackColor": "hsla(var(--themeColorHue), 0%, 10%, 0.8)",
+                    "type": (i === 1 || i === 3 || i === 6 || i === 8 || i === 10) ? "black" : "white"
+                }
+            }
+
+            // get piano note frequencies from octave 0 to 9
+            appV.notesFrequencies = {};
+
+            for (var octave = 1; octave <= 9; octave++) {
+                for (var note in appV.notes) {
+                    if (octave == 1) {
+                        if (note < 5) {
+                            continue;
+                        }
+                    }
+                    var noteOctaveName = appV.notes[note] + octave
+                    appV.notesFrequencies[noteOctaveName] = 440 * Math.pow(2, (octave - 4) + ((note - 9) / 12));
+
+                    var backgroundColorPrevious = (note == 1 || note == 3 || note == 6 || note == 8 || note == 10) ? "chronogramNotePreviousBlack" : "chronogramNotePreviousWhite";
+
+                    var backgroundColor = (note == 1 || note == 3 || note == 6 || note == 8 || note == 10) ? "chronogramNoteBlack" : "chronogramNoteWhite";
+
+                    var noteSharpFlat = (note == 1 || note == 3 || note == 6 || note == 8 || note == 10) ? appV.notes[note][1] : '';
+
+                    var noteWithoutSharpFlat = appV.notes[note][0]
+
+                    appV.spectrum.notesDisplayedNoteOctaveSpectrum[noteOctaveName] = {
+                        "name": noteOctaveName,
+                        "note": appV.notes[note],
+                        "octave": octave,
+                        "spectrumValue": 50,
+                        "spectrumValuePrevious": 50,
+                        "backgroundColorForPreviousClass": backgroundColorPrevious,
+                        "backgroundColorClass": backgroundColor,
+                        "noteSharpFlat": noteSharpFlat,
+                        "noteWithoutSharpFlat": noteWithoutSharpFlat
+                    }
+
+
+                    // Create peak frequency for each note
+
+                    appV.boostSpectrum.boostForNoteOctaveChronogram[noteOctaveName] = {
+                        "boostValue": 0,
+                        "name": noteOctaveName,
+                        "sliderKnobColor": "hsla(var(--themeColorHue), 70%, 70%, 0.8)",
+                        "sliderTrackColor": "hsla(var(--themeColorHue), 0%, 10%, 0.8)",
+                        "type": (note == 1 || note == 3 || note == 6 || note == 8 || note == 10) ? "black" : "white",
+                        "note": appV.notes[note],
+                        "octave": octave,
+                        "noteSharpFlat": noteSharpFlat,
+                        "noteWithoutSharpFlat": noteWithoutSharpFlat
+                    }
+
+                    appV.boostSpectrum.boostForOctaves[octave] = {
+                        "boostValue": 0,
+                        "name": octave,
+                        "sliderKnobColor": "hsla(var(--themeColorHue), 70%, 70%, 0.8)",
+                        "sliderTrackColor": "hsla(var(--themeColorHue), 0%, 10%, 0.8)",
+                        "type": "white"
+                    }
+
+                    
+
+
+
+                }
+            }
+
+
+            const [song, setSong] = useState(appV["songOptions"]["0"]);
+            const [audio, setAudio] = useState(new Audio(song.url));
+            const [isPlaying, setIsPlaying] = useState(false);
+            const [volume, setVolume] = useState(0.5);
+            const [currentTime, setCurrentTime] = useState(0);
+
+            const [currentFileSource, setCurrentFileSource] = useState('0');
+
+
+            const [spectrumSetupData, setSpectrumSetupData] = useState(appV.spectrum);
+
+            const [boostSpectrumSetupData, setBoostSpectrumSetupData] = useState(appV.boostSpectrum);
+
+            function frequencyToNote(frequency) {
+                // Convert frequency to note, with note name and octave number, as a json object
+
+                const noteNumber = 12 * (Math.log(frequency / 440) / Math.log(2));
+                const noteIndex = Math.round(noteNumber) + 69;
+                const octave = Math.floor(noteIndex / 12) - 1;
+                const note = noteIndex % 12;
+
+                const noteName = appV.notes[note];
+
+                return [noteName, octave];
+            }
+
+
+            const updateAudio = (file) => {
+                audio.pause();
+                setCurrentFileSource(file)
+
+                setIsPlaying(false);
+
+                if ('url' in file) {
+                    audio.src = file['url'];
+                }
+                else {
+                    audio.src = URL.createObjectURL(file);
+                }
+
+                audio.load();
+                audio.play();
+
+                setIsPlaying(true);
+            };
+
+            const audioAnalysisRef = useRef({ analyzer: null, dataArray: null, bufferLength: null, audioContext: null, filters: null, analyzerAfterFilter: null, dataArrayAfterFilter: null, filtersNoteOctaveMap: null });
+
+
+            const spectrumSetupDataRef = useRef(spectrumSetupData);
+
+            const boostSpectrumSetupDataRef = useRef(boostSpectrumSetupData);
+
+            function setUpAudioContext() {
+
+                // Create an AudioContext and Analyzer
+                const audioContext = new AudioContext();
+                const analyzer = audioContext.createAnalyser();
+                const analyzerAfterFilter = audioContext.createAnalyser();
+
+                // Create a MediaElementSource from the existing audio element
+                const track = audioContext.createMediaElementSource(audio);
+                track.connect(analyzer);
+                
+                // Create an array to store the filters
+                const filters = [];
+                const filtersNoteOctaveMap = {};
+
+                // Create and connect 20 peaking filters at different frequencies
+
+                const noteNames = Object.keys(appV.notesFrequencies);
+                for (let i = 0; i < noteNames.length; i++) {
+                    var filterAtFrequency = appV.notesFrequencies[noteNames[i]];
+
+                    if (filterAtFrequency < 20 || filterAtFrequency > 20000) {
+                        continue;
+                    }
+
+                    const peakingFilter = audioContext.createBiquadFilter();
+                    peakingFilter.type = "peaking";
+                    peakingFilter.frequency.value = filterAtFrequency; 
+                    peakingFilter.gain.value = 0; 
+                    peakingFilter.Q.value = 1000;
+
+                    filtersNoteOctaveMap[noteNames[i]] = peakingFilter;
+
+                    // Connect filters in series
+                    if (i === 0) {
+                        analyzer.connect(peakingFilter);
+                    } else {
+                        filters[i - 1].connect(peakingFilter);
+                    }
+
+                    filters.push(peakingFilter);
+                }
+
+                // Connect the last filter to the analyzerAfterFilter
+                filters[filters.length - 1].connect(analyzerAfterFilter);
+
+                // Connect the analyzerAfterFilter to the destination
+                analyzerAfterFilter.connect(audioContext.destination);
+
+
+                // peakingFilter.connect(audioContext.destination);
+
+
+                // Set up the analyzer properties
+                analyzer.fftSize = 2 ** 14; // You can adjust this value
+                analyzerAfterFilter.fftSize = 2 ** 14; // You can adjust this value
+
+                const bufferLength = analyzer.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+                const dataArrayAfterFilter = new Uint8Array(bufferLength);
+                audioAnalysisRef.current = { analyzer, dataArray, bufferLength, audioContext, filters, analyzerAfterFilter, dataArrayAfterFilter, filtersNoteOctaveMap };
+
+
+
+                // Cleanup function to disconnect on unmount
+                return () => {
+                    track.disconnect();
+                    audioContext.close(); // Close the audio context to release resources
+                };
+            }
+
+            useEffect(() => {
+                // catch errors when setting up audio context
+                setUpAudioContext();
+
+            }, [audio]); // Dependency array includes only 'audio'
+
+            const spectrumMaxHeight = 170;
+
+            function generateFrequencySpectrum() {
+
+                spectrumSetupDataRef.current = spectrumSetupData;
+
+                // Function to update frequency data
+                const getFrequencyData = () => {
+                    var dataArray = audioAnalysisRef.current.dataArray;
+                    var bufferLength = audioAnalysisRef.current.bufferLength;
+                    var analyzer = audioAnalysisRef.current.analyzer;
+                    var audioContext = audioAnalysisRef.current.audioContext;
+
+
+                    analyzer.getByteFrequencyData(dataArray);
+
+                    var analyserAfterFilter = audioAnalysisRef.current.analyzerAfterFilter;
+                    var dataArrayAfterFilter = new Uint8Array(bufferLength);
+
+                    analyserAfterFilter.getByteFrequencyData(dataArrayAfterFilter);
+
+                    
+
+                    // Get the frequency data and update the state
+
+                    var chronogramData = {}
+                    var chronogramNoteData = {}
+                    var chronogramNoteOctaveData = {}
+
+                    var differentialNoteChronogram = {}
+
+                    if (appV.averageNoteChronogramData == undefined) {
+                        appV.averageNoteChronogramData = {}
+                    }
+
+                    if (appV.averageNoteChronogramData[audio.src] == undefined) {
+                        appV.averageNoteChronogramData[audio.src] = {}
+                        appV.averageNoteChronogramData[audio.src].entries = 0
+                        appV.averageNoteChronogramData[audio.src].value = {}
+                    }
+
+
+
+                    
+                    var chronogramDataAfterFilters = {}
+                    var chronogramNoteDataAfterFilters = {}
+                    var chronogramNoteOctaveDataAfterFilters = {}
+
+                    var differentialNoteChronogramAfterFilters = {}
+
+                    if (appV.averageNoteChronogramDataAfterFilters == undefined) {
+                        appV.averageNoteChronogramDataAfterFilters = {}
+                    }
+
+                    if (appV.averageNoteChronogramDataAfterFilters[audio.src] == undefined) {
+                        appV.averageNoteChronogramDataAfterFilters[audio.src] = {}
+                        appV.averageNoteChronogramDataAfterFilters[audio.src].entries = 0
+                        appV.averageNoteChronogramDataAfterFilters[audio.src].value = {}
+                    }
+
+
+
+
+                    var noteOctaveMap = {}
+
+                    // check if audio is playing and audio is playing
+                    if (audioContext.state === 'running' && audio.currentTime > 0 && !audio.paused && !audio.ended) {
+                        const minFrequency = 20;
+                        const maxFrequency = 20000;
+                        // get intensity of each frequency
+                        for (let i = 0; i < bufferLength; i++) {
+                            const frequency = i * (audioContext.sampleRate / analyzer.fftSize);
+
+                            if (frequency < minFrequency || frequency > maxFrequency) {
+                                continue;
+                            }
+                            const [note, octave] = frequencyToNote(frequency);
+                            const noteName = note + octave;
+
+                            noteOctaveMap[noteName] = [note, octave];
+
+                            if (noteName in chronogramData) {
+                                if (dataArray[i] > chronogramData[noteName]) {
+                                    chronogramData[noteName] = dataArray[i];
+                                }
+                            }
+                            else {
+                                chronogramData[noteName] = dataArray[i];
+                            }
+
+                            // if (note in chronogramNoteData) {
+                            //     chronogramNoteData[note].push(dataArray[i]);
+                            // }
+                            // else {
+                            //     chronogramNoteData[note] = [dataArray[i]];
+                            // }
+
+                            if (noteName in chronogramNoteOctaveData) {
+                                if (dataArray[i] > chronogramNoteOctaveData[noteName][0]) {
+                                    chronogramNoteOctaveData[noteName] = [dataArray[i]];
+                                }
+                            }
+                            else {
+                                chronogramNoteOctaveData[noteName] = [dataArray[i]];
+                            }
+
+                        }
+
+                        // after filtering
+
+                        for (let i = 0; i < bufferLength; i++) {
+                            const frequency = i * (audioContext.sampleRate / analyzer.fftSize);
+
+                            if (frequency < minFrequency || frequency > maxFrequency) {
+                                continue;
+                            }
+                            const [note, octave] = frequencyToNote(frequency);
+                            const noteName = note + octave;
+
+                            if (noteName in chronogramDataAfterFilters) {
+                                if (dataArrayAfterFilter[i] > chronogramDataAfterFilters[noteName]) {
+                                    chronogramDataAfterFilters[noteName] = dataArrayAfterFilter[i];
+                                }
+                            }
+                            else {
+                                chronogramDataAfterFilters[noteName] = dataArrayAfterFilter[i];
+                            }
+
+                            // if (note in chronogramNoteData) {
+                            //     chronogramNoteData[note].push(dataArrayAfterFilter[i]);
+                            // }
+                            // else {
+                            //     chronogramNoteData[note] = [dataArrayAfterFilter[i]];
+                            // }
+
+                            if (noteName in chronogramNoteOctaveDataAfterFilters) {
+                                if (dataArrayAfterFilter[i] > chronogramNoteOctaveDataAfterFilters[noteName][0]) {
+                                    chronogramNoteOctaveDataAfterFilters[noteName] = [dataArrayAfterFilter[i]];
+                                }
+                            }
+                            else {
+                                chronogramNoteOctaveDataAfterFilters[noteName] = [dataArrayAfterFilter[i]];
+                            }
+
+                        }
+
+
+
+                        var chronogramDataAverage = {}
+                        var chronogramNoteOctaveDataAverage = {}
+
+                        for (let noteName in chronogramNoteOctaveData) {
+                            const sum = chronogramNoteOctaveData[noteName].reduce((a, b) => a + b, 0);
+                            const avg = sum / chronogramNoteOctaveData[noteName].length;
+                            chronogramNoteOctaveDataAverage[noteName] = avg;
+
+
+                            var note = noteOctaveMap[noteName][0]
+
+                            // console.log(note, avg)
+
+                            if (note in chronogramNoteData) {
+                                chronogramNoteData[note].push(avg);
+                            }
+                            else {
+                                chronogramNoteData[note] = [avg];
+                            }
+                        }
+
+
+
+                        
+                        var chronogramDataAverageAfterFilters = {}
+                        var chronogramNoteOctaveDataAverageAfterFilters = {}
+
+                        for (let noteName in chronogramNoteOctaveDataAfterFilters) {
+                            const sum = chronogramNoteOctaveDataAfterFilters[noteName].reduce((a, b) => a + b, 0);
+                            const avg = sum / chronogramNoteOctaveDataAfterFilters[noteName].length;
+                            chronogramNoteOctaveDataAverageAfterFilters[noteName] = avg;
+
+
+                            var note = noteOctaveMap[noteName][0]
+
+                            // console.log(note, avg)
+
+                            if (note in chronogramNoteDataAfterFilters) {
+                                chronogramNoteDataAfterFilters[note].push(avg);
+                            }
+                            else {
+                                chronogramNoteDataAfterFilters[note] = [avg];
+                            }
+                        }
+
+
+                        
+
+
+                        
+                        appV.averageNoteChronogramData[audio.src].entries += 1
+
+                        appV.averageNoteChronogramDataAfterFilters[audio.src].entries += 1
+
+
+
+
+                        // get average intensity of each note
+                        for (let note in chronogramNoteData) {
+                            const sum = chronogramNoteData[note].reduce((a, b) => a + b, 0);
+                            const avg = sum / chronogramNoteData[note].length;
+                            chronogramDataAverage[note] = avg;
+
+
+                            if (appV.averageNoteChronogramData[audio.src].entries === 1) {
+                                appV.averageNoteChronogramData[audio.src].value[note] = avg
+                            }
+                            else {
+                                appV.averageNoteChronogramData[audio.src].value[note] = (appV.averageNoteChronogramData[audio.src].value[note]*appV.averageNoteChronogramData[audio.src].entries + avg) / (appV.averageNoteChronogramData[audio.src].entries + 1)
+                            }
+
+
+                            if (appV.averageNoteChronogramData[audio.src].value[note] != 0) {
+                                differentialNoteChronogram[note] = (avg - appV.averageNoteChronogramData[audio.src].value[note])
+                            }
+                            else {
+                                differentialNoteChronogram[note] = 0
+                            }
+                            
+                        }
+
+                        
+                        // get average intensity of each note
+                        for (let note in chronogramNoteDataAfterFilters) {
+                            const sum = chronogramNoteDataAfterFilters[note].reduce((a, b) => a + b, 0);
+                            const avg = sum / chronogramNoteDataAfterFilters[note].length;
+                            chronogramDataAverageAfterFilters[note] = avg;
+
+
+                            if (appV.averageNoteChronogramDataAfterFilters[audio.src].entries === 1) {
+                                appV.averageNoteChronogramDataAfterFilters[audio.src].value[note] = avg
+                            }
+                            else {
+                                appV.averageNoteChronogramDataAfterFilters[audio.src].value[note] = (appV.averageNoteChronogramDataAfterFilters[audio.src].value[note]*appV.averageNoteChronogramDataAfterFilters[audio.src].entries + avg) / (appV.averageNoteChronogramDataAfterFilters[audio.src].entries + 1)
+                            }
+
+
+                            if (appV.averageNoteChronogramDataAfterFilters[audio.src].value[note] != 0) {
+                                differentialNoteChronogramAfterFilters[note] = (avg - appV.averageNoteChronogramDataAfterFilters[audio.src].value[note])
+                            }
+                            else {
+                                differentialNoteChronogramAfterFilters[note] = 0
+                            }
+                            
+                        }
+
+
+
+
+                        // normalize the data
+                        const max = Math.max(...Object.values(chronogramDataAverage));
+                        const min = 0;
+                        for (let note in chronogramDataAverage) {
+                            chronogramDataAverage[note] = (chronogramDataAverage[note] - min) / (max - min) * spectrumMaxHeight;
+                        }
+
+                        const maxNoteOctave = Math.max(...Object.values(chronogramNoteOctaveDataAverage));
+                        const minNoteOctave = 0;
+                        for (let note in chronogramNoteOctaveDataAverage) {
+                            chronogramNoteOctaveDataAverage[note] = (chronogramNoteOctaveDataAverage[note] - minNoteOctave) / (maxNoteOctave - minNoteOctave) * spectrumMaxHeight;
+                        }
+
+                        const maxDifferentialNote = Math.max(...Object.values(differentialNoteChronogram));
+                        const minDifferentialNote = Math.min(...Object.values(differentialNoteChronogram));
+                        for (let note in differentialNoteChronogram) {
+                            differentialNoteChronogram[note] = (differentialNoteChronogram[note] - minDifferentialNote) / (maxDifferentialNote - minDifferentialNote) * spectrumMaxHeight;
+                        }
+
+
+
+
+                        
+                        // normalize the data
+                        const maxAfterFilters = Math.max(...Object.values(chronogramDataAverageAfterFilters));
+                        const minAfterFilters = 0;
+                        for (let note in chronogramDataAverageAfterFilters) {
+                            chronogramDataAverageAfterFilters[note] = (chronogramDataAverageAfterFilters[note] - minAfterFilters) / (maxAfterFilters - minAfterFilters) * spectrumMaxHeight;
+                        }
+
+                        const maxNoteOctaveAfterFilters = Math.max(...Object.values(chronogramNoteOctaveDataAverageAfterFilters));
+                        const minNoteOctaveAfterFilters = 0;
+                        for (let note in chronogramNoteOctaveDataAverageAfterFilters) {
+                            chronogramNoteOctaveDataAverageAfterFilters[note] = (chronogramNoteOctaveDataAverageAfterFilters[note] - minNoteOctaveAfterFilters) / (maxNoteOctaveAfterFilters - minNoteOctaveAfterFilters) * spectrumMaxHeight;
+                        }
+
+                        const maxDifferentialNoteAfterFilters = Math.max(...Object.values(differentialNoteChronogramAfterFilters));
+                        const minDifferentialNoteAfterFilters = Math.min(...Object.values(differentialNoteChronogramAfterFilters));
+
+                        for (let note in differentialNoteChronogramAfterFilters) {
+                            differentialNoteChronogramAfterFilters[note] = (differentialNoteChronogramAfterFilters[note] - minDifferentialNoteAfterFilters) / (maxDifferentialNoteAfterFilters - minDifferentialNoteAfterFilters) * spectrumMaxHeight;
+                        }
+
+
+
+                        if (spectrumSetupDataRef.current.eqDisplayType === "Note Chronogram") {
+                            for (let note in spectrumSetupDataRef.current.notesDisplayedNoteChronogram) {
+                                var noteName = spectrumSetupDataRef.current.notesDisplayedNoteChronogram[note].name;
+                                document.getElementById("previous-mainChronogram-" + note).style.height = chronogramDataAverage[noteName] + "px";
+
+                                document.getElementById("mainChronogram-" + note).style.height = chronogramDataAverageAfterFilters[noteName] + "px"; 
+                            }
+                        }
+                        else if (spectrumSetupDataRef.current.eqDisplayType === "Note Octave Spectrum") {
+                            for (let note in spectrumSetupDataRef.current.notesDisplayedNoteOctaveSpectrum) {
+                                var noteName = spectrumSetupDataRef.current.notesDisplayedNoteOctaveSpectrum[note].name;
+
+                                document.getElementById("previous-noteOctaveSpectrum-" + noteName).style.height = chronogramNoteOctaveDataAverage[noteName] + "px";
+
+                                document.getElementById("noteOctaveSpectrum-" + noteName).style.height = chronogramNoteOctaveDataAverageAfterFilters[noteName] + "px";
+                            }
+                        }
+                        else if (spectrumSetupDataRef.current.eqDisplayType === "Differential Note Chronogram") {
+                            for (let note in spectrumSetupDataRef.current.notesDisplayedNoteChronogram) {
+                                var noteName = spectrumSetupDataRef.current.notesDisplayedNoteChronogram[note].name;
+
+                                document.getElementById("previous-differentialNoteSpectrum-" + note).style.height = differentialNoteChronogram[noteName] + "px";
+
+                                document.getElementById("differentialNoteSpectrum-" + note).style.height = differentialNoteChronogramAfterFilters[noteName] + "px";
+                            }
+                        }
+                    }
+
+
+                    requestAnimationFrame(getFrequencyData);
+                    // const nextFreqUpdateCall = setTimeout(getFrequencyData, 10); 
+                };
+
+                getFrequencyData(); // Initial call to start the real-time update
+            }
+
+            useEffect(() => {
+
+
+                generateFrequencySpectrum();
+
+
+                return () => {
+                    // clearTimeout(nextFreqUpdateCall);
+                };
+            }, [spectrumSetupData]);
+
+            const selectSpectrumType = (type) => {
+                var updatedSpectrumSetupData = { ...spectrumSetupData, eqDisplayType: type };
+                setSpectrumSetupData(updatedSpectrumSetupData);
+            }
+
+            const selectBoost = (type) => {
+                var updatedBoostSpectrumSetupData = { ...boostSpectrumSetupData, boostSpectrumType: type };
+                setBoostSpectrumSetupData(updatedBoostSpectrumSetupData);
+            }
+
+            const setBoost = (value, type, noteIndex) => {
+
+                if (type == "Octaves") {
+                    // 50 is zero, 0 is -30, 100 is 30
+                    var gainMax = 100
+                    var gainMin = -100
+                    var knobMax = 100
+                    var knobMin = 0
+
+                    var gain = (value - knobMin) * (gainMax - gainMin) / (knobMax - knobMin) + gainMin;
+                    octave = noteIndex;
+
+                    for (var note in appV.notes) {
+                        var noteOctaveName = appV.notes[note] + octave
+                        if (audioAnalysisRef.current.filtersNoteOctaveMap[noteOctaveName] != undefined) {
+                            audioAnalysisRef.current.filtersNoteOctaveMap[noteOctaveName].gain.value = gain;
+
+                            document.getElementById("spectrumBoostNoteOctave-" + noteOctaveName).value = value;
+                        }
+                    }
+                }
+
+                if (type == "Note Octaves") {
+                    // 50 is zero, 0 is -30, 100 is 30
+                    var gainMax = 100
+                    var gainMin = -100
+                    var knobMax = 100
+                    var knobMin = 0
+
+                    var gain = (value - knobMin) * (gainMax - gainMin) / (knobMax - knobMin) + gainMin;
+
+                    audioAnalysisRef.current.filtersNoteOctaveMap[noteIndex].gain.value = gain;
+                }
+
+                if (type == "Notes") {
+                    // 50 is zero, 0 is -30, 100 is 30
+                    var gainMax = 100
+                    var gainMin = -100
+                    var knobMax = 100
+                    var knobMin = 0
+
+                    var gain = (value - knobMin) * (gainMax - gainMin) / (knobMax - knobMin) + gainMin;
+
+
+                    // console.log(appV.notes[noteIndex], gain, value)
+                    for (octave = 1; octave <= 9; octave++) {
+                        var noteOctaveName = appV.notes[noteIndex] + octave
+                        if (audioAnalysisRef.current.filtersNoteOctaveMap[noteOctaveName] != undefined) {
+                            audioAnalysisRef.current.filtersNoteOctaveMap[noteOctaveName].gain.value = gain;
+
+                            document.getElementById("spectrumBoostNoteOctave-" + noteOctaveName).value = value;
+
+
+                        }
+                    }
+                }
+            }
+
+
+            const resetAllBoost = () => {
+                for (var note in appV.notes) {
+                    for (octave = 1; octave <= 9; octave++) {
+                        var noteOctaveName = appV.notes[note] + octave
+                        if (audioAnalysisRef.current.filtersNoteOctaveMap[noteOctaveName] != undefined) {
+                            audioAnalysisRef.current.filtersNoteOctaveMap[noteOctaveName].gain.value = 0;
+
+                            document.getElementById("spectrumBoostNoteOctave-" + noteOctaveName).value = 50;
+                        }
+
+                        document.getElementById("spectrumBoostOctaves-" + octave).value = 50;
+                    }
+                    document.getElementById("spectrumBoostNotes-" + note).value = 50;
+                }
+            }
+
+
+            return (
+                <div className="pb-5 mb-4">
+                    {appTheme === 'Light' ? <LightThemeVariables /> : <DarkThemeVariables />}
+                    <img
+                        src={appTheme === "Light" ? "/assets/images/icons/lightmode.svg" : "/assets/images/icons/darkmode.svg"}
+                        onClick={toggleTheme} alt="light mode" className="themeToggleIcon float-right mr-5 mr-md-5 mt-4" />
+                    <Title />
+
+                    <Spectrum spectrumSetupData={spectrumSetupData} selectSpectrum={selectSpectrumType} key="spectrum" />
+
+                    <audio className="d-none" id="audio-element" src={song.url} controls></audio>
+
+                    <AudioPlayer key="audioPlayer" audio={audio} isPlaying={isPlaying} setIsPlaying={setIsPlaying} volume={volume} setVolume={setVolume} currentTime={currentTime} setCurrentTime={setCurrentTime} />
+                    <FileInputSystem key="fileInputSystem" updateAudio={updateAudio} defaultSongs={appV.songOptions} currentFile={currentFileSource} />
+
+                    <div className="text-black p-1 pt-5 pl-4">Boost/Suppress Frequencies <span className="mainTitleText">of</span></div>
+                    <BoostSpectrum boostSpectrumData={boostSpectrumSetupData} selectBoost={selectBoost} setBoost={setBoost} key="boost-spectrum" resetAllBoost={resetAllBoost} />
+
+                    
+                </div>
+            );
+
+
+        }
+
+
+
+    </script>
+
+    <script type="text/babel" src="/experiments/musical-eq/components/defaults/Logo.js"></script>
+    <script type="text/babel" src="/experiments/musical-eq/components/defaults/Title.js"></script>
+    <script type="text/babel" src="/experiments/musical-eq/components/defaults/Theme.js"></script>
+
+    <script type="text/babel" src="/experiments/musical-eq/components/player/AudioPlayer.js"></script>
+
+    <script type="text/babel" src="/experiments/musical-eq/components/player/FileInputSystem.js"></script>
+
+    <script type="text/babel" src="/experiments/musical-eq/components/spectrum/Spectrum.js"></script>
+    <script type="text/babel" src="/experiments/musical-eq/components/spectrum/BoostSpectrum.js"></script>
+
+    <script type="text/babel" src="/experiments/musical-eq/components/defaults/Theme.js"></script>
+
+    <script type="text/babel" src="/experiments/musical-eq/components/simple/basics.js"></script>
+
+
+    <script type="text/babel">
+        ReactDOM.render(<App />, document.getElementById("appRoot"));
+    </script>
+
+
+
+
+
+</body>
+
+</html>
