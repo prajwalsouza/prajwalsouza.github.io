@@ -1,0 +1,1865 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Draw into an image Fourier transform and watch the image reconstruct live.">
+  <meta name="author" content="Prajwal DSouza">
+  <title>Secrets with Fourier</title>
+  <link rel="icon" href="../../square.png">
+  <style>
+    :root {
+      --h: 190;
+      --paper: hsla(var(--h), 24%, 96%, 1);
+      --ink: hsla(var(--h), 18%, 16%, 1);
+      --muted: hsla(var(--h), 10%, 43%, 1);
+      --line: hsla(var(--h), 18%, 38%, 0.22);
+      --line-strong: hsla(var(--h), 20%, 30%, 0.38);
+      --surface: hsla(var(--h), 28%, 98%, 0.66);
+      --field: hsla(var(--h), 30%, 99%, 1);
+      --accent: hsla(var(--h), 42%, 34%, 1);
+      --accent-soft: hsla(var(--h), 50%, 72%, 0.28);
+      --clear: hsla(var(--h), 30%, 99%, 0);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+    }
+
+    .shell {
+      width: min(1120px, 100%);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: clamp(18px, 3vw, 34px);
+      display: grid;
+      align-content: center;
+      gap: 14px;
+    }
+
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.12rem;
+      font-weight: 560;
+      letter-spacing: 0;
+    }
+
+    .state {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-align: right;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(170px, 0.7fr) minmax(360px, 1.5fr) minmax(170px, 0.7fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .pane {
+      min-width: 0;
+      display: grid;
+      gap: 9px;
+    }
+
+    .row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 22px;
+    }
+
+    .row label,
+    .row strong {
+      font-size: 0.86rem;
+      font-weight: 560;
+    }
+
+    .row span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      white-space: nowrap;
+    }
+
+    .drop {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 38px;
+      border: 1px dashed var(--line-strong);
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.78rem;
+    }
+
+    .drop:hover,
+    .drop.is-drag {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--ink);
+    }
+
+    .drop input {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .frame {
+      position: relative;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, hsla(var(--h), 18%, 20%, 0.032) 1px, var(--clear) 1px),
+        linear-gradient(0deg, hsla(var(--h), 18%, 20%, 0.032) 1px, var(--clear) 1px),
+        var(--field);
+      background-size: 16px 16px;
+      overflow: hidden;
+    }
+
+    .frame.crop-active {
+      cursor: crosshair;
+    }
+
+    .frame::after {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 5px;
+      height: 5px;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .image-frame::after {
+      display: none;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    #transformCanvas,
+    #outputSpectrumCanvas {
+      image-rendering: pixelated;
+    }
+
+    #transformCanvas {
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: auto auto 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .button {
+      min-height: 36px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .button:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .brush,
+    .toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      white-space: nowrap;
+    }
+
+    .brush input {
+      width: 78px;
+      accent-color: var(--accent);
+    }
+
+    .clear-field input {
+      width: 82px;
+      accent-color: var(--accent);
+    }
+
+    .toggle input {
+      accent-color: var(--accent);
+    }
+
+    .validation {
+      display: grid;
+      gap: 12px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .validation-grid {
+      display: grid;
+      grid-template-columns: minmax(300px, 1.25fr) minmax(220px, 0.75fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .toolbox {
+      display: grid;
+      grid-template-columns: repeat(4, auto) 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tool {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      white-space: nowrap;
+    }
+
+    .tool input[type="range"] {
+      width: 74px;
+      accent-color: var(--accent);
+    }
+
+    .button.is-active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--ink);
+    }
+
+    .crop-box {
+      position: absolute;
+      inset: 12% 12%;
+      display: none;
+      border: 1px solid var(--accent);
+      background: hsla(var(--h), 50%, 72%, 0.08);
+      box-shadow: 0 0 0 999px hsla(var(--h), 18%, 8%, 0.18);
+      pointer-events: none;
+    }
+
+    .crop-box.is-active {
+      display: block;
+    }
+
+    .crop-box::before,
+    .crop-box::after {
+      content: "";
+      position: absolute;
+      inset: 33.333% 0 auto;
+      height: 1px;
+      background: hsla(var(--h), 50%, 72%, 0.58);
+    }
+
+    .crop-box::after {
+      inset: 66.666% 0 auto;
+    }
+
+    .crop-handle {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border: 1px solid var(--accent);
+      background: var(--paper);
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+    }
+
+    .crop-handle.nw {
+      left: 0;
+      top: 0;
+      cursor: nwse-resize;
+    }
+
+    .crop-handle.ne {
+      left: 100%;
+      top: 0;
+      cursor: nesw-resize;
+    }
+
+    .crop-handle.sw {
+      left: 0;
+      top: 100%;
+      cursor: nesw-resize;
+    }
+
+    .crop-handle.se {
+      left: 100%;
+      top: 100%;
+      cursor: nwse-resize;
+    }
+
+    #validationCanvas.is-drawing {
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    #validationSpectrumCanvas {
+      image-rendering: pixelated;
+    }
+
+    @media (max-width: 860px) {
+      .shell {
+        align-content: start;
+      }
+
+      .workspace,
+      .validation-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbox {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      header,
+      .controls,
+      .toolbox {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+
+      .state {
+        text-align: left;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <h1>Secrets with Fourier</h1>
+      <div class="state" id="state" aria-live="polite">loading</div>
+    </header>
+
+    <section class="workspace" aria-label="Draw in Fourier space">
+      <section class="pane source">
+        <div class="row">
+          <label for="imageInput">image</label>
+          <span id="imageMeta">sample</span>
+        </div>
+        <label class="drop" id="dropZone" for="imageInput">
+          <input id="imageInput" type="file" accept="image/*">
+          upload
+        </label>
+        <div class="frame image-frame">
+          <canvas id="sourceCanvas" width="436" height="289" aria-label="Source image"></canvas>
+        </div>
+      </section>
+
+      <section class="pane transform">
+        <div class="row">
+          <strong>source transform</strong>
+          <span id="transformMeta">draw over it</span>
+        </div>
+        <div class="frame">
+          <canvas id="transformCanvas" width="436" height="289" aria-label="Source Fourier transform drawing surface"></canvas>
+        </div>
+        <div class="controls">
+          <label class="brush" for="brushSize">
+            brush
+            <input id="brushSize" type="range" min="1" max="9" step="1" value="5">
+          </label>
+          <label class="brush clear-field" for="etchClear">
+            clear
+            <input id="etchClear" type="range" min="0" max="100" step="1" value="75">
+          </label>
+          <button class="button" id="clearBtn" type="button">Clear</button>
+        </div>
+      </section>
+
+      <section class="pane output">
+        <div class="row">
+          <strong>output</strong>
+          <span id="outputMeta">waiting</span>
+        </div>
+        <div class="frame image-frame">
+          <canvas id="outputCanvas" width="436" height="289" aria-label="Reconstructed output image"></canvas>
+        </div>
+        <div class="row">
+          <strong>output transform</strong>
+          <span id="spectrumMeta">waiting</span>
+        </div>
+        <div class="frame">
+          <canvas id="outputSpectrumCanvas" width="436" height="289" aria-label="Fourier transform of reconstructed output"></canvas>
+        </div>
+        <button class="button" id="downloadBtn" type="button">Download</button>
+      </section>
+    </section>
+
+    <section class="validation" aria-label="Validate edited output">
+      <div class="row">
+        <strong>validation</strong>
+        <span id="validationMeta">restored</span>
+      </div>
+
+      <div class="validation-grid">
+        <section class="pane">
+          <div class="row">
+            <strong>editable output</strong>
+            <span id="editMeta">blur 0 · rotate 0 · crop 0</span>
+          </div>
+          <div class="frame image-frame" id="validationFrame">
+            <canvas id="validationCanvas" width="436" height="289" aria-label="Editable output image"></canvas>
+            <div class="crop-box" id="cropBox" aria-hidden="true">
+              <span class="crop-handle nw" data-crop-handle="nw"></span>
+              <span class="crop-handle ne" data-crop-handle="ne"></span>
+              <span class="crop-handle sw" data-crop-handle="sw"></span>
+              <span class="crop-handle se" data-crop-handle="se"></span>
+            </div>
+          </div>
+          <div class="toolbox">
+            <label class="tool" for="blurRange">
+              blur
+              <input id="blurRange" type="range" min="0" max="10" step="0.5" value="0">
+            </label>
+            <label class="tool" for="rotateRange">
+              rotate
+              <input id="rotateRange" type="range" min="-45" max="45" step="1" value="0">
+            </label>
+            <button class="button" id="cropEditBtn" type="button">Crop</button>
+            <button class="button" id="drawEditBtn" type="button">Draw</button>
+            <label class="tool" for="editBrushSize">
+              brush
+              <input id="editBrushSize" type="range" min="1" max="18" step="1" value="6">
+            </label>
+            <button class="button" id="restoreOutputBtn" type="button" aria-label="Restore output">Restore</button>
+          </div>
+        </section>
+
+        <section class="pane">
+          <div class="row">
+            <strong>edited transform</strong>
+            <span id="validationSpectrumMeta">live</span>
+          </div>
+          <div class="frame">
+            <canvas id="validationSpectrumCanvas" width="436" height="289" aria-label="Fourier transform of edited output"></canvas>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var DEFAULT_IMAGE_URL = "https://upload.wikimedia.org/wikipedia/commons/e/e0/Cat_demonstrating_static_cling_with_styrofoam_peanuts.jpg";
+      var RECONSTRUCT_DELAY = 170;
+      var LARGE_RECONSTRUCT_DELAY = 520;
+      var STRENGTH = 2200;
+
+      var h = 190;
+      var workWidth = 436;
+      var workHeight = 289;
+      var total = workWidth * workHeight;
+
+      document.documentElement.style.setProperty("--h", String(h));
+
+      var sourceCanvas = document.getElementById("sourceCanvas");
+      var sourceCtx = sourceCanvas.getContext("2d", { willReadFrequently: true });
+      var transformCanvas = document.getElementById("transformCanvas");
+      var transformCtx = transformCanvas.getContext("2d", { willReadFrequently: true });
+      var outputCanvas = document.getElementById("outputCanvas");
+      var outputCtx = outputCanvas.getContext("2d", { willReadFrequently: true });
+      var outputSpectrumCanvas = document.getElementById("outputSpectrumCanvas");
+      var outputSpectrumCtx = outputSpectrumCanvas.getContext("2d", { willReadFrequently: true });
+      var validationCanvas = document.getElementById("validationCanvas");
+      var validationCtx = validationCanvas.getContext("2d", { willReadFrequently: true });
+      var validationFrame = document.getElementById("validationFrame");
+      var validationSpectrumCanvas = document.getElementById("validationSpectrumCanvas");
+      var validationSpectrumCtx = validationSpectrumCanvas.getContext("2d", { willReadFrequently: true });
+      var cropBox = document.getElementById("cropBox");
+      var imageInput = document.getElementById("imageInput");
+      var dropZone = document.getElementById("dropZone");
+      var brushSize = document.getElementById("brushSize");
+      var etchClear = document.getElementById("etchClear");
+      var clearBtn = document.getElementById("clearBtn");
+      var downloadBtn = document.getElementById("downloadBtn");
+      var blurRange = document.getElementById("blurRange");
+      var rotateRange = document.getElementById("rotateRange");
+      var cropEditBtn = document.getElementById("cropEditBtn");
+      var drawEditBtn = document.getElementById("drawEditBtn");
+      var editBrushSize = document.getElementById("editBrushSize");
+      var restoreOutputBtn = document.getElementById("restoreOutputBtn");
+      var state = document.getElementById("state");
+      var imageMeta = document.getElementById("imageMeta");
+      var transformMeta = document.getElementById("transformMeta");
+      var outputMeta = document.getElementById("outputMeta");
+      var spectrumMeta = document.getElementById("spectrumMeta");
+      var validationMeta = document.getElementById("validationMeta");
+      var editMeta = document.getElementById("editMeta");
+      var validationSpectrumMeta = document.getElementById("validationSpectrumMeta");
+
+      var maskCanvas = document.createElement("canvas");
+      var maskCtx = maskCanvas.getContext("2d", { willReadFrequently: true });
+      var sourceSpectrumCanvas = document.createElement("canvas");
+      var sourceSpectrumCtx = sourceSpectrumCanvas.getContext("2d", { willReadFrequently: true });
+      var validationBaseCanvas = document.createElement("canvas");
+      var validationBaseCtx = validationBaseCanvas.getContext("2d", { willReadFrequently: true });
+      var validationDrawCanvas = document.createElement("canvas");
+      var validationDrawCtx = validationDrawCanvas.getContext("2d", { willReadFrequently: true });
+      var sourceRe = new Float64Array(total);
+      var sourceIm = new Float64Array(total);
+      var chromaB = new Float64Array(total);
+      var chromaR = new Float64Array(total);
+      var currentRe = new Float64Array(total);
+      var currentIm = new Float64Array(total);
+      var drawing = false;
+      var lastPoint = null;
+      var editingOutput = false;
+      var lastEditPoint = null;
+      var drawEditMode = false;
+      var cropEditMode = false;
+      var activeCropHandle = null;
+      var cropRect = {
+        x: 0,
+        y: 0,
+        width: 1,
+        height: 1
+      };
+      var validationDirty = false;
+      var debounceTimer = 0;
+      var validationDebounceTimer = 0;
+      var activeImage = null;
+      var activeLabel = "cat";
+      var sourceJob = 0;
+      var reconstructJob = 0;
+      var validationJob = 0;
+
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
+      function isPowerOfTwo(value) {
+        return value > 0 && (value & (value - 1)) === 0;
+      }
+
+      function nextPowerOfTwo(value) {
+        var out = 1;
+
+        while (out < value) {
+          out <<= 1;
+        }
+
+        return out;
+      }
+
+      function nextPaint() {
+        return new Promise(function (resolve) {
+          window.requestAnimationFrame(resolve);
+        });
+      }
+
+      function percentLabel(percent) {
+        return Math.round(clamp(percent, 0, 100)) + "%";
+      }
+
+      function setStatePercent(percent) {
+        state.textContent = percentLabel(percent);
+      }
+
+      function setMetaPercent(element, percent) {
+        element.textContent = percentLabel(percent);
+      }
+
+      function hslToRgb(hue, saturation, lightness) {
+        var c = (1 - Math.abs(2 * lightness - 1)) * saturation;
+        var x = c * (1 - Math.abs((hue / 60) % 2 - 1));
+        var m = lightness - c / 2;
+        var r = 0;
+        var g = 0;
+        var b = 0;
+
+        hue = ((hue % 360) + 360) % 360;
+
+        if (hue < 60) {
+          r = c;
+          g = x;
+        } else if (hue < 120) {
+          r = x;
+          g = c;
+        } else if (hue < 180) {
+          g = c;
+          b = x;
+        } else if (hue < 240) {
+          g = x;
+          b = c;
+        } else if (hue < 300) {
+          r = x;
+          b = c;
+        } else {
+          r = c;
+          b = x;
+        }
+
+        return [
+          Math.round((r + m) * 255),
+          Math.round((g + m) * 255),
+          Math.round((b + m) * 255)
+        ];
+      }
+
+      function rgbToHsl(r, g, b) {
+        r /= 255;
+        g /= 255;
+        b /= 255;
+
+        var max = Math.max(r, g, b);
+        var min = Math.min(r, g, b);
+        var hue = 0;
+        var saturation = 0;
+        var lightness = (max + min) / 2;
+        var delta = max - min;
+
+        if (delta !== 0) {
+          saturation = delta / (1 - Math.abs(2 * lightness - 1));
+
+          if (max === r) {
+            hue = 60 * (((g - b) / delta) % 6);
+          } else if (max === g) {
+            hue = 60 * ((b - r) / delta + 2);
+          } else {
+            hue = 60 * ((r - g) / delta + 4);
+          }
+        }
+
+        if (hue < 0) {
+          hue += 360;
+        }
+
+        return {
+          h: hue,
+          s: saturation,
+          l: lightness
+        };
+      }
+
+      function getBrushColor() {
+        return "hsla(" + h + ", 58%, 34%, 0.94)";
+      }
+
+      function resizeCanvases(width, height) {
+        workWidth = width;
+        workHeight = height;
+        total = workWidth * workHeight;
+
+        [
+          sourceCanvas,
+          transformCanvas,
+          outputCanvas,
+          outputSpectrumCanvas,
+          validationCanvas,
+          validationSpectrumCanvas,
+          maskCanvas,
+          sourceSpectrumCanvas,
+          validationBaseCanvas,
+          validationDrawCanvas
+        ].forEach(function (canvas) {
+          canvas.width = workWidth;
+          canvas.height = workHeight;
+        });
+
+        sourceRe = new Float64Array(total);
+        sourceIm = new Float64Array(total);
+        chromaB = new Float64Array(total);
+        chromaR = new Float64Array(total);
+        currentRe = new Float64Array(total);
+        currentIm = new Float64Array(total);
+      }
+
+      function chooseWorkSize(image) {
+        var width = image.naturalWidth || image.width;
+        var height = image.naturalHeight || image.height;
+
+        return {
+          width: width,
+          height: height,
+          label: "full"
+        };
+      }
+
+      function liveDelay() {
+        return total > 1000000 ? LARGE_RECONSTRUCT_DELAY : RECONSTRUCT_DELAY;
+      }
+
+      function topImageHues() {
+        var data = sourceCtx.getImageData(0, 0, workWidth, workHeight).data;
+        var bins = [];
+        var binSize = 10;
+        var step = Math.max(1, Math.floor(Math.sqrt(total / 1600)));
+
+        for (var i = 0; i < 36; i += 1) {
+          bins[i] = {
+            hue: i * binSize + binSize / 2,
+            score: 0
+          };
+        }
+
+        for (var y = 0; y < workHeight; y += step) {
+          for (var x = 0; x < workWidth; x += step) {
+            var pixel = (y * workWidth + x) * 4;
+            var color = rgbToHsl(data[pixel], data[pixel + 1], data[pixel + 2]);
+
+            if (color.s <= 0.4 || color.l <= 0.3 || color.l >= 0.8) {
+              continue;
+            }
+
+            bins[Math.floor(color.h / binSize) % bins.length].score += color.s * (1 - Math.abs(color.l - 0.55));
+          }
+        }
+
+        bins.sort(function (a, b) {
+          return b.score - a.score;
+        });
+
+        if (bins[0].score === 0) {
+          return null;
+        }
+
+        return [Math.round(bins[0].hue), Math.round((bins[1] || bins[0]).hue)];
+      }
+
+      function tintMask() {
+        var imageData = maskCtx.getImageData(0, 0, workWidth, workHeight);
+        var data = imageData.data;
+        var color = hslToRgb(h, 0.58, 0.34);
+
+        for (var i = 0; i < data.length; i += 4) {
+          if (data[i + 3] === 0) {
+            continue;
+          }
+
+          data[i] = color[0];
+          data[i + 1] = color[1];
+          data[i + 2] = color[2];
+        }
+
+        maskCtx.putImageData(imageData, 0, 0);
+      }
+
+      function updateThemeFromSource() {
+        var hues = topImageHues();
+
+        if (!hues) {
+          return;
+        }
+
+        h = hues[0];
+        document.documentElement.style.setProperty("--h", String(h));
+        tintMask();
+      }
+
+      function fft1d(re, im, inverse) {
+        var n = re.length;
+        var i;
+        var j = 0;
+
+        for (i = 1; i < n; i += 1) {
+          var bit = n >> 1;
+
+          while (j & bit) {
+            j ^= bit;
+            bit >>= 1;
+          }
+
+          j ^= bit;
+
+          if (i < j) {
+            var tr = re[i];
+            var ti = im[i];
+
+            re[i] = re[j];
+            im[i] = im[j];
+            re[j] = tr;
+            im[j] = ti;
+          }
+        }
+
+        for (var len = 2; len <= n; len <<= 1) {
+          var angle = (inverse ? 2 : -2) * Math.PI / len;
+          var wLenR = Math.cos(angle);
+          var wLenI = Math.sin(angle);
+          var half = len >> 1;
+
+          for (i = 0; i < n; i += len) {
+            var wr = 1;
+            var wi = 0;
+
+            for (j = 0; j < half; j += 1) {
+              var evenR = re[i + j];
+              var evenI = im[i + j];
+              var oddR = re[i + j + half] * wr - im[i + j + half] * wi;
+              var oddI = re[i + j + half] * wi + im[i + j + half] * wr;
+
+              re[i + j] = evenR + oddR;
+              im[i + j] = evenI + oddI;
+              re[i + j + half] = evenR - oddR;
+              im[i + j + half] = evenI - oddI;
+
+              var nextR = wr * wLenR - wi * wLenI;
+
+              wi = wr * wLenI + wi * wLenR;
+              wr = nextR;
+            }
+          }
+        }
+
+        if (inverse) {
+          for (i = 0; i < n; i += 1) {
+            re[i] /= n;
+            im[i] /= n;
+          }
+        }
+      }
+
+      function transformBluestein(re, im) {
+        var n = re.length;
+        var m = nextPowerOfTwo(n * 2 - 1);
+        var cos = new Float64Array(n);
+        var sin = new Float64Array(n);
+        var ar = new Float64Array(m);
+        var ai = new Float64Array(m);
+        var br = new Float64Array(m);
+        var bi = new Float64Array(m);
+
+        for (var i = 0; i < n; i += 1) {
+          var angle = Math.PI * ((i * i) % (n * 2)) / n;
+
+          cos[i] = Math.cos(angle);
+          sin[i] = Math.sin(angle);
+          ar[i] = re[i] * cos[i] + im[i] * sin[i];
+          ai[i] = -re[i] * sin[i] + im[i] * cos[i];
+          br[i] = cos[i];
+          bi[i] = sin[i];
+
+          if (i !== 0) {
+            br[m - i] = cos[i];
+            bi[m - i] = sin[i];
+          }
+        }
+
+        fft1d(ar, ai, false);
+        fft1d(br, bi, false);
+
+        for (i = 0; i < m; i += 1) {
+          var nextR = ar[i] * br[i] - ai[i] * bi[i];
+
+          ai[i] = ar[i] * bi[i] + ai[i] * br[i];
+          ar[i] = nextR;
+        }
+
+        fft1d(ar, ai, true);
+
+        for (i = 0; i < n; i += 1) {
+          re[i] = ar[i] * cos[i] + ai[i] * sin[i];
+          im[i] = -ar[i] * sin[i] + ai[i] * cos[i];
+        }
+      }
+
+      function fftAny(re, im, inverse) {
+        if (isPowerOfTwo(re.length)) {
+          fft1d(re, im, inverse);
+          return;
+        }
+
+        if (inverse) {
+          for (var i = 0; i < im.length; i += 1) {
+            im[i] = -im[i];
+          }
+
+          transformBluestein(re, im);
+
+          for (i = 0; i < re.length; i += 1) {
+            re[i] /= re.length;
+            im[i] = -im[i] / re.length;
+          }
+        } else {
+          transformBluestein(re, im);
+        }
+      }
+
+      async function fft2(re, im, inverse, onProgress, isCancelled) {
+        var tempRe = new Float64Array(Math.max(workWidth, workHeight));
+        var tempIm = new Float64Array(Math.max(workWidth, workHeight));
+        var totalSteps = workHeight + workWidth;
+        var steps = 0;
+        var rowBatch = Math.max(1, Math.floor(65000 / Math.max(1, workWidth)));
+        var colBatch = Math.max(1, Math.floor(65000 / Math.max(1, workHeight)));
+        var row;
+        var col;
+        var i;
+
+        function report() {
+          if (onProgress) {
+            onProgress((steps / totalSteps) * 100);
+          }
+        }
+
+        async function checkpoint() {
+          report();
+          await nextPaint();
+          return !(isCancelled && isCancelled());
+        }
+
+        if (!(await checkpoint())) {
+          return false;
+        }
+
+        for (row = 0; row < workHeight;) {
+          var rowEnd = Math.min(workHeight, row + rowBatch);
+
+          for (; row < rowEnd; row += 1) {
+            var offset = row * workWidth;
+
+            for (i = 0; i < workWidth; i += 1) {
+              tempRe[i] = re[offset + i];
+              tempIm[i] = im[offset + i];
+            }
+
+            fftAny(tempRe.subarray(0, workWidth), tempIm.subarray(0, workWidth), inverse);
+
+            for (i = 0; i < workWidth; i += 1) {
+              re[offset + i] = tempRe[i];
+              im[offset + i] = tempIm[i];
+            }
+
+            steps += 1;
+          }
+
+          if (!(await checkpoint())) {
+            return false;
+          }
+        }
+
+        for (col = 0; col < workWidth;) {
+          var colEnd = Math.min(workWidth, col + colBatch);
+
+          for (; col < colEnd; col += 1) {
+            for (i = 0; i < workHeight; i += 1) {
+              tempRe[i] = re[i * workWidth + col];
+              tempIm[i] = im[i * workWidth + col];
+            }
+
+            fftAny(tempRe.subarray(0, workHeight), tempIm.subarray(0, workHeight), inverse);
+
+            for (i = 0; i < workHeight; i += 1) {
+              re[i * workWidth + col] = tempRe[i];
+              im[i * workWidth + col] = tempIm[i];
+            }
+
+            steps += 1;
+          }
+
+          if (!(await checkpoint())) {
+            return false;
+          }
+        }
+
+        report();
+        return true;
+      }
+
+      function spectrumIndex(x, y) {
+        var cx = Math.floor(workWidth / 2);
+        var cy = Math.floor(workHeight / 2);
+        var fx = (x - cx + workWidth) % workWidth;
+        var fy = (y - cy + workHeight) % workHeight;
+
+        return fy * workWidth + fx;
+      }
+
+      function coefficientIndex(dx, dy) {
+        var fx = (dx + workWidth) % workWidth;
+        var fy = (dy + workHeight) % workHeight;
+
+        return fy * workWidth + fx;
+      }
+
+      function eraseCoefficientNeighborhood(re, im, dx, dy, alpha, amount) {
+        var radius = Math.max(2, Math.round(Number(brushSize.value) * 1.35));
+
+        for (var yy = -radius; yy <= radius; yy += 1) {
+          for (var xx = -radius; xx <= radius; xx += 1) {
+            var distance = Math.sqrt(xx * xx + yy * yy);
+
+            if (distance > radius) {
+              continue;
+            }
+
+            var fade = amount * alpha * (1 - distance / (radius + 1));
+            var keep = 1 - fade;
+            var first = coefficientIndex(dx + xx, dy + yy);
+            var second = coefficientIndex(-dx - xx, -dy - yy);
+
+            re[first] *= keep;
+            im[first] *= keep;
+
+            if (second !== first) {
+              re[second] *= keep;
+              im[second] *= keep;
+            }
+          }
+        }
+      }
+
+      function renderSpectrum(ctx, re, im) {
+        var values = new Float64Array(total);
+        var sorted = [];
+        var cx = Math.floor(workWidth / 2);
+        var cy = Math.floor(workHeight / 2);
+        var imageData = ctx.createImageData(workWidth, workHeight);
+        var pixels = imageData.data;
+        var x;
+        var y;
+
+        for (y = 0; y < workHeight; y += 1) {
+          for (x = 0; x < workWidth; x += 1) {
+            var index = spectrumIndex(x, y);
+            var dx = x - cx;
+            var dy = y - cy;
+            var radius = Math.sqrt(dx * dx + dy * dy);
+            var value = Math.log1p(Math.sqrt(re[index] * re[index] + im[index] * im[index]));
+
+            if (radius < 5) {
+              value *= 0.2;
+            }
+
+            values[y * workWidth + x] = value;
+            sorted.push(value);
+          }
+        }
+
+        sorted.sort(function (a, b) {
+          return a - b;
+        });
+
+        var top = sorted[Math.floor(sorted.length * 0.986)] || 1;
+
+        for (y = 0; y < workHeight; y += 1) {
+          for (x = 0; x < workWidth; x += 1) {
+            var tone = clamp(values[y * workWidth + x] / top, 0, 1);
+            var level = Math.round((0.97 - tone * 0.7) * 255);
+            var pixel = (y * workWidth + x) * 4;
+
+            pixels[pixel] = level;
+            pixels[pixel + 1] = level;
+            pixels[pixel + 2] = level;
+            pixels[pixel + 3] = 255;
+          }
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+      }
+
+      async function renderContextSpectrum(sourceContext, destinationContext, options) {
+        options = options || {};
+
+        var data = sourceContext.getImageData(0, 0, workWidth, workHeight).data;
+        var re = new Float64Array(total);
+        var im = new Float64Array(total);
+        var batch = Math.max(1, Math.floor(100000 / Math.max(1, workWidth)));
+        var row;
+        var x;
+
+        if (options.onProgress) {
+          options.onProgress(0);
+        }
+
+        await nextPaint();
+
+        for (row = 0; row < workHeight;) {
+          var rowEnd = Math.min(workHeight, row + batch);
+
+          for (; row < rowEnd; row += 1) {
+            for (x = 0; x < workWidth; x += 1) {
+              var i = row * workWidth + x;
+              var pixel = i * 4;
+
+              re[i] = 0.299 * data[pixel] + 0.587 * data[pixel + 1] + 0.114 * data[pixel + 2] - 128;
+            }
+          }
+
+          if (options.isCancelled && options.isCancelled()) {
+            return false;
+          }
+
+          if (options.onProgress) {
+            options.onProgress((row / workHeight) * 8);
+          }
+
+          await nextPaint();
+        }
+
+        var completed = await fft2(re, im, false, function (percent) {
+          if (options.onProgress) {
+            options.onProgress(8 + percent * 0.82);
+          }
+        }, options.isCancelled);
+
+        if (!completed || options.isCancelled && options.isCancelled()) {
+          return false;
+        }
+
+        if (options.onProgress) {
+          options.onProgress(92);
+        }
+
+        await nextPaint();
+        renderSpectrum(destinationContext, re, im);
+
+        if (options.isCancelled && options.isCancelled()) {
+          return false;
+        }
+
+        if (options.onProgress) {
+          options.onProgress(100);
+        }
+
+        return true;
+      }
+
+      function renderTransformCanvas() {
+        transformCtx.clearRect(0, 0, workWidth, workHeight);
+        transformCtx.drawImage(sourceSpectrumCanvas, 0, 0);
+        transformCtx.drawImage(maskCanvas, 0, 0);
+      }
+
+      function drawSample() {
+        var sample = document.createElement("canvas");
+        var ctx = sample.getContext("2d");
+
+        sample.width = 436;
+        sample.height = 289;
+        ctx.fillStyle = "hsla(" + h + ", 22%, 92%, 1)";
+        ctx.fillRect(0, 0, sample.width, sample.height);
+        ctx.fillStyle = "hsla(" + h + ", 34%, 38%, 1)";
+        ctx.fillRect(100, 70, 124, 124);
+        ctx.fillStyle = "hsla(" + ((h + 28) % 360) + ", 35%, 64%, 1)";
+        ctx.beginPath();
+        ctx.arc(286, 184, 68, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = "hsla(" + h + ", 12%, 24%, 0.38)";
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.moveTo(52, 238);
+        ctx.lineTo(376, 68);
+        ctx.stroke();
+
+        activeImage = sample;
+        activeLabel = "sample";
+        processActiveImage();
+      }
+
+      function drawDefaultSecret() {
+        var cx = workWidth / 2;
+        var cy = workHeight / 2;
+        var rx = workWidth * 0.18;
+        var ry = workHeight * 0.1;
+        var dot = Math.max(2, Math.min(workWidth, workHeight) * 0.012);
+
+        maskCtx.clearRect(0, 0, workWidth, workHeight);
+        maskCtx.strokeStyle = getBrushColor();
+        maskCtx.fillStyle = getBrushColor();
+        maskCtx.lineCap = "round";
+        maskCtx.lineJoin = "round";
+        maskCtx.lineWidth = Math.max(2, Math.min(workWidth, workHeight) * 0.012);
+        maskCtx.beginPath();
+        maskCtx.ellipse(cx, cy, rx, ry, -0.28, 0, Math.PI * 2);
+        maskCtx.stroke();
+        maskCtx.beginPath();
+        maskCtx.ellipse(cx, cy, ry, rx, 0.52, 0, Math.PI * 2);
+        maskCtx.stroke();
+        maskCtx.beginPath();
+        maskCtx.arc(cx - rx * 0.82, cy - ry * 0.7, dot, 0, Math.PI * 2);
+        maskCtx.arc(cx + rx * 0.82, cy + ry * 0.7, dot, 0, Math.PI * 2);
+        maskCtx.fill();
+      }
+
+      async function readSource(jobId) {
+        var data = sourceCtx.getImageData(0, 0, workWidth, workHeight).data;
+        var batch = Math.max(1, Math.floor(100000 / Math.max(1, workWidth)));
+
+        sourceRe.fill(0);
+        sourceIm.fill(0);
+
+        setStatePercent(0);
+        await nextPaint();
+
+        for (var y = 0; y < workHeight;) {
+          var rowEnd = Math.min(workHeight, y + batch);
+
+          for (; y < rowEnd; y += 1) {
+            for (var x = 0; x < workWidth; x += 1) {
+              var index = y * workWidth + x;
+              var pixel = index * 4;
+              var r = data[pixel];
+              var g = data[pixel + 1];
+              var b = data[pixel + 2];
+              var lum = 0.299 * r + 0.587 * g + 0.114 * b;
+
+              sourceRe[index] = lum - 128;
+              chromaB[index] = -0.168736 * r - 0.331264 * g + 0.5 * b;
+              chromaR[index] = 0.5 * r - 0.418688 * g - 0.081312 * b;
+            }
+          }
+
+          if (jobId !== sourceJob) {
+            return false;
+          }
+
+          setStatePercent((y / workHeight) * 8);
+          await nextPaint();
+        }
+
+        var completed = await fft2(sourceRe, sourceIm, false, function (percent) {
+          setStatePercent(8 + percent * 0.82);
+        }, function () {
+          return jobId !== sourceJob;
+        });
+
+        if (!completed || jobId !== sourceJob) {
+          return false;
+        }
+
+        setStatePercent(92);
+        await nextPaint();
+        renderSpectrum(sourceSpectrumCtx, sourceRe, sourceIm);
+        renderTransformCanvas();
+        setStatePercent(100);
+
+        return true;
+      }
+
+      function addDrawnCoefficients(re, im) {
+        var maskData = maskCtx.getImageData(0, 0, workWidth, workHeight).data;
+        var cx = Math.floor(workWidth / 2);
+        var cy = Math.floor(workHeight / 2);
+        var clearAmount = Number(etchClear.value) / 100;
+        var ink = 0;
+        var marks = [];
+
+        for (var y = 0; y < workHeight; y += 1) {
+          for (var x = 0; x < workWidth; x += 1) {
+            var alpha = maskData[(y * workWidth + x) * 4 + 3] / 255;
+            var dx = x - cx;
+            var dy = y - cy;
+            var radius = Math.sqrt(dx * dx + dy * dy);
+
+            if (alpha <= 0 || radius < 6) {
+              continue;
+            }
+
+            marks.push({
+              alpha: alpha,
+              dx: dx,
+              dy: dy
+            });
+
+            if (clearAmount > 0) {
+              eraseCoefficientNeighborhood(re, im, dx, dy, alpha, clearAmount);
+            }
+
+            ink += alpha;
+          }
+        }
+
+        for (var i = 0; i < marks.length; i += 1) {
+          var amount = marks[i].alpha * STRENGTH;
+          var first = coefficientIndex(marks[i].dx, marks[i].dy);
+          var second = coefficientIndex(-marks[i].dx, -marks[i].dy);
+
+            re[first] += amount;
+            if (second !== first) {
+              re[second] += amount;
+            }
+        }
+
+        transformMeta.textContent = ink > 1 ? "drawn in spectrum" : "source only";
+        return ink;
+      }
+
+      async function reconstructNow(jobId) {
+        if (jobId !== reconstructJob) {
+          return;
+        }
+
+        setStatePercent(0);
+        await nextPaint();
+
+        currentRe.set(sourceRe);
+        currentIm.set(sourceIm);
+
+        var ink = addDrawnCoefficients(currentRe, currentIm);
+        var inverseRe = new Float64Array(currentRe);
+        var inverseIm = new Float64Array(currentIm);
+        var completed;
+
+        completed = await fft2(inverseRe, inverseIm, true, function (percent) {
+          setStatePercent(4 + percent * 0.56);
+        }, function () {
+          return jobId !== reconstructJob;
+        });
+
+        if (!completed || jobId !== reconstructJob) {
+          return;
+        }
+
+        var imageData = outputCtx.createImageData(workWidth, workHeight);
+        var data = imageData.data;
+
+        for (var i = 0; i < total; i += 1) {
+          var lum = inverseRe[i] + 128;
+          var cb = chromaB[i];
+          var cr = chromaR[i];
+          var pixel = i * 4;
+
+          data[pixel] = clamp(Math.round(lum + 1.402 * cr), 0, 255);
+          data[pixel + 1] = clamp(Math.round(lum - 0.344136 * cb - 0.714136 * cr), 0, 255);
+          data[pixel + 2] = clamp(Math.round(lum + 1.772 * cb), 0, 255);
+          data[pixel + 3] = 255;
+        }
+
+        outputCtx.putImageData(imageData, 0, 0);
+        outputMeta.textContent = workWidth + "x" + workHeight;
+        spectrumMeta.textContent = "0%";
+
+        completed = await renderContextSpectrum(outputCtx, outputSpectrumCtx, {
+          onProgress: function (percent) {
+            setStatePercent(62 + percent * 0.36);
+            setMetaPercent(spectrumMeta, percent);
+          },
+          isCancelled: function () {
+            return jobId !== reconstructJob;
+          }
+        });
+
+        if (!completed || jobId !== reconstructJob) {
+          return;
+        }
+
+        outputMeta.textContent = workWidth + "x" + workHeight;
+        spectrumMeta.textContent = ink > 1 ? "embedded" : "source";
+        setStatePercent(100);
+        await nextPaint();
+        state.textContent = "live";
+        refreshValidationBase(false);
+      }
+
+      function scheduleReconstruct(delay) {
+        var jobId = reconstructJob + 1;
+
+        reconstructJob = jobId;
+        window.clearTimeout(debounceTimer);
+        state.textContent = delay > 0 ? "waiting" : "0%";
+        debounceTimer = window.setTimeout(function () {
+          window.requestAnimationFrame(function () {
+            reconstructNow(jobId);
+          });
+        }, delay == null ? liveDelay() : delay);
+      }
+
+      function updateValidationMeta() {
+        var cropLabel = cropRect.x === 0 && cropRect.y === 0 && cropRect.width === 1 && cropRect.height === 1 ? "off" : "on";
+
+        editMeta.textContent = "blur " + blurRange.value + " · rotate " + rotateRange.value + " · crop " + cropLabel;
+        validationMeta.textContent = validationDirty ? "edited" : "restored";
+      }
+
+      function updateCropBox() {
+        cropBox.style.left = (cropRect.x * 100) + "%";
+        cropBox.style.top = (cropRect.y * 100) + "%";
+        cropBox.style.width = (cropRect.width * 100) + "%";
+        cropBox.style.height = (cropRect.height * 100) + "%";
+        cropBox.classList.toggle("is-active", cropEditMode);
+        validationFrame.classList.toggle("crop-active", cropEditMode);
+        cropEditBtn.classList.toggle("is-active", cropEditMode);
+      }
+
+      function resetCropRect() {
+        cropRect = {
+          x: 0,
+          y: 0,
+          width: 1,
+          height: 1
+        };
+        updateCropBox();
+      }
+
+      function cropPointFromEvent(event) {
+        var rect = validationFrame.getBoundingClientRect();
+
+        return {
+          x: clamp((event.clientX - rect.left) / rect.width, 0, 1),
+          y: clamp((event.clientY - rect.top) / rect.height, 0, 1)
+        };
+      }
+
+      function moveCropHandle(handle, point) {
+        var left = cropRect.x;
+        var right = cropRect.x + cropRect.width;
+        var top = cropRect.y;
+        var bottom = cropRect.y + cropRect.height;
+        var minimum = 0.08;
+
+        if (handle.indexOf("w") !== -1) {
+          left = clamp(point.x, 0, right - minimum);
+        }
+
+        if (handle.indexOf("e") !== -1) {
+          right = clamp(point.x, left + minimum, 1);
+        }
+
+        if (handle.indexOf("n") !== -1) {
+          top = clamp(point.y, 0, bottom - minimum);
+        }
+
+        if (handle.indexOf("s") !== -1) {
+          bottom = clamp(point.y, top + minimum, 1);
+        }
+
+        cropRect = {
+          x: left,
+          y: top,
+          width: right - left,
+          height: bottom - top
+        };
+
+        updateCropBox();
+        validationDirty = true;
+        scheduleValidation(liveDelay());
+      }
+
+      function renderValidationImage() {
+        var blur = Number(blurRange.value);
+        var rotation = Number(rotateRange.value) * Math.PI / 180;
+        var sx = workWidth * cropRect.x;
+        var sy = workHeight * cropRect.y;
+        var sw = workWidth * cropRect.width;
+        var sh = workHeight * cropRect.height;
+
+        validationCtx.save();
+        validationCtx.clearRect(0, 0, workWidth, workHeight);
+        validationCtx.fillStyle = "hsla(" + h + ", 18%, 96%, 1)";
+        validationCtx.fillRect(0, 0, workWidth, workHeight);
+        validationCtx.translate(workWidth / 2, workHeight / 2);
+        validationCtx.rotate(rotation);
+        validationCtx.filter = blur > 0 ? "blur(" + blur + "px)" : "none";
+        validationCtx.drawImage(validationBaseCanvas, sx, sy, sw, sh, -workWidth / 2, -workHeight / 2, workWidth, workHeight);
+        validationCtx.restore();
+        validationCtx.drawImage(validationDrawCanvas, 0, 0);
+        updateValidationMeta();
+      }
+
+      async function renderValidationSpectrum(jobId) {
+        setMetaPercent(validationSpectrumMeta, 0);
+
+        var completed = await renderContextSpectrum(validationCtx, validationSpectrumCtx, {
+          onProgress: function (percent) {
+            setMetaPercent(validationSpectrumMeta, percent);
+          },
+          isCancelled: function () {
+            return jobId !== validationJob;
+          }
+        });
+
+        if (!completed || jobId !== validationJob) {
+          return;
+        }
+
+        validationSpectrumMeta.textContent = "live";
+      }
+
+      function scheduleValidation(delay) {
+        var jobId = validationJob + 1;
+
+        validationJob = jobId;
+        window.clearTimeout(validationDebounceTimer);
+        renderValidationImage();
+        validationSpectrumMeta.textContent = "waiting";
+        validationDebounceTimer = window.setTimeout(function () {
+          window.requestAnimationFrame(function () {
+            renderValidationSpectrum(jobId);
+          });
+        }, delay == null ? liveDelay() : delay);
+      }
+
+      function resetValidationEdits() {
+        blurRange.value = "0";
+        rotateRange.value = "0";
+        resetCropRect();
+        validationDrawCtx.clearRect(0, 0, workWidth, workHeight);
+        validationDirty = false;
+        scheduleValidation(0);
+      }
+
+      function refreshValidationBase(resetEdits) {
+        validationBaseCtx.clearRect(0, 0, workWidth, workHeight);
+        validationBaseCtx.drawImage(outputCanvas, 0, 0);
+
+        if (resetEdits || !validationDirty) {
+          resetValidationEdits();
+        } else {
+          scheduleValidation(liveDelay());
+        }
+      }
+
+      function drawSourceImage(image, width, height) {
+        sourceCtx.clearRect(0, 0, workWidth, workHeight);
+        sourceCtx.drawImage(image, 0, 0, width, height);
+      }
+
+      async function processActiveImage() {
+        if (!activeImage) {
+          return;
+        }
+
+        var jobId = sourceJob + 1;
+        var chosen = chooseWorkSize(activeImage);
+
+        sourceJob = jobId;
+        reconstructJob += 1;
+        validationJob += 1;
+        state.textContent = "reading";
+        window.clearTimeout(debounceTimer);
+        window.clearTimeout(validationDebounceTimer);
+        resizeCanvases(chosen.width, chosen.height);
+        maskCtx.clearRect(0, 0, workWidth, workHeight);
+        validationDrawCtx.clearRect(0, 0, workWidth, workHeight);
+        validationDirty = false;
+        drawSourceImage(activeImage, workWidth, workHeight);
+        updateThemeFromSource();
+        drawDefaultSecret();
+        imageMeta.textContent = activeLabel + " · " + workWidth + "x" + workHeight + " · " + chosen.label;
+        outputMeta.textContent = workWidth + "x" + workHeight;
+        var completed = await readSource(jobId);
+
+        if (!completed || jobId !== sourceJob) {
+          return;
+        }
+
+        scheduleReconstruct(0);
+      }
+
+      function loadFile(file) {
+        if (!file || !file.type || file.type.indexOf("image/") !== 0) {
+          state.textContent = "image only";
+          return;
+        }
+
+        var image = new Image();
+        var url = URL.createObjectURL(file);
+
+        image.onload = function () {
+          activeImage = image;
+          activeLabel = file.name || "upload";
+          URL.revokeObjectURL(url);
+          processActiveImage();
+        };
+
+        image.onerror = function () {
+          state.textContent = "could not load";
+          URL.revokeObjectURL(url);
+        };
+
+        image.src = url;
+      }
+
+      function loadDefaultImage() {
+        var image = new Image();
+
+        image.crossOrigin = "anonymous";
+        state.textContent = "loading";
+
+        image.onload = function () {
+          activeImage = image;
+          activeLabel = "cat";
+          processActiveImage();
+        };
+
+        image.onerror = drawSample;
+        image.src = DEFAULT_IMAGE_URL;
+      }
+
+      function pointFromEvent(event) {
+        var rect = transformCanvas.getBoundingClientRect();
+
+        return {
+          x: ((event.clientX - rect.left) / rect.width) * workWidth,
+          y: ((event.clientY - rect.top) / rect.height) * workHeight
+        };
+      }
+
+      function drawLine(from, to) {
+        maskCtx.strokeStyle = getBrushColor();
+        maskCtx.lineCap = "round";
+        maskCtx.lineJoin = "round";
+        maskCtx.lineWidth = Number(brushSize.value);
+        maskCtx.beginPath();
+        maskCtx.moveTo(from.x, from.y);
+        maskCtx.lineTo(to.x, to.y);
+        maskCtx.stroke();
+        renderTransformCanvas();
+        scheduleReconstruct(liveDelay());
+      }
+
+      function pointFromValidationEvent(event) {
+        var rect = validationCanvas.getBoundingClientRect();
+
+        return {
+          x: ((event.clientX - rect.left) / rect.width) * workWidth,
+          y: ((event.clientY - rect.top) / rect.height) * workHeight
+        };
+      }
+
+      function drawValidationLine(from, to) {
+        validationDrawCtx.strokeStyle = getBrushColor();
+        validationDrawCtx.lineCap = "round";
+        validationDrawCtx.lineJoin = "round";
+        validationDrawCtx.lineWidth = Number(editBrushSize.value);
+        validationDrawCtx.beginPath();
+        validationDrawCtx.moveTo(from.x, from.y);
+        validationDrawCtx.lineTo(to.x, to.y);
+        validationDrawCtx.stroke();
+        validationDirty = true;
+        scheduleValidation(liveDelay());
+      }
+
+      transformCanvas.addEventListener("pointerdown", function (event) {
+        drawing = true;
+        lastPoint = pointFromEvent(event);
+        drawLine(lastPoint, lastPoint);
+        transformCanvas.setPointerCapture(event.pointerId);
+      });
+
+      transformCanvas.addEventListener("pointermove", function (event) {
+        if (!drawing || !lastPoint) {
+          return;
+        }
+
+        var nextPoint = pointFromEvent(event);
+
+        drawLine(lastPoint, nextPoint);
+        lastPoint = nextPoint;
+      });
+
+      transformCanvas.addEventListener("pointerup", function (event) {
+        drawing = false;
+        lastPoint = null;
+        transformCanvas.releasePointerCapture(event.pointerId);
+        scheduleReconstruct(0);
+      });
+
+      transformCanvas.addEventListener("pointercancel", function () {
+        drawing = false;
+        lastPoint = null;
+        scheduleReconstruct(0);
+      });
+
+      imageInput.addEventListener("change", function () {
+        loadFile(imageInput.files[0]);
+      });
+
+      etchClear.addEventListener("input", function () {
+        scheduleReconstruct(liveDelay());
+      });
+
+      etchClear.addEventListener("change", function () {
+        scheduleReconstruct(0);
+      });
+
+      ["dragenter", "dragover"].forEach(function (eventName) {
+        dropZone.addEventListener(eventName, function (event) {
+          event.preventDefault();
+          dropZone.classList.add("is-drag");
+        });
+      });
+
+      ["dragleave", "drop"].forEach(function (eventName) {
+        dropZone.addEventListener(eventName, function (event) {
+          event.preventDefault();
+          dropZone.classList.remove("is-drag");
+        });
+      });
+
+      dropZone.addEventListener("drop", function (event) {
+        event.preventDefault();
+        loadFile(event.dataTransfer && event.dataTransfer.files ? event.dataTransfer.files[0] : null);
+      });
+
+      clearBtn.addEventListener("click", function () {
+        maskCtx.clearRect(0, 0, workWidth, workHeight);
+        renderTransformCanvas();
+        scheduleReconstruct(0);
+      });
+
+      [blurRange, rotateRange].forEach(function (control) {
+        control.addEventListener("input", function () {
+          validationDirty = true;
+          scheduleValidation(liveDelay());
+        });
+
+        control.addEventListener("change", function () {
+          validationDirty = true;
+          scheduleValidation(0);
+        });
+      });
+
+      cropEditBtn.addEventListener("click", function () {
+        cropEditMode = !cropEditMode;
+        updateCropBox();
+      });
+
+      drawEditBtn.addEventListener("click", function () {
+        drawEditMode = !drawEditMode;
+        drawEditBtn.classList.toggle("is-active", drawEditMode);
+        validationCanvas.classList.toggle("is-drawing", drawEditMode);
+      });
+
+      restoreOutputBtn.addEventListener("click", function () {
+        resetValidationEdits();
+      });
+
+      cropBox.addEventListener("pointerdown", function (event) {
+        var handle = event.target.getAttribute("data-crop-handle");
+
+        if (!handle) {
+          return;
+        }
+
+        event.preventDefault();
+        activeCropHandle = handle;
+        cropBox.setPointerCapture(event.pointerId);
+      });
+
+      cropBox.addEventListener("pointermove", function (event) {
+        if (!activeCropHandle) {
+          return;
+        }
+
+        moveCropHandle(activeCropHandle, cropPointFromEvent(event));
+      });
+
+      cropBox.addEventListener("pointerup", function (event) {
+        if (!activeCropHandle) {
+          return;
+        }
+
+        activeCropHandle = null;
+        cropBox.releasePointerCapture(event.pointerId);
+        scheduleValidation(0);
+      });
+
+      cropBox.addEventListener("pointercancel", function () {
+        activeCropHandle = null;
+        scheduleValidation(0);
+      });
+
+      validationCanvas.addEventListener("pointerdown", function (event) {
+        if (!drawEditMode) {
+          return;
+        }
+
+        editingOutput = true;
+        lastEditPoint = pointFromValidationEvent(event);
+        drawValidationLine(lastEditPoint, lastEditPoint);
+        validationCanvas.setPointerCapture(event.pointerId);
+      });
+
+      validationCanvas.addEventListener("pointermove", function (event) {
+        if (!editingOutput || !lastEditPoint) {
+          return;
+        }
+
+        var nextPoint = pointFromValidationEvent(event);
+
+        drawValidationLine(lastEditPoint, nextPoint);
+        lastEditPoint = nextPoint;
+      });
+
+      validationCanvas.addEventListener("pointerup", function (event) {
+        if (!editingOutput) {
+          return;
+        }
+
+        editingOutput = false;
+        lastEditPoint = null;
+        validationCanvas.releasePointerCapture(event.pointerId);
+        scheduleValidation(0);
+      });
+
+      validationCanvas.addEventListener("pointercancel", function () {
+        editingOutput = false;
+        lastEditPoint = null;
+        scheduleValidation(0);
+      });
+
+      downloadBtn.addEventListener("click", function () {
+        outputCanvas.toBlob(function (blob) {
+          var url = URL.createObjectURL(blob);
+          var link = document.createElement("a");
+
+          link.href = url;
+          link.download = "secrets-with-fourier.png";
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+
+          window.setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 1000);
+        }, "image/png");
+      });
+
+      loadDefaultImage();
+    }());
+  </script>
+</body>
+</html>
