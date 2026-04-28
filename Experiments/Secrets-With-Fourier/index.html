@@ -2,24 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Draw into an image Fourier transform and watch the image reconstruct live.">
+  <meta name="description" content="A small browser demo where you draw a secret into an image's hidden pattern layer, rebuild the picture, and test whether the secret survives edits.">
+  <meta name="keywords" content="Fourier, image hiding, steganography, canvas demo, math visualization, Prajwal DSouza">
   <meta name="author" content="Prajwal DSouza">
+  <meta name="referrer" content="origin">
+  <meta name="theme-color" content="hsl(190 23% 96%)">
+  <meta property="og:title" content="Secrets with Fourier">
+  <meta property="og:description" content="Draw a secret into an image's hidden pattern layer, rebuild the picture, and test how well the secret survives edits.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prajwalsouza.github.io/Experiments/Secrets-With-Fourier/">
+  <meta property="og:image" content="https://prajwalsouza.github.io/square.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Secrets with Fourier">
+  <meta name="twitter:description" content="Draw a secret into an image's hidden pattern layer, rebuild the picture, and test how well the secret survives edits.">
+  <meta name="twitter:image" content="https://prajwalsouza.github.io/square.png">
   <title>Secrets with Fourier</title>
   <link rel="icon" href="../../square.png">
+  <link rel="apple-touch-icon" href="../../square.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFFCG66EJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-MNFFCG66EJ");
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Secrets with Fourier",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web",
+      "author": {
+        "@type": "Person",
+        "name": "Prajwal DSouza"
+      },
+      "description": "A small browser demo where you draw a secret into an image's hidden pattern layer, rebuild the picture, and test whether the secret survives edits.",
+      "url": "https://prajwalsouza.github.io/Experiments/Secrets-With-Fourier/",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
   <style>
     :root {
       --h: 190;
-      --paper: hsla(var(--h), 24%, 96%, 1);
-      --ink: hsla(var(--h), 18%, 16%, 1);
-      --muted: hsla(var(--h), 10%, 43%, 1);
-      --line: hsla(var(--h), 18%, 38%, 0.22);
-      --line-strong: hsla(var(--h), 20%, 30%, 0.38);
-      --surface: hsla(var(--h), 28%, 98%, 0.66);
-      --field: hsla(var(--h), 30%, 99%, 1);
-      --accent: hsla(var(--h), 42%, 34%, 1);
-      --accent-soft: hsla(var(--h), 50%, 72%, 0.28);
+      --heading-font: Raleway, "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      --paper: hsla(var(--h), 23%, 96%, 1);
+      --ink: hsla(var(--h), 18%, 14%, 1);
+      --muted: hsla(var(--h), 11%, 42%, 1);
+      --line: hsla(var(--h), 18%, 36%, 0.2);
+      --line-strong: hsla(var(--h), 22%, 26%, 0.36);
+      --surface: hsla(var(--h), 28%, 98%, 0.72);
+      --surface-hover: hsla(var(--h), 34%, 96%, 0.92);
+      --field: hsla(var(--h), 30%, 98%, 1);
+      --accent: hsla(var(--h), 48%, 32%, 1);
+      --accent-soft: hsla(var(--h), 54%, 72%, 0.22);
+      --accent-wash: hsla(var(--h), 54%, 72%, 0.34);
+      --focus: hsla(var(--h), 58%, 38%, 0.26);
+      --shadow: hsla(var(--h), 22%, 18%, 0.08);
+      --shadow-soft: 0 14px 34px hsla(var(--h), 20%, 16%, 0.07);
       --clear: hsla(var(--h), 30%, 99%, 0);
+      --radius: 8px;
+      --radius-sm: 6px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * {
@@ -29,9 +89,17 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: var(--paper);
+      background:
+        linear-gradient(180deg, hsla(var(--h), 24%, 98%, 1), var(--paper) 280px),
+        var(--paper);
       color: var(--ink);
       font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      text-rendering: geometricPrecision;
+    }
+
+    ::selection {
+      background: var(--accent-soft);
+      color: var(--ink);
     }
 
     button,
@@ -43,14 +111,64 @@
       border: 0;
     }
 
+    input[type="range"] {
+      appearance: none;
+      height: 18px;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 6px;
+      border-radius: 999px;
+      background: hsla(var(--h), 18%, 58%, 0.24);
+      box-shadow: inset 0 1px 1px hsla(var(--h), 22%, 20%, 0.1);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 17px;
+      height: 17px;
+      margin-top: -5.5px;
+      border: 2px solid hsla(var(--h), 28%, 99%, 1);
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 4px 10px var(--shadow);
+      transition:
+        transform 140ms var(--ease-out-expo),
+        box-shadow 140ms var(--ease-out-quart);
+    }
+
+    input[type="range"]:hover::-webkit-slider-thumb {
+      transform: scale(1.08);
+      box-shadow: 0 6px 14px var(--shadow);
+    }
+
+    input[type="range"]::-moz-range-track {
+      height: 6px;
+      border: 0;
+      border-radius: 999px;
+      background: hsla(var(--h), 18%, 58%, 0.24);
+      box-shadow: inset 0 1px 1px hsla(var(--h), 22%, 20%, 0.1);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 15px;
+      height: 15px;
+      border: 2px solid hsla(var(--h), 28%, 99%, 1);
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 4px 10px var(--shadow);
+    }
+
     .shell {
       width: min(1120px, 100%);
       min-height: 100vh;
       margin: 0 auto;
       padding: clamp(18px, 3vw, 34px);
       display: grid;
-      align-content: center;
-      gap: 14px;
+      align-content: start;
+      gap: var(--space-5);
     }
 
     header {
@@ -60,19 +178,64 @@
       gap: 18px;
       padding-bottom: 12px;
       border-bottom: 1px solid var(--line);
+      animation: enter 460ms var(--ease-out-expo) both;
     }
 
     h1 {
       margin: 0;
+      font-family: var(--heading-font);
       font-size: 1.12rem;
-      font-weight: 560;
+      font-weight: 700;
       letter-spacing: 0;
     }
 
+    .brand {
+      display: grid;
+      gap: 4px;
+    }
+
+    .brand p {
+      margin: 0;
+      max-width: 34rem;
+      color: hsla(var(--h), 8%, 48%, 1);
+      font-size: 0.78rem;
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
     .state {
+      position: relative;
+      min-inline-size: 54px;
+      padding-bottom: 5px;
       color: var(--muted);
       font-size: 0.78rem;
       text-align: right;
+      font-variant-numeric: tabular-nums;
+      transition: color 180ms var(--ease-out-quart);
+    }
+
+    .state::after,
+    .row span::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0;
+      transform: scaleX(var(--progress, 0));
+      transform-origin: left center;
+      transition:
+        opacity 160ms var(--ease-out-quart),
+        transform 180ms var(--ease-out-quart);
+    }
+
+    .state.is-progress {
+      color: var(--ink);
+    }
+
+    .state.is-progress::after,
+    .row span.is-progress::after {
+      opacity: 0.75;
     }
 
     .workspace {
@@ -86,6 +249,24 @@
       min-width: 0;
       display: grid;
       gap: 9px;
+      animation: enter 520ms var(--ease-out-expo) both;
+      animation-delay: calc(var(--i, 0) * 70ms);
+    }
+
+    .workspace > .pane:nth-child(1) {
+      --i: 1;
+    }
+
+    .workspace > .pane:nth-child(2) {
+      --i: 2;
+    }
+
+    .workspace > .pane:nth-child(3) {
+      --i: 3;
+    }
+
+    .validation {
+      --i: 5;
     }
 
     .row {
@@ -93,31 +274,49 @@
       align-items: baseline;
       justify-content: space-between;
       gap: 12px;
+      min-width: 0;
       min-height: 22px;
+      overflow: hidden;
     }
 
     .row label,
     .row strong {
+      flex: 0 0 auto;
+      font-family: var(--heading-font);
       font-size: 0.86rem;
-      font-weight: 560;
+      font-weight: 600;
     }
 
     .row span {
+      position: relative;
+      min-inline-size: 0;
+      padding-bottom: 3px;
       color: var(--muted);
       font-size: 0.72rem;
       white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .drop {
       position: relative;
       display: grid;
       place-items: center;
-      min-height: 38px;
-      border: 1px dashed var(--line-strong);
-      background: var(--surface);
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: hsla(var(--h), 28%, 99%, 0.82);
       color: var(--muted);
       cursor: pointer;
       font-size: 0.78rem;
+      box-shadow: inset 0 1px 0 hsla(var(--h), 20%, 100%, 0.68);
+      transition:
+        background 180ms var(--ease-out-quart),
+        box-shadow 180ms var(--ease-out-quart),
+        border-color 180ms var(--ease-out-quart),
+        color 180ms var(--ease-out-quart),
+        transform 180ms var(--ease-out-quart);
     }
 
     .drop:hover,
@@ -125,6 +324,12 @@
       border-color: var(--accent);
       background: var(--accent-soft);
       color: var(--ink);
+      box-shadow: 0 8px 22px var(--shadow);
+      transform: translateY(-1px);
+    }
+
+    .drop:active {
+      transform: translateY(0);
     }
 
     .drop input {
@@ -138,12 +343,21 @@
     .frame {
       position: relative;
       border: 1px solid var(--line);
+      border-radius: var(--radius);
       background:
         linear-gradient(90deg, hsla(var(--h), 18%, 20%, 0.032) 1px, var(--clear) 1px),
         linear-gradient(0deg, hsla(var(--h), 18%, 20%, 0.032) 1px, var(--clear) 1px),
         var(--field);
       background-size: 16px 16px;
       overflow: hidden;
+      box-shadow:
+        var(--shadow-soft),
+        inset 0 1px 0 hsla(var(--h), 20%, 100%, 0.62);
+      contain: paint;
+      transition:
+        border-color 180ms var(--ease-out-quart),
+        box-shadow 180ms var(--ease-out-quart),
+        transform 180ms var(--ease-out-quart);
     }
 
     .frame.crop-active {
@@ -160,6 +374,20 @@
       border-radius: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
+    }
+
+    .frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: var(--accent-soft);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .frame.is-fresh::before {
+      animation: fresh 460ms var(--ease-out-quart);
     }
 
     .image-frame::after {
@@ -184,23 +412,52 @@
 
     .controls {
       display: grid;
-      grid-template-columns: auto auto 1fr auto;
+      grid-template-columns: auto auto 1fr;
       gap: 8px;
       align-items: center;
+      width: fit-content;
+      max-width: 100%;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: hsla(var(--h), 28%, 99%, 0.7);
+      box-shadow: inset 0 1px 0 hsla(var(--h), 20%, 100%, 0.58);
     }
 
     .button {
-      min-height: 36px;
+      justify-self: end;
+      min-height: 34px;
       padding: 0 14px;
       border: 1px solid var(--line);
-      background: var(--surface);
+      border-radius: var(--radius-sm);
+      background: hsla(var(--h), 28%, 99%, 0.8);
       color: var(--ink);
       cursor: pointer;
+      transition:
+        background 160ms var(--ease-out-quart),
+        border-color 160ms var(--ease-out-quart),
+        color 160ms var(--ease-out-quart),
+        transform 120ms var(--ease-out-expo),
+        box-shadow 160ms var(--ease-out-quart);
     }
 
     .button:hover {
       border-color: var(--accent);
       background: var(--accent-soft);
+      box-shadow: 0 4px 14px var(--shadow);
+      transform: translateY(-1px);
+    }
+
+    .button:active {
+      transform: translateY(0) scale(0.985);
+      box-shadow: none;
+    }
+
+    .button:focus-visible,
+    .drop:focus-within,
+    input:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 3px;
     }
 
     .brush,
@@ -218,8 +475,8 @@
       accent-color: var(--accent);
     }
 
-    .clear-field input {
-      width: 82px;
+    .outline-field input {
+      width: 86px;
       accent-color: var(--accent);
     }
 
@@ -232,6 +489,61 @@
       gap: 12px;
       padding-top: 18px;
       border-top: 1px solid var(--line);
+      animation: enter 520ms var(--ease-out-expo) both;
+      animation-delay: calc(var(--i, 0) * 70ms);
+    }
+
+    .explain {
+      --i: 4;
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+      gap: 18px;
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      animation: enter 520ms var(--ease-out-expo) both;
+      animation-delay: calc(var(--i, 0) * 70ms);
+    }
+
+    .explain h2 {
+      margin: 0 0 7px;
+      font-family: var(--heading-font);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .explain p,
+    .section-note,
+    .edit-note,
+    .step {
+      margin: 0;
+      color: hsla(var(--h), 8%, 46%, 1);
+      font-size: 0.82rem;
+      line-height: 1.52;
+    }
+
+    .explain-steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      align-items: start;
+    }
+
+    .step {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .step strong {
+      color: var(--ink);
+      font-family: var(--heading-font);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .section-note {
+      max-width: 58rem;
     }
 
     .validation-grid {
@@ -242,10 +554,15 @@
     }
 
     .toolbox {
-      display: grid;
-      grid-template-columns: repeat(4, auto) 1fr auto;
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       align-items: center;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: hsla(var(--h), 28%, 99%, 0.7);
+      box-shadow: inset 0 1px 0 hsla(var(--h), 20%, 100%, 0.58);
     }
 
     .tool {
@@ -262,10 +579,15 @@
       accent-color: var(--accent);
     }
 
+    .edit-note {
+      max-width: 45rem;
+    }
+
     .button.is-active {
       border-color: var(--accent);
       background: var(--accent-soft);
       color: var(--ink);
+      box-shadow: inset 0 0 0 1px hsla(var(--h), 48%, 32%, 0.12);
     }
 
     .crop-box {
@@ -273,13 +595,16 @@
       inset: 12% 12%;
       display: none;
       border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
       background: hsla(var(--h), 50%, 72%, 0.08);
       box-shadow: 0 0 0 999px hsla(var(--h), 18%, 8%, 0.18);
       pointer-events: none;
+      z-index: 2;
     }
 
     .crop-box.is-active {
       display: block;
+      animation: crop-in 220ms var(--ease-out-quart) both;
     }
 
     .crop-box::before,
@@ -297,12 +622,21 @@
 
     .crop-handle {
       position: absolute;
-      width: 9px;
-      height: 9px;
+      width: 10px;
+      height: 10px;
       border: 1px solid var(--accent);
+      border-radius: 50%;
       background: var(--paper);
       transform: translate(-50%, -50%);
       pointer-events: auto;
+      transition:
+        background 160ms var(--ease-out-quart),
+        transform 160ms var(--ease-out-quart);
+    }
+
+    .crop-handle:hover {
+      background: var(--accent-wash);
+      transform: translate(-50%, -50%) scale(1.14);
     }
 
     .crop-handle.nw {
@@ -338,16 +672,28 @@
       image-rendering: pixelated;
     }
 
-    @media (max-width: 860px) {
+    @media (max-width: 1080px) {
+      .validation-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 980px) {
       .shell {
         align-content: start;
       }
 
       .workspace,
-      .validation-grid {
+      .explain {
         grid-template-columns: 1fr;
       }
 
+      .explain-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
       .toolbox {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -360,14 +706,79 @@
         display: grid;
         grid-template-columns: 1fr;
         align-items: stretch;
+        width: 100%;
       }
 
       .state {
         text-align: left;
       }
 
+      .row {
+        gap: 7px;
+      }
+
+      .row span {
+        white-space: normal;
+        text-align: right;
+      }
+
       .button {
         width: 100%;
+      }
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fresh {
+      0% {
+        opacity: 0;
+      }
+
+      35% {
+        opacity: 0.42;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes crop-in {
+      from {
+        opacity: 0;
+        transform: scale(0.985);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .drop:hover,
+      .drop.is-drag,
+      .button:hover {
+        transform: none;
       }
     }
   </style>
@@ -375,19 +786,22 @@
 <body>
   <main class="shell">
     <header>
-      <h1>Secrets with Fourier</h1>
+      <div class="brand">
+        <h1>Secrets with Fourier</h1>
+        <p>Draw a secret into the image's hidden pattern layer. The picture carries it back.</p>
+      </div>
       <div class="state" id="state" aria-live="polite">loading</div>
     </header>
 
-    <section class="workspace" aria-label="Draw in Fourier space">
+    <section class="workspace" aria-label="Draw a secret into an image">
       <section class="pane source">
         <div class="row">
           <label for="imageInput">image</label>
           <span id="imageMeta">sample</span>
         </div>
-        <label class="drop" id="dropZone" for="imageInput">
+        <label class="drop" id="dropZone" for="imageInput" aria-label="Upload or drop image">
           <input id="imageInput" type="file" accept="image/*">
-          upload
+          upload / drop
         </label>
         <div class="frame image-frame">
           <canvas id="sourceCanvas" width="436" height="289" aria-label="Source image"></canvas>
@@ -396,19 +810,19 @@
 
       <section class="pane transform">
         <div class="row">
-          <strong>source transform</strong>
-          <span id="transformMeta">draw over it</span>
+          <strong>hidden layer</strong>
+          <span id="transformMeta">draw here</span>
         </div>
         <div class="frame">
-          <canvas id="transformCanvas" width="436" height="289" aria-label="Source Fourier transform drawing surface"></canvas>
+          <canvas id="transformCanvas" width="436" height="289" aria-label="Hidden image layer drawing surface"></canvas>
         </div>
         <div class="controls">
           <label class="brush" for="brushSize">
             brush
             <input id="brushSize" type="range" min="1" max="9" step="1" value="5">
           </label>
-          <label class="brush clear-field" for="etchClear">
-            clear
+          <label class="brush outline-field" for="etchClear">
+            etch outline
             <input id="etchClear" type="range" min="0" max="100" step="1" value="75">
           </label>
           <button class="button" id="clearBtn" type="button">Clear</button>
@@ -417,37 +831,51 @@
 
       <section class="pane output">
         <div class="row">
-          <strong>output</strong>
+          <strong>rebuilt image</strong>
           <span id="outputMeta">waiting</span>
         </div>
         <div class="frame image-frame">
           <canvas id="outputCanvas" width="436" height="289" aria-label="Reconstructed output image"></canvas>
         </div>
         <div class="row">
-          <strong>output transform</strong>
+          <strong>output hidden layer</strong>
           <span id="spectrumMeta">waiting</span>
         </div>
         <div class="frame">
-          <canvas id="outputSpectrumCanvas" width="436" height="289" aria-label="Fourier transform of reconstructed output"></canvas>
+          <canvas id="outputSpectrumCanvas" width="436" height="289" aria-label="Hidden layer of the rebuilt image"></canvas>
         </div>
         <button class="button" id="downloadBtn" type="button">Download</button>
       </section>
     </section>
 
-    <section class="validation" aria-label="Validate edited output">
+    <section class="explain" aria-labelledby="explainTitle">
+      <div>
+        <h2 id="explainTitle">What is happening</h2>
+        <p>An image can be described by pixels, but also by the soft repeating patterns that add up to those pixels. This page lets you draw on that hidden pattern layer, then rebuilds the image from it.</p>
+      </div>
+      <div class="explain-steps" aria-label="How the demo works">
+        <p class="step"><strong>1. Draw the secret</strong><span>The brown mark is placed where the image stores broad light and dark patterns.</span></p>
+        <p class="step"><strong>2. Rebuild the picture</strong><span>The result still looks like the original image, but the mark can be seen when we inspect the hidden layer.</span></p>
+        <p class="step"><strong>3. Try to damage it</strong><span>Rotate, crop, draw over, or blur the rebuilt image to see whether the hidden mark survives.</span></p>
+      </div>
+    </section>
+
+    <section class="validation" aria-label="Stress test the rebuilt image">
       <div class="row">
-        <strong>validation</strong>
+        <strong>stress test</strong>
         <span id="validationMeta">restored</span>
       </div>
+      <p class="section-note">Edit the rebuilt image below. The right side redraws the hidden layer after every change, so you can see how much of the secret is still there.</p>
 
       <div class="validation-grid">
         <section class="pane">
           <div class="row">
-            <strong>editable output</strong>
-            <span id="editMeta">blur 0 · rotate 0 · crop 0</span>
+            <strong>edit the image</strong>
+            <span id="editMeta">rotate 0 · crop off · blur 0</span>
           </div>
+          <p class="edit-note">Crop usually hurts least because the secret is spread through the waves that make the whole image. Blur hurts most; it smooths those waves away.</p>
           <div class="frame image-frame" id="validationFrame">
-            <canvas id="validationCanvas" width="436" height="289" aria-label="Editable output image"></canvas>
+            <canvas id="validationCanvas" width="436" height="289" aria-label="Image editing canvas"></canvas>
             <div class="crop-box" id="cropBox" aria-hidden="true">
               <span class="crop-handle nw" data-crop-handle="nw"></span>
               <span class="crop-handle ne" data-crop-handle="ne"></span>
@@ -456,10 +884,6 @@
             </div>
           </div>
           <div class="toolbox">
-            <label class="tool" for="blurRange">
-              blur
-              <input id="blurRange" type="range" min="0" max="10" step="0.5" value="0">
-            </label>
             <label class="tool" for="rotateRange">
               rotate
               <input id="rotateRange" type="range" min="-45" max="45" step="1" value="0">
@@ -470,17 +894,21 @@
               brush
               <input id="editBrushSize" type="range" min="1" max="18" step="1" value="6">
             </label>
+            <label class="tool" for="blurRange">
+              blur
+              <input id="blurRange" type="range" min="0" max="10" step="0.5" value="0">
+            </label>
             <button class="button" id="restoreOutputBtn" type="button" aria-label="Restore output">Restore</button>
           </div>
         </section>
 
         <section class="pane">
           <div class="row">
-            <strong>edited transform</strong>
+            <strong>hidden layer after edits</strong>
             <span id="validationSpectrumMeta">live</span>
           </div>
           <div class="frame">
-            <canvas id="validationSpectrumCanvas" width="436" height="289" aria-label="Fourier transform of edited output"></canvas>
+            <canvas id="validationSpectrumCanvas" width="436" height="289" aria-label="Hidden layer after editing the image"></canvas>
           </div>
         </section>
       </div>
@@ -573,6 +1001,7 @@
       var sourceJob = 0;
       var reconstructJob = 0;
       var validationJob = 0;
+      var dragDepth = 0;
 
       function clamp(value, min, max) {
         return Math.max(min, Math.min(max, value));
@@ -602,12 +1031,44 @@
         return Math.round(clamp(percent, 0, 100)) + "%";
       }
 
+      function setStateText(text) {
+        state.classList.remove("is-progress");
+        state.style.setProperty("--progress", "0");
+        state.textContent = text;
+      }
+
+      function setMetaText(element, text) {
+        element.classList.remove("is-progress");
+        element.style.setProperty("--progress", "0");
+        element.textContent = text;
+      }
+
       function setStatePercent(percent) {
-        state.textContent = percentLabel(percent);
+        var progress = clamp(percent, 0, 100);
+
+        state.classList.add("is-progress");
+        state.style.setProperty("--progress", String(progress / 100));
+        state.textContent = percentLabel(progress);
       }
 
       function setMetaPercent(element, percent) {
-        element.textContent = percentLabel(percent);
+        var progress = clamp(percent, 0, 100);
+
+        element.classList.add("is-progress");
+        element.style.setProperty("--progress", String(progress / 100));
+        element.textContent = percentLabel(progress);
+      }
+
+      function pulseFrame(canvas) {
+        var frame = canvas && canvas.parentElement;
+
+        if (!frame || !frame.classList.contains("frame")) {
+          return;
+        }
+
+        frame.classList.remove("is-fresh");
+        void frame.offsetWidth;
+        frame.classList.add("is-fresh");
       }
 
       function hslToRgb(hue, saturation, lightness) {
@@ -1154,6 +1615,7 @@
 
         await nextPaint();
         renderSpectrum(destinationContext, re, im);
+        pulseFrame(destinationContext.canvas);
 
         if (options.isCancelled && options.isCancelled()) {
           return false;
@@ -1199,28 +1661,28 @@
       }
 
       function drawDefaultSecret() {
-        var cx = workWidth / 2;
-        var cy = workHeight / 2;
-        var rx = workWidth * 0.18;
-        var ry = workHeight * 0.1;
-        var dot = Math.max(2, Math.min(workWidth, workHeight) * 0.012);
+        var label = "Secret";
+        var fontSize = Math.max(18, Math.min(workWidth * 0.16, workHeight * 0.2));
+        var y = workHeight * 0.31;
 
         maskCtx.clearRect(0, 0, workWidth, workHeight);
-        maskCtx.strokeStyle = getBrushColor();
+        maskCtx.save();
         maskCtx.fillStyle = getBrushColor();
+        maskCtx.strokeStyle = getBrushColor();
         maskCtx.lineCap = "round";
         maskCtx.lineJoin = "round";
-        maskCtx.lineWidth = Math.max(2, Math.min(workWidth, workHeight) * 0.012);
-        maskCtx.beginPath();
-        maskCtx.ellipse(cx, cy, rx, ry, -0.28, 0, Math.PI * 2);
-        maskCtx.stroke();
-        maskCtx.beginPath();
-        maskCtx.ellipse(cx, cy, ry, rx, 0.52, 0, Math.PI * 2);
-        maskCtx.stroke();
-        maskCtx.beginPath();
-        maskCtx.arc(cx - rx * 0.82, cy - ry * 0.7, dot, 0, Math.PI * 2);
-        maskCtx.arc(cx + rx * 0.82, cy + ry * 0.7, dot, 0, Math.PI * 2);
-        maskCtx.fill();
+        maskCtx.textAlign = "center";
+        maskCtx.textBaseline = "middle";
+
+        do {
+          maskCtx.font = "650 " + fontSize + "px Raleway, Avenir Next, Avenir, Segoe UI, sans-serif";
+          fontSize -= 1;
+        } while (maskCtx.measureText(label).width > workWidth * 0.62 && fontSize > 18);
+
+        maskCtx.lineWidth = Math.max(1.5, fontSize * 0.055);
+        maskCtx.strokeText(label, workWidth / 2, y);
+        maskCtx.fillText(label, workWidth / 2, y);
+        maskCtx.restore();
       }
 
       async function readSource(jobId) {
@@ -1273,6 +1735,7 @@
         await nextPaint();
         renderSpectrum(sourceSpectrumCtx, sourceRe, sourceIm);
         renderTransformCanvas();
+        pulseFrame(transformCanvas);
         setStatePercent(100);
 
         return true;
@@ -1316,13 +1779,13 @@
           var first = coefficientIndex(marks[i].dx, marks[i].dy);
           var second = coefficientIndex(-marks[i].dx, -marks[i].dy);
 
-            re[first] += amount;
-            if (second !== first) {
-              re[second] += amount;
-            }
+          re[first] += amount;
+          if (second !== first) {
+            re[second] += amount;
+          }
         }
 
-        transformMeta.textContent = ink > 1 ? "drawn in spectrum" : "source only";
+        setMetaText(transformMeta, ink > 1 ? "secret drawn" : "clean layer");
         return ink;
       }
 
@@ -1368,8 +1831,9 @@
         }
 
         outputCtx.putImageData(imageData, 0, 0);
-        outputMeta.textContent = workWidth + "x" + workHeight;
-        spectrumMeta.textContent = "0%";
+        pulseFrame(outputCanvas);
+        setMetaText(outputMeta, workWidth + "x" + workHeight);
+        setMetaPercent(spectrumMeta, 0);
 
         completed = await renderContextSpectrum(outputCtx, outputSpectrumCtx, {
           onProgress: function (percent) {
@@ -1385,11 +1849,11 @@
           return;
         }
 
-        outputMeta.textContent = workWidth + "x" + workHeight;
-        spectrumMeta.textContent = ink > 1 ? "embedded" : "source";
+        setMetaText(outputMeta, workWidth + "x" + workHeight);
+        setMetaText(spectrumMeta, ink > 1 ? "secret visible" : "plain");
         setStatePercent(100);
         await nextPaint();
-        state.textContent = "live";
+        setStateText("live");
         refreshValidationBase(false);
       }
 
@@ -1398,7 +1862,11 @@
 
         reconstructJob = jobId;
         window.clearTimeout(debounceTimer);
-        state.textContent = delay > 0 ? "waiting" : "0%";
+        if (delay > 0) {
+          setStateText("waiting");
+        } else {
+          setStatePercent(0);
+        }
         debounceTimer = window.setTimeout(function () {
           window.requestAnimationFrame(function () {
             reconstructNow(jobId);
@@ -1409,8 +1877,8 @@
       function updateValidationMeta() {
         var cropLabel = cropRect.x === 0 && cropRect.y === 0 && cropRect.width === 1 && cropRect.height === 1 ? "off" : "on";
 
-        editMeta.textContent = "blur " + blurRange.value + " · rotate " + rotateRange.value + " · crop " + cropLabel;
-        validationMeta.textContent = validationDirty ? "edited" : "restored";
+        setMetaText(editMeta, "rotate " + rotateRange.value + " · crop " + cropLabel + " · blur " + blurRange.value);
+        setMetaText(validationMeta, validationDirty ? "edited" : "restored");
       }
 
       function updateCropBox() {
@@ -1514,7 +1982,7 @@
           return;
         }
 
-        validationSpectrumMeta.textContent = "live";
+        setMetaText(validationSpectrumMeta, "live");
       }
 
       function scheduleValidation(delay) {
@@ -1523,7 +1991,7 @@
         validationJob = jobId;
         window.clearTimeout(validationDebounceTimer);
         renderValidationImage();
-        validationSpectrumMeta.textContent = "waiting";
+        setMetaText(validationSpectrumMeta, "waiting");
         validationDebounceTimer = window.setTimeout(function () {
           window.requestAnimationFrame(function () {
             renderValidationSpectrum(jobId);
@@ -1567,7 +2035,7 @@
         sourceJob = jobId;
         reconstructJob += 1;
         validationJob += 1;
-        state.textContent = "reading";
+        setStateText("reading");
         window.clearTimeout(debounceTimer);
         window.clearTimeout(validationDebounceTimer);
         resizeCanvases(chosen.width, chosen.height);
@@ -1577,8 +2045,8 @@
         drawSourceImage(activeImage, workWidth, workHeight);
         updateThemeFromSource();
         drawDefaultSecret();
-        imageMeta.textContent = activeLabel + " · " + workWidth + "x" + workHeight + " · " + chosen.label;
-        outputMeta.textContent = workWidth + "x" + workHeight;
+        setMetaText(imageMeta, activeLabel + " · " + workWidth + "x" + workHeight + " · " + chosen.label);
+        setMetaText(outputMeta, workWidth + "x" + workHeight);
         var completed = await readSource(jobId);
 
         if (!completed || jobId !== sourceJob) {
@@ -1588,9 +2056,53 @@
         scheduleReconstruct(0);
       }
 
-      function loadFile(file) {
+      function imageFileFromTransfer(source) {
+        var files = source && source.files ? Array.from(source.files) : [];
+        var fileMatch = files.find(function (file) {
+          return file && file.type && file.type.indexOf("image/") === 0;
+        });
+
+        if (fileMatch) {
+          return fileMatch;
+        }
+
+        var items = source && source.items ? Array.from(source.items) : [];
+
+        for (var index = 0; index < items.length; index += 1) {
+          var item = items[index];
+
+          if (item && item.type && item.type.indexOf("image/") === 0) {
+            return item.getAsFile();
+          }
+        }
+
+        return null;
+      }
+
+      function hasFileTransfer(source) {
+        var types = source && source.types ? Array.from(source.types) : [];
+
+        if (types.indexOf("Files") !== -1) {
+          return true;
+        }
+
+        var files = source && source.files ? Array.from(source.files) : [];
+        var items = source && source.items ? Array.from(source.items) : [];
+
+        return files.some(function (file) {
+          return file && file.type && file.type.indexOf("image/") === 0;
+        }) || items.some(function (item) {
+          return item && item.type && item.type.indexOf("image/") === 0;
+        });
+      }
+
+      function setDragState(isDragging) {
+        dropZone.classList.toggle("is-drag", isDragging);
+      }
+
+      function loadFile(file, fallbackLabel) {
         if (!file || !file.type || file.type.indexOf("image/") !== 0) {
-          state.textContent = "image only";
+          setStateText("image only");
           return;
         }
 
@@ -1599,13 +2111,13 @@
 
         image.onload = function () {
           activeImage = image;
-          activeLabel = file.name || "upload";
+          activeLabel = file.name || fallbackLabel || "upload";
           URL.revokeObjectURL(url);
           processActiveImage();
         };
 
         image.onerror = function () {
-          state.textContent = "could not load";
+          setStateText("could not load");
           URL.revokeObjectURL(url);
         };
 
@@ -1616,7 +2128,7 @@
         var image = new Image();
 
         image.crossOrigin = "anonymous";
-        state.textContent = "loading";
+        setStateText("loading");
 
         image.onload = function () {
           activeImage = image;
@@ -1704,7 +2216,7 @@
       });
 
       imageInput.addEventListener("change", function () {
-        loadFile(imageInput.files[0]);
+        loadFile(imageFileFromTransfer(imageInput), "upload");
       });
 
       etchClear.addEventListener("input", function () {
@@ -1715,23 +2227,58 @@
         scheduleReconstruct(0);
       });
 
-      ["dragenter", "dragover"].forEach(function (eventName) {
-        dropZone.addEventListener(eventName, function (event) {
-          event.preventDefault();
-          dropZone.classList.add("is-drag");
-        });
-      });
+      document.addEventListener("dragenter", function (event) {
+        if (!hasFileTransfer(event.dataTransfer)) {
+          return;
+        }
 
-      ["dragleave", "drop"].forEach(function (eventName) {
-        dropZone.addEventListener(eventName, function (event) {
-          event.preventDefault();
-          dropZone.classList.remove("is-drag");
-        });
-      });
-
-      dropZone.addEventListener("drop", function (event) {
         event.preventDefault();
-        loadFile(event.dataTransfer && event.dataTransfer.files ? event.dataTransfer.files[0] : null);
+        dragDepth += 1;
+        setDragState(true);
+      });
+
+      document.addEventListener("dragover", function (event) {
+        if (!hasFileTransfer(event.dataTransfer)) {
+          return;
+        }
+
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "copy";
+        setDragState(true);
+      });
+
+      document.addEventListener("dragleave", function (event) {
+        if (!hasFileTransfer(event.dataTransfer)) {
+          return;
+        }
+
+        dragDepth = Math.max(0, dragDepth - 1);
+
+        if (dragDepth === 0) {
+          setDragState(false);
+        }
+      });
+
+      document.addEventListener("drop", function (event) {
+        if (!hasFileTransfer(event.dataTransfer)) {
+          return;
+        }
+
+        event.preventDefault();
+        dragDepth = 0;
+        setDragState(false);
+        loadFile(imageFileFromTransfer(event.dataTransfer), "dropped");
+      });
+
+      document.addEventListener("paste", function (event) {
+        var file = imageFileFromTransfer(event.clipboardData);
+
+        if (!file) {
+          return;
+        }
+
+        event.preventDefault();
+        loadFile(file, "pasted");
       });
 
       clearBtn.addEventListener("click", function () {
