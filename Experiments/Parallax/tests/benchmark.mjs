@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const src=fs.readFileSync(new URL('../benchmark.js',import.meta.url),'utf8');
+const B=await import('data:text/javascript;base64,'+Buffer.from(src).toString('base64'));
+let n=0;function test(s,f){f();n++;console.log('PASS',s);}
+const p={timestamp:1000,coords:{latitude:61,longitude:24,speed:null,accuracy:4}};
+test('missing speed is not zero',()=>assert.equal(B.locationSample(p,1).speedMps,null));
+test('zero speed retained',()=>assert.equal(B.locationSample({...p,coords:{...p.coords,speed:0}},2).speedMps,0));
+test('coordinates discarded',()=>{const r=B.locationSample(p,1);assert(!('latitude' in r));assert(!('longitude' in r));assert(!('coords' in r));});
+test('negative speed invalid',()=>assert.equal(B.locationSample({...p,coords:{speed:-1}},1).speedMps,null));
+const e={source:'camera',ok:true,metric:true,midEpoch:1000,epoch:1050,median:10,low:6,high:15};
+const g={source:'browser_geolocation',id:1,epoch:1100,speedMps:12,positionAccuracyM:5};
+test('benchmark computes descriptive error',()=>assert.equal(B.summary([e],[g]).maeMps,2));
+test('simulation excluded from benchmark',()=>assert.equal(B.summary([{...e,source:'synthetic'}],[g]).pairedFixes,0));
+test('poor fix excluded from comparison',()=>assert.equal(B.summary([e],[{...g,positionAccuracyM:80}]).pairedFixes,0));
+test('stale fix excluded from comparison',()=>assert.equal(B.summary([e],[{...g,epoch:4000}]).pairedFixes,0));
+test('null speed excluded from comparison',()=>assert.equal(B.summary([e],[{...g,speedMps:null}]).pairedFixes,0));
+test('CSV properly quotes messages',()=>assert.equal(B.csvCell('a,"b"'),'"a,""b"""'));
+test('worker has no location import',()=>{const t=fs.readFileSync(new URL('../vision-worker.js',import.meta.url),'utf8');assert(!/geolocation|benchmark|speedMps/.test(t));});
+console.log(`${n} benchmark checks passed.`);

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101314"><meta name="description" content="A camera-first experiment in visual speed estimation. GPS is a separate benchmark, never a measurement input.">
+<meta name="referrer" content="no-referrer"><title>Parallax — a visual speed experiment</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='26' fill='%23101314'/%3E%3Cpath d='M28 69L48 30h24L52 69' fill='none' stroke='%2384dec7' stroke-width='9'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="camera" id="camera">
+ <video id="video" autoplay playsinline muted aria-label="Live rear camera view"></video>
+ <canvas id="simulation" hidden aria-label="Synthetic image simulation"></canvas>
+ <canvas id="overlay" aria-hidden="true"></canvas><div class="scrim" aria-hidden="true"></div>
+ <div class="hud" aria-label="Visual speed estimate"><output id="speed">—</output><span id="unit">km/h</span></div>
+ <button class="start icon-button" id="startButton" aria-label="Enable camera" title="Enable camera"><svg viewBox="0 0 24 24"><path d="M8 5l1.5-2h5L16 5h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><circle cx="12" cy="12" r="4"/></svg></button>
+ <span id="demoBadge" hidden>SIMULATION</span>
+ <button class="more icon-button" id="moreButton" aria-label="Open advanced analysis" aria-haspopup="dialog"><svg viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></svg></button>
+ <p class="sr-only" id="liveStatus" role="status" aria-live="polite">Camera not started. Enable camera to begin.</p>
+</main>
+<dialog id="onboarding" class="consent">
+ <div class="consent-content"><span class="eyebrow">BEFORE YOU START</span><h1>An estimate.<br>Not a speedometer.</h1>
+ <p>This experiment infers motion from your camera. Object sizes and camera height can be uncertain; even a stable number can be wrong.</p>
+ <p>Images stay on your device. A recognition model is downloaded for local processing. On phones, optional location speed is requested for comparison only.</p>
+ <p class="safety">Test as a passenger. Do not operate this while driving.</p>
+ <label class="switch-row"><span>Location benchmark</span><input id="consentGPS" type="checkbox" role="switch"></label>
+ <button id="acceptCamera" class="primary">Open camera <span aria-hidden="true">↗</span></button><button id="cancelConsent" class="text-button">Not now</button>
+ </div>
+</dialog>
+<dialog id="analysis" class="sheet" aria-labelledby="analysisTitle">
+ <div class="sheet-head"><span class="handle" aria-hidden="true"></span><div class="sheet-title"><h1 id="analysisTitle">Analysis</h1><button id="closeAnalysis" class="icon-button close" aria-label="Close analysis"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div></div>
+ <div class="sheet-content">
+  <section class="estimate"><div class="secondary-speed"><span id="detailSpeed">—</span><small class="unit-label">km/h</small></div>
+   <div class="range"><span id="low">—</span><div class="range-line"><i></i></div><span id="high">—</span></div><div class="caption">95% model interval · not road-validated</div>
+   <p id="estimateReason" class="reason">Start the camera. Geometry is estimated automatically.</p>
+  </section>
+  <div class="status-grid">
+   <div class="status-row"><span><i class="status-icon">◉</i> Tracking</span><strong id="trackingStatus">Not started</strong></div>
+   <div class="status-row"><span><i class="status-icon">⌁</i> View</span><strong id="viewStatus">Looking for ground</strong></div>
+   <div class="status-row"><span><i class="status-icon">◎</i> Scale source</span><strong id="scaleStatus">Not established</strong></div>
+   <div class="status-row"><span><i class="status-icon">⌖</i> GPS benchmark</span><strong id="gpsValue">Off</strong></div>
+  </div>
+  <div id="priorNote" class="note">Scale starts with a broad height assumption. Recognized objects may add tentative size evidence. This is not automatic knowledge of metres.</div>
+  <section class="plot-block"><header><h2>Speed over time</h2><span class="legend"><i></i> Vision <b></b> GPS</span></header><canvas id="historyPlot" height="150" role="img" aria-label="Recent visual speed intervals and separate location benchmark"></canvas><p class="caption">60-second view · gaps are unavailable estimates, not zero</p></section>
+  <section class="plot-block"><header><h2>Current distribution</h2><span id="scaleCount" class="caption">No estimate</span></header><canvas id="densityPlot" height="96" role="img" aria-label="Conditional visual-speed distribution"></canvas></section>
+  <div class="metrics"><div><strong id="featureCount">—</strong><span>inlier tracks</span></div><div><strong id="frameCost">—</strong><span>processing, ms</span></div><div><strong id="pairError">—</strong><span>GPS MAE, <span class="unit-label">km/h</span></span></div></div>
+  <p id="benchmarkNote" class="caption">GPS never calibrates the camera. Browser speed can be missing or inaccurate.</p>
+  <details><summary>Controls &amp; diagnostics <span aria-hidden="true">+</span></summary><div class="controls">
+   <label class="switch-row"><span>Location benchmark<small>Requested on phones; never used by the estimator</small></span><input id="gpsToggle" type="checkbox" role="switch"></label>
+   <label class="switch-row"><span>Object-size clues<small id="modelStatus">Recognition model not loaded</small></span><input id="objectsToggle" type="checkbox" role="switch" checked></label>
+   <label class="switch-row"><span>Show tracked features</span><input id="tracksToggle" type="checkbox" role="switch"></label>
+   <label class="switch-row"><span>Display units</span><select id="unitsSelect"><option value="kmh">km/h</option><option value="mph">mph</option></select></label>
+   <div class="actions"><button id="resumeCamera">Use camera</button><button id="stopButton">Stop sensors</button></div>
+   <label class="select-label" for="demoSelect">Synthetic image test</label><div class="actions"><select id="demoSelect"><option value="forward">Forward travel</option><option value="side">Side-window travel</option><option value="rotation">Rotation, no travel</option></select><button id="demoButton">Run</button></div>
+   <p id="demoTruth" class="caption">Synthetic tests do not establish real-world accuracy.</p>
+   <div class="actions"><button id="exportJSON">Export JSON</button><button id="exportCSV">Export CSV</button></div>
+   <p id="exportStatus" class="caption" role="status"></p>
+  </div></details>
+  <details><summary>What this build assumes <span aria-hidden="true">+</span></summary><div class="prose">
+   <p>No ground mask, horizon alignment, or geometry form is required. The engine tests plane hypotheses using optical flow and separates rotation from translation. It is not general 3-D SLAM.</p>
+   <p>A visible, textured, approximately planar ground surface is needed. A side window is supported in the geometric model, but reflections, nearby moving vehicles, darkness and strong tilt can defeat it. A plane consistent with the images is not proof that it is the ground.</p>
+   <p>Lens field of view starts at 76° with 12° standard deviation. Camera height starts with a broad log-normal assumption (median 1.5 m, log standard deviation 0.55). These are engineering priors, not detected camera specifications.</p>
+   <p>COCO-SSD may provide person, car or bus boxes. Their assumed size distributions and ground-contact geometry provide tentative scale clues. Class-level bias is retained; seeing the same object repeatedly does not create independent rulers.</p>
+   <p>The interval samples geometry, lens and scale uncertainty. It is not a validated 95% coverage guarantee. A dash means the latest speed cannot be resolved; it never means zero or a GPS fallback.</p>
+   <p>Camera motion includes hand movement. Use a stable, passenger-operated mount. Keep the tab visible. Camera and location stop when you leave or background the page.</p>
+   <p>No image, coordinates, or sensor readings are uploaded by this app. External hosts serve the model assets; your browser/OS manages location access. Exported logs stay local unless you share them.</p>
+   <p id="runtimeInfo">Parallax 0.2.0</p><a href="./README.md">Method, limitations &amp; source notes ↗</a>
+  </div></details>
+ </div>
+</dialog>
+<script type="module" src="./app.js"></script>
+</body></html>
