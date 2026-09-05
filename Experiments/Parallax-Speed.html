@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090b0e"><meta name="color-scheme" content="dark"><title>Parallax · Camera speed experiment</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#090b0e;color:#fff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button{color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible{outline:2px solid #afd4ff;outline-offset:5px}.camera{position:fixed;inset:10px;inset:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));border-radius:30px;overflow:hidden;background:linear-gradient(155deg,#1a2028,#0c1016 58%,#161c25);isolation:isolate}.camera video{width:100%;height:100%;object-fit:cover;display:block}.shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(#0003,transparent 58%,#0003)}.hud{position:absolute;inset:13% 0 auto;pointer-events:none;text-align:center;text-shadow:0 2px 25px #0008}.number{font-size:clamp(92px,23vw,152px);font-weight:280;line-height:1.08;letter-spacing:-.065em;font-variant-numeric:tabular-nums;transition:opacity .25s}.units{font-size:22px;letter-spacing:.025em;font-weight:350;margin-top:6px;opacity:.85}.round{display:grid;place-items:center;width:56px;height:56px;padding:0;border-radius:50%;border:1px solid #ffffff30;background:#ffffff18;box-shadow:0 6px 28px #0002;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}.round svg{height:24px;width:24px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}.advanced{position:absolute;bottom:24px;right:22px}.launch{position:absolute;top:53%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px}.launch svg{width:30px;height:30px}.round[hidden]{display:none}.advanced.busy:after{content:"";position:absolute;inset:-3px;border-radius:50%;border:1px solid transparent;border-top-color:#ffffffb0;animation:spin 1.6s linear infinite}.advanced.issue:before{content:"";position:absolute;top:0;right:2px;width:7px;height:7px;border-radius:50%;background:#e1b472}.paused .number{opacity:.55}@keyframes spin{to{transform:rotate(360deg)}}dialog{position:fixed;inset:auto 0 0;margin:0 auto;width:min(100%,570px);max-height:86dvh;overflow:auto;border:1px solid #ffffff25;border-bottom:0;border-radius:30px 30px 0 0;padding:12px 24px max(28px,env(safe-area-inset-bottom));background:#131820ed;backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);color:#f7f8fa;box-shadow:0 -15px 70px #0004}dialog::backdrop{background:#0006}.handle{width:40px;height:4px;border-radius:4px;background:#ffffff38;margin:0 auto 18px}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.head h1{margin:0;font-size:19px;letter-spacing:-.03em;font-weight:550}.head .round{width:34px;height:34px;background:transparent;border:0;box-shadow:none}.status{font-size:13px;color:#b4bdc9;line-height:1.6;margin:0 0 20px}.metric{display:flex;justify-content:space-between;align-items:baseline;gap:15px}.metric strong{font-size:45px;font-weight:350;letter-spacing:-.04em;font-variant-numeric:tabular-nums}.metric span,.label{font-size:12px;color:#a9b5c5}.range{text-align:right;font-size:19px;font-variant-numeric:tabular-nums}.range small{display:block;font-size:11px;color:#a9b5c5;margin-top:4px}canvas{display:block;width:100%;height:110px;margin:16px 0 10px}.key{display:flex;gap:20px;font-size:11px;color:#b6c1d0}.key span:before{content:"";display:inline-block;width:13px;height:2px;margin:0 7px 3px 0;background:#a6cfff}.key span:last-child:before{background:#e1b472}.rows{margin-top:15px}.row{display:flex;justify-content:space-between;gap:20px;align-items:center;min-height:45px;border-bottom:1px solid #ffffff0d;font-size:13px}.row>span:first-child{color:#aeb8c7}.row output{text-align:right;max-width:60%}.controls{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0 16px}.pill{border:1px solid #ffffff25;border-radius:24px;background:#ffffff0a;padding:10px 16px;font-size:12px}.pill:hover{background:#ffffff16}.switch{display:flex;align-items:center;gap:9px;font-size:13px;color:#c0c8d4}.switch input{accent-color:#a6cfff;width:16px;height:16px}.notes{font-size:11px;line-height:1.65;color:#8f9aab;margin-top:16px}.notes summary{cursor:pointer;color:#c7d0dd}.notes a{color:#b5cff0}.notes p{margin:9px 0}.err{color:#efc58f}.visually-hidden{position:absolute;left:-9999px} @media(min-width:700px){.camera{inset:22px;border-radius:34px}.hud{top:11%}.advanced{bottom:30px;right:30px}dialog{bottom:22px;right:22px;left:auto;border-radius:28px;border-bottom:1px solid #ffffff25;max-height:calc(100dvh - 44px)}.number{font-size:148px}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<main class="camera paused" id="stage" aria-label="Camera speed estimate"><video id="video" autoplay playsinline muted></video><div class="shade"></div><div class="hud"><div class="number" id="speed" role="status" aria-label="Speed unavailable">—</div><div class="units" id="unit">km/h</div></div><button class="round launch" id="launch" aria-label="Start camera and automatic estimation"><svg viewBox="0 0 24 24"><path d="m4 6 4 0 2-3h4l2 3h4v14H4Z"/><circle cx="12" cy="13" r="4"/></svg></button><button class="round advanced" id="advanced" aria-label="Open advanced analysis" aria-haspopup="dialog"><svg viewBox="0 0 24 24"><path d="m6 14 6-6 6 6m-12 5 6-6 6 6"/></svg></button></main>
+<dialog id="panel" aria-labelledby="analysis-title"><div class="handle"></div><div class="head"><h1 id="analysis-title">Analysis</h1><button class="round" id="close" aria-label="Close analysis" autofocus><svg viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div><p class="status" id="status">Tap the camera button to start. Geometry is estimated automatically.</p><div class="metric"><div><strong id="detail-speed">—</strong> <span class="unit-label">km/h</span></div><div class="range"><output id="interval">—</output><small>95% model interval · unvalidated</small></div></div><canvas id="chart" aria-label="Camera and GPS speed history"></canvas><div class="key"><span>Camera</span><span>GPS benchmark</span></div><canvas id="density" aria-label="Approximate conditional speed distribution"></canvas><div class="label">Conditional distribution · shared scale uncertainty retained</div><div class="rows"><div class="row"><span>GPS benchmark</span><output id="gps">—</output></div><div class="row"><span>Mean absolute difference</span><output id="difference">—</output></div><div class="row"><span>Matched samples</span><output id="paired">0</output></div><div class="row"><span>Tracked features</span><output id="tracks">—</output></div><div class="row"><span>Geometric agreement</span><output id="inliers">—</output></div><div class="row"><span>Image motion</span><output id="flow">—</output></div><div class="row"><span>Scale source</span><output>Learned depth + focal prior</output></div><div class="row"><span>Inference</span><output id="compute">Not started</output></div></div><div class="controls"><button class="pill" id="sensor">Start camera</button><button class="pill" id="units">Switch to mph</button><button class="pill" id="export">Export session</button></div><label class="switch"><input type="checkbox" id="gps-toggle">Optional GPS benchmark only</label><details class="notes"><summary>Method, assumptions and privacy</summary><p>This is an experimental automatic estimator, not a validated speedometer. Do not use it for driving decisions. Operate it only while stationary or as a passenger.</p><p>There is no manually marked horizon, ground region or camera height. Features throughout the scene are tracked; a robust 3-D camera-motion fit estimates rotation and translation. The camera may look forward, sideways or obliquely. It measures the camera's motion, including hand motion—not necessarily the vehicle's motion. Speed is averaged over a recent window of up to 0.7 seconds; the actual duration is exported.</p><p>Metric scale comes from the Metric3D learned depth prior, not measured object sizes. Browser camera intrinsics are unknown: seven diagonal field-of-view hypotheses from 56° to 104° are retained. A shared log-scale uncertainty of 0.35 is an engineering assumption, not a learned guarantee. The displayed 95% mass interval is conditional on these assumptions. It has no validated real-world coverage and is not the complete Bayesian-SLAM design.</p><p>Moving foreground objects, window reflections, the vehicle interior, darkness, blur, fisheye lenses and depth-model errors can still produce incorrect readings. Weak tracking and stale estimates produce a dash. Not every failure can be detected. A dominant moving object can defeat the stationary-world assumption.</p><p>Model loading and performance depend on the browser. The first use downloads roughly 76–151 MB of model weights, plus runtime assets, from Hugging Face and jsDelivr. Inference runs locally; camera frames are not sent to a server. Those providers receive ordinary asset requests. Model download or device incompatibility leaves the speed unavailable.</p><p>GPS is independently displayed and logged; it never enters either estimation worker. Coordinates are discarded immediately. No camera footage is recorded. Logs remain in this tab until exported or cleared by reload. Hiding this tab stops sensors. Reloading loses the session. Browser speed is a noisy reference, not certified ground truth.</p><p><a href="https://huggingface.co/onnx-community/metric3d-vit-small" target="_blank" rel="noopener">Depth model</a> · <a href="https://github.com/YvanYin/Metric3D/issues/117" target="_blank" rel="noopener">Model export</a> · <a href="https://github.com/prajwalsouza/prajwalsouza.github.io/blob/master/Experiments/Parallax-Speed.html" target="_blank" rel="noopener">Source</a></p></details></dialog>
+<script type="application/x-parallax-worker" id="vision-source">
+/* Original pyramidal Lucas–Kanade tracker with Shi–Tomasi-style corners.
+ * No external dependencies. MIT license. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.ParallaxTracker=api;})(typeof self!=='undefined'?self:globalThis,function(){
+  'use strict';
+  function gray(rgba,w,h){const a=new Float32Array(w*h);for(let i=0,j=0;i<a.length;i++,j+=4)a[i]=.299*rgba[j]+.587*rgba[j+1]+.114*rgba[j+2];return {data:a,w,h};}
+  function pyramid(image){const out=[image];let p=image;for(let l=1;l<4;l++){
+    const w=p.w>>1,h=p.h>>1;if(h<24||w<24)break;const data=new Float32Array(w*h);
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+      let sum=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)sum+=p.data[Math.max(0,Math.min(p.h-1,y*2+dy))*p.w+Math.max(0,Math.min(p.w-1,x*2+dx))]*(dx===0?2:1)*(dy===0?2:1);
+      data[y*w+x]=sum/16;
+    }p={data,w,h};out.push(p);
+  }return out;}
+  function bilinear(im,x,y){const ix=Math.floor(x),iy=Math.floor(y),dx=x-ix,dy=y-iy,i=iy*im.w+ix,d=im.data;return (1-dy)*((1-dx)*d[i]+dx*d[i+1])+dy*((1-dx)*d[i+im.w]+dx*d[i+im.w+1]);}
+  function inside(x,y,polygon){let c=false;for(let i=0,j=polygon.length-1;i<polygon.length;j=i++)if(((polygon[i].y>y)!==(polygon[j].y>y))&&(x<(polygon[j].x-polygon[i].x)*(y-polygon[i].y)/(polygon[j].y-polygon[i].y)+polygon[i].x))c=!c;return c;}
+  function corners(image,roi,max=200){
+    const {data:d,w,h}=image,iw=w+1,size=iw*(h+1),xx=new Float64Array(size),yy=new Float64Array(size),xy=new Float64Array(size);
+    for(let y=1;y<h-1;y++){let sx=0,sy=0,sxy=0;for(let x=1;x<w-1;x++){const i=y*w+x,gx=(d[i+1]-d[i-1])/2,gy=(d[i+w]-d[i-w])/2,j=(y+1)*iw+x+1;sx+=gx*gx;sy+=gy*gy;sxy+=gx*gy;xx[j]=xx[j-iw]+sx;yy[j]=yy[j-iw]+sy;xy[j]=xy[j-iw]+sxy;}}
+    function area(a,x,y){const r=3,x0=x-r,y0=y-r,x1=x+r+1,y1=y+r+1;return a[y1*iw+x1]-a[y0*iw+x1]-a[y1*iw+x0]+a[y0*iw+x0];}
+    const candidates=[];for(let y=12;y<h-12;y+=3)for(let x=12;x<w-12;x+=3){if(!inside(x/w,y/h,roi))continue;const a=area(xx,x,y),b=area(yy,x,y),c=area(xy,x,y),score=(a+b-Math.hypot(a-b,2*c))/2;if(score>180)candidates.push({x,y,score});}
+    candidates.sort((a,b)=>b.score-a.score);const points=[],counts=new Map(),minDist=8;
+    for(const p of candidates){const key=`${Math.floor(p.x/w*6)}:${Math.floor(p.y/h*6)}`;if((counts.get(key)||0)>=16)continue;if(points.every(q=>(p.x-q.x)**2+(p.y-q.y)**2>minDist*minDist)){points.push(p);counts.set(key,(counts.get(key)||0)+1);if(points.length>=max)break;}}
+    return points;
+  }
+  function trackOne(A,B,p){
+    let dx=0,dy=0,err=Infinity,used=false;const radius=4;
+    let top=Math.min(A.length,B.length)-1;
+    while(top>0){const z=2**top,x=p.x/z,y=p.y/z,im=A[top];if(x>radius+2&&y>radius+2&&x<im.w-radius-3&&y<im.h-radius-3)break;top--;}
+    for(let l=top;l>=0;l--){const z=2**l,a=A[l],b=B[l],x=p.x/z,y=p.y/z;if(l!==top){dx*=2;dy*=2;}
+      const template=[],gx=[],gy=[];let gxx=0,gyy=0,gxy=0;
+      if(x<radius+2||y<radius+2||x>=a.w-radius-3||y>=a.h-radius-3)return null;
+      for(let j=-radius;j<=radius;j++)for(let i=-radius;i<=radius;i++){const tx=x+i,ty=y+j,t=bilinear(a,tx,ty),ix=(bilinear(a,tx+1,ty)-bilinear(a,tx-1,ty))/2,iy=(bilinear(a,tx,ty+1)-bilinear(a,tx,ty-1))/2;template.push(t);gx.push(ix);gy.push(iy);gxx+=ix*ix;gyy+=iy*iy;gxy+=ix*iy;}
+      const det=gxx*gyy-gxy*gxy;if(det<1e-3){if(l>0)continue;return null;}
+      for(let it=0;it<14;it++){
+        const qx=x+dx,qy=y+dy;if(qx<radius+1||qy<radius+1||qx>=b.w-radius-2||qy>=b.h-radius-2)return null;
+        let bx=0,by=0,k=0,sum=0,mean=0;const diffs=[];
+        for(let j=-radius;j<=radius;j++)for(let i=-radius;i<=radius;i++,k++){const e=bilinear(b,qx+i,qy+j)-template[k];diffs.push(e);mean+=e;}mean/=diffs.length;
+        for(k=0;k<diffs.length;k++){const e=diffs[k]-mean;bx+=gx[k]*e;by+=gy[k]*e;sum+=e*e;}
+        let ux=(-gyy*bx+gxy*by)/det,uy=(gxy*bx-gxx*by)/det;
+        if(!Number.isFinite(ux)||!Number.isFinite(uy)||Math.hypot(ux,uy)>8)return null;
+        dx+=ux;dy+=uy;err=Math.sqrt(sum/diffs.length);used=true;
+        if(ux*ux+uy*uy<.0009)break;
+      }
+    }
+    return used?{x:p.x+dx,y:p.y+dy,err}:null;
+  }
+  function track(A,B,points,roi){const out=[];for(const p of points){const q=trackOne(A,B,p);if(!q||q.err>24||!inside(q.x/B[0].w,q.y/B[0].h,roi))continue;const back=trackOne(B,A,q);if(!back||Math.hypot(back.x-p.x,back.y-p.y)>1.2)continue;out.push({x:p.x,y:p.y,u:q.x,v:q.y,error:q.err,fb:Math.hypot(back.x-p.x,back.y-p.y)});}return out;}
+  return {gray,pyramid,bilinear,inside,corners,trackOne,track};
+});
+
+/* Automatic, arbitrary-view camera motion. MIT. No GPS inputs.
+ * Scale is a learned Metric3D prior, not a measured ruler. Focal length and
+ * shared scale bias remain uncertain. Output intervals are NOT calibrated.
+ */
+(function(root){
+'use strict';
+const I=()=>[1,0,0,0,1,0,0,0,1],dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0),norm=a=>Math.hypot(...a);
+const mul=(A,x)=>[dot(A.slice(0,3),x),dot(A.slice(3,6),x),dot(A.slice(6,9),x)];
+const tr=A=>[A[0],A[3],A[6],A[1],A[4],A[7],A[2],A[5],A[8]];
+const mm=(A,B)=>{const o=Array(9).fill(0);for(let i=0;i<3;i++)for(let j=0;j<3;j++)for(let k=0;k<3;k++)o[3*i+j]+=A[3*i+k]*B[3*k+j];return o;};
+const quant=(a,q)=>{if(!a.length)return NaN;const s=[...a].sort((a,b)=>a-b),i=(s.length-1)*q,l=Math.floor(i);return s[l]+(s[Math.ceil(i)]-s[l])*(i-l);};
+function solve(A,b){const n=b.length,M=A.map((r,i)=>[...r,b[i]]);for(let c=0;c<n;c++){let p=c;for(let r=c+1;r<n;r++)if(Math.abs(M[r][c])>Math.abs(M[p][c]))p=r;if(Math.abs(M[p][c])<1e-11)return null;[M[c],M[p]]=[M[p],M[c]];const d=M[c][c];for(let j=c;j<=n;j++)M[c][j]/=d;for(let r=0;r<n;r++){if(r===c)continue;const k=M[r][c];for(let j=c;j<=n;j++)M[r][j]-=k*M[c][j];}}return M.map(r=>r[n]);}
+function exp(w){const a=norm(w);if(a<1e-12)return I();const[x,y,z]=w.map(x=>x/a),s=Math.sin(a),c=Math.cos(a),t=1-c;return[c+x*x*t,x*y*t-z*s,x*z*t+y*s,y*x*t+z*s,c+y*y*t,y*z*t-x*s,z*x*t-y*s,z*y*t+x*s,c+z*z*t];}
+function center(p){return mul(tr(p.R),p.t).map(x=>-x);}
+function project(p,P,k){const q=mul(p.R,P).map((x,i)=>x+p.t[i]);return q[2]>.03?[k.f*q[0]/q[2]+k.cx,k.f*q[1]/q[2]+k.cy]:[1e9,1e9];}
+function fit(obs,k,initial={R:I(),t:[0,0,0]},iterations=12){
+ let pose={R:[...initial.R],t:[...initial.t]},info=null;
+ if(obs.length<8)return null;
+ for(let it=0;it<iterations;it++){
+  const A=Array.from({length:6},()=>Array(6).fill(0)),b=Array(6).fill(0);let used=0;
+  for(const o of obs){const q=mul(pose.R,o.P).map((v,i)=>v+pose.t[i]),[X,Y,Z]=q;if(Z<.05)continue;
+   const x=X/Z,y=Y/Z,f=k.f,rx=o.u-(f*x+k.cx),ry=o.v-(f*y+k.cy),e=Math.hypot(rx,ry),wt=Math.min(1,2.0/Math.max(e,1e-9));
+   const rows=[[f/Z,0,-f*x/Z,-f*x*y,f*(1+x*x),-f*y],[0,f/Z,-f*y/Z,-f*(1+y*y),f*x*y,f*x]];
+   for(let l=0;l<2;l++){const a=rows[l],r=l?ry:rx;for(let i=0;i<6;i++){b[i]+=wt*a[i]*r;for(let j=0;j<6;j++)A[i][j]+=wt*a[i]*a[j];}}used++;
+  }
+  if(used<8)return null;info=A;const d=solve(A,b);if(!d||!d.every(Number.isFinite)||norm(d.slice(3))>.5)return null;
+  const E=exp(d.slice(3));pose={R:mm(E,pose.R),t:mul(E,pose.t).map((x,i)=>x+d[i])};
+  if(norm(d)<1e-5)break;
+ }
+ const errors=obs.map(o=>{const q=project(pose,o.P,k);return Math.hypot(q[0]-o.u,q[1]-o.v);}),ids=errors.map((e,i)=>e<2.5?i:-1).filter(i=>i>=0);
+ const rms=Math.sqrt(ids.reduce((s,i)=>s+errors[i]**2,0)/Math.max(1,ids.length));
+ return {...pose,ids,rms,info,C:center(pose)};
+}
+function robustFit(obs,k,initial){
+ let best=fit(obs,k,initial),bestN=best?.ids.length||0;
+ if(bestN<obs.length*.8){let seed=112358;const rng=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};
+  for(let it=0;it<24;it++){const ids=new Set();while(ids.size<Math.min(10,obs.length))ids.add(Math.floor(rng()*obs.length));const p=fit([...ids].map(i=>obs[i]),k,initial,8);if(!p)continue;const inliers=obs.filter(o=>{const q=project(p,o.P,k);return Math.hypot(q[0]-o.u,q[1]-o.v)<2.5;});if(inliers.length>bestN){best=fit(inliers,k,p);bestN=inliers.length;}}
+ }
+ if(!best)return null;const final=fit(obs.filter(o=>{const q=project(best,o.P,k);return Math.hypot(q[0]-o.u,q[1]-o.v)<2.5;}),k,best);
+ if(!final)return null;
+ final.ids=obs.map((o,i)=>{const q=project(final,o.P,k);return Math.hypot(q[0]-o.u,q[1]-o.v)<2.5?i:-1;}).filter(i=>i>=0);
+ return final;
+}
+function uncertainty(speeds,noise=0){
+ // Fixed systematic log-scale floor: it never contracts with feature/frame count.
+ // 0.35 is an explicit engineering assumption, NOT an empirically learned error.
+ const samples=[];for(const v of speeds)for(let i=0;i<40;i++){const u=(i+.5)/40,z=inverseNormal(u);samples.push(Math.max(0,v*Math.exp(.35*z)+noise*inverseNormal(((i*17)%40+.5)/40)));}
+ return {median:quant(samples,.5),lo:quant(samples,.025),hi:quant(samples,.975),samples};
+}
+function inverseNormal(p){let lo=-7,hi=7;for(let i=0;i<28;i++){const x=(lo+hi)/2,t=1/(1+.2316419*Math.abs(x)),d=.3989422804*Math.exp(-x*x/2);let c=1-d*t*(.319381530+t*(-.356563782+t*(1.781477937+t*(-1.821255978+t*1.330274429))));if(x<0)c=1-c;if(c<p)lo=x;else hi=x;}return(lo+hi)/2;}
+const api={fit,robustFit,exp,mm,mul,center,project,solve,uncertainty,quant};
+if(typeof module==='object'&&module.exports){module.exports=api;return;}
+const T=root.ParallaxTracker,roi=[{x:.03,y:.03},{x:.97,y:.03},{x:.97,y:.97},{x:.03,y:.97}];
+let previous=null,anchors=[],seq=0,nextPoint=0,lastKey=-Infinity,pending=null,run=0;
+function reset(){previous=null;anchors=[];pending=null;lastKey=-Infinity;nextPoint=0;}
+root.onmessage=e=>{
+ const m=e.data;try{
+ if(m.type==='reset'){run=m.run;reset();return;}
+ if(m.run!==run)return;
+ if(m.type==='depth'){
+  if(!pending||pending.id!==m.id)return;
+  const a=pending;pending=null;const dw=m.dw,dh=m.dh;
+  const data=new Float32Array(m.depth);
+  a.depths=new Map();
+  for(const p of a.points){const x=Math.max(1,Math.min(dw-2,Math.round(p.x/a.w*(dw-1)))),y=Math.max(1,Math.min(dh-2,Math.round(p.y/a.h*(dh-1))));const vals=[data[y*dw+x],data[y*dw+x-1],data[y*dw+x+1],data[(y-1)*dw+x],data[(y+1)*dw+x]],z=quant(vals,.5);if(z>.2&&z<250&&Math.max(...vals)-Math.min(...vals)<z*.4)a.depths.set(p.id,{x:p.x,y:p.y,z});}
+  a.models=[56,64,72,80,88,96,104].map(fov=>({fov,pose:null,history:[]}));
+  a.inputWidth=m.inputWidth;a.inputHeight=m.inputHeight;anchors.push(a);anchors=anchors.slice(-2);return;
+ }
+ if(m.type==='depthError'){pending=null;return;}
+ if(m.type!=='frame')return;
+ const begin=performance.now(),image=T.gray(new Uint8ClampedArray(m.buffer),m.w,m.h),pyr=T.pyramid(image),dt=previous?m.time-previous.time:0;
+ if(previous&&(dt<=0||dt>.7||previous.w!==m.w||previous.h!==m.h)){reset();}
+ let points=[],matches=[];
+ if(previous){
+  for(const p of previous.points){const q=T.trackOne(previous.pyr,pyr,p);if(!q||q.err>20||q.x<10||q.y<10||q.x>=m.w-10||q.y>=m.h-10)continue;const back=T.trackOne(pyr,previous.pyr,q);if(!back||Math.hypot(back.x-p.x,back.y-p.y)>1.1)continue;points.push({x:q.x,y:q.y,id:p.id});matches.push({x:p.x,y:p.y,u:q.x,v:q.y});}
+ }
+ if(points.length<140){for(const p of T.corners(image,roi,200)){if(points.every(q=>Math.hypot(p.x-q.x,p.y-q.y)>9)){points.push({x:p.x,y:p.y,id:nextPoint++});if(points.length>=190)break;}}}
+ const flow=matches.length?quant(matches.map(p=>Math.hypot(p.u-p.x,p.v-p.y)),.5)/Math.max(dt,.001):0;
+ let result={ok:false,reason:anchors.length?'Tracking scene geometry':'Acquiring scene scale',tracks:matches.length,flow,time:m.time,epoch:m.epoch};
+ for(const a of [...anchors].reverse()){
+  if(m.time-a.time>4)continue;
+  const paired=points.map(p=>({p,d:a.depths?.get(p.id)})).filter(o=>o.d);
+  if(paired.length<28)continue;
+  const speeds=[],centers=[],rms=[],ratios=[],windows=[];let noise=0;
+  for(const model of a.models){
+   const f=Math.hypot(m.w,m.h)/(2*Math.tan(model.fov*Math.PI/360)),k={f,cx:m.w/2,cy:m.h/2};
+   const scale=f*(a.inputWidth/a.w+a.inputHeight/a.h)/2/1000;
+   const obs=paired.map(({p,d})=>{const z=d.z*scale;return{P:[(d.x-k.cx)/f*z,(d.y-k.cy)/f*z,z],u:p.x,v:p.y};}).filter(o=>o.P[2]>.6&&o.P[2]<160);
+   if(obs.length<28)continue;
+   const fitp=robustFit(obs,k,model.pose||undefined);if(!fitp||fitp.ids.length<25||fitp.ids.length/obs.length<.65||fitp.rms>1.8){model.pose=null;model.history=[];continue;}
+   const inobs=fitp.ids.map(i=>obs[i]),bins=new Set(inobs.map(o=>`${Math.floor(o.u/m.w*4)},${Math.floor(o.v/m.h*4)}`));
+   if(bins.size<6||Math.max(...inobs.map(o=>o.u))-Math.min(...inobs.map(o=>o.u))<m.w*.3||Math.max(...inobs.map(o=>o.v))-Math.min(...inobs.map(o=>o.v))<m.h*.25)continue;
+   model.pose=fitp;model.history.push({t:m.time,C:fitp.C});model.history=model.history.filter(p=>m.time-p.t<.7);const first=model.history[0],delta=m.time-first.t;
+   if(delta<.18)continue;
+   const velocity=fitp.C.map((x,i)=>(x-first.C[i])/delta),v=norm(velocity);if(!Number.isFinite(v)||v>90)continue;
+   speeds.push(v);windows.push(delta);centers.push(velocity);rms.push(fitp.rms);ratios.push(fitp.ids.length/obs.length);
+   // A conservative non-shrinking pixel-to-speed noise term. Correlated depth
+   // errors are not claimed to be captured by this term.
+   noise=Math.max(noise,.7*quant(obs.map(o=>o.P[2]),.5)/f/delta);
+  }
+  if(speeds.length<5)continue;
+  if(quant(speeds,.9)>Math.max(.8,quant(speeds,.1)*2.8))continue;
+  const dist=uncertainty(speeds,noise),direction=centers[Math.floor(centers.length/2)];
+  result={...result,ok:true,...dist,reason:'Automatic · learned scale prior',anchorAge:m.time-a.time,rms:quant(rms,.5),inliers:quant(ratios,.5),hypotheses:speeds.length,direction,window:quant(windows,.5),epoch:m.epoch-quant(windows,.5)*500,captureEpoch:m.epoch};break;
+ }
+ if(pending&&m.time-pending.time>12)pending=null;
+ if(!pending&&m.time-lastKey>1.8&&points.length>=40){
+  pending={id:++seq,time:m.time,w:m.w,h:m.h,points:points.map(p=>({...p}))};lastKey=m.time;
+  const copy=new Uint8ClampedArray(image.w*image.h*4);copy.set(new Uint8ClampedArray(m.buffer));
+  root.postMessage({type:'keyframe',run,id:pending.id,w:m.w,h:m.h,buffer:copy.buffer},[copy.buffer]);
+ }
+ previous={pyr,points,time:m.time,w:m.w,h:m.h};
+ root.postMessage({type:'result',run,...result,computeMs:performance.now()-begin});
+ }catch(err){root.postMessage({type:'error',run,message:String(err.message||err)});reset();}
+};
+})(typeof self!=='undefined'?self:globalThis);
+
+</script>
+<script type="application/x-parallax-worker" id="depth-source">
+/* Local-only Metric3D inference. This worker never receives GPS. */
+let model=null,Tensor=null,loading=null,busy=false;
+const MODEL='onnx-community/metric3d-vit-small';
+async function load(){
+ if(model)return;if(loading)return loading;
+ loading=(async()=>{
+  postMessage({type:'status',message:'Loading the on-device depth model'});
+  const lib=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.2');
+  Tensor=lib.Tensor;lib.env.allowLocalModels=false;lib.env.backends.onnx.wasm.numThreads=1;
+  let adapter=null;try{adapter=await navigator.gpu?.requestAdapter();}catch{}
+  const device=adapter?'webgpu':'wasm',dtype=adapter?.features.has('shader-f16')?'fp16':'fp32';
+  const progress_callback=p=>{if(p.status==='progress'&&p.file?.includes('.onnx'))postMessage({type:'status',message:`Loading depth model · ${Math.round(p.progress||0)}%`});};
+  try{model=await lib.AutoModelForDepthEstimation.from_pretrained(MODEL,{device,dtype,progress_callback});}
+  catch(e){if(device!=='webgpu')throw e;postMessage({type:'status',message:'GPU unavailable; trying CPU inference'});model=await lib.AutoModelForDepthEstimation.from_pretrained(MODEL,{device:'wasm',dtype:'fp32',progress_callback});}
+  postMessage({type:'ready',device,model:MODEL});
+ })();
+ try{await loading;}catch(e){loading=null;throw e;}
+}
+self.onmessage=async e=>{
+ const m=e.data;
+ try{
+  if(m.type==='init'){await load();return;}
+  if(m.type!=='frame'||busy)return;busy=true;await load();
+  const begin=performance.now(),rgba=new Uint8ClampedArray(m.buffer),n=m.w*m.h,values=new Float32Array(n*3);
+  // The published ONNX graph includes ImageNet normalization internally.
+  // Input is RGB, 0..255, NCHW. No normalized visualization is used as depth.
+  for(let i=0;i<n;i++){values[i]=rgba[4*i];values[n+i]=rgba[4*i+1];values[2*n+i]=rgba[4*i+2];}
+  const input=new Tensor('float32',values,[1,3,m.h,m.w]);
+  const output=await model({pixel_values:input});const t=output.predicted_depth;
+  if(!t||t.dims.length<2)throw new Error('Depth model returned an unsupported output');
+  const dh=t.dims[t.dims.length-2],dw=t.dims[t.dims.length-1];
+  const half=v=>{const sign=(v&32768)?-1:1,ex=(v>>10)&31,ma=v&1023;return ex===31?(ma?NaN:sign*Infinity):sign*(ex?Math.pow(2,ex-15)*(1+ma/1024):Math.pow(2,-14)*ma/1024);};
+  const depth=t.type==='float16'?Float32Array.from(t.data,half):Float32Array.from(t.data);
+  postMessage({type:'depth',run:m.run,id:m.id,depth:depth.buffer,dw,dh,inputWidth:m.w,inputHeight:m.h,inferenceMs:performance.now()-begin},[depth.buffer]);
+  input.dispose?.();for(const v of Object.values(output))v?.dispose?.();
+ }catch(err){postMessage({type:'error',run:m.run,id:m.id,message:String(err.message||err)});}finally{busy=false;}
+};
+
+</script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id),video=$('video'),panel=$('panel'),stage=$('stage'),capture=document.createElement('canvas'),ctx=capture.getContext('2d',{willReadFrequently:true});
+const state={active:false,starting:false,run:0,vision:null,depth:null,depthReady:false,depthBusy:false,visionBusy:false,stream:null,gpsWatch:null,raf:null,rvfc:null,lastCapture:-Infinity,lastResult:null,lastResultAt:0,unit:'km/h',visual:[],gps:[],pairs:[],events:[],dropped:0,gpsCount:0,lastGps:null,wake:null,modelState:'Not started',lastInference:0,modelError:null,urls:[]};
+const isPhone=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Mac/.test(navigator.platform));$('gps-toggle').checked=isPhone;
+const factor=()=>state.unit==='km/h'?3.6:2.2369362921;
+function record(list,x){list.push(x);if(list.length>4000){list.shift();state.dropped++;}}
+function message(s,error=false){$('status').textContent=s;$('status').classList.toggle('err',error);$('advanced').classList.toggle('issue',error);record(state.events,{epoch:Date.now(),message:s});}
+function openPanel(){if(!panel.open)panel.showModal();draw();}
+$('advanced').onclick=openPanel;$('close').onclick=()=>panel.close();panel.addEventListener('click',e=>{if(e.target===panel&&e.clientY<panel.getBoundingClientRect().top)panel.close();});
+stage.addEventListener('wheel',e=>{if(e.deltaY>12)openPanel();},{passive:true});let touchY=null;stage.addEventListener('touchstart',e=>{touchY=e.touches[0]?.clientY;},{passive:true});stage.addEventListener('touchend',e=>{if(touchY!==null&&touchY-(e.changedTouches[0]?.clientY||touchY)>55)openPanel();touchY=null;},{passive:true});
+function clearReading(){state.lastResult=null;$('speed').textContent='—';$('speed').setAttribute('aria-label','Speed unavailable');$('detail-speed').textContent='—';$('interval').textContent='—';stage.classList.add('paused');}
+function showReading(r){
+ state.lastResult=r;state.lastResultAt=performance.now()-Math.max(0,Date.now()-(r.epoch||Date.now()));const f=factor();$('speed').textContent=(r.median*f).toFixed(0);$('speed').setAttribute('aria-label',`Estimated speed ${(r.median*f).toFixed(0)} ${state.unit}`);$('detail-speed').textContent=(r.median*f).toFixed(0);$('interval').textContent=`${(r.lo*f).toFixed(0)}–${(r.hi*f).toFixed(0)}`;stage.classList.remove('paused');
+}
+function benchmark(){
+ const now=Date.now();$('gps').textContent=state.lastGps&&now-state.lastGps.epoch<4000?`${(state.lastGps.speed*factor()).toFixed(1)} ${state.unit}`:'—';
+ $('paired').textContent=state.pairs.length;$('difference').textContent=state.pairs.length?`${(state.pairs.reduce((s,x)=>s+Math.abs(x.visual-x.gps),0)/state.pairs.length*factor()).toFixed(1)} ${state.unit}`:'—';
+}
+function startGPS(){
+ if(!state.active||!$('gps-toggle').checked||state.gpsWatch!==null)return;
+ if(!navigator.geolocation){record(state.events,{epoch:Date.now(),message:'Location API unavailable'});return;}
+ const run=state.run;
+ state.gpsWatch=navigator.geolocation.watchPosition(pos=>{
+  if(!state.active||run!==state.run)return;
+  // Intentionally never read, store or forward latitude/longitude.
+  const raw=pos.coords.speed,fix={id:++state.gpsCount,epoch:pos.timestamp,speed:typeof raw==='number'&&Number.isFinite(raw)&&raw>=0?raw:null,positionAccuracy:pos.coords.accuracy};record(state.gps,fix);
+  if(fix.speed!==null){state.lastGps=fix;let best=null,diff=1000;
+   for(const v of state.visual.slice(-40)){const d=Math.abs(v.epoch-fix.epoch);if(v.ok&&d<diff){best=v;diff=d;}}
+   if(best&&Number.isFinite(fix.positionAccuracy)&&fix.positionAccuracy<=30)record(state.pairs,{epoch:fix.epoch,visual:best.median,gps:fix.speed,lo:best.lo,hi:best.hi,offsetMs:diff});
+  }benchmark();
+ },error=>{record(state.events,{epoch:Date.now(),message:`GPS benchmark unavailable: ${error.message}`});$('gps').textContent='Unavailable';},{enableHighAccuracy:true,maximumAge:0,timeout:12000});
+}
+function stopGPS(){if(state.gpsWatch!==null)navigator.geolocation.clearWatch(state.gpsWatch);state.gpsWatch=null;state.lastGps=null;$('gps').textContent='—';}
+$('gps-toggle').onchange=()=>{$('gps-toggle').checked?startGPS():stopGPS();};
+function makeWorker(id,module=false){const url=URL.createObjectURL(new Blob([$(id).textContent],{type:'application/javascript'}));state.urls.push(url);return new Worker(url,module?{type:'module'}:undefined);}
+function workerError(msg){message(msg,true);$('advanced').classList.remove('busy');clearReading();openPanel();}
+async function start(){
+ if(state.active||state.starting)return;state.starting=true;const run=++state.run;
+ $('launch').hidden=true;message('Requesting camera access');$('advanced').classList.add('busy');
+ try{
+  if(!window.isSecureContext||!navigator.mediaDevices?.getUserMedia)throw new Error('Camera access requires HTTPS and a supported browser. Open this page directly in Safari or Chrome.');
+  const stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720},frameRate:{ideal:30}}});
+  if(run!==state.run){stream.getTracks().forEach(t=>t.stop());return;}
+  state.stream=stream;video.srcObject=stream;await video.play();if(run!==state.run){stream.getTracks().forEach(t=>t.stop());return;}
+  state.active=true;state.starting=false;state.lastCapture=-Infinity;state.visionBusy=false;state.depthReady=false;state.depthBusy=false;state.modelError=null;
+  state.vision=makeWorker('vision-source');state.depth=makeWorker('depth-source',true);state.vision.postMessage({type:'reset',run});
+  state.vision.onmessage=e=>{
+   if(run!==state.run||!state.active)return;const m=e.data;
+   if(m.type==='keyframe'){
+    if(state.depthReady&&!state.depthBusy){state.depthBusy=true;state.depth.postMessage({...m,type:'frame'},[m.buffer]);}
+    else state.vision.postMessage({type:'depthError',run});return;
+   }
+   state.visionBusy=false;
+   if(m.type==='error'){workerError(`Vision error: ${m.message}`);return;}
+   if(m.type!=='result')return;
+   $('tracks').textContent=m.tracks??'—';$('flow').textContent=Number.isFinite(m.flow)?`${m.flow.toFixed(1)} px/s`:'—';$('inliers').textContent=Number.isFinite(m.inliers)?`${Math.round(m.inliers*100)}%`:'—';
+   const fresh=Number.isFinite(m.epoch)&&Date.now()-m.epoch<1500;
+   if(m.ok&&fresh&&Number.isFinite(m.median)&&m.hi>=m.lo){showReading(m);message(m.reason);}
+   else {clearReading();message(state.modelError||(state.depthReady?m.reason:state.modelState),Boolean(state.modelError));}
+   record(state.visual,{...m,samples:undefined});if(panel.open)draw();
+  };
+  state.vision.onerror=e=>{state.visionBusy=false;workerError(`Vision worker failed: ${e.message||'worker unavailable'}`);};
+  state.depth.onmessage=e=>{
+   if(run!==state.run||!state.active)return;const m=e.data;
+   if(m.type==='status'){state.modelState=m.message;message(m.message);$('compute').textContent=m.message;return;}
+   if(m.type==='ready'){state.depthReady=true;state.modelState=`Local ${m.device} inference`;$('compute').textContent=state.modelState;message('Acquiring scene depth and motion');$('advanced').classList.remove('busy');return;}
+   state.depthBusy=false;
+   if(m.type==='depth'){state.lastInference=m.inferenceMs;$('compute').textContent=`${Math.round(m.inferenceMs)} ms / depth map`;state.vision.postMessage(m,[m.depth]);}
+   if(m.type==='error'){state.depthReady=false;state.vision.postMessage({type:'depthError',run});state.modelError=`Automatic model unavailable: ${m.message}. Stop and restart to retry.`;workerError(state.modelError);}
+  };
+  state.depth.onerror=e=>{state.depthBusy=false;state.depthReady=false;state.modelError=`Depth worker failed: ${e.message||'device or network not supported'}`;workerError(state.modelError);};
+  state.depth.postMessage({type:'init'});$('sensor').textContent='Stop sensors';startGPS();
+  try{const wake=await navigator.wakeLock?.request('screen');if(run!==state.run)wake?.release();else state.wake=wake;}catch{}
+  if(run===state.run)schedule(run);
+ }catch(e){if(run===state.run){stop(false);workerError(e.message||String(e));}}finally{if(run===state.run)state.starting=false;}
+}
+function schedule(run){
+ if(!state.active||run!==state.run)return;
+ if(video.requestVideoFrameCallback)state.rvfc=video.requestVideoFrameCallback((now,meta)=>{captureFrame(run,now,meta.mediaTime);schedule(run);});
+ else state.raf=requestAnimationFrame(now=>{captureFrame(run,now,video.currentTime);schedule(run);});
+}
+function captureFrame(run,now,time){
+ if(state.visionBusy||now-state.lastCapture<90||!video.videoWidth||!video.videoHeight||!Number.isFinite(time))return;
+ const scale=420/Math.max(video.videoWidth,video.videoHeight),w=Math.max(56,Math.round(video.videoWidth*scale/14)*14),h=Math.max(56,Math.round(video.videoHeight*scale/14)*14);
+ if(capture.width!==w||capture.height!==h){capture.width=w;capture.height=h;}
+ ctx.drawImage(video,0,0,w,h);const frame=ctx.getImageData(0,0,w,h);state.visionBusy=true;state.lastCapture=now;state.vision.postMessage({type:'frame',run,w,h,time,epoch:Date.now(),buffer:frame.data.buffer},[frame.data.buffer]);
+}
+function stop(notify=true){
+ state.active=false;state.starting=false;state.run++;if(state.rvfc!==null)video.cancelVideoFrameCallback?.(state.rvfc);if(state.raf!==null)cancelAnimationFrame(state.raf);state.vision?.terminate();state.depth?.terminate();state.vision=null;state.depth=null;state.urls.forEach(url=>URL.revokeObjectURL(url));state.urls=[];state.stream?.getTracks().forEach(t=>t.stop());state.stream=null;video.srcObject=null;stopGPS();state.wake?.release().catch(()=>{});state.wake=null;$('launch').hidden=false;$('sensor').textContent='Start camera';$('advanced').classList.remove('busy');clearReading();if(notify)message('Sensors stopped. Tap the camera to resume.');
+}
+$('launch').onclick=start;$('sensor').onclick=()=>state.active||state.starting?stop():start();
+$('units').onclick=()=>{state.unit=state.unit==='km/h'?'mph':'km/h';$('unit').textContent=state.unit;document.querySelectorAll('.unit-label').forEach(e=>e.textContent=state.unit);$('units').textContent=state.unit==='km/h'?'Switch to mph':'Switch to km/h';if(state.lastResult)showReading(state.lastResult);benchmark();draw();};
+$('export').onclick=()=>{const data={version:'0.2.0-automatic-experimental',exported:new Date().toISOString(),method:'Metric3D prior + robust camera pose; no GPS input',validated:false,assumptions:{diagonalFovDegrees:[56,64,72,80,88,96,104],sharedLogScaleSD:.35,canonicalFocalPixels:1000},dropped:state.dropped,visual:state.visual,gps:state.gps,pairs:state.pairs,events:state.events};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`parallax-${new Date().toISOString().replaceAll(':','-')}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);};
+function chartCanvas(id){const c=$(id),dpr=Math.min(devicePixelRatio||1,2),width=c.clientWidth||330,height=110;c.width=Math.round(width*dpr);c.height=height*dpr;const x=c.getContext('2d');x.scale(dpr,dpr);return{x,w:width,h:height};}
+function draw(){
+ const {x,w,h}=chartCanvas('chart'),now=Date.now(),f=factor(),vs=state.visual.filter(v=>v.epoch>now-30000),gs=state.gps.filter(v=>v.epoch>now-30000&&v.speed!==null),max=Math.max(30,...vs.filter(v=>v.ok).map(v=>v.hi*f),...gs.map(v=>v.speed*f));
+ x.font='10px system-ui';x.strokeStyle='#ffffff12';x.fillStyle='#8c98a8';for(let i=0;i<3;i++){const y=8+i*42;x.beginPath();x.moveTo(27,y);x.lineTo(w,y);x.stroke();x.fillText(Math.round(max*(1-i/2)),0,y+4);}
+ const px=t=>27+(t-now+30000)/30000*(w-27),py=v=>92-v*f/max*84;
+ for(const [rows,color,key] of [[vs,'#a6cfff','median'],[gs,'#e1b472','speed']]){x.strokeStyle=color;x.lineWidth=1.7;x.beginPath();let open=false,last=-Infinity;for(const r of rows){if(r.ok===false||!Number.isFinite(r[key])){open=false;continue;}if(!open||r.epoch-last>1500)x.moveTo(px(r.epoch),py(r[key]));else x.lineTo(px(r.epoch),py(r[key]));open=true;last=r.epoch;}x.stroke();}
+ const d=chartCanvas('density'),samples=state.lastResult?.samples||[];if(samples.length){const hi=Math.max(...samples),bins=Array(34).fill(0);for(const v of samples)bins[Math.min(33,Math.floor(v/(hi||1)*34))]++;const top=Math.max(...bins);d.x.fillStyle='#a6cfff88';for(let i=0;i<34;i++){const bh=bins[i]/top*75;d.x.fillRect(i*d.w/34,86-bh,d.w/34-2,bh);}d.x.fillStyle='#8c98a8';d.x.font='10px system-ui';d.x.fillText('0',0,105);d.x.textAlign='right';d.x.fillText(`${(hi*f).toFixed(0)} ${state.unit}`,d.w,105);}
+}
+setInterval(()=>{if(state.lastResult&&performance.now()-state.lastResultAt>1500)clearReading();benchmark();if(panel.open)draw();},400);
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&(state.active||state.starting))stop();});window.addEventListener('pagehide',()=>stop(false));window.addEventListener('resize',()=>{if(panel.open)draw();});
+window.parallaxApp={state,openPanel,start,stop,showReading,clearReading,draw};
+</script></body></html>
