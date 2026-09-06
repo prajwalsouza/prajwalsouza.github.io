@@ -1,11 +1,66 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090b0e"><meta name="color-scheme" content="dark"><title>Parallax · Camera speed experiment</title>
-<style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#090b0e;color:#fff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button{color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible{outline:2px solid #afd4ff;outline-offset:5px}.camera{position:fixed;inset:10px;inset:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));border-radius:30px;overflow:hidden;background:linear-gradient(155deg,#1a2028,#0c1016 58%,#161c25);isolation:isolate}.camera video{width:100%;height:100%;object-fit:cover;display:block}.shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(#0003,transparent 58%,#0003)}.hud{position:absolute;inset:13% 0 auto;pointer-events:none;text-align:center;text-shadow:0 2px 25px #0008}.number{font-size:clamp(92px,23vw,152px);font-weight:280;line-height:1.08;letter-spacing:-.065em;font-variant-numeric:tabular-nums;transition:opacity .25s}.units{font-size:22px;letter-spacing:.025em;font-weight:350;margin-top:6px;opacity:.85}.round{display:grid;place-items:center;width:56px;height:56px;padding:0;border-radius:50%;border:1px solid #ffffff30;background:#ffffff18;box-shadow:0 6px 28px #0002;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}.round svg{height:24px;width:24px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}.advanced{position:absolute;bottom:24px;right:22px}.launch{position:absolute;top:53%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px}.launch svg{width:30px;height:30px}.round[hidden]{display:none}.advanced.busy:after{content:"";position:absolute;inset:-3px;border-radius:50%;border:1px solid transparent;border-top-color:#ffffffb0;animation:spin 1.6s linear infinite}.advanced.issue:before{content:"";position:absolute;top:0;right:2px;width:7px;height:7px;border-radius:50%;background:#e1b472}.paused .number{opacity:.55}@keyframes spin{to{transform:rotate(360deg)}}dialog{position:fixed;inset:auto 0 0;margin:0 auto;width:min(100%,570px);max-height:86dvh;overflow:auto;border:1px solid #ffffff25;border-bottom:0;border-radius:30px 30px 0 0;padding:12px 24px max(28px,env(safe-area-inset-bottom));background:#131820ed;backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);color:#f7f8fa;box-shadow:0 -15px 70px #0004}dialog::backdrop{background:#0006}.handle{width:40px;height:4px;border-radius:4px;background:#ffffff38;margin:0 auto 18px}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.head h1{margin:0;font-size:19px;letter-spacing:-.03em;font-weight:550}.head .round{width:34px;height:34px;background:transparent;border:0;box-shadow:none}.status{font-size:13px;color:#b4bdc9;line-height:1.6;margin:0 0 20px}.metric{display:flex;justify-content:space-between;align-items:baseline;gap:15px}.metric strong{font-size:45px;font-weight:350;letter-spacing:-.04em;font-variant-numeric:tabular-nums}.metric span,.label{font-size:12px;color:#a9b5c5}.range{text-align:right;font-size:19px;font-variant-numeric:tabular-nums}.range small{display:block;font-size:11px;color:#a9b5c5;margin-top:4px}canvas{display:block;width:100%;height:110px;margin:16px 0 10px}.key{display:flex;gap:20px;font-size:11px;color:#b6c1d0}.key span:before{content:"";display:inline-block;width:13px;height:2px;margin:0 7px 3px 0;background:#a6cfff}.key span:last-child:before{background:#e1b472}.rows{margin-top:15px}.row{display:flex;justify-content:space-between;gap:20px;align-items:center;min-height:45px;border-bottom:1px solid #ffffff0d;font-size:13px}.row>span:first-child{color:#aeb8c7}.row output{text-align:right;max-width:60%}.controls{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0 16px}.pill{border:1px solid #ffffff25;border-radius:24px;background:#ffffff0a;padding:10px 16px;font-size:12px}.pill:hover{background:#ffffff16}.switch{display:flex;align-items:center;gap:9px;font-size:13px;color:#c0c8d4}.switch input{accent-color:#a6cfff;width:16px;height:16px}.notes{font-size:11px;line-height:1.65;color:#8f9aab;margin-top:16px}.notes summary{cursor:pointer;color:#c7d0dd}.notes a{color:#b5cff0}.notes p{margin:9px 0}.err{color:#efc58f}.visually-hidden{position:absolute;left:-9999px} @media(min-width:700px){.camera{inset:22px;border-radius:34px}.hud{top:11%}.advanced{bottom:30px;right:30px}dialog{bottom:22px;right:22px;left:auto;border-radius:28px;border-bottom:1px solid #ffffff25;max-height:calc(100dvh - 44px)}.number{font-size:148px}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style></head><body>
-<main class="camera paused" id="stage" aria-label="Camera speed estimate"><video id="video" autoplay playsinline muted></video><div class="shade"></div><div class="hud"><div class="number" id="speed" role="status" aria-label="Speed unavailable">—</div><div class="units" id="unit">km/h</div></div><button class="round launch" id="launch" aria-label="Start camera and automatic estimation"><svg viewBox="0 0 24 24"><path d="m4 6 4 0 2-3h4l2 3h4v14H4Z"/><circle cx="12" cy="13" r="4"/></svg></button><button class="round advanced" id="advanced" aria-label="Open advanced analysis" aria-haspopup="dialog"><svg viewBox="0 0 24 24"><path d="m6 14 6-6 6 6m-12 5 6-6 6 6"/></svg></button></main>
-<dialog id="panel" aria-labelledby="analysis-title"><div class="handle"></div><div class="head"><h1 id="analysis-title">Analysis</h1><button class="round" id="close" aria-label="Close analysis" autofocus><svg viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div><p class="status" id="status">Tap the camera button to start. Geometry is estimated automatically.</p><div class="metric"><div><strong id="detail-speed">—</strong> <span class="unit-label">km/h</span></div><div class="range"><output id="interval">—</output><small>95% model interval · unvalidated</small></div></div><canvas id="chart" aria-label="Camera and GPS speed history"></canvas><div class="key"><span>Camera</span><span>GPS benchmark</span></div><canvas id="density" aria-label="Approximate conditional speed distribution"></canvas><div class="label">Conditional distribution · shared scale uncertainty retained</div><div class="rows"><div class="row"><span>GPS benchmark</span><output id="gps">—</output></div><div class="row"><span>Mean absolute difference</span><output id="difference">—</output></div><div class="row"><span>Matched samples</span><output id="paired">0</output></div><div class="row"><span>Tracked features</span><output id="tracks">—</output></div><div class="row"><span>Geometric agreement</span><output id="inliers">—</output></div><div class="row"><span>Image motion</span><output id="flow">—</output></div><div class="row"><span>Scale source</span><output>Learned depth + focal prior</output></div><div class="row"><span>Inference</span><output id="compute">Not started</output></div></div><div class="controls"><button class="pill" id="sensor">Start camera</button><button class="pill" id="units">Switch to mph</button><button class="pill" id="export">Export session</button></div><label class="switch"><input type="checkbox" id="gps-toggle">Optional GPS benchmark only</label><details class="notes"><summary>Method, assumptions and privacy</summary><p>This is an experimental automatic estimator, not a validated speedometer. Do not use it for driving decisions. Operate it only while stationary or as a passenger.</p><p>There is no manually marked horizon, ground region or camera height. Features throughout the scene are tracked; a robust 3-D camera-motion fit estimates rotation and translation. The camera may look forward, sideways or obliquely. It measures the camera's motion, including hand motion—not necessarily the vehicle's motion. Speed is averaged over a recent window of up to 0.7 seconds; the actual duration is exported.</p><p>Metric scale comes from the Metric3D learned depth prior, not measured object sizes. Browser camera intrinsics are unknown: seven diagonal field-of-view hypotheses from 56° to 104° are retained. A shared log-scale uncertainty of 0.35 is an engineering assumption, not a learned guarantee. The displayed 95% mass interval is conditional on these assumptions. It has no validated real-world coverage and is not the complete Bayesian-SLAM design.</p><p>Moving foreground objects, window reflections, the vehicle interior, darkness, blur, fisheye lenses and depth-model errors can still produce incorrect readings. Weak tracking and stale estimates produce a dash. Not every failure can be detected. A dominant moving object can defeat the stationary-world assumption.</p><p>Model loading and performance depend on the browser. The first use downloads roughly 76–151 MB of model weights, plus runtime assets, from Hugging Face and jsDelivr. Inference runs locally; camera frames are not sent to a server. Those providers receive ordinary asset requests. Model download or device incompatibility leaves the speed unavailable.</p><p>GPS is independently displayed and logged; it never enters either estimation worker. Coordinates are discarded immediately. No camera footage is recorded. Logs remain in this tab until exported or cleared by reload. Hiding this tab stops sensors. Reloading loses the session. Browser speed is a noisy reference, not certified ground truth.</p><p><a href="https://huggingface.co/onnx-community/metric3d-vit-small" target="_blank" rel="noopener">Depth model</a> · <a href="https://github.com/YvanYin/Metric3D/issues/117" target="_blank" rel="noopener">Model export</a> · <a href="https://github.com/prajwalsouza/prajwalsouza.github.io/blob/master/Experiments/Parallax-Speed.html" target="_blank" rel="noopener">Source</a></p></details></dialog>
-<script type="application/x-parallax-worker" id="vision-source">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080a0c"><meta name="description" content="A camera-first visual speed experiment. Automatic planar-motion hypotheses, conditional uncertainty, independent GPS benchmark."><title>Parallax · Camera speed</title><style>:root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#080a0c;color:#f8f9fa;font-synthesis:none}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100svh}button,input,select{font:inherit}button{color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}button:focus-visible,summary:focus-visible{outline:2px solid #92efda;outline-offset:5px}[hidden]{display:none!important}#camera{position:fixed;inset:8px;border-radius:30px;overflow:hidden;background:radial-gradient(ellipse at 60% 30%,#1e2b2e,transparent 65%),linear-gradient(145deg,#151d21,#080b0d);z-index:-1}#video,#scene{width:100%;height:100%;object-fit:cover;display:block}.shade{position:absolute;inset:0;background:linear-gradient(#0005,transparent 45%,#0002);pointer-events:none}#view{height:100svh;min-height:440px;position:relative;max-width:960px;margin:auto}.hud{text-align:center;padding-top:max(10svh,65px);pointer-events:none;text-shadow:0 2px 30px #0004}.readout{font-size:clamp(90px,25vw,150px);font-weight:300;letter-spacing:-.065em;line-height:1;font-variant-numeric:tabular-nums}.readout .approx{font-size:.34em;vertical-align:middle;letter-spacing:-.03em;margin-right:.13em;opacity:.75}.unit{margin-top:15px;font-size:23px;letter-spacing:.015em;font-weight:350}.glass{border:1px solid #ffffff35;background:#ffffff13;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 2px 16px #0001}svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.start{position:absolute;top:51%;left:50%;transform:translate(-50%,-50%);width:82px;height:82px;border-radius:50%;display:grid;place-items:center}.start svg{width:32px;height:32px}.start:disabled{opacity:.35;cursor:wait}.float{position:absolute;bottom:max(27px,env(safe-area-inset-bottom));right:26px;width:52px;height:52px;border-radius:50%;display:grid;place-items:center}#demoBadge{position:absolute;bottom:39px;left:28px;font-size:10px;letter-spacing:.13em;color:#ffdea0;background:#131311b8;padding:7px 10px;border-radius:20px}#analysis{max-width:640px;position:relative;margin:0 auto 8px;padding:0 25px max(26px,env(safe-area-inset-bottom));border-radius:32px 32px 24px 24px;border:1px solid #ffffff20;background:#181d20eb;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 -10px 60px #0002;overflow:hidden}.handle{display:flex;align-items:center;justify-content:center;width:100%;height:36px;border:0;background:none}.handle span{width:40px;height:5px;background:#ffffff40;border-radius:20px}.sheet-head{display:flex;justify-content:space-between;align-items:center;padding:10px 0 15px}.eyebrow{color:#bac4c9;font-size:9px;letter-spacing:.15em;margin:0 0 7px}.detail-number{display:flex;align-items:baseline;gap:10px}.detail-number>span{font-size:58px;font-weight:350;letter-spacing:-.04em;line-height:1.1}.detail-number small{font-size:17px;color:#c6cecf}.icon-button{width:48px;height:48px;border:1px solid #ffffff25;border-radius:50%;background:#ffffff06;display:grid;place-items:center}.distribution{margin:3px 0 16px}#posterior{width:100%;height:65px;display:block}.endpoints{display:flex;justify-content:space-between;align-items:center;color:#bcc7c8;font-size:12px;margin-top:8px}.endpoints span:nth-child(2){font-size:10px;color:#9fadae;text-align:center}.reason{font-size:12px;line-height:1.55;color:#d7e5e1;min-height:38px;margin:10px 0 17px}.rows{display:grid;gap:7px}.row{background:#ffffff07;border:1px solid #ffffff0c;border-radius:16px;min-height:58px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:15px;font-size:13px}.row span{color:#d2d8dc}.row strong{text-align:right;font-weight:450;font-size:12px;color:#a5e6d6}.row small{display:block;font-size:10px;color:#899a9e;margin-top:3px}.timeline-head{display:flex;justify-content:space-between;align-items:center;margin:28px 0 12px;font-size:11px;color:#b9c4c7}.legend{display:flex;align-items:center;gap:6px;font-size:9px}.legend i,.legend b{width:6px;height:6px;background:#a3e9d7;border-radius:50%;display:inline-block}.legend b{background:#edc889;margin-left:8px}#timeline{width:100%;height:125px;display:block;margin-bottom:20px}details{border-top:1px solid #ffffff14}summary{list-style:none;cursor:pointer;padding:21px 0;font-size:13px;display:flex;justify-content:space-between;gap:15px}summary::-webkit-details-marker{display:none}summary span{color:#9eaeb0}details[open] summary span{transform:rotate(45deg)}.details-body{padding:0 0 20px;font-size:12px;line-height:1.65;color:#acbabe}.details-body p{margin:6px 0 14px}.details-body strong{color:#d6e4e5}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px}.metrics div{font-size:10px;color:#9eb0b4}.metrics strong{display:block;font-size:17px;font-weight:450}.control{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:18px 0;color:#dce4e5}.control small{display:block;color:#99a9ac;font-size:10px;max-width:230px}.control input[type=checkbox]{width:19px;height:19px;accent-color:#a1e6d6}.control input[type=number],select{background:#ffffff0a;border:1px solid #ffffff20;border-radius:9px;padding:9px;color:#f5f7f8;width:100px;max-width:40%;font-size:12px}.buttons{display:flex;gap:10px;flex-wrap:wrap}.button{border:1px solid #ffffff20;background:#ffffff08;padding:12px 15px;border-radius:12px;font-size:12px;min-height:44px}.button:hover{background:#ffffff16}.button:disabled{opacity:.4}.small{font-size:10px}footer{border-top:1px solid #ffffff14;padding-top:23px;color:#8d9ca1;font-size:10px;line-height:1.8;margin-top:10px}body.active #start{display:none}@media(min-width:720px){#camera{inset:12px;max-width:1000px;margin:auto}#view{max-width:1000px}.hud{padding-top:12svh}#analysis{margin-bottom:24px;padding-left:32px;padding-right:32px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style></head>
+<body>
+<div id="camera"><video id="video" autoplay muted playsinline disablepictureinpicture></video><canvas id="scene" hidden></canvas><div class="shade"></div></div>
+<main id="view" aria-label="Camera speed view">
+ <div class="hud"><div class="readout" id="speed" aria-live="off">—</div><div class="unit" id="unit">km/h</div></div>
+ <button id="start" class="start glass" aria-label="Start camera and optional GPS benchmark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 10h6l2-4h8l2 4h6v17H4Z"/><circle cx="16" cy="18" r="5"/></svg></button>
+ <span id="demoBadge" hidden>SYNTHETIC TEST</span>
+ <button id="expand" class="float glass" aria-label="Open advanced analysis"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg></button>
+</main>
+<section id="analysis" aria-label="Advanced analysis">
+ <button id="collapse" class="handle" aria-label="Return to camera"><span></span></button>
+ <div class="sheet-head"><div><p class="eyebrow">CAMERA ESTIMATE</p><div class="detail-number"><span id="detailSpeed">—</span><small class="unitText">km/h</small></div></div><button id="sensor" class="icon-button" aria-label="Start or stop sensors"><svg viewBox="0 0 24 24"><path id="powerIcon" d="M9 5v14l11-7Z"/></svg></button></div>
+ <div class="distribution"><canvas id="posterior" aria-label="Sampled conditional speed distribution"></canvas><div class="endpoints"><span id="low">—</span><span>95% model interval · unvalidated</span><span id="high">—</span></div></div>
+ <p id="reason" class="reason" role="status">Tap the camera icon to begin. Geometry is inferred automatically; absolute scale still needs assumptions.</p>
+ <div class="rows">
+  <div class="row"><span>Tracking</span><strong id="tracking">Not started</strong></div>
+  <div class="row"><span>Scene geometry</span><strong id="geometry">Automatic hypotheses</strong></div>
+  <div class="row"><span>Scale source</span><strong id="scale">Assumed height · broad</strong></div>
+  <div class="row"><span>GPS <small>benchmark only</small></span><strong id="gpsValue">—</strong></div>
+ </div>
+ <div class="timeline-head"><span>Last 30 seconds</span><span class="legend"><i></i> Camera <b></b> GPS</span></div><canvas id="timeline" aria-label="Camera intervals and independent GPS speed"></canvas>
+ <details><summary>Measurement details <span>+</span></summary><div class="details-body"><div class="metrics"><div>Matched features<strong id="tracks">—</strong></div><div>Plane support<strong id="support">—</strong></div><div>Pixel residual<strong id="residual">—</strong></div><div>Processing<strong id="timing">—</strong></div></div><p id="benchmarkInfo">No paired GPS fixes yet.</p><p id="gpsInfo">GPS never calibrates, replaces, or rescales the camera estimate. Browser speed may be missing or delayed.</p></div></details>
+ <details><summary>Assumptions & controls <span>+</span></summary><div class="details-body">
+  <p><strong>This is an experiment, not a validated speedometer.</strong> The camera view shows an approximate estimate, not GPS speed. A dash means the visual evidence is inadequate.</p>
+  <p>The app tracks features, proposes ground-like planes, and separates rotation from translation. It does not recognize roads or object sizes semantically. Ground, fixed scenery, an approximately upright outward view, and pinhole optics are assumptions. Moving traffic, walls, window reflections, slopes, blur, lens distortion and camera stabilization can fool these checks.</p>
+  <p>Without a measured ruler, metres depend on a broad camera-height prior (median 1.55 m, log standard deviation 0.42). Field of view is also uncertain (78° ± 12°). These are not measurements. Repeated frames cannot remove that scale uncertainty.</p>
+  <p>Intervals combine resampled feature fits with persistent scale, lens and model-error samples. They are an approximate conditional distribution, not a rigorously calibrated posterior or a 95% real-world coverage guarantee.</p>
+  <label class="control"><span>GPS benchmark on camera start</span><input id="gpsToggle" type="checkbox"></label>
+  <label class="control"><span>Units</span><select id="units"><option value="kmh">km/h</option><option value="mph">mph</option></select></label>
+  <label class="control"><span>Optional measured lens height <small>Metres above ground · leave blank for the prior</small></span><input id="height" type="number" min="0.2" max="6" step="0.01" placeholder="Auto prior" aria-label="Optional measured lens height in metres"></label><p class="small">An entered height uses an assumed 8% measurement uncertainty. Changing it restarts visual hypotheses. There is no mandatory calibration screen.</p>
+  <button id="flip" class="button">Switch camera</button>
+ </div></details>
+ <details><summary>Test & export <span>+</span></summary><div class="details-body">
+  <div class="buttons"><button id="demo" class="button">Synthetic travel</button><button id="rotate" class="button">Rotation test</button></div>
+  <p>Synthetic scenes are rendered into image frames and processed by the same tracker. Their known motion is not sent to the estimator. They test the pipeline, not road accuracy.</p>
+  <div class="buttons"><button id="json" class="button" disabled>Export JSON</button><button id="csv" class="button" disabled>Export CSV</button></div><p id="logInfo">Session logs stay in this tab. Export before closing.</p>
+ </div></details>
+ <footer>Parallax 0.2 · All image processing stays on this device.<br>No video or coordinates stored or uploaded. Hosting may log ordinary page requests. Operate only while stationary or as a passenger.</footer>
+</section>
+<script id="visionCode" type="text/plain">/* Parallax v0.2 — original projective-geometry utilities. MIT.
+   Matrices are row-major; image coordinates use max(width,height) units. */
+(function(root){
+const dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0),norm=a=>Math.hypot(...a),mul=(a,s)=>a.map(x=>x*s),sub=(a,b)=>a.map((x,i)=>x-b[i]);
+const unit=a=>mul(a,1/(norm(a)||1)),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const mv=(m,v)=>[dot(m.slice(0,3),v),dot(m.slice(3,6),v),dot(m.slice(6,9),v)],tr=m=>[m[0],m[3],m[6],m[1],m[4],m[7],m[2],m[5],m[8]];
+function mm(a,b){let r=Array(9).fill(0);for(let i=0;i<3;i++)for(let j=0;j<3;j++)for(let k=0;k<3;k++)r[i*3+j]+=a[i*3+k]*b[k*3+j];return r;}
+function rng(seed=34915){return()=>{seed|=0;seed=seed+0x6d2b79f5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const gaussian=r=>Math.sqrt(-2*Math.log(Math.max(1e-10,r())))*Math.cos(2*Math.PI*r());
+function q(a,p){if(!a.length)return NaN;const s=[...a].sort((a,b)=>a-b),x=p*(s.length-1),i=Math.floor(x);return s[i]+(s[Math.ceil(x)]-s[i])*(x-i);}
+function solve(A,b){const n=b.length,m=A.map((a,i)=>[...a,b[i]]);for(let c=0;c<n;c++){let k=c;for(let i=c+1;i<n;i++)if(Math.abs(m[i][c])>Math.abs(m[k][c]))k=i;if(Math.abs(m[k][c])<1e-12)return null;[m[k],m[c]]=[m[c],m[k]];let z=m[c][c];for(let j=c;j<=n;j++)m[c][j]/=z;for(let i=0;i<n;i++)if(i!==c){z=m[i][c];for(let j=c;j<=n;j++)m[i][j]-=z*m[c][j];}}return m.map(a=>a[n]);}
+function fit(ps){if(ps.length<4)return null;const A=Array.from({length:8},()=>Array(8).fill(0)),b=Array(8).fill(0);for(const{x,y,u,v}of ps){const rows=[[x,y,1,0,0,0,-u*x,-u*y],[0,0,0,x,y,1,-v*x,-v*y]];for(let z=0;z<2;z++){const a=rows[z],s=z?v:u;for(let i=0;i<8;i++){b[i]+=a[i]*s;for(let j=0;j<8;j++)A[i][j]+=a[i]*a[j];}}}const h=solve(A,b);return h?[...h,1]:null;}
+function project(h,x,y){let z=h[6]*x+h[7]*y+h[8];return[(h[0]*x+h[1]*y+h[2])/z,(h[3]*x+h[4]*y+h[5])/z];}
+function err(h,p){const a=project(h,p.x,p.y);return Math.hypot(a[0]-p.u,a[1]-p.v);}
+function ransac(ps,t,r){if(ps.length<16)return null;let best=[];for(let i=0;i<85;i++){const ids=new Set();while(ids.size<4)ids.add(Math.floor(r()*ps.length));const h=fit([...ids].map(j=>ps[j]));if(!h)continue;const good=ps.filter(p=>err(h,p)<t);if(good.length>best.length)best=good;if(i>15&&best.length>ps.length*.92)break;}if(best.length<16)return null;let h=fit(best);if(!h)return null;best=ps.filter(p=>err(h,p)<t);h=fit(best);if(!h)return null;return{H:h,points:best,ratio:best.length/ps.length,rms:Math.sqrt(best.reduce((s,p)=>s+err(h,p)**2,0)/best.length)};}
+function eigen(A){let m=[...A],V=[1,0,0,0,1,0,0,0,1];for(let it=0;it<32;it++){let p=0,k=1;for(const[a,b]of[[0,2],[1,2]])if(Math.abs(m[3*a+b])>Math.abs(m[3*p+k])){p=a;k=b;}if(Math.abs(m[p*3+k])<1e-12)break;const angle=.5*Math.atan2(2*m[3*p+k],m[3*k+k]-m[3*p+p]),c=Math.cos(angle),s=Math.sin(angle),J=[1,0,0,0,1,0,0,0,1];J[3*p+p]=J[3*k+k]=c;J[3*p+k]=s;J[3*k+p]=-s;m=mm(mm(tr(J),m),J);V=mm(V,J);}return[0,1,2].map(i=>({val:m[3*i+i],v:[V[i],V[i+3],V[i+6]]})).sort((a,b)=>b.val-a.val);}
+function calibrated(H,w,h,fov){const f=Math.hypot(w,h)/(2*Math.tan(fov*Math.PI/360)),s=Math.max(w,h),a=s/f;return mm(mm([a,0,0,0,a,0,0,0,1],H),[1/a,0,0,0,1/a,0,0,0,1]);}
+function known(H,n){const a=unit(cross(Math.abs(n[2])<.9?[0,0,1]:[0,1,0],n)),b=cross(n,a);let u=mv(H,a),v=mv(H,b),s=(norm(u)+norm(v))/2;if(s<1e-8)return null;u=mul(u,1/s);v=mul(v,1/s);const c=dot(u,v),stretch=Math.max(Math.abs(norm(u)-1),Math.abs(norm(v)-1),Math.abs(c)),u1=unit(sub(u,mul(v,c/2))),u2=unit(sub(v,mul(u1,dot(u1,v)))),u3=unit(cross(u1,u2)),R=mm([u1[0],u2[0],u3[0],u1[1],u2[1],u3[1],u1[2],u2[2],u3[2]],tr([a[0],b[0],n[0],a[1],b[1],n[1],a[2],b[2],n[2]])),t=sub(mul(mv(H,n),1/s),u3);return{n,R,t,normal:u3,stretch,angle:Math.acos(clamp((R[0]+R[4]+R[8]-1)/2,-1,1)),vertical:dot(t,u3)};}
+function decompose(H){const es=eigen(mm(tr(H),H)),mid=es[1].val;if(mid<=0)return[];const l1=es[0].val/mid,l3=es[2].val/mid,den=l1-l3;if(den<1e-10)return[];const a=Math.sqrt(Math.max(0,(l1-1)/den)),b=Math.sqrt(Math.max(0,(1-l3)/den));return[1,-1].map(sign=>{let n=unit(es[0].v.map((v,i)=>a*v+sign*b*es[2].v[i]));if(n[1]<0)n=mul(n,-1);return known(H,n);}).filter(Boolean);}
+root.G={dot,norm,mul,sub,unit,cross,clamp,mv,tr,mm,rng,gaussian,q,solve,fit,project,err,ransac,eigen,calibrated,known,decompose};
+})(typeof self!=='undefined'?self:globalThis);
+
 /* Original pyramidal Lucas–Kanade tracker with Shi–Tomasi-style corners.
  * No external dependencies. MIT license. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.ParallaxTracker=api;})(typeof self!=='undefined'?self:globalThis,function(){
@@ -55,267 +110,159 @@
   return {gray,pyramid,bilinear,inside,corners,trackOne,track};
 });
 
-/* Automatic, arbitrary-view camera motion. MIT. No GPS inputs.
- * Scale is a learned Metric3D prior, not a measured ruler. Focal length and
- * shared scale bias remain uncertain. Output intervals are NOT calibrated.
- */
+/* Automatic planar-motion hypothesis engine. No GPS, sensors, DOM or network.
+ * Absolute scale remains a persistent prior unless height is supplied.
+ * Resampled fits and nuisance samples; NOT validated interval coverage. */
 (function(root){
-'use strict';
-const I=()=>[1,0,0,0,1,0,0,0,1],dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0),norm=a=>Math.hypot(...a);
-const mul=(A,x)=>[dot(A.slice(0,3),x),dot(A.slice(3,6),x),dot(A.slice(6,9),x)];
-const tr=A=>[A[0],A[3],A[6],A[1],A[4],A[7],A[2],A[5],A[8]];
-const mm=(A,B)=>{const o=Array(9).fill(0);for(let i=0;i<3;i++)for(let j=0;j<3;j++)for(let k=0;k<3;k++)o[3*i+j]+=A[3*i+k]*B[3*k+j];return o;};
-const quant=(a,q)=>{if(!a.length)return NaN;const s=[...a].sort((a,b)=>a-b),i=(s.length-1)*q,l=Math.floor(i);return s[l]+(s[Math.ceil(i)]-s[l])*(i-l);};
-function solve(A,b){const n=b.length,M=A.map((r,i)=>[...r,b[i]]);for(let c=0;c<n;c++){let p=c;for(let r=c+1;r<n;r++)if(Math.abs(M[r][c])>Math.abs(M[p][c]))p=r;if(Math.abs(M[p][c])<1e-11)return null;[M[c],M[p]]=[M[p],M[c]];const d=M[c][c];for(let j=c;j<=n;j++)M[c][j]/=d;for(let r=0;r<n;r++){if(r===c)continue;const k=M[r][c];for(let j=c;j<=n;j++)M[r][j]-=k*M[c][j];}}return M.map(r=>r[n]);}
-function exp(w){const a=norm(w);if(a<1e-12)return I();const[x,y,z]=w.map(x=>x/a),s=Math.sin(a),c=Math.cos(a),t=1-c;return[c+x*x*t,x*y*t-z*s,x*z*t+y*s,y*x*t+z*s,c+y*y*t,y*z*t-x*s,z*x*t-y*s,z*y*t+x*s,c+z*z*t];}
-function center(p){return mul(tr(p.R),p.t).map(x=>-x);}
-function project(p,P,k){const q=mul(p.R,P).map((x,i)=>x+p.t[i]);return q[2]>.03?[k.f*q[0]/q[2]+k.cx,k.f*q[1]/q[2]+k.cy]:[1e9,1e9];}
-function fit(obs,k,initial={R:I(),t:[0,0,0]},iterations=12){
- let pose={R:[...initial.R],t:[...initial.t]},info=null;
- if(obs.length<8)return null;
- for(let it=0;it<iterations;it++){
-  const A=Array.from({length:6},()=>Array(6).fill(0)),b=Array(6).fill(0);let used=0;
-  for(const o of obs){const q=mul(pose.R,o.P).map((v,i)=>v+pose.t[i]),[X,Y,Z]=q;if(Z<.05)continue;
-   const x=X/Z,y=Y/Z,f=k.f,rx=o.u-(f*x+k.cx),ry=o.v-(f*y+k.cy),e=Math.hypot(rx,ry),wt=Math.min(1,2.0/Math.max(e,1e-9));
-   const rows=[[f/Z,0,-f*x/Z,-f*x*y,f*(1+x*x),-f*y],[0,f/Z,-f*y/Z,-f*(1+y*y),f*x*y,f*x]];
-   for(let l=0;l<2;l++){const a=rows[l],r=l?ry:rx;for(let i=0;i<6;i++){b[i]+=wt*a[i]*r;for(let j=0;j<6;j++)A[i][j]+=wt*a[i]*a[j];}}used++;
+const{norm,dot,q,rng,gaussian,clamp,fit,ransac,eigen,mm,tr,calibrated,decompose}=G;
+class AutoEstimator{
+ constructor(w,h,settings={}){this.w=w;this.h=h;this.random=rng(4623);this.history=[];this.hits=0;this.lastNormal=null;this.height=Number(settings.height)||0;this.particles=Array.from({length:72},()=>({fov:clamp(78+12*gaussian(this.random),40,118),height:this.height?Math.max(.1,this.height*(1+.08*gaussian(this.random))):Math.exp(Math.log(1.55)+.42*gaussian(this.random)),bias:Math.exp(.18*gaussian(this.random))}));}
+ invalid(reason,extra={}){this.history=[];this.hits=0;return{ok:false,reason,status:'unresolved',...extra};}
+ magnitude(H,fov){const es=eigen(mm(tr(calibrated(H,this.w,this.h,fov)),calibrated(H,this.w,this.h,fov)));return es[2].val>0?(Math.sqrt(es[0].val)-Math.sqrt(es[2].val))/Math.sqrt(es[1].val):NaN;}
+ rotationResidual(ps,fov){
+  const f=Math.hypot(this.w,this.h)/(2*Math.tan(fov*Math.PI/360)),s=Math.max(this.w,this.h),a=s/f;
+  let R=[1,0,0,0,1,0,0,0,1];
+  for(let iter=0;iter<5;iter++){
+   const A=Array.from({length:3},()=>[0,0,0]),b=[0,0,0];
+   for(const p of ps){const v=G.mv(R,[p.x*a,p.y*a,1]),x=v[0]/v[2],y=v[1]/v[2],dx=p.u*a-x,dy=p.v*a-y;
+    const rows=[[-x*y,1+x*x,-y],[-1-y*y,x*y,x]],weight=Math.min(1,2/(Math.hypot(dx,dy)*f+.001));
+    for(let z=0;z<2;z++){const j=rows[z],e=z?dy:dx;for(let i=0;i<3;i++){b[i]+=weight*j[i]*e;for(let k=0;k<3;k++)A[i][k]+=weight*j[i]*j[k];}}
+   }
+   const w=G.solve(A,b);if(!w)return Infinity;const angle=norm(w);if(angle<1e-8)break;if(angle>.5)return Infinity;
+   const[x,y,z]=w.map(v=>v/angle),c=Math.cos(angle),t=1-c,ss=Math.sin(angle),Q=[c+x*x*t,x*y*t-z*ss,x*z*t+y*ss,y*x*t+z*ss,c+y*y*t,y*z*t-x*ss,z*x*t-y*ss,z*y*t+x*ss,c+z*z*t];R=mm(Q,R);
   }
-  if(used<8)return null;info=A;const d=solve(A,b);if(!d||!d.every(Number.isFinite)||norm(d.slice(3))>.5)return null;
-  const E=exp(d.slice(3));pose={R:mm(E,pose.R),t:mul(E,pose.t).map((x,i)=>x+d[i])};
-  if(norm(d)<1e-5)break;
+  const errors=ps.map(p=>{const v=G.mv(R,[p.x*a,p.y*a,1]);return Math.hypot(v[0]/v[2]-p.u*a,v[1]/v[2]-p.v*a)*f;});
+  return q(errors,.8);
  }
- const errors=obs.map(o=>{const q=project(pose,o.P,k);return Math.hypot(q[0]-o.u,q[1]-o.v);}),ids=errors.map((e,i)=>e<2.5?i:-1).filter(i=>i>=0);
- const rms=Math.sqrt(ids.reduce((s,i)=>s+errors[i]**2,0)/Math.max(1,ids.length));
- return {...pose,ids,rms,info,C:center(pose)};
-}
-function robustFit(obs,k,initial){
- let best=fit(obs,k,initial),bestN=best?.ids.length||0;
- if(bestN<obs.length*.8){let seed=112358;const rng=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};
-  for(let it=0;it<24;it++){const ids=new Set();while(ids.size<Math.min(10,obs.length))ids.add(Math.floor(rng()*obs.length));const p=fit([...ids].map(i=>obs[i]),k,initial,8);if(!p)continue;const inliers=obs.filter(o=>{const q=project(p,o.P,k);return Math.hypot(q[0]-o.u,q[1]-o.v)<2.5;});if(inliers.length>bestN){best=fit(inliers,k,p);bestN=inliers.length;}}
+ geometry(H,ps,dt,fov=78){const f=Math.hypot(this.w,this.h)/(2*Math.tan(fov*Math.PI/360)),s=Math.max(this.w,this.h),sols=decompose(calibrated(H,this.w,this.h,fov)),scored=[];
+  for(const a of sols){const n=a.n,m=norm(a.t),visible=ps.filter(p=>n[0]*p.x*s/f+n[1]*p.y*s/f+n[2]>.025).length/ps.length;
+   if(n[1]<.35||Math.abs(n[2])>.8||visible<.88||a.stretch>.025||Math.abs(a.vertical)>Math.max(.008,m*.35)||a.angle/dt>1.1)continue;
+   let continuity=this.lastNormal?Math.abs(dot(n,this.lastNormal)):1;
+   let score=Math.log(.1+n[1])-.8*(n[0]**2)-3*(a.angle/dt)**2+Math.log(.25+.75*continuity);
+   scored.push({...a,score,visible});
+  }return scored.sort((a,b)=>b.score-a.score)[0]||null;
  }
- if(!best)return null;const final=fit(obs.filter(o=>{const q=project(best,o.P,k);return Math.hypot(q[0]-o.u,q[1]-o.v)<2.5;}),k,best);
- if(!final)return null;
- final.ids=obs.map((o,i)=>{const q=project(final,o.P,k);return Math.hypot(q[0]-o.u,q[1]-o.v)<2.5?i:-1;}).filter(i=>i>=0);
- return final;
-}
-function uncertainty(speeds,noise=0){
- // Fixed systematic log-scale floor: it never contracts with feature/frame count.
- // 0.35 is an explicit engineering assumption, NOT an empirically learned error.
- const samples=[];for(const v of speeds)for(let i=0;i<40;i++){const u=(i+.5)/40,z=inverseNormal(u);samples.push(Math.max(0,v*Math.exp(.35*z)+noise*inverseNormal(((i*17)%40+.5)/40)));}
- return {median:quant(samples,.5),lo:quant(samples,.025),hi:quant(samples,.975),samples};
-}
-function inverseNormal(p){let lo=-7,hi=7;for(let i=0;i<28;i++){const x=(lo+hi)/2,t=1/(1+.2316419*Math.abs(x)),d=.3989422804*Math.exp(-x*x/2);let c=1-d*t*(.319381530+t*(-.356563782+t*(1.781477937+t*(-1.821255978+t*1.330274429))));if(x<0)c=1-c;if(c<p)lo=x;else hi=x;}return(lo+hi)/2;}
-const api={fit,robustFit,exp,mm,mul,center,project,solve,uncertainty,quant};
-if(typeof module==='object'&&module.exports){module.exports=api;return;}
-const T=root.ParallaxTracker,roi=[{x:.03,y:.03},{x:.97,y:.03},{x:.97,y:.97},{x:.03,y:.97}];
-let previous=null,anchors=[],seq=0,nextPoint=0,lastKey=-Infinity,pending=null,run=0;
-function reset(){previous=null;anchors=[];pending=null;lastKey=-Infinity;nextPoint=0;}
-root.onmessage=e=>{
- const m=e.data;try{
- if(m.type==='reset'){run=m.run;reset();return;}
- if(m.run!==run)return;
- if(m.type==='depth'){
-  if(!pending||pending.id!==m.id)return;
-  const a=pending;pending=null;const dw=m.dw,dh=m.dh;
-  const data=new Float32Array(m.depth);
-  a.depths=new Map();
-  for(const p of a.points){const x=Math.max(1,Math.min(dw-2,Math.round(p.x/a.w*(dw-1)))),y=Math.max(1,Math.min(dh-2,Math.round(p.y/a.h*(dh-1))));const vals=[data[y*dw+x],data[y*dw+x-1],data[y*dw+x+1],data[(y-1)*dw+x],data[(y+1)*dw+x]],z=quant(vals,.5);if(z>.2&&z<250&&Math.max(...vals)-Math.min(...vals)<z*.4)a.depths.set(p.id,{x:p.x,y:p.y,z});}
-  a.models=[56,64,72,80,88,96,104].map(fov=>({fov,pose:null,history:[]}));
-  a.inputWidth=m.inputWidth;a.inputHeight=m.inputHeight;anchors.push(a);anchors=anchors.slice(-2);return;
- }
- if(m.type==='depthError'){pending=null;return;}
- if(m.type!=='frame')return;
- const begin=performance.now(),image=T.gray(new Uint8ClampedArray(m.buffer),m.w,m.h),pyr=T.pyramid(image),dt=previous?m.time-previous.time:0;
- if(previous&&(dt<=0||dt>.7||previous.w!==m.w||previous.h!==m.h)){reset();}
- let points=[],matches=[];
- if(previous){
-  for(const p of previous.points){const q=T.trackOne(previous.pyr,pyr,p);if(!q||q.err>20||q.x<10||q.y<10||q.x>=m.w-10||q.y>=m.h-10)continue;const back=T.trackOne(pyr,previous.pyr,q);if(!back||Math.hypot(back.x-p.x,back.y-p.y)>1.1)continue;points.push({x:q.x,y:q.y,id:p.id});matches.push({x:p.x,y:p.y,u:q.x,v:q.y});}
- }
- if(points.length<140){for(const p of T.corners(image,roi,200)){if(points.every(q=>Math.hypot(p.x-q.x,p.y-q.y)>9)){points.push({x:p.x,y:p.y,id:nextPoint++});if(points.length>=190)break;}}}
- const flow=matches.length?quant(matches.map(p=>Math.hypot(p.u-p.x,p.v-p.y)),.5)/Math.max(dt,.001):0;
- let result={ok:false,reason:anchors.length?'Tracking scene geometry':'Acquiring scene scale',tracks:matches.length,flow,time:m.time,epoch:m.epoch};
- for(const a of [...anchors].reverse()){
-  if(m.time-a.time>4)continue;
-  const paired=points.map(p=>({p,d:a.depths?.get(p.id)})).filter(o=>o.d);
-  if(paired.length<28)continue;
-  const speeds=[],centers=[],rms=[],ratios=[],windows=[];let noise=0;
-  for(const model of a.models){
-   const f=Math.hypot(m.w,m.h)/(2*Math.tan(model.fov*Math.PI/360)),k={f,cx:m.w/2,cy:m.h/2};
-   const scale=f*(a.inputWidth/a.w+a.inputHeight/a.h)/2/1000;
-   const obs=paired.map(({p,d})=>{const z=d.z*scale;return{P:[(d.x-k.cx)/f*z,(d.y-k.cy)/f*z,z],u:p.x,v:p.y};}).filter(o=>o.P[2]>.6&&o.P[2]<160);
-   if(obs.length<28)continue;
-   const fitp=robustFit(obs,k,model.pose||undefined);if(!fitp||fitp.ids.length<25||fitp.ids.length/obs.length<.65||fitp.rms>1.8){model.pose=null;model.history=[];continue;}
-   const inobs=fitp.ids.map(i=>obs[i]),bins=new Set(inobs.map(o=>`${Math.floor(o.u/m.w*4)},${Math.floor(o.v/m.h*4)}`));
-   if(bins.size<6||Math.max(...inobs.map(o=>o.u))-Math.min(...inobs.map(o=>o.u))<m.w*.3||Math.max(...inobs.map(o=>o.v))-Math.min(...inobs.map(o=>o.v))<m.h*.25)continue;
-   model.pose=fitp;model.history.push({t:m.time,C:fitp.C});model.history=model.history.filter(p=>m.time-p.t<.7);const first=model.history[0],delta=m.time-first.t;
-   if(delta<.18)continue;
-   const velocity=fitp.C.map((x,i)=>(x-first.C[i])/delta),v=norm(velocity);if(!Number.isFinite(v)||v>90)continue;
-   speeds.push(v);windows.push(delta);centers.push(velocity);rms.push(fitp.rms);ratios.push(fitp.ids.length/obs.length);
-   // A conservative non-shrinking pixel-to-speed noise term. Correlated depth
-   // errors are not claimed to be captured by this term.
-   noise=Math.max(noise,.7*quant(obs.map(o=>o.P[2]),.5)/f/delta);
+ process(matches,dt,time,epoch){
+  const s=Math.max(this.w,this.h);if(!(dt>.025&&dt<.75))return this.invalid('Frame timing changed; reacquiring the scene.');
+  if(matches.length<24)return this.invalid('Not enough stable scene texture.',{tracks:matches.length});
+  const points=matches.map(p=>({x:(p.x-this.w/2)/s,y:(p.y-this.h/2)/s,u:(p.u-this.w/2)/s,v:(p.v-this.h/2)/s}));
+  const groups=[points,points.filter(p=>p.y>0),points.filter(p=>p.y>-.12&&p.x<.13),points.filter(p=>p.y>-.12&&p.x>-.13)];
+  const options=[];
+  for(const group of groups){if(group.length<24)continue;const f=ransac(group,.95/s,this.random);if(!f||f.points.length<22||f.ratio<.62)continue;
+   const xs=f.points.map(p=>p.x),ys=f.points.map(p=>p.y),sx=(q(xs,.95)-q(xs,.05))*s/this.w,sy=(q(ys,.95)-q(ys,.05))*s/this.h;
+   if(sx<.3||sy<.18)continue;
+   const motion=this.magnitude(f.H,78);if(!Number.isFinite(motion))continue;
+   const g=this.geometry(f.H,f.points,dt);if(!g)continue;
+   options.push({...f,g,motion,score:Math.log(f.points.length)+g.score+.7*Math.min(1,sx*sy*4)});
   }
-  if(speeds.length<5)continue;
-  if(quant(speeds,.9)>Math.max(.8,quant(speeds,.1)*2.8))continue;
-  const dist=uncertainty(speeds,noise),direction=centers[Math.floor(centers.length/2)];
-  result={...result,ok:true,...dist,reason:'Automatic · learned scale prior',anchorAge:m.time-a.time,rms:quant(rms,.5),inliers:quant(ratios,.5),hypotheses:speeds.length,direction,window:quant(windows,.5),epoch:m.epoch-quant(windows,.5)*500,captureEpoch:m.epoch};break;
+  options.sort((a,b)=>b.score-a.score);const best=options[0];if(!best)return this.invalid('No consistent ground-like plane yet. Point at the outside scene with road visible.',{tracks:matches.length});
+  const diagnostics={tracks:matches.length,inliers:best.points.length,inlierRatio:best.ratio,reprojectionPx:best.rms*s,rotationDeg:best.g.angle*180/Math.PI,normal:best.g.n,flow:q(matches.map(p=>Math.hypot(p.u-p.x,p.v-p.y)),.5)/dt};
+  const rotationFit=Math.min(...[48,58,68,78,88,98,108].map(f=>this.magnitude(best.H,f)));
+  const rotationPixelFit=Math.min(...[48,58,68,78,88,98,108].map(f=>this.rotationResidual(best.points,f)));
+  diagnostics.rotationResidualPx=rotationPixelFit;
+  if(rotationFit<.0035||rotationPixelFit<1.15)return this.invalid('Translation unresolved: stationary, rotating, or a distant scene.',diagnostics);
+  const comparable=options.filter(a=>a!==best&&a.score>best.score-.45);
+  if(comparable.some(a=>Math.abs(a.motion-best.motion)>.55*best.motion))return this.invalid('Competing scene planes disagree about motion.',diagnostics);
+  const boots=[];for(let k=0;k<18;k++){const sample=Array.from({length:best.points.length},()=>best.points[Math.floor(this.random()*best.points.length)]),h=fit(sample);if(h)boots.push(h);}
+  const mags=boots.map(h=>this.magnitude(h,78)).filter(Number.isFinite),scatter=(q(mags,.84)-q(mags,.16))/2;
+  if(mags.length<12||best.motion<Math.max(.005,scatter*3))return this.invalid('Translation is below the geometric noise level.',diagnostics);
+  const samples=this.particles.map((p,i)=>{const h=boots[i%boots.length],v=this.magnitude(h,p.fov)/dt*p.height*p.bias;return Number.isFinite(v)&&v>=0?v:NaN;});
+  if(samples.filter(Number.isFinite).length<65)return this.invalid('Too many uncertain camera hypotheses.',diagnostics);
+  this.hits++;this.lastNormal=best.g.normal;
+  this.history.push({time,epoch,dt,samples});this.history=this.history.filter(a=>a.time>time-.65);
+  const total=this.history.reduce((s,a)=>s+a.dt,0),averaged=this.particles.map((_,i)=>this.history.reduce((s,a)=>s+a.samples[i]*a.dt,0)/total).filter(Number.isFinite);
+  const low=q(averaged,.025),median=q(averaged,.5),high=q(averaged,.975);
+  if(high>110||median>75)return this.invalid('Scale or motion is too uncertain for a useful speed estimate.',diagnostics);
+  if(this.hits<2)return{ok:false,status:'acquiring',reason:'Checking a second independent motion interval.',...diagnostics};
+  return{ok:true,status:'conditional',reason:this.height?'Approximate interval, conditional on entered height and camera priors.':'Automatic geometry; metres rely on an assumed camera-height distribution.',median,low,high,samples:averaged,relative:best.motion/dt,epoch,midEpoch:epoch-total*500,windowSeconds:total,scale:this.height?'entered_height':'height_prior',...diagnostics};
  }
- if(pending&&m.time-pending.time>12)pending=null;
- if(!pending&&m.time-lastKey>1.8&&points.length>=40){
-  pending={id:++seq,time:m.time,w:m.w,h:m.h,points:points.map(p=>({...p}))};lastKey=m.time;
-  const copy=new Uint8ClampedArray(image.w*image.h*4);copy.set(new Uint8ClampedArray(m.buffer));
-  root.postMessage({type:'keyframe',run,id:pending.id,w:m.w,h:m.h,buffer:copy.buffer},[copy.buffer]);
- }
- previous={pyr,points,time:m.time,w:m.w,h:m.h};
- root.postMessage({type:'result',run,...result,computeMs:performance.now()-begin});
- }catch(err){root.postMessage({type:'error',run,message:String(err.message||err)});reset();}
-};
+}
+root.AutoEstimator=AutoEstimator;
 })(typeof self!=='undefined'?self:globalThis);
 
+let previous=null,engine=null,W=0,H=0;const T=ParallaxTracker,roi=[{x:.03,y:.03},{x:.97,y:.03},{x:.97,y:.97},{x:.03,y:.97}];
+self.onmessage=({data:m})=>{try{
+ if(m.type==='init'){W=m.width;H=m.height;engine=new AutoEstimator(W,H,m.settings);previous=null;return;}
+ if(m.type!=='frame'||!engine)return;
+ const begin=performance.now(),image=T.gray(new Uint8ClampedArray(m.buffer),W,H),pyr=T.pyramid(image);
+ if(!previous){previous={pyr,time:m.time,points:T.corners(image,roi,170)};self.postMessage({ok:false,reason:'Finding features in the scene.',status:'acquiring',epoch:m.epoch});return;}
+ const dt=m.time-previous.time,matches=dt>0&&dt<.75?T.track(previous.pyr,pyr,previous.points,roi):[],motion=G.q(matches.map(p=>Math.hypot(p.u-p.x,p.v-p.y)),.5);
+ if(matches.length>=24&&motion<2.4&&dt<.33){self.postMessage({skip:true});return;}
+ const result=engine.process(matches,dt,m.time,m.epoch);
+ previous={pyr,time:m.time,points:T.corners(image,roi,170)};
+ self.postMessage({...result,epoch:m.epoch,time:m.time,computeMs:performance.now()-begin});
+}catch(e){previous=null;self.postMessage({ok:false,reason:'Vision pipeline reset: '+e.message,status:'error',epoch:Date.now()});}};
 </script>
-<script type="application/x-parallax-worker" id="depth-source">
-/* Local-only Metric3D inference. This worker never receives GPS. */
-let model=null,Tensor=null,loading=null,busy=false;
-const MODEL='onnx-community/metric3d-vit-small';
-async function load(){
- if(model)return;if(loading)return loading;
- loading=(async()=>{
-  postMessage({type:'status',message:'Loading the on-device depth model'});
-  const lib=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.2');
-  Tensor=lib.Tensor;lib.env.allowLocalModels=false;lib.env.backends.onnx.wasm.numThreads=1;
-  let adapter=null;try{adapter=await navigator.gpu?.requestAdapter();}catch{}
-  const device=adapter?'webgpu':'wasm',dtype=adapter?.features.has('shader-f16')?'fp16':'fp32';
-  const progress_callback=p=>{if(p.status==='progress'&&p.file?.includes('.onnx'))postMessage({type:'status',message:`Loading depth model · ${Math.round(p.progress||0)}%`});};
-  try{model=await lib.AutoModelForDepthEstimation.from_pretrained(MODEL,{device,dtype,progress_callback});}
-  catch(e){if(device!=='webgpu')throw e;postMessage({type:'status',message:'GPU unavailable; trying CPU inference'});model=await lib.AutoModelForDepthEstimation.from_pretrained(MODEL,{device:'wasm',dtype:'fp32',progress_callback});}
-  postMessage({type:'ready',device,model:MODEL});
- })();
- try{await loading;}catch(e){loading=null;throw e;}
+<script>/* Synthetic planar-world IMAGE generator. The estimator receives only pixels.
+ * Ground-truth speed goes to the display/logger, never to the vision worker. */
+class RoadSimulator {
+  constructor(width=480,height=270){this.width=width;this.height=height;this.heightM=1.55;this.fov=78;this.horizon=.4;this.scenario='travel';this.lastTravel=0;this.lastTime=0;this.image=new ImageData(width,height);}
+  hash(x,y){let n=Math.imul(x,374761393)+Math.imul(y,668265263);n=Math.imul(n^(n>>>13),1274126177);return ((n^(n>>>16))>>>0)/4294967295;}
+  noise(x,y){let i=Math.floor(x),j=Math.floor(y),u=x-i,v=y-j;u=u*u*(3-2*u);v=v*v*(3-2*v);return (1-v)*((1-u)*this.hash(i,j)+u*this.hash(i+1,j))+v*((1-u)*this.hash(i,j+1)+u*this.hash(i+1,j+1));}
+  render(time){
+    const w=this.width,h=this.height,f=Math.hypot(w,h)/(2*Math.tan(this.fov*Math.PI/360)),nz=(h/2-this.horizon*h)/f,normalizer=Math.hypot(1,nz),ny=1/normalizer,nnz=nz/normalizer,d=this.image.data;
+    const speed=this.scenario==='rotation'?0:10,yaw=this.scenario==='rotation'?.10*Math.sin(time*.7):0,travel=speed*time,cs=Math.cos(yaw),sn=Math.sin(yaw);
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+      const i=(y*w+x)*4,rx=(x-w/2)/f,ry=(y-h/2)/f,denom=ny*ry+nnz;
+      if(denom<.05){d[i]=27;d[i+1]=40;d[i+2]=56;d[i+3]=255;continue;}
+      const z=this.heightM/denom,xx=rx*z,zz=(-nnz*ry+ny)*z,X=cs*xx+sn*zz,Z=-sn*xx+cs*zz+travel;
+      let val=60+105*this.noise(X*5,Z*5)+45*this.noise(X*15,Z*15);
+      if(Math.abs(Math.abs(X)-1.7)<.045&&((Z%5+5)%5)<2.5)val=225;
+      if(Math.abs(X)>3.5)val=40+100*this.noise(X*4,Z*4);
+      d[i]=val*.88;d[i+1]=val*.93;d[i+2]=val;d[i+3]=255;
+    }
+    return {image:this.image,truthMps:speed};
+  }
 }
-self.onmessage=async e=>{
- const m=e.data;
- try{
-  if(m.type==='init'){await load();return;}
-  if(m.type!=='frame'||busy)return;busy=true;await load();
-  const begin=performance.now(),rgba=new Uint8ClampedArray(m.buffer),n=m.w*m.h,values=new Float32Array(n*3);
-  // The published ONNX graph includes ImageNet normalization internally.
-  // Input is RGB, 0..255, NCHW. No normalized visualization is used as depth.
-  for(let i=0;i<n;i++){values[i]=rgba[4*i];values[n+i]=rgba[4*i+1];values[2*n+i]=rgba[4*i+2];}
-  const input=new Tensor('float32',values,[1,3,m.h,m.w]);
-  const output=await model({pixel_values:input});const t=output.predicted_depth;
-  if(!t||t.dims.length<2)throw new Error('Depth model returned an unsupported output');
-  const dh=t.dims[t.dims.length-2],dw=t.dims[t.dims.length-1];
-  const half=v=>{const sign=(v&32768)?-1:1,ex=(v>>10)&31,ma=v&1023;return ex===31?(ma?NaN:sign*Infinity):sign*(ex?Math.pow(2,ex-15)*(1+ma/1024):Math.pow(2,-14)*ma/1024);};
-  const depth=t.type==='float16'?Float32Array.from(t.data,half):Float32Array.from(t.data);
-  postMessage({type:'depth',run:m.run,id:m.id,depth:depth.buffer,dw,dh,inputWidth:m.w,inputHeight:m.h,inferenceMs:performance.now()-begin},[depth.buffer]);
-  input.dispose?.();for(const v of Object.values(output))v?.dispose?.();
- }catch(err){postMessage({type:'error',run:m.run,id:m.id,message:String(err.message||err)});}finally{busy=false;}
-};
 
-</script>
-<script>
 'use strict';
-const $=id=>document.getElementById(id),video=$('video'),panel=$('panel'),stage=$('stage'),capture=document.createElement('canvas'),ctx=capture.getContext('2d',{willReadFrequently:true});
-const state={active:false,starting:false,run:0,vision:null,depth:null,depthReady:false,depthBusy:false,visionBusy:false,stream:null,gpsWatch:null,raf:null,rvfc:null,lastCapture:-Infinity,lastResult:null,lastResultAt:0,unit:'km/h',visual:[],gps:[],pairs:[],events:[],dropped:0,gpsCount:0,lastGps:null,wake:null,modelState:'Not started',lastInference:0,modelError:null,urls:[]};
-const isPhone=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Mac/.test(navigator.platform));$('gps-toggle').checked=isPhone;
-const factor=()=>state.unit==='km/h'?3.6:2.2369362921;
-function record(list,x){list.push(x);if(list.length>4000){list.shift();state.dropped++;}}
-function message(s,error=false){$('status').textContent=s;$('status').classList.toggle('err',error);$('advanced').classList.toggle('issue',error);record(state.events,{epoch:Date.now(),message:s});}
-function openPanel(){if(!panel.open)panel.showModal();draw();}
-$('advanced').onclick=openPanel;$('close').onclick=()=>panel.close();panel.addEventListener('click',e=>{if(e.target===panel&&e.clientY<panel.getBoundingClientRect().top)panel.close();});
-stage.addEventListener('wheel',e=>{if(e.deltaY>12)openPanel();},{passive:true});let touchY=null;stage.addEventListener('touchstart',e=>{touchY=e.touches[0]?.clientY;},{passive:true});stage.addEventListener('touchend',e=>{if(touchY!==null&&touchY-(e.changedTouches[0]?.clientY||touchY)>55)openPanel();touchY=null;},{passive:true});
-function clearReading(){state.lastResult=null;$('speed').textContent='—';$('speed').setAttribute('aria-label','Speed unavailable');$('detail-speed').textContent='—';$('interval').textContent='—';stage.classList.add('paused');}
-function showReading(r){
- state.lastResult=r;state.lastResultAt=performance.now()-Math.max(0,Date.now()-(r.epoch||Date.now()));const f=factor();$('speed').textContent=(r.median*f).toFixed(0);$('speed').setAttribute('aria-label',`Estimated speed ${(r.median*f).toFixed(0)} ${state.unit}`);$('detail-speed').textContent=(r.median*f).toFixed(0);$('interval').textContent=`${(r.lo*f).toFixed(0)}–${(r.hi*f).toFixed(0)}`;stage.classList.remove('paused');
+const $=id=>document.getElementById(id),video=$('video'),scene=$('scene'),input=document.createElement('canvas'),ctx=input.getContext('2d',{willReadFrequently:true}),sceneCtx=scene.getContext('2d');
+const mobile=navigator.userAgentData?.mobile||/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const S={token:0,source:null,stream:null,worker:null,workerURL:null,watch:null,wake:null,busy:false,requesting:false,raf:0,callback:0,lastSend:0,lastResultTime:0,lastFrame:-1,latest:null,gps:null,run:0,logs:[],gpsLogs:[],events:[],dropped:0,unit:'kmh',width:0,height:0,sim:null,startTime:0,facing:'environment'};
+const factor=()=>S.unit==='mph'?2.2369362921:3.6,unit=()=>S.unit==='mph'?'mph':'km/h';
+const record=(type,data={})=>{S.events.push({type,epoch:Date.now(),run:S.run,...data});if(S.events.length>500)S.events.shift();};
+const append=(array,item)=>{array.push(item);if(array.length>5000){array.shift();S.dropped++;}};
+function expand(){window.scrollTo({top:$('analysis').offsetTop-innerHeight*.3,behavior:'smooth'});}
+function collapse(){window.scrollTo({top:0,behavior:'smooth'});}
+function message(text){$('reason').textContent=text;}
+function number(v,d=0){return Number.isFinite(v)?(v*factor()).toFixed(d):'—';}
+function drawSize(id){const c=$(id),r=c.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);c.width=Math.max(1,Math.round(r.width*d));c.height=Math.max(1,Math.round(r.height*d));const t=c.getContext('2d');t.scale(d,d);return{t,w:r.width,h:r.height};}
+function posterior(result){const{t,w,h}=drawSize('posterior');t.clearRect(0,0,w,h);const samples=result?.ok?result.samples:null;t.fillStyle='#ffffff0e';t.fillRect(0,h-5,w,3);if(!samples?.length)return;
+ const max=result.high*1.12,bins=Array(40).fill(0);for(const v of samples)if(v<max)bins[Math.min(39,Math.floor(v/max*40))]++;const peak=Math.max(...bins,1);for(let i=0;i<40;i++){let a=bins[i]/peak*(h-13);t.fillStyle=i/40*max>=result.low&&i/40*max<=result.high?'#97e4d0':'#617a75';t.fillRect(i*w/40+1,h-5-a,w/40-2,a);}
+ const x=result.median/max*w;t.strokeStyle='#f4fffb';t.lineWidth=2;t.beginPath();t.moveTo(x,1);t.lineTo(x,h-2);t.stroke();}
+function timeline(){const{t,w,h}=drawSize('timeline'),now=Date.now(),start=now-30000,visual=S.logs.filter(e=>e.epoch>=start),gps=S.gpsLogs.filter(e=>e.epoch>=start&&e.speedMps!==null);let values=visual.filter(e=>e.ok).map(e=>e.high*factor()).concat(gps.map(e=>e.speedMps*factor()));const ymax=Math.max(20,...values),X=x=>30+(x-start)/30000*(w-38),Y=v=>h-17-v*factor()/ymax*(h-27);t.font='9px system-ui';t.fillStyle='#93a8ab';t.strokeStyle='#ffffff12';for(let i=0;i<3;i++){let y=10+i*(h-27)/2;t.beginPath();t.moveTo(30,y);t.lineTo(w,y);t.stroke();t.fillText(Math.round(ymax*(1-i/2)),0,y+3);}t.fillText('−30 s',30,h-1);t.fillText('now',w-21,h-1);
+ let segment=[];function paint(){if(!segment.length)return;t.fillStyle='#98e5d21c';t.beginPath();segment.forEach((e,i)=>i?t.lineTo(X(e.epoch),Y(e.high)):t.moveTo(X(e.epoch),Y(e.high)));[...segment].reverse().forEach(e=>t.lineTo(X(e.epoch),Y(e.low)));t.closePath();t.fill();t.strokeStyle='#9ce9d5';t.lineWidth=1.8;t.beginPath();segment.forEach((e,i)=>i?t.lineTo(X(e.epoch),Y(e.median)):t.moveTo(X(e.epoch),Y(e.median)));t.stroke();segment=[];}
+ for(const e of visual){if(!e.ok){paint();continue;}if(segment.length&&(e.epoch-segment.at(-1).epoch>1200||e.run!==segment.at(-1).run))paint();segment.push(e);}paint();t.fillStyle='#edc889';for(const g of gps){t.beginPath();t.arc(X(g.epoch),Y(g.speedMps),2,0,Math.PI*2);t.fill();}}
+function updateGPS(){const g=S.gps,fresh=g&&Date.now()-g.epoch<5000;$('gpsValue').textContent=fresh&&g.speedMps!==null?number(g.speedMps,1)+' '+unit():'—';}
+function pairs(){const ps=[];for(const g of S.gpsLogs){if(g.speedMps===null||g.accuracyM===null||g.accuracyM>30)continue;let best=null,delta=1000;for(let i=S.logs.length-1;i>=0;i--){const e=S.logs[i];if(e.epoch<g.epoch-2500)break;if(e.source!=='camera'||!e.ok||e.run!==g.run)continue;const d=Math.abs(e.midEpoch-g.epoch);if(d<delta){best=e;delta=d;}}if(best)ps.push({gps:g.speedMps,estimate:best.median,hit:g.speedMps>=best.low&&g.speedMps<=best.high});}return ps;}
+function stats(){const ps=pairs(),n=ps.length;$('benchmarkInfo').textContent=n?`${n} unique GPS fixes paired (within 1 s). Mean absolute difference: ${number(ps.reduce((s,p)=>s+Math.abs(p.gps-p.estimate),0)/n,1)} ${unit()}. Interval agreement: ${Math.round(ps.filter(p=>p.hit).length/n*100)}%. This is not ground-truth coverage.`:'No paired GPS fixes yet. Poor position accuracy (>30 m) is excluded from comparison, but this does not establish speed accuracy.';}
+function render(e){S.latest=e;const ok=e?.ok&&Number.isFinite(e.median);$('speed').innerHTML=ok?'<span class="approx">≈</span>'+number(e.median):'—';$('detailSpeed').textContent=ok?number(e.median):'—';$('unit').textContent=unit();for(const a of document.querySelectorAll('.unitText'))a.textContent=unit();$('low').textContent=ok?number(e.low,1):'—';$('high').textContent=ok?number(e.high,1):'—';$('tracking').textContent=ok?'Coherent motion':S.source?'Acquiring / unresolved':'Not running';$('geometry').textContent=e?.normal?'Ground-like plane':'Automatic hypotheses';$('scale').textContent=$('height').value?'Entered lens height':'Assumed height · broad';$('tracks').textContent=e?.tracks??'—';$('support').textContent=e?.inliers?e.inliers+' / '+e.tracks:'—';$('residual').textContent=e?.reprojectionPx!==undefined?e.reprojectionPx.toFixed(2)+' px':'—';$('timing').textContent=e?.computeMs!==undefined?Math.round(e.computeMs)+' ms':'—';if(e?.reason)message(e.reason);posterior(e);updateGPS();}
+function initWorker(w,h){if(S.worker)S.worker.terminate();if(S.workerURL)URL.revokeObjectURL(S.workerURL);S.width=w;S.height=h;S.busy=false;S.lastFrame=-1;S.lastResultTime=0;input.width=w;input.height=h;
+ S.workerURL=URL.createObjectURL(new Blob([$('visionCode').textContent],{type:'application/javascript'}));const worker=new Worker(S.workerURL);S.worker=worker;const run=S.run;
+ worker.onmessage=({data:e})=>{if(S.worker!==worker)return;S.busy=false;if(e.skip)return;S.lastResultTime=performance.now();render(e);const{samples,...numeric}=e;append(S.logs,{...numeric,source:S.source,run});$('json').disabled=$('csv').disabled=false;$('logInfo').textContent=`${S.logs.length} visual windows · ${S.gpsLogs.length} GPS fixes. ${S.dropped?'Old records dropped: '+S.dropped+'. ':''}Export before closing.`;};
+ worker.onerror=e=>{if(S.worker!==worker)return;const msg=e.message||'Web Worker unavailable';stop();render({ok:false,reason:msg});expand();};
+ worker.postMessage({type:'init',width:w,height:h,settings:{height:Number($('height').value)||0}});
+ record('vision_start',{width:w,height:h,scaleHeight:Number($('height').value)||null,uncertainty:'conditional_uncalibrated'});
 }
-function benchmark(){
- const now=Date.now();$('gps').textContent=state.lastGps&&now-state.lastGps.epoch<4000?`${(state.lastGps.speed*factor()).toFixed(1)} ${state.unit}`:'—';
- $('paired').textContent=state.pairs.length;$('difference').textContent=state.pairs.length?`${(state.pairs.reduce((s,x)=>s+Math.abs(x.visual-x.gps),0)/state.pairs.length*factor()).toFixed(1)} ${state.unit}`:'—';
-}
-function startGPS(){
- if(!state.active||!$('gps-toggle').checked||state.gpsWatch!==null)return;
- if(!navigator.geolocation){record(state.events,{epoch:Date.now(),message:'Location API unavailable'});return;}
- const run=state.run;
- state.gpsWatch=navigator.geolocation.watchPosition(pos=>{
-  if(!state.active||run!==state.run)return;
-  // Intentionally never read, store or forward latitude/longitude.
-  const raw=pos.coords.speed,fix={id:++state.gpsCount,epoch:pos.timestamp,speed:typeof raw==='number'&&Number.isFinite(raw)&&raw>=0?raw:null,positionAccuracy:pos.coords.accuracy};record(state.gps,fix);
-  if(fix.speed!==null){state.lastGps=fix;let best=null,diff=1000;
-   for(const v of state.visual.slice(-40)){const d=Math.abs(v.epoch-fix.epoch);if(v.ok&&d<diff){best=v;diff=d;}}
-   if(best&&Number.isFinite(fix.positionAccuracy)&&fix.positionAccuracy<=30)record(state.pairs,{epoch:fix.epoch,visual:best.median,gps:fix.speed,lo:best.lo,hi:best.hi,offsetMs:diff});
-  }benchmark();
- },error=>{record(state.events,{epoch:Date.now(),message:`GPS benchmark unavailable: ${error.message}`});$('gps').textContent='Unavailable';},{enableHighAccuracy:true,maximumAge:0,timeout:12000});
-}
-function stopGPS(){if(state.gpsWatch!==null)navigator.geolocation.clearWatch(state.gpsWatch);state.gpsWatch=null;state.lastGps=null;$('gps').textContent='—';}
-$('gps-toggle').onchange=()=>{$('gps-toggle').checked?startGPS():stopGPS();};
-function makeWorker(id,module=false){const url=URL.createObjectURL(new Blob([$(id).textContent],{type:'application/javascript'}));state.urls.push(url);return new Worker(url,module?{type:'module'}:undefined);}
-function workerError(msg){message(msg,true);$('advanced').classList.remove('busy');clearReading();openPanel();}
-async function start(){
- if(state.active||state.starting)return;state.starting=true;const run=++state.run;
- $('launch').hidden=true;message('Requesting camera access');$('advanced').classList.add('busy');
- try{
-  if(!window.isSecureContext||!navigator.mediaDevices?.getUserMedia)throw new Error('Camera access requires HTTPS and a supported browser. Open this page directly in Safari or Chrome.');
-  const stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720},frameRate:{ideal:30}}});
-  if(run!==state.run){stream.getTracks().forEach(t=>t.stop());return;}
-  state.stream=stream;video.srcObject=stream;await video.play();if(run!==state.run){stream.getTracks().forEach(t=>t.stop());return;}
-  state.active=true;state.starting=false;state.lastCapture=-Infinity;state.visionBusy=false;state.depthReady=false;state.depthBusy=false;state.modelError=null;
-  state.vision=makeWorker('vision-source');state.depth=makeWorker('depth-source',true);state.vision.postMessage({type:'reset',run});
-  state.vision.onmessage=e=>{
-   if(run!==state.run||!state.active)return;const m=e.data;
-   if(m.type==='keyframe'){
-    if(state.depthReady&&!state.depthBusy){state.depthBusy=true;state.depth.postMessage({...m,type:'frame'},[m.buffer]);}
-    else state.vision.postMessage({type:'depthError',run});return;
-   }
-   state.visionBusy=false;
-   if(m.type==='error'){workerError(`Vision error: ${m.message}`);return;}
-   if(m.type!=='result')return;
-   $('tracks').textContent=m.tracks??'—';$('flow').textContent=Number.isFinite(m.flow)?`${m.flow.toFixed(1)} px/s`:'—';$('inliers').textContent=Number.isFinite(m.inliers)?`${Math.round(m.inliers*100)}%`:'—';
-   const fresh=Number.isFinite(m.epoch)&&Date.now()-m.epoch<1500;
-   if(m.ok&&fresh&&Number.isFinite(m.median)&&m.hi>=m.lo){showReading(m);message(m.reason);}
-   else {clearReading();message(state.modelError||(state.depthReady?m.reason:state.modelState),Boolean(state.modelError));}
-   record(state.visual,{...m,samples:undefined});if(panel.open)draw();
-  };
-  state.vision.onerror=e=>{state.visionBusy=false;workerError(`Vision worker failed: ${e.message||'worker unavailable'}`);};
-  state.depth.onmessage=e=>{
-   if(run!==state.run||!state.active)return;const m=e.data;
-   if(m.type==='status'){state.modelState=m.message;message(m.message);$('compute').textContent=m.message;return;}
-   if(m.type==='ready'){state.depthReady=true;state.modelState=`Local ${m.device} inference`;$('compute').textContent=state.modelState;message('Acquiring scene depth and motion');$('advanced').classList.remove('busy');return;}
-   state.depthBusy=false;
-   if(m.type==='depth'){state.lastInference=m.inferenceMs;$('compute').textContent=`${Math.round(m.inferenceMs)} ms / depth map`;state.vision.postMessage(m,[m.depth]);}
-   if(m.type==='error'){state.depthReady=false;state.vision.postMessage({type:'depthError',run});state.modelError=`Automatic model unavailable: ${m.message}. Stop and restart to retry.`;workerError(state.modelError);}
-  };
-  state.depth.onerror=e=>{state.depthBusy=false;state.depthReady=false;state.modelError=`Depth worker failed: ${e.message||'device or network not supported'}`;workerError(state.modelError);};
-  state.depth.postMessage({type:'init'});$('sensor').textContent='Stop sensors';startGPS();
-  try{const wake=await navigator.wakeLock?.request('screen');if(run!==state.run)wake?.release();else state.wake=wake;}catch{}
-  if(run===state.run)schedule(run);
- }catch(e){if(run===state.run){stop(false);workerError(e.message||String(e));}}finally{if(run===state.run)state.starting=false;}
-}
-function schedule(run){
- if(!state.active||run!==state.run)return;
- if(video.requestVideoFrameCallback)state.rvfc=video.requestVideoFrameCallback((now,meta)=>{captureFrame(run,now,meta.mediaTime);schedule(run);});
- else state.raf=requestAnimationFrame(now=>{captureFrame(run,now,video.currentTime);schedule(run);});
-}
-function captureFrame(run,now,time){
- if(state.visionBusy||now-state.lastCapture<90||!video.videoWidth||!video.videoHeight||!Number.isFinite(time))return;
- const scale=420/Math.max(video.videoWidth,video.videoHeight),w=Math.max(56,Math.round(video.videoWidth*scale/14)*14),h=Math.max(56,Math.round(video.videoHeight*scale/14)*14);
- if(capture.width!==w||capture.height!==h){capture.width=w;capture.height=h;}
- ctx.drawImage(video,0,0,w,h);const frame=ctx.getImageData(0,0,w,h);state.visionBusy=true;state.lastCapture=now;state.vision.postMessage({type:'frame',run,w,h,time,epoch:Date.now(),buffer:frame.data.buffer},[frame.data.buffer]);
-}
-function stop(notify=true){
- state.active=false;state.starting=false;state.run++;if(state.rvfc!==null)video.cancelVideoFrameCallback?.(state.rvfc);if(state.raf!==null)cancelAnimationFrame(state.raf);state.vision?.terminate();state.depth?.terminate();state.vision=null;state.depth=null;state.urls.forEach(url=>URL.revokeObjectURL(url));state.urls=[];state.stream?.getTracks().forEach(t=>t.stop());state.stream=null;video.srcObject=null;stopGPS();state.wake?.release().catch(()=>{});state.wake=null;$('launch').hidden=false;$('sensor').textContent='Start camera';$('advanced').classList.remove('busy');clearReading();if(notify)message('Sensors stopped. Tap the camera to resume.');
-}
-$('launch').onclick=start;$('sensor').onclick=()=>state.active||state.starting?stop():start();
-$('units').onclick=()=>{state.unit=state.unit==='km/h'?'mph':'km/h';$('unit').textContent=state.unit;document.querySelectorAll('.unit-label').forEach(e=>e.textContent=state.unit);$('units').textContent=state.unit==='km/h'?'Switch to mph':'Switch to km/h';if(state.lastResult)showReading(state.lastResult);benchmark();draw();};
-$('export').onclick=()=>{const data={version:'0.2.0-automatic-experimental',exported:new Date().toISOString(),method:'Metric3D prior + robust camera pose; no GPS input',validated:false,assumptions:{diagonalFovDegrees:[56,64,72,80,88,96,104],sharedLogScaleSD:.35,canonicalFocalPixels:1000},dropped:state.dropped,visual:state.visual,gps:state.gps,pairs:state.pairs,events:state.events};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`parallax-${new Date().toISOString().replaceAll(':','-')}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);};
-function chartCanvas(id){const c=$(id),dpr=Math.min(devicePixelRatio||1,2),width=c.clientWidth||330,height=110;c.width=Math.round(width*dpr);c.height=height*dpr;const x=c.getContext('2d');x.scale(dpr,dpr);return{x,w:width,h:height};}
-function draw(){
- const {x,w,h}=chartCanvas('chart'),now=Date.now(),f=factor(),vs=state.visual.filter(v=>v.epoch>now-30000),gs=state.gps.filter(v=>v.epoch>now-30000&&v.speed!==null),max=Math.max(30,...vs.filter(v=>v.ok).map(v=>v.hi*f),...gs.map(v=>v.speed*f));
- x.font='10px system-ui';x.strokeStyle='#ffffff12';x.fillStyle='#8c98a8';for(let i=0;i<3;i++){const y=8+i*42;x.beginPath();x.moveTo(27,y);x.lineTo(w,y);x.stroke();x.fillText(Math.round(max*(1-i/2)),0,y+4);}
- const px=t=>27+(t-now+30000)/30000*(w-27),py=v=>92-v*f/max*84;
- for(const [rows,color,key] of [[vs,'#a6cfff','median'],[gs,'#e1b472','speed']]){x.strokeStyle=color;x.lineWidth=1.7;x.beginPath();let open=false,last=-Infinity;for(const r of rows){if(r.ok===false||!Number.isFinite(r[key])){open=false;continue;}if(!open||r.epoch-last>1500)x.moveTo(px(r.epoch),py(r[key]));else x.lineTo(px(r.epoch),py(r[key]));open=true;last=r.epoch;}x.stroke();}
- const d=chartCanvas('density'),samples=state.lastResult?.samples||[];if(samples.length){const hi=Math.max(...samples),bins=Array(34).fill(0);for(const v of samples)bins[Math.min(33,Math.floor(v/(hi||1)*34))]++;const top=Math.max(...bins);d.x.fillStyle='#a6cfff88';for(let i=0;i<34;i++){const bh=bins[i]/top*75;d.x.fillRect(i*d.w/34,86-bh,d.w/34-2,bh);}d.x.fillStyle='#8c98a8';d.x.font='10px system-ui';d.x.fillText('0',0,105);d.x.textAlign='right';d.x.fillText(`${(hi*f).toFixed(0)} ${state.unit}`,d.w,105);}
-}
-setInterval(()=>{if(state.lastResult&&performance.now()-state.lastResultAt>1500)clearReading();benchmark();if(panel.open)draw();},400);
-document.addEventListener('visibilitychange',()=>{if(document.hidden&&(state.active||state.starting))stop();});window.addEventListener('pagehide',()=>stop(false));window.addEventListener('resize',()=>{if(panel.open)draw();});
-window.parallaxApp={state,openPanel,start,stop,showReading,clearReading,draw};
+function stopGPS(){if(S.watch!==null){navigator.geolocation?.clearWatch(S.watch);S.watch=null;}S.gps=null;updateGPS();}
+function startGPS(){stopGPS();if(!$('gpsToggle').checked||S.source!=='camera')return;if(!navigator.geolocation){$('gpsInfo').textContent='Geolocation is not supported. Camera estimation is unaffected.';return;}const run=S.run,token=S.token;
+ S.watch=navigator.geolocation.watchPosition(p=>{if(S.source!=='camera'||token!==S.token)return;const c=p.coords;const g={run,epoch:p.timestamp,receivedEpoch:Date.now(),speedMps:typeof c.speed==='number'&&Number.isFinite(c.speed)&&c.speed>=0?c.speed:null,accuracyM:typeof c.accuracy==='number'&&Number.isFinite(c.accuracy)?c.accuracy:null};S.gps=g;append(S.gpsLogs,g);$('gpsInfo').textContent=g.speedMps===null?'Location allowed, but the browser supplied no speed. Camera estimation is independent.':'GPS benchmark active. Coordinates discarded; speed uncertainty is not supplied. Position accuracy is not speed accuracy.';updateGPS();},err=>{if(token===S.token)$('gpsInfo').textContent='GPS benchmark: '+err.message+'. Camera estimation is unaffected.';},{enableHighAccuracy:true,maximumAge:0,timeout:15000});}
+function stop(){S.token++;S.requesting=false;S.source=null;cancelAnimationFrame(S.raf);if(S.callback&&video.cancelVideoFrameCallback)video.cancelVideoFrameCallback(S.callback);S.callback=0;for(const t of S.stream?.getTracks()||[])t.stop();S.stream=null;video.srcObject=null;if(S.worker)S.worker.terminate();S.worker=null;if(S.workerURL)URL.revokeObjectURL(S.workerURL);S.workerURL=null;S.busy=false;stopGPS();S.wake?.release().catch(()=>{});S.wake=null;scene.hidden=true;video.hidden=false;$('demoBadge').hidden=true;$('start').disabled=false;document.body.classList.remove('active');$('sensor').setAttribute('aria-label','Start camera');$('powerIcon').setAttribute('d','M9 5v14l11-7Z');render({ok:false,reason:'Sensors stopped. Tap the camera to restart.'});record('stop');}
+async function camera(deviceId){stop();const token=++S.token;S.requesting=true;$('start').disabled=true;message('Waiting for camera permission. GPS is optional and benchmark-only.');
+ try{if(!isSecureContext||!navigator.mediaDevices?.getUserMedia)throw new Error('Camera access needs HTTPS and a browser with camera support. Open the hosted page directly in Safari or Chrome.');const stream=await navigator.mediaDevices.getUserMedia({video:{...(deviceId?{deviceId:{exact:deviceId}}:{facingMode:{ideal:S.facing}}),width:{ideal:1280},height:{ideal:720},frameRate:{ideal:30,max:30}},audio:false});if(token!==S.token){stream.getTracks().forEach(t=>t.stop());return;}S.stream=stream;video.srcObject=stream;await video.play();if(token!==S.token)return;S.source='camera';S.run++;S.lastSend=0;document.body.classList.add('active');$('sensor').setAttribute('aria-label','Stop sensors');$('powerIcon').setAttribute('d','M7 5v14M17 5v14');record('camera',{settings:stream.getVideoTracks()[0].getSettings()});startGPS();if(navigator.wakeLock)navigator.wakeLock.request('screen').then(l=>{if(token!==S.token)l.release();else S.wake=l;}).catch(()=>{});
+ const loop=(now,meta)=>{if(token!==S.token||S.source!=='camera')return;if(video.requestVideoFrameCallback)S.callback=video.requestVideoFrameCallback(loop);else S.raf=requestAnimationFrame(t=>loop(t));const vw=video.videoWidth,vh=video.videoHeight;if(!vw||!vh||S.busy||now-S.lastSend<75)return;const w=Math.round(vw*Math.min(1,360/Math.max(vw,vh))),h=Math.round(vh*Math.min(1,360/Math.max(vw,vh)));if(w!==S.width||h!==S.height||!S.worker)initWorker(w,h);const time=meta?.mediaTime??video.currentTime;if(time===S.lastFrame)return;S.lastFrame=time;S.lastSend=now;ctx.drawImage(video,0,0,w,h);send(ctx.getImageData(0,0,w,h),time,performance.timeOrigin+(meta?.expectedDisplayTime??now));};
+ if(video.requestVideoFrameCallback)S.callback=video.requestVideoFrameCallback(loop);else S.raf=requestAnimationFrame(t=>loop(t));
+ }catch(e){if(token!==S.token)return;stop();render({ok:false,reason:'Camera could not start: '+e.message});expand();}finally{if(token===S.token){S.requesting=false;$('start').disabled=false;}}}
+function send(image,time,epoch){if(!S.worker||S.busy)return;S.busy=true;S.worker.postMessage({type:'frame',time,epoch,buffer:image.data.buffer},[image.data.buffer]);}
+function demo(scenario){stop();S.source='synthetic';S.run++;const token=S.token;S.sim=new RoadSimulator(360,240);S.sim.scenario=scenario;scene.width=360;scene.height=240;scene.hidden=false;video.hidden=true;$('demoBadge').hidden=false;$('demoBadge').textContent=scenario==='rotation'?'SYNTHETIC · ROTATION ONLY':'SYNTHETIC · 36 km/h';document.body.classList.add('active');$('powerIcon').setAttribute('d','M7 5v14M17 5v14');initWorker(360,240);S.startTime=performance.now();S.lastSend=0;record('synthetic',{scenario,truthMps:scenario==='rotation'?0:10});
+ const loop=now=>{if(token!==S.token||S.source!=='synthetic')return;S.raf=requestAnimationFrame(loop);if(S.busy||now-S.lastSend<80)return;S.lastSend=now;const time=(now-S.startTime)/1000,{image}=S.sim.render(time);sceneCtx.putImageData(image,0,0);const copy=new ImageData(new Uint8ClampedArray(image.data),360,240);send(copy,time,performance.timeOrigin+now);};S.raf=requestAnimationFrame(loop);collapse();}
+function saveFile(text,name,type){const url=URL.createObjectURL(new Blob([text],{type})),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
+function exportLog(format){const name='parallax-v02-'+new Date().toISOString().replace(/[:.]/g,'-');if(format==='json'){saveFile(JSON.stringify({version:'0.2.0',created:new Date().toISOString(),privacy:{gpsUsedByEstimator:false,coordinatesRetained:false,imagesRetained:false,uploads:false},uncertainty:{coverageValidated:false,kind:'approximate conditional distribution',heightPriorMedianM:1.55,heightPriorLogSD:.42,fovMeanDegrees:78,fovSDDegrees:12,modelBiasLogSD:.18,enteredHeightRelativeSD:.08},warnings:['Geometric ground-like classification, not semantic road detection.','Unknown monocular scale remains dependent on assumptions.','Rolling shutter, distortion, stabilization, moving foreground and non-planarity are not fully modeled.','Browser GPS speed is only an independent benchmark, not certified ground truth.','Capture timestamps may include unknown display-pipeline latency.','Not tested on real roads.'],droppedRecords:S.dropped,events:S.events,visual:S.logs,gps:S.gpsLogs,comparison:pairs()},null,2),name+'.json','application/json');return;}
+ const rows=[['kind','source','run','epoch_ms','mid_epoch_ms','ok','speed_mps','low_mps','high_mps','gps_speed_mps','position_accuracy_m','tracks','reason']];const records=S.logs.map(e=>({t:e.epoch,row:['visual',e.source,e.run,e.epoch,e.midEpoch,!!e.ok,e.ok?e.median:null,e.ok?e.low:null,e.ok?e.high:null,null,null,e.tracks,e.reason]})).concat(S.gpsLogs.map(g=>({t:g.epoch,row:['benchmark','browser_location',g.run,g.epoch,null,null,null,null,null,g.speedMps,g.accuracyM,null,'Never input to estimator']}))).sort((a,b)=>a.t-b.t);for(const r of records)rows.push(r.row);saveFile(rows.map(r=>r.map(v=>v===null||v===undefined?'':'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n'),name+'.csv','text/csv');}
+$('gpsToggle').checked=Boolean(mobile);$('start').onclick=()=>camera();$('sensor').onclick=()=>S.source||S.requesting?stop():camera();$('expand').onclick=expand;$('collapse').onclick=collapse;$('demo').onclick=()=>demo('travel');$('rotate').onclick=()=>demo('rotation');$('json').onclick=()=>exportLog('json');$('csv').onclick=()=>exportLog('csv');$('units').onchange=()=>{S.unit=$('units').value;render(S.latest);timeline();stats();};$('gpsToggle').onchange=()=>{if($('gpsToggle').checked)startGPS();else stopGPS();};$('height').onchange=()=>{const h=Number($('height').value);if($('height').value&&(!Number.isFinite(h)||h<.2||h>6)){$('height').value='';message('Height must be between 0.2 and 6 metres. Using the broad prior instead.');}if(S.source)initWorker(S.width,S.height);render({ok:false,reason:'Using new scale assumptions; reacquiring motion.'});};
+$('flip').onclick=async()=>{try{if(S.source!=='camera'){message('Start the camera before switching lenses.');return;}const list=(await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='videoinput'),id=S.stream.getVideoTracks()[0].getSettings().deviceId,i=list.findIndex(d=>d.deviceId===id);if(list.length>1)camera(list[(i+1)%list.length].deviceId);else message('No other camera is exposed by this browser.');}catch(e){message(e.message);}};
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&(S.source||S.requesting))stop();});window.addEventListener('pagehide',stop);window.addEventListener('resize',()=>{posterior(S.latest);timeline();});
+setInterval(()=>{if(S.source&&S.latest?.ok&&performance.now()-S.lastResultTime>1600)render({ok:false,reason:'No fresh visual estimate. Reacquiring motion.'});updateGPS();timeline();stats();},1000);
+posterior(null);timeline();
+window.parallaxDebug=Object.freeze({version:'0.2.0',snapshot:()=>({source:S.source,latest:S.latest,records:S.logs.length,gpsRecords:S.gpsLogs.length,requesting:S.requesting,workerInputs:'pixels, timestamps, optional height only',gpsUsedByEstimator:false}),stop,logs:()=>({visual:S.logs,gps:S.gpsLogs,events:S.events})});
 </script></body></html>
