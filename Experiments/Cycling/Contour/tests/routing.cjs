@@ -80,3 +80,19 @@ test('slope preference penalizes steep descents and can choose a longer gradual 
  assert.deepEqual([...(await run("shortestPath(graph,1,3,'distance')"))].map(e=>e.id),[1]);
  assert.deepEqual([...(await run("shortestPath(graph,1,3,'smooth')"))].map(e=>e.id),[2,3]);
 });
+test('return grades swap uphill and downhill on the same roads',async()=>{
+ const {run}=demoFixture();await run('buildGraph(DEMO_DATA,demoElevation,defaultSettings).then(g=>graph=g)');
+ const out=await run("routeOptions(graph,demoEnds(),'energy').then(r=>out=r[0])");
+ const back=await run("routeOptions(graph,[...out.snaps].reverse(),'energy',undefined,[...out.snaps].reverse().map(s=>({node:graph.nodes.get(s.id),distance:0}))).then(r=>back=r[0])");
+ assert.equal(run('sameRoadsBack(out,back)'),true);
+ assert.ok(Math.abs(out.metrics.maxUphillGrade-back.metrics.maxDownhillGrade)<1e-9);
+ assert.ok(Math.abs(out.metrics.maxDownhillGrade-back.metrics.maxUphillGrade)<1e-9);
+ assert.equal(run('returnTitle(out,back,0,[back])'),'Same roads back');
+});
+test('return labels compare to legal retracing effort, never the outgoing calories',()=>{
+ const {run}=fixture();run(`var out={points:[{lon:0,lat:0},{lon:1,lat:0}],reversible:true,metrics:{kcal:200,returnKcal:30}};
+ var back={points:[{lon:1,lat:0},{lon:.5,lat:1},{lon:0,lat:0}],metrics:{kcal:40}}`);
+ assert.equal(run('returnTitle(out,back,0,[back])'),'Lowest effort back');
+ run('back.metrics.kcal=20');assert.equal(run('returnTitle(out,back,0,[back])'),'Lower-effort way back');
+ run('out.reversible=false');assert.equal(run('returnTitle(out,back,0,[back])'),'Lowest effort back');
+});
