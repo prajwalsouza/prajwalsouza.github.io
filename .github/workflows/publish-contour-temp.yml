@@ -1,0 +1,58 @@
+name: Publish Contour temporary transfer
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/publish-contour-temp.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Reconstruct canonical Contour HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p Experiments/Cycling/Contour
+          : > /tmp/contour.b64
+          for n in 01 02 03 04 05 06 07 08; do
+            url="https://contour-cycling-hi6evz.v2.appdeploy.ai/contour-parts/part-${n}.txt"
+            echo "Fetching ${url}"
+            curl --fail --silent --show-error --location --retry 3 "$url" >> /tmp/contour.b64
+          done
+          tr -d '\r\n\t ' < /tmp/contour.b64 > /tmp/contour.clean.b64
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('/tmp/contour.clean.b64')
+          s = p.read_text()
+          s += '=' * ((4 - len(s) % 4) % 4)
+          p.write_text(s)
+          PY
+          base64 --decode /tmp/contour.clean.b64 > /tmp/contour.gz
+          gzip --decompress --stdout /tmp/contour.gz > Experiments/Cycling/Contour/index.html
+          grep -q '<title>Contour' Experiments/Cycling/Contour/index.html
+          test "$(wc -c < Experiments/Cycling/Contour/index.html)" -gt 100000
+          echo "Built $(wc -c < Experiments/Cycling/Contour/index.html) bytes"
+
+      - name: Commit Contour page
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Contour Publisher'
+          git config user.email 'actions@users.noreply.github.com'
+          git add Experiments/Cycling/Contour/index.html
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Add Contour cycling experiment [skip ci]'
+          git push origin master
