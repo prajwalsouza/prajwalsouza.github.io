@@ -18,37 +18,36 @@ jobs:
         with:
           ref: master
 
-      - name: Inspect and copy canonical Contour HTML
+      - name: Copy exact standalone Contour HTML
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p Experiments/Cycling/Contour /tmp/contour-parts
+          mkdir -p Experiments/Cycling/Contour
           : > /tmp/contour.b64
           for n in 01 02 03 04 05 06 07 08; do
-            url="https://contour-cycling-hi6evz.v2.appdeploy.ai/contour-parts/part-${n}.txt"
-            out="/tmp/contour-parts/part-${n}.txt"
-            curl --fail --silent --show-error --location --retry 3 "$url" -o "$out"
-            echo "part-${n}: $(wc -c < "$out") bytes; type=$(file -b --mime-type "$out"); first=$(head -c 24 "$out")"
-            if ! grep -qE '^[A-Za-z0-9+/=[:space:]]+$' "$out"; then
-              echo "part-${n} contains non-base64 characters"
-              exit 20
-            fi
-            cat "$out" >> /tmp/contour.b64
+            curl --fail --silent --show-error --location --retry 3 "https://contour-cycling-hi6evz.v2.appdeploy.ai/contour-parts/part-${n}.txt" >> /tmp/contour.b64
           done
-          tr -d '\r\n\t ' < /tmp/contour.b64 > /tmp/contour.clean.b64
-          echo "combined chars: $(wc -c < /tmp/contour.clean.b64); modulo4=$(( $(wc -c < /tmp/contour.clean.b64) % 4 ))"
           python3 - <<'PY'
           from pathlib import Path
-          p=Path('/tmp/contour.clean.b64')
-          s=p.read_text()
+          import base64, gzip, hashlib, sys
+          s=''.join(Path('/tmp/contour.b64').read_text().split())
+          # Strip any transport padding between chunks, then pad the single stream once.
+          s=s.replace('=','')
           s += '='*((4-len(s)%4)%4)
-          p.write_text(s)
+          try:
+              packed=base64.b64decode(s, validate=False)
+              html=gzip.decompress(packed)
+          except Exception as e:
+              print('decode failed:',repr(e))
+              sys.exit(20)
+          digest=hashlib.sha256(html).hexdigest()
+          print('decoded bytes:',len(html),'sha256:',digest)
+          expected='891c5ac042ca01cb7d0838fe3de665b9c358cbe027f07c12c61acceb5455be39'
+          if len(html)!=152731 or digest!=expected:
+              print('Transfer does not match canonical contour.html; refusing to publish.')
+              sys.exit(21)
+          Path('Experiments/Cycling/Contour/index.html').write_bytes(html)
           PY
-          base64 --decode /tmp/contour.clean.b64 > /tmp/contour.gz
-          gzip --decompress --stdout /tmp/contour.gz > Experiments/Cycling/Contour/index.html
-          sha256sum Experiments/Cycling/Contour/index.html
-          test "$(wc -c < Experiments/Cycling/Contour/index.html)" -eq 152731
-          test "$(sha256sum Experiments/Cycling/Contour/index.html | cut -d' ' -f1)" = '891c5ac042ca01cb7d0838fe3de665b9c358cbe027f07c12c61acceb5455be39'
 
       - name: Commit standalone HTML
         shell: bash
