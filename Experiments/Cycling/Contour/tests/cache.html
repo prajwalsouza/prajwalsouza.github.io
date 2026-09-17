@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8"><title>Contour IndexedDB tests</title>
+<style>body{font:16px system-ui;max-width:900px;margin:40px auto;padding:20px}li{margin:12px 0}.pass{color:#17633d}.fail{color:#b12e29}</style>
+<h1>Contour IndexedDB integration tests</h1><p>Uses an isolated temporary database. No live map services.</p><ol id="results"></ol><p id="summary">Running…</p>
+<script src="../data-cache.js?v=2"></script><script src="../road-data.js?v=2"></script>
+<script>
+(async()=>{
+ const name='contour-test-'+Date.now(),cache=new ContourDataCache(name,{budget:10000});let passed=0,failed=0;
+ const assert=(condition,message)=>{if(!condition)throw Error(message)};
+ const test=async(name,fn)=>{const li=document.createElement('li');try{await fn();li.className='pass';li.textContent='PASS: '+name;passed++}catch(e){li.className='fail';li.textContent='FAIL: '+name+' — '+e.message;failed++}document.querySelector('#results').append(li)};
+ await test('IndexedDB opens and stores places',async()=>{assert(await cache.put('place:tampere','place',[{name:'Tampere',lat:61.4978,lon:23.76163}]),'write failed');assert((await cache.get('place:tampere')).value[0].name==='Tampere','missing place')});
+ await test('Separate connection reads data after reopening',async()=>{const reopened=new ContourDataCache(name);assert((await reopened.get('place:tampere')).value[0].lat===61.4978,'persistence failed');(await reopened.ready).close()});
+ await test('Expiry excludes stale roads without deleting the fallback record',async()=>{await cache.put('old','roads',{elements:[]},{time:Date.now()-10000});assert(await cache.get('old',1000)===null,'expired value accepted');assert((await cache.get('old',1000,true)).stale,'stale record lost')});
+ await test('Elevation typed arrays survive IndexedDB',async()=>{await cache.put('elevation:1','elevation',{h:new Float32Array([1.25,2.5]),size:2},{bytes:8});const value=(await cache.get('elevation:1')).value;assert(value.h instanceof Float32Array&&value.h[1]===2.5,'typed array changed')});
+ await test('Cache budget evicts old downloads',async()=>{await cache.put('large1','vector','a',{bytes:4500});await cache.put('large2','vector','b',{bytes:4500});await cache.put('large3','vector','c',{bytes:4500});const entries=await cache.list();assert(entries.reduce((s,e)=>s+e.bytes,0)<=10000,'over budget');assert(await cache.get('large1')===null,'oldest entry not evicted')});
+ await test('Clear prevents in-flight old writes from restoring data',async()=>{const epoch=cache.epoch;await cache.clear();assert(!await cache.put('late','place',[],{epoch}),'late write accepted');assert((await cache.list()).length===0,'clear failed')});
+ await test('Unavailable IndexedDB gracefully falls back',async()=>{const unavailable=new ContourDataCache('disabled',{indexedDB:null});assert(await unavailable.get('x')===null,'bad read');assert(!await unavailable.put('x','place',[]),'unexpected write');assert(!unavailable.available,'not marked unavailable')});
+ await test('Real IndexedDB road coverage prevents a second download after reopening',async()=>{
+  const source=await(await fetch('../index.html')).text();
+  const slice=(a,b)=>source.slice(source.indexOf(a),source.indexOf(b));
+  const factory=new Function('dataCache','ContourRoadData','fetch','AbortController','DOMException','S','CACHE_AGE','unmerc',slice('async function fetchTimed(','/* Minimal Mapbox')+slice('const roadCache=','async function buildGraph(')+';return {fetchRoads};');
+  let requests=0;const remote=async()=>{requests++;return{ok:true,json:async()=>({elements:[{type:'way',id:1,nodes:[1,2],tags:{highway:'cycleway'}}]})}};
+  const make=db=>factory(db,ContourRoadData,remote,AbortController,DOMException,{}, {roads:604800000},(x,y)=>({lon:x,lat:y}));
+  await make(cache).fetchRoads({minX:0,minY:0,maxX:100,maxY:100});
+  const reopened=new ContourDataCache(name,{budget:10000});
+  await make(reopened).fetchRoads({minX:10,minY:10,maxX:90,maxY:90});
+  assert(requests===1,'repeat road download');(await reopened.ready).close();
+ });
+ (await cache.ready)?.close();indexedDB.deleteDatabase(name);
+ document.querySelector('#summary').textContent=`${passed} passed; ${failed} failed.`;
+})().catch(e=>document.querySelector('#summary').textContent='FAIL: '+e.message);
+</script>
