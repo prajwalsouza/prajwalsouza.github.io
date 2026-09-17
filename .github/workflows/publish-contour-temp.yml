@@ -18,35 +18,39 @@ jobs:
         with:
           ref: master
 
-      - name: Copy exact standalone Contour HTML
+      - name: Recover and copy exact standalone Contour HTML
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p Experiments/Cycling/Contour
-          : > /tmp/contour.b64
+          mkdir -p Experiments/Cycling/Contour /tmp/parts
           for n in 01 02 03 04 05 06 07 08; do
-            curl --fail --silent --show-error --location --retry 3 "https://contour-cycling-hi6evz.v2.appdeploy.ai/contour-parts/part-${n}.txt" >> /tmp/contour.b64
+            curl --fail --silent --show-error --location --retry 3 "https://contour-cycling-hi6evz.v2.appdeploy.ai/contour-parts/part-${n}.txt" -o "/tmp/parts/${n}"
           done
           python3 - <<'PY'
           from pathlib import Path
-          import base64, gzip, hashlib, sys
-          s=''.join(Path('/tmp/contour.b64').read_text().split())
-          # Strip any transport padding between chunks, then pad the single stream once.
-          s=s.replace('=','')
-          s += '='*((4-len(s)%4)%4)
-          try:
-              packed=base64.b64decode(s, validate=False)
-              html=gzip.decompress(packed)
-          except Exception as e:
-              print('decode failed:',repr(e))
-              sys.exit(20)
-          digest=hashlib.sha256(html).hexdigest()
-          print('decoded bytes:',len(html),'sha256:',digest)
+          import base64,gzip,hashlib,string,sys
+          parts=[Path(f'/tmp/parts/{n:02}').read_text().strip() for n in range(1,9)]
           expected='891c5ac042ca01cb7d0838fe3de665b9c358cbe027f07c12c61acceb5455be39'
-          if len(html)!=152731 or digest!=expected:
-              print('Transfer does not match canonical contour.html; refusing to publish.')
+          alphabet=string.ascii_uppercase+string.ascii_lowercase+string.digits+'+/'
+          prefix=''.join(parts[:3])
+          suffix=''.join(parts[3:])
+          found=None
+          for ch in alphabet:
+              s=prefix+ch+suffix
+              s += '='*((4-len(s)%4)%4)
+              try:
+                  html=gzip.decompress(base64.b64decode(s,validate=True))
+              except Exception:
+                  continue
+              if len(html)==152731 and hashlib.sha256(html).hexdigest()==expected:
+                  found=(ch,html)
+                  break
+          if not found:
+              print('No exact recovery at the part-03 boundary; refusing to publish.')
               sys.exit(21)
-          Path('Experiments/Cycling/Contour/index.html').write_bytes(html)
+          print('Recovered missing Base64 character:',found[0])
+          Path('Experiments/Cycling/Contour/index.html').write_bytes(found[1])
+          print('Verified exact SHA-256:',expected)
           PY
 
       - name: Commit standalone HTML
