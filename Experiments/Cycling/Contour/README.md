@@ -1,6 +1,6 @@
 # Contour
 
-Experimental static cycling planner. Serve this folder or the repository over HTTP; open `index.html`. There is no build step. Deploy `index.html`, `data-cache.js`, and `road-data.js` together.
+Experimental static cycling planner. Serve this folder or the repository over HTTP; open `index.html`. There is no build step. Deploy `index.html`, `data-cache.js`, `road-data.js`, and `vector-renderer.js` together.
 
 ## Downloads and storage
 
@@ -20,6 +20,16 @@ The map paints cached street tiles before waiting for missing tiles or elevation
 
 The loading dialog distinguishes saved data from downloads, counts road patches and elevation tiles, shows the calculation stage and elapsed time, and gives a broad estimate. Public server queues are unpredictable, so this is not a promised completion time. The 25 km limit applies to endpoint separation; dense road networks also have memory limits. The HTML page itself is not cached as an offline application.
 
+## Experimental SVG renderer
+
+Settings → The way it looks → **SVG map · experimental** switches the basemap immediately and saves that choice in this browser. It is off by default; the existing terrain renderer remains the default. SVG is 2D, so tilt and terrain relief are disabled while it is active. Switching back restores the terrain view. Rider settings, route estimates, selected rides and return comparisons are independent of this choice.
+
+Both renderers consume the same decoded vector tiles and share their map colors. The default renderer paints a texture and places it on a terrain mesh; the experimental renderer batches geometry into SVG paths and transforms their parent group during pan/zoom. It does not download SVG files or a separate image pyramid. Routes, return overlays, hover previews and navigation still use the common canvas overlay.
+
+Switching engines uses the current data without downloading roads or rerunning routing. Small zoom changes reuse geometry. Moving beyond current coverage or zooming far enough for finer detail reads IndexedDB first, then fetches only missing vector tiles. Coverage is bounded to 36 tiles per view; failed patches retain existing geometry, with a 72-tile fallback cap. Pending downloads cannot replace a newer view or a switched renderer. SVG viewport extensions do not request elevation; contour lines use available height data. Initial map loading and route calculation still acquire their elevation data as usual.
+
+This is not a claim of identical visuals or universally lower resource use. SVG has no terrain shading or perspective, line widths remain readable as the camera zooms, and it still needs new data for new areas or substantially finer detail. The renderer retains the existing WebGL context for quick switching, so lower memory use is not established.
+
 ## Providers
 
 Roads use the VK Maps Overpass mirror, with FOSSGIS and the current Private.coffee endpoint as fallbacks (the old Kumi hostname was retired). Requests are sequential, bounded, cache-first and use a cooldown after failures. Provider outages can still prevent a first download. Provider list: https://wiki.openstreetmap.org/wiki/Overpass_API#Public_Overpass_API_instances
@@ -29,6 +39,17 @@ Roads use the VK Maps Overpass mirror, with FOSSGIS and the current Private.coff
 ```
 node --test Experiments/Cycling/Contour/tests/*.cjs
 ```
+
+Open `tests/renderers.html` for a repeatable local comparison of the actual renderers with 10,000 synthetic buildings and 500 roads. It reports cold scene construction, JavaScript draw time and animation frame intervals, and guards against map downloads. This test does not measure routing, network throughput, battery use or physical phone performance.
+
+Desktop browser sample, 2026-09-17, using the comparison page above (180 measured animation frames per renderer after 20 warmup frames):
+
+| Renderer | Cold scene build | Frame interval p95 | Frames over 25 ms | Map downloads |
+| --- | ---: | ---: | ---: | ---: |
+| Default terrain | 12.1 ms | 10.5 ms | 0 | 0 |
+| Experimental SVG | 13.5 ms | 10.9 ms | 0 | 0 |
+
+This single synthetic run supports trying SVG, not promoting it as faster. Scene timing covers JavaScript preparation; frame intervals also include painting and browser scheduling. Real Tampere–Hervanta routes were inspected at 1272×986 and 390×844, including six alternatives, gray return overlays, repeated zoom, persisted preference and switching back to terrain. A resized desktop browser is not physical-phone performance evidence. The automated renderer checks also cover camera rebasing, map picking, retained paths during animation, missing-only tile planning, cached coverage, failed downloads and stale results after moving or switching engines.
 
 Open `tests/cache.html` from the same HTTP server for real IndexedDB tests. These use a separate temporary database, never the user's Contour data, and do not call live map services. The tests include persistence across connections, expiry, typed arrays, storage limits, clearing during pending writes, unavailable storage, and cached road reuse without a second network request.
 

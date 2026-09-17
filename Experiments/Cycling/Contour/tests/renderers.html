@@ -1,0 +1,44 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Contour renderer comparison</title>
+<style>body{font:15px system-ui;background:#f5f6f1;color:#26322f;margin:24px}button{font:inherit;padding:12px 20px;border-radius:20px;border:1px solid #b6c3b7;background:white;cursor:pointer}pre{white-space:pre-wrap;line-height:1.6}iframe{width:100%;height:650px;border:1px solid #ccd4c8;border-radius:14px}p{max-width:850px;line-height:1.6}</style>
+<h1>Contour renderer comparison</h1>
+<p>Local, synthetic map test using the actual Contour renderers. Tests a repeatable scene with 10,000 buildings and 500 roads. It does not benchmark map downloads, routing speed, battery use or mobile hardware. No map services are requested by this test. Browser frame intervals include painting and scheduling; JavaScript draw timing alone does not.</p>
+<button id="run" disabled>Run comparison</button><pre id="results" role="status">Loading the fictional map…</pre>
+<iframe id="app" title="Renderer test map" src="../?demo=1"></iframe>
+<script>
+const frame=document.querySelector('#app'),button=document.querySelector('#run'),results=document.querySelector('#results');
+const ready=setInterval(()=>{const w=frame.contentWindow,a=w?.__contour;if(a?.state.routes.length&&!a.map.loading){clearInterval(ready);button.disabled=false;results.textContent='Ready. Each renderer runs 180 animated frames with the same data and camera.'}},100);
+const percentile=(a,p)=>[...a].sort((a,b)=>a-b)[Math.floor((a.length-1)*p)];
+const nextFrame=()=>new Promise(r=>requestAnimationFrame(r));
+button.onclick=async()=>{
+ button.disabled=true;results.textContent='Running…';
+ const w=frame.contentWindow,{map,state,merc}=w.__contour;
+ // Guard the controlled iframe against all remote requests during the test.
+ let downloads=0;w.fetch=()=>{downloads++;return Promise.reject(Error('Benchmark must not download'))};
+ clearTimeout(map.scrollTimer);map.tween=null;state.settings.contours=false;map.routeDisplay=[];map.comparisonRoute=null;map.preview=null;
+ const world=40075016.68557849,z=14,x=8500,y=5800,size=world/2**z;
+ const buildings=[],roads=[];
+ for(let row=0;row<100;row++)for(let col=0;col<100;col++){const px=col*40,py=row*40;buildings.push({type:3,props:{},paths:[[[px,py],[px+25,py],[px+25,py+25],[px,py+25],[px,py]]]})}
+ for(let i=0;i<500;i++){const pts=[];for(let j=0;j<60;j++)pts.push([j/59*4096,(i*8+Math.sin(j*.16+i)*20)%4096]);roads.push({type:2,props:{class:i%10?'minor':'primary'},paths:[pts]})}
+ map.demo=false;map.center={x:(x+.5)*size-world/2,y:world/2-(y+.5)*size};map.span=size;map.cos=.7;map.tx=map.tz=0;map.zoom=.9;map.yaw=0;map.pitch=Math.PI/2;
+ map.bounds={minX:map.center.x-size/2,maxX:map.center.x+size/2,minY:map.center.y-size/2,maxY:map.center.y+size/2};map.elevation={xy:()=>0};map.mapTiles=[{t:{x,y,z},layers:{building:{extent:4096,features:buildings},transportation:{extent:4096,features:roads}}}];
+ const initial={center:{...map.center},span:map.span,bounds:{...map.bounds},tiles:map.mapTiles};
+ const rows=[];
+ for(const mode of ['terrain','svg']){
+  map.setRenderer(mode);
+  Object.assign(map,{center:{...initial.center},span:initial.span,bounds:{...initial.bounds},mapTiles:initial.tiles,zoom:.9,tx:0,tz:0,pitch:Math.PI/2});
+  if(mode==='svg')map.svgRenderer.compiled=new WeakMap();
+  const t0=performance.now();map.pitch=Math.PI/2;map.terrainPitch=Math.PI/2;
+  if(mode==='terrain'){map.textureCanvas=map.paintTexture(map.mapTiles,false);map.makeMesh()}else map.updateSVG()
+  const build=performance.now()-t0;
+  const intervals=[],draws=[];let previous=await nextFrame();
+  for(let i=0;i<200;i++){
+   const now=await nextFrame();if(i>=20)intervals.push(now-previous);previous=now;
+   map.zoom=.45+.4*(1+Math.cos(i*.055))/2;map.tx=Math.sin(i*.06)*.25;map.tz=Math.cos(i*.06)*.15;map.yaw=Math.sin(i*.02)*.1;
+   const before=performance.now();map.draw();map.dirty=false;if(i>=20)draws.push(performance.now()-before);
+  }
+  rows.push({renderer:mode,sceneBuildMs:+build.toFixed(2),drawP95Ms:+percentile(draws,.95).toFixed(2),frameMedianMs:+percentile(intervals,.5).toFixed(2),frameP95Ms:+percentile(intervals,.95).toFixed(2),framesOver25ms:intervals.filter(x=>x>25).length,frames:intervals.length});
+  results.textContent=JSON.stringify({results:rows,downloads,svgPaths:frame.contentDocument.querySelector('#vector-map').dataset.paths},null,2);
+ }
+ button.disabled=false;
+};
+</script>

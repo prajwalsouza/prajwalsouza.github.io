@@ -59,7 +59,7 @@ test('map tile outage still sets current map bounds and preserves its warning',a
    dataCache:{get:async()=>null},CACHE_AGE:{source:1},setTimeout,clearTimeout,vectorTile:async(_t,{cacheOnly}={})=>{if(cacheOnly)return null;if(fetchFailure)throw Error('offline');return {}},vectorMaxZoom:14,clamp:(x,a,b)=>Math.max(a,Math.min(b,x)),WORLD:40075016,
    tileList:()=>[{z:14,x:1,y:1}],Elevation:{load:async()=>({xy:()=>10})},pool:async(items,_n,fn)=>Promise.all(items.map(fn)),
    $:()=>({classList:{add(){}}}),console});
-  const method=section(' async load(lon,lat,','\n clearMap()');
+  const method=section(' async load(lon,lat,','\n setRenderer(');
   vm.runInContext(`var map={generation:0,w:900,paintTexture:()=>({}),makeMesh(){},clearMap(){},${method}}`,ctx);
   await vm.runInContext('map.load(23.76,61.498,6000)',ctx);
   return vm.runInContext('map',ctx);
@@ -100,7 +100,7 @@ test('cached map tiles paint before missing tiles and elevation finish',async()=
   vectorMaxZoom:14,clamp:(x,a,b)=>Math.max(a,Math.min(b,x)),WORLD:40075016,tileList:()=>[{z:14,x:1,y:1},{z:14,x:2,y:1}],
   vectorTile:async(t,{cacheOnly}={})=>t.x===1?{cached:true}:cacheOnly?null:waitingTiles,
   Elevation:{load:()=>waitingElevation},pool:async(items,_n,fn)=>Promise.all(items.map(fn)),console,paints});
- vm.runInContext(`var map={generation:0,w:900,paintTexture(tiles){paints.push(tiles.length);return {}},makeMesh(){},${section(' async load(lon,lat,','\n clearMap()')}}`,ctx);
+ vm.runInContext(`var map={generation:0,w:900,paintTexture(tiles){paints.push(tiles.length);return {}},makeMesh(){},${section(' async load(lon,lat,','\n setRenderer(')}}`,ctx);
  const pending=vm.runInContext('map.load(23.76,61.498,6000)',ctx);
  await new Promise(r=>setTimeout(r,0));assert.deepEqual(paints,[1]);
  finishTiles({fresh:true});finishElevation({xy:()=>10});await pending;
