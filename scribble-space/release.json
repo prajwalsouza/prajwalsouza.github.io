@@ -1,6 +1,6 @@
 {
   "app": "scribble-space",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "files": [
     {
       "path": "editor.html",
@@ -29,8 +29,8 @@
     },
     {
       "path": "public/app.mjs",
-      "bytes": 17732,
-      "sha256": "c617e3c6287b5ab7b637a7531f7fcef3d29a6a51efcfc4760082c31d5068674e"
+      "bytes": 17827,
+      "sha256": "9cde01802173a50ac7357058352451b09e37620185280464735cb0482aee84c8"
     },
     {
       "path": "public/area-notes.mjs",
@@ -54,8 +54,8 @@
     },
     {
       "path": "public/scene.mjs",
-      "bytes": 10821,
-      "sha256": "538cd2cab1784fc6b9fd9d0138558a02ac73186ddfae487b4de997e4fdacef6d"
+      "bytes": 11390,
+      "sha256": "ba99531c167dd67eef0bc2677c33cad7933e7ba23729e142bc252063063bdbd9"
     },
     {
       "path": "public/sketch.mjs",
@@ -73,9 +73,14 @@
       "sha256": "0f4e6fa65d236cbde504c396c0a138efcc7ec13a4958850b2ed14cd69a3a105b"
     },
     {
+      "path": "shared/camera.mjs",
+      "bytes": 1380,
+      "sha256": "11eba91334258293693e4395ed906078800b61facf6fee80a0626b167842ef5f"
+    },
+    {
       "path": "shared/document.mjs",
-      "bytes": 5685,
-      "sha256": "540603c1c5ff772940f5c9e20bb1355e60b6530918b6ff4320c6141135ec7e59"
+      "bytes": 5683,
+      "sha256": "abd6fe163b708e0b573ca53acefb154197c6c6bcd835db55712247cddc8ed824"
     },
     {
       "path": "shared/model.mjs",
@@ -139,13 +144,13 @@
     },
     {
       "path": "docs/CODEX-INTEGRATION.md",
-      "bytes": 5104,
-      "sha256": "38118eb9ba288a813b5eafbb3135658e10e70408f8fbf71ae866b9ecdd5486a8"
+      "bytes": 5502,
+      "sha256": "b96060552c1a799fe83e9bc67373ff76af2e767e65d7b9b31206d1599c4b08ff"
     },
     {
       "path": "docs/VERIFICATION.md",
-      "bytes": 4335,
-      "sha256": "22822e3a647a366c84a1329ecb00bc769644010b142700ecf07d5079b616c395"
+      "bytes": 5318,
+      "sha256": "49508ab061b27ebc2c3e4c53f370f68c0f736d2507304192baf3a70c9e5a5d08"
     }
   ]
 }

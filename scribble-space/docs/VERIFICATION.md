@@ -34,3 +34,10 @@ Tested artifact: standalone app source, generated plugin runtime, and static dem
 - Browser package round trip passes with region bounds/text/IDs, camera, references and rendered GLB preserved; undo/redo also checked.
 - Narrow 390 × 844 CSS iframe checked for blank, annotation tools and anchored note composer. This is responsive layout verification, not a physical phone or stylus test.
 - No native Codex host plugin activation or automatic idle-task wake is claimed. Verification used a real stdio MCP client harness; the plugin skill documents the bounded receive-call workflow and idle-task limit.
+
+## 0.2.1 imported-model framing repair
+
+- Ten automated tests pass. New camera tests project every bounds corner for city-scale, off-origin and degenerate models, including portrait, square and landscape viewports, Home and Top view. They verify visibility within the clipping range, including after movement away from the model.
+- Packaged stdio MCP tests verify optional starting-viewpoint URL transport and rejection of coincident position/target coordinates; the existing two-image send/receive and immutable snapshot tests pass.
+- Installed the local plugin update and opened a privately cropped architectural GLB through its actual MCP server. Visually checked perspective framing and Top view in the in-app browser. Private geometry and images are excluded from the public distribution.
+- The update corrects fixed far-plane clipping and origin-centered Top view; opening a viewpoint does not crop geometry. Spatial extraction remains a separate model-preparation operation.

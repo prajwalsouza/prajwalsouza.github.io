@@ -41,6 +41,7 @@ async function boot(){
  const query=new URLSearchParams(location.search),sample=query.get('sample');if(query.has('session')){if(!storage.mcp)throw Error('The Codex connection is unavailable. Ask Codex to reopen your canvas.');await storage.session(query.get('session'));mcpSession=query.get('session');$('send').hidden=false;$('export').hidden=true;}if(['courtyard','room','blank'].includes(sample))workspace=initialWorkspace(sample);else try{const draft=JSON.parse(localStorage.getItem('scribble-space-draft-v1'));if(draft?.workspace)workspace=validateWorkspace(draft.workspace)}catch{}
  if(query.has('model'))workspace={...initialWorkspace('model'),model:{asset:query.get('model'),name:(query.get('name')||'Model').slice(0,180)}};
  let bootWarning='';try{await applyWorkspace(workspace,{frame:true})}catch(e){workspace=initialWorkspace();await applyWorkspace(workspace,{frame:true});bootWarning='The previous model is unavailable. Load it again or open a saved view.'}
+ if(query.has('viewpoint')){world.setViewpoint(JSON.parse(query.get('viewpoint')));remember()}
  specText=await (await fetch('./spec/SM3DL.md')).text();$('spec-text').textContent=specText;await refreshViews();status(bootWarning||'Ready · '+storage.mode,!!bootWarning);setModeUI('fly');const viewId=new URLSearchParams(location.search).get('view');if(viewId)await openView(viewId);
 }
 all('[data-mode]').forEach(b=>b.onclick=()=>action(async()=>{if(b.dataset.mode==='sketch')await freeze();else await leaveSketch(b.dataset.mode);$('load-dialog').close()}));

@@ -9,7 +9,7 @@ const vector=(v,length,min=-1e6,max=1e6)=>Array.isArray(v)&&v.length===length&&v
 const text=(s,max)=>typeof s==='string'&&s.length<=max;
 const asset=id=>typeof id==='string'&&/^[a-f0-9]{64}\.png$/.test(id);
 export function validateCamera(c){
- if(!c||!vector(c.position,3)||!vector(c.quaternion,4,-1.001,1.001)||!finite(c.fov,10,120)||!finite(c.near,.001,10)||!finite(c.far,10,10000)||c.far<=c.near||!finite(c.aspect,.1,10)||!vector(c.projectionMatrix,16)||!vector(c.matrixWorld,16))fail('Invalid saved camera.');
+ if(!c||!vector(c.position,3)||!vector(c.quaternion,4,-1.001,1.001)||!finite(c.fov,10,120)||!finite(c.near,.001,10)||!finite(c.far,10,1e9)||c.far<=c.near||!finite(c.aspect,.1,10)||!vector(c.projectionMatrix,16)||!vector(c.matrixWorld,16))fail('Invalid saved camera.');
  const norm=Math.hypot(...c.quaternion);if(Math.abs(norm-1)>.005)fail('Invalid camera orientation.');return clone(c);
 }
 export function validateShot(raw){

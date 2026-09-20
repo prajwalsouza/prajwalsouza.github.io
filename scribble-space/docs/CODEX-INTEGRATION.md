@@ -31,7 +31,7 @@ An autosave can be an unfinished thought. `wait_for_sketch` is a change notifica
 
 | Tool | Result |
 | --- | --- |
-| `open_sketch` | Local editor URL, session ID, initial cursor, timestamp; optional generic template, brief, user-selected GLB path. |
+| `open_sketch` | Local editor URL, session ID, initial cursor, timestamp; optional generic template, brief, user-selected GLB path, and `viewpoint: {position: [x,y,z], target: [x,y,z], fov?: 55}` in model coordinates. |
 | `list_sketches` | Saved view IDs, titles, revisions and timestamps. |
 | `read_sketch` | Saved document plus annotated PNG; optionally both clean and annotated PNGs. |
 | `wait_for_submission` | Explicit Send event, both real PNG images and immutable document; session-scoped, cursor-based, up to 25 seconds. |
@@ -63,3 +63,5 @@ The packaged server is tested over real stdio JSON-RPC: initialization, discover
 This release uses the browser panel for its editable canvas. A future MCP Apps adapter can render inline in compatible hosts; it is not implemented here.
 
 Official references checked September 20, 2026: [Plugins](https://learn.chatgpt.com/docs/plugins), [Package your plugin](https://developers.openai.com/plugins/build/plugins), [Build an MCP server](https://developers.openai.com/plugins/build/mcp-server), [Add custom UI](https://developers.openai.com/plugins/build/chatgpt-ui).
+
+Imported models are framed using their world bounds and the viewport aspect ratio. Home fits the complete model; Top view uses its center. The camera clipping range follows the model bounds as you move. Optional `viewpoint` focuses a known part of the model at opening; it does not crop or transform the asset.

@@ -3,6 +3,7 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
 import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';
 import {initialWorkspace,distance} from '../shared/workspace.mjs';
+import {frameBounds,farForBounds,validateViewpoint} from '../shared/camera.mjs';
 const V=a=>new THREE.Vector3(...a);
 export class WorldView{
  constructor(canvas,{onMove=()=>{},onError=()=>{}}={}){
@@ -45,18 +46,20 @@ export class WorldView{
   this.grid.visible=w.template==='blank';this.workspace=structuredClone(w);this.dispose(this.additions);this.dispose(this.labels);
   for(const wall of w.walls){const len=distance(wall.a,wall.b),mid=V(wall.a).add(V(wall.b)).multiplyScalar(.5);const o=this.box([len,wall.height,wall.thickness],[mid.x,mid.y+wall.height/2,mid.z],'#b0c2b2',wall.id,this.additions);o.rotation.y=-Math.atan2(wall.b[2]-wall.a[2],wall.b[0]-wall.a[0]);this.label(`${len.toFixed(2)} m`,mid.add(new THREE.Vector3(0,wall.height+.25,0)))}
   for(const m of w.measurements){const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([V(m.a),V(m.b)]),new THREE.LineBasicMaterial({color:'#d95c40',depthTest:false}));line.renderOrder=10;this.labels.add(line);this.label(`${distance(m.a,m.b).toFixed(2)} m`,V(m.a).add(V(m.b)).multiplyScalar(.5).add(new THREE.Vector3(0,.2,0)))}
-  this.scene.updateMatrixWorld(true);this.meshes=[];this.content.traverse(o=>{if(o.isMesh)this.meshes.push(o)});this.render();
+  this.scene.updateMatrixWorld(true);this.bounds=new THREE.Box3().setFromObject(this.content);this.meshes=[];this.content.traverse(o=>{if(o.isMesh)this.meshes.push(o)});this.updateClipping();this.render();
  }
  label(text,position){const c=document.createElement('canvas');c.width=256;c.height=64;const ctx=c.getContext('2d');ctx.fillStyle='#fffdf5';ctx.fillRect(0,0,256,64);ctx.fillStyle='#304639';ctx.font='bold 32px system-ui';ctx.textAlign='center';ctx.fillText(text,128,44);const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthTest:false}));sprite.position.copy(position);sprite.scale.set(1.7,.425,1);this.labels.add(sprite)}
  resize(){const rect=this.canvas.parentElement.getBoundingClientRect();if(rect.width<1||rect.height<1)return;this.renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5,4096/Math.max(rect.width,rect.height),Math.sqrt(12e6/(rect.width*rect.height))));this.renderer.setSize(rect.width,rect.height,false);this.camera.aspect=this.canvas.width/this.canvas.height;this.camera.updateProjectionMatrix();this.render()}
  render(){this.camera.updateMatrixWorld();this.renderer.render(this.scene,this.camera)}
- changed(){this.onMove(this.camera.position);this.render()}
+ updateClipping(){if(this.bounds&&!this.bounds.isEmpty()){this.camera.far=farForBounds(this.camera.position.toArray(),this.bounds.min.toArray(),this.bounds.max.toArray());this.camera.updateProjectionMatrix()}}
+ changed(){this.updateClipping();this.onMove(this.camera.position);this.render()}
  look(dx,dy){if(!dx&&!dy)return;const e=new THREE.Euler().setFromQuaternion(this.camera.quaternion,'YXZ');e.y-=dx*.003;e.x=THREE.MathUtils.clamp(e.x-dy*.003,-1.55,1.55);this.camera.quaternion.setFromEuler(e);this.changed()}
  animate(time){const dt=Math.min(.05,(time-(this.last||time))/1000);this.last=time;if(!this.flying||document.hidden)return;const k=this.keys,d=new THREE.Vector3();if(k.has('w')||k.has('arrowup'))d.z--;if(k.has('s')||k.has('arrowdown'))d.z++;if(k.has('a')||k.has('arrowleft'))d.x--;if(k.has('d')||k.has('arrowright'))d.x++;if(d.lengthSq())d.applyQuaternion(this.camera.quaternion);if(k.has('e'))d.y++;if(k.has('q'))d.y--;if(d.lengthSq()){this.camera.position.add(d.normalize().multiplyScalar(dt*this.speed*(k.has('shift')?3:1)));this.changed()}}
  setFlying(value){this.flying=value;this.keys.clear();this.pointer=null;if(value)this.resize()}
  home(){this.camera.position.set(13,11,16);this.camera.lookAt(0,0,0);this.changed()}
- frameModel(){const b=new THREE.Box3().setFromObject(this.base),s=b.getSize(new THREE.Vector3()),c=b.getCenter(new THREE.Vector3()),d=Math.max(s.x,s.y,s.z,1);this.camera.position.copy(c).add(new THREE.Vector3(d*.8,d*.6,d*.9));this.camera.lookAt(c);this.changed()}
- top(){this.camera.position.set(0,24,.01);this.camera.lookAt(0,0,0);this.changed()}
+ setViewpoint(raw){const v=validateViewpoint(raw);this.camera.position.fromArray(v.position);this.camera.fov=v.fov;this.camera.lookAt(V(v.target));this.changed()}
+ frameModel(top=false){const b=this.bounds;if(!b||b.isEmpty())throw Error('No visible geometry to frame.');this.setViewpoint(frameBounds(b.min.toArray(),b.max.toArray(),this.camera.aspect,this.camera.fov,top))}
+ top(){if(this.workspace.template==='model'){this.frameModel(true);return}this.camera.position.set(0,24,.01);this.camera.lookAt(0,0,0);this.changed()}
  saveCamera(){this.camera.updateProjectionMatrix();this.camera.updateMatrixWorld();return {position:this.camera.position.toArray(),quaternion:this.camera.quaternion.toArray(),fov:this.camera.fov,near:this.camera.near,far:this.camera.far,aspect:this.camera.aspect,projectionMatrix:this.camera.projectionMatrix.toArray(),matrixWorld:this.camera.matrixWorld.toArray()}}
  restoreCamera(saved){this.camera.position.fromArray(saved.position);this.camera.quaternion.fromArray(saved.quaternion);Object.assign(this.camera,{fov:saved.fov,near:saved.near,far:saved.far,aspect:saved.aspect});this.camera.updateProjectionMatrix();this.render()}
  async capture(){this.setFlying(false);this.render();const camera=this.saveCamera(),blob=await new Promise((resolve,reject)=>this.canvas.toBlob(b=>b?resolve(b):reject(Error('Could not capture view.')),'image/png'));return {blob,camera,width:this.canvas.width,height:this.canvas.height}}
