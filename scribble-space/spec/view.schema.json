@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Scribble Space frozen view v1",
+  "type": "object",
+  "required": [
+    "format",
+    "version",
+    "id",
+    "title",
+    "note",
+    "scene",
+    "workspace",
+    "capture",
+    "camera",
+    "marks"
+  ],
+  "properties": {
+    "format": {
+      "const": "scribble-space-shot"
+    },
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{7,79}$"
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "note": {
+      "type": "string",
+      "maxLength": 12000
+    },
+    "scene": {
+      "type": "object",
+      "required": [
+        "id",
+        "revision",
+        "sha256"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "workspace": {
+      "type": "object",
+      "required": [
+        "template",
+        "walls",
+        "measurements"
+      ],
+      "properties": {
+        "template": {
+          "enum": [
+            "blank",
+            "room",
+            "courtyard",
+            "model"
+          ]
+        },
+        "walls": {
+          "type": "array",
+          "maxItems": 500
+        },
+        "measurements": {
+          "type": "array",
+          "maxItems": 500
+        }
+      }
+    },
+    "capture": {
+      "type": "object",
+      "required": [
+        "asset",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "asset": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}\\.png$"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 32,
+          "maximum": 4096
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 32,
+          "maximum": 4096
+        }
+      }
+    },
+    "camera": {
+      "type": "object",
+      "required": [
+        "position",
+        "quaternion",
+        "fov",
+        "near",
+        "far",
+        "aspect",
+        "matrixWorld",
+        "projectionMatrix"
+      ],
+      "properties": {
+        "position": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          }
+        },
+        "quaternion": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "number"
+          }
+        },
+        "matrixWorld": {
+          "type": "array",
+          "minItems": 16,
+          "maxItems": 16,
+          "items": {
+            "type": "number"
+          }
+        },
+        "projectionMatrix": {
+          "type": "array",
+          "minItems": 16,
+          "maxItems": 16,
+          "items": {
+            "type": "number"
+          }
+        },
+        "fov": {
+          "type": "number",
+          "minimum": 10,
+          "maximum": 120
+        },
+        "near": {
+          "type": "number",
+          "minimum": 0.001
+        },
+        "far": {
+          "type": "number"
+        },
+        "aspect": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 10
+        }
+      }
+    },
+    "marks": {
+      "type": "array",
+      "maxItems": 4000,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "pen",
+              "arrow",
+              "eraser",
+              "image",
+              "text"
+            ]
+          }
+        }
+      }
+    },
+    "preview": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

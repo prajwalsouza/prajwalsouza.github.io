@@ -1,0 +1,146 @@
+{
+  "app": "scribble-space",
+  "version": "0.1.0",
+  "files": [
+    {
+      "path": "editor.html",
+      "bytes": 6318,
+      "sha256": "ae77dddba7a9813136000e8245f6c49e1b0b20682049f9a0f8d179db8a29eab0"
+    },
+    {
+      "path": "demo.html",
+      "bytes": 3549,
+      "sha256": "9e2fa678cff038ef85950735c0a9e5777e519e272b924d93390f12de003231ec"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5315,
+      "sha256": "3c00595a2385550095ab8d961a38d77bb318b20da8fea5343aabfa7a849df867"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1071,
+      "sha256": "6c48bd9eacae174ded8e38ad1e68412f1c37d989e171eac5d955d19606a446f7"
+    },
+    {
+      "path": "THIRD-PARTY.md",
+      "bytes": 698,
+      "sha256": "a31f5619eb8105a81820cca5a66674fe31be52b9c1012455c5004bfffbe94007"
+    },
+    {
+      "path": "public/app.mjs",
+      "bytes": 14024,
+      "sha256": "cfc6def59e26cd066b4f4b6a4648d45c3739c46a495a2f895545035cc4e83c63"
+    },
+    {
+      "path": "public/bootstrap.mjs",
+      "bytes": 220,
+      "sha256": "0e243f990f021ee7c8a9748893a5721066d0f29eee2586dc44085cd82345a5de"
+    },
+    {
+      "path": "public/handoff.mjs",
+      "bytes": 3793,
+      "sha256": "bc8c53a88cbf79fa3178d7b6d88032351ee771d6a223ec0ac2c4f98e00cfc700"
+    },
+    {
+      "path": "public/persistence.mjs",
+      "bytes": 5551,
+      "sha256": "fc17e30a83fd791ce1d6ddc4b2fff943bcd7a110362eef57d4a8061b13420dcc"
+    },
+    {
+      "path": "public/scene.mjs",
+      "bytes": 10821,
+      "sha256": "538cd2cab1784fc6b9fd9d0138558a02ac73186ddfae487b4de997e4fdacef6d"
+    },
+    {
+      "path": "public/sketch.mjs",
+      "bytes": 5909,
+      "sha256": "8679de6b77fcfcb9b34991c704b5934f84d6ef9b392ae973a163e1f105c789d4"
+    },
+    {
+      "path": "public/style.css",
+      "bytes": 7855,
+      "sha256": "a3cb759073d9cb3134470c447c1ff2dc4e1caa6ed42a028ee8ceb224400f90da"
+    },
+    {
+      "path": "shared/archive.mjs",
+      "bytes": 4271,
+      "sha256": "0f4e6fa65d236cbde504c396c0a138efcc7ec13a4958850b2ed14cd69a3a105b"
+    },
+    {
+      "path": "shared/document.mjs",
+      "bytes": 5366,
+      "sha256": "2cf9ff3214b3417ca7f8eb088a3c66651dd45f7617784c7879d06d8750d9cacd"
+    },
+    {
+      "path": "shared/model.mjs",
+      "bytes": 1116,
+      "sha256": "739fb6e3be276955ef0b2e08f434a97f9bd7667062f4bd65635a6b502bbe9071"
+    },
+    {
+      "path": "shared/workspace.mjs",
+      "bytes": 1749,
+      "sha256": "714a7b21baae7ba1713f13b5ad38c893acae73ffb52ca3f9b8657b5b94797619"
+    },
+    {
+      "path": "vendor/three/LICENSE",
+      "bytes": 1081,
+      "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc"
+    },
+    {
+      "path": "vendor/three/build/three.core.js",
+      "bytes": 1443056,
+      "sha256": "3718df126d69c125362a03340913204470d8c50238605150e57f808840fb7759"
+    },
+    {
+      "path": "vendor/three/build/three.module.js",
+      "bytes": 650153,
+      "sha256": "bbf5ed13fe4373f5bd38b14ea8e62e9f157327da5638edc6d3863e08b167c9c7"
+    },
+    {
+      "path": "vendor/three/examples/jsm/exporters/GLTFExporter.js",
+      "bytes": 92973,
+      "sha256": "318c588c527d03528a60610a4fc420018375a5c1bcf520e48f3666c5bc28d90d"
+    },
+    {
+      "path": "vendor/three/examples/jsm/libs/meshopt_decoder.module.js",
+      "bytes": 29256,
+      "sha256": "d428e73a000057c6c94bfcedc3412d0c2dc14ca8800e88553aab05113ad2bf19"
+    },
+    {
+      "path": "vendor/three/examples/jsm/loaders/GLTFLoader.js",
+      "bytes": 114959,
+      "sha256": "97642d720f16cc9a0c9844934198e4d0c023bea8e89576d0f7545d03b2d103d2"
+    },
+    {
+      "path": "vendor/three/examples/jsm/utils/BufferGeometryUtils.js",
+      "bytes": 37621,
+      "sha256": "5c552223a9309883743b80538d6e9cdb45e3227f30d3ec56fb2c39b46e78d595"
+    },
+    {
+      "path": "vendor/three/examples/jsm/utils/SkeletonUtils.js",
+      "bytes": 11535,
+      "sha256": "b1632a703206c3d830de9fcbe515696770d04b71a15ee6b50afa6d2c3298c86f"
+    },
+    {
+      "path": "spec/SM3DL.md",
+      "bytes": 11144,
+      "sha256": "6f3b2ccced5f794c57de001a7a48262ae121824b6f1328d4ee7e143f05133a58"
+    },
+    {
+      "path": "spec/view.schema.json",
+      "bytes": 3833,
+      "sha256": "cf049bfe33c8a53a972dfe7ce0408df507b83739508ffd461d96b3e7bdf73782"
+    },
+    {
+      "path": "docs/CODEX-INTEGRATION.md",
+      "bytes": 4304,
+      "sha256": "5161aacd1f67736976ee0c398190c9a4fdb32e95cb12deabd73e0b1e765c498e"
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "bytes": 3154,
+      "sha256": "fe7099e42297df1ef7636909efa05068b80891e8c65827f9e59df9c6706de1b8"
+    }
+  ]
+}
