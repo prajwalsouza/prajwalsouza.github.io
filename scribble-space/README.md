@@ -28,11 +28,11 @@ Open <http://127.0.0.1:4322/editor.html>. The app detects the local server and s
 
 ## Use it
 
-- **Fly:** drag to look; WASD to move; Q/E down/up; Shift faster. Wheel moves forward/back. Home frames the model. Touch can drag to look; full movement is currently keyboard-first.
-- **Sketch:** freezes a screenshot and its camera. Pencil, arrows, eraser, text, pasted/dropped images, undo/redo. Choose Move to drag an image or its bottom-right handle to resize it. Changes autosave; Save view also saves immediately.
-- **Build:** click two points for a wall on the selected horizontal drawing plane; choose free placement or a 10/50 cm snap. Set height/thickness before placing. Measure uses two raycast surface points and reports straight-line model distance. Use Fly to reposition the camera between placements.
-- **Load:** blank ground, empty room, courtyard, or a self-contained GLB up to 64 MB. Standard/Meshopt GLB supported; Draco/KTX2 and external asset URLs are not supported in this release.
-- **Views:** reopen a saved screenshot, annotations, scene recipe and exact camera. Save a copy preserves the original.
+- **Explore:** drag to look; WASD to move; Q/E down/up; Shift faster. Wheel moves forward/back. Home frames the model. Touch can drag to look; full movement is currently keyboard-first.
+- **Annotate:** freezes a screenshot and its camera. Use Pencil to draw, or Select area to drag a rectangle (or click a spot) and attach a note right there. Click an existing area to edit its note. Enter attaches, Shift + Enter adds a line, Escape cancels. Undo is always visible; arrows, eraser, references, color and redo sit under the drawing ••• menu. Paste/drop images, then use Select area to move or resize them. Drafts autosave. In MCP mode, **Send to Codex** (Ctrl/Command + Enter) submits both PNGs and exact metadata.
+- **Scene → Walls & measurements:** click two points for a wall on the selected horizontal drawing plane; choose free placement or a 10/50 cm snap. Set height/thickness before placing. Measure uses two raycast surface points and reports straight-line model distance. Use Explore to reposition the camera between placements.
+- **Scene:** blank ground, empty room, courtyard, or a self-contained GLB up to 64 MB. Standard/Meshopt GLB supported; Draco/KTX2 and external asset URLs are not supported in this release.
+- **Views:** reopen a saved screenshot, annotations, scene recipe and exact camera. View details (top •••) contains naming, optional overall context, Save a copy and export.
 - **Export:** current view as `.sm3dl.zip`: clean and annotated images, JSON, reference images, original imported GLB when applicable, rendered `scene.glb`, and a readable prompt/specification. Import a package through Load.
 
 The editor is an early working release. It has no automatic LLM editing, multiplayer, CAD solver or Blender add-on. Generated wall dimensions are approximate model values. Rendered GLB is portable geometry, not a lossless native Blender project.
@@ -60,7 +60,7 @@ codex plugin marketplace add prajwalsouza/Scribble-Space
 codex plugin add scribble-space@scribble-space-plugins
 ```
 
-Start a new task, then ask Codex to open a 3D sketch canvas. It can start the editor, read saved images/cameras and wait for updates through MCP. See [plugin setup and capabilities](docs/CODEX-INTEGRATION.md). This is repo distribution, not an official-directory listing.
+Start a new task, then ask Codex to open a 3D sketch canvas. It can start the editor, receive explicitly sent PNG images, selected-area notes and cameras through MCP. Autosave does not send. A waiting receive call gets the handoff immediately; an idle host task must be resumed. See [plugin setup and capabilities](docs/CODEX-INTEGRATION.md). This is repo distribution, not an official-directory listing.
 
 ## Verify
 

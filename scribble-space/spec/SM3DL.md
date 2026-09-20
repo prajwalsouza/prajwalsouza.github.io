@@ -1,4 +1,4 @@
-# SM3DL 0.1 — Scribble Space exchange profile
+# SM3DL 0.2 — Scribble Space exchange profile
 
 Status: experimental implementation profile, not an established interoperability standard.
 
@@ -28,7 +28,7 @@ assets/<sha256>.png         clean image, annotated image, reference images
 assets/<sha256>.glb         original user-loaded model, when needed
 ```
 
-The manifest declares format `sm3dl`, version `0.1.0`, profile `scribble-space`, view paths, coordinate conventions and a SHA-256/byte-count inventory for every payload file. The manifest is not included in its own inventory. Hashes detect corruption; they do not authenticate the author. Import verifies all referenced view and asset hashes before creating view records.
+The manifest declares format `sm3dl`, version `0.2.0` (imports also accept `0.1.0`), profile `scribble-space`, view paths, coordinate conventions and a SHA-256/byte-count inventory for every payload file. The manifest is not included in its own inventory. Hashes detect corruption; they do not authenticate the author. Import verifies all referenced view and asset hashes before creating view records.
 
 An export from the editor contains the current frozen view. Other saved views remain in its library and can be exported individually. The container can represent multiple views; a package's `scene.glb` corresponds only to `geometryView`. Do not assume that all views show the same scene revision.
 
@@ -100,3 +100,13 @@ Related standards: [glTF 2.0](https://registry.khronos.org/glTF/specs/2.0/glTF-2
 ## Evidence and evaluation
 
 Passing a JSON validator proves structural validity, not design correctness. Reprojection tests check pixel/camera consistency; round trips check file preservation; usability trials check whether humans can express intent. To demonstrate better LLM handoffs, compare screenshot-only, screenshot-plus-prose and this package on the same tasks: placement error, constraint violations, clarification burden and reproducibility. No model-performance benefit is established by the format alone.
+
+## Selected areas and explicit MCP handoffs (0.2)
+
+A `region` mark binds a note to a normalized image rectangle: `{id, type: "region", x, y, width, height, text, color, anchor?}`. Coordinates start at the top-left of the clean capture; each component is between 0 and 1, and the rectangle must fit within the image. Width/height may be zero for a point annotation. Text is nonempty, at most 1,000 characters. An optional anchor is a single endpoint raycast observation, not a 3D bounding volume. Region IDs, rectangles and full text survive export/import. The annotated PNG renders numbered region outlines and note labels; long labels may be shortened visually. JSON and PROMPT.md retain their complete text.
+
+An MCP `open_sketch` session has a unique ID and an independent submission cursor. Autosaving never submits. Explicit **Send to Codex** first persists the finished annotated PNG and document, then queues an immutable snapshot `{id, session, sequence, sentAt, document}` under the local server's `submissions/` directory. Draft edits after sending cannot alter this snapshot. A duplicate send of the same view revision in the same session returns the same receipt. Stale revisions fail with HTTP 409.
+
+`wait_for_submission(session, after, timeoutMs)` returns the next submitted snapshot and both real PNG image blocks; `after` is the last returned sequence, initially zero. Waits use an event listener, are bounded to 25 seconds, and support cancellation. Repeat the cursor to retry delivery; advance it only after receiving the result. Separate sessions cannot receive each other's submissions. `read_submission` re-reads a sent snapshot. Queue status `delivered` means the MCP server prepared its tool result, not that a model understood it or applied edits. A browser may say queued while no receiving tool call is active.
+
+The MCP process owns the session lifetime. Saved captures and submission files remain on disk after exit; live session cursors do not survive process restart. Reopen through Codex and resend a saved view if needed. A static website cannot access a local Codex session, and MCP does not guarantee that a send starts an idle host task.

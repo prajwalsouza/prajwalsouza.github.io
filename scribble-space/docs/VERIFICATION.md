@@ -26,3 +26,11 @@ Tested artifact: standalone app source, generated plugin runtime, and static dem
 ## Reproduce
 
 `npm test`, then `python3 -m http.server 4323 --bind 127.0.0.1`. Open `tests/roundtrip.html`, click its test button, and expect PASS. `tests/layout.html` shows generic scenes at narrow CSS widths. Use `node server.mjs` for the disk-storage profile.
+
+## 0.2 annotation and Send revision
+
+- Eight Node tests pass, including real packaged stdio MCP send/wait/read: drafts do not submit, a pending receive wakes on explicit send with both PNGs, stale revisions fail, retries do not duplicate, sessions are isolated, and later draft edits leave the sent snapshot unchanged.
+- Browser: selected two areas on the generic courtyard, attached notes beside them, added pencil ink, sent through the actual packaged MCP process, received both PNG image blocks and exact camera/marks, and visually inspected the returned annotated PNG. The editor reported delivery through MCP. Reopened a selected area to edit its note.
+- Browser package round trip passes with region bounds/text/IDs, camera, references and rendered GLB preserved; undo/redo also checked.
+- Narrow 390 × 844 CSS iframe checked for blank, annotation tools and anchored note composer. This is responsive layout verification, not a physical phone or stylus test.
+- No native Codex host plugin activation or automatic idle-task wake is claimed. Verification used a real stdio MCP client harness; the plugin skill documents the bounded receive-call workflow and idle-task limit.

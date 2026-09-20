@@ -3,12 +3,16 @@ import {digest} from '../shared/archive.mjs';
 import {inspectGLB} from '../shared/model.mjs';
 export async function request(url,options={}){const response=await fetch(url,options);if(!response.ok){let message;try{message=(await response.json()).error}catch{message=response.statusText}const error=new Error(message||'Local server unavailable.');error.status=response.status;throw error}return response.json()}
 export async function openStorage(){
- let server=false;if(['localhost','127.0.0.1','[::1]'].includes(location.hostname))try{server=(await request('./api/health')).app==='scribble-space'}catch{}
- if(server)return new ServerStorage();
+ let health=null,server=false;if(['localhost','127.0.0.1','[::1]'].includes(location.hostname))try{health=await request('./api/health');server=health.app==='scribble-space'}catch{}
+ if(server)return new ServerStorage(health);
  const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('scribble-space-v1',1);r.onupgradeneeded=()=>{r.result.createObjectStore('assets');r.result.createObjectStore('shots',{keyPath:'id'})};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});return new BrowserStorage(db);
 }
 class ServerStorage{
  mode='Local server';
+ constructor(health){this.mcp=health.mcp===true}
+ async session(id){return request('./api/session?session='+encodeURIComponent(id))}
+ async submit(session,doc){return request('./api/submissions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session,id:doc.id,revision:doc.revision})})}
+ async receipt(session,id){return request('./api/submissions/'+id+'?session='+encodeURIComponent(session))}
  async put(blob){const type=blob.type==='model/gltf-binary'?'model/gltf-binary':'image/png';return request('./api/assets',{method:'POST',headers:{'Content-Type':type},body:blob})}
  async blob(id){const r=await fetch('./api/assets/'+id);if(!r.ok)throw Error('Missing saved asset.');return r.blob()}
  async url(id){return './api/assets/'+id}

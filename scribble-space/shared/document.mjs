@@ -20,7 +20,7 @@ export function validateShot(raw){
  const camera=validateCamera(raw.camera);if(Math.abs(camera.aspect-capture.width/capture.height)>.005)fail('Screenshot and camera aspect do not match.');
  if(!Array.isArray(raw.marks)||raw.marks.length>4000)fail('Too many annotations.');let points=0;const ids=new Set();
  const marks=raw.marks.map(m=>{
-  if(!m||(typeof m.id!=='string'||!ID.test(m.id))||ids.has(m.id)||!['pen','arrow','eraser','image','text'].includes(m.type))fail('Invalid annotation.');ids.add(m.id);
+  if(!m||(typeof m.id!=='string'||!ID.test(m.id))||ids.has(m.id)||!['pen','arrow','eraser','image','text','region'].includes(m.type))fail('Invalid annotation.');ids.add(m.id);
   const result={id:m.id,type:m.type};
   if(['pen','arrow','eraser'].includes(m.type)){
    if(!/^#[a-f0-9]{6}$/i.test(m.color||'')||!finite(m.width,.0001,.1)||!Array.isArray(m.points)||!m.points.length||m.type==='arrow'&&m.points.length!==2)fail('Invalid pencil stroke.');
@@ -29,6 +29,8 @@ export function validateShot(raw){
    if(!finite(m.x,0,1)||!finite(m.y,0,1))fail('Invalid annotation position.');Object.assign(result,{x:m.x,y:m.y});
    if(m.type==='image'){
     if(!asset(m.asset)||!finite(m.width,.015,1)||!finite(m.height,.015,1)||m.x+m.width>1.001||m.y+m.height>1.001||!text(m.name,180))fail('Invalid reference image.');Object.assign(result,{asset:m.asset,width:m.width,height:m.height,name:m.name});
+   }else if(m.type==='region'){
+    if(!finite(m.width,0,1)||!finite(m.height,0,1)||m.x+m.width>1.001||m.y+m.height>1.001||!text(m.text,1000)||!m.text.trim()||!/^#[a-f0-9]{6}$/i.test(m.color||''))fail('Invalid area annotation.');Object.assign(result,{width:m.width,height:m.height,text:m.text,color:m.color});
    }else{
     if(!text(m.text,1000)||!finite(m.size,.005,.15)||!/^#[a-f0-9]{6}$/i.test(m.color||''))fail('Invalid text annotation.');Object.assign(result,{text:m.text,size:m.size,color:m.color});
    }

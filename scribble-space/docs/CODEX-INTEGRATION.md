@@ -19,9 +19,11 @@ The plugin is distributed through this public repository. It has not been submit
 
 1. Codex calls `open_sketch`; the plugin starts its editor on a free loopback port.
 2. Codex opens the returned URL in its browser panel, or gives the user the URL when that panel is unavailable.
-3. The user flies, freezes the view, and draws. Local disk saves happen automatically.
-4. Codex waits for a new save or lists views, then calls `read_sketch` to receive images and precise JSON.
+3. The user explores, chooses Annotate, draws or selects areas and attaches notes. Draft saves happen automatically.
+4. The user presses **Send to Codex** (or Ctrl/Command + Enter). `wait_for_submission` returns the clean and annotated PNGs plus the immutable camera/scene/region JSON to the waiting Codex task.
 5. Codex interprets the requested change and edits the user's project within the task's authorization.
+
+Each opened canvas has its own session and send cursor. Later draft edits cannot change an already sent snapshot. Repeated sending of the same revision does not duplicate the handoff. A queued send stays on local disk. MCP does not independently resume an idle host task: Codex must be running a receive call or the user must resume the task. The UI distinguishes queued from delivered through MCP; neither status claims that edits were applied.
 
 An autosave can be an unfinished thought. `wait_for_sketch` is a change notification aid, not an approval signal. Drawings are not sent to an AI model until the host calls a tool that returns their content.
 
@@ -29,9 +31,11 @@ An autosave can be an unfinished thought. `wait_for_sketch` is a change notifica
 
 | Tool | Result |
 | --- | --- |
-| `open_sketch` | Local editor URL, timestamp; optional generic template, brief, user-selected GLB path. |
+| `open_sketch` | Local editor URL, session ID, initial cursor, timestamp; optional generic template, brief, user-selected GLB path. |
 | `list_sketches` | Saved view IDs, titles, revisions and timestamps. |
 | `read_sketch` | Saved document plus annotated PNG; optionally both clean and annotated PNGs. |
+| `wait_for_submission` | Explicit Send event, both real PNG images and immutable document; session-scoped, cursor-based, up to 25 seconds. |
+| `read_submission` | Re-read a sent snapshot and both images. |
 | `wait_for_sketch` | Changed views since a timestamp; bounded to 25 seconds. |
 | `export_sketch` | A ZIP on local disk with images, recipe, camera and original model. |
 | `read_format_spec` | Complete SM3DL specification. |

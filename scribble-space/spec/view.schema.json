@@ -186,7 +186,8 @@
               "arrow",
               "eraser",
               "image",
-              "text"
+              "text",
+              "region"
             ]
           }
         }
