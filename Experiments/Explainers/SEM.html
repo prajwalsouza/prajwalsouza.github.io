@@ -1,0 +1,1273 @@
+<meta charset="utf-8">
+<title>Invisible Causes</title>
+<meta name="description" content="A continuous hand-drawn animation on least squares, Student's t, regression, path analysis, latent variables and causal inference.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Kalam:wght@300;400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ebe7de;--ink:#2a2926;--ink2:#5b5750;--ink3:#8f8a80;--rule:#cdc7ba;--teal:#16867f;--teal-soft:rgba(22,134,127,.16);
+  color-scheme:light;
+}
+html,body{height:100%}
+body{margin:0;background-color:var(--paper);color:var(--ink);font-family:"Newsreader",Georgia,"Times New Roman",serif;overflow:hidden}
+#app{height:100%;display:grid;grid-template-rows:minmax(0,1fr) auto auto;padding-inline:16px;box-sizing:border-box}
+#stage{position:relative;min-height:0}
+#c{position:absolute;inset:0;width:100%;height:100%;display:block}
+#cap{width:100%;max-width:66ch;margin:0 auto;text-align:center;font-size:clamp(16px,1.5vw,21px);line-height:1.42;min-height:4.4em;padding-block:2px 4px;display:flex;align-items:center;justify-content:center;text-wrap:balance}
+#cap span{display:block;animation:capIn .8s ease both}
+@keyframes capIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+#hint{display:none;text-align:center;font-size:13px;color:var(--ink2);font-style:italic;padding-block:2px}
+#bar{display:flex;align-items:center;gap:10px;padding-block:4px 14px;width:100%;max-width:1180px;margin:0 auto;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--ink2);font-variant-numeric:tabular-nums}
+#bar button{appearance:none;border:1px solid var(--rule);background:transparent;color:var(--ink);height:34px;min-width:34px;border-radius:17px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font:inherit;padding-inline:10px;transition:background .2s,border-color .2s}
+#bar button:hover{background:rgba(42,41,38,.06);border-color:var(--ink3)}
+#bar button:focus-visible,#track:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+#bar svg{width:14px;height:14px;fill:currentColor}
+#play{width:44px;height:44px!important;border-radius:22px!important;border-color:var(--ink)!important}
+#track{position:relative;flex:1;height:34px;cursor:pointer;touch-action:none;outline:none;border-radius:4px}
+#track .rail{position:absolute;left:0;right:0;top:16px;height:2px;background:var(--rule);border-radius:1px}
+#track .fill{position:absolute;left:0;top:16px;height:2px;background:var(--ink);border-radius:1px}
+#track .tick{position:absolute;top:11px;width:1px;height:12px;background:var(--ink3)}
+#track .knob{position:absolute;top:10px;width:14px;height:14px;border-radius:50%;background:var(--teal);margin-left:-7px;box-shadow:0 0 0 4px var(--teal-soft)}
+#tip{position:absolute;bottom:32px;transform:translateX(-50%);white-space:nowrap;background:var(--ink);color:var(--paper);padding:4px 9px;border-radius:3px;font-size:12px;pointer-events:none;font-family:"Newsreader",Georgia,serif;font-style:italic}
+#time{min-width:9.5ch;text-align:right}
+@media (max-width:700px){#time{display:none}#bar{gap:6px}#bar button{min-width:30px;height:30px;padding-inline:6px}}
+@media (orientation:portrait) and (max-width:700px){#hint{display:block}}
+@media (prefers-reduced-motion:reduce){#cap span{animation:none}}
+</style>
+
+<div id="app">
+  <div id="stage"><canvas id="c" aria-label="Hand-drawn animation illustrating the history of statistical modeling" role="img"></canvas></div>
+  <div id="hint">Turn your phone sideways for a larger view.</div>
+  <div id="cap" aria-live="polite"></div>
+  <div id="bar">
+    <button id="prev" type="button" aria-label="Previous chapter"><svg viewBox="0 0 16 16"><path d="M3 2h2v12H3zM14 2v12L6 8z"/></svg></button>
+    <button id="play" type="button" aria-label="Pause"><svg viewBox="0 0 16 16" id="pi"><path d="M3 2h4v12H3zM9 2h4v12H9z"/></svg></button>
+    <button id="next" type="button" aria-label="Next chapter"><svg viewBox="0 0 16 16"><path d="M11 2h2v12h-2zM2 2v12l8-6z"/></svg></button>
+    <div id="track" tabindex="0" role="slider" aria-label="Timeline" aria-valuemin="0">
+      <div class="rail"></div><div class="fill"></div><div class="knob"></div><div id="tip" hidden></div>
+    </div>
+    <span id="time">0:00 / 0:00</span>
+    <button id="speed" type="button" aria-label="Playback speed">1×</button>
+  </div>
+</div>
+
+<script>
+(()=>{
+/* ================================================================
+   Palette, fonts, stage
+   ================================================================ */
+const W=1600,H=900;
+const C={ink:'#2a2926',ink2:'#5b5750',ink3:'#8f8a80',faint:'#c4beb1',paper:'#ebe7de',sheet:'#f6f3ec',
+  teal:'#16928b',orange:'#d27d27',red:'#bd3d2a',brass:'#b08d4a',light:'#ebe6da',grain:'#c9a25a'};
+const F={hand:'"Kalam","Segoe Print","Bradley Hand",cursive',title:'"IM Fell English",Georgia,serif',
+  serif:'"Newsreader",Georgia,serif',mono:'"IBM Plex Mono",ui-monospace,Menlo,monospace'};
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let GA=1,boil=0,ci=0;
+
+/* ================================================================
+   Math utilities
+   ================================================================ */
+const clamp=(x,a=0,b=1)=>x<a?a:x>b?b:x;
+const lerp=(a,b,t)=>a+(b-a)*t;
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const P=(t,a,b)=>clamp((t-a)/(b-a));
+const EP=(t,a,b)=>ease(P(t,a,b));
+const io=(t,a,b,c,d)=>Math.min(EP(t,a,b),1-EP(t,c,d));
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gauss(r){let u=0;while(!u)u=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*r())}
+function h32(n){n=n|0;n=Math.imul(n^(n>>>16),0x45d9f3b);n=Math.imul(n^(n>>>16),0x45d9f3b);n^=n>>>16;return(n>>>0)/4294967296}
+function vn(x,s){const i=Math.floor(x),f=x-i,u=f*f*(3-2*f);return h32(i*374761+s*668265)*(1-u)+h32((i+1)*374761+s*668265)*u-.5}
+function rgba(h,a){const n=parseInt(h.slice(1),16);return`rgba(${n>>16},${n>>8&255},${n&255},${a})`}
+const f2=(v,d=2)=>(v<-1e-9?'−':'')+Math.abs(v).toFixed(d);
+const dec=(v,d=2)=>(v<0?'−':'')+Math.abs(v).toFixed(d).replace(/^0/,'');
+function solve3(A,b){const M=A.map((r,i)=>[...r,b[i]]);for(let c=0;c<3;c++){let p=c;for(let r=c+1;r<3;r++)if(Math.abs(M[r][c])>Math.abs(M[p][c]))p=r;[M[c],M[p]]=[M[p],M[c]];for(let r=0;r<3;r++){if(r===c)continue;const f=M[r][c]/M[c][c];for(let k=c;k<4;k++)M[r][k]-=f*M[c][k]}}return M.map((r,i)=>r[3]/r[i])}
+function corr(a,b){const n=a.length;let ma=0,mb=0;for(let i=0;i<n;i++){ma+=a[i];mb+=b[i]}ma/=n;mb/=n;let s=0,sa=0,sb=0;for(let i=0;i<n;i++){const x=a[i]-ma,y=b[i]-mb;s+=x*y;sa+=x*x;sb+=y*y}return s/Math.sqrt(sa*sb)}
+const npdf=x=>Math.exp(-x*x/2)/Math.sqrt(2*Math.PI);
+const t2pdf=x=>1/(2*Math.SQRT2)*Math.pow(1+x*x/2,-1.5);
+
+/* ================================================================
+   Pencil primitives
+   ================================================================ */
+function strokePts(a,o={}){
+  const p=o.p??1;if(p<=0||a.length<2)return;
+  const n=a.length,L=new Float32Array(n);
+  for(let i=1;i<n;i++)L[i]=L[i-1]+Math.hypot(a[i][0]-a[i-1][0],a[i][1]-a[i-1][1]);
+  const lim=L[n-1]*Math.min(1,p);
+  const w=o.w??1.6,al=GA*(o.a??1),jit=o.j??1,passes=o.n??2,s=(++ci)*131+(o.seed||0);
+  ctx.strokeStyle=o.c||C.ink;ctx.lineCap='round';ctx.lineJoin='round';ctx.setLineDash(o.dash||[]);
+  for(let k=0;k<passes;k++){
+    const sd=s+k*977+boil*7919;
+    ctx.globalAlpha=al*(k?0.45:0.92);ctx.lineWidth=k?w*0.62:w;
+    ctx.beginPath();
+    for(let i=0;i<n;i++){
+      let x=a[i][0],y=a[i][1],li=L[i];
+      if(li>lim){const f=(lim-L[i-1])/((li-L[i-1])||1);x=a[i-1][0]+(x-a[i-1][0])*f;y=a[i-1][1]+(y-a[i-1][1])*f;li=lim}
+      const q=li/24;x+=vn(q,sd)*jit*2.2;y+=vn(q,sd+71)*jit*2.2;
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+      if(li>=lim)break;
+    }
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+}
+function segPts(x1,y1,x2,y2){const n=Math.max(2,Math.ceil(Math.hypot(x2-x1,y2-y1)/14)),a=[];for(let i=0;i<=n;i++)a.push([x1+(x2-x1)*i/n,y1+(y2-y1)*i/n]);return a}
+function line(x1,y1,x2,y2,o={}){strokePts(segPts(x1,y1,x2,y2),o)}
+function dline(x1,y1,x2,y2,o={}){strokePts(segPts(x1,y1,x2,y2),{n:1,dash:[8,7],...o})}
+function circle(x,y,r,o={}){const n=Math.max(18,Math.ceil(r*.7)),a=[],s0=o.start??-1.9,sw=o.sweep??(Math.PI*2+.22);for(let i=0;i<=n;i++){const th=s0+sw*i/n;a.push([x+Math.cos(th)*r,y+Math.sin(th)*r])}strokePts(a,o)}
+function ellipse(x,y,rx,ry,rot,o={}){const n=Math.max(24,Math.ceil((rx+ry)*.5)),a=[],c=Math.cos(rot),s=Math.sin(rot),s0=o.start??-1.9,sw=o.sweep??(Math.PI*2+.2);for(let i=0;i<=n;i++){const th=s0+sw*i/n,px=Math.cos(th)*rx,py=Math.sin(th)*ry;a.push([x+px*c-py*s,y+px*s+py*c])}strokePts(a,o)}
+function rectS(x,y,w,h,o={}){const p=o.p??1,ov=o.ov??4;const sides=[[x-ov,y,x+w+ov,y],[x+w,y-ov,x+w,y+h+ov],[x+w+ov,y+h,x-ov,y+h],[x,y+h+ov,x,y-ov]];sides.forEach((s,i)=>{const q=clamp(p*4-i);if(q>0)line(s[0],s[1],s[2],s[3],{...o,p:q})})}
+function cumL(a){const L=[0];for(let i=1;i<a.length;i++)L.push(L[i-1]+Math.hypot(a[i][0]-a[i-1][0],a[i][1]-a[i-1][1]));return L}
+function at(a,p){const L=cumL(a),n=a.length,lim=L[n-1]*clamp(p);for(let i=1;i<n;i++){if(L[i]>=lim){const f=(lim-L[i-1])/((L[i]-L[i-1])||1);return{x:a[i-1][0]+(a[i][0]-a[i-1][0])*f,y:a[i-1][1]+(a[i][1]-a[i-1][1])*f,dx:a[i][0]-a[i-1][0],dy:a[i][1]-a[i-1][1]}}}const q=a[n-1],r=a[n-2];return{x:q[0],y:q[1],dx:q[0]-r[0],dy:q[1]-r[1]}}
+function trim(a,s0,s1){if(!s0&&!s1)return a;const L=cumL(a),T=L[L.length-1];if(T<=s0+s1+1)return[a[0],a[a.length-1]];const A=at(a,s0/T),B=at(a,(T-s1)/T),out=[[A.x,A.y]];for(let i=0;i<a.length;i++)if(L[i]>s0&&L[i]<T-s1)out.push(a[i]);out.push([B.x,B.y]);return out}
+function arrow(x1,y1,x2,y2,o={}){
+  const p=o.p??1;if(p<=0)return;
+  const b=o.bend||0,mx=(x1+x2)/2,my=(y1+y2)/2,dx=x2-x1,dy=y2-y1,Ln=Math.hypot(dx,dy)||1,cx=mx-dy/Ln*b,cy=my+dx/Ln*b;
+  let a=[];const n=Math.max(8,Math.ceil(Ln/12));
+  for(let i=0;i<=n;i++){const u=i/n;a.push([(1-u)*(1-u)*x1+2*(1-u)*u*cx+u*u*x2,(1-u)*(1-u)*y1+2*(1-u)*u*cy+u*u*y2])}
+  a=trim(a,o.s0||0,o.s1||0);strokePts(a,o);
+  if(o.head===false||p<.03)return;
+  const tp=at(a,p),ang=Math.atan2(tp.dy,tp.dx),hl=o.hl||15,ho={...o,p:1,dash:null,n:1,w:(o.w||1.6)};
+  line(tp.x,tp.y,tp.x-Math.cos(ang-.42)*hl,tp.y-Math.sin(ang-.42)*hl,ho);
+  line(tp.x,tp.y,tp.x-Math.cos(ang+.42)*hl,tp.y-Math.sin(ang+.42)*hl,ho);
+}
+function hatch(path,bb,o={}){
+  const p=o.p??1;if(p<=0)return;
+  ctx.save();ctx.beginPath();path();ctx.clip();
+  const ang=o.ang??-.9,gap=o.gap??7;ctx.strokeStyle=o.c||C.ink;ctx.lineWidth=o.w??1;ctx.globalAlpha=GA*(o.a??.5);ctx.setLineDash([]);
+  const[x,y,w,h]=bb,cx=x+w/2,cy=y+h/2,R=Math.hypot(w,h)/2+6,ca=Math.cos(ang),sa=Math.sin(ang),s=(++ci)*31;
+  ctx.beginPath();let k=0;
+  for(let d=-R;d<=-R+2*R*p;d+=gap,k++){const j=(h32(s+k*7+boil*131)-.5)*gap*.4,px=cx-sa*(d+j),py=cy+ca*(d+j);ctx.moveTo(px-ca*R,py-sa*R);ctx.lineTo(px+ca*R,py+sa*R)}
+  ctx.stroke();ctx.restore();
+}
+function fillP(path,col,a=1){ctx.globalAlpha=GA*a;ctx.fillStyle=col;ctx.beginPath();path();ctx.fill()}
+function T(s,x,y,o={}){
+  s=String(s);let al=o.al||'center';
+  ctx.font=`${o.st||'normal'} ${o.wt||400} ${o.s||26}px ${F[o.f||'hand']}`;
+  if(o.p!==undefined){if(o.p<=0)return;const full=ctx.measureText(s).width;if(al==='center'){x-=full/2;al='left'}else if(al==='right'){x-=full;al='left'}s=s.slice(0,Math.ceil(s.length*clamp(o.p)))}
+  ctx.globalAlpha=GA*(o.a??1);ctx.fillStyle=o.c||C.ink;ctx.textAlign=al;ctx.textBaseline=o.bl||'middle';ctx.fillText(s,x,y);
+}
+function dot(x,y,r,col=C.teal,a=1){if(a<=0)return;ctx.globalAlpha=GA*a;ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();ctx.globalAlpha=GA*a*.45;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x-r*.3,y-r*.32,r*.36,0,7);ctx.fill();ctx.globalAlpha=GA*a*.7;ctx.strokeStyle=C.ink;ctx.lineWidth=.8;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.stroke()}
+function glow(x,y,r,col=C.teal,a=1){if(a<=0)return;const g=ctx.createRadialGradient(x,y,0,x,y,r*4.5);g.addColorStop(0,rgba(col,.38*a));g.addColorStop(1,rgba(col,0));ctx.globalAlpha=GA;ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*4.5,0,7);ctx.fill();dot(x,y,r,col,a)}
+function ball(x,y,r,a=1){const g=ctx.createRadialGradient(x-r*.35,y-r*.4,r*.08,x,y,r);g.addColorStop(0,'#f3e6bf');g.addColorStop(.45,'#c4a360');g.addColorStop(1,'#5a4520');ctx.globalAlpha=GA*a;ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();circle(x,y,r,{w:1.1,a:.75*a,j:.4})}
+function node(x,y,label,o={}){const r=o.r||34,p=o.p??1,a=o.a??1;if(p<=0)return;if(o.fill)fillP(()=>ctx.arc(x,y,r,0,7),o.fill,(o.fa??.14)*a*clamp(p*1.5));circle(x,y,r,{p,w:o.w||1.8,c:o.c||C.ink,dash:o.dash,a});T(label,x,y+2,{s:o.s||30,a:a*clamp((p-.4)*2),c:o.tc||C.ink,f:o.f||'hand'})}
+function box(x,y,w,h,label,o={}){const p=o.p??1,a=o.a??1;if(p<=0)return;if(o.fill)fillP(()=>ctx.rect(x-w/2,y-h/2,w,h),o.fill,(o.fa??.12)*a);rectS(x-w/2,y-h/2,w,h,{p,w:o.w||1.6,c:o.c,a,ov:3});T(label,x,y+2,{s:o.s||24,a:a*clamp((p-.4)*2),c:o.tc||C.ink})}
+function cross(x,y,s,o={}){line(x-s,y-s,x+s,y+s,{c:C.red,w:2.4,...o});line(x+s,y-s,x-s,y+s,{c:C.red,w:2.4,...o})}
+function cam3(o){const cy=Math.cos(o.yaw),sy=Math.sin(o.yaw),cp=Math.cos(o.pitch),sp=Math.sin(o.pitch);return(x,y,z)=>{const xr=x*cy-y*sy,yr=x*sy+y*cy,up=z*cp+yr*sp,dep=yr*cp-z*sp,f=o.d/(o.d+dep);return[o.ox+xr*o.s*f,o.oy-up*o.s*f,dep]}}
+function seg3(pr,A,B,o){const a=pr(...A),b=pr(...B);line(a[0],a[1],b[0],b[1],o)}
+function plainLine(x1,y1,x2,y2,col,w,a){ctx.globalAlpha=GA*a;ctx.strokeStyle=col;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()}
+function catmull(Pp,n=10){const out=[];for(let i=0;i<Pp.length-1;i++){const p0=Pp[Math.max(0,i-1)],p1=Pp[i],p2=Pp[i+1],p3=Pp[Math.min(Pp.length-1,i+2)];for(let k=0;k<n;k++){const t=k/n,t2=t*t,t3=t2*t;out.push([0,1].map(d=>.5*(2*p1[d]+(-p0[d]+p2[d])*t+(2*p0[d]-5*p1[d]+4*p2[d]-p3[d])*t2+(-p0[d]+3*p1[d]-3*p2[d]+p3[d])*t3)))}}out.push(Pp[Pp.length-1]);return out}
+function withAlpha(a,fn){if(a<=0)return;const g=GA;GA*=a;fn();GA=g}
+
+/* A piebald guinea pig, drawn in pencil */
+function pig(x,y,s,o={}){
+  const p=o.p??1;if(p<=0)return;const f=o.flip?-1:1,r=rng(o.seed||1);
+  ctx.save();ctx.translate(x,y);ctx.scale(s*f,s);
+  const body=[];for(let i=0;i<=56;i++){const a=Math.PI*2*i/56,b=1+.05*Math.sin(a*3+1);body.push([Math.cos(a)*80*b-6,Math.sin(a)*46*b-(Math.sin(a)<0?5*Math.cos(a):0)])}
+  if(p>.55){const pa=clamp((p-.55)/.45);ctx.save();ctx.beginPath();body.forEach((q,i)=>i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]));ctx.closePath();ctx.moveTo(91,-14);ctx.arc(60,-14,31,0,Math.PI*2);ctx.clip();
+    const np=o.patches||3;for(let k=0;k<np;k++){const cx=-70+r()*150,cy=-44+r()*76,rx=20+r()*28,ry=14+r()*20,ro=r()*3;hatch(()=>ctx.ellipse(cx,cy,rx,ry,ro,0,Math.PI*2),[cx-rx-6,cy-rx-6,2*rx+12,2*rx+12],{gap:3.4,a:.8*pa,c:o.pc||C.ink2,ang:-.8,w:1.15})}
+    ctx.restore()}
+  strokePts(body,{p:clamp(p*1.6),w:2.3,c:o.c});
+  circle(60,-14,31,{p:clamp(p*1.6-.3),w:2.3,start:-2.5,sweep:4.3,c:o.c});
+  ellipse(50,-44,11,8,-.5,{p:clamp(p*2-.8),w:1.8,c:o.c});
+  if(p>.6){dot(74,-20,3.4,C.ink,clamp((p-.6)*3));fillP(()=>ctx.arc(90,-9,3,0,7),C.ink,.8*clamp((p-.6)*3))}
+  [[-52,44],[-22,48],[24,47],[52,42]].forEach(([fx,fy])=>line(fx,fy,fx+5,fy+11,{p:clamp(p*2-1),w:1.9,c:o.c}));
+  ctx.restore();
+}
+function wrench(x,y,s,rot,o={}){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(s,s);const c=o.c||C.ink;
+  fillP(()=>{ctx.moveTo(-6,0);ctx.lineTo(-6,110);ctx.arc(0,110,6,Math.PI,0,true);ctx.lineTo(6,0);ctx.closePath()},c,.18*(o.a??1));
+  line(-6,0,-6,110,{c,w:2,a:o.a});line(6,0,6,110,{c,w:2,a:o.a});
+  circle(0,-14,20,{c,w:2.2,a:o.a,start:-.9,sweep:5.1});line(-8,-30,-8,-14,{c,w:2,a:o.a});line(8,-30,8,-14,{c,w:2,a:o.a});
+  ctx.restore()}
+
+/* ================================================================
+   Scenes
+   ================================================================ */
+const scenes=[
+
+/* 01 ─ Prologue */
+{title:'The caboose',stamp:'early 1920s · United States',dur:32,cap:[
+[0,'The Statistical Geometry of Invisible Causes.'],
+[6,'Early 1920s. A man recovering from a serious illness lies in a railway caboose, rattling across the American landscape.'],
+[12.5,'He is Sewall Wright, a geneticist whose official title is “animal husbandman.” For light reading he has a book on quaternions, the algebra of rotations in space.'],
+[19.5,'As the car sways, he takes out a sheet of paper and starts to draw. Not equations. Guinea pigs.'],
+[25,'Parents, offspring, and arrows between them: heredity, environment, and pure developmental chance.']],
+draw(t){
+  const tc=1-EP(t,5,6.5);
+  if(tc>0)withAlpha(tc,()=>{
+    T('The Statistical Geometry',800,330,{f:'title',s:84});
+    T('of Invisible Causes',800,425,{f:'title',s:84,st:'italic'});
+    line(560,492,1040,492,{p:EP(t,.4,2.6),c:C.teal,w:2.2});
+    T('comets · barley · guinea pigs · a hidden weight · a hospital door · a wrench',800,548,{f:'serif',s:27,st:'italic',c:C.ink2,a:EP(t,1,2.5)});
+  });
+  const s=EP(t,5.4,6.6);if(s<=0)return;
+  withAlpha(s,()=>{
+    ctx.save();const sw=Math.sin(t*1.9)*.005;ctx.translate(800,450);ctx.rotate(sw);ctx.translate(-800,-450);
+    const dp=EP(t,5.5,10);
+    for(let i=0;i<8;i++)line(30,590+i*38,700,590+i*38,{p:dp,c:C.ink3,w:1,a:.45});
+    for(let i=0;i<5;i++)line(30,40+i*28,700,40+i*28,{p:dp,c:C.ink3,w:1,a:.25});
+    const wx=110,wy=150,ww=520,wh=380;
+    ctx.save();ctx.beginPath();ctx.rect(wx,wy,ww,wh);ctx.clip();
+      hatch(()=>ctx.rect(wx,wy,ww,wh),[wx,wy,ww,wh],{ang:-.25,gap:11,a:.12*dp});
+      const far=[],near=[];for(let x=wx-10;x<=wx+ww+10;x+=10){far.push([x,wy+228+18*Math.sin((x+t*40)/120)+9*Math.sin((x+t*40)/47)]);near.push([x,wy+292+10*Math.sin((x+t*150)/90)])}
+      hatch(()=>{ctx.moveTo(far[0][0],far[0][1]);far.forEach(q=>ctx.lineTo(q[0],q[1]));ctx.lineTo(wx+ww+10,wy+wh);ctx.lineTo(wx-10,wy+wh)},[wx,wy+190,ww,190],{gap:6,a:.28*dp,ang:.8});
+      strokePts(far,{p:dp,c:C.ink2,w:1.4});
+      hatch(()=>{ctx.moveTo(near[0][0],near[0][1]);near.forEach(q=>ctx.lineTo(q[0],q[1]));ctx.lineTo(wx+ww+10,wy+wh);ctx.lineTo(wx-10,wy+wh)},[wx,wy+270,ww,110],{gap:4.5,a:.35*dp,ang:-.6});
+      strokePts(near,{p:dp,c:C.ink,w:1.6});
+      const sp=300;const poles=[];for(let k=0;k<4;k++){const x=wx+ww+150-((t*260+k*sp)%(sp*4));poles.push(x)}
+      poles.forEach(x=>{line(x,wy+120,x,wy+300,{w:2.4,p:dp});line(x-22,wy+132,x+22,wy+132,{w:1.8,p:dp});
+        const a=[];for(let i=0;i<=16;i++){const u=i/16;a.push([x+u*sp,wy+134+Math.sin(u*Math.PI)*26])}strokePts(a,{w:1,c:C.ink2,p:dp})});
+    ctx.restore();
+    rectS(wx,wy,ww,wh,{p:dp,w:2.4});rectS(wx-16,wy-16,ww+32,wh+32,{p:dp,w:1.6});
+    hatch(()=>{ctx.rect(wx-16,wy-16,ww+32,wh+32);ctx.rect(wx+ww,wy,-ww,wh)},[wx-16,wy-16,ww+32,wh+32],{gap:5,a:.35*dp,ang:.9});
+    line(wx+ww/2,wy,wx+ww/2,wy+wh,{p:dp,w:2.2});
+    // lamp
+    const la=.08*Math.sin(t*1.9+1);ctx.save();ctx.translate(700,20);ctx.rotate(la);
+      line(0,0,0,110,{w:1.4,p:dp});rectS(-18,110,36,12,{w:1.6,p:dp,ov:2});
+      ellipse(0,150,22,30,0,{w:1.6,p:dp});glow(0,150,7,C.orange,.7*dp);
+    ctx.restore();
+    // book
+    ctx.save();ctx.translate(290,700);ctx.rotate(-.06);
+      fillP(()=>ctx.rect(-160,-44,320,88),C.sheet,1);
+      hatch(()=>ctx.rect(-160,-44,320,88),[-160,-44,320,88],{gap:5,a:.2*dp});
+      rectS(-160,-44,320,88,{p:dp,w:1.9});line(-160,-30,160,-30,{p:dp,w:1,c:C.ink3});line(-160,30,160,30,{p:dp,w:1,c:C.ink3});
+      T('QUATERNIONS',0,2,{f:'title',s:30,a:dp});
+    ctx.restore();
+    // paper sheet
+    ctx.save();ctx.translate(1125,470);ctx.rotate(-.025);
+      fillP(()=>ctx.rect(-345,-335,690,670),'rgba(40,36,30,.12)',dp);
+      fillP(()=>ctx.rect(-352,-342,690,670),C.sheet,1);
+      rectS(-352,-342,690,670,{p:dp,w:1.2,c:C.ink2,ov:2});
+      const x0=-7,y0=-7;
+      pig(x0-190,y0-175,.72,{p:EP(t,15,18.5),seed:3});T('parent',x0-190,y0-100,{s:22,c:C.ink2,a:EP(t,17,18.5)});
+      pig(x0+190,y0-175,.72,{p:EP(t,16,19.5),seed:7,flip:true});T('parent',x0+190,y0-100,{s:22,c:C.ink2,a:EP(t,18,19.5)});
+      pig(x0,y0+125,.86,{p:EP(t,18,21.5),seed:11});T('offspring',x0,y0+200,{s:22,c:C.ink2,a:EP(t,20,21.5)});
+      arrow(x0-150,y0-95,x0-50,y0+60,{p:EP(t,21,22.8),bend:-24,c:C.teal,w:2.2});
+      arrow(x0+150,y0-95,x0+50,y0+60,{p:EP(t,21.5,23.3),bend:24,c:C.teal,w:2.2});
+      T('heredity',x0,y0-60,{s:24,c:C.teal,p:EP(t,22.5,24)});
+      node(x0+255,y0+180,'E',{r:30,p:EP(t,24,25.5),s:28});T('environment',x0+255,y0+236,{s:21,c:C.ink2,p:EP(t,25,26.5)});
+      arrow(x0+224,y0+170,x0+95,y0+140,{p:EP(t,25.5,27),w:2});
+      const sq=[];for(let i=0;i<=40;i++){const u=i/40;sq.push([x0-300+u*90,y0+180+Math.sin(u*Math.PI*4)*14])}
+      strokePts(sq,{p:EP(t,26,27.5),w:2});T('chance',x0-255,y0+236,{s:21,c:C.ink2,p:EP(t,26.5,28)});
+      arrow(x0-200,y0+170,x0-95,y0+140,{p:EP(t,27,28.5),w:2});
+      // pencil
+      ctx.save();const px=x0+230+10*Math.sin(t*2.2),py=y0-10+8*Math.cos(t*1.7);ctx.translate(px,py);ctx.rotate(-.7);
+        fillP(()=>ctx.rect(0,-7,190,14),'#e0b85c',dp*.9);rectS(0,-7,190,14,{w:1.2,p:dp,ov:1});
+        fillP(()=>{ctx.moveTo(0,-7);ctx.lineTo(-26,0);ctx.lineTo(0,7)},'#e8d6b0',dp);line(0,-7,-26,0,{w:1.2,p:dp});line(-26,0,0,7,{w:1.2,p:dp});
+        fillP(()=>{ctx.moveTo(-17,-2.4);ctx.lineTo(-26,0);ctx.lineTo(-17,2.4)},C.ink,dp);
+      ctx.restore();
+    ctx.restore();
+    ctx.restore();
+  });
+}},
+
+/* 02 ─ The question */
+{title:'Where the shapes come from',stamp:'today',dur:26,cap:[
+[0,'If you have ever read a scatter plot, a bell curve or a web of arrows on a dashboard, you live in the world this man and a few others built.'],
+[8,'None of these tools arrived on stone tablets. Each was invented by a specific person, backed into a corner by a real problem.'],
+[14.5,'They were all trying to measure things they could not see directly.'],
+[19,'Which leads to one tension. When a model fits what we can see, what have we learned about what we can’t? A perfect fit is not the truth.']],
+init(){const r=rng(2);this.sc=[];for(let i=0;i<34;i++){const x=r();this.sc.push([15+x*230,20+x*150+gauss(r)*22])}},
+draw(t){
+  withAlpha(1-EP(t,12,13.5),()=>{
+    const pa=EP(t,.4,3.5),pb=EP(t,2,5),pc=EP(t,3.5,6.5);
+    line(200,500,470,500,{p:pa,w:1.8});line(200,500,200,260,{p:pa,w:1.8});
+    this.sc.forEach((q,i)=>{if(i/this.sc.length<pa)dot(200+q[0],500-q[1],5,C.teal,.9)});
+    line(215,478,462,305,{p:EP(t,3,4.6),c:C.orange,w:2.4});
+    T('a scatter plot',335,562,{s:27,a:pa});
+    const bell=[];for(let i=0;i<=80;i++){const x=-3+6*i/80;bell.push([800+x*80,500-230*Math.exp(-x*x/2)])}
+    line(560,500,1040,500,{p:pb,w:1.8});
+    hatch(()=>{ctx.moveTo(bell[0][0],bell[0][1]);bell.forEach(q=>ctx.lineTo(q[0],q[1]));ctx.closePath()},[560,260,480,240],{a:.3,gap:6,p:pb});
+    strokePts(bell,{p:pb,w:2.3});
+    T('a bell curve',800,562,{s:27,a:pb});
+    node(1170,300,'X',{r:30,p:pc,s:26});node(1390,300,'Y',{r:30,p:pc,s:26});node(1280,465,'M',{r:30,p:pc,s:26});
+    arrow(1170,300,1390,300,{p:EP(t,5,6.5),s0:32,s1:34,w:1.8});
+    arrow(1170,300,1280,465,{p:EP(t,5.4,6.9),s0:32,s1:34,w:1.8});
+    arrow(1280,465,1390,300,{p:EP(t,5.8,7.3),s0:32,s1:34,w:1.8});
+    T('a web of arrows',1280,562,{s:27,a:pc});
+    T('Where did these shapes come from?',800,705,{f:'title',s:44,st:'italic',p:EP(t,7,10),c:C.ink2});
+  });
+  const a2=EP(t,12.5,14);if(a2<=0)return;
+  withAlpha(a2,()=>{
+    line(150,470,1450,470,{p:EP(t,12.5,15),w:2.4});
+    T('what we can see',160,436,{al:'left',s:26,c:C.ink2});T('what we can’t',160,508,{al:'left',s:26,c:C.ink2});
+    const bx=[520,800,1080],lb=['test scores','survey answers','census counts'];
+    bx.forEach((x,i)=>box(x,330,200,84,lb[i],{p:EP(t,13+i*.4,15+i*.4),s:25}));
+    const gp=EP(t,15,17.5);glow(800,680,7,C.teal,gp*.7);
+    ellipse(800,680,175,82,0,{p:gp,dash:[9,8],c:C.teal,w:2.2,n:1});
+    T('?',800,690,{s:70,a:gp,c:C.teal});
+    bx.forEach((x,i)=>arrow(800+(x-800)*.4,605,x,378,{p:EP(t,16+i*.3,18+i*.3),dash:[6,7],c:C.teal,w:1.7,n:1}));
+    const fp=EP(t,20.5,23.5);
+    T('a perfect fit',1300,620,{s:36,p:fp});T('≠',1300,672,{s:52,c:C.red,a:fp});T('the truth',1300,728,{s:36,p:EP(t,22,24)});
+  });
+}},
+
+/* 03 ─ Legendre */
+{title:'Legendre and the comets',stamp:'1805 · Paris',dur:34,cap:[
+[0,'Paris, 1805. Adrien-Marie Legendre is trying to pin down the orbits of comets.'],
+[5.5,'Astronomers in different cities sight the same comet on different nights. The air shimmers, lenses warp, clocks drift.'],
+[12.5,'No single orbit passes through every sighting. The observations contradict one another.'],
+[19,'Legendre’s answer: choose the curve that makes the sum of the squared misses as small as possible. He called it least squares.'],
+[27,'He tied it to physics. The least-squares answer is a center of gravity: the misses on each side balance exactly.']],
+init(){const r=rng(5);this.yT=u=>700-1200*u*(1.2-u);this.pts=[];
+  for(let i=0;i<12;i++){const u=.04+i*.083+(r()-.5)*.025;this.pts.push({u,x:260+u*1150,y:this.yT(u)+gauss(r)*30})}
+  const A=[[0,0,0],[0,0,0],[0,0,0]],b=[0,0,0];this.pts.forEach(q=>{const v=[1,q.u,q.u*q.u];for(let i=0;i<3;i++){b[i]+=v[i]*q.y;for(let j=0;j<3;j++)A[i][j]+=v[i]*v[j]}});
+  this.opt=solve3(A,b);this.bad=[640,-120,0];
+  this.ss=B=>this.pts.reduce((s,q)=>s+(q.y-(B[0]+B[1]*q.u+B[2]*q.u*q.u))**2,0);this.ssBad=this.ss(this.bad);this.ssMin=this.ss(this.opt);
+  this.stars=[];for(let i=0;i<80;i++)this.stars.push([30+r()*820,30+r()*470,r()]);
+  this.names=['Paris','Greenwich','Milan','Berlin','Palermo','Vienna'];
+  this.worst=this.pts.map((q,i)=>[Math.abs(q.y-this.yT(q.u)),i]).sort((a,b)=>b[0]-a[0]).slice(0,3).map(q=>q[1]);},
+draw(t){
+  const g=ctx.createLinearGradient(0,0,1150,620);g.addColorStop(0,'rgba(26,27,30,.95)');g.addColorStop(.42,'rgba(26,27,30,.62)');g.addColorStop(1,'rgba(26,27,30,0)');
+  fillP(()=>ctx.rect(0,0,W,H),g,1);
+  const hg=ctx.createLinearGradient(0,0,1150,620);hg.addColorStop(0,'rgba(8,8,10,.6)');hg.addColorStop(1,'rgba(8,8,10,0)');
+  hatch(()=>ctx.rect(0,0,W,H),[0,0,W,H],{c:hg,a:1,gap:5,ang:-.95});
+  this.stars.forEach(([x,y,k],i)=>{const d=1-clamp((x+y*.8)/820);if(d<=0)return;const tw=.5+.5*Math.sin(t*2.1+i*1.7);ctx.globalAlpha=GA*d*(.35+.65*tw);ctx.fillStyle=C.light;ctx.fillRect(x-1,y-1,2,2);if(k>.86){ctx.fillRect(x-5,y-.5,10,1);ctx.fillRect(x-.5,y-5,1,10)}});
+  const land=[];for(let x=0;x<=W;x+=20)land.push([x,835-16*Math.sin(x/170)-9*Math.sin(x/61)-(x<520?(520-x)*.1:0)]);
+  const lg=ctx.createLinearGradient(0,0,1300,0);lg.addColorStop(0,'rgba(22,22,25,.96)');lg.addColorStop(1,'rgba(22,22,25,.12)');
+  fillP(()=>{ctx.moveTo(0,H);land.forEach(q=>ctx.lineTo(q[0],q[1]));ctx.lineTo(W,H)},lg,1);
+  strokePts(land,{c:C.ink2,w:1.3,a:.5});
+  // telescope in pale chalk
+  const tp=EP(t,.5,3);
+  line(250,745,190,850,{c:C.light,w:2,p:tp,a:.85});line(250,745,255,860,{c:C.light,w:2,p:tp,a:.85});line(250,745,315,845,{c:C.light,w:2,p:tp,a:.85});
+  line(185,772,345,650,{c:C.light,w:9,p:tp,a:.8,n:1});line(185,772,345,650,{c:C.ink,w:1.2,p:tp,a:.6});
+  line(345,650,362,637,{c:C.light,w:13,p:tp,a:.8,n:1});
+  // sightings
+  const fitL=EP(t,19.5,26.5),B=[0,1,2].map(i=>lerp(this.bad[i],this.opt[i],fitL)),fit=u=>B[0]+B[1]*u+B[2]*u*u,showFit=EP(t,19,20.5);
+  if(showFit>0){
+    this.pts.forEach(q=>{const fy=fit(q.u),r=q.y-fy,s=Math.abs(r);const x=q.x,y0=Math.min(q.y,fy);
+      fillP(()=>ctx.rect(x,y0,s,s),C.orange,.13*showFit);rectS(x,y0,s,s,{w:1,c:C.orange,a:.7*showFit,ov:0,n:1});
+      dline(x,q.y,x,fy,{c:C.red,w:1.4,a:showFit,dash:[4,5]})});
+    const fc=[];for(let i=0;i<=80;i++){const u=i/80;fc.push([260+u*1150,fit(u)])}
+    strokePts(fc,{p:showFit,c:C.orange,w:2.8});
+  }
+  const wig=EP(t,13,15.5)*(1-EP(t,18.5,19.8));
+  if(wig>0){const cp=catmull(this.pts.map(q=>[q.x,q.y]),10);strokePts(cp,{p:EP(t,13,15.5),c:C.ink,w:1.8,a:1-EP(t,18.5,19.8)});
+    this.worst.forEach((i,k)=>{const q=this.pts[i];cross(q.x+24,q.y-24,9,{a:EP(t,15.5+k*.4,16.3+k*.4)*(1-EP(t,18.5,19.8))})});
+    T('no orbit zig-zags like this',1180,160,{s:28,c:C.ink,p:EP(t,15.8,17.5),a:1-EP(t,18.5,19.8)});}
+  this.pts.forEach((q,i)=>{const ti=6+i*.55,a=EP(t,ti,ti+.45);if(a<=0)return;
+    for(let k=0;k<3;k++)line(q.x-4,q.y+2,q.x-40-k*6,q.y+16+k*7,{c:C.teal,w:1.3,a:.5*a,n:1});
+    glow(q.x,q.y,7,C.teal,a);
+    if(i%2===0){const nm=this.names[i/2],dark=q.x<720;T(nm,q.x+4,q.y-28,{s:20,c:dark?C.light:C.ink2,a:a*.9})}});
+  // meter
+  const ma=EP(t,20,21.5);
+  if(ma>0)withAlpha(ma,()=>{const ss=this.ss(B),w=340*ss/this.ssBad,wm=340*this.ssMin/this.ssBad;
+    T('sum of squared misses',1150,760,{al:'left',s:22,c:C.ink});
+    fillP(()=>ctx.rect(1150,782,w,16),fitL>.98?C.teal:C.orange,.55);rectS(1150,782,340,16,{w:1,ov:0,n:1,c:C.ink2});
+    line(1150+wm,774,1150+wm,806,{c:C.teal,w:2});T('minimum',1150+wm,822,{s:17,c:C.teal})});
+  T('least squares',1010,205,{s:34,c:C.orange,p:EP(t,26,28)});
+  T('Σ misses = 0 · the curve sits at the balance point',1170,120,{s:24,c:C.ink,p:EP(t,28,31),al:'center'});
+}},
+
+/* 04 ─ Seesaw */
+{title:'The balance point',stamp:'a thought experiment',dur:24,cap:[
+[0,'A thought experiment. Weigh one object three times and get 1 kg, 2 kg and 6 kg.'],
+[5.5,'Put equal weights at those three positions on a beam. Where must the fulcrum sit for the beam to balance?'],
+[12,'At 3. The pulls on either side cancel exactly: (1 − 3) + (2 − 3) + (6 − 3) = 0.'],
+[18,'The balance point is the mean. Least squares and the center of gravity are the same idea.']],
+draw(t){
+  const U=130,X=v=>330+v*U,fy=560;
+  const f=lerp(5.2,3,EP(t,5.5,11.5)),tau=9-3*f;
+  let th=clamp(tau*.028,-.2,.2);if(t>11.5)th+=.018*Math.sin(9*(t-11.5))*Math.exp(-(t-11.5)*1.4);
+  const dp=EP(t,0,2.5);
+  // floor with perspective
+  line(120,700,1480,700,{w:1.6,p:dp});
+  for(let i=0;i<5;i++)line(120,735+i*38,1480,735+i*38,{c:C.ink3,w:1,a:.35,p:dp});
+  for(let i=-6;i<=6;i++)line(800+i*70,700,800+i*190,H,{c:C.ink3,w:1,a:.25,p:dp});
+  for(let v=0;v<=7;v++){line(X(v),700,X(v),712,{w:1.2,p:dp});T(v,X(v),734,{s:22,c:C.ink2,a:dp})}
+  T('kg',X(7)+44,734,{s:20,c:C.ink2,a:dp});
+  const px=X(f);
+  // fulcrum
+  fillP(()=>{ctx.moveTo(px,fy);ctx.lineTo(px-54,700);ctx.lineTo(px+54,700)},C.sheet,1);
+  hatch(()=>{ctx.moveTo(px,fy);ctx.lineTo(px-54,700);ctx.lineTo(px+54,700)},[px-54,fy,108,140],{gap:5,a:.35});
+  line(px,fy,px-54,700,{w:2});line(px,fy,px+54,700,{w:2});
+  // shadow
+  fillP(()=>ctx.ellipse(800,704,520,8,0,0,7),'rgba(40,36,30,.08)',dp);
+  ctx.save();ctx.translate(px,fy);ctx.rotate(th);
+    const l0=(0-f)*U-60,l1=(7-f)*U+60;
+    fillP(()=>ctx.rect(l0,-22,l1-l0,22),C.sheet,1);hatch(()=>ctx.rect(l0,-22,l1-l0,22),[l0,-22,l1-l0,22],{gap:6,a:.25,ang:-.2});
+    rectS(l0,-22,l1-l0,22,{w:2,p:dp,ov:3});
+    for(let v=0;v<=7;v++)line((v-f)*U,-22,(v-f)*U,-14,{w:1,c:C.ink2,a:dp});
+  ctx.restore();
+  dot(px,fy-10,5,C.ink,.9);
+  [1,2,6].forEach((v,i)=>{const lx=(v-f)*U,ly=-22-32,wx=px+lx*Math.cos(th)-ly*Math.sin(th),wy=fy+lx*Math.sin(th)+ly*Math.cos(th),a=EP(t,.8+i*.5,1.8+i*.5);
+    dline(wx,wy+32,wx,700,{c:C.ink3,w:1,a:a*.8});ball(wx,wy-(1-a)*80,32,a);T(v+' kg',wx,wy-60-(1-a)*80,{s:24,a})});
+  // readout
+  const bal=Math.abs(tau)<.03,col=bal?C.teal:C.ink,fs=f.toFixed(2);
+  T(`(1 − ${fs}) + (2 − ${fs}) + (6 − ${fs}) = ${f2(tau)}`,800,810,{f:'mono',s:28,c:col,a:EP(t,5,6.5)});
+  T('fulcrum',px,650,{s:21,c:C.ink2,a:EP(t,5,6)*(1-EP(t,17,18))});
+  const pa=EP(t,13,15);
+  if(pa>0){[[1,-2],[2,-1],[6,3]].forEach(([v,d],i)=>{const x=X(v);arrow(x,170,x+(d<0?-1:1)*Math.abs(d)*38,170,{p:pa,c:d<0?C.orange:C.teal,w:2.4});T((d>0?'+':'−')+Math.abs(d),x+(d<0?-1:1)*Math.abs(d)*19,140,{s:26,c:d<0?C.orange:C.teal,a:pa})});
+    T('pulls cancel',X(3.6),230,{s:24,c:C.ink2,a:pa})}
+  const ma=EP(t,18,20);if(ma>0){T('mean = 3',X(3),300,{f:'title',s:48,a:ma,c:C.teal});}
+}},
+
+/* 05 ─ Point in 3D */
+{title:'The mean is a shadow',stamp:'Legendre’s geometry',dur:46,cap:[
+[0,'Now change the picture. We usually draw the three weighings as three dots on a number line.'],
+[6.5,'Instead, treat the whole dataset as a single point in three dimensions: one step along the first axis, two along the second, six up the third.'],
+[13.5,'If the object had one true weight a and there were no noise, the data would read (a, a, a). All such points lie on one diagonal: the line of perfect agreement.'],
+[21.5,'Our point floats off that line. The best single value is the spot on the line closest to it. Slide along and watch the squared distance.'],
+[29,'It is closest at (3, 3, 3), exactly where a perpendicular shadow falls. The mean is a shadow: a projection onto the line of agreement.'],
+[37,'The miss, (−2, −1, 3), meets the line at a right angle, so Pythagoras holds: 41 = 27 + 14. Least squares is geometry.']],
+draw(t){
+  withAlpha(1-EP(t,7,8.5),()=>{const X=v=>400+v*114,y=520;
+    line(X(-.3),y,X(7.4),y,{p:EP(t,.3,2),w:2});
+    for(let v=0;v<=7;v++){line(X(v),y-8,X(v),y+8,{w:1.2,p:EP(t,.5,2)});T(v,X(v),y+34,{s:22,c:C.ink2,a:EP(t,1,2)})}
+    [1,2,6].forEach((v,i)=>{const pp=EP(t,1.5+i*.7,2.6+i*.7),cy=y-150-(1-pp)*60;rectS(X(v)-48,cy-32,96,64,{p:pp,w:1.5});T(v+' kg',X(v),cy+2,{s:28,a:pp});
+      arrow(X(v),cy+36,X(v),y-14,{p:EP(t,2.5+i*.7,3.4+i*.7),c:C.teal,w:1.6});if(t>3.2+i*.7)glow(X(v),y,8,C.teal)});
+    T('three dots on a line',X(3.5),y+100,{s:28,c:C.ink2,a:EP(t,3,4.5)});
+  });
+  const aB=EP(t,7.5,9);if(aB<=0)return;
+  withAlpha(aB,()=>{
+    const yaw=-1.35+.2*Math.sin(t*.13),pr=cam3({ox:600,oy:660,s:58,yaw,pitch:.36,d:40});
+    for(let i=0;i<=7;i++){seg3(pr,[i,0,0],[i,7,0],{c:C.ink3,w:1,a:.32,n:1});seg3(pr,[0,i,0],[7,i,0],{c:C.ink3,w:1,a:.32,n:1});
+      seg3(pr,[0,i,0],[0,i,7],{c:C.ink3,w:1,a:.16,n:1});seg3(pr,[0,0,i],[0,7,i],{c:C.ink3,w:1,a:.16,n:1});
+      seg3(pr,[i,0,0],[i,0,7],{c:C.ink3,w:1,a:.16,n:1});seg3(pr,[0,0,i],[7,0,i],{c:C.ink3,w:1,a:.16,n:1})}
+    const O=pr(0,0,0),ax=[[7.8,0,0,'weighing 1'],[0,7.8,0,'weighing 2'],[0,0,7.8,'weighing 3']];
+    ax.forEach(([x,y,z,l])=>{const e=pr(x,y,z);arrow(O[0],O[1],e[0],e[1],{w:2});const q=pr(x*1.1,y*1.1,z*1.07);T(l,q[0],q[1],{s:22,c:C.ink2})});
+    // steps to the point
+    const sp=EP(t,9,12.5),path=[[0,0,0],[1,0,0],[1,2,0],[1,2,6]].map(v=>pr(...v));
+    strokePts(path.map(q=>[q[0],q[1]]),{p:sp,c:C.teal,w:2,dash:[7,6],n:1});
+    [[.5,0,0,'1'],[1,1,0,'2'],[1,2,3,'6']].forEach(([x,y,z,l],i)=>{const q=pr(x,y,z);T(l,q[0]+(i===2?18:-14),q[1]+(i===2?0:18),{s:24,c:C.teal,a:EP(t,9.5+i,10.5+i)})});
+    const Pt=pr(1,2,6),pa=EP(t,11.8,12.8);
+    // diagonal
+    const dg=EP(t,13.5,16.5),Dend=pr(7.4,7.4,7.4);
+    line(O[0],O[1],lerp(O[0],Dend[0],dg),lerp(O[1],Dend[1],dg),{c:C.ink,w:2.6});
+    for(let a=1;a<=7;a++){const q=pr(a,a,a),da=EP(t,14+a*.35,14.6+a*.35);dot(q[0],q[1],3.4,C.ink,da);if(a<=3)T(`(${a},${a},${a})`,q[0]+10,q[1]+26,{s:19,c:C.ink2,a:da*(1-EP(t,28,29))})}
+    T('line of agreement: (a, a, a)',Dend[0]+10,Dend[1]-30,{s:24,c:C.ink,p:EP(t,16,18.5)});
+    // candidate slide
+    const sl=P(t,21.5,29);let a;
+    if(sl<=0)a=null;else if(t<25.2)a=lerp(.4,6.4,EP(t,21.5,25.2));else a=lerp(6.4,3,EP(t,25.2,28.4));
+    const D2=v=>(1-v)**2+(2-v)**2+(6-v)**2;
+    if(a!==null){const vis=1-EP(t,29,30);const q=pr(a,a,a);dline(Pt[0],Pt[1],q[0],q[1],{c:C.orange,w:1.8,a:vis});dot(q[0],q[1],7,C.orange,vis)}
+    // projection
+    const Fo=pr(3,3,3),pj=EP(t,29,31.5);
+    if(pj>0){line(Pt[0],Pt[1],lerp(Pt[0],Fo[0],pj),lerp(Pt[1],Fo[1],pj),{c:C.teal,w:2.2,dash:[8,6],n:1});
+      const u=[1,1,1].map(v=>v/Math.sqrt(3)),rv=[-2,-1,3],rn=Math.hypot(...rv),v=rv.map(x=>x/rn),s=.45;
+      const q1=pr(3+u[0]*s,3+u[1]*s,3+u[2]*s),q2=pr(3+(u[0]+v[0])*s,3+(u[1]+v[1])*s,3+(u[2]+v[2])*s),q3=pr(3+v[0]*s,3+v[1]*s,3+v[2]*s);
+      strokePts([[q1[0],q1[1]],[q2[0],q2[1]],[q3[0],q3[1]]],{p:EP(t,31,32),w:1.6,c:C.ink});
+      glow(Fo[0],Fo[1],8,C.teal,EP(t,31,32));
+      T('(3, 3, 3)  the mean',Fo[0]+26,Fo[1]+30,{s:26,c:C.teal,al:'left',p:EP(t,31.5,33.5)})}
+    // triangle
+    const tr=EP(t,37,39.5);
+    if(tr>0){hatch(()=>{ctx.moveTo(O[0],O[1]);ctx.lineTo(Pt[0],Pt[1]);ctx.lineTo(Fo[0],Fo[1])},[Math.min(O[0],Pt[0],Fo[0]),Math.min(O[1],Pt[1],Fo[1]),600,600],{gap:6,a:.18*tr,c:C.teal});
+      line(O[0],O[1],Pt[0],Pt[1],{p:tr,c:C.ink,w:2});
+      const m1=[(O[0]+Pt[0])/2,(O[1]+Pt[1])/2],m2=[(O[0]+Fo[0])/2,(O[1]+Fo[1])/2],m3=[(Fo[0]+Pt[0])/2,(Fo[1]+Pt[1])/2];
+      T('√41',m1[0]-34,m1[1]-6,{s:24,a:tr});T('√27',m2[0]+10,m2[1]+26,{s:24,c:C.teal,a:tr});T('√14',m3[0]+34,m3[1],{s:24,c:C.orange,a:tr})}
+    glow(Pt[0],Pt[1],9,C.teal,pa);T('(1, 2, 6)',Pt[0]+18,Pt[1]-26,{s:26,al:'left',a:pa});
+    // right panel
+    const rp=EP(t,21.5,23);
+    if(rp>0)withAlpha(rp,()=>{const x0=1170,x1=1490,y0=520,sy=220/62,Xa=v=>x0+v/7*(x1-x0),Ya=v=>y0-v*sy;
+      T('squared distance to (a, a, a)',x0,210,{al:'left',s:24});
+      line(x0,y0,x1,y0,{w:1.4});line(x0,y0,x0,y0-230,{w:1.4});
+      const c=[];for(let i=0;i<=70;i++){const v=i/10;c.push([Xa(v),Ya(D2(v))])}strokePts(c,{w:2,c:C.ink});
+      for(let v=0;v<=7;v++)T(v,Xa(v),y0+22,{s:18,c:C.ink2});T('a',x1+18,y0,{s:20,c:C.ink2});
+      if(a!==null&&t<29.5){dot(Xa(a),Ya(D2(a)),6,C.orange);T(`a = ${a.toFixed(2)}   Σ(yᵢ − a)² = ${D2(a).toFixed(2)}`,x0,y0+62,{f:'mono',s:19,al:'left',c:C.orange})}
+      if(t>=28.4){dot(Xa(3),Ya(14),6,C.teal);T('minimum 14 at a = 3',Xa(3)+16,Ya(14)-26,{s:21,c:C.teal,al:'left'})}
+    });
+    const eq=EP(t,38.5,41);
+    if(eq>0)withAlpha(eq,()=>{T('|y|²  =  |ȳ·1|²  +  |y − ȳ·1|²',1330,680,{f:'serif',s:28,st:'italic'});
+      T('41  =  27  +  14',1330,740,{f:'title',s:48});T('1+4+36      9+9+9      4+1+9',1330,790,{f:'mono',s:16,c:C.ink2})});
+  });
+}},
+
+/* 06 ─ Squares or absolutes */
+{title:'Why square the errors?',stamp:'loss and likelihood',dur:42,cap:[
+[0,'Why square the misses at all? The usual answer, “so negatives don’t cancel,” is not the reason. Absolute values would do that too.'],
+[7.5,'Take the data 0, 0 and 10. The squared loss is smallest at 3.33, the mean. The absolute loss is smallest at 0, the median.'],
+[15,'Neither is an arithmetic mistake. They answer two different questions about what “closest” means.'],
+[21,'Squares are the right choice when errors follow a bell curve. For Gaussian noise, least squares is exactly maximum likelihood.'],
+[28.5,'If errors follow the sharper, fat-tailed Laplace curve, least absolute error is the maximum-likelihood choice, and the median wins.'],
+[35.5,'Squares also buy a clean geometry: independent variances add like the sides of a right triangle.']],
+draw(t){
+  const X=v=>300+(v+1)*1000/12,ny=210;
+  const L2=c=>2*c*c+(10-c)**2,L1=c=>2*Math.abs(c)+Math.abs(10-c);
+  let c=null;if(t>=7.5&&t<15)c=t<12.5?lerp(-1,11,EP(t,7.5,12.5)):lerp(11,10/3,EP(t,12.5,15));
+  withAlpha(1-EP(t,34.5,36),()=>{
+    line(X(-1.2),ny,X(11.3),ny,{w:2,p:EP(t,.3,2)});
+    for(let v=-1;v<=11;v++){line(X(v),ny-6,X(v),ny+6,{w:1,p:EP(t,.5,2)});if(v%2===0||v===-1)T(v<0?'−1':v,X(v),ny+28,{s:19,c:C.ink2,a:EP(t,1,2)})}
+    const da=EP(t,1.5,3);glow(X(0),ny-12,7,C.ink,da);glow(X(0),ny-34,7,C.ink,da);glow(X(10),ny-12,7,C.ink,da);
+    T('0, 0, 10',X(5),ny-70,{s:28,a:da});
+    if(c!==null){const cx=X(c);[[0,ny-12],[0,ny-34],[10,ny-12]].forEach(([v,y])=>line(cx,ny+14,X(v),y+10,{c:C.ink3,w:1,a:.8,n:1}));
+      fillP(()=>{ctx.moveTo(cx,ny+2);ctx.lineTo(cx-10,ny+22);ctx.lineTo(cx+10,ny+22)},C.orange,1);T('c',cx,ny+40,{s:22,c:C.orange})}
+    const mk=EP(t,15,17);
+    if(mk>0){fillP(()=>{ctx.moveTo(X(10/3),ny+2);ctx.lineTo(X(10/3)-10,ny+22);ctx.lineTo(X(10/3)+10,ny+22)},C.teal,mk);T('mean 3.33',X(10/3),ny+44,{s:24,c:C.teal,a:mk});
+      fillP(()=>{ctx.moveTo(X(0),ny+2);ctx.lineTo(X(0)-10,ny+22);ctx.lineTo(X(0)+10,ny+22)},C.orange,mk);T('median 0',X(0)-10,ny+60,{s:24,c:C.orange,a:mk})}
+  });
+  // graphs of loss
+  const gA=EP(t,6.5,8.5)*(1-EP(t,20.5,22));
+  const graph=(x0,x1,y0,y1,fn,max,col,title,cmin,lab)=>{
+    const Xg=v=>x0+(v+1)/12*(x1-x0),Yg=v=>y0-(v/max)*(y0-y1);
+    line(x0,y0,x1,y0,{w:1.4});line(x0,y0,x0,y1-10,{w:1.4});T(title,(x0+x1)/2,y1-34,{f:'serif',s:26,st:'italic'});
+    const pts=[];for(let i=0;i<=120;i++){const v=-1+12*i/120;pts.push([Xg(v),Yg(fn(v))])}strokePts(pts,{w:2.4,c:col,p:EP(t,7.5,10)});
+    [0,5,10].forEach(v=>T(v,Xg(v),y0+22,{s:18,c:C.ink2}));T('c',x1+16,y0,{s:20,c:C.ink2});
+    if(c!==null)dot(Xg(c),Yg(fn(c)),6,C.orange);
+    const mk=EP(t,15,17);if(mk>0){dline(Xg(cmin),y0,Xg(cmin),Yg(fn(cmin)),{c:col,a:mk,w:1.6});dot(Xg(cmin),Yg(fn(cmin)),7,col,mk);T(lab,Xg(cmin)+(cmin>1?0:40),Yg(fn(cmin))-30,{s:22,c:col,a:mk,al:cmin>1?'center':'left'})}};
+  if(gA>0)withAlpha(gA,()=>{graph(220,740,780,430,L2,250,C.teal,'squared loss  Σ(x − c)²',10/3,'minimum at 3.33');graph(860,1380,780,430,L1,25,C.orange,'absolute loss  Σ|x − c|',0,'minimum at 0')});
+  // densities
+  const gB=EP(t,21,23);
+  if(gB>0)withAlpha(gB,()=>{
+    const dens=(x0,x1,y0,fn,col,title,note,note2,ps)=>{const Xg=v=>(x0+x1)/2+v/4*(x1-x0)/2,Yg=v=>y0-v*430;
+      line(x0,y0,x1,y0,{w:1.4});T(title,(x0+x1)/2,y0-360,{f:'serif',s:26,st:'italic'});
+      const pts=[];for(let i=0;i<=160;i++){const v=-4+8*i/160;pts.push([Xg(v),Yg(fn(v))])}
+      hatch(()=>{ctx.moveTo(pts[0][0],pts[0][1]);pts.forEach(q=>ctx.lineTo(q[0],q[1]));ctx.closePath()},[x0,y0-330,x1-x0,330],{gap:6,a:.25,c:col,p:ps});
+      strokePts(pts,{w:2.6,c:col,p:ps});T(note,(x0+x1)/2,y0+34,{f:'serif',s:24,st:'italic',c:col});T(note2,(x0+x1)/2,y0+66,{s:21,c:C.ink2})};
+    dens(220,740,780,npdf,C.teal,'Gaussian errors','−log p  ∝  x²','→ least squares, the mean',EP(t,21,23.5));
+    const lap=x=>Math.exp(-Math.abs(x)*Math.SQRT2)/Math.SQRT2;
+    dens(860,1380,780,lap,C.orange,'Laplace errors','−log p  ∝  |x|','→ least absolute error, the median',EP(t,28.5,31));
+    const ov=EP(t,30,32);if(ov>0){const pts=[];for(let i=0;i<=160;i++){const v=-4+8*i/160;pts.push([1120+v/4*260,780-npdf(v)*430])}strokePts(pts,{w:1.4,dash:[6,6],c:C.ink2,a:ov,n:1});
+      T('sharper peak',1120,380,{s:21,a:ov});T('fatter tails',1330,700,{s:21,a:ov});arrow(1330,715,1350,760,{w:1.4,a:ov,hl:10})}
+  });
+  // triangle
+  const tri=EP(t,36,38.5);
+  if(tri>0)withAlpha(tri,()=>{const ax=640,ay=320;
+    hatch(()=>{ctx.moveTo(ax,ay);ctx.lineTo(ax+240,ay);ctx.lineTo(ax,ay-150)},[ax,ay-150,240,150],{gap:6,a:.25,c:C.teal});
+    line(ax,ay,ax+240,ay,{w:2.2,p:tri,c:C.teal});line(ax,ay,ax,ay-150,{w:2.2,p:tri,c:C.orange});line(ax,ay-150,ax+240,ay,{w:2.2,p:tri});
+    strokePts([[ax+18,ay],[ax+18,ay-18],[ax,ay-18]],{w:1.3});
+    T('σ₁',ax+120,ay+26,{s:26,c:C.teal});T('σ₂',ax-30,ay-75,{s:26,c:C.orange});T('√(σ₁² + σ₂²)',ax+175,ay-100,{s:26,al:'left'});
+    T('independent errors: Var(A + B) = Var A + Var B',800,120,{f:'serif',s:26,st:'italic',c:C.ink2})});
+}},
+
+/* 07 ─ n − 1 */
+{title:'Why n − 1',stamp:'Bessel’s correction',dur:38,cap:[
+[0,'Why does a sample variance divide by n − 1 and not by n?'],
+[4.5,'Subtract the mean and the residuals must add to zero. Know two of them, +2 and −3, and the third is forced: +1.'],
+[12,'In the three-dimensional picture, subtracting the mean slides every data point along the diagonal onto one flat plane.'],
+[19.5,'Three observations, but only two directions left in which they can vary. One direction was spent pinning down the mean.'],
+[27,'So the squared distances are shared among the dimensions the data can still move in: n − 1. Nothing was lost; a direction was used to calibrate.']],
+init(){const r=rng(9);this.cl=[];for(let i=0;i<90;i++){const y=[0,0,0].map(()=>4+1.3*gauss(r));const m=(y[0]+y[1]+y[2])/3;this.cl.push({y,m})}},
+draw(t){
+  // residual bars
+  const bx=[220,340,460],base=430,U=46,vals=[2,-3,1];
+  withAlpha(EP(t,4.5,6),()=>{
+    line(160,base,520,base,{w:1.8});T('residuals yᵢ − ȳ',340,150,{f:'serif',s:26,st:'italic'});
+    vals.forEach((v,i)=>{const show=i<2?EP(t,5+i*.8,6+i*.8):EP(t,9,10.5),x=bx[i],h=v*U*show;
+      if(i===2&&t<9){rectS(x-26,base-U-10,52,U,{dash:[5,5],c:C.ink3,w:1.2,n:1,a:EP(t,6.8,7.8)});T('?',x,base-U*.6,{s:34,c:C.ink3,a:EP(t,6.8,7.8)})}
+      if(show>0){fillP(()=>ctx.rect(x-26,base-Math.max(h,0),52,Math.abs(h)),v>0?C.teal:C.orange,.3);rectS(x-26,base-Math.max(h,0),52,Math.abs(h),{w:1.6,c:v>0?C.teal:C.orange,ov:2});
+        T((v>0?'+':'−')+Math.abs(v),x,v>0?base-h-22:base-h+24,{s:28,c:v>0?C.teal:C.orange,a:show})}
+      T(`r${'₁₂₃'[i]}`,x,base+(v>0?26:-18)+(v<0?0:0),{s:20,c:C.ink2,a:EP(t,5,6)})});
+    T('sum = 0',340,640,{f:'title',s:40,c:C.teal,a:EP(t,10,11.5)});
+  });
+  const fa=EP(t,19.5,21.5);
+  if(fa>0)withAlpha(fa,()=>{T('s² = Σ (yᵢ − ȳ)² ⁄ (n − 1)',340,740,{f:'serif',s:34,st:'italic'});
+    T('n = 3 numbers  ·  1 direction spent on ȳ  ·  2 left free',340,800,{s:21,c:C.ink2})});
+  // 3D
+  const a3=EP(t,.5,2.5);if(a3<=0)return;
+  withAlpha(a3,()=>{
+    const pr=cam3({ox:1100,oy:560,s:40,yaw:-1.3+t*.045,pitch:.34+.18*Math.sin(t*.11),d:40});
+    const O=pr(0,0,0);
+    [[7.5,0,0],[0,7.5,0],[0,0,7.5]].forEach(v=>{const e=pr(...v);arrow(O[0],O[1],e[0],e[1],{w:1.6,c:C.ink2});const n=pr(-v[0]*.45,-v[1]*.45,-v[2]*.45);dline(O[0],O[1],n[0],n[1],{c:C.ink3,w:1})});
+    const dA=pr(-3,-3,-3),dB=pr(7.5,7.5,7.5);line(dA[0],dA[1],dB[0],dB[1],{w:2.2,p:EP(t,11,13)});
+    T('diagonal (1,1,1)',dB[0]+8,dB[1]-22,{s:21,c:C.ink2,a:EP(t,12,13)});
+    // plane x+y+z=0
+    const pp=EP(t,14,17);
+    if(pp>0){const e1=[1/Math.SQRT2,-1/Math.SQRT2,0],e2=[1/Math.sqrt(6),1/Math.sqrt(6),-2/Math.sqrt(6)],R=4.2;const poly=[];
+      for(let i=0;i<=48;i++){const a=i/48*Math.PI*2,x=Math.cos(a)*R,y=Math.sin(a)*R;const q=pr(e1[0]*x+e2[0]*y,e1[1]*x+e2[1]*y,e1[2]*x+e2[2]*y);poly.push([q[0],q[1]])}
+      fillP(()=>{poly.forEach((q,i)=>i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]))},C.teal,.1*pp);
+      hatch(()=>{poly.forEach((q,i)=>i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]))},[900,300,420,480],{gap:9,a:.22*pp,c:C.teal});
+      strokePts(poly,{p:pp,c:C.teal,w:1.6,dash:[7,6],n:1});
+      const lp=pr(e1[0]*4.6,e1[1]*4.6,e1[2]*4.6);T('Σ r = 0 plane',lp[0]+8,lp[1],{s:22,c:C.teal,al:'left',a:pp})}
+    const mv=EP(t,13,18.5);
+    this.cl.forEach(({y,m})=>{const q=pr(y[0]-mv*m,y[1]-mv*m,y[2]-mv*m);dot(q[0],q[1],3.6,mv>.99?C.teal:C.ink,.85)});
+    T(mv<.5?'90 samples of (y₁, y₂, y₃)':'the same samples, centered',1100,160,{s:24,c:C.ink2});
+    const nf=EP(t,21,23);if(nf>0){T('3 dimensions − 1 = 2 free directions',1100,830,{f:'title',s:32,st:'italic',a:nf})}
+  });
+}},
+
+/* 08 ─ Gosset */
+{title:'Student at the brewery',stamp:'1908 · Dublin',dur:46,cap:[
+[0,'Dublin, 1908. William Sealy Gosset is a chemist at the Guinness brewery, not a professor.'],
+[6,'He must judge barley from tiny samples, three or four batches at a time, while soil, rain and harvest change everything.'],
+[13,'To test a sample, divide its distance from the target by its estimated noise. With only three measurements, that noise estimate is itself noisy.'],
+[21,'When a sample happens to understate the noise, the ratio explodes, and an ordinary batch looks like an alarm.'],
+[29,'Gosset worked out the true law of that ratio. Its tails are much fatter than the normal curve’s.'],
+[37,'Guinness did not let staff publish under their own names, so he signed the paper “Student.” We still call it Student’s t.']],
+init(){const r=rng(1908);this.s=[];for(let i=0;i<3000;i++){const x=[gauss(r),gauss(r),gauss(r)],m=(x[0]+x[1]+x[2])/3,sd=Math.sqrt(x.reduce((a,v)=>a+(v-m)**2,0)/2);this.s.push({x,m,sd,t:m/(sd/Math.sqrt(3))})}},
+draw(t){
+  const slot=1.25,Xs=v=>390+v*86,ny=560,Xh=v=>1120+v*60,hb=760,DS=900;
+  // brewery vignette
+  withAlpha(EP(t,.3,2.5),()=>{
+    ellipse(210,215,52,70,0,{w:1.8});ellipse(330,215,52,70,0,{w:1.8,start:-1.57,sweep:3.14});
+    line(210,145,330,145,{w:1.8});line(210,285,330,285,{w:1.8});
+    [185,245].forEach(y=>{const a=[];for(let i=0;i<=20;i++){const u=i/20;a.push([210+u*120,y+Math.sin(u*Math.PI)*0])}strokePts(a,{w:3,c:C.ink2})});
+    hatch(()=>ctx.ellipse(210,215,52,70,0,0,7),[158,145,104,140],{gap:5,a:.3});
+    for(let k=0;k<3;k++){const x=460+k*40;line(x,300,x+10*Math.sin(k),150,{w:1.5,c:C.ink2});for(let j=0;j<6;j++){const yy=160+j*14;ellipse(x-7,yy,8,4,.6,{w:1.1,n:1,c:C.ink2});ellipse(x+7,yy+6,8,4,-.6,{w:1.1,n:1,c:C.ink2})}}
+    T('St. James’s Gate',330,322,{s:22,c:C.ink2});
+  });
+  // sample number line
+  const sa=EP(t,5.5,7);
+  withAlpha(sa,()=>{line(Xs(-3.2),ny,Xs(3.2),ny,{w:1.8});for(let v=-3;v<=3;v++){line(Xs(v),ny-6,Xs(v),ny+6,{w:1});T(v<0?'−'+(-v):v,Xs(v),ny+26,{s:18,c:C.ink2})}
+    line(Xs(0),ny-120,Xs(0),ny+8,{w:1.4,c:C.ink2,dash:[4,5],n:1});T('target',Xs(0),ny-136,{s:20,c:C.ink2});
+    T('one sample of three barley batches',390,420,{s:23,c:C.ink})});
+  const kSlow=t<6?0:Math.min(12,Math.floor((t-6)/slot)+1);
+  let landed=t<6?0:Math.min(12,Math.max(0,Math.floor((t-6-1.15)/slot)+1));
+  if(t>21)landed=12+Math.floor((3000-12)*Math.pow(P(t,21,35),1.5));
+  // current sample in slow phase
+  if(t>=6&&t<21){const k=kSlow-1,S=this.s[k],tau=(t-6)-k*slot;
+    S.x.forEach((v,j)=>{const lt=clamp((tau-.05-j*.1)/.3),y=lerp(380,ny-8,ease(lt));if(lt>0){fillP(()=>ctx.ellipse(Xs(v),y,10,5,.4,0,7),C.grain,.9);ellipse(Xs(v),y,10,5,.4,{w:1.1,n:1})}});
+    const ma=clamp((tau-.5)/.15);if(ma>0){line(Xs(S.m),ny-24,Xs(S.m),ny+24,{c:C.orange,w:2.6,a:ma});
+      const sb=clamp((tau-.6)/.2);line(Xs(S.m-S.sd),ny+50,Xs(S.m+S.sd),ny+50,{c:C.teal,w:2.4,a:sb});line(Xs(S.m-S.sd),ny+42,Xs(S.m-S.sd),ny+58,{c:C.teal,w:2,a:sb});line(Xs(S.m+S.sd),ny+42,Xs(S.m+S.sd),ny+58,{c:C.teal,w:2,a:sb});
+      const alarm=Math.abs(S.t)>1.96;
+      T(`x̄ = ${f2(S.m)}   s = ${f2(S.sd)}   t = ${f2(S.t,1)}`,390,ny+100,{f:'mono',s:21,c:alarm?C.red:C.ink,a:sb});
+      if(alarm)T('false alarm: s came out small',390,ny+134,{s:22,c:C.red,a:sb})}
+    const fl=clamp((tau-.78)/.37);if(fl>0&&fl<1){const tv=clamp(S.t,-6.2,6.2),x=lerp(Xs(S.m),Xh(tv),fl),y=lerp(ny,hb-60,fl)-Math.sin(fl*Math.PI)*160;dot(x,y,7,Math.abs(S.t)>1.96?C.red:C.teal)}}
+  if(t>=21)withAlpha(1-EP(t,33,35),()=>T('now thousands of honest samples',390,ny+100,{s:24,c:C.ink2,a:EP(t,21,22)}));
+  // formula
+  withAlpha(EP(t,13,14.5),()=>{T('t = (x̄ − target) ⁄ (s ⁄ √n)',390,790,{f:'serif',s:30,st:'italic'});T('the denominator s is estimated from the same 3 numbers',390,832,{s:19,c:C.ink2})});
+  // histogram
+  withAlpha(EP(t,5,7),()=>{
+    line(Xh(-6.3),hb,Xh(6.3),hb,{w:1.8});for(let v=-6;v<=6;v+=2){line(Xh(v),hb,Xh(v),hb+8,{w:1});T(v<0?'−'+(-v):v,Xh(v),hb+26,{s:18,c:C.ink2})}T('t',Xh(6.3)+20,hb,{s:22,c:C.ink2});
+    const bins=new Array(30).fill(0);let tails=0,alarms=0;
+    for(let i=0;i<landed;i++){const v=this.s[i].t;if(Math.abs(v)>1.96)alarms++;if(v<-6||v>=6){tails++;continue}bins[Math.floor((v+6)/.4)]++}
+    if(landed>0){const sc=landed<60?40:DS/(landed*.4);
+      bins.forEach((n,i)=>{if(!n)return;const h=n*sc,x=Xh(-6+i*.4);const out=Math.abs(-6+i*.4+.2)>1.96;fillP(()=>ctx.rect(x+1,hb-h,22,h),out?C.red:C.ink,out?.28:.16);plainLine(x+1,hb-h,x+23,hb-h,out?C.red:C.ink,1.4,.8)})}
+    const cn=EP(t,21,24);
+    if(cn>0){const n=[];for(let i=0;i<=120;i++){const v=-6+12*i/120;n.push([Xh(v),hb-npdf(v)*DS])}strokePts(n,{w:2,c:C.ink,dash:[7,6],n:1,a:cn});T('normal curve',Xh(-2.1),hb-npdf(0)*DS-8,{s:22,a:cn,al:'right'})}
+    const ct=EP(t,29,32);
+    if(ct>0){const n=[];for(let i=0;i<=120;i++){const v=-6+12*i/120;n.push([Xh(v),hb-t2pdf(v)*DS])}strokePts(n,{w:2.8,c:C.teal,p:ct});T('Student’s t, 2 degrees of freedom',Xh(2.3),hb-t2pdf(1.6)*DS-40,{s:22,c:C.teal,a:ct,al:'left'})}
+    [-1.96,1.96].forEach(v=>dline(Xh(v),hb,Xh(v),hb-420,{c:C.red,w:1.4,a:EP(t,21,23)}));
+    T('±1.96: the normal curve’s 5% line',Xh(0),hb-440,{s:20,c:C.red,a:EP(t,21,23)});
+    const s43=EP(t,31,33);[-4.30,4.30].forEach(v=>dline(Xh(v),hb,Xh(v),hb-300,{c:C.teal,w:1.6,a:s43}));T('±4.30: Student’s 5% line',Xh(4.3),hb-318,{s:20,c:C.teal,a:s43});
+    if(landed>0){const pc=100*alarms/landed;T(`|t| > 1.96 in ${pc.toFixed(1)}% of ${landed} samples`,Xh(0),205,{f:'mono',s:21,c:C.ink});T('the normal curve promises 5%',Xh(0),240,{s:21,c:C.ink2,a:EP(t,22,24)})}
+    if(tails>0&&landed>60){T(`${(100*tails/landed).toFixed(1)}% beyond ±6 →`,Xh(4.6),hb-60,{s:18,c:C.ink2,al:'left'})}
+  });
+  const sg=EP(t,37.5,41);if(sg>0){T('— Student,',1200,120,{f:'title',s:40,st:'italic',p:sg,al:'left'});T('Biometrika, 1908',1225,164,{s:22,c:C.ink2,a:sg,al:'left'})}
+}},
+
+/* 09 ─ Galton */
+{title:'Galton’s ellipses',stamp:'1886 · London',dur:40,cap:[
+[0,'London, 1886. Francis Galton compares the heights of parents with the heights of their grown children.'],
+[6,'Galton also founded eugenics and set out its aims in 1904. These tools were built in service of that program, and the history should be told plainly.'],
+[14,'He plotted hundreds of families. Curves of equal density through the cloud formed nested ellipses.'],
+[20.5,'Mark where each ellipse runs vertical. Those points line up, and the line through them is the regression line.'],
+[27,'Tall parents have tall children, but less extremely so: the slope is about two thirds. Galton called it regression toward mediocrity.'],
+[33.5,'It is Legendre’s projection again, onto a plane spanned by a constant and a predictor. It predicts well. It does not say why.']],
+init(){const r=rng(1886);this.mx=68.3;this.my=68.1;this.sx=1.8;this.sy=2.5;this.rho=.47;this.p=[];
+  for(let i=0;i<420;i++){const a=gauss(r),b=gauss(r);this.p.push([this.mx+this.sx*a,this.my+this.rho*this.sy*a+this.sy*Math.sqrt(1-this.rho**2)*b])}},
+draw(t){
+  const k=680/15,X=v=>460+(v-61)*k,Y=v=>790-(v-61)*k,{mx,my,sx,sy,rho}=this,sl=rho*sy/sx;
+  const ax=EP(t,.3,2.5);
+  line(X(61),Y(61),X(76),Y(61),{w:1.8,p:ax});line(X(61),Y(61),X(61),Y(76),{w:1.8,p:ax});
+  for(let v=62;v<=76;v+=2){line(X(v),Y(61),X(v),Y(61)+8,{w:1,a:ax});T(v,X(v),Y(61)+26,{s:18,c:C.ink2,a:ax});line(X(61)-8,Y(v),X(61),Y(v),{w:1,a:ax});T(v,X(61)-26,Y(v),{s:18,c:C.ink2,a:ax})}
+  T('mid-parent height (inches)',X(68.5),Y(61)+62,{s:23,a:ax});
+  ctx.save();ctx.translate(X(61)-70,Y(68.5));ctx.rotate(-Math.PI/2);T('adult child’s height (inches)',0,0,{s:23,a:ax});ctx.restore();
+  const note=io(t,6,7.5,13.5,15);
+  if(note>0)withAlpha(note,()=>{fillP(()=>ctx.rect(1170,150,360,260),C.sheet,.92);rectS(1170,150,360,260,{w:1.2,c:C.ink2,ov:2});
+    T('Context',1195,185,{f:'title',s:28,al:'left',st:'italic'});
+    ['Galton coined “eugenics” in 1883','and set out its aims in 1904.','Regression and correlation grew','out of that project. The math','outlived it; the history stays.'].forEach((l,i)=>T(l,1195,228+i*34,{f:'serif',s:21,al:'left',c:C.ink2}))});
+  const n=Math.floor(this.p.length*EP(t,1.5,13));
+  for(let i=0;i<n;i++){const[x,y]=this.p[i];dot(X(x),Y(y),3.2,C.ink,.55)}
+  const L=[[sx,0],[rho*sy,sy*Math.sqrt(1-rho*rho)]];
+  [1,1.6,2.3].forEach((kk,j)=>{const pts=[];for(let i=0;i<=90;i++){const a=i/90*Math.PI*2,u=Math.cos(a)*kk,v=Math.sin(a)*kk;pts.push([X(mx+L[0][0]*u),Y(my+L[1][0]*u+L[1][1]*v)])}
+    strokePts(pts,{p:EP(t,14+j*.8,16+j*.8),c:C.teal,w:1.8})});
+  const tp=EP(t,20.5,22.5);
+  if(tp>0)[1,1.6,2.3].forEach(kk=>[1,-1].forEach(s=>{const x=X(mx+s*kk*sx),y=Y(my+s*kk*rho*sy);line(x,y-34,x,y+34,{c:C.teal,w:1.2,a:tp*.8,n:1});glow(x,y,6,C.orange,tp)}));
+  const rl=EP(t,22,24.5);
+  line(X(63),Y(my+sl*(63-mx)),X(74.5),Y(my+sl*(74.5-mx)),{p:rl,c:C.orange,w:3});
+  T('regression line',X(74.5)+12,Y(my+sl*(74.5-mx))-24,{s:24,c:C.orange,al:'left',a:rl});
+  const d=EP(t,27,29.5);
+  if(d>0){dline(X(61),Y(61),X(76),Y(76),{c:C.ink2,w:1.6,a:d});T('slope 1: children exactly like parents',X(71.3)-10,Y(76)+18,{s:21,c:C.ink2,a:d,al:'right'});
+    T('slope ≈ 2⁄3',X(74.5)+12,Y(my+sl*(74.5-mx))+10,{s:24,c:C.orange,al:'left',a:d});
+    arrow(X(72.5),Y(72.5)+8,X(72.5),Y(my+sl*(72.5-mx))-8,{c:C.red,w:1.8,a:d,p:EP(t,28,30)});T('pulled toward the mean',X(72.5)+14,Y(71.5),{s:21,c:C.red,al:'left',a:EP(t,29,30.5)})}
+  const pj=EP(t,33.5,35.5);
+  if(pj>0)withAlpha(pj,()=>{T('ŷ = a·1 + b·x',1340,560,{f:'serif',s:32,st:'italic'});T('projection onto the plane',1340,605,{s:22,c:C.ink2});T('spanned by 1 and x',1340,637,{s:22,c:C.ink2});T('prediction ≠ mechanism',1340,700,{s:26,c:C.red})});
+}},
+
+/* 10 ─ Wright */
+{title:'Wright’s guinea pigs',stamp:'1920 · Washington, D.C.',dur:36,cap:[
+[0,'Back to the caboose. Sewall Wright studied the piebald coats of guinea pigs, their patches of white and color.'],
+[6.5,'How much of a coat pattern comes from the parents’ genes? How much from the shared environment of the womb? How much from chance as cells divide?'],
+[14.5,'A correlation only says that parent and offspring look alike. It cannot split that resemblance into causes.'],
+[20.5,'So Wright drew the causes as arrows and gave each arrow a number, a path coefficient. The squared paths add up to all the variation.'],
+[28.5,'Economists thought an animal breeder had strayed out of his lane. But he had turned a biological theory into equations that predict the data.']],
+draw(t){
+  pig(250,235,.78,{p:EP(t,.3,2.5),seed:3});T('sire',250,305,{s:22,c:C.ink2,a:EP(t,2,3)});
+  pig(250,620,.78,{p:EP(t,1,3.2),seed:8});T('dam',250,690,{s:22,c:C.ink2,a:EP(t,2.6,3.6)});
+  const seed=t<6.5?11:t<14.5?11+Math.floor((t-6.5)/1.3):17;
+  pig(1000,425,1,{p:EP(t,2,4.5),seed});T('offspring',1000,515,{s:24,c:C.ink2,a:EP(t,3.5,4.5)});
+  if(t>6.5&&t<14.5)T('same parents, different coats',1000,560,{s:22,c:C.orange,a:io(t,7,8,13.5,14.5)});
+  const cr=io(t,14.5,15.5,20,21);
+  if(cr>0){dline(330,260,905,410,{c:C.ink2,w:1.6,a:cr});T('r = “they look alike”',620,300,{s:26,a:cr,c:C.ink2})}
+  const ga=EP(t,20.5,21.5);
+  if(ga>0){
+    node(640,425,'H',{r:38,p:EP(t,20.5,22),fill:C.teal});T('heredity',640,488,{s:22,c:C.teal,a:ga});
+    arrow(330,265,640,425,{p:EP(t,21,22.5),s0:10,s1:42,w:2,bend:-20});arrow(330,595,640,425,{p:EP(t,21.2,22.7),s0:10,s1:42,w:2,bend:20});
+    arrow(640,425,1000,425,{p:EP(t,22,23.5),s0:40,s1:95,w:2.8,c:C.teal});T('h = .65',790,398,{s:26,c:C.teal,a:EP(t,23,24)});
+    node(1000,150,'E',{r:34,p:EP(t,22.5,24),fill:C.orange});T('environment (womb)',1000,98,{s:22,c:C.orange,a:ga});
+    arrow(1000,150,1000,425,{p:EP(t,23,24.5),s0:36,s1:60,w:2.2,c:C.orange});T('e = .17',1040,255,{s:24,c:C.orange,a:EP(t,24,25),al:'left'});
+    const sq=[];for(let i=0;i<=40;i++){const u=i/40;sq.push([955+u*90,735+Math.sin(u*Math.PI*4)*13])}strokePts(sq,{p:EP(t,23.5,25),w:2});
+    T('D  developmental chance',1000,785,{s:22,c:C.ink2,a:ga});
+    arrow(1000,712,1000,425,{p:EP(t,24,25.5),s1:60,w:2.2});T('d = .74',1040,630,{s:24,a:EP(t,25,26),al:'left'});
+    const bp=EP(t,25,27.5),bx=1300,by0=150,bh=560;
+    if(bp>0)withAlpha(bp,()=>{T('Wright, 1920',bx+60,110,{f:'title',s:28,st:'italic'});
+      const seg=[[.42,C.teal,'heredity 42%'],[.03,C.orange,'environment 3%'],[.55,C.ink,'chance 55%']];let y=by0;
+      seg.forEach(([v,c,l])=>{const h=v*bh*bp;if(c===C.ink)hatch(()=>ctx.rect(bx,y,60,h),[bx,y,60,h],{gap:5,a:.45});else fillP(()=>ctx.rect(bx,y,60,h),c,.45);rectS(bx,y,60,h,{w:1.2,ov:1,n:1});
+        T(l,bx+76,y+Math.max(h/2,10),{s:21,al:'left',c:c===C.ink?C.ink:c});y+=h});
+      T('h² + e² + d² = 1',bx+60,by0+bh+40,{f:'serif',s:24,st:'italic'});T('random-bred stock',bx+60,by0+bh+74,{s:19,c:C.ink2})});
+  }
+}},
+
+/* 11 ─ Path arithmetic */
+{title:'Signals through arrows',stamp:'path coefficients',dur:44,cap:[
+[0,'A path coefficient works like the gain on an amplifier.'],
+[4.5,'Send one unit of signal from X. Crossing to M it is multiplied by a; crossing to Y, by b. The indirect effect is a × b.'],
+[12,'Add a direct arrow from X to Y with gain c. The total effect of X on Y is c + a × b.'],
+[19,'Now let a = 1, b = 1 and c = −1. The two routes cancel: 1 × 1 − 1 = 0.'],
+[26,'Plot X against Y and you get a shapeless cloud. A naive analyst would conclude X does nothing and throw it out.'],
+[34.5,'Nothing changed is not the same as nothing happened. Two people pushing on a door from opposite sides leave it perfectly still.']],
+init(){const r=rng(44);this.xs=[];this.ys=[];for(let i=0;i<260;i++){const x=gauss(r),m=x+.7*gauss(r),y=m-x+.7*gauss(r);this.xs.push(x);this.ys.push(y)}this.r=corr(this.xs,this.ys)},
+draw(t){
+  const Xn=[230,560],Mn=[560,270],Yn=[890,560];
+  let a=.8,b=.5,c=null;if(t>=12)c=.3;if(t>=19){a=1;b=1;c=-1}
+  const np=EP(t,.3,2);
+  node(...Xn,'X',{r:40,p:np,s:34});node(...Mn,'M',{r:40,p:np,s:34});node(...Yn,'Y',{r:40,p:np,s:34});
+  arrow(...Xn,...Mn,{p:EP(t,1,2.5),s0:44,s1:46,w:2.2});arrow(...Mn,...Yn,{p:EP(t,1.5,3),s0:44,s1:46,w:2.2});
+  T(`a = ${f2(a,1)}`,360,380,{s:28,a:EP(t,2,3)});T(`b = ${f2(b,1)}`,760,380,{s:28,a:EP(t,2,3)});
+  if(c!==null){const ca=EP(t,12,13.5);arrow(...Xn,...Yn,{p:ca,s0:44,s1:46,w:2.2,c:c<0?C.red:C.ink});T(`c = ${f2(c,1)}`,560,600,{s:28,a:ca,c:c<0?C.red:C.ink})}
+  // pulses
+  if(t>=4.5){const per=2.6,u=((t-4.5)%per)/per;
+    const pulse=(x,y,amp,al)=>{const r=5+11*Math.sqrt(Math.abs(amp));glow(x,y,r,amp<0?C.red:C.teal,al);T(f2(amp,2),x,y-r-18,{f:'mono',s:17,c:amp<0?C.red:C.teal,a:al})};
+    if(u<.45){const f=u/.45;pulse(lerp(Xn[0],Mn[0],f),lerp(Xn[1],Mn[1],f),1,1)}else if(u<.9){const f=(u-.45)/.45;pulse(lerp(Mn[0],Yn[0],f),lerp(Mn[1],Yn[1],f),a,1)}
+    if(c!==null&&u<.9){const f=u/.9;pulse(lerp(Xn[0],Yn[0],f),lerp(Xn[1],Yn[1],f),c,1)}
+    if(u>=.9){const tot=a*b+(c??0),f=(u-.9)/.1;if(Math.abs(tot)<1e-9){circle(Yn[0],Yn[1],44+f*50,{c:C.ink2,w:1.4,a:1-f,n:1})}else glow(Yn[0],Yn[1],5+11*Math.sqrt(Math.abs(tot)),C.teal,1-f)}}
+  const tot=a*b+(c??0);
+  T(c===null?`indirect = a × b = ${f2(a*b)}`:`total = c + a × b = ${f2(c)} + ${f2(a*b)} = ${f2(tot)}`,560,740,{f:'mono',s:24,c:Math.abs(tot)<1e-9&&t>19?C.red:C.ink,a:EP(t,5,6)});
+  if(t>=19)T('two real effects, zero net effect',560,790,{s:24,c:C.ink2,a:EP(t,20,21.5)});
+  // scatter
+  const sc=EP(t,26,27.5);
+  if(sc>0)withAlpha(sc,()=>{const x0=1090,y0=470,w=380,h=320,Xs=v=>x0+w/2+v*62,Ys=v=>y0-h/2-v*52;
+    line(x0,y0,x0+w,y0,{w:1.4});line(x0,y0,x0,y0-h,{w:1.4});T('X',x0+w+16,y0,{s:22,c:C.ink2});T('Y',x0,y0-h-20,{s:22,c:C.ink2});
+    const n=Math.floor(260*EP(t,26,29));for(let i=0;i<n;i++)dot(Xs(clamp(this.xs[i],-2.9,2.9)),Ys(clamp(this.ys[i],-2.9,2.9)),3,C.ink,.6);
+    T(`r = ${f2(this.r)}`,x0+w/2,y0+32,{f:'mono',s:22});
+    const nv=EP(t,29.5,31.5);T('“X does nothing”',x0+w/2,y0-h-58,{s:28,a:nv});line(x0+w/2-120,y0-h-58,x0+w/2+120,y0-h-58,{c:C.red,w:2.6,p:EP(t,31.5,33)})});
+  // door
+  const dr=EP(t,34.5,36);
+  if(dr>0)withAlpha(dr,()=>{const dx=1270,dy=560;
+    fillP(()=>ctx.rect(dx-14,dy,28,230),C.sheet,1);hatch(()=>ctx.rect(dx-14,dy,28,230),[dx-14,dy,28,230],{gap:4,a:.45});rectS(dx-14,dy,28,230,{w:1.8});line(1070,dy+232,1470,dy+232,{w:1.6});
+    const jig=Math.sin(t*23)*1.2;arrow(1100+jig,dy+115,dx-24,dy+115,{w:6,c:C.teal,hl:22});arrow(1440-jig,dy+115,dx+24,dy+115,{w:6,c:C.red,hl:22});
+    T('+1',1150,dy+80,{s:30,c:C.teal});T('−1',1390,dy+80,{s:30,c:C.red});T('door: still',dx,dy-30,{s:24,c:C.ink2})});
+  const q=EP(t,36,39);if(q>0){T('nothing changed',560,860-30,{s:34,p:q,al:'right',c:C.ink});T('≠ nothing happened',580,860-30,{s:34,p:EP(t,37,40),al:'left',c:C.red})}
+}},
+
+/* 12 ─ Spearman */
+{title:'Spearman’s hidden weight',stamp:'1904 · England',dur:50,cap:[
+[0,'In 1904 Charles Spearman scored schoolchildren in Classics, French, English, mathematics, pitch discrimination and music.'],
+[6.5,'Every score correlated positively with every other. Psychologists now call this the positive manifold.'],
+[12.5,'Spearman proposed one hidden common cause, general intelligence, g. But drawing an oval does not make a thing real.'],
+[19.5,'With three tests there are three correlations and three unknown loadings. Some set of loadings always fits. Nothing is tested.'],
+[26.5,'Add a fourth test. Now a single hidden cause forces a rule on what we can see: r₁₂·r₃₄ = r₁₃·r₂₄. The tetrad difference must be zero.'],
+[34,'Picture a net with four corners holding one hidden weight. Because every corner hangs from the same weight, they cannot pull independently.'],
+[41,'g has vanished from the equation. Hide one correlation and the others predict it. If the data break the rule, the theory falls.']],
+draw(t){
+  const B=[[260,210,'Classics'],[840,210,'French'],[260,690,'Mathematics'],[840,690,'Pitch']],lam=[.9,.8,.7,.6],G=[550,450];
+  const r=(i,j)=>lam[i]*lam[j],pairs=[[0,1],[2,3],[0,2],[1,3],[0,3],[1,2]];
+  const three=io(t,19.5,20.5,26,27);const netA=EP(t,34,36);
+  // net
+  if(netA>0)withAlpha(netA,()=>{const Q=(u,v)=>{const x=lerp(lerp(B[0][0],B[1][0],u),lerp(B[2][0],B[3][0],u),v),y=lerp(lerp(B[0][1],B[1][1],u),lerp(B[2][1],B[3][1],u),v);return[x,y+95*Math.sin(Math.PI*u)*Math.sin(Math.PI*v)]};
+    for(let i=0;i<=8;i++){const a=[],b=[];for(let j=0;j<=24;j++){a.push(Q(i/8,j/24));b.push(Q(j/24,i/8))}strokePts(a,{w:1,c:C.ink2,a:.6,n:1});strokePts(b,{w:1,c:C.ink2,a:.6,n:1})}
+    const wy=G[1]+95+40;line(G[0],G[1]+95,G[0],wy-34,{w:2});
+    const g=ctx.createRadialGradient(G[0]-12,wy-12,4,G[0],wy,44);g.addColorStop(0,'#6b675f');g.addColorStop(1,'#1e1d1b');fillP(()=>ctx.arc(G[0],wy,40,0,7),g,.9);
+    T('g',G[0],wy+2,{s:34,c:C.light});T('the hidden weight',G[0]+58,wy+10,{s:22,al:'left',c:C.ink2})});
+  // correlations among boxes
+  const ea=EP(t,6.5,9)*(t<12.5?1:.3)*(1-netA*.7);
+  pairs.forEach(([i,j],k)=>{if(three>0&&(i===3||j===3))return;const A=B[i],Bb=B[j];const mx=(A[0]+Bb[0])/2,my=(A[1]+Bb[1])/2;
+    line(A[0],A[1],Bb[0],Bb[1],{c:C.teal,w:1+r(i,j)*3,a:ea*.8,p:EP(t,6.5+k*.3,8+k*.3),n:1});
+    const hid=(i===2&&j===3)&&t>=41&&t<44.5;T(hid?'?':dec(r(i,j)),mx+(k>=4?(k===4?60:-60):0),my+(k<2?-22:0)+(k>=4?-30:0)+(k===2||k===3?0:0)-(k>=2&&k<4?0:0),{s:24,c:C.teal,a:ea*1.4});});
+  // g and loadings
+  const gp=EP(t,12.5,15);
+  if(gp>0&&netA<1)withAlpha(1-netA,()=>{glow(G[0],G[1],8,C.teal,gp*.6);ellipse(G[0],G[1],70,48,0,{p:gp,dash:[8,7],c:C.teal,w:2.2,n:1});T('g ?',G[0],G[1]+2,{s:34,c:C.teal,a:gp});
+    B.forEach((b,i)=>{const al=i===3?1-three*.85:1;arrow(G[0],G[1],b[0],b[1],{p:EP(t,13.5+i*.3,15+i*.3),s0:60,s1:62,w:2,c:C.teal,a:al});const m=[lerp(G[0],b[0],.5),lerp(G[1],b[1],.5)];T('λ = '+dec(lam[i],1),m[0]+(b[0]<G[0]?-56:56),m[1],{s:22,c:C.teal,a:gp*al})})});
+  B.forEach(([x,y,l],i)=>{const al=i===3?1-three*.85:1;box(x,y,190,70,l,{p:EP(t,.3+i*.4,2+i*.4),a:al,fill:C.sheet,fa:1,s:26});T(i+1,x-110,y-40,{s:18,c:C.ink2,a:al*EP(t,1,2)})});
+  // right panel
+  const px=1080;
+  const mt=EP(t,6.5,8)*(1-EP(t,19,20));
+  if(mt>0)withAlpha(mt,()=>{T('correlations',px,170,{f:'serif',s:26,st:'italic',al:'left'});
+    ['Cl','Fr','Ma','Pi'].forEach((h,i)=>{T(h,px+80+i*95,215,{s:20,c:C.ink2});T(h,px+20,260+i*48,{s:20,c:C.ink2})});
+    for(let i=0;i<4;i++)for(let j=0;j<=i;j++)T(i===j?'1':dec(r(i,j)),px+80+j*95,260+i*48,{f:'mono',s:20,c:i===j?C.ink3:C.teal});
+    T('every entry positive',px+200,470,{s:24,c:C.teal})});
+  const th=three;
+  if(th>0)withAlpha(th,()=>{T('three tests',px,220,{f:'title',s:34,al:'left'});
+    ['r₁₂ = λ₁λ₂','r₁₃ = λ₁λ₃','r₂₃ = λ₂λ₃'].forEach((s,i)=>T(s,px,290+i*46,{f:'serif',s:28,st:'italic',al:'left'}));
+    T('3 equations, 3 unknowns',px,460,{s:24,al:'left'});T('→ always solvable. No test.',px,500,{s:24,al:'left',c:C.red})});
+  const fo=EP(t,27,28.5);
+  if(fo>0)withAlpha(fo,()=>{T('four tests',px,170,{f:'title',s:34,al:'left'});
+    T('6 correlations, 4 loadings → 2 constraints',px,218,{s:22,al:'left',c:C.ink2});
+    T('r₁₂ · r₃₄',px,290,{f:'serif',s:28,st:'italic',al:'left'});T('= .72 × .42 = .3024',px+120,290,{f:'mono',s:21,al:'left'});
+    T('r₁₃ · r₂₄',px,340,{f:'serif',s:28,st:'italic',al:'left',a:EP(t,28.5,29.5)});T('= .63 × .48 = .3024',px+120,340,{f:'mono',s:21,al:'left',a:EP(t,28.5,29.5)});
+    T('tetrad difference = 0.0000',px,400,{f:'mono',s:22,al:'left',c:C.teal,a:EP(t,30,31.5)});
+    T('no g anywhere in it',px,442,{s:24,al:'left',c:C.teal,a:EP(t,31,32.5)})});
+  const hd=EP(t,41,42.5);
+  if(hd>0)withAlpha(hd,()=>{T('hide r₃₄ and predict it:',px,520,{s:23,al:'left'});T('r₁₃·r₂₄ ⁄ r₁₂ = .3024 ⁄ .72 = .42  ✓',px,560,{f:'mono',s:19,al:'left',c:C.teal})});
+  const fl=EP(t,44.5,46);
+  if(fl>0)withAlpha(fl,()=>{T('if the data said r₃₄ = .60:',px,630,{s:23,al:'left'});T('.72 × .60 − .3024 = .1296 ≠ 0',px,670,{f:'mono',s:19,al:'left',c:C.red});T('one hidden cause: rejected',px,712,{s:26,al:'left',c:C.red})});
+}},
+
+/* 13 ─ Reflective vs formative */
+{title:'Two kinds of oval',stamp:'measurement models',dur:34,cap:[
+[0,'Not every oval in a diagram is a hidden cause.'],
+[4,'Reflective: a room’s temperature is real, and each thermometer reflects it. Warm the room and every reading rises together.'],
+[12,'Formative: a cost-of-living index is computed from rent, food and transport. Rising rent pushes the index up, never the reverse.'],
+[20,'Remove a thermometer and temperature is unchanged. Remove rent and the index becomes a different index.'],
+[26.5,'An oval labeled “socioeconomic status” may be only a calculator adding up income, education and postcode.']],
+draw(t){
+  T('reflective',430,110,{f:'title',s:36,st:'italic',a:EP(t,.5,2)});T('formative',1170,110,{f:'title',s:36,st:'italic',a:EP(t,.5,2)});
+  line(800,120,800,820,{c:C.ink3,w:1,dash:[4,8],n:1,a:EP(t,.5,2)});
+  // reflective side
+  const heat=t<4?0:.5+.45*Math.sin((t-4)*.9-1.5);
+  const la=EP(t,3.5,5.5);
+  withAlpha(la,()=>{
+    glow(430,250,10,C.orange,.3+heat*.7);ellipse(430,250,150,58,0,{c:C.ink,w:2.2});T('temperature',430,252,{s:30});
+    const xs=[250,430,610];
+    xs.forEach((x,i)=>{const gone=i===2?EP(t,20,21.5)*(1-EP(t,26,27)):0,al=1-gone*.8;
+      arrow(430+(x-430)*.45,306,x,460,{w:2,s1:6,a:al,c:C.ink});
+      const lv=clamp(heat+.03*Math.sin(t*2+i*2));
+      fillP(()=>ctx.rect(x-6,700-lv*210,12,lv*210),C.red,.75*al);
+      ctx.globalAlpha=GA*al;rectS(x-12,480,24,225,{w:1.6,ov:0,a:al});fillP(()=>ctx.arc(x,722,20,0,7),C.red,.75*al);circle(x,722,20,{w:1.6,a:al});
+      for(let k=0;k<6;k++)line(x+12,500+k*36,x+20,500+k*36,{w:1,a:al,n:1});
+      if(gone>0)cross(x,600,26,{a:gone})});
+    if(t>20&&t<26.5)T('still temperature',430,810,{s:26,c:C.teal,a:io(t,21,22,25.5,26.5)});
+  });
+  // formative side
+  const fa=EP(t,11.5,13.5);
+  withAlpha(fa,()=>{
+    const rent=t<13?.4:.4+.4*EP(t,13,16)-.0*EP(t,20,21),vals=[rent,.45,.3],xs=[960,1170,1380];
+    const ses=EP(t,26.5,28);
+    const labs=['rent','food','transport'],labs2=['income','education','postcode'];
+    const gone=EP(t,20,21.5)*(1-EP(t,26,27));
+    const idx=(vals[0]*(1-gone)+vals[1]+vals[2])/(3-gone);
+    xs.forEach((x,i)=>{const al=i===0?1-gone*.8:1;
+      withAlpha(1-ses,()=>box(x,690,170,64,labs[i],{a:al,s:26}));withAlpha(ses,()=>box(x,690,170,64,labs2[i],{s:26}));
+      fillP(()=>ctx.rect(x-20,640-vals[i]*170,40,vals[i]*170),C.orange,.4*al);rectS(x-20,640-vals[i]*170,40,vals[i]*170,{w:1.2,ov:0,n:1,a:al});
+      arrow(x,450,1170+(x-1170)*.3,318,{w:2,a:al,s0:6,c:C.ink});
+      if(i===0&&gone>0)cross(x,690,30,{a:gone})});
+    const ix=1170,iy=250;
+    fillP(()=>ctx.rect(ix-150,iy-60,300,120),C.sheet,1);rectS(ix-150,iy-60,300,120,{w:2.2});
+    withAlpha(1-ses,()=>T(gone>.5?'index′ (redefined)':'cost-of-living index',ix,iy-30,{s:24,c:gone>.5?C.red:C.ink}));
+    withAlpha(ses,()=>T('“SES”',ix,iy-30,{s:28,c:C.ink}));
+    const ang=Math.PI+idx*Math.PI;circle(ix,iy+42,44,{start:Math.PI,sweep:Math.PI,w:1.4});line(ix,iy+42,ix+Math.cos(ang)*40,iy+42+Math.sin(ang)*40,{w:2.4,c:C.orange});
+    T('arrows point in',ix+220,iy+120,{s:21,c:C.ink2,a:EP(t,14,15)*(1-ses)});
+    if(ses>0)T('a calculator, not a cause?',ix,160-40,{s:26,c:C.red,a:ses});
+  });
+}},
+
+/* 14 ─ Campbell & Fiske */
+{title:'The shared power supply',stamp:'1959 · Campbell & Fiske',dur:30,cap:[
+[0,'In 1959, psychologists Donald Campbell and Donald Fiske pointed to a quieter trap.'],
+[4.5,'Three instruments agree perfectly. Have we isolated the hidden truth?'],
+[9,'Pull back. All three are plugged into the same faulty power supply. They agree because they share a mistake.'],
+[16,'In surveys it looks like tired respondents ticking “strongly agree” all the way down the page. It is called method bias.'],
+[23,'Reliability is consistency. Validity is truth. An error repeated exactly is perfectly consistent.']],
+draw(t){
+  const z=lerp(1.3,1,EP(t,8.5,11.5));
+  ctx.save();ctx.translate(800,300);ctx.scale(z,z);ctx.translate(-800,-300);
+  const gx=[450,800,1150],gy=320,ang=-Math.PI/2+.9*Math.sin(t*1.3)+.3*Math.sin(t*3.1);
+  gx.forEach((x,i)=>{const p=EP(t,.3+i*.3,2+i*.3);
+    fillP(()=>ctx.arc(x,gy,110,Math.PI,0),C.sheet,1);circle(x,gy,110,{start:Math.PI,sweep:Math.PI,w:2.2,p});line(x-116,gy,x+116,gy,{w:2,p});
+    for(let k=0;k<=10;k++){const a=Math.PI+k/10*Math.PI;line(x+Math.cos(a)*96,gy+Math.sin(a)*96,x+Math.cos(a)*108,gy+Math.sin(a)*108,{w:1.1,n:1,a:p})}
+    const an=ang+.012*i;line(x,gy,x+Math.cos(an)*92,gy+Math.sin(an)*92,{w:2.6,c:C.red,a:p});dot(x,gy,6,C.ink,p);
+    rectS(x-60,gy,120,46,{w:1.6,p,ov:2});T(['instrument A','instrument B','instrument C'][i],x,gy+24,{s:20,c:C.ink2,a:p});
+    const cb=EP(t,9,11.5);if(cb>0){const a=[];for(let k=0;k<=30;k++){const u=k/30;a.push([lerp(x,800+(i-1)*70,u)+Math.sin(u*Math.PI)*(i-1)*-40,lerp(gy+46,720,u)])}strokePts(a,{w:2.2,p:cb,c:C.ink})}});
+  const sa=EP(t,10.5,12);
+  if(sa>0)withAlpha(sa,()=>{fillP(()=>ctx.rect(640,720,320,56),C.sheet,1);hatch(()=>ctx.rect(640,720,320,56),[640,720,320,56],{gap:6,a:.3});rectS(640,720,320,56,{w:2});
+    [730,800,870].forEach(x=>{fillP(()=>ctx.rect(x-12,736,24,24),C.ink,.8)});
+    const fl=h32(Math.floor(t*14))>.4;if(fl){const a=[[610,705],[590,730],[615,738],[585,770]];strokePts(a,{c:C.orange,w:3,n:1});glow(600,740,6,C.orange,.8)}
+    T('one faulty supply',800,812,{s:26,c:C.red})});
+  ctx.restore();
+  const q=EP(t,16,17.5);
+  if(q>0)withAlpha(q,()=>{const x0=1200,y0=520;fillP(()=>ctx.rect(x0,y0,320,330),C.sheet,1);rectS(x0,y0,320,330,{w:1.4,ov:2});
+    T('SD  D  N  A  SA',x0+218,y0+26,{f:'mono',s:15,c:C.ink2});
+    for(let i=0;i<8;i++){const y=y0+60+i*34;const a=[];for(let k=0;k<=12;k++)a.push([x0+18+k*9,y+Math.sin(k*1.7+i)*2.5]);strokePts(a,{w:1,c:C.ink3,n:1});
+      for(let k=0;k<5;k++)rectS(x0+160+k*30,y-8,16,16,{w:1,ov:0,n:1,c:C.ink2});
+      const tk=EP(t,16.5+i*.5,16.9+i*.5);if(tk>0)strokePts([[x0+283,y],[x0+288,y+6],[x0+298,y-9]],{p:tk,c:C.teal,w:2.4})}});
+  const rv=EP(t,23,25.5);
+  if(rv>0){T('reliability',260,560,{s:40,p:rv});T('≠',260,615,{s:48,c:C.red,a:rv});T('validity',260,672,{s:40,p:EP(t,24,26)})}
+}},
+
+/* 15 ─ Berkson */
+{title:'Berkson’s hospital door',stamp:'1946 · Mayo Clinic',dur:44,cap:[
+[0,'1946. Joseph Berkson, a statistician at the Mayo Clinic, notices a problem with studies built only from hospital patients.'],
+[6.5,'Flip two independent fair coins, X and Z, for everyone. Four rooms, a quarter of the people in each. Knowing X tells you nothing about Z.'],
+[14,'Now the admission rule: heads on X, or heads on Z, or both. The tails–tails room is sent home and the doors close.'],
+[21,'Inside, meet a patient with tails on X. They must have heads on Z. Among patients the coins are now linked: r = −0.5.'],
+[29,'The door manufactured the correlation. Admission is a collider, a common effect of both coins, and selecting on it opens a false path.'],
+[37,'So “control for more variables” is not automatically an improvement. Some controls create the very bias they were meant to remove.']],
+init(){const r=rng(46);this.pp=[];for(let k=0;k<4;k++)for(let i=0;i<30;i++){this.pp.push({k,x:40+(i%6)*62+(r()-.5)*24,y:60+Math.floor(i/6)*42+(r()-.5)*16,s:r()*100})}},
+draw(t){
+  const x0=180,y0=180,rw=400,rh=280,rooms=[[x0,y0],[x0+rw,y0],[x0,y0+rh],[x0+rw,y0+rh]];
+  const lb=['X heads · Z heads','X heads · Z tails','X tails · Z heads','X tails · Z tails'];
+  const bp=EP(t,.3,2.5),out=EP(t,15,19);
+  // building
+  rectS(x0,y0,2*rw,2*rh,{w:2.6,p:bp});line(x0+rw,y0,x0+rw,y0+2*rh,{w:1.8,p:bp});line(x0,y0+rh,x0+2*rw,y0+rh,{w:1.8,p:bp});
+  const hs=EP(t,14,15.5);
+  if(hs>0){strokePts([[x0-20,y0],[x0+rw,y0-80],[x0+2*rw+20,y0]],{w:2.4,p:hs});T('HOSPITAL',x0+rw,y0-32,{f:'title',s:30,a:hs});
+    fillP(()=>{ctx.rect(x0+rw-100-6,y0-62,12,30);ctx.rect(x0+rw-100-15,y0-53,30,12)},C.red,hs*.85)}
+  T('admitted if X = heads or Z = heads',x0+rw,y0+2*rh+44,{s:24,a:hs,c:C.ink2});
+  rooms.forEach(([rx,ry],k)=>{T(lb[k],rx+rw/2,ry+26,{s:21,c:k===3?C.ink3:C.ink2,a:bp})});
+  if(out>0){const [rx,ry]=rooms[3];hatch(()=>ctx.rect(rx,ry,rw,rh),[rx,ry,rw,rh],{gap:7,a:.25*out,c:C.ink3});
+    fillP(()=>ctx.rect(rx+rw-3,ry+80,6,120),C.paper,out);line(rx+rw,ry+80,rx+rw+60*(1-EP(t,19,20.5)),ry+80-40*(1-EP(t,19,20.5)),{w:2.4,a:out});
+    T('sent home',rx+rw+80,ry+rh-30,{s:24,c:C.ink2,a:EP(t,18,19.5),al:'left'})}
+  this.pp.forEach((q,i)=>{const[rx,ry]=rooms[q.k];let x=rx+q.x+7*vn(t*.35,i),y=ry+q.y+6*vn(t*.35,i+500);let a=EP(t,.8+q.s*.015,1.6+q.s*.015);
+    if(q.k===3&&out>0){const u=clamp(out*1.4-q.s/250);x=lerp(x,rx+rw+120+(q.s%5)*20,u);y=lerp(y,ry+140+(q.s%7)*14,u);a*=1-u*.7}
+    const col=q.k===3?(out>0?C.ink3:C.ink):C.ink;dot(x,y,6,q.k===0?C.teal:q.k===3?col:q.k===1?C.orange:'#6b8fb0',a)});
+  const hl=io(t,21,22,28.5,29.5);
+  if(hl>0){const q=this.pp.find(v=>v.k===2&&v.s>40)||this.pp[70],[rx,ry]=rooms[2];const x=rx+q.x+7*vn(t*.35,this.pp.indexOf(q)),y=ry+q.y+6*vn(t*.35,this.pp.indexOf(q)+500);
+    circle(x,y,20,{c:C.red,w:2.2,a:hl});arrow(x+120,y+140,x+22,y+18,{c:C.red,w:1.8,a:hl});
+    T('X = tails, yet inside',x+130,y+160,{s:24,c:C.red,a:hl,al:'left'});T('→ Z must be heads',x+130,y+194,{s:24,c:C.red,a:hl,al:'left'})}
+  // stats
+  const px=1080;
+  withAlpha(EP(t,7,8.5),()=>{
+    T('everyone',px,210,{f:'title',s:30,al:'left',st:'italic'});
+    [[0,0,'25%'],[1,0,'25%'],[0,1,'25%'],[1,1,'25%']].forEach(([c,r,v])=>{rectS(px+c*110,240+r*60,110,60,{w:1.2,ov:0,n:1});T(v,px+55+c*110,270+r*60,{f:'mono',s:20})});
+    T('r(X, Z) = 0.00',px+260,300,{f:'mono',s:22,al:'left'});
+  });
+  withAlpha(EP(t,21,23),()=>{
+    T('admitted only',px,420,{f:'title',s:30,al:'left',st:'italic'});
+    [[0,0,'33%'],[1,0,'33%'],[0,1,'33%'],[1,1,'0%']].forEach(([c,r,v])=>{rectS(px+c*110,450+r*60,110,60,{w:1.2,ov:0,n:1});T(v,px+55+c*110,480+r*60,{f:'mono',s:20,c:v==='0%'?C.ink3:C.ink})});
+    T('r(X, Z) = −0.50',px+260,510,{f:'mono',s:22,al:'left',c:C.red});
+  });
+  const cd=EP(t,29,31);
+  if(cd>0)withAlpha(cd,()=>{const ax=1110,ay=660,bx=1450,cx2=1280,cy=790;
+    node(ax,ay,'X',{r:30,s:28});node(bx,ay,'Z',{r:30,s:28});
+    rectS(cx2-85,cy-28,170,56,{w:2.2,c:C.ink});fillP(()=>ctx.rect(cx2-85,cy-28,170,56),C.teal,.12);T('admitted',cx2,cy+2,{s:26});
+    arrow(ax,ay,cx2-40,cy-28,{s0:32,w:2});arrow(bx,ay,cx2+40,cy-28,{s0:32,w:2});
+    dline(ax+32,ay,bx-32,ay,{c:C.red,w:2,p:EP(t,31,33)});T('spurious link',cx2,ay-26,{s:22,c:C.red,a:EP(t,32,33.5)});
+    T('collider',cx2+100,cy+44,{s:20,c:C.ink2,al:'left'})});
+}},
+
+/* 16 ─ Berkeley */
+{title:'The Berkeley paradox',stamp:'1973 · Berkeley',dur:48,cap:[
+[0,'Berkeley, fall 1973. Graduate admissions: 44% of 8,442 men admitted, but only 35% of 4,321 women.'],
+[7,'Peter Bickel, Eugene Hammel and J. William O’Connell looked inside the departments that actually made the decisions.'],
+[13.5,'In most of the large departments, women were admitted at equal or higher rates than men.'],
+[19.5,'Women applied mostly to crowded departments that rejected most applicants. Men applied mostly to departments that admitted most.'],
+[27.5,'Give both groups the same mix of departments and the gap disappears. Across the six largest departments it even reverses slightly.'],
+[37,'This does not prove there was no discrimination. It sharpens the question: bias at the committee, or pressures that shaped where people applied?']],
+init(){this.d=[['A',825,.62,108,.82],['B',560,.63,25,.68],['C',325,.37,593,.34],['D',417,.33,375,.35],['E',191,.28,393,.24],['F',373,.06,341,.07]];
+  let tot=0,m=0,w=0;this.d.forEach(([,mN,mR,wN,wR])=>{const n=mN+wN;tot+=n;m+=n*mR;w+=n*wR});this.sm=m/tot;this.sw=w/tot},
+draw(t){
+  const a1=1-EP(t,12,13.5);
+  if(a1>0)withAlpha(a1,()=>{const base=760,sc=11;
+    line(420,base,1180,base,{w:1.8,p:EP(t,.3,1.5)});
+    [[620,44,'men',8442,C.ink],[980,35,'women',4321,C.teal]].forEach(([x,v,l,n,c],i)=>{const h=v*sc*EP(t,.8+i*.4,3+i*.4);
+      if(c===C.ink)hatch(()=>ctx.rect(x-90,base-h,180,h),[x-90,base-h,180,h],{gap:6,a:.4});else fillP(()=>ctx.rect(x-90,base-h,180,h),c,.35);
+      rectS(x-90,base-h,180,h,{w:1.8,ov:2});T(v+'%',x,base-h-34,{f:'title',s:48,c,a:EP(t,2+i*.4,3.2+i*.4)});T(`${l} · ${n.toLocaleString('en-US')} applicants`,x,base+34,{s:24})});
+    T('admitted, whole graduate division',800,190,{f:'serif',s:28,st:'italic'})});
+  const a2=EP(t,13,15)*(1-EP(t,36,37.5)*.8);
+  if(a2>0)withAlpha(a2,()=>{const X=i=>330+i*170,Y=v=>770-v*560;
+    line(250,770,1250,770,{w:1.6});line(250,770,250,190,{w:1.6});
+    [0,.25,.5,.75,1].forEach(v=>{line(242,Y(v),250,Y(v),{w:1});T(Math.round(v*100)+'%',226,Y(v),{s:18,c:C.ink2,al:'right'});plainLine(250,Y(v),1250,Y(v),C.ink3,1,.2)});
+    T('admission rate, six largest departments',750,160,{f:'serif',s:26,st:'italic'});
+    this.d.forEach(([k,mN,mR,wN,wR],i)=>{const x=X(i),pa=EP(t,14+i*.35,15.5+i*.35);T(k,x,800,{f:'title',s:28,a:pa});
+      const rm=Math.sqrt(mN)*1.25,rwn=Math.sqrt(wN)*1.25;
+      fillP(()=>ctx.arc(x-26,Y(mR),rm*pa,0,7),C.ink,.18);circle(x-26,Y(mR),rm*pa,{w:1.6,a:pa});
+      fillP(()=>ctx.arc(x+26,Y(wR),rwn*pa,0,7),C.teal,.28);circle(x+26,Y(wR),rwn*pa,{w:1.6,c:C.teal,a:pa});
+      const ta=EP(t,16,17.5);if(wR>=mR-.005)T('♀ ≥ ♂',x,Y(Math.max(mR,wR))-Math.max(rm,rwn)-22,{s:18,c:C.teal,a:ta})});
+    const lg=EP(t,14,15);fillP(()=>ctx.arc(1320,220,10,0,7),C.ink,.18*lg);circle(1320,220,10,{w:1.4,a:lg});T('men',1340,220,{s:21,al:'left',a:lg});
+    fillP(()=>ctx.arc(1320,255,10,0,7),C.teal,.28*lg);circle(1320,255,10,{w:1.4,c:C.teal,a:lg});T('women',1340,255,{s:21,al:'left',a:lg});T('circle area = applicants',1310,290,{s:18,c:C.ink2,al:'left',a:lg});
+    const br=EP(t,20,22.5);
+    if(br>0){strokePts([[X(0)-60,845],[X(0)-60,860],[X(1)+60,860],[X(1)+60,845]],{p:br,w:1.6});T('easy: most men applied here',(X(0)+X(1))/2,882,{s:20,a:br});
+      strokePts([[X(2)-60,845],[X(2)-60,860],[X(5)+60,860],[X(5)+60,845]],{p:br,w:1.6,c:C.teal});T('hard: most women applied here',(X(2)+X(5))/2,882,{s:20,c:C.teal,a:br})}
+  });
+  const a3=EP(t,28,30)*(1-EP(t,36,37.5)*.8);
+  if(a3>0)withAlpha(a3,()=>{const bx=1300,base=770,sc=5.2;fillP(()=>ctx.rect(1275,330,290,500),C.paper,.92);
+    T('same department mix',bx+120,360,{f:'serif',s:24,st:'italic'});
+    [[bx+50,this.sm,'men',C.ink],[bx+190,this.sw,'women',C.teal]].forEach(([x,v,l,c])=>{const h=v*100*sc*a3;fillP(()=>ctx.rect(x-40,base-h,80,h),c,.3);rectS(x-40,base-h,80,h,{w:1.6,ov:1,c});T(Math.round(v*100)+'%',x,base-h-24,{f:'title',s:34,c});T(l,x,base+24,{s:21})});
+    T('raw: 44% vs 35%',bx+120,base+60,{s:19,c:C.ink2})});
+  const a4=EP(t,37,39);
+  if(a4>0)withAlpha(a4,()=>{const G=[380,560],D=[800,330],A=[1220,560];
+    fillP(()=>ctx.rect(240,240,1120,520),C.paper,.85);
+    box(...G,170,70,'gender',{s:26,fill:C.sheet,fa:1});box(...D,190,70,'department',{s:26,fill:C.sheet,fa:1});box(...A,190,70,'admission',{s:26,fill:C.sheet,fa:1});
+    arrow(G[0]+40,G[1]-36,D[0]-60,D[1]+36,{w:2.2,c:C.orange,p:EP(t,37.5,39)});arrow(D[0]+60,D[1]+36,A[0]-40,A[1]-36,{w:2.2,c:C.orange,p:EP(t,38,39.5)});
+    arrow(G[0]+86,G[1],A[0]-96,A[1],{w:2.6,c:C.teal,p:EP(t,38.5,40)});
+    T('the committee’s decision',800,600,{s:24,c:C.teal,a:EP(t,39.5,41)});T('what adjusting for department isolates',800,634,{s:20,c:C.ink2,a:EP(t,39.5,41)});
+    T('where people applied, and why',560,395,{s:22,c:C.orange,a:EP(t,40.5,42),al:'right'});T('what adjusting hides',560,427,{s:20,c:C.ink2,a:EP(t,40.5,42),al:'right'})});
+}},
+
+/* 17 ─ Equivalence & Heywood */
+{title:'Chain or fork?',stamp:'observational equivalence',dur:46,cap:[
+[0,'Surely, with enough perfect data, the true causal direction shows itself?'],
+[5,'World A is a chain: X causes M, and M causes Y. World B is a fork: M causes both X and Y.'],
+[11.5,'Different machinery. Yet with Gaussian variables both worlds can produce exactly the same covariance matrix.'],
+[18.5,'A billion samples from each could not tell them apart. Fit the chain: perfect. Fit the fork: perfect.'],
+[26,'Sometimes the software objects instead. In a Heywood case, a model needs a factor to supply 1.28 units of variance to a measure that only has 1.'],
+[35,'The leftover would be −0.28, a negative variance, which is impossible. Forcing it to zero hides the diagnosis: the model does not fit the world.']],
+init(){const r=rng(17);const sim=(fork,n)=>{const X=[],M=[],Y=[];for(let i=0;i<n;i++){let x,m,y;if(fork){m=gauss(r);x=.8*m+.6*gauss(r);y=.8*m+.6*gauss(r)}else{x=gauss(r);m=.8*x+.6*gauss(r);y=.8*m+.6*gauss(r)}X.push(x);M.push(m);Y.push(y)}return{X,M,Y}};
+  this.A=sim(false,20000);this.B=sim(true,20000);[this.A,this.B].forEach(s=>{s.rxm=corr(s.X,s.M);s.rmy=corr(s.M,s.Y);s.rxy=corr(s.X,s.Y)})},
+draw(t){
+  const wa=1-EP(t,25,26.5);
+  if(wa>0)withAlpha(wa,()=>{
+    [[400,'World A · chain',this.A,false],[1200,'World B · fork',this.B,true]].forEach(([cx,title,S,fork],w)=>{
+      const pa=EP(t,5+w*1.5,7+w*1.5);
+      T(title,cx,150,{f:'title',s:34,st:'italic',a:pa});
+      let Xn,Mn,Yn;if(!fork){Xn=[cx-220,260];Mn=[cx,260];Yn=[cx+220,260]}else{Mn=[cx,215];Xn=[cx-200,320];Yn=[cx+200,320]}
+      node(...Xn,'X',{r:32,p:pa,s:28});node(...Mn,'M',{r:32,p:pa,s:28,fill:fork?C.orange:null});node(...Yn,'Y',{r:32,p:pa,s:28});
+      if(!fork){arrow(...Xn,...Mn,{s0:34,s1:36,w:2.2,p:pa});arrow(...Mn,...Yn,{s0:34,s1:36,w:2.2,p:pa})}else{arrow(...Mn,...Xn,{s0:34,s1:36,w:2.2,p:pa});arrow(...Mn,...Yn,{s0:34,s1:36,w:2.2,p:pa})}
+      const sa=EP(t,11.5,13.5);
+      if(sa>0){const x0=cx-230,y0=720,Xs=v=>x0+150+v*48,Ys=v=>y0-150-v*48;
+        line(x0,y0,x0+300,y0,{w:1.3,a:sa});line(x0,y0,x0,y0-300,{w:1.3,a:sa});T('X',x0+316,y0,{s:20,c:C.ink2,a:sa});T('Y',x0,y0-316,{s:20,c:C.ink2,a:sa});
+        const n=Math.floor(320*EP(t,11.5,15));for(let i=0;i<n;i++)dot(Xs(clamp(S.X[i],-3,3)),Ys(clamp(S.Y[i],-3,3)),2.6,C.ink,.55);
+        const mx=x0+360;T('correlations',mx,y0-280,{f:'serif',s:22,st:'italic',al:'left',a:sa});
+        [['X,M',S.rxm],['M,Y',S.rmy],['X,Y',S.rxy]].forEach(([l,v],i)=>T(`${l}  ${dec(v)}`,mx,y0-236+i*38,{f:'mono',s:20,al:'left',a:EP(t,14+i*.4,15+i*.4)}));
+        const fit=EP(t,19,20.5);if(fit>0){T('model fit: perfect ✓',mx,y0-100,{s:24,c:C.teal,a:fit,al:'left'})}}});
+    const eq=EP(t,15.5,17);if(eq>0){T('=',800,540,{f:'title',s:90,c:C.teal,a:eq});T('identical',800,600,{s:24,c:C.teal,a:eq})}
+  });
+  const ha=EP(t,26,27.5);
+  if(ha>0)withAlpha(ha,()=>{const bx=800,top=260,bot=700,wd=240,fillV=clamp(1.28*EP(t,27.5,33)),cap=1,Yv=v=>bot-v*(bot-top-40)/1.0*1;
+    const fy=Math.max(Yv(fillV),top-80);const ly=Math.max(Yv(Math.min(fillV,1.02)),top);
+    fillP(()=>ctx.rect(bx-wd/2,ly,wd,bot-ly),C.teal,.28);
+    if(fillV>1){const over=(fillV-1)/.28;fillP(()=>ctx.rect(bx-wd/2,Yv(fillV),wd,Yv(1)-Yv(fillV)),C.teal,.14);rectS(bx-wd/2,Yv(fillV),wd,Yv(1)-Yv(fillV),{w:1.4,c:C.teal,dash:[6,5],n:1,ov:0});
+      [[-1,0],[1,0]].forEach(([s])=>{const a=[];for(let i=0;i<=16;i++){const u=i/16;a.push([bx+s*(wd/2+4+Math.sin(u*3)*10),top+u*(bot-top)*over])}strokePts(a,{c:C.teal,w:4,a:.6})})}
+    line(bx-wd/2,top,bx-wd/2,bot,{w:2.4});line(bx+wd/2,top,bx+wd/2,bot,{w:2.4});line(bx-wd/2,bot,bx+wd/2,bot,{w:2.4});
+    dline(bx-wd/2-40,Yv(1),bx+wd/2+40,Yv(1),{w:1.6,c:C.ink});T('1.00  all the variance this measure has',bx+wd/2+54,Yv(1),{s:22,al:'left'});
+    T(`factor’s share: ${fillV.toFixed(2)}`,bx-wd/2-40,Yv(Math.min(fillV,1.28))-4,{s:24,al:'right',c:C.teal});
+    const lr=EP(t,33,35);if(lr>0){T('unique variance = 1 − 1.28 = −0.28',bx,bot+50,{f:'mono',s:24,c:C.red,a:lr});T('a squared distance cannot be negative',bx,bot+90,{s:22,c:C.ink2,a:lr})}
+    const st=EP(t,36,38);if(st>0){ctx.save();ctx.translate(1300,480);ctx.rotate(-.12);rectS(-110,-40,220,80,{w:2.4,c:C.red,a:st});T('fix it to 0?',0,2,{s:30,c:C.red,a:st});ctx.restore();cross(1300,480,70,{a:EP(t,38,39.5),w:3})}
+    const dg=EP(t,39.5,41.5);if(dg>0)T('the impossible number is the diagnosis',1300,620,{s:26,c:C.ink,p:dg});
+  });
+}},
+
+/* 18 ─ Perrin */
+{title:'Perrin counts atoms',stamp:'1908–1913 · Paris',dur:38,cap:[
+[0,'Around 1908, some physicists still treated atoms as a convenient fiction. Jean Perrin set out to count them.'],
+[6,'Tiny grains in water jiggle endlessly. This Brownian motion is driven by molecules too small to see.'],
+[12.5,'Perrin measured how the grains thin out with height, how far they wander, how they turn, how they diffuse. Each law contained one hidden constant: Avogadro’s number.'],
+[21.5,'Unrelated experiments gave the same value, roughly 6 to 7 × 10²³. Today’s figure is 6.022 × 10²³.'],
+[29,'It is the tetrad’s logic again. A claim about the unseen earns belief by forcing agreement among things we can see.']],
+init(){const r=rng(1908);this.path=[[0,0]];for(let i=0;i<46;i++){let[x,y]=this.path[i];x+=gauss(r)*32;y+=gauss(r)*32;const d=Math.hypot(x,y);if(d>240){x*=240/d;y*=240/d}this.path.push([x,y])}
+  this.bg=[];for(let i=0;i<26;i++){const a=r()*6.28,d=Math.sqrt(r())*250;this.bg.push([Math.cos(a)*d,Math.sin(a)*d])}
+  this.col=[];for(let i=0;i<150;i++)this.col.push([r()*80,-Math.log(1-r()*.995)*95,r()]);
+  this.st=[22.3,24.7,22.6,24.4];this.fin=[23.83,23.84,23.81,23.84]},
+draw(t){
+  const cx=380,cy=460,R=290;
+  const ma=EP(t,.3,2.5);
+  withAlpha(ma,()=>{ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.clip();fillP(()=>ctx.arc(cx,cy,R,0,7),C.sheet,1);
+      for(let i=-6;i<=6;i++){plainLine(cx+i*48,cy-R,cx+i*48,cy+R,C.ink3,1,.3);plainLine(cx-R,cy+i*48,cx+R,cy+i*48,C.ink3,1,.3)}
+      this.bg.forEach(([x,y],i)=>dot(cx+x+6*vn(t*3,i),cy+y+6*vn(t*3,i+99),5,C.ink3,.7));
+      const pn=Math.floor(EP(t,4,20)*this.path.length);const pp=this.path.slice(0,Math.max(1,pn)).map(([x,y])=>[cx+x,cy+y]);
+      if(pp.length>1)strokePts(pp,{c:C.teal,w:1.8,n:1});pp.forEach(q=>dot(q[0],q[1],2.6,C.teal,.8));
+      const last=pp[pp.length-1];glow(last[0]+3*vn(t*6,1),last[1]+3*vn(t*6,2),6,C.teal,1);
+    ctx.restore();circle(cx,cy,R,{w:3});circle(cx,cy,R+12,{w:1.4});
+    T('one grain, position every 30 s',cx,cy+R+44,{s:22,c:C.ink2})});
+  const ca=EP(t,12.5,14.5);
+  if(ca>0)withAlpha(ca,()=>{const x0=760,y0=760;rectS(x0,200,90,560,{w:1.8});
+    this.col.forEach(([x,h,s],i)=>{if(h>555)return;dot(x0+6+x+2*vn(t*2,i),y0-6-h+2*vn(t*2,i+300),3,C.ink,.65)});
+    T('grains thin',x0+45,168,{s:20,c:C.ink2});T('out with height',x0+45,190-2,{s:20,c:C.ink2})});
+  const ga=EP(t,13,15);
+  if(ga>0)withAlpha(ga,()=>{const x0=990,x1=1490,Xl=v=>x0+(v-22)/3*(x1-x0),rows=['vertical distribution','Brownian displacement','Brownian rotation','diffusion'];
+    const band=EP(t,21.5,23.5);if(band>0){fillP(()=>ctx.rect(Xl(23.75),230,Xl(23.9)-Xl(23.75),420),C.teal,.14*band)}
+    rows.forEach((l,i)=>{const y=280+i*100,v=lerp(this.st[i],this.fin[i],EP(t,15+i*.8,20.5+i*.3));
+      T(l,x0,y-30,{s:22,al:'left'});line(x0,y,x1,y,{w:1.4});for(let k=22;k<=25;k++)line(Xl(k),y-6,Xl(k),y+6,{w:1,n:1});
+      fillP(()=>{ctx.moveTo(Xl(v),y-4);ctx.lineTo(Xl(v)-9,y-22);ctx.lineTo(Xl(v)+9,y-22)},C.orange,1)});
+    [22,23,24,25].forEach(k=>T('10'+['²²','²³','²⁴','²⁵'][k-22],Xl(k),680,{s:22,c:C.ink2}));
+    T('Avogadro’s number N (log scale)',(x0+x1)/2,720,{f:'serif',s:22,st:'italic',c:C.ink2});
+    const md=EP(t,24,26);if(md>0){dline(Xl(23.78),240,Xl(23.78),650,{c:C.teal,w:1.8,a:md});T('6.022 × 10²³ today',Xl(23.78),770,{s:22,c:C.teal,a:md})}
+  });
+  const lg=EP(t,29,31);if(lg>0){T('hidden constant cancels out →',1240,820,{s:23,p:lg});T('visible results must agree',1240,852,{s:23,p:EP(t,30,32),c:C.teal})}
+}},
+
+/* 19 ─ Haavelmo */
+{title:'Watching versus doing',stamp:'1943–44 · Haavelmo',dur:48,cap:[
+[0,'Watching alone cannot separate the chain from the fork. So stop watching and act.'],
+[5.5,'Trygve Haavelmo, a founder of econometrics, drew a sharp line between observing a variable and setting it.'],
+[11.5,'Watch a market for a year. Supply and demand both shift, and each price is a passing equilibrium. A line fitted through those points is neither curve.'],
+[20.5,'Now intervene. Cut X off from its usual causes and set it yourself. Today this is written do(X).'],
+[28,'In the chain, M responds and Y shifts. In the fork, M is the puppeteer: grab one puppet and the other does not move.'],
+[37,'Watching and doing give different answers. In the fork, seeing X = 2 predicts Y ≈ 1.28, but setting X = 2 leaves Y at 0.']],
+init(){const r=rng(1943);this.days=[];for(let i=0;i<36;i++){const dd=1.1*gauss(r),ds=1.1*gauss(r);this.days.push({dd,ds,Q:(8+dd-ds)/2,P:6+(dd+ds)/2})}},
+draw(t){
+  const la=1-EP(t,20,21.5)*.75;
+  withAlpha(la,()=>{const x0=160,x1=760,y0=760,y1=180,Xq=q=>x0+q/8*(x1-x0),Yp=p=>y0-p/12*(y0-y1);
+    line(x0,y0,x1,y0,{w:1.6,p:EP(t,.3,2)});line(x0,y0,x0,y1,{w:1.6,p:EP(t,.3,2)});T('quantity',x1-20,y0+30,{s:21,c:C.ink2});ctx.save();ctx.translate(x0-30,y1+60);ctx.rotate(-Math.PI/2);T('price',0,0,{s:21,c:C.ink2});ctx.restore();
+    const k=t<11.5?0:Math.min(this.days.length,Math.floor((t-11.5)/.24)+1);
+    const cur=this.days[Math.max(0,k-1)];
+    const drawLines=(d,a)=>{line(Xq(0),Yp(10+d.dd),Xq(8),Yp(2+d.dd),{c:C.orange,w:2,a,n:1});line(Xq(0),Yp(2+d.ds),Xq(8),Yp(10+d.ds),{c:C.teal,w:2,a,n:1})};
+    if(k>0){for(let j=Math.max(0,k-4);j<k-1;j++)drawLines(this.days[j],.15);drawLines(cur,.9)}
+    else drawLines({dd:0,ds:0},EP(t,6,8));
+    T('demand',Xq(1.2),Yp(9.8+(k?cur.dd:0)),{s:22,c:C.orange,al:'left',a:EP(t,6,8)});T('supply',Xq(6.8),Yp(9.8+(k?cur.ds:0))-10,{s:22,c:C.teal,al:'right',a:EP(t,6,8)});
+    for(let j=0;j<k;j++)dot(Xq(this.days[j].Q),Yp(this.days[j].P),5,C.ink,.9);
+    if(k>4){const Qs=this.days.slice(0,k).map(d=>d.Q),Ps=this.days.slice(0,k).map(d=>d.P),mq=Qs.reduce((a,b)=>a+b)/k,mp=Ps.reduce((a,b)=>a+b)/k;let sxy=0,sxx=0;for(let j=0;j<k;j++){sxy+=(Qs[j]-mq)*(Ps[j]-mp);sxx+=(Qs[j]-mq)**2}const b=sxy/sxx;
+      line(Xq(.5),Yp(mp+b*(.5-mq)),Xq(7.5),Yp(mp+b*(7.5-mq)),{c:C.ink,w:3,dash:[12,7],n:1});
+      T(`fitted line: slope ${f2(b)}`,Xq(4),y1-6,{s:22,c:C.ink});T('neither supply (+1) nor demand (−1)',Xq(4),y1+26,{s:20,c:C.red,a:EP(t,16,17.5)})}
+  });
+  const ra=EP(t,20.5,22);if(ra<=0)return;
+  withAlpha(ra,()=>{
+    const x0=x=>x;const xv=2*EP(t,24,27.5);
+    const rows=[[300,'chain',false],[640,'fork',true]];
+    rows.forEach(([cy,l,fork])=>{
+      const X=[980,fork?cy+60:cy],M=[1200,fork?cy-50:cy],Y=[1420,fork?cy+60:cy];
+      T(l,900,cy-100,{f:'title',s:30,st:'italic',al:'left'});
+      node(...X,'X',{r:30,s:26,fill:xv>0?C.orange:null,fa:.3});node(...M,'M',{r:30,s:26});node(...Y,'Y',{r:30,s:26});
+      if(!fork){arrow(...X,...M,{s0:32,s1:34,w:2.2});arrow(...M,...Y,{s0:32,s1:34,w:2.2})}
+      else{arrow(...M,...X,{s0:32,s1:34,w:2.2,a:1-EP(t,22.5,24)*.7});arrow(...M,...Y,{s0:32,s1:34,w:2.2});cross((M[0]+X[0])/2,(M[1]+X[1])/2,14,{a:EP(t,22.5,24)})}
+      T(`X = ${xv.toFixed(1)}`,X[0],X[1]+54,{f:'mono',s:19,c:C.orange,a:EP(t,22,23)});
+      wrench(X[0]-58,X[1]+10,.55,-.6,{a:EP(t,21,23)});
+      // Y distribution
+      const shift=fork?0:.64*xv,bx=Y[0],by=Y[1]+120,sx=26;
+      const d=[];for(let i=0;i<=60;i++){const v=-3.5+7*i/60;d.push([bx+(v+shift)*sx,by-npdf(v)*140])}
+      line(bx-3.5*sx,by,bx+5.5*sx,by,{w:1.2,n:1});strokePts(d,{c:C.teal,w:2.2});dline(bx+shift*sx,by,bx+shift*sx,by-60,{c:C.teal,w:1.4});
+      dline(bx,by,bx,by-60,{c:C.ink3,w:1});T(fork?'Y stays at 0':`Y shifts to ${(.64*xv).toFixed(2)}`,bx+shift*sx,by+26,{s:20,c:fork?C.ink2:C.teal,a:EP(t,26,28)});
+    });
+    T('do(X = 2)',900,470,{f:'mono',s:24,c:C.orange,al:'left',a:EP(t,22,23.5)});
+    const fm=EP(t,37,39.5);
+    if(fm>0){fillP(()=>ctx.rect(160,790,1400,80),C.paper,.9*fm);T('fork:   E[Y | X = 2] = 1.28     but     E[Y | do(X = 2)] = 0',800,830,{f:'mono',s:24,c:C.ink,a:fm})}
+  });
+}},
+
+/* 20 ─ Neural nets */
+{title:'Why not a neural net?',stamp:'identification',dur:36,cap:[
+[0,'Couldn’t a large neural network simply learn the hidden causes by itself?'],
+[5,'Its weights are a flexible machine for prediction, not a claim about mechanism.'],
+[11,'In a two-layer linear network, rotate the hidden layer any way you like and counter-rotate the next weights. Every prediction stays the same.'],
+[19.5,'So the hidden coordinates are not pinned down. Naming a hidden unit does not identify a cause.'],
+[26.5,'SEM is useful because it restricts. Fixed zeros and chosen paths make predictions that can fail. A model that can fit anything tests nothing.']],
+draw(t){
+  const nn=1-EP(t,25.5,27);
+  if(nn>0)withAlpha(nn,()=>{
+    const W1=[[.9,-.4,.6],[.3,.8,-.5]],W2=[.7,.9],x=[1,.5,.8],th=t<11?0:(t-11)*.55,c=Math.cos(th),s=Math.sin(th);
+    const R=[[c,-s],[s,c]],W1r=[0,1].map(i=>[0,1,2].map(j=>R[i][0]*W1[0][j]+R[i][1]*W1[1][j])),W2r=[0,1].map(j=>W2[0]*R[j][0]+W2[1]*R[j][1]);
+    const h=W1r.map(r=>r[0]*x[0]+r[1]*x[1]+r[2]*x[2]),yv=W2r[0]*h[0]+W2r[1]*h[1];
+    const I=[[300,280],[300,450],[300,620]],Hn=[[760,360],[760,540]],O=[1200,450];
+    const ep=EP(t,.5,3);
+    I.forEach((p,j)=>Hn.forEach((q,i)=>{const w=W1r[i][j];line(p[0]+32,p[1],q[0]-34,q[1],{w:1+Math.abs(w)*6,c:w>=0?C.teal:C.orange,a:.75*ep,n:1})}));
+    Hn.forEach((q,i)=>{const w=W2r[i];line(q[0]+34,q[1],O[0]-38,O[1],{w:1+Math.abs(w)*6,c:w>=0?C.teal:C.orange,a:.75*ep,n:1})});
+    I.forEach((p,j)=>{node(...p,'x'+'₁₂₃'[j],{r:32,p:ep,s:26,fill:C.sheet,fa:1});T(x[j].toFixed(1),p[0]-62,p[1],{f:'mono',s:18,c:C.ink2,a:ep})});
+    Hn.forEach((q,i)=>{node(...q,'h'+'₁₂'[i],{r:34,p:ep,s:26,fill:C.sheet,fa:1});T(f2(h[i]),q[0],q[1]+(i?58:-58),{f:'mono',s:19,c:C.ink2,a:ep})});
+    node(...O,'ŷ',{r:38,p:ep,s:30,fill:C.sheet,fa:1});
+    T(`ŷ = ${yv.toFixed(3)}`,O[0]+60,O[1],{f:'mono',s:28,al:'left',c:C.teal,a:ep});
+    T('prediction unchanged',O[0]+60,O[1]+40,{s:22,al:'left',c:C.teal,a:EP(t,12,13.5)});
+    // compass
+    const ca=EP(t,11,12.5),kx=760,ky=740;
+    if(ca>0){circle(kx,ky,70,{w:1.2,c:C.ink3,a:ca,n:1});arrow(kx,ky,kx+Math.cos(-th)*66,ky+Math.sin(-th)*66,{w:2.2,c:C.ink,a:ca});arrow(kx,ky,kx+Math.cos(-th-Math.PI/2)*66,ky+Math.sin(-th-Math.PI/2)*66,{w:2.2,c:C.ink,a:ca});
+      T('hidden axes: any rotation works',kx,ky+100,{s:22,c:C.ink2,a:ca});T(`θ = ${((th*180/Math.PI)%360).toFixed(0)}°`,kx+100,ky,{f:'mono',s:18,al:'left',c:C.ink2,a:ca})}
+    const nm=EP(t,19.5,21.5);if(nm>0){T('“h₁ = intelligence”?',760,190,{s:28,c:C.red,a:nm});line(620,190,900,190,{c:C.red,w:2.4,p:EP(t,21,22.5)})}
+  });
+  const sa=EP(t,26.5,28.5);
+  if(sa>0)withAlpha(sa,()=>{
+    const F1=[520,300],F2=[1080,300],Xs=[[320,640],[660,640],[940,640],[1280,640]];
+    ellipse(...F1,110,56,0,{w:2.2,c:C.teal});T('F₁',F1[0],F1[1]+2,{s:30,c:C.teal});ellipse(...F2,110,56,0,{w:2.2,c:C.teal});T('F₂',F2[0],F2[1]+2,{s:30,c:C.teal});
+    Xs.forEach((p,i)=>box(...p,120,64,'x'+'₁₂₃₄'[i],{s:26,fill:C.sheet,fa:1}));
+    [[F1,0],[F1,1],[F2,2],[F2,3]].forEach(([F,i])=>arrow(F[0],F[1]+56,Xs[i][0],Xs[i][1]-34,{w:2.4,c:C.teal,p:EP(t,27,29)}));
+    [[F1,2],[F1,3],[F2,0],[F2,1]].forEach(([F,i],k)=>{const m=[(F[0]+Xs[i][0])/2,(F[1]+56+Xs[i][1]-34)/2];dline(F[0],F[1]+56,Xs[i][0],Xs[i][1]-34,{c:C.ink3,w:1.4,a:EP(t,29,30.5)});T('0',m[0]+(k<2?16:-16),m[1],{s:26,c:C.red,a:EP(t,30,31.5)})});
+    T('fixed zeros are testable claims',800,790,{f:'title',s:36,st:'italic',a:EP(t,31,33)});
+  });
+}},
+
+/* 21 ─ Epilogue */
+{title:'Some worlds look identical',stamp:'coda',dur:44,cap:[
+[0,'You do not learn about the invisible by drawing it. You ask what else would have to be true if it were there.'],
+[7,'Then you restrict the model until it could break, and test it against the world.'],
+[12.5,'Comets and shadows. Barley and fat tails. Parents and ellipses. Guinea pigs and arrows. A hidden weight in a net. A hospital door. Atoms. A wrench.'],
+[22,'A perfectly fitting model may be a mirror of the modeler’s assumptions rather than a window onto the world.'],
+[30,'The fit is perfect only until the model is forced to make a prediction it could get wrong.'],
+[36,'Some worlds look identical until you touch them.']],
+init(){const r=rng(2026);this.pts=[];for(let i=0;i<220;i++){const x=gauss(r),y=.64*x+Math.sqrt(1-.64*.64)*gauss(r);this.pts.push([x,y])}},
+draw(t){
+  const q1=1-EP(t,11.5,12.5);
+  if(q1>0)withAlpha(q1,()=>{T('What else would have to be true',800,380,{f:'title',s:62,st:'italic',p:EP(t,.5,3.5)});T('if it were there?',800,460,{f:'title',s:62,st:'italic',p:EP(t,2.5,5)});
+    line(560,520,1040,520,{c:C.teal,w:2,p:EP(t,7,9)});T('restrict · predict · risk failure',800,570,{s:28,c:C.ink2,a:EP(t,7.5,9.5)})});
+  const ga=io(t,12.5,13.5,21.5,22.5);
+  if(ga>0)withAlpha(ga,()=>{const items=['Legendre 1805','Student 1908','Galton 1886','Wright 1920','Spearman 1904','Berkson 1946','Perrin 1910','Haavelmo 1943'];
+    items.forEach((l,i)=>{const cx=170+i*180,cy=420,p=EP(t,13+i*.9,14.5+i*.9);if(p<=0)return;rectS(cx-78,cy-100,156,200,{w:1.4,p,ov:3});T(String(i+1).padStart(2,'0'),cx-60,cy-82,{f:'title',s:18,c:C.ink2,a:p});
+      withAlpha(p,()=>{
+        if(i===0){const a=[];for(let k=0;k<=20;k++){const u=k/20;a.push([cx-55+u*110,cy+30-Math.sin(u*Math.PI)*70])}strokePts(a,{c:C.orange,w:2});[.1,.35,.6,.85].forEach((u,k)=>dot(cx-55+u*110,cy+30-Math.sin(u*Math.PI)*70+(k%2?10:-10),4,C.teal))}
+        if(i===1){const a=[];for(let k=0;k<=40;k++){const v=-4+8*k/40;a.push([cx+v*16,cy+40-t2pdf(v)*190])}strokePts(a,{c:C.teal,w:2});line(cx-70,cy+40,cx+70,cy+40,{w:1})}
+        if(i===2){ellipse(cx,cy,60,26,-.6,{c:C.teal,w:1.6});ellipse(cx,cy,36,15,-.6,{c:C.teal,w:1.4});line(cx-60,cy+30,cx+60,cy-30,{c:C.orange,w:2})}
+        if(i===3)pig(cx,cy,.55,{seed:11});
+        if(i===4){strokePts([[cx-55,cy-40],[cx,cy+10],[cx+55,cy-40]],{w:1.2});strokePts([[cx-55,cy+40],[cx,cy+10],[cx+55,cy+40]],{w:1.2});dot(cx,cy+22,12,C.ink,.9)}
+        if(i===5){rectS(cx-50,cy-50,100,100,{w:1.6});fillP(()=>ctx.rect(cx+10,cy-10,40,60),C.ink3,.5);line(cx+10,cy+50,cx+10,cy-10,{w:2})}
+        if(i===6){let px=cx,py=cy;const r=rng(6),a=[[px,py]];for(let k=0;k<12;k++){px+=gauss(r)*14;py+=gauss(r)*14;a.push([px,py])}strokePts(a,{c:C.teal,w:1.4,n:1})}
+        if(i===7)wrench(cx,cy-20,.5,.6,{});
+      });
+      T(l,cx,cy+130,{s:20,c:C.ink2,a:p})})});
+  const mm=io(t,22.5,23.5,29,30);
+  if(mm>0)withAlpha(mm,()=>{
+    ctx.save();ctx.translate(560,420);rectS(-150,-190,300,380,{w:2.2});line(-150,0,150,0,{w:1.6});line(0,-190,0,190,{w:1.6});T('window',0,230,{s:28});ctx.restore();
+    ctx.save();ctx.translate(1040,420);ellipse(0,0,140,190,0,{w:2.2});ellipse(0,0,122,172,0,{w:1,c:C.ink3,n:1});hatch(()=>ctx.ellipse(0,0,122,172,0,0,7),[-122,-172,244,344],{gap:9,a:.15,ang:-.6});
+      T('your arrows,',0,-18,{s:26,c:C.ink2});T('reflected',0,18,{s:26,c:C.ink2});T('mirror',0,230,{s:28});ctx.restore();
+    T('or',800,420,{f:'title',s:40,st:'italic'})});
+  const fa=EP(t,30,31.5);if(fa<=0)return;
+  withAlpha(fa,()=>{
+    const touch=EP(t,34,37.5);
+    [[520,'chain',true],[1080,'fork',false]].forEach(([cx,l,moves])=>{const x0=cx-170,y0=620,sc=52,Xs=v=>cx+v*sc,Ys=v=>y0-210-v*sc;
+      line(x0,y0,x0+340,y0,{w:1.2});line(x0,y0,x0,y0-360,{w:1.2});
+      this.pts.forEach(([x,y],i)=>{let yy=y;if(touch>0){const nx=lerp(x,2+.2*vn(i,3),touch*.95);x=nx;yy=moves?lerp(y,.64*2+Math.sqrt(1-.41)*this.pts[(i*7)%220][1]*.9,touch):lerp(y,this.pts[(i*13)%220][1],touch)}dot(Xs(clamp(x,-3.2,3.2)),Ys(clamp(yy,-3.2,3.2)),2.8,moves?C.ink:C.ink,.55)});
+      T(l,cx,y0+40,{f:'title',s:30,st:'italic'});
+      if(touch>0){wrench(Xs(2)-10,y0+10,.5,-.3,{a:touch});T(moves?'Y moves':'Y stays',cx+120,y0-330,{s:26,c:moves?C.teal:C.orange,a:EP(t,37,38.5)})}});
+    T('=',800,440,{f:'title',s:80,c:C.teal,a:1-EP(t,34,35)});T('≠',800,440,{f:'title',s:80,c:C.red,a:EP(t,36,37)});
+    const fin=EP(t,38,41);if(fin>0)T('Some worlds look identical until you touch them.',800,780,{f:'title',s:48,st:'italic',p:fin});
+  });
+}}
+];
+
+/* ================================================================
+   Timeline, captions, controls
+   ================================================================ */
+scenes.forEach(s=>s.init&&s.init());
+const starts=[];let TOTAL=0;scenes.forEach(s=>{starts.push(TOTAL);TOTAL+=s.dur});
+let clock=0,playing=true,speed=1,last=0,dragging=false,dpr=1,sc=1,ox=0,oy=0,capKey='';
+const stage=document.getElementById('stage'),capEl=document.getElementById('cap'),track=document.getElementById('track'),fillEl=track.querySelector('.fill'),knob=track.querySelector('.knob'),tip=document.getElementById('tip'),timeEl=document.getElementById('time'),playBtn=document.getElementById('play'),pi=document.getElementById('pi'),speedBtn=document.getElementById('speed');
+track.setAttribute('aria-valuemax',Math.round(TOTAL));
+starts.forEach((s,i)=>{if(!i)return;const d=document.createElement('div');d.className='tick';d.style.left=(s/TOTAL*100)+'%';track.appendChild(d)});
+const sceneAt=x=>{let i=0;while(i<starts.length-1&&x>=starts[i+1])i++;return i};
+const mmss=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+
+// paper texture as the page ground
+(function paper(){const c=document.createElement('canvas'),n=420;c.width=c.height=n;const g=c.getContext('2d');g.fillStyle=C.paper;g.fillRect(0,0,n,n);
+  const im=g.getImageData(0,0,n,n),d=im.data,r=rng(7);for(let i=0;i<d.length;i+=4){const v=(r()-.5)*16;d[i]+=v;d[i+1]+=v;d[i+2]+=v*1.1}g.putImageData(im,0,0);
+  g.globalAlpha=.06;g.strokeStyle='#6a6152';for(let i=0;i<160;i++){const x=r()*n,y=r()*n,a=r()*6.28,l=4+r()*14;g.beginPath();g.moveTo(x,y);g.lineTo(x+Math.cos(a)*l,y+Math.sin(a)*l);g.stroke()}
+  try{document.body.style.backgroundImage=`url(${c.toDataURL()})`}catch(e){}})();
+
+function resize(){const r=stage.getBoundingClientRect();dpr=Math.min(2,window.devicePixelRatio||1);cv.width=Math.max(1,Math.round(r.width*dpr));cv.height=Math.max(1,Math.round(r.height*dpr));sc=Math.min(r.width/W,r.height/H);ox=(r.width-W*sc)/2;oy=(r.height-H*sc)/2}
+new ResizeObserver(resize).observe(stage);resize();
+
+function drawFrame(s,i){
+  const g=GA;
+  GA=1;rectS(14,14,W-28,H-28,{w:2.2,j:.8,ov:7});
+  ctx.font=`italic 400 26px ${F.title}`;const tw=ctx.measureText(s.title).width;
+  fillP(()=>ctx.rect(15,15,120+tw,58),C.paper,.94);
+  ctx.font=`italic 400 23px ${F.title}`;const sw=ctx.measureText(s.stamp).width;
+  fillP(()=>ctx.rect(W-15-sw-50,15,sw+50,58),C.paper,.94);
+  rectS(14,14,80,58,{w:1.8,ov:4});line(94,72,120+tw,72,{w:1,c:C.ink3,n:1});line(W-15-sw-50,72,W-14,72,{w:1,c:C.ink3,n:1});
+  T(String(i+1).padStart(2,'0'),54,45,{f:'title',s:32});
+  GA=g;T(s.title,110,45,{f:'title',s:26,st:'italic',al:'left',c:C.ink2});T(s.stamp,W-40,45,{f:'title',s:23,st:'italic',al:'right',c:C.ink2});GA=1;
+}
+
+function render(){
+  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.setTransform(dpr*sc,0,0,dpr*sc,dpr*ox,dpr*oy);
+  ci=0;const i=sceneAt(clock),s=scenes[i],lt=clock-starts[i];
+  GA=clamp(Math.min(lt/.8,(s.dur-lt)/.8));
+  ctx.save();ctx.beginPath();ctx.rect(14,14,W-28,H-28);ctx.clip();
+  try{s.draw(lt)}catch(e){console.error(e)}
+  ctx.restore();ctx.globalAlpha=1;
+  drawFrame(s,i);
+  // caption
+  let cap=s.cap[0];for(const c of s.cap)if(lt>=c[0])cap=c;
+  const key=i+':'+cap[0];if(key!==capKey){capKey=key;capEl.textContent='';const sp=document.createElement('span');sp.textContent=cap[1];capEl.appendChild(sp)}
+  const f=clock/TOTAL*100;fillEl.style.width=f+'%';knob.style.left=f+'%';timeEl.textContent=mmss(clock)+' / '+mmss(TOTAL);track.setAttribute('aria-valuenow',Math.round(clock));track.setAttribute('aria-valuetext',`${mmss(clock)}, chapter ${i+1}: ${s.title}`);
+}
+function loop(now){
+  const dt=Math.min(.1,(now-(last||now))/1000);last=now;
+  if(playing&&!dragging){clock+=dt*speed;if(clock>=TOTAL)clock-=TOTAL}
+  boil=reduce?0:Math.floor(now/120)%997;
+  render();requestAnimationFrame(loop);
+}
+function setPlaying(p){playing=p;playBtn.setAttribute('aria-label',p?'Pause':'Play');pi.innerHTML=p?'<path d="M3 2h4v12H3zM9 2h4v12H9z"/>':'<path d="M4 2l10 6-10 6z"/>'}
+playBtn.onclick=()=>setPlaying(!playing);
+document.getElementById('prev').onclick=()=>{const i=sceneAt(clock);clock=(clock-starts[i]>2||i===0)?starts[i]:starts[i-1]};
+document.getElementById('next').onclick=()=>{const i=sceneAt(clock);clock=i<scenes.length-1?starts[i+1]:0};
+const speeds=[1,1.5,2,.75];speedBtn.onclick=()=>{speed=speeds[(speeds.indexOf(speed)+1)%speeds.length];speedBtn.textContent=speed+'×'};
+const xToT=e=>{const r=track.getBoundingClientRect();return clamp((e.clientX-r.left)/r.width)*TOTAL*.99999};
+track.addEventListener('pointerdown',e=>{dragging=true;track.setPointerCapture(e.pointerId);clock=xToT(e)});
+track.addEventListener('pointermove',e=>{const v=xToT(e),r=track.getBoundingClientRect();tip.hidden=false;tip.style.left=(e.clientX-r.left)+'px';const i=sceneAt(v);tip.textContent=`${String(i+1).padStart(2,'0')} · ${scenes[i].title}`;if(dragging)clock=v});
+const endDrag=()=>{dragging=false};track.addEventListener('pointerup',endDrag);track.addEventListener('pointercancel',endDrag);track.addEventListener('pointerleave',()=>{tip.hidden=true});
+track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){clock=Math.min(TOTAL-.01,clock+5);e.preventDefault()}if(e.key==='ArrowLeft'){clock=Math.max(0,clock-5);e.preventDefault()}});
+window.addEventListener('keydown',e=>{if(e.target===track&&e.key.startsWith('Arrow'))return;if(e.code==='Space'&&e.target.tagName!=='BUTTON'){setPlaying(!playing);e.preventDefault()}
+  if(e.key==='ArrowRight')document.getElementById('next').click();if(e.key==='ArrowLeft')document.getElementById('prev').click()});
+if(location.hash){const n=parseInt(location.hash.slice(1),10);if(n>=1&&n<=scenes.length)clock=starts[n-1]}
+if(document.fonts&&document.fonts.load){['26px Kalam','26px "IM Fell English"','italic 26px "IM Fell English"','20px "IBM Plex Mono"'].forEach(f=>document.fonts.load(f).catch(()=>{}))}
+requestAnimationFrame(loop);
+})();
+</script>
