@@ -15,7 +15,11 @@ body{margin:0;background-color:var(--paper);color:var(--ink);font-family:"Newsre
 #stage{position:relative;min-height:0}
 #c{position:absolute;inset:0;width:100%;height:100%;display:block}
 #cap{width:100%;max-width:66ch;margin:0 auto;text-align:center;font-size:clamp(16px,1.5vw,21px);line-height:1.42;min-height:4.4em;padding-block:2px 4px;display:flex;align-items:center;justify-content:center;text-wrap:balance}
-#cap span{display:block;animation:capIn .8s ease both}
+#cap .line{display:block;animation:capIn .8s ease both}
+.voice #cap .w{color:var(--ink3);transition:color .25s,background .25s;border-radius:3px}
+.voice #cap .w.past{color:var(--ink)}
+.voice #cap .w.on{color:var(--ink);background:var(--teal-soft);box-shadow:0 0 0 2px var(--teal-soft)}
+#voice[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 @keyframes capIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 #hint{display:none;text-align:center;font-size:13px;color:var(--ink2);font-style:italic;padding-block:2px}
 #bar{display:flex;align-items:center;gap:10px;padding-block:4px 14px;width:100%;max-width:1180px;margin:0 auto;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--ink2);font-variant-numeric:tabular-nums}
@@ -33,7 +37,7 @@ body{margin:0;background-color:var(--paper);color:var(--ink);font-family:"Newsre
 #time{min-width:9.5ch;text-align:right}
 @media (max-width:700px){#time{display:none}#bar{gap:6px}#bar button{min-width:30px;height:30px;padding-inline:6px}}
 @media (orientation:portrait) and (max-width:700px){#hint{display:block}}
-@media (prefers-reduced-motion:reduce){#cap span{animation:none}}
+@media (prefers-reduced-motion:reduce){#cap .line{animation:none}}
 </style>
 
 <div id="app">
@@ -48,6 +52,7 @@ body{margin:0;background-color:var(--paper);color:var(--ink);font-family:"Newsre
       <div class="rail"></div><div class="fill"></div><div class="knob"></div><div id="tip" hidden></div>
     </div>
     <span id="time">0:00 / 0:00</span>
+    <button id="voice" type="button" aria-pressed="false" aria-label="Voiceover" title="Voiceover (V)"><svg viewBox="0 0 16 16"><path d="M2 6h3l4-3v10l-4-3H2zM11 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6 6 0 0 1 0 9" stroke="currentColor" stroke-width="1.4" fill="none"/><path d="M2 6h3l4-3v10l-4-3H2z"/></svg>&nbsp;Voice</button>
     <button id="speed" type="button" aria-label="Playback speed">1×</button>
   </div>
 </div>
@@ -1245,22 +1250,65 @@ function render(){
   drawFrame(s,i);
   // caption
   let cap=s.cap[0];for(const c of s.cap)if(lt>=c[0])cap=c;
-  const key=i+':'+cap[0];if(key!==capKey){capKey=key;capEl.textContent='';const sp=document.createElement('span');sp.textContent=cap[1];capEl.appendChild(sp)}
+  const key=i+':'+cap[0];if(key!==capKey){capKey=key;setCaption(cap[1])}
+  if(voiceOn)highlight();
   const f=clock/TOTAL*100;fillEl.style.width=f+'%';knob.style.left=f+'%';timeEl.textContent=mmss(clock)+' / '+mmss(TOTAL);track.setAttribute('aria-valuenow',Math.round(clock));track.setAttribute('aria-valuetext',`${mmss(clock)}, chapter ${i+1}: ${s.title}`);
 }
+/* ---------- Voiceover: browser speech, word highlighting, animation paced to the voice ---------- */
+const synth=('speechSynthesis' in window)?window.speechSynthesis:null,voiceBtn=document.getElementById('voice');
+let voiceOn=false,spokenKey='',speakDone=true,segEst=5,utt=null,voice=null,cps=14,speakT0=0,spokenLen=1,bIdx=-1,words=[],wIdx=-2,capLen=1;
+if(!synth)voiceBtn.hidden=true;
+function pickVoice(){if(!synth)return null;const vs=synth.getVoices().filter(v=>/^en/i.test(v.lang));
+  for(const re of[/natural/i,/premium/i,/enhanced/i,/^Samantha/,/^Daniel/,/Google UK English Male/,/Google US English/,/^Karen/,/^Moira/])
+  {const v=vs.find(v=>re.test(v.name));if(v)return v}return vs[0]||null}
+if(synth){voice=pickVoice();synth.onvoiceschanged=()=>{voice=pickVoice()}}
+function speakable(s){return s.replace(/r₁₂·r₃₄ = r₁₃·r₂₄/g,'r one-two times r three-four equals r one-three times r two-four')
+  .replace(/10²³/g,'ten to the twenty-third').replace(/×/g,' times ').replace(/−/g,' minus ').replace(/≈/g,' about ')
+  .replace(/do\(X\)/g,'do of X').replace(/=/g,' equals ').replace(/–/g,' ').replace(/·/g,' ').replace(/\s+/g,' ')}
+function segInfo(c){const i=sceneAt(c),s=scenes[i],lt=c-starts[i];let j=0;for(let k=0;k<s.cap.length;k++)if(lt>=s.cap[k][0])j=k;
+  const last=j===s.cap.length-1,end=starts[i]+(last?s.dur:s.cap[j+1][0]);
+  return{key:i+':'+j,text:s.cap[j][1],start:starts[i]+s.cap[j][0],end,hold:end-(last?.95:.05)}}
+function speakSeg(g){if(!synth)return;synth.cancel();spokenKey=g.key;const text=speakable(g.text);spokenLen=text.length;
+  const r=clamp(speed,.75,1.8);segEst=text.length/(cps*r)+.35;speakDone=false;bIdx=-1;speakT0=performance.now();
+  const u=new SpeechSynthesisUtterance(text);utt=u;if(voice)u.voice=voice;u.rate=r;u.lang=voice?voice.lang:'en-US';
+  u.onboundary=e=>{if(utt===u&&e.name!=='sentence')bIdx=e.charIndex};
+  u.onend=()=>{if(utt!==u)return;speakDone=true;const el=(performance.now()-speakT0)/1000;if(el>1)cps=lerp(cps,text.length/(el*r),.35)};
+  u.onerror=()=>{if(utt===u)speakDone=true};
+  synth.speak(u)}
+function stopVoice(){if(synth){utt=null;synth.cancel()}spokenKey='';speakDone=true}
+function setCaption(text){capEl.textContent='';const b=document.createElement('span');b.className='line';let off=0;
+  text.split(/(\s+)/).forEach(tok=>{if(!tok)return;if(/^\s+$/.test(tok))b.appendChild(document.createTextNode(tok));
+    else{const w=document.createElement('span');w.className='w';w.dataset.c=off;w.textContent=tok;b.appendChild(w)}off+=tok.length});
+  capEl.appendChild(b);words=[...b.querySelectorAll('.w')];capLen=text.length;wIdx=-2}
+function highlight(){let k=-1;
+  if(!speakDone&&utt){let frac;if(bIdx>=0)frac=bIdx/spokenLen;else frac=(performance.now()-speakT0)/1000/segEst;
+    const ch=clamp(frac)*capLen;for(let i=0;i<words.length;i++)if(+words[i].dataset.c<=ch+.5)k=i}
+  else if(spokenKey)k=words.length;
+  if(k===wIdx)return;wIdx=k;words.forEach((w,i)=>{w.classList.toggle('past',i<k);w.classList.toggle('on',i===k)})}
+function setVoice(on){voiceOn=on&&!!synth;voiceBtn.setAttribute('aria-pressed',String(voiceOn));document.body.classList.toggle('voice',voiceOn);
+  stopVoice();if(voiceOn){if(!playing)setPlaying(true);speakSeg(segInfo(clock))}
+  try{localStorage.setItem('sem-voice',voiceOn?'1':'0')}catch(e){}}
+voiceBtn.onclick=()=>setVoice(!voiceOn);
+window.addEventListener('keydown',e=>{if(e.key==='v'||e.key==='V')setVoice(!voiceOn)});
+document.getElementById('prev').addEventListener('click',stopVoice);document.getElementById('next').addEventListener('click',stopVoice);
 function loop(now){
   const dt=Math.min(.1,(now-(last||now))/1000);last=now;
-  if(playing&&!dragging){clock+=dt*speed;if(clock>=TOTAL)clock-=TOTAL}
+  if(playing&&!dragging){
+    if(voiceOn&&synth){const g=segInfo(clock);if(g.key!==spokenKey)speakSeg(g);
+      let rate=speed;if(!speakDone)rate=speed*Math.min(1,(g.end-g.start)/Math.max(.1,segEst));
+      let next=clock+dt*rate;if(!speakDone&&next>g.hold)next=Math.max(clock,g.hold);clock=next}
+    else clock+=dt*speed;
+    if(clock>=TOTAL)clock-=TOTAL}
   boil=reduce?0:Math.floor(now/120)%997;
   render();requestAnimationFrame(loop);
 }
-function setPlaying(p){playing=p;playBtn.setAttribute('aria-label',p?'Pause':'Play');pi.innerHTML=p?'<path d="M3 2h4v12H3zM9 2h4v12H9z"/>':'<path d="M4 2l10 6-10 6z"/>'}
+function setPlaying(p){playing=p;if(!p)stopVoice();playBtn.setAttribute('aria-label',p?'Pause':'Play');pi.innerHTML=p?'<path d="M3 2h4v12H3zM9 2h4v12H9z"/>':'<path d="M4 2l10 6-10 6z"/>'}
 playBtn.onclick=()=>setPlaying(!playing);
 document.getElementById('prev').onclick=()=>{const i=sceneAt(clock);clock=(clock-starts[i]>2||i===0)?starts[i]:starts[i-1]};
 document.getElementById('next').onclick=()=>{const i=sceneAt(clock);clock=i<scenes.length-1?starts[i+1]:0};
-const speeds=[1,1.5,2,.75];speedBtn.onclick=()=>{speed=speeds[(speeds.indexOf(speed)+1)%speeds.length];speedBtn.textContent=speed+'×'};
+const speeds=[1,1.5,2,.75];speedBtn.onclick=()=>{speed=speeds[(speeds.indexOf(speed)+1)%speeds.length];speedBtn.textContent=speed+'×';stopVoice()};
 const xToT=e=>{const r=track.getBoundingClientRect();return clamp((e.clientX-r.left)/r.width)*TOTAL*.99999};
-track.addEventListener('pointerdown',e=>{dragging=true;track.setPointerCapture(e.pointerId);clock=xToT(e)});
+track.addEventListener('pointerdown',e=>{dragging=true;stopVoice();track.setPointerCapture(e.pointerId);clock=xToT(e)});
 track.addEventListener('pointermove',e=>{const v=xToT(e),r=track.getBoundingClientRect();tip.hidden=false;tip.style.left=(e.clientX-r.left)+'px';const i=sceneAt(v);tip.textContent=`${String(i+1).padStart(2,'0')} · ${scenes[i].title}`;if(dragging)clock=v});
 const endDrag=()=>{dragging=false};track.addEventListener('pointerup',endDrag);track.addEventListener('pointercancel',endDrag);track.addEventListener('pointerleave',()=>{tip.hidden=true});
 track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){clock=Math.min(TOTAL-.01,clock+5);e.preventDefault()}if(e.key==='ArrowLeft'){clock=Math.max(0,clock-5);e.preventDefault()}});
