@@ -45,8 +45,15 @@ body{margin:0;background-color:var(--paper);color:var(--ink);font-family:"Newsre
 #explore.nudge{animation:nudge 1.6s ease-in-out 5}
 body.portrait{overflow-y:auto}
 body.portrait #app{height:auto;min-height:100%;grid-template-rows:auto auto auto;align-content:start}
-body.portrait #stage{aspect-ratio:9/16;width:min(100%,calc((100dvh - 190px) * 9 / 16));min-width:min(100%,300px);margin-inline:auto;margin-top:6px}
+body.portrait #stage{aspect-ratio:9/16;width:min(100%,calc((100dvh - 170px) * 9 / 16));min-width:min(100%,300px);margin-inline:auto;margin-top:6px}
 body.portrait #cap{font-size:15px;min-height:5.6em}
+body.portrait #bar{flex-wrap:wrap;justify-content:center;row-gap:4px;column-gap:8px;padding-block:2px 10px}
+body.portrait #track{order:10;flex:1 0 100%;height:18px}
+body.portrait #track .rail,body.portrait #track .fill{top:8px;height:2px}
+body.portrait #track .tick{display:none}
+body.portrait #track .knob{top:4px;width:10px;height:10px;margin-left:-5px;box-shadow:0 0 0 3px var(--teal-soft)}
+body.portrait #time{display:inline;order:5;min-width:0;font-size:11px}
+body.portrait #tip{bottom:20px}
 @media (max-width:520px){#explore .lbl,#voice .lbl{display:none}}
 @media (prefers-reduced-motion:reduce){#cap .line{animation:none}}
 </style>
@@ -200,6 +207,23 @@ function wrench(x,y,s,rot,o={}){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ct
 /* ================================================================
    Scenes
    ================================================================ */
+/* Phone sheet: chapters that need a genuinely vertical layout draw it below the landscape stage (y ≥ PS),
+   where the wide screen never looks, and their portrait framing points there. */
+const PS=1000;
+function pSee(w,f,th,o={}){const X0=135,U=90,fy=PS+560,fl=PS+680,r=26,X=v=>X0+v*U;
+  line(60,fl,840,fl,{w:1.6});for(let i=0;i<3;i++)line(60,fl+44+i*30,840,fl+44+i*30,{c:C.ink3,w:1,a:.3});
+  for(let v=0;v<=7;v++){line(X(v),fl,X(v),fl+12,{w:1.2});T(v,X(v),fl+34,{s:22,c:C.ink2})}T('kg',X(7)+42,fl+34,{s:20,c:C.ink2});
+  const px=X(f),tri=()=>{ctx.moveTo(px,fy);ctx.lineTo(px-44,fl);ctx.lineTo(px+44,fl)};fillP(tri,C.sheet,1);hatch(tri,[px-44,fy,88,120],{gap:5,a:.35});line(px,fy,px-44,fl,{w:2});line(px,fy,px+44,fl,{w:2});
+  ctx.save();ctx.translate(px,fy);ctx.rotate(th);const l0=-f*U-42,l1=(7-f)*U+42;fillP(()=>ctx.rect(l0,-18,l1-l0,18),C.sheet,1);hatch(()=>ctx.rect(l0,-18,l1-l0,18),[l0,-18,l1-l0,18],{gap:6,a:.25,ang:-.2});rectS(l0,-18,l1-l0,18,{w:2,ov:3});for(let v=0;v<=7;v++)line((v-f)*U,-18,(v-f)*U,-11,{w:1,c:C.ink2});ctx.restore();
+  dot(px,fy-8,4,C.ink,.9);
+  return w.map((v,i)=>{const a=o.alpha?o.alpha(i):1,dr=o.drop?o.drop(i):0,lx=(v-f)*U,ly=-18-r,x=px+lx*Math.cos(th)-ly*Math.sin(th),y=fy+lx*Math.sin(th)+ly*Math.cos(th);
+    dline(x,y+r,x,fl,{c:C.ink3,w:1,a:.7*a});ball(x,y-dr,r,a);T(o.lab?o.lab(v):v+' kg',x,y-r-22-dr,{s:21,a});return[x,y]})}
+function pSeeEq(w,f,tau,y0){const bal=Math.abs(tau)<.05;T('each weight’s pull on the beam',450,y0,{s:24,c:C.ink2});
+  w.forEach((v,i)=>{const d=v-f;T(`${+v.toFixed(2)} − ${f.toFixed(2)} = ${f2(d)}`,450,y0+48+i*44,{f:'mono',s:30,c:d<0?C.orange:C.teal})});
+  const ys=y0+48+w.length*44;line(250,ys-12,650,ys-12,{w:1.4});T(`total = ${f2(tau)}`,450,ys+24,{f:'mono',s:36,c:bal?C.teal:C.ink})}
+function lsFit(P){const A=[[0,0,0],[0,0,0],[0,0,0]],b=[0,0,0];P.forEach(q=>{const v=[1,q.u,q.u*q.u];for(let i=0;i<3;i++){b[i]+=v[i]*q.y;for(let j=0;j<3;j++)A[i][j]+=v[i]*v[j]}});return solve3(A,b)}
+const cmP=(x,y)=>[150+(y-190)*1.27,PS+120+(x-260)];
+const cmL=p=>({x:260+(p.y-PS-120),y:190+(p.x-150)/1.27});
 const scenes=[
 
 /* 01 ─ Prologue */
@@ -334,7 +358,38 @@ init(){const r=rng(5);this.yT=u=>700-1200*u*(1.2-u);this.pts=[];
   this.stars=[];for(let i=0;i<80;i++)this.stars.push([30+r()*820,30+r()*470,r()]);
   this.names=['Paris','Greenwich','Milan','Berlin','Palermo','Vienna'];
   this.worst=this.pts.map((q,i)=>[Math.abs(q.y-this.yT(q.u)),i]).sort((a,b)=>b[0]-a[0]).slice(0,3).map(q=>q[1]);},
+liveB(t){const land=i=>6+i*.55+.4;let k=0;while(k<this.pts.length&&t>=land(k))k++;if(k<3)return null;const B1=lsFit(this.pts.slice(0,k)),e=k>3?EP(t,land(k-1),land(k-1)+.5):1,B0=k>3?lsFit(this.pts.slice(0,k-1)):B1;
+  return{B:B0.map((v,i)=>lerp(v,B1[i],e)),u0:this.pts[0].u-.02,u1:lerp(k>3?this.pts[k-2].u:this.pts[k-1].u,this.pts[k-1].u,e)+.06}},
+drawP(t){const O=PS;
+  const g=ctx.createLinearGradient(0,O,700,O+1000);g.addColorStop(0,'rgba(26,27,30,.95)');g.addColorStop(.5,'rgba(26,27,30,.55)');g.addColorStop(1,'rgba(26,27,30,0)');fillP(()=>ctx.rect(0,O,900,1420),g,1);
+  this.stars.forEach(([x,y,k],i)=>{const sx=20+(y-30)*1.7,sy=O+20+(x-30)*.9,d=1-clamp((sx+(sy-O)*.7)/760);if(d<=0)return;const tw=.5+.5*Math.sin(t*2.1+i*1.7);ctx.globalAlpha=GA*d*(.35+.65*tw);ctx.fillStyle=C.light;ctx.fillRect(sx-1,sy-1,2,2);if(k>.86){ctx.fillRect(sx-5,sy-.5,10,1);ctx.fillRect(sx-.5,sy-5,1,10)}});
+  const land=[];for(let x=0;x<=900;x+=20)land.push([x,O+1335-12*Math.sin(x/120)-7*Math.sin(x/47)-(x<300?(300-x)*.12:0)]);
+  const lg=ctx.createLinearGradient(0,0,900,0);lg.addColorStop(0,'rgba(22,22,25,.96)');lg.addColorStop(1,'rgba(22,22,25,.15)');fillP(()=>{ctx.moveTo(0,O+1420);land.forEach(q=>ctx.lineTo(q[0],q[1]));ctx.lineTo(900,O+1420)},lg,1);
+  const tp=EP(t,.5,3);line(140,O+1300,90,O+1400,{c:C.light,w:2,p:tp,a:.85});line(140,O+1300,145,O+1410,{c:C.light,w:2,p:tp,a:.85});line(140,O+1300,200,O+1395,{c:C.light,w:2,p:tp,a:.85});
+  line(95,O+1320,215,O+1195,{c:C.light,w:9,p:tp,a:.8,n:1});line(215,O+1195,228,O+1181,{c:C.light,w:13,p:tp,a:.8,n:1});
+  const fitL=EP(t,19.5,26.5),B=[0,1,2].map(i=>lerp(this.bad[i],this.opt[i],fitL)),fit=u=>B[0]+B[1]*u+B[2]*u*u,showFit=EP(t,19,20.5);
+  let apex=[900,0];
+  const lv=this.liveB(t),la=EP(t,7.5,8.5)*(1-EP(t,18.5,19.5));
+  if(lv&&la>0){const c=[];for(let i=0;i<=50;i++){const u=lerp(lv.u0,lv.u1,i/50);c.push(cmP(260+u*1150,lv.B[0]+lv.B[1]*u+lv.B[2]*u*u))}strokePts(c,{c:C.orange,w:2.2,a:.8*la,dash:[9,6],n:1});const e=c[c.length-1];T('best fit so far',e[0]+14,e[1]+26,{s:21,c:C.orange,al:'left',a:la*(1-EP(t,12.5,13.5))})}
+  const sqA=EP(t,22,24);
+  if(showFit>0){this.pts.forEach(q=>{const[px,py]=cmP(q.x,q.y),fx=cmP(q.x,fit(q.u))[0],s2=Math.abs(fx-px),x0=Math.min(px,fx);
+      if(sqA>0){fillP(()=>ctx.rect(x0,py,s2,s2),C.orange,.13*sqA);rectS(x0,py,s2,s2,{w:1,c:C.orange,a:.7*sqA,ov:0,n:1})}dline(px,py,lerp(px,fx,showFit),py,{c:C.red,w:1.6,a:1,dash:[4,5]})});
+  T('each miss runs along the measured value',450,O+132,{s:22,c:C.light,p:EP(t,20.5,22.5),a:1-EP(t,30,31)});T('where is the right angle? next chapter',450,O+132,{s:22,c:C.light,p:EP(t,31,33)});
+    const fc=[];for(let i=0;i<=80;i++){const u=i/80,q=cmP(260+u*1150,fit(u));fc.push(q);if(q[0]<apex[0])apex=q}strokePts(fc,{p:showFit,c:C.orange,w:2.8})}
+  const wig=EP(t,13,15.5)*(1-EP(t,18.5,19.8));
+  if(wig>0){strokePts(catmull(this.pts.map(q=>cmP(q.x,q.y)),10),{p:EP(t,13,15.5),c:C.light,w:1.8,a:1-EP(t,18.5,19.8)});
+    this.worst.forEach((i,k)=>{const[px,py]=cmP(this.pts[i].x,this.pts[i].y);cross(px-26,py-20,9,{a:EP(t,15.5+k*.4,16.3+k*.4)*(1-EP(t,18.5,19.8))})});
+    T('no orbit zig-zags like this',450,O+60,{s:28,c:C.light,p:EP(t,15.8,17.5),a:1-EP(t,18.5,19.8)})}
+  this.pts.forEach((q,i)=>{const ti=6+i*.55,a=EP(t,ti,ti+.45);if(a<=0)return;const[px,py]=cmP(q.x,q.y);
+    for(let k=0;k<3;k++)line(px+3,py-3,px+20+k*9,py-40-k*6,{c:C.teal,w:1.3,a:.5*a,n:1});glow(px,py,8,C.teal,a);
+    if(i%2===0){const nm=this.names[i/2]||'',rt=px>600;T(nm,px+(rt?-18:18),py+4,{s:21,al:rt?'right':'left',c:px<520?C.light:C.ink2,a:a*.9})}});
+  const ma=EP(t,20,21.5);if(ma>0)withAlpha(ma,()=>{const ss=this.ss(B),w=340*ss/this.ssBad,wm=340*this.ssMin/this.ssBad;
+    T('sum of squared misses',500,O+40,{al:'left',s:22,c:C.light});fillP(()=>ctx.rect(500,O+62,w,16),fitL>.98?C.teal:C.orange,.6);rectS(500,O+62,340,16,{w:1,ov:0,n:1,c:C.light});line(500+wm,O+54,500+wm,O+86,{c:C.teal,w:2})});
+  if(showFit>0)T('least squares',apex[0]+40,apex[1],{s:34,c:C.orange,p:EP(t,26,28),al:'left'});
+  T('Σ misses = 0',720,O+1230,{s:26,c:C.ink,p:EP(t,28,30)});T('the curve sits at the balance point',640,O+1270,{s:21,c:C.ink2,p:EP(t,29,31)});
+},
 draw(t){
+  if(portrait)return this.drawP(t);
   const g=ctx.createLinearGradient(0,0,1150,620);g.addColorStop(0,'rgba(26,27,30,.95)');g.addColorStop(.42,'rgba(26,27,30,.62)');g.addColorStop(1,'rgba(26,27,30,0)');
   fillP(()=>ctx.rect(0,0,W,H),g,1);
   const hg=ctx.createLinearGradient(0,0,1150,620);hg.addColorStop(0,'rgba(8,8,10,.6)');hg.addColorStop(1,'rgba(8,8,10,0)');
@@ -351,10 +406,15 @@ draw(t){
   line(345,650,362,637,{c:C.light,w:13,p:tp,a:.8,n:1});
   // sightings
   const fitL=EP(t,19.5,26.5),B=[0,1,2].map(i=>lerp(this.bad[i],this.opt[i],fitL)),fit=u=>B[0]+B[1]*u+B[2]*u*u,showFit=EP(t,19,20.5);
+  const lv=this.liveB(t),la=EP(t,7.5,8.5)*(1-EP(t,18.5,19.5));
+  if(lv&&la>0){const c=[];for(let i=0;i<=50;i++){const u=lerp(lv.u0,lv.u1,i/50);c.push([260+u*1150,lv.B[0]+lv.B[1]*u+lv.B[2]*u*u])}strokePts(c,{c:C.orange,w:2.2,a:.8*la,dash:[9,6],n:1});const e=c[c.length-1];T('best fit so far',e[0]+12,e[1]-22,{s:21,c:C.orange,al:'left',a:la*(1-EP(t,12.5,13.5))})}
+  const sqA=EP(t,22,24);
   if(showFit>0){
     this.pts.forEach(q=>{const fy=fit(q.u),r=q.y-fy,s=Math.abs(r);const x=q.x,y0=Math.min(q.y,fy);
-      fillP(()=>ctx.rect(x,y0,s,s),C.orange,.13*showFit);rectS(x,y0,s,s,{w:1,c:C.orange,a:.7*showFit,ov:0,n:1});
-      dline(x,q.y,x,fy,{c:C.red,w:1.4,a:showFit,dash:[4,5]})});
+      if(sqA>0){fillP(()=>ctx.rect(x,y0,s,s),C.orange,.13*sqA);rectS(x,y0,s,s,{w:1,c:C.orange,a:.7*sqA,ov:0,n:1})}
+      dline(x,q.y,x,lerp(q.y,fy,showFit),{c:C.red,w:1.6,a:1,dash:[4,5]})});
+    T('each miss is measured straight up or down: the error is in the measured value',1060,160,{s:22,c:C.ink,p:EP(t,20.5,22.5),a:1-EP(t,27,28)});
+    T('where is the right angle? next chapter',1170,165,{s:22,c:C.ink2,p:EP(t,31,33)});
     const fc=[];for(let i=0;i<=80;i++){const u=i/80;fc.push([260+u*1150,fit(u)])}
     strokePts(fc,{p:showFit,c:C.orange,w:2.8});
   }
@@ -382,7 +442,15 @@ draw(t){
 [5.5,'Put equal weights at those three positions on a beam. Where must the fulcrum sit for the beam to balance?'],
 [12,'At 3. The pulls on either side cancel exactly: (1 − 3) + (2 − 3) + (6 − 3) = 0.'],
 [18,'The balance point is the mean. Least squares and the center of gravity are the same idea.']],
+drawP(t){const f=lerp(5.2,3,EP(t,5.5,11.5)),tau=9-3*f;let th=clamp(tau*.028,-.2,.2);if(t>11.5)th+=.018*Math.sin(9*(t-11.5))*Math.exp(-(t-11.5)*1.4);
+  T('1 kg · 2 kg · 6 kg',450,PS+100,{f:'title',s:52,a:EP(t,.5,2)});T('three weighings of one object',450,PS+158,{s:24,c:C.ink2,a:EP(t,1,2.5)});
+  pSee([1,2,6],f,th,{alpha:i=>EP(t,.8+i*.5,1.8+i*.5),drop:i=>(1-EP(t,.8+i*.5,1.8+i*.5))*80});
+  T('fulcrum',135+f*90,PS+640,{s:20,c:C.ink2,a:EP(t,5,6)*(1-EP(t,17,18))});
+  const pa=EP(t,13,15);if(pa>0){[[1,-2],[2,-1],[6,3]].forEach(([v,d])=>{const x=135+v*90,L=d*28;arrow(x,PS+300,x+L,PS+300,{p:pa,c:d<0?C.orange:C.teal,w:2.4});T((d>0?'+':'−')+Math.abs(d),x+L/2,PS+268,{s:26,c:d<0?C.orange:C.teal,a:pa})});T('pulls cancel',450,PS+345,{s:24,c:C.ink2,a:pa})}
+  withAlpha(EP(t,5,6.5),()=>pSeeEq([1,2,6],f,tau,PS+820));
+  const ma=EP(t,18,20);if(ma>0)T('mean = 3',450,PS+1190,{f:'title',s:64,c:C.teal,a:ma})},
 draw(t){
+  if(portrait)return this.drawP(t);
   const U=130,X=v=>330+v*U,fy=560;
   const f=lerp(5.2,3,EP(t,5.5,11.5)),tau=9-3*f;
   let th=clamp(tau*.028,-.2,.2);if(t>11.5)th+=.018*Math.sin(9*(t-11.5))*Math.exp(-(t-11.5)*1.4);
@@ -1249,16 +1317,20 @@ EX[1]={hint:'Tap above the line to add something we can measure. Tap below it to
 
 EX[2]={hint:'Tap the sky to add a sighting, or drag one around. The orbit is refit by least squares every time; the orange squares are the misses.',
   init(){this.pts=this.sc.pts.map(q=>({...q}));this.dr=-1},
-  draw(){const s=this.sc,o=s.pts;s.pts=this.pts;s.fit();s.draw(33.9);s.pts=o;s.fit();T(`${this.pts.length} sightings`,1320,712,{f:'mono',s:20,c:C.ink})},
-  down(p){this.dr=this.pts.findIndex(q=>near(p,q.x,q.y,28))},
-  move(p){if(this.dr<0)return;const q=this.pts[this.dr];q.x=clamp(p.x,262,1408);q.y=clamp(p.y,110,780);q.u=(q.x-260)/1150},
+  draw(){const s=this.sc,o=s.pts;s.pts=this.pts;s.fit();s.draw(33.9);s.pts=o;s.fit();if(portrait)T(`${this.pts.length} sightings`,720,PS+1330,{f:'mono',s:22,c:C.ink});else T(`${this.pts.length} sightings`,1320,712,{f:'mono',s:20,c:C.ink})},
+  down(p){p=portrait?cmL(p):p;this.dr=this.pts.findIndex(q=>near(p,q.x,q.y,28))},
+  move(p){p=portrait?cmL(p):p;if(this.dr<0)return;const q=this.pts[this.dr];q.x=clamp(p.x,262,1408);q.y=clamp(p.y,110,780);q.u=(q.x-260)/1150},
   up(){this.dr=-1},
-  tap(p){if(this.pts.some(q=>near(p,q.x,q.y,28)))return;if(this.pts.length<46&&p.x>262&&p.x<1408)this.pts.push({x:p.x,y:clamp(p.y,110,780),u:(p.x-260)/1150})}};
+  tap(p){p=portrait?cmL(p):p;if(this.pts.some(q=>near(p,q.x,q.y,28)))return;if(this.pts.length<46&&p.x>262&&p.x<1408)this.pts.push({x:p.x,y:clamp(p.y,110,780),u:(p.x-260)/1150})}};
 
 EX[3]={hint:'Drag the fulcrum and watch the beam tip. Drag the weights, tap the beam to add one, tap a weight to remove it. It balances only at the mean.',
   init(){this.w=[1,2,6];this.f=4.8;this.dr=null;this.th=-.15;this.bp=[]},
+  geo(){return portrait?{X0:135,U:90,fy:PS+560,fl:PS+680,r:26,y0:PS+380,y1:PS+620}:{X0:330,U:130,fy:560,fl:700,r:32,y0:380,y1:620}},
   draw(){const U=130,X=v=>330+v*U,fy=560,f=this.f,w=this.w,tau=w.reduce((a,v)=>a+(v-f),0),mean=w.reduce((a,v)=>a+v,0)/w.length;
     this.th+=(clamp(tau*.028,-.22,.22)-this.th)*.08;const th=this.th;
+    if(portrait){const Xp=v=>135+v*90,fl=PS+680;this.bp=pSee(w,f,th,{lab:v=>v.toFixed(1)});fillP(()=>{ctx.moveTo(Xp(mean),fl+48);ctx.lineTo(Xp(mean)-10,fl+68);ctx.lineTo(Xp(mean)+10,fl+68)},C.teal,1);T('mean '+mean.toFixed(2),Xp(mean),fl+92,{s:22,c:C.teal});
+      T('fulcrum ↔',Xp(f),PS+650,{s:18,c:C.ink2});pSeeEq(w,f,tau,PS+820);const bal=Math.abs(tau)<.05;T(bal?'balanced: the fulcrum sits on the mean':'tipping: the pulls don’t cancel',450,PS+110,{f:'title',s:34,st:'italic',c:bal?C.teal:C.ink2});
+      T('drag the fulcrum or a weight · tap the beam to add',450,PS+170,{s:21,c:C.ink2});return}
     line(120,700,1480,700,{w:1.6});for(let i=0;i<5;i++)line(120,735+i*38,1480,735+i*38,{c:C.ink3,w:1,a:.3});
     for(let v=0;v<=7;v++){line(X(v),700,X(v),712,{w:1.2});T(v,X(v),734,{s:22,c:C.ink2})}
     fillP(()=>{ctx.moveTo(X(mean),704);ctx.lineTo(X(mean)-10,724);ctx.lineTo(X(mean)+10,724)},C.teal,1);T('mean '+mean.toFixed(2),X(mean),770,{s:22,c:C.teal});
@@ -1267,11 +1339,12 @@ EX[3]={hint:'Drag the fulcrum and watch the beam tip. Drag the weights, tap the 
     this.bp=w.map(v=>{const lx=(v-f)*U,ly=-54,x=px+lx*Math.cos(th)-ly*Math.sin(th),y=fy+lx*Math.sin(th)+ly*Math.cos(th);dline(x,y+32,x,700,{c:C.ink3,w:1,a:.7});ball(x,y,32);T(v.toFixed(1),x,y-58,{s:22});return[x,y]});
     const bal=Math.abs(tau)<.05;T(w.map(v=>`(${v.toFixed(1)} − ${f.toFixed(2)})`).join(' + ')+` = ${f2(tau)}`,800,830,{f:'mono',s:w.length>4?16:24,c:bal?C.teal:C.ink});
     T(bal?'balanced: the fulcrum sits on the mean':'tipping: the pulls don’t cancel',800,160,{f:'title',s:40,st:'italic',c:bal?C.teal:C.ink2})},
-  onF(p){return Math.abs(p.x-(330+this.f*130))<70&&p.y>600&&p.y<720},
-  down(p){const i=this.bp.findIndex(([x,y])=>near(p,x,y,40));this.dr=i>=0?i:this.onF(p)?'f':null},
-  move(p){const v=clamp((p.x-330)/130,0,7);if(this.dr==='f')this.f=v;else if(this.dr!==null)this.w[this.dr]=v},
+  onF(p){const g=this.geo();return Math.abs(p.x-(g.X0+this.f*g.U))<g.U*.55&&p.y>g.fy+40&&p.y<g.fl+20},
+  toV(p){const g=this.geo();return clamp((p.x-g.X0)/g.U,0,7)},
+  down(p){const g=this.geo(),i=this.bp.findIndex(([x,y])=>near(p,x,y,g.r+10));this.dr=i>=0?i:this.onF(p)?'f':null},
+  move(p){const v=this.toV(p);if(this.dr==='f')this.f=v;else if(this.dr!==null)this.w[this.dr]=v},
   up(){this.dr=null},
-  tap(p){const i=this.bp.findIndex(([x,y])=>near(p,x,y,40));if(i>=0){if(this.w.length>1)this.w.splice(i,1);return}if(this.onF(p))return;if(p.y>380&&p.y<620&&this.w.length<8)this.w.push(clamp((p.x-330)/130,0,7))}};
+  tap(p){const g=this.geo(),i=this.bp.findIndex(([x,y])=>near(p,x,y,g.r+10));if(i>=0){if(this.w.length>1)this.w.splice(i,1);return}if(this.onF(p))return;if(p.y>g.y0&&p.y<g.y1&&this.w.length<8)this.w.push(this.toV(p))}};
 
 EX[4]={hint:'Drag to spin the room. Tap ▲ or ▼ to change a weighing. The shadow always lands on the mean, and the right angle always holds.',
   cuts:[[150,120,960,780],[1150,180,390,660]],
@@ -1552,8 +1625,8 @@ const KF=(...fr)=>t=>{let i=0;while(i<fr.length-1&&t>=fr[i+1][0])i++;const c0=fr
 const CUTS=[
  KF([0,[[240,250,1120,340]]],[6.3,[[60,110,640,700],[770,110,730,700]]]),
  KF([0,[[180,240,310,340],[540,240,520,340],[1120,240,330,340],[400,670,800,70]]],[12.5,[[150,280,1080,480],[1170,580,260,180]]]),
- KF([0,[[0,90,1600,800]]],[6,[[150,110,720,740],[860,110,720,740]]],[14.5,[[200,100,1240,720]]],[19,[[200,100,1240,700],[1130,740,400,100]]]),
- KF([0,[[240,110,1120,640],[300,780,1000,60]]]),
+ [[0,PS,900,1420]],
+ [[0,PS,900,1250]],
  KF([0,[[340,300,920,350]]],[8,[[200,110,940,780]]],[21.5,[[200,110,940,780],[1150,180,380,440]]],[38.5,[[200,110,940,780],[1120,640,420,180]]]),
  KF([0,[[240,100,1140,220],[190,370,600,470],[830,370,600,470]]],[35.5,[[520,90,560,280],[190,370,600,470],[830,370,600,470]]]),
  KF([0,[[820,110,720,780],[110,120,480,720]]]),
@@ -1571,7 +1644,7 @@ const CUTS=[
  KF([0,[[100,140,720,680]]],[20.5,[[870,180,680,600]]],[37,[[870,180,680,600],[150,790,1300,80]]]),
  KF([0,[[200,160,760,700],[1090,330,450,260]]],[26,[[250,230,560,640],[850,230,560,640],[480,750,640,80]]]),
  KF([0,[[300,300,1000,300]]],[12.5,[[90,300,720,260],[810,300,720,260]]],[22.5,[[330,210,940,470]]],[30,[[300,220,1000,470],[130,740,1340,80]]])];
-const EXCUTS={0:[[770,110,730,700]],1:[[150,120,1300,760]],2:[[240,90,1200,760]],3:[[240,130,1140,620],[160,800,1280,60]],7:[[740,100,780,720],[100,260,640,600]],8:[[390,100,800,780],[1180,260,320,240]],
+const EXCUTS={0:[[770,110,730,700]],1:[[150,120,1300,760]],2:[[0,PS,900,1420]],3:[[0,PS,900,1250]],7:[[740,100,780,720],[100,260,640,600]],8:[[390,100,800,780],[1180,260,320,240]],
  9:[[150,70,1000,760],[1240,90,300,720]],10:[[150,220,880,600],[1070,110,430,460]],11:[[140,130,840,640],[1070,150,470,300]],12:[[60,80,740,760],[810,80,740,760]],13:[[150,190,1150,640]],
  14:[[150,80,870,700],[1080,260,440,300]],15:[[200,150,1000,650],[1290,170,240,620],[300,780,920,100]],17:[[80,140,620,680]],18:[[100,140,720,680],[870,180,680,600],[150,790,1300,80]],19:[[200,150,1300,700]],20:[[300,220,1000,470],[130,740,1340,80]]};
 scenes.forEach((s,i)=>{s.cuts=CUTS[i];if(EX[i]){s.ex=EX[i];EX[i].sc=s;if(EXCUTS[i])EX[i].cuts=EXCUTS[i]}});
