@@ -319,7 +319,7 @@ for(const s of segs){
   for(let x=s.x0+4;x<s.x1-3;x+=5+r()*9)s.tufts.push({x,h:5+r()*9,l:(r()-.5)*.9,front:r()<.5,k:r()});
   if(!s.cave)for(let x=s.x0+20;x<s.x1-20;x+=18+r()*50)if(r()<.38&&!(x>NEST.x-20&&x<NEST.x+260))s.flowers.push({x,h:7+r()*10,c:Math.floor(r()*4),front:r()<.6,ph:r()*6});
   if(!s.cave)for(let x=s.x0+40;x<s.x1-40;x+=80+r()*160){if(!blocked(x)&&r()<.75)s.trees.push({x,s:.7+r()*.8,type:r()<.3?'pine':r()<.45?'bush':'round',k:r()})}
-  for(const ex of [s.x0,s.x1])for(let i=0;i<3;i++)s.roots.push({x:ex+(ex===s.x0?1:-1)*(4+r()*26),len:14+r()*34,ph:r()*6});
+  for(const ex of [s.openL?s.x0:null,s.openR?s.x1:null])if(ex!==null)for(let i=0;i<3;i++)s.roots.push({x:ex+(ex===s.x0?1:-1)*(4+r()*26),len:14+r()*34,ph:r()*6});
 }
 
 function groundY(x,ignoreLogs){
@@ -521,7 +521,7 @@ class Seed{
   get top(){return{x:this.x,y:this.y-16*this.b-4}}
   update(dt){
     if(this.state==='fall'){this.vy+=900*dt;this.x+=this.vx*dt;this.y+=this.vy*dt;const g=groundY(this.x,true);
-      if(g!==null&&this.y>=g){this.y=g;if(this.vy>170&&this.bounces<2){this.vy*=-.36;this.vx*=.5;this.bounces++;sfx.tick();dust(this.x,this.y,2,.5)}
+      if(g!==null&&this.y>=g){this.y=g;if(this.vy>170&&this.bounces<2){this.vy*=-.36;this.vx*=.6;this.bounces++;sfx.tick();dust(this.x,this.y,2,.5)}
         else{this.state='bloom';this.vx=0;sfx.bloom(seedCount++);sparks(this.x,this.y-10,this.col,14)}}
       if(g===null&&this.y>2000)this.dead=true}
     else{this.bv+=(-(this.b-1)*140-9*this.bv)*dt;this.b+=this.bv*dt;this.R+=(150-this.R)*dt*2.2}}
@@ -588,12 +588,12 @@ let hero=null;const kids=[];
 let camFocus=null,leadFn=()=>hero,caveMode=null,started=false,endMotes=false;
 const title={a:0,target:0};
 const obsBy=t=>obs.filter(o=>o.tag===t);
-function reach(o){let r=o.x0+40;const ss=seeds.filter(s=>s.state==='bloom'&&s.x>o.x0-80&&s.x<o.x1+200).sort((a,b)=>a.x-b.x);
-  for(const s of ss)if(s.x-s.R*.85<=r)r=Math.max(r,s.x+s.R*.85);return r}
+function reach(o){let r=o.x0+60;const ss=seeds.filter(s=>s.state==='bloom'&&s.x>o.x0-80&&s.x<o.x1+200).sort((a,b)=>a.x-b.x);
+  for(const s of ss)if(s.x-Math.max(s.R,120)-60<=r)r=Math.max(r,s.x+s.R*.9);return r}
 function groupLead(){const all=[...kids,hero];let x=0,y=0;for(const c of all){x+=c.x;y+=c.y}return{x:x/all.length,y:y/all.length,facing:1}}
 async function gainLight(c,col,from){await fly(from,()=>c.chest(),col,1.0,70);c.addLight(col)}
 async function conjure(c,col,target){c.flash=1;c.flashCol=col;c.sqv+=5;sfx.flare();await wait(.25);await fly(()=>c.chest(),target,col,.7,60)}
-function lob(c,tx,col){const p=c.chest();const g=groundY(tx,true)??p.y;const T=.75;const vx=(tx-p.x)/T;const vy=((g-p.y)-.5*900*T*T)/T;
+function lob(c,tx,col){const p=c.chest();tx+=(Math.random()-.5)*70;const g=groundY(tx,true)??p.y;const T=.5+Math.random()*.5;const vx=(tx-p.x)/T;const vy=((g-p.y)-.5*900*T*T)/T;
   seeds.push(new Seed(p.x,p.y,col,vx,vy));sfx.lob();c.sqv+=5;c.flash=.7;c.flashCol=col}
 function plantSeed(x,y){const g=groundY(x,true);if(g===null)return;const o=caveMode.o;const ceil=o.y-175;
   seeds.push(new Seed(x,clamp(y,ceil+14,g-8),LIGHT.rose));caveMode.last=time;caveMode.count++;sfx.tick()}
@@ -648,10 +648,10 @@ async function helpDark(c,o){
   c.lookMode='point';c.look={x:o.x0+200,y:o.y-40};await wait(.9);
   c.lookMode='front';await c.say("it's dark...");
   caveMode={o,player:true,last:time,count:0};
-  const hp=()=>({x:Math.min(reach(o)+90,o.x1-40),y:o.y-70});
+  const hp=()=>({x:Math.min(reach(o,c)+90,o.x1-40),y:o.y-70});
   let hint=new Hint(hp,{visual:true});hints.push(hint);let hc=0;
   while(c.x<o.x1+40){
-    const r=reach(o);c.goto(Math.max(c.x,Math.min(r-34,o.x1+90)));
+    const r=reach(o,c);c.goto(Math.max(c.x,Math.min(r-34,o.x1+90)));
     if(c.state==='walk')c.lookMode='facing';
     if(hint&&caveMode.count>hc){hint.dead=true;hint=null}
     if(!hint&&c.state==='idle'&&time-caveMode.last>6&&r<o.x1){hint=new Hint(hp,{visual:true});hints.push(hint);hc=caveMode.count;caveMode.last=time}
@@ -689,8 +689,8 @@ async function autoRiver(c,o){const t=o.tree;
 async function autoDark(c,o){
   await c.walkTo(o.x0-20);await wait(.3);let last=-9;
   while(c.x<o.x1+40){
-    const r=reach(o),inflight=seeds.some(s=>s.state==='fall');
-    if(!inflight&&r<c.x+190&&r<o.x1+30&&time-last>.6){lob(c,Math.min(r+105,o.x1+20),LIGHT.rose);last=time}
+    const r=reach(o,c),inflight=seeds.some(s=>s.state==='fall');
+    if(!inflight&&r<c.x+190&&r<o.x1+30&&time-last>.6){const n=2+(Math.random()<.4);for(let i=0;i<n;i++)later(i*(.12+Math.random()*.15),()=>lob(c,Math.min(r+40+Math.random()*190,o.x1+20),LIGHT.rose));last=time}
     c.goto(Math.max(c.x,Math.min(r-30,o.x1+90)));await frame();
   }
 }
@@ -774,8 +774,8 @@ async function kidsDark(o){
   hero.lookMode='facing';
   const cols=[LIGHT.amber,LIGHT.mint,LIGHT.sky,LIGHT.rose];let li=0,last=-9;
   while(kids[0].x<o.x1+40){
-    const r=reach(o),inflight=seeds.some(s=>s.state==='fall');
-    if(!inflight&&r<kids[0].x+180&&r<o.x1+30&&time-last>.5){lob(kids[li%3],Math.min(r+100,o.x1+10),cols[li%4]);li++;last=time}
+    const r=reach(o,kids[0]),inflight=seeds.some(s=>s.state==='fall');
+    if(!inflight&&r<kids[0].x+180&&r<o.x1+30&&time-last>.5){kids.forEach((k,i)=>{const col=cols[(li+i)%4];later(i*(.1+Math.random()*.2),()=>lob(k,Math.min(r+30+Math.random()*200,o.x1+10),col))});li++;last=time}
     const tg=Math.min(r-30,o.x1+90);kids.forEach((k,i)=>k.goto(Math.max(k.x,tg-i*34)));hero.goto(Math.max(hero.x,tg-3*34-48));
     await frame();
   }
@@ -900,11 +900,11 @@ function drawSky(P){
     const hg=c.createLinearGradient(0,H*(L.b-.04)+sh,0,H*(L.b+.2)+sh);hg.addColorStop(0,rgb(P.haze,0));hg.addColorStop(1,rgb(P.haze,.55));c.fillStyle=hg;c.fillRect(0,H*(L.b-.04)+sh,W,H)}
 }
 function vis(a,b){return b>vx0&&a<vx1}
-function segPath(s){const c=ctx,w=s.x1-s.x0,side=s.y+s.depth*.45;
-  c.beginPath();c.moveTo(s.x0,s.y-2);c.lineTo(s.x1,s.y-2);c.lineTo(s.x1+2,s.y+20);c.quadraticCurveTo(s.x1+4,side-10,s.x1-6,side);
+function segPath(s){const c=ctx,X0=s.openL?s.x0:s.x0-10,X1=s.openR?s.x1:s.x1+10,w=X1-X0,side=s.y+s.depth*.45;
+  c.beginPath();c.moveTo(X0,s.y-2);c.lineTo(X1,s.y-2);c.lineTo(X1+2,s.y+20);c.quadraticCurveTo(X1+4,side-10,X1-6,side);
   const N=Math.max(4,Math.ceil(w/16));
-  for(let i=N;i>=0;i--){const u=i/N,x=s.x0+u*w;let t=Math.pow(Math.sin(u*Math.PI),.6);if((u<.5&&!s.openL)||(u>=.5&&!s.openR))t=Math.min(1,t+.75);c.lineTo(x,side+t*s.under+n1(x*.045+s.seed)*16*t+n1(x*.13+s.seed)*6*t)}
-  c.quadraticCurveTo(s.x0-4,side-10,s.x0-2,s.y+20);c.closePath()}
+  for(let i=N;i>=0;i--){const u=i/N,x=X0+u*w;let t=Math.pow(Math.sin(u*Math.PI),.6);if((u<.5&&!s.openL)||(u>=.5&&!s.openR))t=Math.min(1,t+.75);c.lineTo(x,side+t*s.under+n1(x*.045+s.seed)*16*t+n1(x*.13+s.seed)*6*t)}
+  c.quadraticCurveTo(X0-4,side-10,X0-2,s.y+20);c.closePath()}
 function drawSeg(s){
   const c=ctx,bottom=s.y+s.depth*.45+s.under;
   segPath(s);const g=c.createLinearGradient(0,s.y,0,bottom);
@@ -913,11 +913,11 @@ function drawSeg(s){
   c.fillStyle=g;c.fill();
   c.save();c.clip();
   const xa=Math.max(s.x0,vx0),xb=Math.min(s.x1,vx1);
-  for(let k=0;k<4;k++){const yk=s.y+28+k*40;c.beginPath();for(let x=xa;x<=xb+20;x+=20){const y=yk+n1(x*.01+k*7+s.seed)*10;x===xa?c.moveTo(x,y):c.lineTo(x,y)}
+  for(let k=0;k<4;k++){const yk=s.y+28+k*40;c.beginPath();for(let x=xa;x<=xb+20;x+=20){const y=yk+n1(x*.01+k*7)*10;x===xa?c.moveTo(x,y):c.lineTo(x,y)}
     c.lineWidth=8+k*3;c.strokeStyle=k%2?'rgba(255,232,204,.07)':'rgba(40,18,34,.1)';c.stroke()}
   for(const p of s.pebbles){if(p.x<xa-10||p.x>xb+10)continue;c.fillStyle=p.k<.5?'rgba(255,240,220,.12)':'rgba(40,20,30,.16)';c.beginPath();c.ellipse(p.x,p.y,p.rx,p.ry,0,0,TAU);c.fill()}
-  let lg=c.createLinearGradient(s.x0,0,s.x0+30,0);lg.addColorStop(0,'rgba(30,14,34,.28)');lg.addColorStop(1,'rgba(30,14,34,0)');c.fillStyle=lg;c.fillRect(s.x0-6,s.y,36,bottom-s.y+20);
-  lg=c.createLinearGradient(s.x1,0,s.x1-30,0);lg.addColorStop(0,'rgba(30,14,34,.32)');lg.addColorStop(1,'rgba(30,14,34,0)');c.fillStyle=lg;c.fillRect(s.x1-30,s.y,36,bottom-s.y+20);
+  let lg;if(s.openL){lg=c.createLinearGradient(s.x0,0,s.x0+30,0);lg.addColorStop(0,'rgba(30,14,34,.28)');lg.addColorStop(1,'rgba(30,14,34,0)');c.fillStyle=lg;c.fillRect(s.x0-6,s.y,36,bottom-s.y+20)}
+  if(s.openR){lg=c.createLinearGradient(s.x1,0,s.x1-30,0);lg.addColorStop(0,'rgba(30,14,34,.32)');lg.addColorStop(1,'rgba(30,14,34,0)');c.fillStyle=lg;c.fillRect(s.x1-30,s.y,36,bottom-s.y+20)}
   const tg=c.createLinearGradient(0,s.y,0,s.y+34);tg.addColorStop(0,'rgba(30,14,34,.26)');tg.addColorStop(1,'rgba(30,14,34,0)');c.fillStyle=tg;c.fillRect(xa-10,s.y,xb-xa+20,34);
   c.restore();
   if(s.bed)return;
@@ -991,8 +991,8 @@ function drawCave(o){
 function drawDarkness(){
   const vc=caves.filter(o=>vis(o.x0-140,o.x1+140));if(!vc.length)return;
   const d=dctx;d.setTransform(DPR,0,0,DPR,0,0);d.globalCompositeOperation='source-over';d.clearRect(0,0,W,H);
-  for(const o of vc){const a=w2s(o.x0-150,o.y-470),b=w2s(o.x1+150,o.y+70);const span=b.x-a.x,e=Math.min(.45,110*Z/span);
-    const g=d.createLinearGradient(a.x,0,b.x,0);g.addColorStop(0,'rgba(10,8,22,0)');g.addColorStop(e,'rgba(10,8,22,.9)');g.addColorStop(1-e,'rgba(10,8,22,.9)');g.addColorStop(1,'rgba(10,8,22,0)');
+  for(const o of vc){const a=w2s(o.x0-150,o.y-470),b=w2s(o.x1+150,o.y+70);const span=b.x-a.x,e=Math.min(.42,260*Z/span);
+    const g=d.createLinearGradient(a.x,0,b.x,0);g.addColorStop(0,'rgba(10,8,22,0)');g.addColorStop(e*.5,'rgba(10,8,22,.45)');g.addColorStop(e,'rgba(10,8,22,.9)');g.addColorStop(1-e,'rgba(10,8,22,.9)');g.addColorStop(1-e*.5,'rgba(10,8,22,.45)');g.addColorStop(1,'rgba(10,8,22,0)');
     d.fillStyle=g;d.fillRect(a.x,a.y,span,b.y-a.y);
     d.globalCompositeOperation='destination-out';
     const y0=w2s(0,o.y+2).y,y1=w2s(0,o.y+70).y;let vg=d.createLinearGradient(0,y0,0,y1);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,1)');d.fillStyle=vg;d.fillRect(a.x,y0,span,y1-y0+2);
